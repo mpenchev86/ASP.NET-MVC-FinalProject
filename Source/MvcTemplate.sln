@@ -15,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{EAB215
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.Web", "Web\MvcProject.Web\MvcProject.Web.csproj", "{8BB926EE-5004-4F7C-B386-FBB309368876}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.Data.DbAccessConfig", "Data\MvcProject.Data.DbAccessConfig\MvcProject.Data.DbAccessConfig.csproj", "{37EAD08E-A644-4438-B913-1329C8CB3899}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.Data.Models", "Data\MvcProject.Data.Models\MvcProject.Data.Models.csproj", "{F3DFDA1D-99D1-46AD-9CFA-A0B9AA7A750C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,11 +29,21 @@ Global
 		{8BB926EE-5004-4F7C-B386-FBB309368876}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BB926EE-5004-4F7C-B386-FBB309368876}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BB926EE-5004-4F7C-B386-FBB309368876}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37EAD08E-A644-4438-B913-1329C8CB3899}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37EAD08E-A644-4438-B913-1329C8CB3899}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37EAD08E-A644-4438-B913-1329C8CB3899}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37EAD08E-A644-4438-B913-1329C8CB3899}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3DFDA1D-99D1-46AD-9CFA-A0B9AA7A750C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3DFDA1D-99D1-46AD-9CFA-A0B9AA7A750C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3DFDA1D-99D1-46AD-9CFA-A0B9AA7A750C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3DFDA1D-99D1-46AD-9CFA-A0B9AA7A750C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8BB926EE-5004-4F7C-B386-FBB309368876} = {9DC8729B-38F3-4B60-B928-9770099D0C66}
+		{37EAD08E-A644-4438-B913-1329C8CB3899} = {EC24F7D3-97B8-4D27-A15E-B4AF5C7F7825}
+		{F3DFDA1D-99D1-46AD-9CFA-A0B9AA7A750C} = {EC24F7D3-97B8-4D27-A15E-B4AF5C7F7825}
 	EndGlobalSection
 EndGlobal
