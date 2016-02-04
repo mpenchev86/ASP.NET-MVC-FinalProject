@@ -1,4 +1,4 @@
-﻿namespace MvcProject.Web.Models
+﻿namespace MvcProject.Web.ViewModels
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;

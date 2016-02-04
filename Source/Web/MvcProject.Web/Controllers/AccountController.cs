@@ -7,14 +7,18 @@
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
+    using Data.Models;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
-    using MvcProject.Web.Models;
+    using ViewModels.Account;
 
     [Authorize]
     public class AccountController : Controller
     {
+        // Used for XSRF protection when adding external logins
+        private const string XsrfKey = "XsrfId";
+
         private ApplicationSignInManager signInManager;
         private ApplicationUserManager userManager;
 
@@ -51,6 +55,14 @@
             private set
             {
                 this.userManager = value;
+            }
+        }
+
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
             }
         }
 
@@ -431,17 +443,6 @@
         }
 
         #region Helpers
-        // Used for XSRF protection when adding external logins
-        private const string XsrfKey = "XsrfId";
-
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
-
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -485,7 +486,7 @@
                 var properties = new AuthenticationProperties { RedirectUri = this.RedirectUri };
                 if (this.UserId != null)
                 {
-                    properties.Dictionary[XsrfKey] = this.UserId;
+                    properties.Dictionary[AccountController.XsrfKey] = this.UserId;
                 }
 
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, this.LoginProvider);

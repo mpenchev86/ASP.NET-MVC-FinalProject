@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
-    using MvcProject.Web.Models;
+    using MvcProject.Web.ViewModels;
 
     public class HomeController : Controller
     {

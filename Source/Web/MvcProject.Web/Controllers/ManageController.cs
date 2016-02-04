@@ -8,11 +8,14 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
-    using MvcProject.Web.Models;
+    using MvcProject.Web.ViewModels;
 
     [Authorize]
     public class ManageController : Controller
     {
+        // Used for XSRF protection when adding external logins
+        private const string XsrfKey = "XsrfId";
+
         private ApplicationSignInManager signInManager;
         private ApplicationUserManager userManager;
 
@@ -24,6 +27,17 @@
         {
             this.UserManager = userManager;
             this.SignInManager = signInManager;
+        }
+
+        public enum ManageMessageId
+        {
+            AddPhoneSuccess,
+            ChangePasswordSuccess,
+            SetTwoFactorSuccess,
+            SetPasswordSuccess,
+            RemoveLoginSuccess,
+            RemovePhoneSuccess,
+            Error
         }
 
         public ApplicationSignInManager SignInManager
@@ -49,6 +63,14 @@
             private set
             {
                 this.userManager = value;
+            }
+        }
+
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
             }
         }
 
@@ -338,17 +360,6 @@
         }
 
 #region Helpers
-        // Used for XSRF protection when adding external logins
-        private const string XsrfKey = "XsrfId";
-
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
-
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
@@ -377,17 +388,6 @@
             }
 
             return false;
-        }
-
-        public enum ManageMessageId
-        {
-            AddPhoneSuccess,
-            ChangePasswordSuccess,
-            SetTwoFactorSuccess,
-            SetPasswordSuccess,
-            RemoveLoginSuccess,
-            RemovePhoneSuccess,
-            Error
         }
 
 #endregion
