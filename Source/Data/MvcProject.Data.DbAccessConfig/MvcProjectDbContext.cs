@@ -21,6 +21,8 @@
             return new MvcProjectDbContext();
         }
 
+        public IDbSet<Tag> Tags { get; set; }
+
         public new IDbSet<TEntity> Set<TEntity>() where TEntity : class
         {
             return base.Set<TEntity>();

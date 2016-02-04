@@ -57,8 +57,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntityContracts\AuditInfo.cs" />
+    <Compile Include="EntityContracts\DeletableEntity.cs" />
+    <Compile Include="EntityContracts\IAuditInfo.cs" />
+    <Compile Include="EntityContracts\IDeletableEntity.cs" />
+    <Compile Include="EntityContracts\IOrderable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ApplicationUser.cs" />
+    <Compile Include="Tag.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
