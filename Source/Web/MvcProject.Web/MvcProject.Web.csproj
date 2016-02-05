@@ -48,6 +48,10 @@
       <HintPath>..\..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="AutoMapper, Version=4.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.4.2.0\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Glimpse.Ado, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Glimpse.Ado.1.7.3\lib\net45\Glimpse.Ado.dll</HintPath>
       <Private>True</Private>
@@ -344,6 +348,10 @@
     <ProjectReference Include="..\..\Data\MvcProject.Data.Models\MvcProject.Data.Models.csproj">
       <Project>{f3dfda1d-99d1-46ad-9cfa-a0b9aa7a750c}</Project>
       <Name>MvcProject.Data.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MvcProject.Web.Infrastructure\MvcProject.Web.Infrastructure.csproj">
+      <Project>{b14dfb67-88f5-4714-a592-ecab1f8f74a9}</Project>
+      <Name>MvcProject.Web.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
