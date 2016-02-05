@@ -19,6 +19,8 @@
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<MvcProjectDbContext, Configuration>());
         }
 
+        public IDbSet<SampleProduct> SampleProducts { get; set; }
+
         public IDbSet<Tag> Tags { get; set; }
 
         public static MvcProjectDbContext Create()
@@ -26,9 +28,9 @@
             return new MvcProjectDbContext();
         }
 
-        public new IDbSet<TEntity> Set<TEntity>() where TEntity : class
+        public new IDbSet<T> Set<T>() where T : class
         {
-            return base.Set<TEntity>();
+            return base.Set<T>();
         }
 
         public override int SaveChanges()

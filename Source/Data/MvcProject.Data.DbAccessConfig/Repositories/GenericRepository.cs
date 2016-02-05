@@ -10,7 +10,7 @@
 
     public class GenericRepository<T> : IRepository<T> where T : class
     {
-        public GenericRepository(IMvcProjectDbContext context)
+        public GenericRepository(DbContext context)
         {
             if (context == null)
             {
@@ -23,7 +23,7 @@
 
         protected IDbSet<T> DbSet { get; set; }
 
-        protected IMvcProjectDbContext Context { get; set; }
+        protected DbContext Context { get; set; }
 
         public virtual IQueryable<T> All()
         {

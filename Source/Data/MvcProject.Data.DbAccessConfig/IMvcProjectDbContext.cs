@@ -11,11 +11,15 @@
 
     public interface IMvcProjectDbContext : IDisposable
     {
+        IDbSet<SampleProduct> SampleProducts { get; set; }
+
+        IDbSet<Tag> Tags { get; set; }
+
         IDbSet<ApplicationUser> Users { get; set; }
 
         DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
 
-        IDbSet<TEntity> Set<TEntity>() where TEntity : class;
+        IDbSet<T> Set<T>() where T : class;
 
         int SaveChanges();
     }
