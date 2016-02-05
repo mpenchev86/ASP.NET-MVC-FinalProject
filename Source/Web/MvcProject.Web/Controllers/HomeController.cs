@@ -9,7 +9,8 @@
     using Data.DbAccessConfig.Repositories;
     using Data.Models;
     using MvcProject.Web.ViewModels;
-
+    using AutoMapper.QueryableExtensions;
+    using ViewModels.Home;
     public class HomeController : Controller
     {
         private IRepository<SampleProduct> sampleProducts;
@@ -20,8 +21,9 @@
         }
 
         public ActionResult Index()
-        {          
-            return this.View();
+        {
+            var sampleProducts = this.sampleProducts.All().ProjectTo<IndexSampleProductViewModel>();          
+            return this.View(sampleProducts);
         }
 
         public ActionResult About()

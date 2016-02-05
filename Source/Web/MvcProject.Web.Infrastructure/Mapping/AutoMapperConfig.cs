@@ -6,12 +6,22 @@
     using System.Reflection;
 
     using AutoMapper;
+    using AutoMapper.Internal;
+    using AutoMapper.Mappers;
+    using AutoMapper.QueryableExtensions;
 
     public class AutoMapperConfig
     {
+        private Assembly assembly;
+
+        public AutoMapperConfig(Assembly assembly)
+        {
+            this.assembly = assembly;
+        }
+
         public void Execute()
         {
-            var types = Assembly.GetExecutingAssembly().GetExportedTypes();
+            var types = this.assembly.GetExportedTypes();
 
             LoadStandardMappings(types);
 
@@ -30,8 +40,6 @@
                             Source = i.GetGenericArguments()[0],
                             Destination = t
                         });
-
-            //var config = new MapperConfiguration(cfg => cfg.CreateMap<Order, OrderDto>());
 
             foreach (var map in maps)
             {
