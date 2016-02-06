@@ -15,6 +15,7 @@ namespace MvcProject.Web.App_Start
     using Ninject;
     using Ninject.Web.Common;
     using AutoMapper;
+    using Data.Models;
     public static class NinjectWebCommon 
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
@@ -67,6 +68,8 @@ namespace MvcProject.Web.App_Start
         {
             kernel.Bind<DbContext>().To<MvcProjectDbContext>();
             kernel.Bind<IMapperConfiguration>().To<MapperConfiguration>();
+
+            kernel.Bind(typeof(IRepository<SampleProduct>)).To(typeof(DeletableEntityRepository<SampleProduct>));
             kernel.Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>));
             kernel.Bind(typeof(IDeletableEntityRepository<>)).To(typeof(DeletableEntityRepository<>));
         }        

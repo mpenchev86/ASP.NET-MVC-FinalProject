@@ -13,9 +13,9 @@
     using ViewModels.Home;
     public class HomeController : Controller
     {
-        private IRepository<SampleProduct> sampleProducts;
+        private readonly IDeletableEntityRepository<SampleProduct> sampleProducts;
                 
-        public HomeController(IRepository<SampleProduct> sampleProducts)
+        public HomeController(IDeletableEntityRepository<SampleProduct> sampleProducts)
         {
             this.sampleProducts = sampleProducts;
         }
