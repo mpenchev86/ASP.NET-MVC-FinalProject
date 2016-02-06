@@ -1,10 +1,11 @@
 ﻿namespace MvcProject.Data.DbAccessConfig.Repositories
 {
+    using System;
     using System.Data.Entity;
+    using System.Data.Entity.Infrastructure;
     using System.Linq;
     using Models.EntityContracts;
-    using System;
-    using System.Data.Entity.Infrastructure;
+
     public class DeletableEntityRepository<T> : GenericRepository<T>, IDeletableEntityRepository<T>
         where T : class, IDeletableEntity
     {

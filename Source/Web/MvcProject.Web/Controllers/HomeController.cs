@@ -5,12 +5,14 @@
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
+
+    using AutoMapper.QueryableExtensions;
     using Data.DbAccessConfig;
     using Data.DbAccessConfig.Repositories;
     using Data.Models;
     using MvcProject.Web.ViewModels;
-    using AutoMapper.QueryableExtensions;
     using ViewModels.Home;
+
     public class HomeController : Controller
     {
         private readonly IDeletableEntityRepository<SampleProduct> sampleProducts;
