@@ -3,10 +3,39 @@
     ViewBag.Title = "Home Page";
 }
 
-<div>
+<div class="container">
     @foreach (var sampleProduct in Model)
     {
-        <p>@sampleProduct.Name</p>
+        <div class="row">
+            <div class="col-md-1">
+                <div class="row">
+                    <b>
+                        <a href="/">@sampleProduct.Name</a>
+                    </b>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="row">
+                    <span class="label label-default">7</span>
+                </div>
+                <div class="row">
+                    <span class="label label-default">comments</span>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <div class="row">
+                    <p>@sampleProduct.Description</p>
+                </div>
+                <div class="row">
+                    <span class="badge">cats</span>
+                    <span class="badge">dogs</span>
+                    <span class="badge">mice</span>
+                    <span class="badge">suricat</span>
+                    <span class="badge">cateri4e</span>
+                </div>
+            </div>
+        </div>
+        <hr />
     }
 </div>
 
