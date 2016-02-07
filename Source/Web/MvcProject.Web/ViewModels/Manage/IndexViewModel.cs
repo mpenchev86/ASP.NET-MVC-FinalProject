@@ -1,10 +1,10 @@
 ﻿namespace MvcProject.Web.ViewModels.Manage
 {
-    using Microsoft.AspNet.Identity;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
+    using Microsoft.AspNet.Identity;
 
     public class IndexViewModel
     {

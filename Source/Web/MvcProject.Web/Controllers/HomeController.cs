@@ -7,10 +7,8 @@
     using System.Web.Mvc;
 
     using AutoMapper.QueryableExtensions;
-    using Data.DbAccessConfig;
     using Data.DbAccessConfig.Repositories;
     using Data.Models;
-    using MvcProject.Web.ViewModels;
     using ViewModels.Home;
 
     public class HomeController : Controller
@@ -24,7 +22,7 @@
 
         public ActionResult Index()
         {
-            var sampleProducts = this.sampleProducts.All().ProjectTo<IndexSampleProductViewModel>();          
+            var sampleProducts = this.sampleProducts.All().ProjectTo<IndexSampleProductViewModel>();
             return this.View(sampleProducts);
         }
 
