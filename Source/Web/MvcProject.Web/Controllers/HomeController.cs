@@ -39,5 +39,23 @@
 
             return this.View();
         }
+
+        // TEST - route constraints
+        public string ProductsList(int nonNullableInt, int page = 39)
+        {
+            string str = "";
+            try
+            {
+                str += HttpContext.Request.Browser.Type;
+            }
+            catch (Exception)
+            {
+                str = "greshka";
+            }
+
+            return page.ToString() + "<br/>" +
+                   nonNullableInt.ToString() + "<br/>" +
+                   str;
+        }
     }
 }
