@@ -7,7 +7,7 @@
     using System.Web.Mvc;
 
     [Authorize(Roles = "Admin")]
-    public class AdminController : Controller
+    public class AdminController : BaseController
     {
         // TEST
         [AllowAnonymous]
