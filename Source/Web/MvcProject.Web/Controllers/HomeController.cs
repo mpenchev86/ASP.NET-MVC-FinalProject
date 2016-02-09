@@ -10,7 +10,11 @@
     using Data.DbAccessConfig.Repositories;
     using Data.Models;
     using ViewModels.Home;
+    using Data.DbAccessConfig;
+    using Infrastructure.Filters;
 
+    //[AddSystemHeaderStampActionFilter]
+    [LogFilter]
     public class HomeController : BaseController
     {
         private readonly IDeletableEntityRepository<SampleProduct> sampleProducts;
@@ -40,6 +44,7 @@
             return this.View();
         }
 
+        #region Tests
         // TEST - route constraints
         public string ProductsList(int nonNullableInt, int page = 39)
         {
@@ -57,5 +62,78 @@
                    nonNullableInt.ToString() + "<br/>" +
                    str;
         }
+
+        // TEST - FAIL - return a file result
+        public FileResult GetFile(string fileName)
+        {
+            string fileFormat = fileName.Split(new char['.'], StringSplitOptions.RemoveEmptyEntries)[0];
+            //this.Response.ClearContent();
+            //this.Response.Write(filePath);
+            return this.File(fileName, "application/octet-stream", "myfile." + fileFormat);
+
+            //// file as byte array
+            //var fileContent = new byte[] { (int)'0', 49, 50, 51 };
+            //return this.File(fileContent, "text/plain", "mybytes.txt");
+        }
+
+        // TEST - return JS
+        public JavaScriptResult ReturnJS()
+        {
+            return this.JavaScript("var a = 1; alert(a);");
+        }
+
+        // TEST - return Json
+        public JsonResult ReturnJson()
+        {
+            return this.Json(new { error = "Error", code = 200 }, JsonRequestBehavior.AllowGet);
+        }
+
+        // TEST - redirect to other action
+        public RedirectToRouteResult RedirectAction()
+        {
+            return this.RedirectToAction("About");
+        }
+
+        // TEST - redirect to a specifig URL
+        public RedirectResult RedirectToURL()
+        {
+            return this.Redirect("https://google.com");
+        }
+
+        // TEST - complex object for action parameters
+        public class Param
+        {
+            public int IntValue { get; set; }
+
+            [AllowHtml]
+            public string StringValue { get; set; }
+        }
+
+        public ActionResult ComplexParams(Param @param)
+        {
+            return this.Json(@param, JsonRequestBehavior.AllowGet);        
+        }
+
+        // TEST - attributes
+
+        //[ActionName("AttributesTest")]
+        //[NonAction]
+        [AcceptVerbs("Post", "Delete", "Put")]
+        //[Authorize]
+        //[RequireHttps]
+        //[AllowAnonymous]
+        public ActionResult Attributes()
+        {
+            return this.Content("Attributes");
+        }
+
+        // TEST - caching
+        [OutputCache(Duration = 60 * 60, Location = System.Web.UI.OutputCacheLocation.Server)]
+        public ActionResult CacheMe()
+        {
+            var db = new MvcProjectDbContext();
+            return this.View(db.Users.Count());
+        }
+        #endregion
     }
 }
