@@ -21,8 +21,10 @@
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            var autoMapperConfig = new AutoMapperConfig(Assembly.GetExecutingAssembly());
-            autoMapperConfig.Execute();
+            ViewEnginesConfig.RegisterEngines(ViewEngines.Engines);
+
+            // If problematic, create instance of AutoMapperConfig and use its Execute()
+            AutoMapperConfig.Create(Assembly.GetExecutingAssembly()).Execute();
         }
     }
 }

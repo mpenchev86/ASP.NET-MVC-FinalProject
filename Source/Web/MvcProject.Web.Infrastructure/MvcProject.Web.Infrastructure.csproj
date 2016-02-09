@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Filters\AddSystemHeaderStampActionFilter.cs" />
     <Compile Include="Filters\LogFilter.cs" />
+    <Compile Include="Filters\MyFilter.cs" />
     <Compile Include="Mapping\AutoMapperConfig.cs" />
     <Compile Include="Mapping\IHaveCustomMappings.cs" />
     <Compile Include="Mapping\IMapFrom.cs" />

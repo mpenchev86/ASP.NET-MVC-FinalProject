@@ -19,6 +19,11 @@
             this.assembly = assembly;
         }
 
+        public static AutoMapperConfig Create(Assembly assembly)
+        {
+            return new AutoMapperConfig(assembly);
+        }
+
         public void Execute()
         {
             var types = this.assembly.GetExportedTypes();

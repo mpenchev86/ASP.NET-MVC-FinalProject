@@ -13,7 +13,6 @@
     using Data.DbAccessConfig;
     using Infrastructure.Filters;
 
-    //[AddSystemHeaderStampActionFilter]
     [LogFilter]
     public class HomeController : BaseController
     {
@@ -133,6 +132,12 @@
         {
             var db = new MvcProjectDbContext();
             return this.View(db.Users.Count());
+        }
+
+        // TEST - choosing non-default view
+        public ActionResult Pesho()
+        {
+            return this.View("CacheMe", null, "pepeto");
         }
         #endregion
     }
