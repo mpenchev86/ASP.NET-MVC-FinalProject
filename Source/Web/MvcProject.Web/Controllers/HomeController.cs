@@ -121,6 +121,7 @@
         //[Authorize]
         //[RequireHttps]
         //[AllowAnonymous]
+        //[ChildActionOnly]
         public ActionResult Attributes()
         {
             return this.Content("Attributes");

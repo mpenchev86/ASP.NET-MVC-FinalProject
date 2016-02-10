@@ -23,9 +23,12 @@
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new StyleBundle("~/bundles/Content/css").Include(
                       "~/Content/bootstrap.journal.css",
                       "~/Content/site.css"));
+
+            // Optimization in both debug and release
+            BundleTable.EnableOptimizations = true;
         }
     }
 }

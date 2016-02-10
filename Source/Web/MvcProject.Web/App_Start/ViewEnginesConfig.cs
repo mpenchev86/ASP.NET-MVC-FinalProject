@@ -10,7 +10,7 @@
     {
         public static void RegisterEngines(ViewEngineCollection viewEngines)
         {
-            // Removes WebForms view engine
+            // Removes WebForms view engine - optimization
             viewEngines.Clear();
             viewEngines.Add(new RazorViewEngine());
         }
