@@ -31,26 +31,28 @@
             //        isChrome = new CustomRouteConstraints()
             //    });
 
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+            routes
+                .MapRoute(
+                    name: "Default",
+                    url: "{controller}/{action}/{id}",
+                    defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional })
+                .DataTokens.Add("area", "Common");
         }
-    }
 
-    #region Tests
-    // TEST - route constraints
-    public class CustomRouteConstraints : IRouteConstraint
-    {
-        public bool Match(
-            HttpContextBase httpContext, 
-            Route route, 
-            string parameterName, 
-            RouteValueDictionary values, 
-            RouteDirection routeDirection)
+        #region Tests
+        // TEST - route constraints
+        private class CustomRouteConstraints : IRouteConstraint
         {
-            return HttpContext.Current.Request.UserAgent.Contains("Chrome");
+            public bool Match(
+                HttpContextBase httpContext,
+                Route route,
+                string parameterName,
+                RouteValueDictionary values,
+                RouteDirection routeDirection)
+            {
+                return HttpContext.Current.Request.UserAgent.Contains("Chrome");
+            }
         }
+        #endregion
     }
-    #endregion
 }

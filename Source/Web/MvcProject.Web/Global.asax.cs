@@ -23,7 +23,7 @@
 
             ViewEnginesConfig.RegisterEngines(ViewEngines.Engines);
 
-            // If problematic, create instance of AutoMapperConfig and use its Execute()
+            // If problematic, use constructor to get an instance of AutoMapperConfig and use its Execute()
             AutoMapperConfig.Create(Assembly.GetExecutingAssembly()).Execute();
         }
     }

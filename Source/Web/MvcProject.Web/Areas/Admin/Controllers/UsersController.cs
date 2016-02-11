@@ -5,14 +5,19 @@
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
-    using MvcProject.Web.Controllers;
+    using MvcProject.Web;
+    using Common.Controllers;
 
     public class UsersController : BaseController
     {
+        public UsersController()
+        {
+        }
+
         // GET: Admin/Users
         public ActionResult Index()
         {
-            return View();
+            return this.View();
         }
     }
 }

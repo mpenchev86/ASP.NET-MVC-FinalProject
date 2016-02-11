@@ -6,14 +6,14 @@ namespace MvcProject.Web.App_Start
     using System;
     using System.Data.Entity;
     using System.Web;
+    using System.Web.Mvc;
 
     using AutoMapper;
     using Data.DbAccessConfig;
     using Data.DbAccessConfig.Repositories;
     using Data.Models;
-
+    using Infrastructure.ViewEngines;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
     using Ninject;
     using Ninject.Web.Common;
 

@@ -12,6 +12,7 @@
 
     public class AutoMapperConfig
     {
+        //private static AutoMapperConfig instance;
         private Assembly assembly;
 
         public AutoMapperConfig(Assembly assembly)

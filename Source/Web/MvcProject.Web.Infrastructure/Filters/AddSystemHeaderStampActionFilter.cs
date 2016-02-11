@@ -16,6 +16,7 @@
             {
                 filterContext.HttpContext.Response.AddHeader("x-powered-by", "My sweet project v0.1");
             }
+
             base.OnActionExecuting(filterContext);
         }
     }

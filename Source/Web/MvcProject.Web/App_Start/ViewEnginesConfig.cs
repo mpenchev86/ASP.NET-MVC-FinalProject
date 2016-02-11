@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
+    using Infrastructure.ViewEngines;
 
     public static class ViewEnginesConfig
     {
@@ -12,7 +13,8 @@
         {
             // Removes WebForms view engine - optimization
             viewEngines.Clear();
-            viewEngines.Add(new RazorViewEngine());
+            //viewEngines.Add(new RazorViewEngine());
+            viewEngines.Add(new CustomViewLocationRazorViewEngine());
         }
     }
 }
