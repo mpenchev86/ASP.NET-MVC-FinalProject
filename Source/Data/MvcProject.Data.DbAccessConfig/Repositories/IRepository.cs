@@ -2,23 +2,28 @@
 {
     using System;
     using System.Linq;
+    using Models.EntityContracts;
 
-    public interface IRepository<T> : IDisposable where T : class
+    public interface IRepository<T> : IRepository<T, int>
+        where T : BaseEntityModel<int>
+    {
+    }
+
+    public interface IRepository<T, in TKey>
+        where T : BaseEntityModel<TKey>
     {
         IQueryable<T> All();
 
-        T GetById(int id);
+        IQueryable<T> AllWithMarkedDeleted();
+
+        T GetById(TKey id);
 
         void Add(T entity);
 
-        void Update(T entity);
+        void DeleteMark(T entity);
 
-        void Delete(T entity);
+        void DeletePermanent(T entity);
 
-        void Delete(int id);
-
-        void Detach(T entity);
-
-        int SaveChanges();
+        void Save();
     }
 }

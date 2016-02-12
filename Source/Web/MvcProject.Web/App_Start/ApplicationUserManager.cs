@@ -14,7 +14,7 @@
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin;
     using Microsoft.Owin.Security;
-    
+
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
@@ -26,7 +26,7 @@
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<MvcProjectDbContext>()));
-            
+
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
@@ -53,17 +53,9 @@
             // You can write your own provider and plug it in here.
             manager.RegisterTwoFactorProvider(
                 "Phone Code",
-                new PhoneNumberTokenProvider<ApplicationUser>
-                {
-                    MessageFormat = "Your security code is {0}"
-                });
+                new PhoneNumberTokenProvider<ApplicationUser> { MessageFormat = "Your security code is {0}" });
             manager.RegisterTwoFactorProvider(
-                "Email Code",
-                new EmailTokenProvider<ApplicationUser>
-                {
-                    Subject = "Security Code",
-                    BodyFormat = "Your security code is {0}"
-                });
+                "Email Code", new EmailTokenProvider<ApplicationUser> { Subject = "Security Code", BodyFormat = "Your security code is {0}" });
             manager.EmailService = new EmailServiceClass();
             manager.SmsService = new SmsServiceClass();
             var dataProtectionProvider = options.DataProtectionProvider;

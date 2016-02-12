@@ -8,17 +8,10 @@
     using System.Threading.Tasks;
     using EntityContracts;
 
-    public class SampleProduct : AuditInfo, IDeletableEntity
+    public class SampleProduct : BaseEntityModel<int>
     {
-        [Key]
-        public int Id { get; set; }
-
         public string Name { get; set; }
 
         public string Description { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
-
-        public bool IsDeleted { get; set; }
     }
 }

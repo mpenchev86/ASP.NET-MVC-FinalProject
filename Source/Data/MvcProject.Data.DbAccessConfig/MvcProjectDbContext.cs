@@ -16,7 +16,6 @@
         public MvcProjectDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<MvcProjectDbContext, Configuration>());
         }
 
         public IDbSet<SampleProduct> SampleProducts { get; set; }
@@ -26,11 +25,6 @@
         public static MvcProjectDbContext Create()
         {
             return new MvcProjectDbContext();
-        }
-
-        public new IDbSet<T> Set<T>() where T : class
-        {
-            return base.Set<T>();
         }
 
         public override int SaveChanges()
@@ -49,13 +43,9 @@
                         e.Entity is IAuditInfo && ((e.State == EntityState.Added) || (e.State == EntityState.Modified))))
             {
                 var entity = (IAuditInfo)entry.Entity;
-
                 if (entry.State == EntityState.Added)
                 {
-                    if (!entity.PreserveCreatedOn)
-                    {
-                        entity.CreatedOn = DateTime.Now;
-                    }
+                    entity.CreatedOn = DateTime.Now;
                 }
                 else
                 {

@@ -1,4 +1,4 @@
-﻿namespace MvcProject.Web.App_Start
+﻿namespace MvcProject.Web
 {
     using System;
     using System.Collections.Generic;
@@ -50,8 +50,8 @@
             builder.RegisterType<MvcProjectDbContext>().As<DbContext>().InstancePerRequest();
             builder.RegisterType(typeof(MapperConfiguration)).As(typeof(IMapperConfiguration)).InstancePerRequest();
 
-            builder.RegisterType(typeof(DeletableEntityRepository<SampleProduct>)).As(typeof(IRepository<SampleProduct>)).InstancePerRequest();
-            builder.RegisterGeneric(typeof(DeletableEntityRepository<>)).As(typeof(IDeletableEntityRepository<>)).InstancePerRequest();
+            //builder.RegisterType(typeof(DeletableEntityRepository<SampleProduct>)).As(typeof(IRepository<SampleProduct>)).InstancePerRequest();
+            //builder.RegisterGeneric(typeof(DeletableEntityRepository<>)).As(typeof(IDeletableEntityRepository<>)).InstancePerRequest();
             builder.RegisterGeneric(typeof(GenericRepository<>)).As(typeof(IRepository<>)).InstancePerRequest();
 
             builder.Register(x => new SampleService()).As<ISampleService>().InstancePerRequest();

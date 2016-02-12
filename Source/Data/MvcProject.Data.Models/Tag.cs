@@ -9,16 +9,8 @@
     using System.Threading.Tasks;
     using EntityContracts;
 
-    public class Tag : AuditInfo, IDeletableEntity
-    {
-        [Key]
-        public int Id { get; set; }
-
+    public class Tag : BaseEntityModel<int>, IDeletableEntity
+    {       
         public string Name { get; set; }
-
-        [Index]
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
     }
 }

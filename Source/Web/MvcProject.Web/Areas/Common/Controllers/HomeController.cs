@@ -16,14 +16,14 @@
     [LogFilter]
     public class HomeController : BaseController
     {
-        private readonly IDeletableEntityRepository<SampleProduct> sampleProducts;
+        private readonly IRepository<SampleProduct> sampleProducts;
         private ISampleService service;
 
         //public HomeController()
         //{
         //}
 
-        public HomeController(IDeletableEntityRepository<SampleProduct> sampleProducts, ISampleService service)
+        public HomeController(IRepository<SampleProduct> sampleProducts, ISampleService service)
         {
             this.sampleProducts = sampleProducts;
             this.service = service;
