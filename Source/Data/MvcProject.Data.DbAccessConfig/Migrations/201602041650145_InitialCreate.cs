@@ -2,12 +2,12 @@ namespace MvcProject.Data.DbAccessConfig.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class InitialCreate : DbMigration
     {
         public override void Up()
         {
-            CreateTable(
+            this.CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -16,8 +16,8 @@ namespace MvcProject.Data.DbAccessConfig.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
-            
-            CreateTable(
+
+            this.CreateTable(
                 "dbo.AspNetUserRoles",
                 c => new
                     {
@@ -29,8 +29,8 @@ namespace MvcProject.Data.DbAccessConfig.Migrations
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
-            
-            CreateTable(
+
+            this.CreateTable(
                 "dbo.AspNetUsers",
                 c => new
                     {
@@ -49,8 +49,8 @@ namespace MvcProject.Data.DbAccessConfig.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.UserName, unique: true, name: "UserNameIndex");
-            
-            CreateTable(
+
+            this.CreateTable(
                 "dbo.AspNetUserClaims",
                 c => new
                     {
@@ -62,8 +62,8 @@ namespace MvcProject.Data.DbAccessConfig.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
-            
-            CreateTable(
+
+            this.CreateTable(
                 "dbo.AspNetUserLogins",
                 c => new
                     {
@@ -73,9 +73,9 @@ namespace MvcProject.Data.DbAccessConfig.Migrations
                     })
                 .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
-                .Index(t => t.UserId);            
+                .Index(t => t.UserId);
         }
-        
+
         public override void Down()
         {
             this.DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");

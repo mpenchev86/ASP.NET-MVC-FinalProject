@@ -10,7 +10,7 @@
     using Models.EntityContracts;
 
     // TODO: Why BaseModel<int> instead BaseModel<TKey>?
-    public class GenericRepository<T> : IRepository<T, int>
+    public class GenericRepository<T> : IRepository<T>
         where T : BaseEntityModel<int>
     {
         public GenericRepository(DbContext context)

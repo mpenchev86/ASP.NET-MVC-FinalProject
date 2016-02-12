@@ -10,7 +10,7 @@
     using EntityContracts;
 
     public class Tag : BaseEntityModel<int>, IDeletableEntity
-    {       
+    {
         public string Name { get; set; }
     }
 }

@@ -2,19 +2,20 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Data.Entity;
     using System.Linq;
     using System.Reflection;
     using System.Web;
     using System.Web.Mvc;
     using Autofac;
     using Autofac.Integration.Mvc;
-    using Services.Web;
-    using Infrastructure.ViewEngines;
-    using Data.Models;
-    using Data.DbAccessConfig.Repositories;
-    using System.Data.Entity;
-    using Data.DbAccessConfig;
     using AutoMapper;
+    using Data.DbAccessConfig;
+    using Data.DbAccessConfig.Repositories;
+    using Data.Models;
+    using Infrastructure.ViewEngines;
+    using Services.Web;
+
     public static class AutofacConfig
     {
         public static void RegisterAutofac()
@@ -47,14 +48,27 @@
 
         public static void RegisterServices(ContainerBuilder builder)
         {
-            builder.RegisterType<MvcProjectDbContext>().As<DbContext>().InstancePerRequest();
-            builder.RegisterType(typeof(MapperConfiguration)).As(typeof(IMapperConfiguration)).InstancePerRequest();
+            builder
+                .Register(x => new MvcProjectDbContext())
+                .As<DbContext>()
+                .InstancePerRequest();
 
-            //builder.RegisterType(typeof(DeletableEntityRepository<SampleProduct>)).As(typeof(IRepository<SampleProduct>)).InstancePerRequest();
-            //builder.RegisterGeneric(typeof(DeletableEntityRepository<>)).As(typeof(IDeletableEntityRepository<>)).InstancePerRequest();
-            builder.RegisterGeneric(typeof(GenericRepository<>)).As(typeof(IRepository<>)).InstancePerRequest();
+            builder
+                .RegisterType(typeof(MapperConfiguration))
+                .As(typeof(IMapperConfiguration))
+                .InstancePerRequest();
 
-            builder.Register(x => new SampleService()).As<ISampleService>().InstancePerRequest();
+            // builder.RegisterType(typeof(DeletableEntityRepository<SampleProduct>)).As(typeof(IRepository<SampleProduct>)).InstancePerRequest();
+            // builder.RegisterGeneric(typeof(DeletableEntityRepository<>)).As(typeof(IDeletableEntityRepository<>)).InstancePerRequest();
+            builder
+                .RegisterGeneric(typeof(GenericRepository<>))
+                .As(typeof(IRepository<>))
+                .InstancePerRequest();
+
+            builder
+                .Register(x => new SampleService())
+                .As<ISampleService>()
+                .InstancePerRequest();
         }
     }
 }

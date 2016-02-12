@@ -17,7 +17,8 @@
 
         IDbSet<ApplicationUser> Users { get; set; }
 
-        DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
+        DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity)
+            where TEntity : class;
 
         int SaveChanges();
     }
