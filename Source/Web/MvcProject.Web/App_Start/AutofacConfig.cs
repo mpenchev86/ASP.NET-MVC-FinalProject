@@ -9,7 +9,6 @@
     using System.Web.Mvc;
     using Autofac;
     using Autofac.Integration.Mvc;
-    using AutoMapper;
     using Data.DbAccessConfig;
     using Data.DbAccessConfig.Repositories;
     using Data.Models;
@@ -53,10 +52,10 @@
                 .As<DbContext>()
                 .InstancePerRequest();
 
-            builder
-                .RegisterType(typeof(MapperConfiguration))
-                .As(typeof(IMapperConfiguration))
-                .InstancePerRequest();
+            //builder
+            //    .RegisterType(typeof(MapperConfiguration))
+            //    .As(typeof(IMapperConfiguration))
+            //    .InstancePerRequest();
 
             // builder.RegisterType(typeof(DeletableEntityRepository<SampleProduct>)).As(typeof(IRepository<SampleProduct>)).InstancePerRequest();
             // builder.RegisterGeneric(typeof(DeletableEntityRepository<>)).As(typeof(IDeletableEntityRepository<>)).InstancePerRequest();

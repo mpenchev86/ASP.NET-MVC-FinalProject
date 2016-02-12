@@ -9,7 +9,6 @@
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
-    using AutoMapper;
     using Data.DbAccessConfig;
     using Data.DbAccessConfig.Migrations;
     using Infrastructure.Mapping;
@@ -28,7 +27,7 @@
             AutofacConfig.RegisterAutofac();
 
             // If problematic, use constructor to get an instance of AutoMapperConfig and use its Execute()
-            AutoMapperConfig.Create(Assembly.GetExecutingAssembly()).Execute();
+            AutoMapperInit.Initialize(Assembly.GetExecutingAssembly());
         }
     }
 }

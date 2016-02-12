@@ -8,7 +8,6 @@ namespace MvcProject.Web
     using System.Web;
     using System.Web.Mvc;
 
-    using AutoMapper;
     using Data.DbAccessConfig;
     using Data.DbAccessConfig.Repositories;
     using Data.Models;
@@ -17,20 +16,20 @@ namespace MvcProject.Web
     using Ninject;
     using Ninject.Web.Common;
 
-    public static class NinjectWebCommon 
+    public static class NinjectWebCommon
     {
         private static readonly Bootstrapper Bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
         /// </summary>
-        public static void Start() 
+        public static void Start()
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             Bootstrapper.Initialize(CreateKernel);
         }
-        
+
         /// <summary>
         /// Stops the application.
         /// </summary>
@@ -38,7 +37,7 @@ namespace MvcProject.Web
         {
             Bootstrapper.ShutDown();
         }
-        
+
         /// <summary>
         /// Creates the kernel that will manage your application.
         /// </summary>
@@ -67,12 +66,10 @@ namespace MvcProject.Web
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            //kernel.Bind<DbContext>().To<MvcProjectDbContext>();
-            //kernel.Bind<IMapperConfiguration>().To<MapperConfiguration>();
-
-            //kernel.Bind(typeof(IRepository<SampleProduct>)).To(typeof(DeletableEntityRepository<SampleProduct>));
-            //kernel.Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>));
+            // kernel.Bind<DbContext>().To<MvcProjectDbContext>();
+            // kernel.Bind(typeof(IRepository<SampleProduct>)).To(typeof(DeletableEntityRepository<SampleProduct>));
+            // kernel.Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>));
             //kernel.Bind(typeof(IDeletableEntityRepository<>)).To(typeof(DeletableEntityRepository<>));
-        }        
+        }
     }
 }

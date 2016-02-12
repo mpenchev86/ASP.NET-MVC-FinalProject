@@ -6,22 +6,23 @@
     using System.Web;
     using System.Web.Mvc;
 
-    using AutoMapper.QueryableExtensions;
     using Data.DbAccessConfig;
     using Data.DbAccessConfig.Repositories;
     using Data.Models;
     using Infrastructure.Filters;
+    using Infrastructure.Mapping;
     using ViewModels.Home;
     using Services.Web;
+
     [LogFilter]
     public class HomeController : BaseController
     {
         private readonly IRepository<SampleProduct> sampleProducts;
         private ISampleService service;
 
-        //public HomeController()
-        //{
-        //}
+        public HomeController()
+        {
+        }
 
         public HomeController(IRepository<SampleProduct> sampleProducts, ISampleService service)
         {
@@ -32,32 +33,33 @@
         public ActionResult Index()
         {
             this.service.Work();
-            var sampleProducts = this.sampleProducts.All().ProjectTo<IndexSampleProductViewModel>();
+            var sampleProducts = this.sampleProducts.All().To<IndexSampleProductViewModel>();
             return this.View(sampleProducts);
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            this.ViewBag.Message = "Your application description page.";
 
             return this.View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            this.ViewBag.Message = "Your contact page.";
 
             return this.View();
         }
 
         #region Tests
+
         // TEST - route constraints
         public string ProductsList(int nonNullableInt, int page = 39)
         {
             string str = string.Empty;
             try
             {
-                str += HttpContext.Request.Browser.Type;
+                str += this.HttpContext.Request.Browser.Type;
             }
             catch (Exception)
             {
@@ -73,13 +75,14 @@
         public FileResult GetFile(string fileName)
         {
             string fileFormat = fileName.Split(new char['.'], StringSplitOptions.RemoveEmptyEntries)[0];
-            //this.Response.ClearContent();
-            //this.Response.Write(filePath);
+
+            // this.Response.ClearContent();
+            // this.Response.Write(filePath);
             return this.File(fileName, "application/octet-stream", "myfile." + fileFormat);
 
             //// file as byte array
-            //var fileContent = new byte[] { (int)'0', 49, 50, 51 };
-            //return this.File(fileContent, "text/plain", "mybytes.txt");
+            // var fileContent = new byte[] { (int)'0', 49, 50, 51 };
+            // return this.File(fileContent, "text/plain", "mybytes.txt");
         }
 
         // TEST - return JS
@@ -108,13 +111,13 @@
 
         // TEST - attributes
 
-        //[ActionName("AttributesTest")]
-        //[NonAction]
+        // [ActionName("AttributesTest")]
+        // [NonAction]
+        // [Authorize]
+        // [RequireHttps]
+        // [AllowAnonymous]
+        // [ChildActionOnly]
         [AcceptVerbs("Post", "Delete", "Put")]
-        //[Authorize]
-        //[RequireHttps]
-        //[AllowAnonymous]
-        //[ChildActionOnly]
         public ActionResult Attributes()
         {
             return this.Content("Attributes");
