@@ -7,7 +7,7 @@
     using System.Web.Mvc;
     using Infrastructure.ViewEngines;
 
-    public static class ViewEnginesConfig
+    public class ViewEnginesConfig
     {
         public static void RegisterEngines(ViewEngineCollection viewEngines)
         {

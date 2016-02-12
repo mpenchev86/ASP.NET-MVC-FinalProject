@@ -67,12 +67,12 @@ namespace MvcProject.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<DbContext>().To<MvcProjectDbContext>();
-            kernel.Bind<IMapperConfiguration>().To<MapperConfiguration>();
+            //kernel.Bind<DbContext>().To<MvcProjectDbContext>();
+            //kernel.Bind<IMapperConfiguration>().To<MapperConfiguration>();
 
-            kernel.Bind(typeof(IRepository<SampleProduct>)).To(typeof(DeletableEntityRepository<SampleProduct>));
-            kernel.Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>));
-            kernel.Bind(typeof(IDeletableEntityRepository<>)).To(typeof(DeletableEntityRepository<>));
+            //kernel.Bind(typeof(IRepository<SampleProduct>)).To(typeof(DeletableEntityRepository<SampleProduct>));
+            //kernel.Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>));
+            //kernel.Bind(typeof(IDeletableEntityRepository<>)).To(typeof(DeletableEntityRepository<>));
         }        
     }
 }

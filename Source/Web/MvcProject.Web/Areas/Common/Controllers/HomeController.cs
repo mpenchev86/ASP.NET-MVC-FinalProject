@@ -12,23 +12,26 @@
     using Data.Models;
     using Infrastructure.Filters;
     using ViewModels.Home;
-
+    using Services.Web;
     [LogFilter]
     public class HomeController : BaseController
     {
         private readonly IDeletableEntityRepository<SampleProduct> sampleProducts;
+        private ISampleService service;
 
-        public HomeController()
-        {
-        }
+        //public HomeController()
+        //{
+        //}
 
-        public HomeController(IDeletableEntityRepository<SampleProduct> sampleProducts)
+        public HomeController(IDeletableEntityRepository<SampleProduct> sampleProducts, ISampleService service)
         {
             this.sampleProducts = sampleProducts;
+            this.service = service;
         }
 
         public ActionResult Index()
         {
+            this.service.Work();
             var sampleProducts = this.sampleProducts.All().ProjectTo<IndexSampleProductViewModel>();
             return this.View(sampleProducts);
         }
