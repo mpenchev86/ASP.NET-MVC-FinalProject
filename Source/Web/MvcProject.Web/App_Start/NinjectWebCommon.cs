@@ -69,7 +69,7 @@ namespace MvcProject.Web
             // kernel.Bind<DbContext>().To<MvcProjectDbContext>();
             // kernel.Bind(typeof(IRepository<SampleProduct>)).To(typeof(DeletableEntityRepository<SampleProduct>));
             // kernel.Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>));
-            //kernel.Bind(typeof(IDeletableEntityRepository<>)).To(typeof(DeletableEntityRepository<>));
+            // kernel.Bind(typeof(IDeletableEntityRepository<>)).To(typeof(DeletableEntityRepository<>));
         }
     }
 }

@@ -13,7 +13,7 @@
     using Data.DbAccessConfig.Migrations;
     using Infrastructure.Mapping;
 
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {

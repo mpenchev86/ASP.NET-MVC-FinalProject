@@ -11,7 +11,7 @@
     {
         public CustomViewLocationRazorViewEngine()
         {
-            base.AreaViewLocationFormats = new string[]
+            this.AreaViewLocationFormats = new string[]
             {
                 "~/Areas/{2}/Views/{1}/{0}.cshtml",
                 "~/Areas/{2}/Views/{1}/{0}.vbhtml",
@@ -19,7 +19,7 @@
                 "~/Areas/{2}/Views/Shared/{0}.vbhtml"
             };
 
-            base.AreaMasterLocationFormats = new string[]
+            this.AreaMasterLocationFormats = new string[]
             {
                 "~/Areas/Common/Views/{1}/{0}.cshtml",
                 "~/Areas/Common/Views/{1}/{0}.vbhtml",
@@ -27,28 +27,31 @@
                 "~/Areas/Common/Views/Shared/{0}.vbhtml"
             };
 
-            base.AreaPartialViewLocationFormats = new string[]
+            this.AreaPartialViewLocationFormats = new string[]
             {
                 "~/Areas/{2}/Views/{1}/{0}.cshtml",
                 "~/Areas/{2}/Views/{1}/{0}.vbhtml",
                 "~/Areas/{2}/Views/Shared/{0}.cshtml",
                 "~/Areas/{2}/Views/Shared/{0}.vbhtml"
             };
-            base.ViewLocationFormats = new string[]
+
+            this.ViewLocationFormats = new string[]
             {
                 "~/Views/{1}/{0}.cshtml",
                 "~/Views/{1}/{0}.vbhtml",
                 "~/Views/Shared/{0}.cshtml",
                 "~/Views/Shared/{0}.vbhtml"
             };
-            base.MasterLocationFormats = new string[]
+
+            this.MasterLocationFormats = new string[]
             {
                 "~/Views/{1}/{0}.cshtml",
                 "~/Views/{1}/{0}.vbhtml",
                 "~/Views/Shared/{0}.cshtml",
                 "~/Views/Shared/{0}.vbhtml"
             };
-            base.PartialViewLocationFormats = new string[]
+
+            this.PartialViewLocationFormats = new string[]
             {
                 "~/Areas/Common/Views/{1}/{0}.cshtml",
                 "~/Areas/Common/Views/{1}/{0}.vbhtml",

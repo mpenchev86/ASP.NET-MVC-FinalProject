@@ -10,8 +10,17 @@
 
     public class SampleProduct : BaseEntityModel<int>
     {
+        public SampleProduct()
+        {
+            this.Tags = new HashSet<Tag>();
+        }
+
         public string Name { get; set; }
 
         public string Description { get; set; }
+
+        public virtual ICollection<Tag> Tags { get; set; }
+
+        public virtual ProductCategory Category { get; set; }
     }
 }

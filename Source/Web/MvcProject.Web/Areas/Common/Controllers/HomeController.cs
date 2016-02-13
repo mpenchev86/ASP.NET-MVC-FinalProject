@@ -11,34 +11,45 @@
     using Data.Models;
     using Infrastructure.Filters;
     using Infrastructure.Mapping;
-    using ViewModels.Home;
+    using Services.Data;
     using Services.Web;
+    using ViewModels.Home;
 
     [LogFilter]
     public class HomeController : BaseController
     {
         private readonly IRepository<SampleProduct> sampleProducts;
-        private ISampleService service;
+        private ISampleService sampleService;
+        private IProductsService productsService;
 
         public HomeController()
         {
         }
 
-        public HomeController(IRepository<SampleProduct> sampleProducts, ISampleService service)
+        public HomeController(IRepository<SampleProduct> sampleProducts, ISampleService service, IProductsService productsService)
         {
             this.sampleProducts = sampleProducts;
-            this.service = service;
+            this.sampleService = service;
+            this.productsService = productsService;
         }
 
         public ActionResult Index()
         {
-            this.service.Work();
-            var sampleProducts = this.sampleProducts.All().To<IndexSampleProductViewModel>();
-            return this.View(sampleProducts);
+            var allProducts = this.productsService.GetAllProducts().To<IndexSampleProductViewModel>().ToList();
+
+            return this.View(allProducts);
+        }
+
+        public ActionResult Random(int count)
+        {
+            var randoms = this.productsService.GetRandomProducts(count).To<IndexSampleProductViewModel>().ToList();
+
+            return this.View(randoms);
         }
 
         public ActionResult About()
         {
+            this.sampleService.Work();
             this.ViewBag.Message = "Your application description page.";
 
             return this.View();
@@ -51,10 +62,12 @@
             return this.View();
         }
 
+#pragma warning disable SA1124 // Do not use regions
         #region Tests
 
         // TEST - route constraints
         public string ProductsList(int nonNullableInt, int page = 39)
+#pragma warning restore SA1124 // Do not use regions
         {
             string str = string.Empty;
             try

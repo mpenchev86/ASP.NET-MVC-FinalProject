@@ -7,12 +7,14 @@
     using System.Reflection;
     using System.Web;
     using System.Web.Mvc;
+    using Areas.Common.Controllers;
     using Autofac;
     using Autofac.Integration.Mvc;
     using Data.DbAccessConfig;
     using Data.DbAccessConfig.Repositories;
     using Data.Models;
     using Infrastructure.ViewEngines;
+    using Services.Data;
     using Services.Web;
 
     public static class AutofacConfig
@@ -52,7 +54,7 @@
                 .As<DbContext>()
                 .InstancePerRequest();
 
-            //builder
+            // builder
             //    .RegisterType(typeof(MapperConfiguration))
             //    .As(typeof(IMapperConfiguration))
             //    .InstancePerRequest();
@@ -68,6 +70,14 @@
                 .Register(x => new SampleService())
                 .As<ISampleService>()
                 .InstancePerRequest();
+
+            var servicesAssembly = Assembly.GetAssembly(typeof(IProductsService));
+            builder
+                .RegisterAssemblyTypes(servicesAssembly)
+                .AsImplementedInterfaces();
+
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+                .AssignableTo<BaseController>().PropertiesAutowired();
         }
     }
 }

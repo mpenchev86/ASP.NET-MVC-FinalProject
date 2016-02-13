@@ -13,8 +13,8 @@
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            //// TEST - route constraints 
-            //routes.MapRoute(
+            //// TEST - route constraints
+            // routes.MapRoute(
             //    name: "ProductsList",
             //    url: "Products/{page}/{nonNullableInt}",
             //    defaults: new
@@ -30,7 +30,6 @@
             //        nonNullableInt = @"\d+",
             //        isChrome = new CustomRouteConstraints()
             //    });
-
             routes
                 .MapRoute(
                     name: "Default",
@@ -39,7 +38,6 @@
                 .DataTokens.Add("area", "Common");
         }
 
-        #region Tests
         // TEST - route constraints
         private class CustomRouteConstraints : IRouteConstraint
         {
@@ -53,6 +51,5 @@
                 return HttpContext.Current.Request.UserAgent.Contains("Chrome");
             }
         }
-        #endregion
     }
 }

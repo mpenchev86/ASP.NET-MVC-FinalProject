@@ -17,25 +17,25 @@
 
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            File.AppendAllLines(filePath, new[] { "OnActionExecuted" });
+            File.AppendAllLines(this.filePath, new[] { "OnActionExecuted" });
             base.OnActionExecuted(filterContext);
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            File.AppendAllLines(filePath, new[] { "OnActionExecuting" });
+            File.AppendAllLines(this.filePath, new[] { "OnActionExecuting" });
             base.OnActionExecuting(filterContext);
         }
 
         public override void OnResultExecuted(ResultExecutedContext filterContext)
         {
-            File.AppendAllLines(filePath, new[] { "OnResultExecuted" });
+            File.AppendAllLines(this.filePath, new[] { "OnResultExecuted" });
             base.OnResultExecuted(filterContext);
         }
 
         public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
-            File.AppendAllLines(filePath, new[] { "OnResultExecuting" });
+            File.AppendAllLines(this.filePath, new[] { "OnResultExecuting" });
             base.OnResultExecuting(filterContext);
         }
     }

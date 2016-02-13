@@ -5,8 +5,8 @@
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
-    using MvcProject.Web;
     using Common.Controllers;
+    using MvcProject.Web;
 
     public class UsersController : BaseController
     {

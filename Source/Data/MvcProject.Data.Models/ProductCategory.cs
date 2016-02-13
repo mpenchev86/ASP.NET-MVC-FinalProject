@@ -2,15 +2,20 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
     using EntityContracts;
 
-    public class Tag : BaseEntityModel<int>
+    public class ProductCategory : BaseEntityModel<int>
     {
+        public ProductCategory()
+        {
+            this.Products = new HashSet<SampleProduct>();
+        }
+
         public string Name { get; set; }
+
+        public virtual ICollection<SampleProduct> Products { get; set; }
     }
 }

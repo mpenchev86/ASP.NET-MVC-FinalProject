@@ -1,0 +1,22 @@
+﻿@model IEnumerable<MvcProject.Web.Areas.Common.ViewModels.Home.IndexSampleProductViewModel>
+@{
+    ViewBag.Title = "Random";
+}
+
+<h2>Random</h2>
+<div class="container">
+    @foreach (var product in Model)
+    {
+        <div class="row">
+            <div class="col-md-1">
+                @product.Name
+            </div>
+            <div class="col-md-1">
+                @product.Description
+            </div>
+            <div class="col-md-10">
+                @product.Category
+            </div>
+        </div>
+    }
+</div>

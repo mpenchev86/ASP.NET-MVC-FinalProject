@@ -13,7 +13,8 @@
         {
             // Removes WebForms view engine - optimization
             viewEngines.Clear();
-            //viewEngines.Add(new RazorViewEngine());
+
+            // viewEngines.Add(new RazorViewEngine());
             viewEngines.Add(new CustomViewLocationRazorViewEngine());
         }
     }

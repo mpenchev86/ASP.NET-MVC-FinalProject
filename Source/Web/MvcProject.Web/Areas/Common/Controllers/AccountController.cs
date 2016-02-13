@@ -36,12 +36,12 @@
         {
             get
             {
-                return this.signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+                return this.signInManager ?? this.HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
 
-            private set 
+            private set
             {
-                this.signInManager = value; 
+                this.signInManager = value;
             }
         }
 
@@ -49,7 +49,7 @@
         {
             get
             {
-                return this.userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return this.userManager ?? this.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
 
             private set
@@ -62,7 +62,7 @@
         {
             get
             {
-                return HttpContext.GetOwinContext().Authentication;
+                return this.HttpContext.GetOwinContext().Authentication;
             }
         }
 
@@ -70,7 +70,7 @@
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;
+            this.ViewBag.ReturnUrl = returnUrl;
             return this.View();
         }
 
@@ -80,7 +80,7 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
                 return this.View(model);
             }
@@ -98,7 +98,7 @@
                     return this.RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    this.ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return this.View(model);
             }
         }
@@ -128,14 +128,14 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
                 return this.View(model);
             }
 
-            // The following code protects for brute force attacks against the two factor codes. 
-            // If a user enters incorrect codes for a specified amount of time then the user account 
-            // will be locked out for a specified amount of time. 
+            // The following code protects for brute force attacks against the two factor codes.
+            // If a user enters incorrect codes for a specified amount of time then the user account
+            // will be locked out for a specified amount of time.
             // You can configure the account lockout settings in IdentityConfig
             var result = await this.SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
@@ -146,7 +146,7 @@
                     return this.View("Lockout");
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError(string.Empty, "Invalid code.");
+                    this.ModelState.AddModelError(string.Empty, "Invalid code.");
                     return this.View(model);
             }
         }
@@ -164,14 +164,14 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            if (this.ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await this.UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await this.SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                                        
+
                     //// For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     //// Send an email with this link
                     //// string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -214,7 +214,7 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
-            if (ModelState.IsValid)
+            if (this.ModelState.IsValid)
             {
                 var user = await this.UserManager.FindByNameAsync(model.Email);
                 if (user == null || !(await this.UserManager.IsEmailConfirmedAsync(user.Id)))
@@ -255,7 +255,7 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
                 return this.View(model);
             }
@@ -292,8 +292,8 @@
         {
             // Request a redirect to the external login provider
             return new ChallengeResult(
-                provider, 
-                Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
+                provider,
+                this.Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
 
         // GET: /Account/SendCode
@@ -317,7 +317,7 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SendCode(SendCodeViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
                 return this.View();
             }
@@ -329,7 +329,7 @@
             }
 
             return this.RedirectToAction(
-                "VerifyCode", 
+                "VerifyCode",
                 new
                 {
                     Provider = model.SelectedProvider,
@@ -361,8 +361,8 @@
                 case SignInStatus.Failure:
                 default:
                     // If the user does not have an account, then prompt the user to create an account
-                    ViewBag.ReturnUrl = returnUrl;
-                    ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+                    this.ViewBag.ReturnUrl = returnUrl;
+                    this.ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
                     return this.View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
             }
         }
@@ -373,12 +373,12 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         {
-            if (User.Identity.IsAuthenticated)
+            if (this.User.Identity.IsAuthenticated)
             {
                 return this.RedirectToAction("Index", "Manage");
             }
 
-            if (ModelState.IsValid)
+            if (this.ModelState.IsValid)
             {
                 // Get the information about the user from the external login provider
                 var info = await this.AuthenticationManager.GetExternalLoginInfoAsync();
@@ -402,7 +402,7 @@
                 this.AddErrors(result);
             }
 
-            ViewBag.ReturnUrl = returnUrl;
+            this.ViewBag.ReturnUrl = returnUrl;
             return this.View(model);
         }
 
@@ -442,18 +442,20 @@
             base.Dispose(disposing);
         }
 
+#pragma warning disable SA1124 // Do not use regions
         #region Helpers
         private void AddErrors(IdentityResult result)
+#pragma warning restore SA1124 // Do not use regions
         {
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError(string.Empty, error);
+                this.ModelState.AddModelError(string.Empty, error);
             }
         }
 
         private ActionResult RedirectToLocal(string returnUrl)
         {
-            if (Url.IsLocalUrl(returnUrl))
+            if (this.Url.IsLocalUrl(returnUrl))
             {
                 return this.Redirect(returnUrl);
             }
