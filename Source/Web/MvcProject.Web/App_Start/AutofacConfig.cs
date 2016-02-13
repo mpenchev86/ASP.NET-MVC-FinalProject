@@ -54,13 +54,6 @@
                 .As<DbContext>()
                 .InstancePerRequest();
 
-            // builder
-            //    .RegisterType(typeof(MapperConfiguration))
-            //    .As(typeof(IMapperConfiguration))
-            //    .InstancePerRequest();
-
-            // builder.RegisterType(typeof(DeletableEntityRepository<SampleProduct>)).As(typeof(IRepository<SampleProduct>)).InstancePerRequest();
-            // builder.RegisterGeneric(typeof(DeletableEntityRepository<>)).As(typeof(IDeletableEntityRepository<>)).InstancePerRequest();
             builder
                 .RegisterGeneric(typeof(GenericRepository<>))
                 .As(typeof(IRepository<>))
@@ -71,9 +64,14 @@
                 .As<ISampleService>()
                 .InstancePerRequest();
 
-            var servicesAssembly = Assembly.GetAssembly(typeof(IProductsService));
+            var dataServicesAssembly = Assembly.GetAssembly(typeof(IProductsService));
             builder
-                .RegisterAssemblyTypes(servicesAssembly)
+                .RegisterAssemblyTypes(dataServicesAssembly)
+                .AsImplementedInterfaces();
+
+            var webServicesAssembly = Assembly.GetAssembly(typeof(ISampleService));
+            builder
+                .RegisterAssemblyTypes(webServicesAssembly)
                 .AsImplementedInterfaces();
 
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())

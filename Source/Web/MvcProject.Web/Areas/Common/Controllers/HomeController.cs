@@ -18,32 +18,29 @@
     [LogFilter]
     public class HomeController : BaseController
     {
-        private readonly IRepository<SampleProduct> sampleProducts;
         private ISampleService sampleService;
         private IProductsService productsService;
+        private ICategoriesService categoriesService;
 
-        public HomeController()
+        public HomeController(
+            ISampleService service,
+            IProductsService productsService,
+            ICategoriesService categoriesService)
         {
-        }
-
-        public HomeController(IRepository<SampleProduct> sampleProducts, ISampleService service, IProductsService productsService)
-        {
-            this.sampleProducts = sampleProducts;
             this.sampleService = service;
             this.productsService = productsService;
+            this.categoriesService = categoriesService;
         }
 
         public ActionResult Index()
         {
             var allProducts = this.productsService.GetAllProducts().To<IndexSampleProductViewModel>().ToList();
-
             return this.View(allProducts);
         }
 
         public ActionResult Random(int count)
         {
             var randoms = this.productsService.GetRandomProducts(count).To<IndexSampleProductViewModel>().ToList();
-
             return this.View(randoms);
         }
 
@@ -51,14 +48,12 @@
         {
             this.sampleService.Work();
             this.ViewBag.Message = "Your application description page.";
-
             return this.View();
         }
 
         public ActionResult Contact()
         {
             this.ViewBag.Message = "Your contact page.";
-
             return this.View();
         }
 

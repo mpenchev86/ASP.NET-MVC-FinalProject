@@ -341,10 +341,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Constants\Constants.csproj">
-      <Project>{e4826c7b-cf95-49e8-8429-22b863e39fd4}</Project>
-      <Name>Constants</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Data\MvcProject.Data.DbAccessConfig\MvcProject.Data.DbAccessConfig.csproj">
       <Project>{37ead08e-a644-4438-b913-1329c8cb3899}</Project>
       <Name>MvcProject.Data.DbAccessConfig</Name>
