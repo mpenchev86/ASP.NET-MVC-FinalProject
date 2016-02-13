@@ -108,7 +108,7 @@
         // TEST - redirect to other action
         public RedirectToRouteResult RedirectAction()
         {
-            return this.RedirectToAction("About");
+            return this.RedirectToAction(nameof(HomeController.Index));
         }
 
         // TEST - redirect to a specifig URL

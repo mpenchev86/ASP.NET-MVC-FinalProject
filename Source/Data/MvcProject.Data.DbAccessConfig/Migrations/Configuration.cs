@@ -4,16 +4,17 @@ namespace MvcProject.Data.DbAccessConfig.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using GlobalConstants;
 
     public sealed class Configuration : DbMigrationsConfiguration<MvcProjectDbContext>
     {
         public Configuration()
         {
-            this.AutomaticMigrationsEnabled = true;
-            this.ContextKey = "MvcProject.Data.DbAccessConfig.MvcProjectDbContext";
-
             // TODO: Remove in production
+            this.AutomaticMigrationsEnabled = true;
             this.AutomaticMigrationDataLossAllowed = true;
+
+            this.ContextKey = GlobalConstants.DbAccess.DbMigrationsConfigurationContextKey;
         }
 
         protected override void Seed(MvcProjectDbContext context)

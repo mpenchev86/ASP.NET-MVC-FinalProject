@@ -7,7 +7,6 @@
     using System.Threading.Tasks;
     using MvcProject.Data.DbAccessConfig.Repositories;
     using MvcProject.Data.Models;
-    using Web.Infrastructure.Mapping;
 
     public class ProductsService : IProductsService
     {

@@ -13,6 +13,7 @@
     using Data.DbAccessConfig;
     using Data.DbAccessConfig.Repositories;
     using Data.Models;
+    using GlobalConstants;
     using Infrastructure.ViewEngines;
     using Services.Data;
     using Services.Web;
@@ -64,12 +65,12 @@
                 .As<ISampleService>()
                 .InstancePerRequest();
 
-            var dataServicesAssembly = Assembly.GetAssembly(typeof(IProductsService));
+            var dataServicesAssembly = Assembly.Load(GlobalConstants.Assemblies.DataServicesAssemblyName);
             builder
                 .RegisterAssemblyTypes(dataServicesAssembly)
                 .AsImplementedInterfaces();
 
-            var webServicesAssembly = Assembly.GetAssembly(typeof(ISampleService));
+            var webServicesAssembly = Assembly.Load(GlobalConstants.Assemblies.WebServicesAssemblyName);
             builder
                 .RegisterAssemblyTypes(webServicesAssembly)
                 .AsImplementedInterfaces();

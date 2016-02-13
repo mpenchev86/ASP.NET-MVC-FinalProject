@@ -13,7 +13,9 @@
     using Data.DbAccessConfig.Migrations;
     using Infrastructure.Mapping;
 
+#pragma warning disable SA1649 // File name must match first type name
     public class MvcApplication : HttpApplication
+#pragma warning restore SA1649 // File name must match first type name
     {
         protected void Application_Start()
         {

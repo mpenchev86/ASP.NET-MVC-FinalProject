@@ -7,6 +7,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using GlobalConstants;
     using Models.EntityContracts;
 
     // TODO: Why BaseModel<int> instead BaseModel<TKey>?
@@ -17,7 +18,7 @@
         {
             if (context == null)
             {
-                throw new ArgumentException("An instance of DbContext is required to use this repository.", nameof(context));
+                throw new ArgumentException(GlobalConstants.Exceptions.DbContextArgumentException, nameof(context));
             }
 
             this.Context = context;

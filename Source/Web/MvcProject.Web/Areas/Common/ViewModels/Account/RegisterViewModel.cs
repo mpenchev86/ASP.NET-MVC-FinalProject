@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Web;
+    using GlobalConstants;
 
     public class RegisterViewModel
     {
@@ -21,7 +22,7 @@
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessage = GlobalConstants.ErrorMessages.ConfirmPasswordError)]
         public string ConfirmPassword { get; set; }
     }
 }

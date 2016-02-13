@@ -67,9 +67,7 @@ namespace MvcProject.Web
         private static void RegisterServices(IKernel kernel)
         {
             // kernel.Bind<DbContext>().To<MvcProjectDbContext>();
-            // kernel.Bind(typeof(IRepository<SampleProduct>)).To(typeof(DeletableEntityRepository<SampleProduct>));
             // kernel.Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>));
-            // kernel.Bind(typeof(IDeletableEntityRepository<>)).To(typeof(DeletableEntityRepository<>));
         }
     }
 }
