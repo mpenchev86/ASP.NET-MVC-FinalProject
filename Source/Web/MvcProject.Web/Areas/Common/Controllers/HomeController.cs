@@ -15,7 +15,7 @@
     using Services.Web;
     using ViewModels.Home;
 
-    [LogFilter]
+    //[LogFilter]
     public class HomeController : BaseController
     {
         private ISampleService sampleService;
