@@ -60,23 +60,27 @@
                 .As(typeof(IRepository<>))
                 .InstancePerRequest();
 
-            builder
-                .Register(x => new SampleService())
-                .As<ISampleService>()
-                .InstancePerRequest();
+            //builder
+            //    .Register(x => new SampleService())
+            //    .As<ISampleService>()
+            //    .InstancePerRequest();
 
             var dataServicesAssembly = Assembly.Load(GlobalConstants.Assemblies.DataServicesAssemblyName);
             builder
                 .RegisterAssemblyTypes(dataServicesAssembly)
-                .AsImplementedInterfaces();
+                .AsImplementedInterfaces()
+                .InstancePerRequest();  // Could be wrong
 
             var webServicesAssembly = Assembly.Load(GlobalConstants.Assemblies.WebServicesAssemblyName);
             builder
                 .RegisterAssemblyTypes(webServicesAssembly)
-                .AsImplementedInterfaces();
+                .AsImplementedInterfaces()
+                .InstancePerRequest();  // Could be wrong
 
-            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
-                .AssignableTo<BaseController>().PropertiesAutowired();
+            builder
+                .RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+                .AssignableTo<BaseController>()
+                .PropertiesAutowired();
         }
     }
 }
