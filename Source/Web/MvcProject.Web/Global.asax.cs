@@ -31,5 +31,20 @@
             // If problematic, use constructor to get an instance of AutoMapperConfig and use its Execute()
             AutoMapperInit.Initialize(Assembly.GetExecutingAssembly());
         }
+
+        // For custom OutPutCache VaryByCustom
+        //public override string GetVaryByCustomString(HttpContext context, string custom)
+        //{
+        //    if (custom == "SessionCache")
+        //    {
+        //        return this.Session.SessionID;
+        //    }
+        //    else if (custom == "SomeOtherIdentifier")
+        //    {
+        //        // specify how to cache in this case
+        //    }
+
+        //    return base.GetVaryByCustomString(context, custom);
+        //}
     }
 }

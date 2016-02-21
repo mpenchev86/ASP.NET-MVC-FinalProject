@@ -11,7 +11,7 @@
 
     public interface IMvcProjectDbContext : IDisposable
     {
-        IDbSet<SampleProduct> SampleProducts { get; set; }
+        IDbSet<Product> Products { get; set; }
 
         IDbSet<Tag> Tags { get; set; }
 

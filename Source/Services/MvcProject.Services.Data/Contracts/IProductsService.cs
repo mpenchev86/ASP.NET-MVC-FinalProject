@@ -5,8 +5,8 @@
 
     public interface IProductsService
     {
-        IQueryable<SampleProduct> GetAllProducts();
+        IQueryable<Product> GetAllProducts();
 
-        IQueryable<SampleProduct> GetRandomProducts(int count);
+        IQueryable<Product> GetRandomProducts(int count);
     }
 }

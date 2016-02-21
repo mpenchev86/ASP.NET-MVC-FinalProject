@@ -9,7 +9,8 @@
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle(GlobalConstants.Bundles.ScriptJQuery).Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery.unobtrusive-ajax.js"));
 
             bundles.Add(new ScriptBundle(GlobalConstants.Bundles.ScriptJQueryVal).Include(
                         "~/Scripts/jquery.validate*"));

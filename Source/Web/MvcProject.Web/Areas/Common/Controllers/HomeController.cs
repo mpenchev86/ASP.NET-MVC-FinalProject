@@ -3,13 +3,13 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
     using System.Web;
     using System.Web.Mvc;
-
+    using System.Web.UI;
     using Data.DbAccessConfig;
-    using Data.DbAccessConfig.Repositories;
-    using Data.Models;
-    using Infrastructure.Filters;
+    using Infrastructure.ActionFilters;
+    using Infrastructure.Caching;
     using Infrastructure.Mapping;
     using Services.Data;
     using Services.Web;
@@ -32,15 +32,62 @@
             this.categoriesService = categoriesService;
         }
 
+        [OutputCache(Duration = 30 * 60, Location = OutputCacheLocation.Server, VaryByCustom = "SomeOtherIdentifier")]
         public ActionResult Index()
         {
-            var allProducts = this.productsService.GetAllProducts().To<IndexSampleProductViewModel>().ToList();
+            var allProducts = this.productsService
+                .GetAllProducts()
+                .To<IndexProductViewModel>()
+                .ToList();
+
             return this.View(allProducts);
+        }
+
+        [CommonOutputCache]
+        public ActionResult FormResults()
+        {
+            var products = this.productsService
+                .GetAllProducts()
+                .To<IndexProductViewModel>()
+                .ToList();
+
+            return this.View(products);
+        }
+
+        public ActionResult Search(string query)
+        {
+            var result = this.productsService
+                .GetAllProducts()
+                .Where(x => x.Name.ToLower().Contains(query.ToLower()))
+                .To<IndexProductViewModel>()
+                .ToList();
+
+            return this.PartialView("_ProductResult", result);
+        }
+
+        public ActionResult DescriptionById(int id)
+        {
+            if (!this.Request.IsAjaxRequest())
+            {
+                this.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                return this.Content("This action can be invoke only by AJAX call");
+            }
+
+            var product = this.productsService
+                .GetAllProducts()
+                .FirstOrDefault(x => x.Id == id);
+            if (product == null)
+            {
+                this.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                return this.Content("Book not found");
+            }
+
+            return this.Content(product.Description);
         }
 
         public ActionResult Random(int count)
         {
-            var randoms = this.productsService.GetRandomProducts(count).To<IndexSampleProductViewModel>().ToList();
+            var randoms = this.productsService.GetRandomProducts(count).To<IndexProductViewModel>().ToList();
             return this.View(randoms);
         }
 

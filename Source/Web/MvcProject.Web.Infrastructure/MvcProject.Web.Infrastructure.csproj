@@ -36,6 +36,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -47,9 +48,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Filters\AddSystemHeaderStampActionFilter.cs" />
-    <Compile Include="Filters\LogFilter.cs" />
-    <Compile Include="Filters\MyFilter.cs" />
+    <Compile Include="Validation\MyFirstCustomValidationAttribute.cs" />
+    <Compile Include="Caching\CommonOutputCacheAttribute.cs" />
+    <Compile Include="ActionFilters\AddSystemHeaderStampActionFilter.cs" />
+    <Compile Include="ActionFilters\LogFilter.cs" />
+    <Compile Include="ActionFilters\MyFilter.cs" />
     <Compile Include="Mapping\AutoMapperConfig.cs" />
     <Compile Include="Mapping\IHaveCustomMappings.cs" />
     <Compile Include="Mapping\IMapFrom.cs" />

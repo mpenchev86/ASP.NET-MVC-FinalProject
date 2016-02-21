@@ -11,11 +11,11 @@
     {
         public ProductCategory()
         {
-            this.Products = new HashSet<SampleProduct>();
+            this.Products = new HashSet<Product>();
         }
 
         public string Name { get; set; }
 
-        public virtual ICollection<SampleProduct> Products { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

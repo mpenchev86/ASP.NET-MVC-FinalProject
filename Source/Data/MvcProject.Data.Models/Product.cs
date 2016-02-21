@@ -8,13 +8,14 @@
     using System.Threading.Tasks;
     using EntityContracts;
 
-    public class SampleProduct : BaseEntityModel<int>
+    public class Product : BaseEntityModel<int>
     {
-        public SampleProduct()
+        public Product()
         {
             this.Tags = new HashSet<Tag>();
         }
 
+        [Required]
         public string Name { get; set; }
 
         public string Description { get; set; }

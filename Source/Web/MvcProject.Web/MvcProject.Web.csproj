@@ -237,6 +237,7 @@
     <Compile Include="Areas\Common\Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Common\Controllers\BaseController.cs" />
+    <Compile Include="Areas\Common\Controllers\ChildActionsController.cs" />
     <Compile Include="Areas\Common\Controllers\HomeController.cs" />
     <Compile Include="Areas\Common\Controllers\ManageController.cs" />
     <Compile Include="App_Start\GlimpseSecurityPolicy.cs" />
@@ -252,7 +253,7 @@
     <Compile Include="Areas\Common\ViewModels\Account\ResetPasswordViewModel.cs" />
     <Compile Include="Areas\Common\ViewModels\Account\SendCodeViewModel.cs" />
     <Compile Include="Areas\Common\ViewModels\Account\VerifyCodeViewModel.cs" />
-    <Compile Include="Areas\Common\ViewModels\Home\IndexSampleProductViewModel.cs" />
+    <Compile Include="Areas\Common\ViewModels\Home\IndexProductViewModel.cs" />
     <Compile Include="Areas\Common\ViewModels\Manage\AddPhoneNumberViewModel.cs" />
     <Compile Include="Areas\Common\ViewModels\Manage\ChangePasswordViewModel.cs" />
     <Compile Include="Areas\Common\ViewModels\Manage\ConfigureTwoFactorViewModel.cs" />
@@ -289,6 +290,8 @@
     <Content Include="Areas\Common\Views\Shared\EditorTemplates\String.cshtml" />
     <Content Include="Areas\Common\Views\Shared\DisplayTemplates\String.cshtml" />
     <Content Include="Areas\Common\Views\Shared\DisplayTemplates\CustomTemplate.cshtml" />
+    <Content Include="Areas\Common\Views\Home\FormResults.cshtml" />
+    <Content Include="Areas\Common\Views\Shared\_ProductResult.cshtml" />
     <None Include="Properties\PublishProfiles\testWebDep.pubxml" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -296,6 +299,8 @@
     <Content Include="Scripts\jquery-2.2.0.js" />
     <Content Include="Scripts\jquery-2.2.0.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -310,7 +315,7 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Areas\Common\Views\Web.config" />
+    <Content Include="Areas\Common\Views\web.config" />
     <Content Include="Areas\Common\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Common\Views\Shared\Error.cshtml" />
     <Content Include="Areas\Common\Views\Shared\_Layout.cshtml" />

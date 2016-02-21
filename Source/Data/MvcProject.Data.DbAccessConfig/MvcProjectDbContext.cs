@@ -19,7 +19,7 @@
         {
         }
 
-        public IDbSet<SampleProduct> SampleProducts { get; set; }
+        public IDbSet<Product> Products { get; set; }
 
         public IDbSet<Tag> Tags { get; set; }
 

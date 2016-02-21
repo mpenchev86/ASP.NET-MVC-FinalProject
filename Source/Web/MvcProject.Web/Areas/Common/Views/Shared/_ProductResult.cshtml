@@ -1,0 +1,20 @@
+﻿@model IEnumerable<MvcProject.Web.Areas.Common.ViewModels.Home.IndexProductViewModel>
+
+@foreach(var product in Model)
+{
+    <div>
+        <strong>
+            @product.Name
+        </strong>
+    </div>
+    @Ajax.ActionLink("See content", "DescriptionById", "Home", new { id = product.Id },
+        new AjaxOptions
+        {
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "product-description"
+        })
+
+    <br />
+}
+
+<div id="product-description"></div>
