@@ -1,4 +1,4 @@
-﻿namespace GlobalConstants
+﻿namespace MvcProject.GlobalConstants
 {
     public class Assemblies
     {

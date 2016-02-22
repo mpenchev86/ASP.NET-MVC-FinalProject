@@ -23,9 +23,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.Services.Data", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{A0643423-A04D-4E88-8533-A15C60383B64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalConstants", "Common\GlobalConstants\GlobalConstants.csproj", "{5F2803A7-770D-4509-8D69-CFBF4D6DC772}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.GlobalConstants", "Common\GlobalConstants\MvcProject.GlobalConstants.csproj", "{5F2803A7-770D-4509-8D69-CFBF4D6DC772}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.Web.Infrastructure", "Web\MvcProject.Web.Infrastructure\MvcProject.Web.Infrastructure.csproj", "{B14DFB67-88F5-4714-A592-ECAB1F8F74A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.Resources", "Common\Resources\MvcProject.Resources.csproj", "{08374F36-2EBC-4006-988F-3D41A4D6A30C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,10 @@ Global
 		{B14DFB67-88F5-4714-A592-ECAB1F8F74A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B14DFB67-88F5-4714-A592-ECAB1F8F74A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B14DFB67-88F5-4714-A592-ECAB1F8F74A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08374F36-2EBC-4006-988F-3D41A4D6A30C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08374F36-2EBC-4006-988F-3D41A4D6A30C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08374F36-2EBC-4006-988F-3D41A4D6A30C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08374F36-2EBC-4006-988F-3D41A4D6A30C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,5 +79,6 @@ Global
 		{037141CA-82DB-4C81-9BA1-4D02EF877B65} = {527A7624-A7AF-40DA-966C-33892DD81D16}
 		{5F2803A7-770D-4509-8D69-CFBF4D6DC772} = {A0643423-A04D-4E88-8533-A15C60383B64}
 		{B14DFB67-88F5-4714-A592-ECAB1F8F74A9} = {9DC8729B-38F3-4B60-B928-9770099D0C66}
+		{08374F36-2EBC-4006-988F-3D41A4D6A30C} = {A0643423-A04D-4E88-8533-A15C60383B64}
 	EndGlobalSection
 EndGlobal

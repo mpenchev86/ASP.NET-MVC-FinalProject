@@ -18,7 +18,7 @@
         {
             if (context == null)
             {
-                throw new ArgumentException(GlobalConstants.Exceptions.DbContextArgumentException, nameof(context));
+                throw new ArgumentException(GlobalConstants.ExceptionMessages.DbContextArgumentException, nameof(context));
             }
 
             this.Context = context;

@@ -4,18 +4,19 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
+    using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.UI;
     using Data.DbAccessConfig;
-    using Infrastructure.ActionFilters;
     using Infrastructure.Caching;
+    using Infrastructure.Filters;
     using Infrastructure.Mapping;
     using Services.Data;
     using Services.Web;
     using ViewModels.Home;
 
-    //[LogFilter]
+    // [LogFilter]
     public class HomeController : BaseController
     {
         private ISampleService sampleService;
@@ -102,6 +103,13 @@
         {
             this.ViewBag.Message = "Your contact page.";
             return this.View();
+        }
+
+        // Async Contact
+        public async Task<ActionResult> AsyncContact()
+        {
+            this.ViewBag.Message = "Your contact page.";
+            return await Task.FromResult(this.View("Contact"));
         }
 
 #pragma warning disable SA1124 // Do not use regions

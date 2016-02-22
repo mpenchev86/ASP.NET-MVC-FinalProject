@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render(GlobalConstants.Bundles.StyleContentCss)
-    @Scripts.Render(GlobalConstants.Bundles.ScriptModernizr)
+    @Styles.Render(MvcProject.GlobalConstants.Bundles.StyleContentCss)
+    @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptModernizr)
 
 </head>
 <body>
@@ -41,8 +41,8 @@
         </footer>
     </div>
 
-    @Scripts.Render(GlobalConstants.Bundles.ScriptJQuery)
-    @Scripts.Render(GlobalConstants.Bundles.ScriptBootstrap)
+    @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptJQuery)
+    @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptBootstrap)
     @RenderSection("scripts", required: false)
 </body>
 </html>

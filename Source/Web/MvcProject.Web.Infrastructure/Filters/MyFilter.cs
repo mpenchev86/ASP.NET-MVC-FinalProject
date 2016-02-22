@@ -1,4 +1,4 @@
-﻿namespace MvcProject.Web.Infrastructure.ActionFilters
+﻿namespace MvcProject.Web.Infrastructure.Filters
 {
     using System;
     using System.Collections.Generic;

@@ -2,7 +2,7 @@
 {
     using System.Web;
     using System.Web.Mvc;
-    using Infrastructure.ActionFilters;
+    using Infrastructure.Filters;
 
     public class FilterConfig
     {

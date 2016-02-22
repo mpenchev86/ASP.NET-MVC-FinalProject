@@ -354,9 +354,13 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\GlobalConstants\GlobalConstants.csproj">
+    <ProjectReference Include="..\..\Common\GlobalConstants\MvcProject.GlobalConstants.csproj">
       <Project>{5f2803a7-770d-4509-8d69-cfbf4d6dc772}</Project>
-      <Name>GlobalConstants</Name>
+      <Name>MvcProject.GlobalConstants</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\Resources\MvcProject.Resources.csproj">
+      <Project>{08374f36-2ebc-4006-988f-3d41a4d6a30c}</Project>
+      <Name>MvcProject.Resources</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Data\MvcProject.Data.DbAccessConfig\MvcProject.Data.DbAccessConfig.csproj">
       <Project>{37ead08e-a644-4438-b913-1329c8cb3899}</Project>
