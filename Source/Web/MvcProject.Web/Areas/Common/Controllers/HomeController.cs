@@ -22,24 +22,28 @@
         private ISampleService sampleService;
         private IProductsService productsService;
         private ICategoriesService categoriesService;
+        private ICacheService cacheService;
 
         public HomeController(
             ISampleService service,
             IProductsService productsService,
-            ICategoriesService categoriesService)
+            ICategoriesService categoriesService,
+            ICacheService cacheService)
         {
             this.sampleService = service;
             this.productsService = productsService;
             this.categoriesService = categoriesService;
+            this.cacheService = cacheService;
         }
 
         [OutputCache(Duration = 30 * 60, Location = OutputCacheLocation.Server, VaryByCustom = "SomeOtherIdentifier")]
         public ActionResult Index()
         {
-            var allProducts = this.productsService
-                .GetAllProducts()
-                .To<ProductViewModel>()
-                .ToList();
+            var allProducts =
+                this.cacheService.Get(
+                    "products",
+                    () => this.productsService.GetAllProducts().To<ProductViewModel>().ToList(),
+                    15 * 60);
             var viewModel = new IndexViewModel
             {
                 Products = allProducts

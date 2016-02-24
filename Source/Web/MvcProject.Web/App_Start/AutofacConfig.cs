@@ -65,6 +65,11 @@
             //    .As<ISampleService>()
             //    .InstancePerRequest();
 
+            builder
+                .Register(x => new HttpCacheService())
+                .As<ICacheService>()
+                .InstancePerRequest();
+
             var dataServicesAssembly = Assembly.Load(GlobalConstants.Assemblies.DataServicesAssemblyName);
             builder
                 .RegisterAssemblyTypes(dataServicesAssembly)
