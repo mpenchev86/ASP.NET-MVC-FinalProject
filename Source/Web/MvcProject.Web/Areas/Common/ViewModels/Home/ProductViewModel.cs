@@ -12,10 +12,11 @@
     using Infrastructure.Mapping;
 
     [Bind(Include = "Name,Description,Category")]
-    public class IndexProductViewModel : IMapFrom<Product>, IHaveCustomMappings
+    public class ProductViewModel : IMapFrom<Product>, IHaveCustomMappings
     {
         public int Id { get; set; }
 
+        [Required(ErrorMessageResourceType = typeof(Resources.Home.Index), ErrorMessageResourceName = nameof(Resources.Home.Index.RequiredField))]
         public string Name { get; set; }
 
         [UIHint(GlobalConstants.Templates.CustomStringTemplate)]
@@ -26,7 +27,7 @@
         // public IEnumerable<Tag> Tags { get; set; }
         public void CreateMappings(IMapperConfiguration configuration)
         {
-            configuration.CreateMap<Product, IndexProductViewModel>()
+            configuration.CreateMap<Product, ProductViewModel>()
                 .ForMember(vm => vm.Category, opt => opt.MapFrom(e => e.Category.Name));
         }
     }

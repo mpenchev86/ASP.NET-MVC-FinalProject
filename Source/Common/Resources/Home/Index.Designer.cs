@@ -61,6 +61,15 @@ namespace Resources.Home {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This field is required!.
+        /// </summary>
+        public static string RequiredField {
+            get {
+                return ResourceManager.GetString("RequiredField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Welcome!.
         /// </summary>
         public static string Welcome {

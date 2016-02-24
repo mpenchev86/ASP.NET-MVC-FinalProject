@@ -62,6 +62,14 @@
       <HintPath>..\..\packages\AutoMapper.4.2.0\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Elmah.Mvc, Version=2.1.2.1389, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Elmah.Mvc.2.1.2\lib\net40\Elmah.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Glimpse.Ado, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Glimpse.Ado.1.7.3\lib\net45\Glimpse.Ado.dll</HintPath>
       <Private>True</Private>
@@ -241,6 +249,8 @@
     <Compile Include="Areas\Common\Controllers\HomeController.cs" />
     <Compile Include="Areas\Common\Controllers\ManageController.cs" />
     <Compile Include="App_Start\GlimpseSecurityPolicy.cs" />
+    <Compile Include="Areas\Common\ViewModels\Home\IndexViewModel.cs" />
+    <Compile Include="Areas\Common\ViewModels\Home\ProductCategoryViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -253,7 +263,7 @@
     <Compile Include="Areas\Common\ViewModels\Account\ResetPasswordViewModel.cs" />
     <Compile Include="Areas\Common\ViewModels\Account\SendCodeViewModel.cs" />
     <Compile Include="Areas\Common\ViewModels\Account\VerifyCodeViewModel.cs" />
-    <Compile Include="Areas\Common\ViewModels\Home\IndexProductViewModel.cs" />
+    <Compile Include="Areas\Common\ViewModels\Home\ProductViewModel.cs" />
     <Compile Include="Areas\Common\ViewModels\Manage\AddPhoneNumberViewModel.cs" />
     <Compile Include="Areas\Common\ViewModels\Manage\ChangePasswordViewModel.cs" />
     <Compile Include="Areas\Common\ViewModels\Manage\ConfigureTwoFactorViewModel.cs" />

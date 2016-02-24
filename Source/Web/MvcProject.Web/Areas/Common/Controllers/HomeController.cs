@@ -38,10 +38,14 @@
         {
             var allProducts = this.productsService
                 .GetAllProducts()
-                .To<IndexProductViewModel>()
+                .To<ProductViewModel>()
                 .ToList();
+            var viewModel = new IndexViewModel
+            {
+                Products = allProducts
+            };
 
-            return this.View(allProducts);
+            return this.View(viewModel);
         }
 
         [CommonOutputCache]
@@ -49,7 +53,7 @@
         {
             var products = this.productsService
                 .GetAllProducts()
-                .To<IndexProductViewModel>()
+                .To<ProductViewModel>()
                 .ToList();
 
             return this.View(products);
@@ -60,7 +64,7 @@
             var result = this.productsService
                 .GetAllProducts()
                 .Where(x => x.Name.ToLower().Contains(query.ToLower()))
-                .To<IndexProductViewModel>()
+                .To<ProductViewModel>()
                 .ToList();
 
             return this.PartialView("_ProductResult", result);
@@ -88,7 +92,7 @@
 
         public ActionResult Random(int count)
         {
-            var randoms = this.productsService.GetRandomProducts(count).To<IndexProductViewModel>().ToList();
+            var randoms = this.productsService.GetRandomProducts(count).To<ProductViewModel>().ToList();
             return this.View(randoms);
         }
 
