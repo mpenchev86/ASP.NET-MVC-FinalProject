@@ -22,25 +22,22 @@
         private ISampleService sampleService;
         private IProductsService productsService;
         private ICategoriesService categoriesService;
-        private ICacheService cacheService;
 
         public HomeController(
             ISampleService service,
             IProductsService productsService,
-            ICategoriesService categoriesService,
-            ICacheService cacheService)
+            ICategoriesService categoriesService)
         {
             this.sampleService = service;
             this.productsService = productsService;
             this.categoriesService = categoriesService;
-            this.cacheService = cacheService;
         }
 
         [OutputCache(Duration = 30 * 60, Location = OutputCacheLocation.Server, VaryByCustom = "SomeOtherIdentifier")]
         public ActionResult Index()
         {
             var allProducts =
-                this.cacheService.Get(
+                this.Cache.Get(
                     "products",
                     () => this.productsService.GetAllProducts().To<ProductViewModel>().ToList(),
                     15 * 60);
