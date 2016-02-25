@@ -24,6 +24,7 @@
                 .ShouldMap(Url)
                 .To<ProductsController>(ctr => ctr.ById("M2toaGR3NldEbW4tc2sha2o4bQ=="));
             
+            // Structure of the above test
             // => ProductsController
             // => ById
             // => Id = M2toaGR3NldEbW4tc2sha2o4bQ==

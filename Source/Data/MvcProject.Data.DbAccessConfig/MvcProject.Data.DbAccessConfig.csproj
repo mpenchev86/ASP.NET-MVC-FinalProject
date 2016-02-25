@@ -60,9 +60,6 @@
   <ItemGroup>
     <Compile Include="IMvcProjectDbContext.cs" />
     <Compile Include="Migrations\201602041650145_InitialCreate.cs" />
-    <Compile Include="Migrations\201602041650145_InitialCreate.Designer.cs">
-      <DependentUpon>201602041650145_InitialCreate.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MvcProjectDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -82,11 +79,6 @@
       <Project>{f3dfda1d-99d1-46ad-9cfa-a0b9aa7a750c}</Project>
       <Name>MvcProject.Data.Models</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201602041650145_InitialCreate.resx">
-      <DependentUpon>201602041650145_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\Newtonsoft.Json.dll" />
