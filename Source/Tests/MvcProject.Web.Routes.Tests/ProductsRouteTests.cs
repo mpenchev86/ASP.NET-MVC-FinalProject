@@ -18,10 +18,10 @@
         public void TestRouteById()
         {
             var routeCollection = new RouteCollection();
-            const string url = "/Product/M2toaGR3NldEbW4tc2sha2o4bQ==";
+            const string Url = "/Product/M2toaGR3NldEbW4tc2sha2o4bQ==";
             RouteConfig.RegisterRoutes(routeCollection);
             routeCollection
-                .ShouldMap(url)
+                .ShouldMap(Url)
                 .To<ProductsController>(ctr => ctr.ById("M2toaGR3NldEbW4tc2sha2o4bQ=="));
             
             // => ProductsController

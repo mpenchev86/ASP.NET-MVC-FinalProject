@@ -329,14 +329,15 @@
                 return this.View("Error");
             }
 
-            return this.RedirectToAction(
-                "VerifyCode",
-                new
-                {
-                    Provider = model.SelectedProvider,
-                    ReturnUrl = model.ReturnUrl,
-                    RememberMe = model.RememberMe
-                });
+            return this
+                .RedirectToAction(
+                    "VerifyCode",
+                    new
+                    {
+                        Provider = model.SelectedProvider,
+                        ReturnUrl = model.ReturnUrl,
+                        RememberMe = model.RememberMe
+                    });
         }
 
         // GET: /Account/ExternalLoginCallback

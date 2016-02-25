@@ -33,8 +33,8 @@
         }
 
         // For custom OutPutCache VaryByCustom
-        //public override string GetVaryByCustomString(HttpContext context, string custom)
-        //{
+        // public override string GetVaryByCustomString(HttpContext context, string custom)
+        // {
         //    if (custom == "SessionCache")
         //    {
         //        return this.Session.SessionID;
@@ -44,7 +44,7 @@
         //        // specify how to cache in this case
         //    }
 
-        //    return base.GetVaryByCustomString(context, custom);
-        //}
+        // return base.GetVaryByCustomString(context, custom);
+        // }
     }
 }

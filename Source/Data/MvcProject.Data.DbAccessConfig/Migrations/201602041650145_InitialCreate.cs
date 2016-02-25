@@ -1,4 +1,4 @@
-namespace MvcProject.Data.DbAccessConfig.Migrations
+﻿namespace MvcProject.Data.DbAccessConfig.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;

@@ -60,11 +60,10 @@
                 .As(typeof(IRepository<>))
                 .InstancePerRequest();
 
-            //builder
+            // builder
             //    .Register(x => new SampleService())
             //    .As<ISampleService>()
             //    .InstancePerRequest();
-
             builder
                 .Register(x => new HttpCacheService())
                 .As<ICacheService>()
