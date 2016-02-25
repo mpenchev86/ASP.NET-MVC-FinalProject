@@ -30,6 +30,12 @@
             //        nonNullableInt = @"\d+",
             //        isChrome = new CustomRouteConstraints()
             //    });
+
+            //routes.MapRoute(
+            //    name: "ProductPage",
+            //    url: "Product/{id}",
+            //    defaults: new { controller = "ProductsController", action = "ById" });
+
             routes
                 .MapRoute(
                     name: "Default",

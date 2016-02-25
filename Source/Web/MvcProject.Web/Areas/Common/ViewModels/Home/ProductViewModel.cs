@@ -10,6 +10,7 @@
     using Data.Models;
     using GlobalConstants;
     using Infrastructure.Mapping;
+    using Services.Web;
 
     [Bind(Include = "Name,Description,Category")]
     public class ProductViewModel : IMapFrom<Product>, IHaveCustomMappings
@@ -23,6 +24,15 @@
         public string Description { get; set; }
 
         public string Category { get; set; }
+
+        public string Url
+        {
+            get
+            {
+                IIdentifierProvider provider = new IdentifierProvider();
+                return $"/Product/{provider.EncodeId(this.Id)}";
+            }
+        }
 
         // public IEnumerable<Tag> Tags { get; set; }
         public void CreateMappings(IMapperConfiguration configuration)

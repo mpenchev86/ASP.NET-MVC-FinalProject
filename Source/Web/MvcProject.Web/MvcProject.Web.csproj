@@ -249,6 +249,7 @@
     <Compile Include="Areas\Common\Controllers\HomeController.cs" />
     <Compile Include="Areas\Common\Controllers\ManageController.cs" />
     <Compile Include="App_Start\GlimpseSecurityPolicy.cs" />
+    <Compile Include="Areas\Common\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Common\ViewModels\Home\IndexViewModel.cs" />
     <Compile Include="Areas\Common\ViewModels\Home\ProductCategoryViewModel.cs" />
     <Compile Include="Global.asax.cs">
@@ -302,6 +303,7 @@
     <Content Include="Areas\Common\Views\Shared\DisplayTemplates\CustomTemplate.cshtml" />
     <Content Include="Areas\Common\Views\Home\FormResults.cshtml" />
     <Content Include="Areas\Common\Views\Shared\_ProductResult.cshtml" />
+    <Content Include="Areas\Common\Views\Products\ById.cshtml" />
     <None Include="Properties\PublishProfiles\testWebDep.pubxml" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />

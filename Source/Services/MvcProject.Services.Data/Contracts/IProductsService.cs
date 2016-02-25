@@ -8,5 +8,7 @@
         IQueryable<Product> GetAllProducts();
 
         IQueryable<Product> GetRandomProducts(int count);
+
+        Product GetById(string id);
     }
 }

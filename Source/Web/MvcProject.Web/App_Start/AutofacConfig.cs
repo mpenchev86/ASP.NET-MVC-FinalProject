@@ -70,6 +70,11 @@
                 .As<ICacheService>()
                 .InstancePerRequest();
 
+            builder
+                .Register(x => new IdentifierProvider())
+                .As<IIdentifierProvider>()
+                .InstancePerRequest();
+
             var dataServicesAssembly = Assembly.Load(GlobalConstants.Assemblies.DataServicesAssemblyName);
             builder
                 .RegisterAssemblyTypes(dataServicesAssembly)

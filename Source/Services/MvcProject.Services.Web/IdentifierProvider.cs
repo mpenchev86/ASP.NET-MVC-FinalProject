@@ -8,12 +8,15 @@
 
     public class IdentifierProvider : IIdentifierProvider
     {
-        private const string Salt = ".443222";
+        private const string Salt = "khhdw6WDmn-sk!kj8m";
 
         public int DecodeId(string urlId)
         {
             var base64EncodedBytes = Convert.FromBase64String(urlId);
-            return int.Parse(Encoding.UTF8.GetString(base64EncodedBytes));
+            var baseAsString = Encoding.UTF8
+                .GetString(base64EncodedBytes)
+                .Substring(0, base64EncodedBytes.Length - Salt.Length);
+            return int.Parse(baseAsString);
         }
 
         public string EncodeId(int id)

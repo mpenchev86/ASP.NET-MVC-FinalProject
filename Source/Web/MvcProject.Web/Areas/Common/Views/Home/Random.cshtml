@@ -1,4 +1,5 @@
-﻿@model IEnumerable<MvcProject.Web.Areas.Common.ViewModels.Home.ProductViewModel>
+﻿@using MvcProject.Services.Web
+@model IEnumerable<MvcProject.Web.Areas.Common.ViewModels.Home.ProductViewModel>
 @{
     ViewBag.Title = "Random";
 }
@@ -9,7 +10,7 @@
     {
         <div class="row">
             <div class="col-md-1">
-                @product.Name
+                <a href="@product.Url">@product.Name</a>
             </div>
             <div class="col-md-1">
                 @product.Category
