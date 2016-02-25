@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.Resources", "Com
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.Services.Web.Tests", "Tests\MvcProject.Services.Web.Tests\MvcProject.Services.Web.Tests.csproj", "{282C6693-6C41-44A8-B413-9C8DBA25B0DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.Web.Routes.Tests", "Tests\MvcProject.Web.Routes.Tests\MvcProject.Web.Routes.Tests.csproj", "{183A0EC6-E9A4-4BC6-81F0-1C2EDCAF054B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{282C6693-6C41-44A8-B413-9C8DBA25B0DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{282C6693-6C41-44A8-B413-9C8DBA25B0DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{282C6693-6C41-44A8-B413-9C8DBA25B0DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{183A0EC6-E9A4-4BC6-81F0-1C2EDCAF054B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{183A0EC6-E9A4-4BC6-81F0-1C2EDCAF054B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{183A0EC6-E9A4-4BC6-81F0-1C2EDCAF054B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{183A0EC6-E9A4-4BC6-81F0-1C2EDCAF054B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,5 +93,6 @@ Global
 		{B14DFB67-88F5-4714-A592-ECAB1F8F74A9} = {9DC8729B-38F3-4B60-B928-9770099D0C66}
 		{08374F36-2EBC-4006-988F-3D41A4D6A30C} = {A0643423-A04D-4E88-8533-A15C60383B64}
 		{282C6693-6C41-44A8-B413-9C8DBA25B0DC} = {462F3DD2-6BEA-42B9-95A4-94031690EA48}
+		{183A0EC6-E9A4-4BC6-81F0-1C2EDCAF054B} = {462F3DD2-6BEA-42B9-95A4-94031690EA48}
 	EndGlobalSection
 EndGlobal

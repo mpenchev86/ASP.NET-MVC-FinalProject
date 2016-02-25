@@ -14,10 +14,10 @@
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
-            context.MapRoute(
-                name: "Encode_Decode_Id",
-                url: "Product/{id}",
-                defaults: new { controller = "Products", action = "ById" });
+            //context.MapRoute(
+            //    name: "Encode_Decode_Id",
+            //    url: "Product/{id}",
+            //    defaults: new { controller = "Products", action = "ById" });
 
             context.MapRoute(
                 name: "Common_default",

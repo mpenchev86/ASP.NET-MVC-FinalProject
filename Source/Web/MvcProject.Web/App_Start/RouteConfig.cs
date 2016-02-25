@@ -31,10 +31,13 @@
             //        isChrome = new CustomRouteConstraints()
             //    });
 
-            //routes.MapRoute(
-            //    name: "ProductPage",
-            //    url: "Product/{id}",
-            //    defaults: new { controller = "ProductsController", action = "ById" });
+            // MvcRouteTester doesn't work if this route is defined in the area registration
+            routes
+                .MapRoute(
+                    name: "ProductPage",
+                    url: "Product/{id}",
+                    defaults: new { controller = "Products", action = "ById" })
+                .DataTokens.Add("area", "Common");
 
             routes
                 .MapRoute(
