@@ -1,0 +1,13 @@
+version: 1.0.{build}
+before_build:
+- cmd: nuget restore Source/MvcFinalProject.sln
+build:
+  verbosity: minimal
+test_script:
+- .\packages\OpenCover.4.5.3522\OpenCover.Console.exe -register:user -target:".\packages\NUnit.Console.3.0.1\tools\nunit3-console.exe" "-targetargs:..Source\Tests\MvcProject.Services.Web.Tests\bin\Debug\MvcProject.Services.Web.Tests.dll ..Source\Tests\MvcProject.Web.Controllers.Tests\bin\Debug\MvcProject.Web.Controllers.Tests.dll ..Source\Tests\MvcProject.Web.Routes.Tests\bin\Debug\MvcProject.Web.Routes.Tests.dll" -filter:"+[MvcFinalProject]*" -excludebyattribute:*.ExcludeFromCodeCoverage* -hideskipped:All -output:.\MvcFinalProject_coverage.xml
+- "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
+- pip install codecov
+- codecov -f "MyProject_coverage.xml"
+# preserve "packages" directory in the root of build folder but will reset it if packages.config is modified
+cache:
+  - packages -> **\packages.config
