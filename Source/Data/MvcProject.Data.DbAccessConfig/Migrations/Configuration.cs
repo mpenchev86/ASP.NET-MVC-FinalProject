@@ -5,7 +5,7 @@
     using System.Data.Entity.Migrations;
     using System.Linq;
     using GlobalConstants;
-
+    using Models;
     public sealed class Configuration : DbMigrationsConfiguration<MvcProjectDbContext>
     {
         public Configuration()
@@ -30,6 +30,38 @@
             //    new Person { FullName = "Brice Lambson" },
             //    new Person { FullName = "Rowan Miller" }
             //  );
+            if (!context.Tags.Any())
+            {
+                context.Tags.AddOrUpdate(
+                    t => t.Name,
+                    new Tag { Name = "duvka" },
+                    new Tag { Name = "vafla" },
+                    new Tag { Name = "bonbon" });
+
+                context.SaveChanges();
+            }
+
+            if (!context.ProductCategory.Any())
+            {
+                context.ProductCategory.AddOrUpdate(
+                    c => c.Name,
+                    new ProductCategory { Name = "duvki" },
+                    new ProductCategory { Name = "vafli" },
+                    new ProductCategory { Name = "bonbonki" });
+
+                context.SaveChanges();
+            }
+
+            if (!context.Products.Any())
+            {
+                context.Products.AddOrUpdate(
+                    p => p.Name,
+                    new Product { Name = "huba buba" },
+                    new Product { Name = "vafla chudo" },
+                    new Product { Name = "MnM" });
+
+                context.SaveChanges();
+            }
         }
     }
 }

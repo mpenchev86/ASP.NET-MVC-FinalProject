@@ -13,6 +13,8 @@
     {
         IDbSet<Product> Products { get; set; }
 
+        IDbSet<ProductCategory> ProductCategory { get; set; }
+
         IDbSet<Tag> Tags { get; set; }
 
         IDbSet<ApplicationUser> Users { get; set; }

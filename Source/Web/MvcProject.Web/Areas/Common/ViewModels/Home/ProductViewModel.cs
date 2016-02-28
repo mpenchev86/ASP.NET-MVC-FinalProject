@@ -38,7 +38,7 @@
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Product, ProductViewModel>()
-                .ForMember(vm => vm.Category, opt => opt.MapFrom(e => e.Category.Name));
+                .ForMember(vm => vm.Category, opt => opt.MapFrom(m => m.Category.Name));
         }
     }
 }

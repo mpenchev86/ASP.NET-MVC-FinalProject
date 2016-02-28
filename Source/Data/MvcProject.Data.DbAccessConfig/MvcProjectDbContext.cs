@@ -21,6 +21,8 @@
 
         public IDbSet<Product> Products { get; set; }
 
+        public IDbSet<ProductCategory> ProductCategory { get; set; }
+
         public IDbSet<Tag> Tags { get; set; }
 
         public static MvcProjectDbContext Create()
