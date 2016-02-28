@@ -6,7 +6,7 @@ build:
 test_script:
   - nuget.exe install OpenCover -ExcludeVersion
   - nuget.exe install NUnit.Runners -ExcludeVersion
-  - OpenCover\tools\OpenCover.Console.exe -register:user -filter:"+[MvcFinalProject]*" -target:"NUnit.Console\tools\nunit3-console.exe" "-targetargs:/domain:single Tests\MvcProject.Services.Web.Tests\bin\Debug\MvcProject.Services.Web.Tests.dll" -returntargetcode -hideskipped:All -output:.\MvcFinalProject_coverage.xml
+  - OpenCover\tools\OpenCover.Console.exe -register:user -filter:"+[MvcFinalProject]*" -target:"NUnit.Console\tools\nunit3-console.exe" "-targetargs:..\Tests\MvcProject.Services.Web.Tests\bin\Debug\MvcProject.Services.Web.Tests.dll" -returntargetcode -hideskipped:All -output:.\MvcFinalProject_coverage.xml
   - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
   - pip install codecov
   - codecov -f "coverage.xml"
