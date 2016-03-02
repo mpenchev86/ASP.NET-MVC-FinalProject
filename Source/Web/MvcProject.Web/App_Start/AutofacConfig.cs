@@ -14,6 +14,7 @@
     using Data.DbAccessConfig.Repositories;
     using Data.Models;
     using GlobalConstants;
+    using Infrastructure.Sanitizer;
     using Infrastructure.ViewEngines;
     using Services.Data;
     using Services.Web;
@@ -60,10 +61,6 @@
                 .As(typeof(IRepository<>))
                 .InstancePerRequest();
 
-            // builder
-            //    .Register(x => new SampleService())
-            //    .As<ISampleService>()
-            //    .InstancePerRequest();
             builder
                 .Register(x => new HttpCacheService())
                 .As<ICacheService>()
@@ -72,6 +69,11 @@
             builder
                 .Register(x => new IdentifierProvider())
                 .As<IIdentifierProvider>()
+                .InstancePerRequest();
+
+            builder
+                .Register(x => new HtmlSanitizerAdapter())
+                .As<ISanitizer>()
                 .InstancePerRequest();
 
             var dataServicesAssembly = Assembly.Load(GlobalConstants.Assemblies.DataServicesAssemblyName);
@@ -83,6 +85,12 @@
             var webServicesAssembly = Assembly.Load(GlobalConstants.Assemblies.WebServicesAssemblyName);
             builder
                 .RegisterAssemblyTypes(webServicesAssembly)
+                .AsImplementedInterfaces()
+                .InstancePerRequest();  // Could be wrong
+
+            var infrastructureAssembly = Assembly.Load(GlobalConstants.Assemblies.InfrastructureAssemblyName);
+            builder
+                .RegisterAssemblyTypes(infrastructureAssembly)
                 .AsImplementedInterfaces()
                 .InstancePerRequest();  // Could be wrong
 

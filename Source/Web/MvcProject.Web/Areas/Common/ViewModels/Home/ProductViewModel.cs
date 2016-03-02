@@ -10,11 +10,19 @@
     using Data.Models;
     using GlobalConstants;
     using Infrastructure.Mapping;
+    using Infrastructure.Sanitizer;
     using Services.Web;
 
     [Bind(Include = "Name,Description,Category")]
     public class ProductViewModel : IMapFrom<Product>, IHaveCustomMappings
     {
+        private ISanitizer sanitizer;
+
+        public ProductViewModel()
+        {
+            this.sanitizer = new HtmlSanitizerAdapter();
+        }
+
         public int Id { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resources.Home.Index), ErrorMessageResourceName = nameof(Resources.Home.Index.RequiredField))]
@@ -22,6 +30,8 @@
 
         [UIHint(GlobalConstants.Templates.CustomStringTemplate)]
         public string Description { get; set; }
+
+        public string SanitizedDescription => this.sanitizer.Sanitize(this.Description);
 
         public string Category { get; set; }
 

@@ -46,7 +46,7 @@
                     {
                         Name = "someName",
                         Description = this.ProductDescription,
-                        Category = new ProductCategory()
+                        Category = new Category()
                         {
                             Name = "someName"
                         }

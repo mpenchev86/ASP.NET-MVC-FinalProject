@@ -41,13 +41,13 @@
                 context.SaveChanges();
             }
 
-            if (!context.ProductCategory.Any())
+            if (!context.Category.Any())
             {
-                context.ProductCategory.AddOrUpdate(
+                context.Category.AddOrUpdate(
                     c => c.Name,
-                    new ProductCategory { Name = "duvki" },
-                    new ProductCategory { Name = "vafli" },
-                    new ProductCategory { Name = "bonbonki" });
+                    new Category { Name = "duvki" },
+                    new Category { Name = "vafli" },
+                    new Category { Name = "bonbonki" });
 
                 context.SaveChanges();
             }

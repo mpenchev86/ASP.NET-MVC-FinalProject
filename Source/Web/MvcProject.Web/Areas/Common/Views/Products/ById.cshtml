@@ -11,7 +11,7 @@
         @Model.Name
     </div>
     <div>
-        @Model.Description
+        @Html.Raw(Model.SanitizedDescription)   @*Used instead Model.Description in case we have accepted Html input*@
     </div>
     <div>
         @Model.Category

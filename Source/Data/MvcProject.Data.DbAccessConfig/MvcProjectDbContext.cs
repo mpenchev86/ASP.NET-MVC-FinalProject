@@ -21,7 +21,7 @@
 
         public IDbSet<Product> Products { get; set; }
 
-        public IDbSet<ProductCategory> ProductCategory { get; set; }
+        public IDbSet<Category> Category { get; set; }
 
         public IDbSet<Tag> Tags { get; set; }
 

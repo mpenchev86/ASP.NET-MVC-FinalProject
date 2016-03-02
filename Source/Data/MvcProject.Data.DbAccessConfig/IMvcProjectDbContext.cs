@@ -13,7 +13,7 @@
     {
         IDbSet<Product> Products { get; set; }
 
-        IDbSet<ProductCategory> ProductCategory { get; set; }
+        IDbSet<Category> Category { get; set; }
 
         IDbSet<Tag> Tags { get; set; }
 

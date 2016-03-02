@@ -1,5 +1,3 @@
-﻿@model string
+﻿@model object 
 
-<div class="col-md-2">
-    @Html.TextBoxFor(m => m, new { @class = "form-control" })
-</div>
+@Html.Kendo().TextBoxFor(model => model)

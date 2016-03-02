@@ -13,6 +13,7 @@
     using Infrastructure.Caching;
     using Infrastructure.Filters;
     using Infrastructure.Mapping;
+    using Kendo.Mvc.UI;
     using Services.Data;
     using Services.Web;
     using ViewModels.Home;
@@ -34,13 +35,13 @@
             this.categoriesService = categoriesService;
         }
 
-        [OutputCache(Duration = 30 * 60, Location = OutputCacheLocation.Server, VaryByCustom = "SomeOtherIdentifier")]
+        //[OutputCache(Duration = 30 * 60, Location = OutputCacheLocation.Server, VaryByCustom = "SomeOtherIdentifier")]
         public ActionResult Index()
         {
             var allProducts =
                 this.Cache.Get(
                     "products",
-                    () => this.productsService.GetAllProducts().To<ProductViewModel>().ToList(),
+                    () => this.productsService.GetAll().To<ProductViewModel>().ToList(),
                     15 * 60);
             var viewModel = new IndexViewModel
             {
@@ -54,7 +55,7 @@
         public ActionResult FormResults()
         {
             var products = this.productsService
-                .GetAllProducts()
+                .GetAll()
                 .To<ProductViewModel>()
                 .ToList();
 
@@ -64,7 +65,7 @@
         public ActionResult Search(string query)
         {
             var result = this.productsService
-                .GetAllProducts()
+                .GetAll()
                 .Where(x => x.Name.ToLower().Contains(query.ToLower()))
                 .To<ProductViewModel>()
                 .ToList();
@@ -81,7 +82,7 @@
             }
 
             var product = this.productsService
-                .GetAllProducts()
+                .GetAll()
                 .FirstOrDefault(x => x.Id == id);
             if (product == null)
             {

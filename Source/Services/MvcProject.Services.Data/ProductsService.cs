@@ -22,7 +22,7 @@
             this.provider = provider;
         }
 
-        public IQueryable<Product> GetAllProducts()
+        public IQueryable<Product> GetAll()
         {
             var result = this.products
                              .All();

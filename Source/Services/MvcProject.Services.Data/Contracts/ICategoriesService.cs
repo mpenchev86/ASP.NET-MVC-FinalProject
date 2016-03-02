@@ -7,8 +7,7 @@
     using System.Threading.Tasks;
     using MvcProject.Data.Models;
 
-    public interface ICategoriesService
+    public interface ICategoriesService : IBaseService<Category>
     {
-        IQueryable<ProductCategory> GetAll();
     }
 }

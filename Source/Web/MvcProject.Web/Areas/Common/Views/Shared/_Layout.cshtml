@@ -4,9 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render(MvcProject.GlobalConstants.Bundles.StyleContentKendoCss)
     @Styles.Render(MvcProject.GlobalConstants.Bundles.StyleContentCss)
-    @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptModernizr)
+    @RenderSection("styles", required: false)
     @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptJQuery)
+    @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptKendo)
     @*<script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
     <script src="~/signalr/hubs" type="text/javascript"></script>*@
 </head>
@@ -42,8 +44,8 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-
-    @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptJQuery)
+    @*When Kendo is used, both with jquery go to head. Uncomment if Kendo is not used*@
+    @*@Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptJQuery)*@
     @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptBootstrap)
     @RenderSection("scripts", required: false)
 </body>

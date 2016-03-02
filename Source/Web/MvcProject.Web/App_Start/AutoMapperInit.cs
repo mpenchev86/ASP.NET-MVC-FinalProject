@@ -11,8 +11,8 @@
     {
         public static void Initialize(Assembly assembly)
         {
-            var autoMapper = new AutoMapperConfig();
-            autoMapper.Execute(assembly);
+            var autoMapperConfig = new AutoMapperConfig();
+            autoMapperConfig.Execute(assembly);
         }
     }
 }

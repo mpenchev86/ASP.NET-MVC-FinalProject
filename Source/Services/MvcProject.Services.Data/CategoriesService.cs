@@ -10,14 +10,14 @@
 
     public class CategoriesService : ICategoriesService
     {
-        private readonly IRepository<ProductCategory> categories;
+        private readonly IRepository<Category> categories;
 
-        public CategoriesService(IRepository<ProductCategory> categories)
+        public CategoriesService(IRepository<Category> categories)
         {
             this.categories = categories;
         }
 
-        public IQueryable<ProductCategory> GetAll()
+        public IQueryable<Category> GetAll()
         {
             var result = this.categories
                              .All()
