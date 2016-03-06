@@ -6,7 +6,7 @@ build:
 test_script:
   - nuget.exe install OpenCover -ExcludeVersion
   - nuget.exe install NUnit.Runners -ExcludeVersion
-  - OpenCover\tools\OpenCover.Console.exe -register:user -filter:"+[MvcFinalProject]*" -target:"NUnit.Console.3.0.1\tools\nunit3-console.exe" "-targetargs:..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Services.Web.Tests\bin\Debug\MvcProject.Services.Web.Tests.dll ..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Web.Controllers.Tests\bin\Debug\MvcProject.Web.Controllers.Tests.dll ..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Web.Routes.Tests\bin\Debug\MvcProject.Web.Routes.Tests.dll" -returntargetcode -hideskipped:All -output:.\MvcFinalProject_coverage.xml
+  - OpenCover\tools\OpenCover.Console.exe -register:user -filter:"+[MvcFinalProject]*" -target:"NUnit.Console\tools\nunit-console.exe" "-targetargs:..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Services.Web.Tests\bin\Debug\MvcProject.Services.Web.Tests.dll ..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Web.Controllers.Tests\bin\Debug\MvcProject.Web.Controllers.Tests.dll ..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Web.Routes.Tests\bin\Debug\MvcProject.Web.Routes.Tests.dll" -returntargetcode -hideskipped:All -output:.\MvcFinalProject_coverage.xml
   - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
   - pip install codecov
   - codecov -f "MvcFinalProject_coverage.xml"
