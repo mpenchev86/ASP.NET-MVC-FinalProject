@@ -2,7 +2,7 @@ version: 1.0.{build}
 before_build:
 - cmd: nuget restore Source/MvcFinalProject.sln
 build:
-  project: MvcFinalProject.sln
+  project: Source/MvcFinalProject.sln
   verbosity: minimal
 test_script:
   - .\packages\OpenCover.4.6.519\OpenCover.Console.exe -register:user -filter:"+[MvcFinalProject]*" -target:"packages\NUnit.Console.3.0.1\tools\nunit3-console.exe" "-targetargs:..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Services.Web.Tests\bin\Debug\MvcProject.Services.Web.Tests.dll ..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Web.Controllers.Tests\bin\Debug\MvcProject.Web.Controllers.Tests.dll ..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Web.Routes.Tests\bin\Debug\MvcProject.Web.Routes.Tests.dll" -returntargetcode -hideskipped:All -output:.\MvcFinalProject_coverage.xml
