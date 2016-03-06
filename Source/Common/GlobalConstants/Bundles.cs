@@ -6,6 +6,7 @@
         public const string ScriptJQuery = "~/bundles/jquery";
         public const string ScriptJQueryVal = "~/bundles/jqueryval";
         public const string ScriptKendo = "~/bundles/kendo-js";
+        public const string ScriptSignalR = "~/bundles/signalR";
         public const string StyleContentCss = "~/bundles/content-css";
         public const string StyleContentKendoCss = "~/bundles/content/kendo-css";
     }

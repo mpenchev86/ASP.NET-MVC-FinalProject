@@ -1,0 +1,16 @@
+﻿<div>
+    @(Html.Kendo()
+        .DatePicker()
+        .Name("datepicker")
+        .Min(DateTime.Now.AddDays(-200))
+        .HtmlAttributes(new { custom_attribute = "customvalue" })
+        .Deferred())
+
+    @*@(Html.Kendo()
+        .ColorPicker()
+        .Name("colorpicker")
+        .Deferred())*@
+</div>
+@section Scripts {
+    @Html.Kendo().DeferredScripts()
+}

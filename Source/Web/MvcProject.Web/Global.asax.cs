@@ -32,7 +32,7 @@
             AutoMapperInit.Initialize(Assembly.GetExecutingAssembly());
         }
 
-        // For custom OutPutCache VaryByCustom
+        //// For custom OutPutCache VaryByCustom
         // public override string GetVaryByCustomString(HttpContext context, string custom)
         // {
         //    if (custom == "SessionCache")

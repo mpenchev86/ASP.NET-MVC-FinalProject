@@ -7,10 +7,6 @@
     @Styles.Render(MvcProject.GlobalConstants.Bundles.StyleContentKendoCss)
     @Styles.Render(MvcProject.GlobalConstants.Bundles.StyleContentCss)
     @RenderSection("styles", required: false)
-    @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptJQuery)
-    @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptKendo)
-    @*<script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
-    <script src="~/signalr/hubs" type="text/javascript"></script>*@
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -44,9 +40,13 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-    @*When Kendo is used, both with jquery go to head. Uncomment if Kendo is not used*@
-    @*@Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptJQuery)*@
+    @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptJQuery)
+    @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptKendo)
     @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptBootstrap)
-    @RenderSection("scripts", required: false)
+    @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptSignalR)
+    @*// In case the bundle for signalR above doesn't work - use these two below*@
+    @*<script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
+        <script src="~/signalr/hubs"></script>*@
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

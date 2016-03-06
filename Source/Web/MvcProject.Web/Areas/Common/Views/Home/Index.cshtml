@@ -6,9 +6,10 @@
 
 @(Html.Kendo()
     .DatePicker()
-    .Name("datepickMe"))
+    .Name("datepickMe")
+    .Deferred())
 
-@Resources.Home.Index.Welcome
+<div>@Resources.Home.Index.Welcome</div>
 
 <div class="container">
     @for (var i = 0; i < Model.Products.Count(); i++)
@@ -49,6 +50,11 @@
         <hr />
     }
 </div>
+
+@section Scripts {
+    @Html.Kendo().DeferredScripts()
+}
+
 
 
 
