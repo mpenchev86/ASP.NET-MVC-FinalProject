@@ -2,11 +2,10 @@ version: 1.0.{build}
 before_build:
 - cmd: nuget restore Source/MvcFinalProject.sln
 build:
+  project: Source/MvcFinalProject.sln
   verbosity: minimal
 test_script:
-  - nuget.exe install OpenCover -ExcludeVersion
-  - nuget.exe install NUnit.Runners -ExcludeVersion
-  - OpenCover\tools\OpenCover.Console.exe -register:user -filter:"+[MvcFinalProject]*" -target:"NUnit.Console.3.0.1\tools\nunit3-console.exe" "-targetargs:..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Services.Web.Tests\bin\Debug\MvcProject.Services.Web.Tests.dll ..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Web.Controllers.Tests\bin\Debug\MvcProject.Web.Controllers.Tests.dll ..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Web.Routes.Tests\bin\Debug\MvcProject.Web.Routes.Tests.dll" -returntargetcode -hideskipped:All -output:.\MvcFinalProject_coverage.xml
+  - .\Source\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -filter:"+[MvcFinalProject]*" -target:"Source\packages\NUnit.Console.3.0.1\tools\nunit3-console.exe" "-targetargs:..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Services.Web.Tests\bin\Debug\MvcProject.Services.Web.Tests.dll ..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Web.Controllers.Tests\bin\Debug\MvcProject.Web.Controllers.Tests.dll ..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Web.Routes.Tests\bin\Debug\MvcProject.Web.Routes.Tests.dll" -returntargetcode -hideskipped:All -output:.\MvcFinalProject_coverage.xml
   - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
   - pip install codecov
   - codecov -f "MvcFinalProject_coverage.xml"
