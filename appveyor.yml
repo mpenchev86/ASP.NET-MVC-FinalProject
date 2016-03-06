@@ -11,5 +11,5 @@ test_script:
   - pip install codecov
   - codecov -f "MvcFinalProject_coverage.xml"
 # preserve "packages" directory in the root of build folder but will reset it if packages.config is modified
-cache:
-  - packages -> **\packages.config
+# cache:
+  # - packages -> **\packages.config
