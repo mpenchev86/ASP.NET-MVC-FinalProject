@@ -17,8 +17,8 @@ test_script:
 after_test:
 - bash <(curl -s https://codecov.io/bash) -t c23cbb13-9f85-408f-b66f-0c2ba22ac8ed
 # preserve "packages" directory in the root of build folder but will reset it if packages.config is modified
-# cache:
-# - packages -> **\packages.config
+cache:
+- packages -> **\packages.config
 
 
 # -filter:"+[MvcProject]* -[MvcProject]MvcProject.Properties.*"
