@@ -1,0 +1,28 @@
+﻿@model MvcProject.Web.Areas.Common.ViewModels.Kendo.KendoTestViewModel
+@*BindTo data binding*@
+<div>
+    @*@(Html.Kendo()
+        .AutoCompleteFor(m => m.Country)
+        .BindTo(Model.Countries)
+        .Deferred())*@
+
+    @*@(Html.Kendo()
+        .AutoComplete()
+        .Name("countries")
+        .BindTo((List<string>)ViewBag.Countries)
+        .Deferred())*@
+</div>
+@*DataSource data binding*@
+<div>
+    @(Html.Kendo()
+        .AutoCompleteFor(m => m.Country)
+        .DataSource(data =>
+        {
+            data.Read("AutocompleteData", "Kendo");
+        })
+        .Deferred())
+</div>
+
+@section Scripts{
+    @Html.Kendo().DeferredScripts()
+}

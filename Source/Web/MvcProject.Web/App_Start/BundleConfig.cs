@@ -15,7 +15,7 @@
                         "~/Scripts/jquery.unobtrusive-ajax.js"));
 
             bundles.Add(new ScriptBundle(GlobalConstants.Bundles.ScriptKendo).Include(
-                        "~/Scripts/jquery.min.js",
+                        //"~/Scripts/jquery.min.js",
                         "~/Scripts/Kendo/kendo.web.min.js",
                         "~/Scripts/Kendo/kendo.aspnetmvc.min.js"));
 

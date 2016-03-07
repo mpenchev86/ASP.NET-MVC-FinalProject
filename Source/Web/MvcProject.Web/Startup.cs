@@ -14,15 +14,15 @@ namespace MvcProject.Web
 
             // app.MapSignalR();
 
-            // This is a temp fix of app.MapSignalR() memory leak or sth ()
-            var task = Task.Run(() => app.MapSignalR());
-            task.Wait(300);
+            //// This is a temp fix of app.MapSignalR() memory leak or sth ()
+            //var task = Task.Run(() => app.MapSignalR());
+            //task.Wait(300);
 
-            // try again if it fails just to be sure ;)
-            if (task.IsCanceled)
-            {
-                Task.Run(() => app.MapSignalR()).Wait(300);
-            }
+            //// try again if it fails just to be sure ;)
+            //if (task.IsCanceled)
+            //{
+            //    Task.Run(() => app.MapSignalR()).Wait(300);
+            //}
         }
     }
 }

@@ -264,6 +264,7 @@
     <Compile Include="Areas\Common\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Common\ViewModels\Home\IndexViewModel.cs" />
     <Compile Include="Areas\Common\ViewModels\Home\CategoryViewModel.cs" />
+    <Compile Include="Areas\Common\ViewModels\Kendo\KendoTestViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -755,6 +756,7 @@
     <Content Include="Areas\Common\Views\Shared\EditorTemplates\String.cshtml" />
     <Content Include="Areas\Common\Views\Shared\EditorTemplates\Time.cshtml" />
     <Content Include="Areas\Common\Views\Shared\EditorTemplates\Url.cshtml" />
+    <Content Include="Areas\Common\Views\Kendo\AutoComplete.cshtml" />
     <None Include="Properties\PublishProfiles\testWebDep.pubxml" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.dll" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.xml" />
