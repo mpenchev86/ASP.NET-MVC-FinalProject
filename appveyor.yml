@@ -1,0 +1,15 @@
+version: 1.0.{build}
+before_build:
+- cmd: nuget restore Source/MvcFinalProject.sln
+build:
+  project: Source/MvcFinalProject.sln
+  verbosity: detailed
+test_script:
+- cmd: >-
+    - .\Source\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -filter:"+[MvcProject]* -[MvcProject]MvcProject.Properties.*" -target:"Source\packages\NUnit.Console.3.0.1\tools\nunit3-console.exe" -targetargs:"C:\projects\asp-net-mvc-finalproject\Source\Tests\MvcProject.Services.Web.Tests\bin\Debug\MvcProject.Services.Web.Tests.dll" -returntargetcode -hideskipped:All -output:.\Source\MvcProject_coverage.xml
+
+    - "SET PATH=C:\\Python\\Python-3-4;C:\\Python\\Python-3-4\\Scripts;%PATH%"
+
+    - pip install codecov
+
+    - codecov -f "Source\MvcProject_coverage.xml"
