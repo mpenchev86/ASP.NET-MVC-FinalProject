@@ -10,7 +10,7 @@ build:
   project: Source\MvcFinalProject.sln
   verbosity: detailed
 test_script:
-- .\Source\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -output:c:\MvcProject_coverage.xml -register:user -target:"Source\packages\NUnit.Console.3.0.1\tools\nunit3-console.exe" -targetargs:"C:\projects\asp-net-mvc-finalproject\Source\Tests\MvcProject.Services.Web.Tests\bin\Debug\MvcProject.Services.Web.Tests.dll" -returntargetcode -hideskipped:All
+- .\Source\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -output:c:\MvcProject_coverage.xml -register:user -target:"Source\packages\NUnit.Console.3.0.1\tools\nunit3-console.exe" -targetargs:"..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Services.Web.Tests\bin\Debug\MvcProject.Services.Web.Tests.dll ..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Web.Controllers.Tests\bin\Debug\MvcProject.Web.Controllers.Tests.dll ..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Web.Routes.Tests\bin\Debug\MvcProject.Web.Routes.Tests.dll" -returntargetcode -hideskipped:All
 - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
 - pip install codecov
 - codecov -f "c:\MvcProject_coverage.xml"
@@ -20,6 +20,4 @@ test_script:
 # - packages -> **\packages.config
 
 
-# ..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Web.Controllers.Tests\bin\Debug\MvcProject.Web.Controllers.Tests.dll ..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Web.Routes.Tests\bin\Debug\MvcProject.Web.Routes.Tests.dll
-
- # -filter:"+[MvcProject]* -[MvcProject]MvcProject.Properties.*"
+# -filter:"+[MvcProject]* -[MvcProject]MvcProject.Properties.*"
