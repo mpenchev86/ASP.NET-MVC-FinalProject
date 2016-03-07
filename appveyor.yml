@@ -3,14 +3,14 @@ os: Visual Studio 2015
 init:
 - git config --global core.autocrlf true
 install:
-- set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
+- "set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%"
 before_build:
 - nuget restore Source\MvcFinalProject.sln
 build:
   project: Source\MvcFinalProject.sln
   verbosity: minimal
 test_script:
-- .\Source\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -filter:"+[MvcProject]* -[MvcProject]MvcProject.Properties.*" -target:"Source\packages\NUnit.Console.3.0.1\tools\nunit3-console.exe" -targetargs:"C:\projects\asp-net-mvc-finalproject\Source\Tests\MvcProject.Services.Web.Tests\bin\Debug\MvcProject.Services.Web.Tests.dll -noshadow -appveyor" -returntargetcode -hideskipped:All -output:.\Source\MvcProject_coverage.xml
+- .\Source\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -filter:"+[MvcProject]* -[MvcProject]MvcProject.Properties.*" -target:"Source\packages\NUnit.Console.3.0.1\tools\nunit3-console.exe" -targetargs:"C:\projects\asp-net-mvc-finalproject\Source\Tests\MvcProject.Services.Web.Tests\bin\Debug\MvcProject.Services.Web.Tests.dll" -returntargetcode -hideskipped:All -output:.\Source\MvcProject_coverage.xml
 - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
 - pip install codecov
 - codecov -f "Source\MvcProject_coverage.xml"
