@@ -24,6 +24,4 @@ cache:
 
 # -filter:"+[MvcProject]* -[MvcProject]MvcProject.Properties.*"
 
-# C:\projects\asp-net-mvc-finalproject\Source\Tests\MvcProject.Services.Web.Tests\bin\Debug\MvcProject.Services.Web.Tests.dll C:\projects\asp-net-mvc-finalproject\Source\Tests\MvcProject.Web.Routes.Tests\bin\Debug\MvcProject.Web.Routes.Tests.dll
-
-# ..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Web.Controllers.Tests\bin\Debug\MvcProject.Web.Controllers.Tests.dll ..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Services.Web.Tests\bin\Debug\MvcProject.Services.Web.Tests.dll ..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Web.Routes.Tests\bin\Debug\MvcProject.Web.Routes.Tests.dll
+# C:\projects\asp-net-mvc-finalproject\Source\Tests\MvcProject.Services.Web.Tests\bin\Debug\MvcProject.Services.Web.Tests.dll
