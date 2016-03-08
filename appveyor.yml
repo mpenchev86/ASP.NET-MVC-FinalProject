@@ -5,9 +5,9 @@ init:
 install:
 - set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
 before_build:
-- nuget restore Source\MvcFinalProject.sln
+- nuget restore Source/MvcFinalProject.sln
 build:
-  project: Source\MvcFinalProject.sln
+  project: Source/MvcFinalProject.sln
   verbosity: Normal
 test_script:
 - .\Source\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -output:c:\MvcProject_coverage.xml -register:user -target:"Source\packages\NUnit.Console.3.0.1\tools\nunit3-console.exe" "-targetargs:..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Web.Controllers.Tests\bin\Debug\MvcProject.Web.Controllers.Tests.dll ..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Services.Web.Tests\bin\Debug\MvcProject.Services.Web.Tests.dll" -returntargetcode -hideskipped:All
