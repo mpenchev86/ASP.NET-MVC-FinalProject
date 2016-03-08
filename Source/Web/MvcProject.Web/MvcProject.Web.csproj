@@ -257,6 +257,7 @@
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Common\Controllers\BaseController.cs" />
     <Compile Include="Areas\Common\Controllers\ChildActionsController.cs" />
+    <Compile Include="Areas\Common\Controllers\GridController.cs" />
     <Compile Include="Areas\Common\Controllers\HomeController.cs" />
     <Compile Include="Areas\Common\Controllers\KendoController.cs" />
     <Compile Include="Areas\Common\Controllers\ManageController.cs" />
@@ -757,6 +758,7 @@
     <Content Include="Areas\Common\Views\Shared\EditorTemplates\Time.cshtml" />
     <Content Include="Areas\Common\Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Areas\Common\Views\Kendo\AutoComplete.cshtml" />
+    <Content Include="Areas\Common\Views\Grid\Index.cshtml" />
     <None Include="Properties\PublishProfiles\testWebDep.pubxml" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.dll" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.xml" />

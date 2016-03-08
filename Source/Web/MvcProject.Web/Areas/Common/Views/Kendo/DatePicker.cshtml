@@ -13,6 +13,7 @@
             .DateTimePickerFor(m => m.SomeDate)
             .Min(DateTime.Now.AddDays(-200))
             .HtmlAttributes(new { custom_attribute = "customvalue" })
+            //.ToClientTemplate()
             .Deferred())
     </div>
 

@@ -16,13 +16,29 @@
 <div>
     @(Html.Kendo()
         .AutoCompleteFor(m => m.Country)
+        .MinLength(3)
         .DataSource(data =>
         {
-            data.Read("AutocompleteData", "Kendo");
+            data
+                .ServerFiltering(true)
+                .Read(read =>
+                {
+                    read
+                        .Action("AutocompleteData", "Kendo")
+                        .Data("onAutocompleteData");
+                });
         })
         .Deferred())
 </div>
 
 @section Scripts{
     @Html.Kendo().DeferredScripts()
+
+    <script>
+        function onAutocompleteData() {
+            return {
+                text: $('#Country').val()
+            }
+        }
+    </script>
 }

@@ -1,0 +1,17 @@
+﻿
+<div>
+    @(Html.Kendo()
+        .Grid<MvcProject.Web.Areas.Common.ViewModels.Kendo.KendoTestViewModel>()
+        .Columns(c =>
+        {
+            c.Bound(m => m.Id);
+            c.Bound(m => m.Name);
+            c.Bound(m => m.Country);
+            c.Bound(m => m.SomeDate).Hidden();
+        })
+        .Deferred())
+</div>
+
+@section Scripts{
+    @Html.Kendo().DeferredScripts()
+}

@@ -46,9 +46,9 @@
             return null;
         }
 
-        public ActionResult AutocompleteData()
+        public ActionResult AutocompleteData(string text)
         {
-            var result = new object[]
+            var result = new[]
             {
                 "Bg",
                 "Zamunda",
@@ -56,7 +56,11 @@
                 "IsReal"
             };
 
-            return null;
+            result = result
+                .Where(r => r.ToLower().Contains(text.ToLower()))
+                .ToArray();
+
+            return this.Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }
