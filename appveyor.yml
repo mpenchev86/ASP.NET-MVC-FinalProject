@@ -1,14 +1,28 @@
 version: 1.0.{build}
+os: Visual Studio 2015
+init:
+- git config --global core.autocrlf true
+install:
+- set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
 before_build:
-- cmd: nuget restore Source/MvcFinalProject.sln
+- nuget restore Source/MvcFinalProject.sln
 build:
   project: Source/MvcFinalProject.sln
-  verbosity: minimal
+  verbosity: Normal
 test_script:
-  - .\Source\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -filter:"+[MvcFinalProject]*" -target:"Source\packages\NUnit.Console.3.0.1\tools\nunit3-console.exe" "-targetargs:..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Services.Web.Tests\bin\Debug\MvcProject.Services.Web.Tests.dll ..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Web.Controllers.Tests\bin\Debug\MvcProject.Web.Controllers.Tests.dll ..\asp-net-mvc-finalproject\Source\Tests\MvcProject.Web.Routes.Tests\bin\Debug\MvcProject.Web.Routes.Tests.dll" -returntargetcode -hideskipped:All -output:.\MvcFinalProject_coverage.xml
+  - .\Source\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -output:.\Source_coverage.xml -register:user -target:"Source\packages\NUnit.Console.3.0.1\tools\nunit3-console.exe" -targetargs:"Source\Tests\MvcProject.Web.Controllers.Tests\bin\Debug\MvcProject.Web.Controllers.Tests.dll Source\Tests\MvcProject.Services.Web.Tests\bin\Debug\MvcProject.Services.Web.Tests.dll Source\Tests\MvcProject.Web.Routes.Tests\bin\Debug\MvcProject.Web.Routes.Tests.dll" -returntargetcode -hideskipped:All
   - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
   - pip install codecov
-  - codecov -f "MvcFinalProject_coverage.xml"
+  - codecov -f "Source_coverage.xml"
+  # - codecov --token=<private repository token>
+after_test:
+  - bash <(curl -s https://codecov.io/bash) -t c23cbb13-9f85-408f-b66f-0c2ba22ac8ed
 # preserve "packages" directory in the root of build folder but will reset it if packages.config is modified
-# cache:
-  # - packages -> **\packages.config
+cache:
+- Source/packages -> **\Source\packages.config
+
+# MvcProject_coverage.xml
+
+# -filter:"+[MvcProject]* -[MvcProject]MvcProject.Properties.*"
+
+# C:\projects\asp-net-mvc-finalproject\Source\Tests\MvcProject.Services.Web.Tests\bin\Debug\MvcProject.Services.Web.Tests.dll
