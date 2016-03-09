@@ -1,13 +1,62 @@
-﻿
-<div>
+﻿<div>
     @(Html.Kendo()
         .Grid<MvcProject.Web.Areas.Common.ViewModels.Kendo.KendoTestViewModel>()
+        .Name("grid")
         .Columns(c =>
         {
             c.Bound(m => m.Id);
             c.Bound(m => m.Name);
             c.Bound(m => m.Country);
-            c.Bound(m => m.SomeDate).Hidden();
+            c.Bound(m => m.SomeDate)
+                .Format("{0:dd/MM/yyyy}")
+                .Title("Registration Date")
+                /*.Hidden()*/
+                ;
+            c.Command(cm =>
+            {
+                cm.Edit().Text("Edit").UpdateText("Save").CancelText("Cancel");
+            });
+        })
+        .ToolBar(t =>
+        {
+            t.Create().Text("Create");
+        })
+        .Editable(e =>
+        {
+            e.Mode(GridEditMode.PopUp);
+            //e.Window(w =>
+            //{
+            //    w.Title("Edit");
+            //});
+        })
+        .ColumnMenu()
+        .Pageable(page => page.Refresh(true))
+        .Sortable(s => s.SortMode(GridSortMode.MultipleColumn))
+        .Filterable(f =>
+        {
+            f.Extra(false);
+            //f.Mode(GridFilterMode.Row);
+        })
+        .Groupable()
+        //.Navigatable()
+        //.Resizable()
+        //.Reorderable()
+        //.Scrollable()
+        //.Selectable()
+        //.Mobile()
+        .DataSource(data =>
+        {
+            data
+                .Ajax()
+                .PageSize(10)
+                // Initial sort column
+                .Sort(s => s.Add(vm => vm.Name).Ascending())
+                // Mandatory if we edit/delete...
+                .Model(m => m.Id(vm => vm.Id))
+                .Read(read => read.Action("Read", "Grid"))
+                .Create(create => create.Action("Create", "Grid "))
+                .Update(u => u.Action("Update", "Grid"))
+                ;
         })
         .Deferred())
 </div>
