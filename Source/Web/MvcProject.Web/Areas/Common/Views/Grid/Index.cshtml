@@ -5,7 +5,7 @@
         .Columns(c =>
         {
             c.Bound(m => m.Id);
-            c.Bound(m => m.Name/*).HtmlAttributes(new { required = "required" }*/);
+            c.Bound(m => m.Name);
             c.Bound(m => m.CreatedOn)
                 .Format("{0:dd/MM/yyyy}")
                 //.Title("Registration Date")
@@ -61,8 +61,7 @@
         // c.Command() in Columns() need this
         //.Update(u => u.Action("Update", "Grid"))
         )
-        .Deferred()
-        /*.ToClientTemplate()*/)
+        .Deferred())
 </div>
 
 @section Scripts{
