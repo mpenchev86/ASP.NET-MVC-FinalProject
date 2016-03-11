@@ -7,62 +7,71 @@ using System.Web.Mvc;
 using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
 using MvcProject.Web.Areas.Common.ViewModels.Kendo;
+using MvcProject.Web.Infrastructure.Caching;
 
 namespace MvcProject.Web.Areas.Common.Controllers
 {
+    //[NoCache]
+    //[OutputCache(CacheProfile = "NoCache")]
     public class GridController : Controller
     {
-        private static IQueryable<KendoTestViewModel> data = new List<KendoTestViewModel>
+        public static IQueryable<KendoTestViewModel> data = new List<KendoTestViewModel>
         {
             new KendoTestViewModel
             {
                 Id = 1,
                 Name = "Pesho1",
-                SomeDate = DateTime.Now.AddDays(-10)
+                CreatedOn = DateTime.Now.AddDays(-10)
             },
             new KendoTestViewModel
             {
                 Id = 2,
                 Name = "Pesho2",
-                SomeDate = DateTime.Now.AddDays(-11)
+                CreatedOn = DateTime.Now.AddDays(-11)
             },
             new KendoTestViewModel
             {
                 Id = 3,
                 Name = "Pesho3",
-                SomeDate = DateTime.Now.AddDays(-12)
+                CreatedOn = DateTime.Now.AddDays(-12)
             },
             new KendoTestViewModel
             {
                 Id = 4,
                 Name = "Pesho4",
-                SomeDate = DateTime.Now.AddDays(-13)
+                CreatedOn = DateTime.Now.AddDays(-13)
             },
             new KendoTestViewModel
             {
                 Id = 5,
                 Name = "Pesho5",
-                SomeDate = DateTime.Now.AddDays(-14)
+                CreatedOn = DateTime.Now.AddDays(-14)
             },
         }.AsQueryable();
 
         public ActionResult Index()
         {
-            return View();
+            return this.View();
         }
 
-        // This is [HttpPost] query
+        [HttpPost]
         public ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
             var result = data
-                .ToDataSourceResult(request/*, this.ModelState*/);
+                .ToDataSourceResult(request);
 
             return this.Json(result);
         }
 
-        public ActionResult Create()
+        [HttpPost]
+        public ActionResult Create([DataSourceRequest]DataSourceRequest request, KendoTestViewModel viewModel)
         {
-            return null;
+            if (viewModel != null && this.ModelState.IsValid)
+            {
+                throw new Exception("WTF");
+            }
+
+            return this.Json(new[] { viewModel }.ToDataSourceResult(request, this.ModelState));
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -14,10 +15,13 @@ namespace MvcProject.Web.Areas.Common.ViewModels.Kendo
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
-        public DateTime SomeDate { get; set; }
+        [Display(Name = "Registration Date")]
+        public DateTime CreatedOn { get; set; }
 
+        [Required]
         public string Country { get; set; }
 
         public IEnumerable<string> Countries { get; set; }

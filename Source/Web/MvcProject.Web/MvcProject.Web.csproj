@@ -91,7 +91,7 @@
     </Reference>
     <Reference Include="Kendo.Mvc, Version=2016.1.226.545, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libraries\Kendo\Kendo.Mvc.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Telerik\UI for ASP.NET MVC Q1 2016\wrappers\aspnetmvc\Binaries\Mvc5\Kendo.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.2.2.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
@@ -780,6 +780,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Kendo\kendo.all.min.js" />
     <Content Include="Scripts\Kendo\kendo.aspnetmvc.min.js" />
+    <Content Include="Scripts\Kendo\kendo.binder.min.js" />
+    <Content Include="Scripts\Kendo\kendo.editor.min.js" />
+    <Content Include="Scripts\Kendo\kendo.validator.min.js" />
     <Content Include="Scripts\Kendo\kendo.web.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
@@ -825,6 +828,9 @@
     <Content Include="Scripts\Kendo\kendo.all.min.js.map" />
     <Content Include="Scripts\Kendo\kendo.aspnetmvc.min.js.map" />
     <Content Include="Scripts\Kendo\kendo.web.min.js.map" />
+    <Content Include="Scripts\Kendo\kendo.binder.min.js.map" />
+    <Content Include="Scripts\Kendo\kendo.validator.min.js.map" />
+    <Content Include="Scripts\Kendo\kendo.editor.min.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

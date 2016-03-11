@@ -7,7 +7,7 @@
     using System.Threading.Tasks;
     using System.Web.Mvc;
 
-    public class CustomViewLocationRazorViewEngine : RazorViewEngine, ICustomViewEngine
+    public class CustomViewLocationRazorViewEngine : RazorViewEngine
     {
         public CustomViewLocationRazorViewEngine()
         {

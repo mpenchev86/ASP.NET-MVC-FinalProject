@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render(MvcProject.GlobalConstants.Bundles.StyleContentKendoCss)
+    @*<link rel="stylesheet" href="http://kendo.cdn.telerik.com/<kendo ui version>/styles/kendo.common-bootstrap.min.css" />
+    <link rel="stylesheet" href="http://kendo.cdn.telerik.com/<kendo ui version>/styles/kendo.bootstrap.min.css" />*@
     @Styles.Render(MvcProject.GlobalConstants.Bundles.StyleContentCss)
     @RenderSection("styles", required: false)
 </head>
@@ -41,9 +43,13 @@
         </footer>
     </div>
     @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptJQuery)
-    @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptKendo)
+    @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptJQueryValidate)
     @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptBootstrap)
+    @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptKendo)
     @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptSignalR)
+    @*If we want to use CDN instead*@
+    @*<script src="http://kendo.cdn.telerik.com/<kendo ui version>/js/kendo.all.min.js"></script>
+        <script src="http://kendo.cdn.telerik.com/<kendo ui version>/js/kendo.aspnetmvc.min.js"></script>*@
     @*// In case the bundle for signalR above doesn't work - use these two below*@
     @*<script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
         <script src="~/signalr/hubs"></script>*@

@@ -14,7 +14,7 @@
         {
             var viewModel = new KendoTestViewModel
             {
-                SomeDate = DateTime.Now.AddDays(10)
+                CreatedOn = DateTime.Now.AddDays(10)
             };
             return this.View(viewModel);
         }
