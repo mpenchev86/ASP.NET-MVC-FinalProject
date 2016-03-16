@@ -66,7 +66,7 @@ namespace MvcProject.Web.Areas.Common.Controllers
         [HttpPost]
         public ActionResult Create([DataSourceRequest]DataSourceRequest request, KendoTestViewModel viewModel)
         {
-            if (viewModel != null && this.ModelState.IsValid)
+            if (viewModel == null || !this.ModelState.IsValid)
             {
                 throw new Exception("WTF");
             }

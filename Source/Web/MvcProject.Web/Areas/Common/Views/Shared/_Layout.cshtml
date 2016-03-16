@@ -4,10 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render(MvcProject.GlobalConstants.Bundles.StyleContentKendoCss)
+    @Styles.Render(MvcProject.GlobalConstants.Bundles.StylesContentKendoCss)
     @*<link rel="stylesheet" href="http://kendo.cdn.telerik.com/<kendo ui version>/styles/kendo.common-bootstrap.min.css" />
     <link rel="stylesheet" href="http://kendo.cdn.telerik.com/<kendo ui version>/styles/kendo.bootstrap.min.css" />*@
-    @Styles.Render(MvcProject.GlobalConstants.Bundles.StyleContentCss)
+    @Styles.Render(MvcProject.GlobalConstants.Bundles.StylesContentCss)
     @RenderSection("styles", required: false)
 </head>
 <body>
@@ -42,11 +42,11 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-    @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptJQuery)
-    @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptJQueryValidate)
-    @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptBootstrap)
-    @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptKendo)
-    @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptSignalR)
+    @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptsJQuery)
+    @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptsJQueryValidate)
+    @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptsBootstrap)
+    @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptsKendo)
+    @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptsSignalR)
     @*If we want to use CDN instead*@
     @*<script src="http://kendo.cdn.telerik.com/<kendo ui version>/js/kendo.all.min.js"></script>
         <script src="http://kendo.cdn.telerik.com/<kendo ui version>/js/kendo.aspnetmvc.min.js"></script>*@

@@ -1,5 +1,6 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(MvcProject.Web.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(MvcProject.Web.NinjectWebCommon), "Stop")]
+//// This is commented so that Ninject does not interfere with Autofac (data-val attribute not generated)
+// [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(MvcProject.Web.NinjectWebCommon), "Start")]
+// [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(MvcProject.Web.NinjectWebCommon), "Stop")]
 
 namespace MvcProject.Web
 {

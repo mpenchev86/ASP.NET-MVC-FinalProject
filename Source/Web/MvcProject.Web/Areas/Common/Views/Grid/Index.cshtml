@@ -65,9 +65,10 @@
 </div>
 
 @section Scripts{
-    @Html.Kendo().DeferredScripts()
+    @(Html.Kendo().DeferredScripts())
 
     <script>
+		kendo.culture('@BundleConfig.UiCulture');
         $(function () {
             $("#grid").kendoValidator();
         });

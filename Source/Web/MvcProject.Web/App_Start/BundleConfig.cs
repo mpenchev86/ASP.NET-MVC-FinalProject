@@ -1,5 +1,6 @@
 ﻿namespace MvcProject.Web
 {
+	using System.Globalization;
     using System.Web;
     using System.Web.Optimization;
 
@@ -7,40 +8,37 @@
 
     public class BundleConfig
     {
+        public static string UiCulture = CultureInfo.CurrentUICulture.ToString();
+
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle(GlobalConstants.Bundles.ScriptJQuery).Include(
-                        "~/Scripts/jquery-{version}.js",
+            bundles.Add(new ScriptBundle(GlobalConstants.Bundles.ScriptsJQuery).Include(
+                        "~/Scripts/jquery-2.2.1.min.js",
                         "~/Scripts/jquery.unobtrusive-ajax.js"));
 
-            bundles.Add(new ScriptBundle(GlobalConstants.Bundles.ScriptJQueryValidate).Include(
+            bundles.Add(new ScriptBundle(GlobalConstants.Bundles.ScriptsJQueryValidate).Include(
                         "~/Scripts/jquery.validate*"));
 
-            bundles.Add(new ScriptBundle(GlobalConstants.Bundles.ScriptBootstrap).Include(
+            bundles.Add(new ScriptBundle(GlobalConstants.Bundles.ScriptsBootstrap).Include(
                         "~/Scripts/bootstrap.js",
                         "~/Scripts/respond.js"));
 
-            bundles.Add(new ScriptBundle(GlobalConstants.Bundles.ScriptKendo).Include(
-                        "~/Scripts/jquery.min.js",
+            bundles.Add(new ScriptBundle(GlobalConstants.Bundles.ScriptsKendo).Include(
                         "~/Scripts/Kendo/kendo.all.min.js",
-                        //"~/Scripts/Kendo/kendo.web.min.js",
-                        //"~/Scripts/Kendo/kendo.binder.min.js",
-                        //"~/Scripts/Kendo/kendo.validator.min.js",
-                        "~/Scripts/Kendo/kendo.aspnetmvc.min.js"));
+                        "~/Scripts/Kendo/kendo.aspnetmvc.min.js",
+                        "~/Scripts/Kendo/cultures/kendo.culture." + UiCulture + ".min.js"));
 
-            bundles.Add(new ScriptBundle(GlobalConstants.Bundles.ScriptSignalR).Include(
+            bundles.Add(new ScriptBundle(GlobalConstants.Bundles.ScriptsSignalR).Include(
                         "~/Scripts/jquery.signalR-2.2.0.min.js",
                         "~/signalr/hubs"));
 
-            bundles.Add(new StyleBundle(GlobalConstants.Bundles.StyleContentCss).Include(
+            bundles.Add(new StyleBundle(GlobalConstants.Bundles.StylesContentCss).Include(
                         "~/Content/bootstrap.css",
                         "~/Content/site.css"));
 
-            bundles.Add(new StyleBundle(GlobalConstants.Bundles.StyleContentKendoCss).Include(
+            bundles.Add(new StyleBundle(GlobalConstants.Bundles.StylesContentKendoCss).Include(
                         "~/Content/Kendo/kendo.common.min.css",
-                        "~/Content/kendo/kendo.common-bootstrap.min.css",
-                        "~/Content/kendo/kendo.bootstrap.min.css",
                         "~/Content/Kendo/kendo.default.min.css",
                         "~/Content/Kendo/kendo.metro.min.css"));
 
