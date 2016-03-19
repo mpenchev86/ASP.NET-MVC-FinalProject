@@ -34,7 +34,7 @@
                         "~/signalr/hubs"));
 
             bundles.Add(new StyleBundle(GlobalConstants.Bundles.StylesContentCss).Include(
-                        "~/Content/bootstrap.css",
+                        "~/Content/bootstrap.journal.min.css",
                         "~/Content/site.css"));
 
             bundles.Add(new StyleBundle(GlobalConstants.Bundles.StylesContentKendoCss).Include(

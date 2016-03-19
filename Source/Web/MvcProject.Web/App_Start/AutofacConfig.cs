@@ -7,13 +7,14 @@
     using System.Reflection;
     using System.Web;
     using System.Web.Mvc;
+
     using Areas.Common.Controllers;
     using Autofac;
     using Autofac.Integration.Mvc;
+    using Common.Constants;
     using Data.DbAccessConfig;
     using Data.DbAccessConfig.Repositories;
     using Data.Models;
-    using GlobalConstants;
     using Infrastructure.Sanitizer;
     using Infrastructure.ViewEngines;
     using Services.Data;
@@ -76,19 +77,19 @@
                 .As<ISanitizer>()
                 .InstancePerRequest();
 
-            var dataServicesAssembly = Assembly.Load(GlobalConstants.Assemblies.DataServicesAssemblyName);
+            var dataServicesAssembly = Assembly.Load(Assemblies.DataServicesAssemblyName);
             builder
                 .RegisterAssemblyTypes(dataServicesAssembly)
                 .AsImplementedInterfaces()
                 .InstancePerRequest();  // Could be wrong
 
-            var webServicesAssembly = Assembly.Load(GlobalConstants.Assemblies.WebServicesAssemblyName);
+            var webServicesAssembly = Assembly.Load(Assemblies.WebServicesAssemblyName);
             builder
                 .RegisterAssemblyTypes(webServicesAssembly)
                 .AsImplementedInterfaces()
                 .InstancePerRequest();  // Could be wrong
 
-            var infrastructureAssembly = Assembly.Load(GlobalConstants.Assemblies.InfrastructureAssemblyName);
+            var infrastructureAssembly = Assembly.Load(Assemblies.InfrastructureAssemblyName);
             builder
                 .RegisterAssemblyTypes(infrastructureAssembly)
                 .AsImplementedInterfaces()

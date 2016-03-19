@@ -8,11 +8,12 @@
     using System.Threading.Tasks;
 
     using Areas.Common.Controllers;
+    using Areas.Common.ViewModels.Home;
     using Data.Models;
     using Infrastructure.Mapping;
     using Moq;
     using Services.Data;
-
+    using Services.Web;
     public class ProductsControllerTestsBase
     {
         private string productDescription = "SomeDescr";
@@ -42,17 +43,18 @@
             var productsServiceMock = new Mock<IProductsService>();
             productsServiceMock
                 .Setup(x => x.GetById(It.IsAny<string>()))
-                    .Returns(new Product()
+                .Returns(new Product()
+                {
+                    Name = "someName",
+                    Description = this.ProductDescription,
+                    Category = new Category()
                     {
-                        Name = "someName",
-                        Description = this.ProductDescription,
-                        Category = new Category()
-                        {
-                            Name = "someName"
-                        }
-                    });
+                        Name = "someName"
+                    }
+                });
 
-            var controller = new ProductsController(productsServiceMock.Object);
+            var cacheServiceMock = new Mock<ICacheService>();
+            var controller = new ProductsController(productsServiceMock.Object, cacheServiceMock.Object);
 
             return controller;
         }

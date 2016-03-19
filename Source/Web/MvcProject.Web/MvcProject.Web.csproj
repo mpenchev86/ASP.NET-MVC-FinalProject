@@ -107,7 +107,7 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
@@ -858,6 +858,10 @@
     <ProjectReference Include="..\..\Services\MvcProject.Services.Web\MvcProject.Services.Web.csproj">
       <Project>{bfbd7dc4-f46c-41e3-aa95-317230fe6558}</Project>
       <Name>MvcProject.Services.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MvcProject.Web.Common\MvcProject.Web.Common.csproj">
+      <Project>{0321ccb8-700e-45de-a5d1-77eaed273fee}</Project>
+      <Name>MvcProject.Web.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\MvcProject.Web.Infrastructure\MvcProject.Web.Infrastructure.csproj">
       <Project>{b14dfb67-88f5-4714-a592-ecab1f8f74a9}</Project>

@@ -1,10 +1,11 @@
-﻿namespace MvcProject.Web.Infrastructure.Mapping
+﻿namespace MvcProject.Web.Infrastructure.Extensions
 {
     using System;
     using System.Linq;
     using System.Linq.Expressions;
 
     using AutoMapper.QueryableExtensions;
+    using MvcProject.Web.Infrastructure.Mapping;
 
     public static class QueryableExtensions
     {

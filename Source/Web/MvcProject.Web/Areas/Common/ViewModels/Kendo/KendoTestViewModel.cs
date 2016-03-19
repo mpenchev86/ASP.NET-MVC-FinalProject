@@ -21,7 +21,6 @@ namespace MvcProject.Web.Areas.Common.ViewModels.Kendo
         [Display(Name = "Registration Date")]
         public DateTime CreatedOn { get; set; }
 
-        [Required]
         public string Country { get; set; }
 
         public IEnumerable<string> Countries { get; set; }

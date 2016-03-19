@@ -11,8 +11,8 @@
 
     using Data.DbAccessConfig;
     using Infrastructure.Caching;
+    using Infrastructure.Extensions;
     using Infrastructure.Filters;
-    using Infrastructure.Mapping;
     using Kendo.Mvc.UI;
     using Services.Data;
     using Services.Web;

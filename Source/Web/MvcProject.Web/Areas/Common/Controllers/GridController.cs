@@ -66,9 +66,31 @@ namespace MvcProject.Web.Areas.Common.Controllers
         [HttpPost]
         public ActionResult Create([DataSourceRequest]DataSourceRequest request, KendoTestViewModel viewModel)
         {
-            if (viewModel == null || !this.ModelState.IsValid)
+            if (viewModel != null && this.ModelState.IsValid)
             {
-                throw new Exception("WTF");
+                // Save record to base
+            }
+
+            return this.Json(new[] { viewModel }.ToDataSourceResult(request, this.ModelState));
+        }
+
+        [HttpPost]
+        public ActionResult Update([DataSourceRequest]DataSourceRequest request, KendoTestViewModel viewModel)
+        {
+            if (viewModel != null && this.ModelState.IsValid)
+            {
+                // Edit record
+            }
+
+            return this.Json(new[] { viewModel }.ToDataSourceResult(request, this.ModelState));
+        }
+
+        [HttpPost]
+        public ActionResult Destroy([DataSourceRequest]DataSourceRequest request, KendoTestViewModel viewModel)
+        {
+            if (viewModel != null)
+            {
+                // Destroy record
             }
 
             return this.Json(new[] { viewModel }.ToDataSourceResult(request, this.ModelState));

@@ -99,6 +99,10 @@
       <Project>{037141ca-82db-4c81-9ba1-4d02ef877b65}</Project>
       <Name>MvcProject.Services.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Services\MvcProject.Services.Web\MvcProject.Services.Web.csproj">
+      <Project>{bfbd7dc4-f46c-41e3-aa95-317230fe6558}</Project>
+      <Name>MvcProject.Services.Web</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Web\MvcProject.Web.Infrastructure\MvcProject.Web.Infrastructure.csproj">
       <Project>{b14dfb67-88f5-4714-a592-ecab1f8f74a9}</Project>
       <Name>MvcProject.Web.Infrastructure</Name>
