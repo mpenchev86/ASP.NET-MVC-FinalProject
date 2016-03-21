@@ -29,7 +29,6 @@
         [MaxLength(ValidationConstants.MaxShortDescriptionLength)]
         public string ShortDescription { get; set; }
 
-        [MinLength(ValidationConstants.MinFullDescriptionLength)]
         [MaxLength(ValidationConstants.MaxFullDescriptionLength)]
         public string FullDescription { get; set; }
 
@@ -47,7 +46,7 @@
 
         [Required]
         [Range(0, double.MaxValue)]
-        [DisplayFormat(ApplyFormatInEditMode = false, ConvertEmptyStringToNull = false, DataFormatString = "{0:C2}", HtmlEncode = false, NullDisplayText = "")]
+        //[DisplayFormat(ApplyFormatInEditMode = false, ConvertEmptyStringToNull = false, DataFormatString = "{0:C2}", HtmlEncode = false, NullDisplayText = "")]
         public decimal UnitPrice { get; set; }
 
         [Range(0, double.MaxValue)]

@@ -57,9 +57,9 @@
             {
                 context.Products.AddOrUpdate(
                     p => p.Title,
-                    new Product { Title = "huba buba", QuantityInStock = 3, UnitPrice = 32.43M, Category = new Category { Name = "duvki" } },
-                    new Product { Title = "vafla chudo", QuantityInStock = 14, UnitPrice = 366662717.0002M, Category = new Category { Name = "vafli" } },
-                    new Product { Title = "MnM", QuantityInStock = 26, UnitPrice = 32.438773M, Category = new Category { Name = "bonbonki" } });
+                    new Product { Title = "huba buba", QuantityInStock = 3, UnitPrice = 32.43M, Category = new Category { Name = "duvki" }, FullDescription = "Gums massage your gums" },
+                    new Product { Title = "vafla chudo", QuantityInStock = 14, UnitPrice = 366662717.0002M, Category = new Category { Name = "vafli" }, FullDescription = "Waffles you can't get enough of" },
+                    new Product { Title = "MnM", QuantityInStock = 26, UnitPrice = 32.438773M, Category = new Category { Name = "bonbonki" }, FullDescription = "Eating the rainbow" });
 
                 context.SaveChanges();
             }

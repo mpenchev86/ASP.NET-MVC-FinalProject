@@ -1,18 +1,23 @@
-﻿using System.Threading.Tasks;
-using Microsoft.Owin;
+﻿using Microsoft.Owin;
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(MvcProject.Web.Startup))]
 
 namespace MvcProject.Web
 {
+    using System.Globalization;
+    using System.Reflection;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Infrastructure.Extensions;
+
     public partial class Startup
     {
         public void Configuration(IAppBuilder app)
         {
+            app.SanitizeThreadCulture();
             this.ConfigureAuth(app);
-
-            // app.MapSignalR();
+            app.MapSignalR();
 
             //// This is a temp fix of app.MapSignalR() memory leak or sth ()
             //var task = Task.Run(() => app.MapSignalR());

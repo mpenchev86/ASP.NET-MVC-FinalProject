@@ -12,14 +12,14 @@
         UpdateTargetId = "updateMe",
         InsertionMode = InsertionMode.Replace,
         HttpMethod = "POST"
-    }, new { id = "subitForm" }))
+    }, new { id = "submitForm" }))
 {
     <input type="text" name="query" oninput="changed()" />
     <input type="submit" />
 }
 <script>
     function changed() {
-        $("#subitForm").submit();
+        $("#submitForm").submit();
     }
 </script>
 <div id="updateMe">
