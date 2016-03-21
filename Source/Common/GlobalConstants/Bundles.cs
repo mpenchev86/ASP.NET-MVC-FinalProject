@@ -2,12 +2,12 @@
 {
     public class Bundles
     {
-        public const string ScriptBootstrap = "~/bundles/bootstrap";
-        public const string ScriptJQuery = "~/bundles/jquery";
-        public const string ScriptJQueryVal = "~/bundles/jqueryval";
-        public const string ScriptKendo = "~/bundles/kendo-js";
-        public const string ScriptSignalR = "~/bundles/signalR";
-        public const string StyleContentCss = "~/bundles/content-css";
-        public const string StyleContentKendoCss = "~/bundles/content/kendo-css";
+        public const string ScriptsJQuery = "~/bundles/jquery";
+        public const string ScriptsJQueryValidate = "~/bundles/jqueryval";
+        public const string ScriptsBootstrap = "~/bundles/bootstrap";
+        public const string ScriptsKendo = "~/Scripts/Kendo/kendojs";
+        public const string ScriptsSignalR = "~/bundles/signalR";
+        public const string StylesContentCss = "~/Content/css";
+        public const string StylesContentKendoCss = "~/Content/Kendo/css";
     }
 }

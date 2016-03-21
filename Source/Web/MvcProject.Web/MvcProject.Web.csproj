@@ -91,7 +91,7 @@
     </Reference>
     <Reference Include="Kendo.Mvc, Version=2016.1.226.545, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libraries\Kendo\Kendo.Mvc.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Telerik\UI for ASP.NET MVC Q1 2016\wrappers\aspnetmvc\Binaries\Mvc5\Kendo.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.2.2.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
@@ -107,7 +107,7 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
@@ -650,7 +650,7 @@
     <Content Include="Areas\Common\Views\Shared\DisplayTemplates\String.cshtml" />
     <Content Include="Areas\Common\Views\Shared\DisplayTemplates\CustomTemplate.cshtml" />
     <Content Include="Areas\Common\Views\Home\FormResults.cshtml" />
-    <Content Include="Areas\Common\Views\Shared\_ProductResult.cshtml" />
+    <Content Include="Areas\Common\Views\Shared\Partials\_ProductResult.cshtml" />
     <Content Include="Areas\Common\Views\Products\ById.cshtml" />
     <Content Include="Content\Kendo\fonts\DejaVu\DejaVuSans-Bold.ttf" />
     <Content Include="Content\Kendo\fonts\DejaVu\DejaVuSans-BoldOblique.ttf" />
@@ -858,6 +858,10 @@
     <ProjectReference Include="..\..\Services\MvcProject.Services.Web\MvcProject.Services.Web.csproj">
       <Project>{bfbd7dc4-f46c-41e3-aa95-317230fe6558}</Project>
       <Name>MvcProject.Services.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MvcProject.Web.Common\MvcProject.Web.Common.csproj">
+      <Project>{0321ccb8-700e-45de-a5d1-77eaed273fee}</Project>
+      <Name>MvcProject.Web.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\MvcProject.Web.Infrastructure\MvcProject.Web.Infrastructure.csproj">
       <Project>{b14dfb67-88f5-4714-a592-ecab1f8f74a9}</Project>

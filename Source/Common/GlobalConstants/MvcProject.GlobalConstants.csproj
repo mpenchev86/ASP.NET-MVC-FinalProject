@@ -40,10 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assemblies.cs" />
     <Compile Include="Bundles.cs" />
     <Compile Include="DbAccess.cs" />
-    <Compile Include="ErrorMessages.cs" />
     <Compile Include="ExceptionMessages.cs" />
     <Compile Include="Partials.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

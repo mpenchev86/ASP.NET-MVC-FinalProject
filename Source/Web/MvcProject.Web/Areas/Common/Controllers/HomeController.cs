@@ -11,8 +11,8 @@
 
     using Data.DbAccessConfig;
     using Infrastructure.Caching;
+    using Infrastructure.Extensions;
     using Infrastructure.Filters;
-    using Infrastructure.Mapping;
     using Kendo.Mvc.UI;
     using Services.Data;
     using Services.Web;
@@ -66,7 +66,7 @@
         {
             var result = this.productsService
                 .GetAll()
-                .Where(x => x.Name.ToLower().Contains(query.ToLower()))
+                .Where(x => x.Title.ToLower().Contains(query.ToLower()))
                 .To<ProductViewModel>()
                 .ToList();
 
@@ -90,7 +90,7 @@
                 return this.Content("Book not found");
             }
 
-            return this.Content(product.Description);
+            return this.Content(product.FullDescription);
         }
 
         public ActionResult Random(int count)

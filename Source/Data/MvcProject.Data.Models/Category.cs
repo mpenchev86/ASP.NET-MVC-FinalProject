@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -9,13 +10,21 @@
 
     public class Category : BaseEntityModel<int>
     {
+        private ICollection<Product> products;
+
         public Category()
         {
             this.Products = new HashSet<Product>();
         }
 
+        [Required]
+        [MaxLength(50)]
         public string Name { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<Product> Products
+        {
+            get { return this.products; }
+            set { this.products = value; }
+        }
     }
 }

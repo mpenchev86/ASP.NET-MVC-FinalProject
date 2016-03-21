@@ -30,6 +30,7 @@
             //    new Person { FullName = "Brice Lambson" },
             //    new Person { FullName = "Rowan Miller" }
             //  );
+
             if (!context.Tags.Any())
             {
                 context.Tags.AddOrUpdate(
@@ -55,10 +56,10 @@
             if (!context.Products.Any())
             {
                 context.Products.AddOrUpdate(
-                    p => p.Name,
-                    new Product { Name = "huba buba" },
-                    new Product { Name = "vafla chudo" },
-                    new Product { Name = "MnM" });
+                    p => p.Title,
+                    new Product { Title = "huba buba", QuantityInStock = 3, UnitPrice = 32.43M, Category = new Category { Name = "duvki" } },
+                    new Product { Title = "vafla chudo", QuantityInStock = 14, UnitPrice = 366662717.0002M, Category = new Category { Name = "vafli" } },
+                    new Product { Title = "MnM", QuantityInStock = 26, UnitPrice = 32.438773M, Category = new Category { Name = "bonbonki" } });
 
                 context.SaveChanges();
             }

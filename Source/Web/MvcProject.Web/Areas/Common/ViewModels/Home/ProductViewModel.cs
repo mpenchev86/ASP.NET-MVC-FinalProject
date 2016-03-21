@@ -26,7 +26,7 @@
         public int Id { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resources.Home.Index), ErrorMessageResourceName = nameof(Resources.Home.Index.RequiredField))]
-        public string Name { get; set; }
+        public string Title { get; set; }
 
         [UIHint(GlobalConstants.Templates.CustomStringTemplate)]
         public string Description { get; set; }
@@ -48,7 +48,8 @@
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Product, ProductViewModel>()
-                .ForMember(vm => vm.Category, opt => opt.MapFrom(m => m.Category.Name));
+                .ForMember(vm => vm.Category, opt => opt.MapFrom(m => m.Category.Name))
+                .ForMember(vm => vm.Description, opt => opt.MapFrom(m => m.FullDescription));
         }
     }
 }

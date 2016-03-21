@@ -7,6 +7,7 @@
 @(Html.Kendo()
     .DatePicker()
     .Name("datepickMe")
+    //.Format("dd-MM-yyyy")
     .Deferred())
 
 <div>@Resources.Home.Index.Welcome</div>
@@ -18,7 +19,7 @@
             <div class="col-md-2">
                 <div class="row">
                     <b>
-                        <a href="/">@Html.DisplayFor(m => m.Products[i].Name, new { customClass = "btn btn-default" })</a>
+                        <a href="/">@Html.DisplayFor(m => m.Products[i].Title, new { customClass = "btn btn-default" })</a>
                     </b>
                 </div>
             </div>
@@ -53,6 +54,9 @@
 
 @section Scripts {
     @Html.Kendo().DeferredScripts()
+    <script>
+        kendo.culture('@BundleConfig.UiCulture');
+    </script>
 }
 
 

@@ -11,6 +11,21 @@
 
     public class Tag : BaseEntityModel<int>
     {
+        private ICollection<Product> products;
+
+        public Tag()
+        {
+            this.Products = new HashSet<Product>();
+        }
+
+        [Required]
+        [MaxLength(20)]
         public string Name { get; set; }
+
+        public virtual ICollection<Product> Products
+        {
+            get { return this.products; }
+            set { this.products = value; }
+        }
     }
 }

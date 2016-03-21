@@ -6,23 +6,31 @@
     using System.Web;
     using System.Web.Mvc;
 
+    using Data.Models;
     using Services.Data;
+    using Services.Web;
     using ViewModels.Home;
 
     public class ProductsController : BaseController
     {
         private IProductsService productsService;
+        private ICacheService cacheService;
 
         public ProductsController(
-            IProductsService productsService)
+            IProductsService productsService,
+            ICacheService cacheService)
         {
             this.productsService = productsService;
+            this.cacheService = cacheService;
         }
 
         public ActionResult ById(string id)
         {
-            var product = this.productsService.GetById(id);
-            var viewModel = this.Mapper.Map<ProductViewModel>(product);
+            var viewModel = this.cacheService.Get<ProductViewModel>(
+                "Product_Id_" + id,
+                () => this.Mapper.Map<ProductViewModel>(this.productsService.GetById(id)),
+                5 * 60);
+
             return this.View(viewModel);
         }
     }
