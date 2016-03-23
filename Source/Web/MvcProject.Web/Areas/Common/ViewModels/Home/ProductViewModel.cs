@@ -13,7 +13,7 @@
     using Infrastructure.Sanitizer;
     using Services.Web;
 
-    [Bind(Include = "Name,Description,Category")]
+    //[Bind(Include = "Name,Description,Category")]
     public class ProductViewModel : IMapFrom<Product>, IHaveCustomMappings
     {
         private ISanitizer sanitizer;
@@ -25,7 +25,7 @@
 
         public int Id { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.Home.Index), ErrorMessageResourceName = nameof(Resources.Home.Index.RequiredField))]
+        //[Required(ErrorMessageResourceType = typeof(Resources.Home.Index), ErrorMessageResourceName = nameof(Resources.Home.Index.RequiredField))]
         public string Title { get; set; }
 
         [UIHint(GlobalConstants.Templates.CustomStringTemplate)]
@@ -34,6 +34,8 @@
         public string SanitizedDescription => this.sanitizer.Sanitize(this.Description);
 
         public string Category { get; set; }
+
+        public decimal UnitPrice { get; set; }
 
         public string Url
         {
@@ -44,12 +46,13 @@
             }
         }
 
-        // public IEnumerable<Tag> Tags { get; set; }
+        public Image MainImage { get; set; }
+
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Product, ProductViewModel>()
                 .ForMember(vm => vm.Category, opt => opt.MapFrom(m => m.Category.Name))
-                .ForMember(vm => vm.Description, opt => opt.MapFrom(m => m.FullDescription));
+                .ForMember(vm => vm.Description, opt => opt.MapFrom(m => m.ShortDescription));
         }
     }
 }

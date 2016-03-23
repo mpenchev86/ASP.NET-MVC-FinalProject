@@ -8,9 +8,11 @@
 
     public class ShippingInfo : BaseEntityModel<int>
     {
+        private ICollection<Product> products;
+
         public ShippingInfo()
         {
-            this.ShippingCountries = new HashSet<string>();
+            this.products = new HashSet<Product>();
         }
 
         [Column(TypeName = "datetime2")]
@@ -25,6 +27,12 @@
         [Column(TypeName = "datetime2")]
         public DateTime LatestDeliveryDate { get; set; }
 
-        public HashSet<string> ShippingCountries { get; set; }
+        public string Country { get; set; }
+
+        public virtual ICollection<Product> Products
+        {
+            get { return this.products; }
+            set { this.products = value; }
+        }
     }
 }

@@ -13,6 +13,7 @@
     using Infrastructure.Caching;
     using Infrastructure.Extensions;
     using Infrastructure.Filters;
+    using Kendo.Mvc.Extensions;
     using Kendo.Mvc.UI;
     using Services.Data;
     using Services.Web;
@@ -38,17 +39,19 @@
         //[OutputCache(Duration = 30 * 60, Location = OutputCacheLocation.Server, VaryByCustom = "SomeOtherIdentifier")]
         public ActionResult Index()
         {
-            var allProducts =
+            return this.View();
+        }
+
+        public ActionResult Read([DataSourceRequest]DataSourceRequest request)
+        {
+            var viewModel =
                 this.Cache.Get(
                     "products",
                     () => this.productsService.GetAll().To<ProductViewModel>().ToList(),
-                    15 * 60);
-            var viewModel = new IndexViewModel
-            {
-                Products = allProducts
-            };
+                    15 * 60)
+                    .AsQueryable();
 
-            return this.View(viewModel);
+            return this.Json(viewModel.ToDataSourceResult(request));
         }
 
         [CommonOutputCache]
@@ -90,7 +93,7 @@
                 return this.Content("Book not found");
             }
 
-            return this.Content(product.FullDescription);
+            return this.Content(product.ShortDescription);
         }
 
         public ActionResult Random(int count)

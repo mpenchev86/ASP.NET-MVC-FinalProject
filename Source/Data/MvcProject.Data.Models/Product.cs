@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -14,12 +15,16 @@
         private ICollection<Tag> tags;
         private ICollection<Image> images;
         private ICollection<Comment> comments;
+        private ICollection<ShippingInfo> shippingOptions;
+        private ICollection<Vote> votes;
 
         public Product()
         {
-            this.Tags = new HashSet<Tag>();
-            this.Images = new HashSet<Image>();
-            this.Comments = new HashSet<Comment>();
+            this.tags = new HashSet<Tag>();
+            this.images = new HashSet<Image>();
+            this.comments = new HashSet<Comment>();
+            this.votes = new HashSet<Vote>();
+            this.shippingOptions = new HashSet<ShippingInfo>();
         }
 
         [Required]
@@ -29,16 +34,23 @@
         [MaxLength(ValidationConstants.MaxShortDescriptionLength)]
         public string ShortDescription { get; set; }
 
-        [MaxLength(ValidationConstants.MaxFullDescriptionLength)]
-        public string FullDescription { get; set; }
+        public int? DescriptionId { get; set; }
+
+        public virtual Description Description { get; set; }
 
         public int? MainImageId { get; set; }
 
+        public virtual Image MainImage { get; set; }
+
+        public int CategoryId { get; set; }
+
         public virtual Category Category { get; set; }
 
-        public virtual ProductRating Rating { get; set; }
-
-        public bool IsInStock { get; set; }
+        [NotMapped]
+        public bool IsInStock
+        {
+            get { return this.QuantityInStock != 0; }
+        }
 
         [Required]
         [Range(0, int.MaxValue)]
@@ -46,13 +58,10 @@
 
         [Required]
         [Range(0, double.MaxValue)]
-        //[DisplayFormat(ApplyFormatInEditMode = false, ConvertEmptyStringToNull = false, DataFormatString = "{0:C2}", HtmlEncode = false, NullDisplayText = "")]
         public decimal UnitPrice { get; set; }
 
         [Range(0, double.MaxValue)]
         public decimal? ShippingPrice { get; set; }
-
-        public virtual ShippingInfo ShippingInfo { get; set; }
 
         [Range(0, double.MaxValue)]
         public double? Length { get; set; }
@@ -82,6 +91,18 @@
         {
             get { return this.comments; }
             set { this.comments = value; }
+        }
+
+        public virtual ICollection<Vote> Votes
+        {
+            get { return this.votes; }
+            set { this.votes = value; }
+        }
+
+        public virtual ICollection<ShippingInfo> ShippingOptions
+        {
+            get { return this.shippingOptions; }
+            set { this.shippingOptions = value; }
         }
     }
 }

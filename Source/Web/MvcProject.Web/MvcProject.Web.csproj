@@ -298,6 +298,10 @@
     <Content Include="Content\bootstrap.journal.css" />
     <Content Include="Content\bootstrap.journal.min.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Custom\listView.css" />
+    <Content Include="Content\Images\Products\762555.jpg" />
+    <Content Include="Content\Images\Products\763314.jpg" />
+    <Content Include="Content\Images\Products\product.jpg" />
     <Content Include="Content\Kendo\Black\editor.png" />
     <Content Include="Content\Kendo\Black\imagebrowser.png" />
     <Content Include="Content\Kendo\Black\indeterminate.gif" />
@@ -759,6 +763,8 @@
     <Content Include="Areas\Common\Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Areas\Common\Views\Kendo\AutoComplete.cshtml" />
     <Content Include="Areas\Common\Views\Grid\Index.cshtml" />
+    <Content Include="Areas\Common\Views\Shared\DisplayTemplates\ListViewProductTemplate.cshtml" />
+    <Content Include="Areas\Common\Views\Shared\Partials\_SearchPartial.cshtml" />
     <None Include="Properties\PublishProfiles\testWebDep.pubxml" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.dll" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.xml" />
@@ -819,7 +825,7 @@
     <Content Include="Areas\Common\Views\Manage\SetPassword.cshtml" />
     <Content Include="Areas\Common\Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Areas\Common\Views\Shared\Lockout.cshtml" />
-    <Content Include="Areas\Common\Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Areas\Common\Views\Shared\Partials\_LoginPartial.cshtml" />
     <Content Include="Areas\Common\Views\Home\CacheMe.cshtml" />
     <Content Include="stylecop.json" />
     <Content Include="Scripts\Kendo\kendo.all.min.js.map" />

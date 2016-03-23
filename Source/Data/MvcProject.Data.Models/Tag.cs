@@ -15,7 +15,7 @@
 
         public Tag()
         {
-            this.Products = new HashSet<Product>();
+            this.products = new HashSet<Product>();
         }
 
         [Required]
