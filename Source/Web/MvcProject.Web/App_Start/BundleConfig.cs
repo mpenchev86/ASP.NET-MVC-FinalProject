@@ -1,6 +1,6 @@
 ﻿namespace MvcProject.Web
 {
-	using System.Globalization;
+    using System.Globalization;
     using System.Web;
     using System.Web.Optimization;
 
@@ -35,7 +35,7 @@
 
             bundles.Add(new StyleBundle(GlobalConstants.Bundles.StylesContentCss).Include(
                         "~/Content/bootstrap.journal.css",
-                        "~/Content/site.css"));
+                        "~/Content/Site.css"));
 
             bundles.Add(new StyleBundle(GlobalConstants.Bundles.StylesContentKendoCss).Include(
                         "~/Content/Kendo/kendo.common.min.css",
@@ -44,14 +44,14 @@
 
             bundles.IgnoreList.Clear();
 
-            BundleTable.EnableOptimizations = true;
+            //BundleTable.EnableOptimizations = true;
 
-//            // Optimization in both debug and release
-//#if DEBUG
-//            BundleTable.EnableOptimizations = false;
-//#else
-//            BundleTable.EnableOptimizations = true;
-//#endif
+            // Optimization in both debug and release
+#if DEBUG
+            BundleTable.EnableOptimizations = false;
+#else
+            BundleTable.EnableOptimizations = true;
+#endif
         }
     }
 }

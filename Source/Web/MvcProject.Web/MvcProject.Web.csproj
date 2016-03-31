@@ -299,9 +299,10 @@
     <Content Include="Content\bootstrap.journal.min.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Custom\listView.css" />
-    <Content Include="Content\Images\Products\762555.jpg" />
-    <Content Include="Content\Images\Products\763314.jpg" />
-    <Content Include="Content\Images\Products\product.jpg" />
+    <Content Include="Content\Images\Products\1.jpg" />
+    <Content Include="Content\Images\Products\2.jpg" />
+    <Content Include="Content\Images\Products\3.jpg" />
+    <Content Include="Content\Images\Logos\logo-main.png" />
     <Content Include="Content\Kendo\Black\editor.png" />
     <Content Include="Content\Kendo\Black\imagebrowser.png" />
     <Content Include="Content\Kendo\Black\indeterminate.gif" />
@@ -764,7 +765,7 @@
     <Content Include="Areas\Common\Views\Kendo\AutoComplete.cshtml" />
     <Content Include="Areas\Common\Views\Grid\Index.cshtml" />
     <Content Include="Areas\Common\Views\Shared\DisplayTemplates\ListViewProductTemplate.cshtml" />
-    <Content Include="Areas\Common\Views\Shared\Partials\_SearchPartial.cshtml" />
+    <Content Include="Areas\Common\Views\Shared\Partials\_CarouselPartial.cshtml" />
     <None Include="Properties\PublishProfiles\testWebDep.pubxml" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.dll" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.xml" />
@@ -836,6 +837,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\ViewModels\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Content\Images\Carousel\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

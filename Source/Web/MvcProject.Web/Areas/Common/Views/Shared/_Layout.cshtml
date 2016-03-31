@@ -3,57 +3,126 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
     @Styles.Render(MvcProject.GlobalConstants.Bundles.StylesContentKendoCss)
-    @*<link rel="stylesheet" href="http://kendo.cdn.telerik.com/<kendo ui version>/styles/kendo.common-bootstrap.min.css" />
-    <link rel="stylesheet" href="http://kendo.cdn.telerik.com/<kendo ui version>/styles/kendo.bootstrap.min.css" />*@
     @Styles.Render(MvcProject.GlobalConstants.Bundles.StylesContentCss)
     @RenderSection("styles", required: false)
 </head>
 <body>
-    @Html.Partial("_SearchPartial")
-    <div class="navbar navbar-inverse @*navbar-fixed-top*@">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("My MVC Final Project", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <!-- NAVBAR -->
+    @Html.Partial("_CarouselPartial")
+    <nav class="navbar navbar-inverse @*navbar-fixed-top*@">
+        <div class="container-fluid">
+            <!-- Brand, Login -->
+            <div class="row navbar-collapse collapse">
+                <div id="col-brand" class="col-md-5">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a id="main-logo" class="navbar-brand" href="@Url.Action("Index", "Home")">
+                            <img alt="Brand" src="~/Content/Images/Logos/logo-main.png">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    @Html.Partial("_LoginPartial")
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+            <!-- Search, Links, Dropdowns -->
+            <div class="row container-fluid collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="col-md-2">
+                    <ul class="nav navbar-nav">
+                        @*<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>*@
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">One more separated link</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-7">
+                    <form id="navbar-search" class="navbar-form @*navbar-left*@" role="search">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button id="navbar-search-options" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories<span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">One more separated link</a></li>
+                                </ul>
+                                <input id="navbar-search-input" type="text" class="form-control" placeholder="Search">
+                                <button id="navbar-search-btn" type="submit" class="btn btn-default"><content class="glyphicon glyphicon-search"></content></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-md-3">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Link</a></li>
+                        <li><a href="#">Link</a></li>
+                    </ul>
+                </div>
+            </div><!-- /.container-fluid -->
+        </div><!-- /.container -->
+    </nav><!-- /.navbar -->
+    <!-- BODY -->
+    <div id="body-content" class="container-fluid">
+        @RenderBody()
+    </div>
+    <!-- FOOTER -->
+    <footer class="panel-footer">
+        <div id="footer-content" class="container-fluid">
+            <div class="row">
+                <ul id="footer-items" class="nav navbar-nav">
+                    <li class="col-md-4">
+                        <ul class="no-bullets">
+                            <li>Shipping Info</li>
+                            <li>Return Policy</li>
+                            <li>@Html.ActionLink("About", "About", "Home")</li>
+                        </ul>
+                    </li>
+                    <li class="col-md-4">
+                        <ul class="no-bullets">
+                            <li>Job Openings</li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        </ul>
+                    </li>
+                    <li class="col-md-4">
+                        <ul class="no-bullets">
+                            <li>Help</li>
+                        </ul>
+                    </li>
                 </ul>
-                @Html.Partial("_LoginPartial")
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        <ol class="breadcrumb">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Library</a></li>
-            <li class="active">Data</li>
-        </ol>
-        @RenderBody()
-        <footer class="panel-footer">
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+        <div id="copyright">
+            <p>&copy; @DateTime.Now.Year, forcodesake's ASP.NET MVC Application</p>
+        </div>
+    </footer>
+    <!-- SCRIPTS -->
     @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptsJQuery)
     @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptsJQueryValidate)
     @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptsBootstrap)
     @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptsKendo)
     @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptsSignalR)
-    @*If we want to use CDN instead*@
-    @*<script src="http://kendo.cdn.telerik.com/<kendo ui version>/js/kendo.all.min.js"></script>
-        <script src="http://kendo.cdn.telerik.com/<kendo ui version>/js/kendo.aspnetmvc.min.js"></script>*@
-    @*// In case the bundle for signalR above doesn't work - use these two below*@
-    @*<script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
-        <script src="~/signalr/hubs"></script>*@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
