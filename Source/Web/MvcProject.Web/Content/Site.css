@@ -1,6 +1,17 @@
 ﻿body {
     margin: 0 0 0 0;
     padding: 0 0 0 0;
+    /*min-width: 460px;*/
+}
+
+h3 {
+    margin-top: 25px;
+    text-align: center;
+    color: #535353;
+}
+
+.row {
+    margin: 0 0 0 0;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -26,6 +37,10 @@ textarea {
     font-weight: normal;
 }
 
+.navbar-nav {
+    margin: 0 0 0 0;
+}
+
 #main-logo {
     margin: 0 0 0 0;
     padding: 10px 0 0 0;
@@ -35,10 +50,6 @@ textarea {
 .navbar-brand {
     margin: 0 0 0 0;
     padding: 0 0 0 0;
-    width: 100%;
-}
-
-img {
     width: 100%;
 }
 
@@ -65,20 +76,34 @@ img {
     margin: 0 0 0 0;
 }
 
-
 .navbar-form .input-group {
     width: 100%;
+}
+
+#navbar-search {
+    overflow-y: visible;
 }
 
 #navbar-search-input
 {
     float: none;
     max-width: none;
-    width: 500px;
+    width: 70%;
+    vertical-align: middle;
 }
 
 #navbar-search-options {
     border-radius: 4px 0 0 4px;
+}
+
+    #navbar-search-options > div {
+        min-width: 30px;
+    }
+
+@media (max-width: 527px) {
+    #navbar-search-options > text {
+        display: none;
+    }
 }
 
 #navbar-search-btn {
@@ -94,13 +119,14 @@ img {
 /* BODY */
 /* Set padding to keep content from hitting the edges */
 #body-content {
-    padding: 0 15px 0 15px;
-    min-height: 1000px;
+    padding: 0 0 0 0;
+    min-height: 190%;
+    width: 90%;
 }
 
 /* FOOTER */
 .panel-footer {
-    margin: 0 0;
+    margin: 100px 0 0 0;
     padding: 0 0;
     position: relative;
     bottom: 0;

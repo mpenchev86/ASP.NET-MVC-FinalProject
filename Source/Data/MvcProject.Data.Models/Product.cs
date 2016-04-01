@@ -56,6 +56,8 @@
         [Range(0, int.MaxValue)]
         public int QuantityInStock { get; set; }
 
+
+
         [Required]
         [Range(0, double.MaxValue)]
         public decimal UnitPrice { get; set; }

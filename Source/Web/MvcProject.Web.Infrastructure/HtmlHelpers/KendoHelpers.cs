@@ -13,7 +13,13 @@
 
     public static class KendoHelpers
     {
-        public static GridBuilder<T> FullFeaturedGrid<T>(this HtmlHelper helper, string controllerName, Expression<Func<T, object>> modelIdExpression, Action<GridColumnFactory<T>> columns = null)
+        public static GridBuilder<T> FullFeaturedGrid<T>(
+            this HtmlHelper helper,
+            string controllerName,
+            Expression<Func<T, object>> modelIdExpression,
+            Action<GridColumnFactory<T>> columns = null,
+            Action<GridSortSettingsBuilder<T>> sortSettings = null,
+            Action<GridFilterableSettingsBuilder> filterSettings = null)
             where T : class
         {
             if (columns == null)
@@ -26,15 +32,25 @@
                 };
             }
 
+            if (sortSettings == null)
+            {
+                sortSettings = s => { };
+            }
+
+            if (filterSettings == null)
+            {
+                filterSettings = f => { };
+            }
+
             return helper.Kendo()
                 .Grid<T>()
                 .Name("grid")
                 .Columns(columns)
                 .ColumnMenu()
                 .Pageable(page => page.Refresh(true))
-                .Sortable()
+                .Sortable(sortSettings)
                 .Groupable()
-                .Filterable()
+                .Filterable(filterSettings)
                 .Editable(edit => edit
                     .Mode(GridEditMode.PopUp)
                     .Window(w => w.Title(false)))
@@ -46,8 +62,53 @@
                         .Read(read => read.Action("Read", controllerName))
                         .Create(create => create.Action("Create", controllerName))
                         .Update(update => update.Action("Update", controllerName))
-                        .Destroy(destroy => destroy.Action("Destroy", controllerName))
-                        );
+                        .Destroy(destroy => destroy.Action("Destroy", controllerName)));
+        }
+
+        public static ListViewBuilder<T> ListViewHelper<T>(
+            this HtmlHelper helper,
+            string wrapperId,
+            string wrapperTagName,
+            string templateId,
+            string controllerName,
+            Expression<Func<T, object>> modelIdExpression,
+            Action<DataSourceFilterDescriptorFactory<T>> filterSettings = null,
+            Action<DataSourceSortDescriptorFactory<T>> sortSettings = null,
+            //int pageSize = 6,
+            bool isServerOps = true)
+            where T : class
+        {
+            if (filterSettings == null)
+            {
+                filterSettings = f => { };
+            }
+
+            if (sortSettings == null)
+            {
+                sortSettings = s => { };
+            }
+
+            return helper.Kendo()
+                .ListView<T>()
+                .Name(wrapperId)
+                .TagName(wrapperTagName)
+                .ClientTemplateId(templateId)
+                .Editable()
+                .Pageable()
+                // These two are for selection
+                //.Navigatable()
+                //.Selectable()
+                .DataSource(source => source
+                    .ServerOperation(isServerOps)
+                    .Model(m => m.Id(modelIdExpression))
+                    .Read(read => read.Action("Read", controllerName))
+                    .Create(create => create.Action("Create", controllerName))
+                    .Update(update => update.Action("Update", controllerName))
+                    .Destroy(destroy => destroy.Action("Destroy", controllerName))
+                    .PageSize(5)
+                    .Filter(filterSettings)
+                    .Sort(sortSettings)
+                    .AutoSync(false));
         }
     }
 }

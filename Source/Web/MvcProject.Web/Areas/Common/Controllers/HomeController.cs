@@ -54,6 +54,11 @@
             return this.Json(viewModel.ToDataSourceResult(request));
         }
 
+
+
+
+
+
         [CommonOutputCache]
         public ActionResult FormResults()
         {
@@ -101,6 +106,10 @@
             var randoms = this.productsService.GetRandomProducts(count).To<ProductViewModel>().ToList();
             return this.View(randoms);
         }
+
+
+
+
 
         public ActionResult About()
         {
