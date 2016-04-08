@@ -2,7 +2,6 @@
 {
     using System.Linq;
     using MvcProject.Data.Models;
-    using Web;
 
     public interface IProductsService : IBaseService<Product>
     {

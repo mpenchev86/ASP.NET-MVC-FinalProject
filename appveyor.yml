@@ -10,7 +10,7 @@ build:
   project: Source/MvcFinalProject.sln
   verbosity: Normal
 test_script:
-  - .\Source\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -output:.\Source_coverage.xml -register:user -target:"Source\packages\NUnit.Console.3.0.1\tools\nunit3-console.exe" -targetargs:"Source\Tests\MvcProject.Web.Controllers.Tests\bin\Debug\MvcProject.Services.Web.Tests.dll  Source\Tests\MvcProject.Web.Routes.Tests\bin\Debug\MvcProject.Web.Routes.Tests.dll" -returntargetcode -hideskipped:All
+  - .\Source\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -output:.\Source_coverage.xml -register:user -target:"Source\packages\NUnit.Console.3.0.1\tools\nunit3-console.exe" -targetargs:"Source\Tests\MvcProject.Services.Web.Tests\bin\Debug\MvcProject.Web.Controllers.Tests.dll Source\Tests\MvcProject.Web.Controllers.Tests\bin\Debug\MvcProject.Services.Web.Tests.dll Source\Tests\MvcProject.Web.Routes.Tests\bin\Debug\MvcProject.Web.Routes.Tests.dll" -returntargetcode -hideskipped:All
   - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
   - pip install codecov
   - codecov -f "Source_coverage.xml"
@@ -20,11 +20,6 @@ after_test:
 # preserve "packages" directory in the root of build folder but will reset it if packages.config is modified
 cache:
 - Source/packages -> **\Source\packages.config
-
-
-# Source\Tests\MvcProject.Services.Web.Tests\bin\Debug\MvcProject.Web.Controllers.Tests.dll
-
-
 
 
 # MvcProject_coverage.xml

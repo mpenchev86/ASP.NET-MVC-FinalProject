@@ -12,7 +12,7 @@
 
     // TODO: Why BaseModel<int> instead BaseModel<TKey>?
     public class GenericRepository<T> : IRepository<T>
-        where T : BaseEntityModel<int>
+        where T : class, IBaseEntityModel<string>
     {
         public GenericRepository(DbContext context)
         {
@@ -39,7 +39,7 @@
             return this.DbSet;
         }
 
-        public T GetById(int id)
+        public T GetById(string id)
         {
             return this.All().FirstOrDefault(x => x.Id == id);
         }

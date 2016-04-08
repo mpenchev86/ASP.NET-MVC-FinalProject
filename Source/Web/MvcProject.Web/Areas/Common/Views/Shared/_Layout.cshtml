@@ -9,8 +9,8 @@
     @RenderSection("styles", required: false)
 </head>
 <body>
-    <!-- NAVBAR -->
     @Html.Partial("_CarouselPartial")
+    <!-- NAVBAR -->
     <nav class="navbar navbar-inverse ">
         <div class="container-fluid">
             <!-- Brand, Login -->
@@ -22,7 +22,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a id="main-logo" class="navbar-brand" href="@Url.Action("Index", "Home")">
+                        <a id="main-logo" class="navbar-brand" href="@Url.Action("Index", "Home", new { Area = "Common" })">
                             <img alt="Brand" src="~/Content/Images/Logos/just-orderit-com.png">
                         </a>
                     </div>
@@ -58,7 +58,7 @@
                         <div class="input-group">
                             <div class="input-group-btn">
                                 <button id="navbar-search-options" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="glyphicon glyphicon-menu-down"></span><text>Categories</text>
+                                    <span class="glyphicon glyphicon-menu-down"></span><text>Options</text>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="#">Action</a></li>

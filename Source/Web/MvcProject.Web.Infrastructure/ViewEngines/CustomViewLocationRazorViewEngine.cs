@@ -55,8 +55,8 @@
             {
                 "~/Areas/Common/Views/{1}/{0}.cshtml",
                 "~/Areas/Common/Views/{1}/{0}.vbhtml",
-                "~/Areas/Common/Views/Shared/{0}.cshtml",
-                "~/Areas/Common/Views/Shared/{0}.vbhtml"
+                "~/Areas/Common/Views/Shared/Partials/{0}.cshtml",
+                "~/Areas/Common/Views/Shared/Partials/{0}.vbhtml"
             };
         }
     }

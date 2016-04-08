@@ -5,7 +5,7 @@
     using Common;
     using EntityContracts;
 
-    public class Description : BaseEntityModel<int>
+    public class Description : BaseEntityModel<string>
     {
         private ICollection<Property> properties;
 
@@ -15,8 +15,8 @@
         }
 
         [Required]
-        [MaxLength(ValidationConstants.MaxFullDescriptionLength)]
-        public string Summary { get; set; }
+        //[MaxLength(ValidationConstants.MaxFullDescriptionLength)]
+        public string Content { get; set; }
 
         public virtual ICollection<Property> Properties
         {

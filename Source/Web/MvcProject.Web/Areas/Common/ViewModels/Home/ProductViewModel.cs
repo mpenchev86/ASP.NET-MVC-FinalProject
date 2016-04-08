@@ -23,7 +23,7 @@
             this.sanitizer = new HtmlSanitizerAdapter();
         }
 
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         //[Required(ErrorMessageResourceType = typeof(Resources.Home.Index), ErrorMessageResourceName = nameof(Resources.Home.Index.RequiredField))]
         public string Title { get; set; }
@@ -41,8 +41,8 @@
         {
             get
             {
-                IIdentifierProvider provider = new IdentifierProvider();
-                return $"/Product/{provider.EncodeId(this.Id)}";
+                //IIdentifierProvider provider = new IdentifierProvider();
+                return $"/Product/{/*provider.EncodeId(this.Id)*/this.Id}";
             }
         }
 

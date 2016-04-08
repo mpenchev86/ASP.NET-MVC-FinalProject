@@ -4,13 +4,13 @@
     using System.Linq;
     using Models.EntityContracts;
 
-    public interface IRepository<T> : IRepository<T, int>
-        where T : BaseEntityModel<int>
+    public interface IRepository<T> : IRepository<T, string>
+        where T : IBaseEntityModel<string>
     {
     }
 
     public interface IRepository<T, in TKey>
-        where T : BaseEntityModel<TKey>
+        where T : IBaseEntityModel<TKey>
     {
         IQueryable<T> All();
 

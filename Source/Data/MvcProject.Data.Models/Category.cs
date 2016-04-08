@@ -8,7 +8,7 @@
     using System.Threading.Tasks;
     using EntityContracts;
 
-    public class Category : BaseEntityModel<int>
+    public class Category : BaseEntityModel<string>
     {
         private ICollection<Product> products;
 

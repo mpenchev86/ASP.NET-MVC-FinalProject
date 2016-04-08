@@ -1,4 +1,4 @@
-﻿namespace MvcProject.GlobalConstants
+﻿namespace MvcProject.Data.Common.Constants
 {
     public class DbAccess
     {

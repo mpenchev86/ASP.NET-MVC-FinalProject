@@ -1,7 +1,8 @@
-﻿@{
-    ViewBag.Title = "Admin Page";
-}
+﻿@model List<MvcProject.Web.Areas.Admin.ViewModels.IndexUserViewModel>
 
-<div>
-    From Admin Area
-</div>
+@foreach (var user in Model)
+{
+    <div>
+        <h3>@user.Name - @user.Role</h3>
+    </div>
+}

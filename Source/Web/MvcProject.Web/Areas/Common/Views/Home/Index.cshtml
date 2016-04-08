@@ -6,21 +6,6 @@
     ViewBag.Title = "Home - OrderIt";
 }
 
-
-@*@(Html.Kendo()
-    .ListView<ProductViewModel>(/*Model*/)
-    .Name("productsList-1")
-    .TagName("div")
-    .ClientTemplateId("list-products-template")
-    .DataSource(source => source
-        .ServerOperation(false)
-        .Model(m => m.Id(vm => vm.Id))
-        .Read(read => read.Action("Read", "Home"))
-        .PageSize(5)
-    )
-    .Pageable()
-    .Deferred())*@
-
 <div id="body-content" class="container">
     <div class="row">
         <h3>New Arrivals</h3>
@@ -62,7 +47,7 @@
 <script type="text/x-kendo-tmpl" id="list-products-template">
     <td class="product">
         <div class="img-div">
-            <img src="@Url.Content("~/Content/Images/Products/")#:Id%3==0?3:Id%3#.jpg" alt="#:Title# image" />
+            <img src="@Url.Content("~/Content/Images/Products/")#:@*Id%3==0?3:Id%*@3#.jpg" alt="#:Title# image" />
         </div>
             <a href="/" class="btn btn-link">@*#:Title#*@ sneak peek</a>
         @*<p>#:kendo.toString(UnitPrice, "c")#</p>*@

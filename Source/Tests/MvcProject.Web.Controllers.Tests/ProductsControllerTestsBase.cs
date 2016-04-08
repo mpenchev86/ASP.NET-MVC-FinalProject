@@ -45,8 +45,8 @@
                 .Setup(x => x.GetById(It.IsAny<string>()))
                 .Returns(new Product()
                 {
-                    Name = "someName",
-                    Description = this.ProductDescription,
+                    Title = "someName",
+                    ShortDescription = this.ProductDescription,
                     Category = new Category()
                     {
                         Name = "someName"

@@ -63,6 +63,7 @@
     <Compile Include="Description.cs" />
     <Compile Include="EntityContracts\BaseEntityModel.cs" />
     <Compile Include="EntityContracts\IAuditInfo.cs" />
+    <Compile Include="EntityContracts\IBaseEntityModel.cs" />
     <Compile Include="EntityContracts\IDeletableEntity.cs" />
     <Compile Include="Image.cs" />
     <Compile Include="Property.cs" />

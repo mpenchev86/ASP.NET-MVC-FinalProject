@@ -1,14 +1,14 @@
 ﻿namespace MvcProject.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
-    using MvcProject.Data.Common;
+    using MvcProject.Data.Common.Constants;
     using MvcProject.Data.Models.EntityContracts;
 
-    public class Comment : BaseEntityModel<int>
+    public class Comment : BaseEntityModel<string>
     {
         [Required]
-        [MinLength(ValidationConstants.MinProductCommentLength)]
-        [MaxLength(ValidationConstants.MaxProductCommentLength)]
+        [MinLength(Common.Constants.ValidationConstants.MinProductCommentLength)]
+        [MaxLength(Common.Constants.ValidationConstants.MaxProductCommentLength)]
         public string Content { get; set; }
 
         public int UserId { get; set; }

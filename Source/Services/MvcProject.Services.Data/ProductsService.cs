@@ -24,15 +24,15 @@
 
         public IQueryable<Product> GetAll()
         {
-            var result = this.products
-                             .All();
+            var result = this.products.All();
             return result;
         }
 
         public Product GetById(string id)
         {
-            var idAsInt = this.provider.DecodeId(id);
-            var product = this.products.GetById(idAsInt);
+            var product = this.products.GetById(id);
+            //var idAsInt = this.provider.DecodeId(id);
+            //var product = this.products.GetById(idAsInt);
             return product;
         }
 

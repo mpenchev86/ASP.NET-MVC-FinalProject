@@ -7,15 +7,15 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using Common;
+    using MvcProject.Data.Common.Constants;
     using EntityContracts;
 
-    public class Product : BaseEntityModel<int>
+    public class Product : BaseEntityModel<string>
     {
         private ICollection<Tag> tags;
         private ICollection<Image> images;
         private ICollection<Comment> comments;
-        private ICollection<ShippingInfo> shippingOptions;
+        //private ICollection<ShippingInfo> shippingOptions;
         private ICollection<Vote> votes;
 
         public Product()
@@ -24,14 +24,14 @@
             this.images = new HashSet<Image>();
             this.comments = new HashSet<Comment>();
             this.votes = new HashSet<Vote>();
-            this.shippingOptions = new HashSet<ShippingInfo>();
+            //this.shippingOptions = new HashSet<ShippingInfo>();
         }
 
         [Required]
-        [MaxLength(ValidationConstants.MaxProductTitleLength)]
+        [MaxLength(Common.Constants.ValidationConstants.MaxProductTitleLength)]
         public string Title { get; set; }
 
-        [MaxLength(ValidationConstants.MaxShortDescriptionLength)]
+        [MaxLength(Common.Constants.ValidationConstants.MaxShortDescriptionLength)]
         public string ShortDescription { get; set; }
 
         public int? DescriptionId { get; set; }
@@ -56,8 +56,6 @@
         [Range(0, int.MaxValue)]
         public int QuantityInStock { get; set; }
 
-
-
         [Required]
         [Range(0, double.MaxValue)]
         public decimal UnitPrice { get; set; }
@@ -69,7 +67,7 @@
         public double? Length { get; set; }
 
         [Range(0, double.MaxValue)]
-        public double? Hight { get; set; }
+        public double? Height { get; set; }
 
         [Range(0, double.MaxValue)]
         public double? Width { get; set; }
@@ -101,10 +99,10 @@
             set { this.votes = value; }
         }
 
-        public virtual ICollection<ShippingInfo> ShippingOptions
-        {
-            get { return this.shippingOptions; }
-            set { this.shippingOptions = value; }
-        }
+        //public virtual ICollection<ShippingInfo> ShippingOptions
+        //{
+        //    get { return this.shippingOptions; }
+        //    set { this.shippingOptions = value; }
+        //}
     }
 }

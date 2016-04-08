@@ -7,7 +7,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using GlobalConstants;
+    using Common.Constants;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Migrations;
     using Models;
@@ -16,15 +16,11 @@
     public class MvcProjectDbContext : IdentityDbContext<ApplicationUser>, IMvcProjectDbContext
     {
         public MvcProjectDbContext()
-            : base(GlobalConstants.DbAccess.DefaultConnectionString, throwIfV1Schema: false)
+            : base(Common.Constants.DbAccess.DefaultConnectionString, throwIfV1Schema: false)
         {
         }
 
-        public IDbSet<Product> Products { get; set; }
-
-        public IDbSet<Category> Category { get; set; }
-
-        public IDbSet<Tag> Tags { get; set; }
+        public IDbSet<Category> Categories { get; set; }
 
         public IDbSet<Comment> Comments { get; set; }
 
@@ -32,9 +28,13 @@
 
         public IDbSet<Image> Images { get; set; }
 
-        public IDbSet<Property> ProductProperties { get; set; }
+        public IDbSet<Product> Products { get; set; }
 
-        public IDbSet<ShippingInfo> ShippingInfoes { get; set; }
+        public IDbSet<Property> Properties { get; set; }
+
+        //public IDbSet<ShippingInfo> ShippingInfoes { get; set; }
+
+        public IDbSet<Tag> Tags { get; set; }
 
         public IDbSet<Vote> Votes { get; set; }
 
