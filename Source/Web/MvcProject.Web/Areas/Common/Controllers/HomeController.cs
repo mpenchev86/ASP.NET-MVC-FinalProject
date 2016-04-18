@@ -81,7 +81,7 @@
             return this.PartialView("_ProductResult", result);
         }
 
-        public ActionResult DescriptionById(string id)
+        public ActionResult DescriptionById(int id)
         {
             if (!this.Request.IsAjaxRequest())
             {

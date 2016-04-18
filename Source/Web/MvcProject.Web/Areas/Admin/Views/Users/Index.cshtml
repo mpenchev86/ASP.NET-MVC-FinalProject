@@ -1,8 +1,10 @@
-﻿@model List<MvcProject.Web.Areas.Admin.ViewModels.IndexUserViewModel>
+﻿@model List<MvcProject.Web.Areas.Admin.ViewModels.Users.IndexUserViewModel>
 
 @foreach (var user in Model)
 {
     <div>
-        <h3>@user.Name - @user.Role</h3>
+        <h3>@user.Name - @user.Roles.FirstOrDefault()</h3>
     </div>
 }
+
+@*@(Html.DropDownList())*@

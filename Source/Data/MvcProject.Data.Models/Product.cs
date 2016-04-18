@@ -10,7 +10,7 @@
     using MvcProject.Data.Common.Constants;
     using EntityContracts;
 
-    public class Product : BaseEntityModel<string>
+    public class Product : BaseEntityModel<int>, IAdministerable
     {
         private ICollection<Tag> tags;
         private ICollection<Image> images;

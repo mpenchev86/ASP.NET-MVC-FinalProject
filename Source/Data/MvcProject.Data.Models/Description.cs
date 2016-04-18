@@ -5,7 +5,7 @@
     using Common;
     using EntityContracts;
 
-    public class Description : BaseEntityModel<string>
+    public class Description : BaseEntityModel<int>, IAdministerable
     {
         private ICollection<Property> properties;
 

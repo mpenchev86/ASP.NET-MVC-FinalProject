@@ -5,7 +5,7 @@
     using MvcProject.Data.Common.Constants;
     using MvcProject.Data.Models.EntityContracts;
 
-    public class Image : BaseEntityModel<string>
+    public class Image : BaseEntityModel<int>, IAdministerable
     {
         [Required]
         [MaxLength(Common.Constants.ValidationConstants.MaxOriginalFileNameLength)]

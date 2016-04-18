@@ -1,0 +1,38 @@
+﻿h2 {
+    text-align: center;
+    /*margin: 0 0 50px 0;*/
+}
+
+h4 {
+    /*text-align: right;*/
+    /*display: inline-block;*/
+}
+
+#select-form {
+    text-align: left;
+}
+
+#domains-container {
+    /*text-align: center;*/
+    /*display: inline-block;*/
+}
+
+#domains-container > li {
+    background-color: #fef88e;
+    /*display: block;*/
+}
+
+    #domains-container > li:hover {
+        background-color: #fee34d;
+        border-color: transparent;
+    }
+
+    #domains-container > li > a {
+        text-decoration: none;
+        color: #808080;
+    }
+
+        #domains-container > li > a:hover {
+            text-decoration: none;
+            /*color: white;*/
+        }

@@ -51,8 +51,8 @@
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Product, ProductViewModel>()
-                .ForMember(vm => vm.Category, opt => opt.MapFrom(m => m.Category.Name))
-                .ForMember(vm => vm.Description, opt => opt.MapFrom(m => m.ShortDescription));
+                .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category.Name))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.ShortDescription));
         }
     }
 }

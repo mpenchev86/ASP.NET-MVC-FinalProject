@@ -8,7 +8,7 @@
 
     using EntityContracts;
 
-    public class Vote : BaseEntityModel<string>
+    public class Vote : BaseEntityModel<int>, IAdministerable
     {
         public int UserId { get; set; }
 

@@ -6,50 +6,52 @@
     ViewBag.Title = "Home - OrderIt";
 }
 
-<div id="body-content" class="container">
-    <div class="row">
-        <h3>New Arrivals</h3>
-        @(Html.ListViewHelper<ProductViewModel>(
-            "productsList-1",
-            "table",
-            "list-products-template",
-            "Home",
-            m => m.Id)
-            .HtmlAttributes(new { @class = "productsList" })
-            .Deferred())
-    </div>
-    <hr />
-        <h3>Best Selling</h3>
-    <div class="row">
-        @(Html.ListViewHelper<ProductViewModel>(
-            "productsList-2",
-            "table",
-            "list-products-template",
-            "Home",
-            m => m.Id)
-            .HtmlAttributes(new { @class = "productsList" })
-            .Deferred())
-    </div>
-    <hr />
-    <div class="row">
-        <h3>Stars We Got!</h3>
-        @(Html.ListViewHelper<ProductViewModel>(
-            "productsList-3",
-            "table",
-            "list-products-template",
-            "Home",
-            m => m.Id)
-            .HtmlAttributes(new { @class = "productsList" })
-            .Deferred())
-    </div>
+
+<div class="row">
+    <h3>New Arrivals</h3>
+    @(Html.ListViewHelper<ProductViewModel>(
+        "productsList-1",
+        "table",
+        "list-products-template",
+        "Home",
+        m => m.Id,
+        5)
+        .HtmlAttributes(new { @class = "productsList" })
+        .Deferred())
+</div>
+<hr />
+<div class="row">
+    <h3>Best Selling</h3>
+    @(Html.ListViewHelper<ProductViewModel>(
+        "productsList-2",
+        "table",
+        "list-products-template",
+        "Home",
+        m => m.Id,
+        5)
+        .HtmlAttributes(new { @class = "productsList" })
+        .Deferred())
+</div>
+<hr />
+<div class="row">
+    <h3>Stars We Got!</h3>
+    @(Html.ListViewHelper<ProductViewModel>(
+        "productsList-3",
+        "table",
+        "list-products-template",
+        "Home",
+        m => m.Id,
+        5)
+        .HtmlAttributes(new { @class = "productsList" })
+        .Deferred())
 </div>
 
 <script type="text/x-kendo-tmpl" id="list-products-template">
     <td class="product">
         <div class="img-div">
-            <img src="@Url.Content("~/Content/Images/Products/")#:@*Id%3==0?3:Id%*@3#.jpg" alt="#:Title# image" />
+            <img src="@Url.Content("~/Content/Images/Products/")#:Id#.jpg" alt="#:Title# image" />
         </div>
-            <a href="/" class="btn btn-link">@*#:Title#*@ sneak peek</a>
+        <a href="/" class="btn btn-link">@*#:Title#*@ sneak peek</a>
         @*<p>#:kendo.toString(UnitPrice, "c")#</p>*@
     </td>
 </script>

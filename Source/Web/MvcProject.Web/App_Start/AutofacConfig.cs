@@ -17,6 +17,9 @@
     using Data.Models;
     using Infrastructure.Sanitizer;
     using Infrastructure.ViewEngines;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Microsoft.AspNet.Identity.Owin;
     using Services.Data;
     using Services.Web;
 
@@ -56,6 +59,12 @@
                 .Register(x => new MvcProjectDbContext())
                 .As<DbContext>()
                 .InstancePerRequest();
+
+            builder
+                .Register(x => HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationUserManager>()
+                /*new ApplicationUserManager(new UserStore<ApplicationUser>(new MvcProjectDbContext()))*/)
+                .As<UserManager<ApplicationUser>>();
+                //.InstancePerRequest();
 
             builder
                 .RegisterGeneric(typeof(GenericRepository<>))

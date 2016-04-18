@@ -1,0 +1,69 @@
+﻿@using MvcProject.Web.Infrastructure.HtmlHelpers
+@using MvcProject.Web.Areas.Admin.ViewModels.Products
+@using MvcProject.Data.Models
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@(Html.FullFeaturedGrid<ProductViewModel>(
+    controllerName: "Products",
+    modelIdExpression: m => m.Id,
+    pageSize: 7,
+    columns: c =>
+    {
+        c.Bound(m => m.Id);
+        c.Bound(m => m.Title);
+        c.Bound(m => m.UnitPrice);
+        c.Bound(m => m.ShortDescription);
+        c.Bound(m => m.Description)/*.HtmlAttributes(new { @class = "show-more" })*/;
+        c.Bound(m => m.Category);
+        //c.Bound(m => m.IsInStock);
+        c.Bound(m => m.QuantityInStock);
+        c.Bound(m => m.MainImage);
+        c.Bound(m => m.Comments);
+        //c.Bound(m => m.Images);
+        //c.Bound(m => m.Votes);
+        //c.Bound(m => m.JoinedTags);
+        //c.Bound(m => m.IsInStock);
+        c.Bound(m => m.Height);
+        c.Bound(m => m.Length);
+        c.Bound(m => m.Width);
+        c.Bound(m => m.Weight);
+        c.Command(cm =>
+        {
+            cm.Edit().UpdateText("Save");
+            cm.Destroy().Text("Delete");
+        }).Lockable(false)
+        //.Width(165)
+        //.Hidden()
+        ;
+    }
+    , editMode: GridEditMode.InCell
+    )
+    .Deferred())
+
+@section Scripts{
+    @(Html.Kendo().DeferredScripts())
+
+    <script>
+        kendo.culture('@BundleConfig.UiCulture');
+
+        $(function () {
+            $("#grid").kendoValidator();
+        });
+    </script>
+}
+
+@section styles{
+    <style>
+        /*horizontal Grid scrollbar should appear if the browser window is shrinked too much*/
+        #grid table {
+            min-width: 2500px;
+            /*height: 1000px;*/
+        }
+        /*#grid .k-grid-content {
+            min-height: 400px;
+        }*/
+    </style>
+}

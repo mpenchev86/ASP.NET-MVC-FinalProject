@@ -78,7 +78,10 @@
 
                 <div class="col-md-3">
                     <ul class="nav navbar-nav navbar-right collapse navbar-collapse">
-                        <li><a href="#">Link</a></li>
+                        @if (this.Context.User.IsInRole(MvcProject.GlobalConstants.IdentityRoles.Admin))
+                        {
+                            <li><a @*class="btn btn-default"*@ href="@Url.Action("Index", "Admin", new { Area = "Admin" })">Admin</a></li>
+	                    }
                         <li><a href="#">Link</a></li>
                     </ul>
                 </div>
@@ -86,9 +89,9 @@
         </div><!-- /.container -->
     </nav><!-- /.navbar -->
     <!-- BODY -->
-    @*<div id="body-content" class="container-fluid">*@
+    <div id="body-content" class="container">
         @RenderBody()
-    @*</div>*@
+    </div>
     <!-- FOOTER -->
     <footer class="panel-footer">
         <div id="footer-content" class="container-fluid">

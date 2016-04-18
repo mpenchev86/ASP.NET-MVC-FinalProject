@@ -1,4 +1,4 @@
-﻿namespace MvcProject.Web.Infrastructure.Validation
+﻿namespace MvcProject.Web.Infrastructure.Validators
 {
     using System;
     using System.Collections.Generic;

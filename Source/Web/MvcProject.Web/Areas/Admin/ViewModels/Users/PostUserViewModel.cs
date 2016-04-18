@@ -12,7 +12,7 @@
     {
         public void CreateMappings(IMapperConfiguration configuration)
         {
-            throw new NotImplementedException();
+            //configuration.CreateMap<ApplicationUser, PostUserViewModel>().ForAllMembers();
         }
     }
 }

@@ -9,7 +9,7 @@
     using System.Threading.Tasks;
     using EntityContracts;
 
-    public class Tag : BaseEntityModel<string>
+    public class Tag : BaseEntityModel<int>, IAdministerable
     {
         private ICollection<Product> products;
 

@@ -14,15 +14,17 @@
         HttpMethod = "POST"
     }, new { id = "submitForm" }))
 {
-    <input type="text" name="query" oninput="changed()" />
-    <input type="submit" />
+    <div class="row">
+        <input type="text" name="query" oninput="changed()" />
+        <input type="submit" />
+    </div>
 }
 <script>
     function changed() {
         $("#submitForm").submit();
     }
 </script>
-<div id="updateMe">
+<div id="updateMe" class="row">
     @Html.Partial("_ProductResult", Model)
 </div>
 

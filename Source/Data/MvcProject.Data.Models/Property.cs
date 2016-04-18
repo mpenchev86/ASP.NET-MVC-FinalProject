@@ -5,7 +5,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using MvcProject.Data.Models.EntityContracts;
 
-    public class Property : BaseEntityModel<string>
+    public class Property : BaseEntityModel<int>, IAdministerable
     {
         [Required]
         public string Name { get; set; }

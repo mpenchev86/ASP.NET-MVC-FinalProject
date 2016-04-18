@@ -4,8 +4,8 @@
     using System.Linq;
     using Models.EntityContracts;
 
-    public interface IRepository<T> : IRepository<T, string>
-        where T : IBaseEntityModel<string>
+    public interface IRepository<T> : IRepository<T, int>
+        where T : IBaseEntityModel<int>
     {
     }
 

@@ -10,6 +10,8 @@
 
     public interface IUsersService : IBaseService<ApplicationUser>
     {
-        ApplicationUser GetById(string id);
+        ApplicationUser GetUserById(string id);
+
+        IQueryable<string> GetUserRoles(string userId);
     }
 }

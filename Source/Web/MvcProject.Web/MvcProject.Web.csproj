@@ -252,7 +252,9 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\ViewEnginesConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Products\ProductViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Users\PostUserViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Users\IndexUserViewModel.cs" />
     <Compile Include="Areas\Common\CommonAreaRegistration.cs" />
@@ -302,6 +304,7 @@
     <Content Include="Content\bootstrap.journal.css" />
     <Content Include="Content\bootstrap.journal.min.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Custom\Admin\domains-list.css" />
     <Content Include="Content\Custom\listView.css" />
     <Content Include="Content\Images\Products\1.jpg" />
     <Content Include="Content\Images\Products\2.jpg" />
@@ -770,6 +773,10 @@
     <Content Include="Areas\Common\Views\Grid\Index.cshtml" />
     <Content Include="Areas\Common\Views\Shared\Partials\_CarouselPartial.cshtml" />
     <Content Include="MvcProject.Web.ruleset" />
+    <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\GetUser.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\DisplayTemplates\Comment.cshtml" />
     <None Include="Properties\PublishProfiles\testWebDep.pubxml" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.dll" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.xml" />
@@ -839,7 +846,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\Admin\Views\Shared\EditorTemplates\" />
     <Folder Include="Content\Images\Carousel\" />
   </ItemGroup>
   <ItemGroup>

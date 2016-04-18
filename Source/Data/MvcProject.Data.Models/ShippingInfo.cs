@@ -7,7 +7,7 @@
     using EntityContracts;
 
     [NotMapped]
-    public class ShippingInfo : BaseEntityModel<string>
+    public class ShippingInfo : BaseEntityModel<int>, IAdministerable
     {
         private ICollection<Product> products;
 

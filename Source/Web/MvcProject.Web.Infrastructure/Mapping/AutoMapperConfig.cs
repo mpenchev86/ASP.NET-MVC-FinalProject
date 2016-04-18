@@ -8,7 +8,7 @@
     using AutoMapper;
     using AutoMapper.Internal;
     using AutoMapper.QueryableExtensions;
-
+    using Crawlers;
     public class AutoMapperConfig
     {
         public static MapperConfiguration Configuration { get; private set; }

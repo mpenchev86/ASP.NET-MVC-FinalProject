@@ -17,7 +17,9 @@
             this HtmlHelper helper,
             string controllerName,
             Expression<Func<T, object>> modelIdExpression,
+            int pageSize,
             Action<GridColumnFactory<T>> columns = null,
+            GridEditMode editMode = GridEditMode.PopUp,
             Action<GridSortSettingsBuilder<T>> sortSettings = null,
             Action<GridFilterableSettingsBuilder> filterSettings = null)
             where T : class
@@ -50,19 +52,24 @@
                 .Pageable(page => page.Refresh(true))
                 .Sortable(sortSettings)
                 .Groupable()
+                .Scrollable(scrollable => scrollable
+                    .Virtual(true)
+                    .Height(400).Enabled(true))
+                .Reorderable(reorderable => reorderable.Columns(true))
+                .Resizable(resizable => resizable.Columns(true))
                 .Filterable(filterSettings)
                 .Editable(edit => edit
-                    .Mode(GridEditMode.PopUp)
+                    .Mode(editMode)
                     .Window(w => w.Title(false)))
                 .ToolBar(toolbar => toolbar.Create())
-                .DataSource(data =>
-                    data
-                        .Ajax()
-                        .Model(m => m.Id(modelIdExpression))
-                        .Read(read => read.Action("Read", controllerName))
-                        .Create(create => create.Action("Create", controllerName))
-                        .Update(update => update.Action("Update", controllerName))
-                        .Destroy(destroy => destroy.Action("Destroy", controllerName)));
+                .DataSource(data => data
+                    .Ajax()
+                    .PageSize(pageSize)
+                    .Model(m => m.Id(modelIdExpression))
+                    .Read(read => read.Action("Read", controllerName))
+                    .Create(create => create.Action("Create", controllerName))
+                    .Update(update => update.Action("Update", controllerName))
+                    .Destroy(destroy => destroy.Action("Destroy", controllerName)));
         }
 
         public static ListViewBuilder<T> ListViewHelper<T>(
@@ -72,9 +79,9 @@
             string templateId,
             string controllerName,
             Expression<Func<T, object>> modelIdExpression,
+            int pageSize,
             Action<DataSourceFilterDescriptorFactory<T>> filterSettings = null,
             Action<DataSourceSortDescriptorFactory<T>> sortSettings = null,
-            //int pageSize = 6,
             bool isServerOps = true)
             where T : class
         {
@@ -105,7 +112,7 @@
                     .Create(create => create.Action("Create", controllerName))
                     .Update(update => update.Action("Update", controllerName))
                     .Destroy(destroy => destroy.Action("Destroy", controllerName))
-                    .PageSize(5)
+                    .PageSize(pageSize)
                     .Filter(filterSettings)
                     .Sort(sortSettings)
                     .AutoSync(false));

@@ -62,6 +62,7 @@
     <Compile Include="Comment.cs" />
     <Compile Include="Description.cs" />
     <Compile Include="EntityContracts\BaseEntityModel.cs" />
+    <Compile Include="EntityContracts\IAdministerable.cs" />
     <Compile Include="EntityContracts\IAuditInfo.cs" />
     <Compile Include="EntityContracts\IBaseEntityModel.cs" />
     <Compile Include="EntityContracts\IDeletableEntity.cs" />

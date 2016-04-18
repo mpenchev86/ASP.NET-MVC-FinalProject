@@ -3,20 +3,23 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
+
     using Common.Controllers;
-    using Microsoft.AspNet.Identity.Owin;
-    using MvcProject.Services.Data;
-    using MvcProject.Data.Common.Constants;
-    using Microsoft.AspNet.Identity.EntityFramework;
-    using Microsoft.AspNet.Identity;
     using Data.Models;
     using Infrastructure.Extensions;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Microsoft.AspNet.Identity;
+    using MvcProject.Data.Common.Constants;
+    using MvcProject.GlobalConstants;
+    using MvcProject.Services.Data;
     using ViewModels;
     using ViewModels.Users;
 
-    //[Authorize(Roles = Data.Common.Constants.IdentityRoleTypes.Administrator)]
+    [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
     public class UsersController : BaseController
     {
         private readonly IUsersService usersService;
@@ -29,15 +32,18 @@
         // GET: Admin/Users
         public ActionResult Index()
         {
-            var model = this.usersService.GetAll().To<IndexUserViewModel>().ToList();
             //var userManager = this.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            //var model = userManager.Users.To<IndexUserViewModel>().ToList();
+
+            var model = this.usersService.GetAll().To<IndexUserViewModel>().ToList();
+
             return this.View(model);
         }
 
         public ActionResult GetUser(string id)
         {
-            return this.View();
+            var model = this.Mapper.Map<IndexUserViewModel>(this.usersService.GetUserById(id));
+            model.MainRole = this.usersService.GetUserRoles(model.Id).FirstOrDefault();
+            return this.View(model);
         }
 
         [HttpPost]
