@@ -14,7 +14,7 @@
         Choose domain entity:
     </h4>
     <div class="col-md-6">
-    @using (Html.BeginForm("DomainModelRedirect", "Admin", new { Area = "Admin" }, FormMethod.Get, new { id = "select-form" }))
+    @using (Html.BeginForm("DomainModelRedirect", "Home", new { Area = "Admin" }, FormMethod.Get, new { id = "select-form" }))
     {
         @Html.DropDownList(
             "domainModel",

@@ -1,4 +1,4 @@
-﻿namespace MvcProject.Data.Common.Constants
+﻿namespace MvcProject.GlobalConstants
 {
     using System;
     using System.Collections.Generic;

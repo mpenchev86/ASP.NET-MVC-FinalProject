@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Web;
@@ -15,8 +16,9 @@
     using Microsoft.AspNet.Identity.Owin;
     using Services.Data;
 
-    public class IndexUserViewModel : IMapFrom<ApplicationUser>, IHaveCustomMappings
+    public class UserViewModel : IMapFrom<ApplicationUser>, IHaveCustomMappings
     {
+        [Key]
         public string Id { get; set; }
 
         public string Name { get; set; }
@@ -35,7 +37,7 @@
 
         public void CreateMappings(IMapperConfiguration configuration)
         {
-            configuration.CreateMap<ApplicationUser, IndexUserViewModel>()
+            configuration.CreateMap<ApplicationUser, UserViewModel>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.UserName));
         }
     }

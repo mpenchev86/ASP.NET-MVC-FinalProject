@@ -8,7 +8,7 @@
     using Data.Models;
     using Infrastructure.Mapping;
 
-    public class PostUserViewModel : IMapFrom<ApplicationUser>, IHaveCustomMappings
+    public class UserPostModel : IMapFrom<ApplicationUser>, IHaveCustomMappings
     {
         public void CreateMappings(IMapperConfiguration configuration)
         {

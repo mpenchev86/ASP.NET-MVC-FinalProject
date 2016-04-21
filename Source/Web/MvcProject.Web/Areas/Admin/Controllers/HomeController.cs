@@ -16,9 +16,9 @@
     using Web.Common.Constants;
 
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
-    public class AdminController : BaseController
+    public class HomeController : BaseController
     {
-        public AdminController()
+        public HomeController()
         {
         }
 

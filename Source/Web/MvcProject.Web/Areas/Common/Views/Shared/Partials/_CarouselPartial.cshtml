@@ -1,5 +1,6 @@
 ﻿@if (HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "Home" &&
-     HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString() == "Index")
+     HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString() == "Index" &&
+     HttpContext.Current.Request.RequestContext.RouteData.DataTokens["area"] as string == "Common")
 {
     <div id="myCarousel" class="carousel slide panel-collapse" data-ride="carousel">
         <!-- Indicators -->

@@ -30,7 +30,7 @@
             return this.userManager.Users;
         }
 
-        public ApplicationUser GetUserById(string id)
+        public ApplicationUser GetById(string id)
         {
             var result = this.userManager
                 .Users
@@ -54,6 +54,19 @@
         public IdentityResult AddToRole(string userId, string[] roles)
         {
             return this.userManager.AddToRoles(userId, roles);
+        }
+
+        public void DeleteUser(string userId)
+        {
+            var user = this.GetById(userId);
+            user.IsDeleted = true;
+            user.DeletedOn = DateTime.UtcNow;
+        }
+
+        public IdentityResult DeleteUserPermanent(string userId)
+        {
+            var user = this.GetById(userId);
+            return this.userManager.Delete(user);
         }
     }
 }

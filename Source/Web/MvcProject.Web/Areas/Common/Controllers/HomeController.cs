@@ -101,11 +101,11 @@
             return this.Content(product.ShortDescription);
         }
 
-        public ActionResult Random(int count)
-        {
-            var randoms = this.productsService.GetRandomProducts(count).To<ProductViewModel>().ToList();
-            return this.View(randoms);
-        }
+        //public ActionResult Random(int count)
+        //{
+        //    var randoms = this.productsService.GetRandomProducts(count).To<ProductViewModel>().ToList();
+        //    return this.View(randoms);
+        //}
 
 
 

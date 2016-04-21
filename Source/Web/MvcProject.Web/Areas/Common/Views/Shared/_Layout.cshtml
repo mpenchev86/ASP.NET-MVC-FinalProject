@@ -80,7 +80,7 @@
                     <ul class="nav navbar-nav navbar-right collapse navbar-collapse">
                         @if (this.Context.User.IsInRole(MvcProject.GlobalConstants.IdentityRoles.Admin))
                         {
-                            <li><a @*class="btn btn-default"*@ href="@Url.Action("Index", "Admin", new { Area = "Admin" })">Admin</a></li>
+                            <li><a @*class="btn btn-default"*@ href="@Url.Action("Index", "Home", new { Area = "Admin" })">Admin</a></li>
 	                    }
                         <li><a href="#">Link</a></li>
                     </ul>

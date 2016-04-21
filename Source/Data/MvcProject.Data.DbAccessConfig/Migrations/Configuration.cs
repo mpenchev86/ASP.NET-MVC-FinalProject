@@ -8,7 +8,7 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Models;
-    using MvcProject.Data.Common.Constants;
+    using MvcProject.GlobalConstants;
 
     public sealed class Configuration : DbMigrationsConfiguration<MvcProjectDbContext>
     {
@@ -18,7 +18,7 @@
             this.AutomaticMigrationsEnabled = true;
             this.AutomaticMigrationDataLossAllowed = true;
 
-            this.ContextKey = Common.Constants.DbAccess.DbMigrationsConfigurationContextKey;
+            this.ContextKey = GlobalConstants.DbAccess.DbMigrationsConfigurationContextKey;
         }
 
         protected override void Seed(MvcProjectDbContext context)

@@ -1,0 +1,13 @@
+﻿/*body > div*/ /*.k-widget*/ .k-window /*.k-window-titleless*/ {
+    width: 50%;
+    left: 25%;
+}
+
+.k-edit-form-container {
+    width: auto;
+}
+
+.k-edit-form-container > input, select, textarea {
+    width: 80%;
+    max-width: none;
+}

@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using Common;
+    using MvcProject.GlobalConstants;
     using EntityContracts;
 
     public class Description : BaseEntityModel<int>, IAdministerable
@@ -15,7 +15,7 @@
         }
 
         [Required]
-        //[MaxLength(ValidationConstants.MaxFullDescriptionLength)]
+        //[MaxLength(GlobalConstants.ValidationConstants.MaxFullDescriptionLength)]
         public string Content { get; set; }
 
         public virtual ICollection<Property> Properties

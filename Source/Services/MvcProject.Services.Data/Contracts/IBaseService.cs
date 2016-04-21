@@ -6,9 +6,12 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public interface IBaseService<T>
+    // out - "cannot convert from IProductsService to IBaseService<IAdministerable>"
+    public interface IBaseService<out T>
         where T : class
     {
         IQueryable<T> GetAll();
+
+        T GetById(string id);
     }
 }

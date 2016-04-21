@@ -7,7 +7,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using Common.Constants;
+    using MvcProject.GlobalConstants;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Migrations;
     using Models;
@@ -16,7 +16,7 @@
     public class MvcProjectDbContext : IdentityDbContext<ApplicationUser>, IMvcProjectDbContext
     {
         public MvcProjectDbContext()
-            : base(Common.Constants.DbAccess.DefaultConnectionString, throwIfV1Schema: false)
+            : base(GlobalConstants.DbAccess.DefaultConnectionString, throwIfV1Schema: false)
         {
         }
 

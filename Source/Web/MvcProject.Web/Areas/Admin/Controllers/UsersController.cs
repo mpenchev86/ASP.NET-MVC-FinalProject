@@ -13,7 +13,6 @@
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Microsoft.AspNet.Identity;
-    using MvcProject.Data.Common.Constants;
     using MvcProject.GlobalConstants;
     using MvcProject.Services.Data;
     using ViewModels;
@@ -34,26 +33,26 @@
         {
             //var userManager = this.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
-            var model = this.usersService.GetAll().To<IndexUserViewModel>().ToList();
+            var model = this.usersService.GetAll().To<UserViewModel>().ToList();
 
             return this.View(model);
         }
 
         public ActionResult GetUser(string id)
         {
-            var model = this.Mapper.Map<IndexUserViewModel>(this.usersService.GetUserById(id));
+            var model = this.Mapper.Map<UserViewModel>(this.usersService.GetById(id));
             model.MainRole = this.usersService.GetUserRoles(model.Id).FirstOrDefault();
             return this.View(model);
         }
 
         [HttpPost]
-        public ActionResult EditUser(PostUserViewModel model)
+        public ActionResult EditUser(UserPostModel model)
         {
             return null;
         }
 
         [HttpPost]
-        public ActionResult DeleteUser(PostUserViewModel model)
+        public ActionResult DeleteUser(UserPostModel model)
         {
             return null;
         }

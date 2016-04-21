@@ -5,8 +5,10 @@
 
     public interface IProductsService : IBaseService<Product>
     {
-        IQueryable<Product> GetRandomProducts(int count);
+        //IQueryable<Product> GetRandomProducts(int count);
 
-        Product GetById(string count);
+        //Product GetById(string count);
+
+        void Create(Product model);
     }
 }

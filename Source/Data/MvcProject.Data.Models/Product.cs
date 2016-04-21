@@ -7,7 +7,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using MvcProject.Data.Common.Constants;
+    using MvcProject.GlobalConstants;
     using EntityContracts;
 
     public class Product : BaseEntityModel<int>, IAdministerable
@@ -28,10 +28,10 @@
         }
 
         [Required]
-        [MaxLength(Common.Constants.ValidationConstants.MaxProductTitleLength)]
+        [MaxLength(GlobalConstants.ValidationConstants.MaxProductTitleLength)]
         public string Title { get; set; }
 
-        [MaxLength(Common.Constants.ValidationConstants.MaxShortDescriptionLength)]
+        [MaxLength(GlobalConstants.ValidationConstants.MaxShortDescriptionLength)]
         public string ShortDescription { get; set; }
 
         public int? DescriptionId { get; set; }

@@ -85,6 +85,10 @@
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\GlobalConstants\MvcProject.GlobalConstants.csproj">
+      <Project>{5f2803a7-770d-4509-8d69-cfbf4d6dc772}</Project>
+      <Name>MvcProject.GlobalConstants</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MvcProject.Data.Common\MvcProject.Data.Common.csproj">
       <Project>{736c2ee0-6d23-432e-b2fb-245807f0946e}</Project>
       <Name>MvcProject.Data.Common</Name>

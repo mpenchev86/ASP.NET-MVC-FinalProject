@@ -12,14 +12,14 @@
     public class ProductsService : IProductsService
     {
         private readonly IRepository<Product> products;
-        private IIdentifierProvider provider;
+        private IIdentifierProvider idProvider;
 
         public ProductsService(
             IRepository<Product> products,
-            IIdentifierProvider provider)
+            IIdentifierProvider idProvider)
         {
             this.products = products;
-            this.provider = provider;
+            this.idProvider = idProvider;
         }
 
         public IQueryable<Product> GetAll()
@@ -31,18 +31,23 @@
         public Product GetById(string id)
         {
             //var product = this.products.GetById(id);
-            var idAsInt = this.provider.DecodeId(id);
+            var idAsInt = this.idProvider.DecodeId(id);
             var product = this.products.GetById(idAsInt);
             return product;
         }
 
-        public IQueryable<Product> GetRandomProducts(int count)
+        public void Create(Product model)
         {
-            var result = this.products
-                             .All()
-                             .OrderBy(x => Guid.NewGuid())
-                             .Take(count);
-            return result;
+            throw new NotImplementedException();
         }
+
+        //public IQueryable<Product> GetRandomProducts(int count)
+        //{
+        //    var result = this.products
+        //                     .All()
+        //                     .OrderBy(x => Guid.NewGuid())
+        //                     .Take(count);
+        //    return result;
+        //}
     }
 }

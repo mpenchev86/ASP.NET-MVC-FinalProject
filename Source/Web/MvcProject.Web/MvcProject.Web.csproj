@@ -252,14 +252,24 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\ViewEnginesConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BaseGridController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
+    <Compile Include="Areas\Admin\ViewModels\BaseAdminViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Categories\CategoryViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Comments\CommentViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Descriptions\DescriptionViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Images\ImageViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Products\ProductPostModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Products\ProductViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Users\PostUserViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Users\IndexUserViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Properties\PropertyViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Tags\TagViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Users\UserPostModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Users\UserViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Votes\VoteViewModel.cs" />
     <Compile Include="Areas\Common\CommonAreaRegistration.cs" />
     <Compile Include="Areas\Common\Controllers\AccountController.cs" />
-    <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Common\Controllers\AjaxController.cs" />
     <Compile Include="Areas\Common\Controllers\BaseController.cs" />
     <Compile Include="Areas\Common\Controllers\ChildActionsController.cs" />
@@ -305,6 +315,7 @@
     <Content Include="Content\bootstrap.journal.min.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Custom\Admin\domains-list.css" />
+    <Content Include="Content\Custom\custom-popup-editor.css" />
     <Content Include="Content\Custom\listView.css" />
     <Content Include="Content\Images\Products\1.jpg" />
     <Content Include="Content\Images\Products\2.jpg" />
@@ -773,7 +784,7 @@
     <Content Include="Areas\Common\Views\Grid\Index.cshtml" />
     <Content Include="Areas\Common\Views\Shared\Partials\_CarouselPartial.cshtml" />
     <Content Include="MvcProject.Web.ruleset" />
-    <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Users\GetUser.cshtml" />
     <Content Include="Areas\Admin\Views\Products\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\DisplayTemplates\Comment.cshtml" />
@@ -846,6 +857,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\ViewModels\Contracts\" />
+    <Folder Include="Areas\Admin\Views\Products\EditorTemplates\" />
     <Folder Include="Areas\Admin\Views\Shared\EditorTemplates\" />
     <Folder Include="Content\Images\Carousel\" />
   </ItemGroup>

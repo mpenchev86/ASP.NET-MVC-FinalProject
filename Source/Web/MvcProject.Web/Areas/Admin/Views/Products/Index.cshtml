@@ -8,19 +8,20 @@
 
 @(Html.FullFeaturedGrid<ProductViewModel>(
     controllerName: "Products",
+    routeValues: new { Area = "Admin" },
     modelIdExpression: m => m.Id,
     pageSize: 7,
     columns: c =>
     {
         c.Bound(m => m.Id);
-        c.Bound(m => m.Title);
+        c.Bound(m => m.Title).Width("20%");
+        c.Bound(m => m.ShortDescription).Width("20%");
         c.Bound(m => m.UnitPrice);
-        c.Bound(m => m.ShortDescription);
-        c.Bound(m => m.Description)/*.HtmlAttributes(new { @class = "show-more" })*/;
-        c.Bound(m => m.Category);
+        c.Bound(m => m.DescriptionId)/*.HtmlAttributes(new { @class = "show-more" })*/;
+        c.Bound(m => m.CategoryId);
         //c.Bound(m => m.IsInStock);
         c.Bound(m => m.QuantityInStock);
-        c.Bound(m => m.MainImage);
+        c.Bound(m => m.MainImageId);
         c.Bound(m => m.Comments);
         //c.Bound(m => m.Images);
         //c.Bound(m => m.Votes);
@@ -30,30 +31,12 @@
         c.Bound(m => m.Length);
         c.Bound(m => m.Width);
         c.Bound(m => m.Weight);
-        c.Command(cm =>
-        {
-            cm.Edit().UpdateText("Save");
-            cm.Destroy().Text("Delete");
-        }).Lockable(false)
-        //.Width(165)
-        //.Hidden()
-        ;
+        c.Command(cm => cm.Edit().UpdateText("Save"))/*.Lockable(false)*/;
+        c.Command(cm => cm.Destroy().Text("Delete"));
     }
-    , editMode: GridEditMode.InCell
+    , editMode: GridEditMode.PopUp
     )
     .Deferred())
-
-@section Scripts{
-    @(Html.Kendo().DeferredScripts())
-
-    <script>
-        kendo.culture('@BundleConfig.UiCulture');
-
-        $(function () {
-            $("#grid").kendoValidator();
-        });
-    </script>
-}
 
 @section styles{
     <style>
@@ -66,4 +49,18 @@
             min-height: 400px;
         }*/
     </style>
+
+    <link href="@Url.Content("~/Content/Custom/custom-popup-editor.css")" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts{
+    @(Html.Kendo().DeferredScripts())
+
+    <script>
+        kendo.culture('@BundleConfig.UiCulture');
+
+        $(function () {
+            $("#grid").kendoValidator();
+        });
+    </script>
 }

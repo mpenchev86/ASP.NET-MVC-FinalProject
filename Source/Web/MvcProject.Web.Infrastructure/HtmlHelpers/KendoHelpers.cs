@@ -16,6 +16,7 @@
         public static GridBuilder<T> FullFeaturedGrid<T>(
             this HtmlHelper helper,
             string controllerName,
+            object routeValues,
             Expression<Func<T, object>> modelIdExpression,
             int pageSize,
             Action<GridColumnFactory<T>> columns = null,
@@ -54,19 +55,21 @@
                 .Groupable()
                 .Scrollable(scrollable => scrollable
                     .Virtual(true)
-                    .Height(400).Enabled(true))
+                    .Height(400)/*.Enabled(true)*/)
                 .Reorderable(reorderable => reorderable.Columns(true))
                 .Resizable(resizable => resizable.Columns(true))
                 .Filterable(filterSettings)
                 .Editable(edit => edit
                     .Mode(editMode)
-                    .Window(w => w.Title(false)))
+                    .Window(w => w
+                        .Title(false)
+                        .Resizable()))
                 .ToolBar(toolbar => toolbar.Create())
                 .DataSource(data => data
                     .Ajax()
                     .PageSize(pageSize)
                     .Model(m => m.Id(modelIdExpression))
-                    .Read(read => read.Action("Read", controllerName))
+                    .Read(read => read.Action("Read", controllerName, routeValues))
                     .Create(create => create.Action("Create", controllerName))
                     .Update(update => update.Action("Update", controllerName))
                     .Destroy(destroy => destroy.Action("Destroy", controllerName)));
