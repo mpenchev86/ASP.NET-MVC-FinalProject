@@ -19,6 +19,7 @@
             object routeValues,
             Expression<Func<T, object>> modelIdExpression,
             int pageSize,
+            bool virtualScroll = false,
             Action<GridColumnFactory<T>> columns = null,
             GridEditMode editMode = GridEditMode.PopUp,
             Action<GridSortSettingsBuilder<T>> sortSettings = null,
@@ -54,8 +55,8 @@
                 .Sortable(sortSettings)
                 .Groupable()
                 .Scrollable(scrollable => scrollable
-                    .Virtual(true)
-                    .Height(400)/*.Enabled(true)*/)
+                    .Virtual(virtualScroll)
+                    .Height(500)/*.Enabled(true)*/)
                 .Reorderable(reorderable => reorderable.Columns(true))
                 .Resizable(resizable => resizable.Columns(true))
                 .Filterable(filterSettings)

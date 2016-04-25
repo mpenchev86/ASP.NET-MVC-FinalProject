@@ -28,6 +28,11 @@
             return result;
         }
 
+        public Category GetById(int id)
+        {
+            return this.categories.GetById(id);
+        }
+
         public Category GetById(string id)
         {
             var idAsInt = this.idProvider.DecodeId(id);

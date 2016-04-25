@@ -14,8 +14,9 @@
     using Kendo.Mvc.UI;
     using MvcProject.Web.Areas.Common.Controllers;
     using Services.Data;
+    using ViewModels.Comments;
     using ViewModels.Products;
-
+    using ViewModels.Tags;
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
     public class ProductsController : BaseGridController<IProductsService, ProductViewModel>
     {
@@ -80,5 +81,29 @@
 
             return base.Destroy(request, viewModel);
         }
+
+        #region ClientDetailsHelpers
+        [HttpPost]
+        public ActionResult GetTagsByProductId([DataSourceRequest]DataSourceRequest request, int productId)
+        {
+            var result = this.productsService
+                .GetById(productId)
+                .Tags
+                .AsQueryable()
+                .To<TagDetailsForProductViewModel>();
+            return this.Json(result.ToDataSourceResult(request, this.ModelState));
+        }
+
+        [HttpPost]
+        public ActionResult GetCommentsByProductId([DataSourceRequest]DataSourceRequest request, int productId)
+        {
+            var result = this.productsService
+                .GetById(productId)
+                .Comments
+                .AsQueryable()
+                .To<CommentDetailsForProductViewModel>();
+            return this.Json(result.ToDataSourceResult(request, this.ModelState));
+        }
+        #endregion
     }
 }

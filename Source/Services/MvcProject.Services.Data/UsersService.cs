@@ -68,5 +68,11 @@
             var user = this.GetById(userId);
             return this.userManager.Delete(user);
         }
+
+        public ApplicationUser GetById(int id)
+        {
+            // throw new NotImplementedException();
+            return null;
+        }
     }
 }

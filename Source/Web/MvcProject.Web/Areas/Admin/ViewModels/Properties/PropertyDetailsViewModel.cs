@@ -9,7 +9,7 @@
     using Data.Models;
     using Infrastructure.Mapping;
 
-    public class PropertyViewModel : IMapFrom<Property>, IHaveCustomMappings
+    public class PropertyDetailsViewModel : IMapFrom<Property>, IHaveCustomMappings
     {
         [Key]
         public int Id { get; set; }
@@ -19,12 +19,9 @@
 
         public string Value { get; set; }
 
-        public int DescriptionId { get; set; }
-
         public void CreateMappings(IMapperConfiguration configuration)
         {
-            configuration.CreateMap<Property, PropertyViewModel>()
-                .ForMember(dest => dest.DescriptionId, opt => opt.MapFrom(src => src.DescriptionId));
+            //throw new NotImplementedException();
         }
     }
 }

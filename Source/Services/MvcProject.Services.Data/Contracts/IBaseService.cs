@@ -13,5 +13,7 @@
         IQueryable<T> GetAll();
 
         T GetById(string id);
+
+        T GetById(int id);
     }
 }

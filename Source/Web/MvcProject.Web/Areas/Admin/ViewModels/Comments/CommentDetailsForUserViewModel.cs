@@ -10,7 +10,7 @@
     using Infrastructure.Mapping;
     using MvcProject.GlobalConstants;
 
-    public class CommentViewModel : BaseAdminViewModel, IMapFrom<Comment>, IHaveCustomMappings
+    public class CommentDetailsForUserViewModel : BaseAdminViewModel, IMapFrom<Comment>, IHaveCustomMappings
     {
         [Key]
         public int Id { get; set; }
@@ -22,15 +22,11 @@
         public string Content { get; set; }
 
         [Required]
-        public string UserId { get; set; }
-
-        [Required]
         public int ProductId { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)
         {
-            configuration.CreateMap<Comment, CommentViewModel>()
-                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId))
+            configuration.CreateMap<Comment, CommentDetailsForUserViewModel>()
                 .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
                 ;
         }

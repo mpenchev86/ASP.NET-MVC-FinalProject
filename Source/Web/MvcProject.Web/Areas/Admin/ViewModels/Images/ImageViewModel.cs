@@ -6,10 +6,11 @@
     using System.Linq;
     using System.Web;
     using AutoMapper;
-    using Elmah.ContentSyndication;
+    using Data.Models;
+    using GlobalConstants;
     using MvcProject.Web.Infrastructure.Mapping;
 
-    public class ImageViewModel : IMapFrom<Image>, IHaveCustomMappings
+    public class ImageViewModel : BaseAdminViewModel, IMapFrom<Image>, IHaveCustomMappings
     {
         [Key]
         public int Id { get; set; }

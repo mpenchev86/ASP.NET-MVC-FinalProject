@@ -8,30 +8,34 @@
     using System.Web;
 
     using AutoMapper;
+    using Comments;
     using Data.Models;
+    using Infrastructure.Extensions;
     using Infrastructure.Mapping;
     using MvcProject.GlobalConstants;
-
+    using Tags;
     public class ProductViewModel : BaseAdminViewModel, IMapFrom<Product>, IHaveCustomMappings
     {
-        //private ICollection<Tag> tags;
-        //private ICollection<Comment> comments;
+        private ICollection<TagDetailsForProductViewModel> tags;
+        private IEnumerable<string> tagsNames;
+        private ICollection<CommentDetailsForProductViewModel> comments;
+        //private IEnumerable<int> commentsIds;
         //private ICollection<Image> images;
         //private ICollection<Vote> votes;
-        //private ICollection<int> comments;
-        //private ICollection<int> images;
-        //private ICollection<int> votes;
+        private IEnumerable<int> imagesIds;
+        private IEnumerable<int> votesIds;
         //private ICollection<ShippingInfo> shippingOptions;
 
         public ProductViewModel()
         {
-            //this.tags = new HashSet<Tag>();
-            //this.comments = new HashSet<Comment>();
+            this.tags = new HashSet<TagDetailsForProductViewModel>();
+            this.tagsNames = new HashSet<string>();
+            this.comments = new HashSet<CommentDetailsForProductViewModel>();
+            //this.commentsIds = new HashSet<int>();
             //this.images = new HashSet<Image>();
             //this.votes = new HashSet<Vote>();
-            //this.comments = new HashSet<int>();
-            //this.images = new HashSet<int>();
-            //this.votes = new HashSet<int>();
+            this.imagesIds = new HashSet<int>();
+            this.votesIds = new HashSet<int>();
             //this.shippingOptions = new HashSet<ShippingInfo>();
         }
 
@@ -81,34 +85,35 @@
         [Range(0, double.MaxValue)]
         public double? Weight { get; set; }
 
-        //public string JoinedTags
+        //public virtual IEnumerable<int> CommentsIds
         //{
-        //    get
-        //    {
-        //        if (this.Tags == null)
-        //        {
-        //            return string.Empty;
-        //        }
-
-        //        return string.Join(", ", this.Tags.ToArray());
-        //    }
+        //    get { return this.commentsIds; }
+        //    set { this.commentsIds = value; }
         //}
 
-        //public virtual ICollection<Tag> Tags
+        public virtual ICollection<CommentDetailsForProductViewModel> Comments
+        {
+            get { return this.comments; }
+            set { this.comments = value; }
+        }
+
+        //public virtual IEnumerable<string> TagsNames
         //{
-        //    get { return this.tags; }
-        //    set { this.tags = value; }
+        //    get { return this.tagsNames; }
+        //    set { this.tagsNames = value; }
         //}
 
-        public virtual ICollection<int> Comments { get; set; }
-        
-        //public virtual ICollection<Comment> Comments
-        //{
-        //    get { return this.comments; }
-        //    set { this.comments = value; }
-        //}
+        public virtual ICollection<TagDetailsForProductViewModel> Tags
+        {
+            get { return this.tags; }
+            set { this.tags = value; }
+        }
 
-        public virtual ICollection<int> Images { get; set; }
+        public virtual IEnumerable<int> ImagesIds
+        {
+            get { return this.imagesIds; }
+            set { this.imagesIds = value; }
+        }
 
         //public virtual ICollection<Image> Images
         //{
@@ -116,7 +121,11 @@
         //    set { this.images = value; }
         //}
 
-        public virtual ICollection<int> Votes { get; set; }
+        public virtual IEnumerable<int> VotesIds
+        {
+            get { return this.votesIds; }
+            set { this.votesIds = value; }
+        }
 
         //public virtual ICollection<Vote> Votes
         //{
@@ -132,10 +141,17 @@
                 //.ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description.Content/*.Substring(0, 30) + "..."*/))
                 //.ForMember(dest => dest.MainImage, opt => opt.MapFrom(src => src.MainImageId))
                 //.ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category.Name))
-                //.ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags.Select(t => t.Name)))
-                .ForMember(dest => dest.Comments, opt => opt.MapFrom(src => src.Comments.Select(c => c.Id)))
-                .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images.Select(i => i.Id)))
-                .ForMember(dest => dest.Votes, opt => opt.MapFrom(src => src.Votes.Select(v => v.Id)))
+                //.ForMember(dest => dest.TagsNames, opt => opt.MapFrom(src => src.Tags.Select(t => t.Name)))
+                .ForMember(dest => dest.tags, opt => opt.MapFrom(
+                           src => src.Tags.Select(t => new TagDetailsForProductViewModel
+                           {
+                               Id = t.Id,
+                               Name = t.Name
+                           })))
+                //.ForMember(dest => dest.CommentsIds, opt => opt.MapFrom(src => src.Comments.Select(c => c.Id)))
+                .ForMember(dest => dest.Comments, opt => opt.MapFrom(src => src.Comments.Select(c => new CommentDetailsForProductViewModel { Id = c.Id, Content = c.Content, UserId = c.UserId })))
+                .ForMember(dest => dest.ImagesIds, opt => opt.MapFrom(src => src.Images.Select(i => i.Id)))
+                .ForMember(dest => dest.VotesIds, opt => opt.MapFrom(src => src.Votes.Select(v => v.Id)))
                 ;
         }
     }

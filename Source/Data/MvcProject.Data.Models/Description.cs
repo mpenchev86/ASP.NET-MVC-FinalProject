@@ -18,6 +18,10 @@
         //[MaxLength(GlobalConstants.ValidationConstants.MaxFullDescriptionLength)]
         public string Content { get; set; }
 
+        //public int? ProductId { get; set; }
+
+        //public virtual Product Product { get; set; }
+
         public virtual ICollection<Property> Properties
         {
             get { return this.properties; }

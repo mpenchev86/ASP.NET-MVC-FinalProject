@@ -10,11 +10,11 @@
     using Infrastructure.Mapping;
     using Properties;
 
-    public class DescriptionViewModel : BaseAdminViewModel, IMapFrom<Description>, IHaveCustomMappings
+    public class DescriptionDetailsViewModel : BaseAdminViewModel, IMapFrom<Description>, IHaveCustomMappings
     {
         private ICollection<PropertyDetailsViewModel> properties;
 
-        public DescriptionViewModel()
+        public DescriptionDetailsViewModel()
         {
             this.properties = new HashSet<PropertyDetailsViewModel>();
         }
@@ -26,8 +26,6 @@
         //[MaxLength(ValidationConstants.MaxFullDescriptionLength)]
         public string Content { get; set; }
 
-        //public int? ProductId { get; set; }
-
         public virtual ICollection<PropertyDetailsViewModel> Properties
         {
             get { return this.properties; }
@@ -36,8 +34,7 @@
 
         public void CreateMappings(IMapperConfiguration configuration)
         {
-            configuration.CreateMap<Description, DescriptionViewModel>()
-                //.ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
+            configuration.CreateMap<Description, DescriptionDetailsViewModel>()
                 .ForMember(dest => dest.Properties, opt => opt.MapFrom(
                            src => src.Properties.Select(p => new PropertyDetailsViewModel
                            {

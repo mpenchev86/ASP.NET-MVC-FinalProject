@@ -9,13 +9,16 @@
 
     using Common.Controllers;
     using Data.Models;
+    using GlobalConstants;
     using Infrastructure.Extensions;
-    using Microsoft.AspNet.Identity.Owin;
-    using Microsoft.AspNet.Identity.EntityFramework;
+    using Kendo.Mvc.Extensions;
+    using Kendo.Mvc.UI;
     using Microsoft.AspNet.Identity;
-    using MvcProject.GlobalConstants;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Microsoft.AspNet.Identity.Owin;
     using MvcProject.Services.Data;
     using ViewModels;
+    using ViewModels.Comments;
     using ViewModels.Users;
 
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
@@ -57,5 +60,17 @@
             return null;
         }
 
+        #region ClientDetailsHelpers
+        [HttpPost]
+        public JsonResult GetCommentsByUserId([DataSourceRequest]DataSourceRequest request, string userId)
+        {
+            var result = this.usersService
+                .GetById(userId)
+                .Comments
+                .AsQueryable()
+                .To<CommentDetailsForProductViewModel>();
+            return this.Json(result.ToDataSourceResult(request, this.ModelState));
+        }
+        #endregion
     }
 }

@@ -9,12 +9,10 @@
     using Data.Models;
     using MvcProject.Web.Infrastructure.Mapping;
 
-    public class VoteViewModel : IMapFrom<Vote>, IHaveCustomMappings
+    public class VoteDetailsForProductViewModel : IMapFrom<Vote>, IHaveCustomMappings
     {
         [Key]
         public int Id { get; set; }
-
-        public int ProductId { get; set; }
 
         public string UserId { get; set; }
 
@@ -22,8 +20,7 @@
 
         public void CreateMappings(IMapperConfiguration configuration)
         {
-            configuration.CreateMap<Vote, VoteViewModel>()
-                .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
+            configuration.CreateMap<Vote, VoteDetailsForProductViewModel>()
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId))
                 ;
         }

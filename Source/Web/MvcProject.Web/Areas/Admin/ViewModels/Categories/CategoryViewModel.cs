@@ -8,14 +8,15 @@
     using AutoMapper;
     using MvcProject.Data.Models;
     using MvcProject.Web.Infrastructure.Mapping;
+    using Products;
 
-    public class CategoryViewModel : IMapFrom<Category>, IHaveCustomMappings
+    public class CategoryViewModel : BaseAdminViewModel, IMapFrom<Category>, IHaveCustomMappings
     {
-        private ICollection<Product> products;
+        private ICollection<ProductDetailsForCategoryViewModel> products;
 
         public CategoryViewModel()
         {
-            this.products = new HashSet<Product>();
+            this.products = new HashSet<ProductDetailsForCategoryViewModel>();
         }
 
         [Key]
@@ -26,7 +27,7 @@
         [MaxLength(50)]
         public string Name { get; set; }
 
-        public virtual ICollection<Product> Products
+        public virtual ICollection<ProductDetailsForCategoryViewModel> Products
         {
             get { return this.products; }
             set { this.products = value; }
@@ -34,7 +35,16 @@
 
         public void CreateMappings(IMapperConfiguration configuration)
         {
-            //throw new NotImplementedException();
+            configuration.CreateMap<Category, CategoryViewModel>()
+                .ForMember(dest => dest.Products, opt => opt.MapFrom(
+                           src => src.Products.Select(p => new ProductDetailsForCategoryViewModel
+                           {
+                               Id = p.Id,
+                               Title = p.Title,
+                               ShortDescription = p.ShortDescription,
+                               UnitPrice = p.UnitPrice
+                           })))
+                ;
         }
     }
 }

@@ -1,6 +1,9 @@
-﻿@using MvcProject.Web.Infrastructure.HtmlHelpers
+﻿@using MvcProject.Data.Models
+@using MvcProject.Web.Infrastructure.HtmlHelpers
 @using MvcProject.Web.Areas.Admin.ViewModels.Products
-@using MvcProject.Data.Models
+@using MvcProject.Web.Areas.Admin.ViewModels.Comments
+@using MvcProject.Web.Areas.Admin.ViewModels.Tags
+@using MvcProject.Web.Areas.Admin.ViewModels.Images
 
 @{
     ViewBag.Title = "Index";
@@ -10,32 +13,37 @@
     controllerName: "Products",
     routeValues: new { Area = "Admin" },
     modelIdExpression: m => m.Id,
-    pageSize: 7,
+    pageSize: 20,
+    virtualScroll: false,
     columns: c =>
     {
         c.Bound(m => m.Id);
         c.Bound(m => m.Title).Width("20%");
         c.Bound(m => m.ShortDescription).Width("20%");
         c.Bound(m => m.UnitPrice);
-        c.Bound(m => m.DescriptionId)/*.HtmlAttributes(new { @class = "show-more" })*/;
+        c.Bound(m => m.DescriptionId);
         c.Bound(m => m.CategoryId);
         //c.Bound(m => m.IsInStock);
         c.Bound(m => m.QuantityInStock);
         c.Bound(m => m.MainImageId);
-        c.Bound(m => m.Comments);
-        //c.Bound(m => m.Images);
-        //c.Bound(m => m.Votes);
-        //c.Bound(m => m.JoinedTags);
-        //c.Bound(m => m.IsInStock);
+        //c.Bound(m => m.CommentsIds)
+        //    .ClientTemplate("#=idCollection(CommentsIds)#");
+        //c.Bound(m => m.ImagesIds)
+        //    .ClientTemplate("#=idCollection(ImagesIds)#");
+        //c.Bound(m => m.VotesIds)
+        //    .ClientTemplate("#=idCollection(VotesIds)#");
+        //c.Bound(m => m.TagsNames)
+        //    .ClientTemplate("#=idCollection(TagsNames)#");
         c.Bound(m => m.Height);
         c.Bound(m => m.Length);
         c.Bound(m => m.Width);
         c.Bound(m => m.Weight);
-        c.Command(cm => cm.Edit().UpdateText("Save"))/*.Lockable(false)*/;
+        c.Command(cm => cm.Edit().UpdateText("Save"));
         c.Command(cm => cm.Destroy().Text("Delete"));
     }
     , editMode: GridEditMode.PopUp
     )
+    .ClientDetailTemplateId("template")
     .Deferred())
 
 @section styles{
@@ -48,6 +56,37 @@
         /*#grid .k-grid-content {
             min-height: 400px;
         }*/
+
+        /*.collectionProperty-list {
+            padding: 0;
+        }*/
+    </style>
+
+    <style>
+        .k-detail-cell .k-tabstrip .k-content {
+            padding: 0.2em;
+        }
+
+        .employee-details ul {
+            list-style: none;
+            font-style: italic;
+            margin: 15px;
+            padding: 0;
+        }
+
+            .employee-details ul li {
+                margin: 0;
+                line-height: 1.7em;
+            }
+
+        .employee-details label {
+            display: inline-block;
+            width: 90px;
+            padding-right: 10px;
+            text-align: right;
+            font-style: normal;
+            font-weight: bold;
+        }
     </style>
 
     <link href="@Url.Content("~/Content/Custom/custom-popup-editor.css")" rel="stylesheet" type="text/css" />
@@ -62,5 +101,130 @@
         $(function () {
             $("#grid").kendoValidator();
         });
+
+        function idCollection(collection) {
+            if (collection.length == 0) {
+                return "";
+            }
+
+            var template = "";
+
+            for (var i = 0; i < collection.length - 1; i++) {
+                template = template + collection[i] + ", ";
+            }
+
+            template = template + collection[collection.length - 1];
+
+            return template;
+        }
+
+        function complexCollection(collection) {
+            if (collection.length == 0) {
+                return "";
+            }
+
+            var template = "";
+
+            for (var i = 0; i < collection.length; i++) {
+                template = template +
+                    "<p>" +
+                    "ID: " + collection[i].Id +
+                    "; " + "Content: " + collection[i].Content +
+                    "; " + elem.UserId +
+                    "</p>"
+                    ;
+            }
+
+            return template;
+        }
     </script>
+
+    <script id="template" type="text/kendo-tmpl">
+        @(Html.Kendo().TabStrip()
+            .Name("tabStrip_#=Id#")
+            .SelectedIndex(0)
+            .Animation(animation => animation.Open(open => open.Fade(FadeDirection.In)))
+            .Items(items =>
+            {
+                items.Add().Text("Comments").Content(@<text>
+                    @(Html.Kendo()
+                        .Grid<CommentDetailsForProductViewModel>()
+                        .Name("comments_grid_#=Id#") // template expression, to be evaluated in the master context
+                        .Columns(columns =>
+                        {
+                            columns.Bound(c => c.Id).Title("ID").Width("10%");
+                            columns.Bound(c => c.Content).Width("60%");
+                            columns.Bound(c => c.UserId).Title("User ID").Width("20%");
+                        })
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .PageSize(10)
+                            .Read(read => read.Action("GetCommentsByProductId", "Products", new { Area = "Admin", productId = "#=Id#" }))
+                        )
+                        .Pageable()
+                        .Sortable()
+                        .ToClientTemplate())
+                </text>);
+                items.Add().Text("Tags").Content(@<text>
+                    @(Html.Kendo()
+                        .Grid<TagDetailsForProductViewModel>()
+                        .Name("tags_grid_#=Id#") // template expression, to be evaluated in the master context
+                        .Columns(columns =>
+                        {
+                            columns.Bound(c => c.Id).Title("ID").Width("10%");
+                            columns.Bound(c => c.Name)/*.Width("60%")*/;
+                        })
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .PageSize(10)
+                            .Read(read => read.Action("GetTagsByProductId", "Products", new { Area = "Admin", productId = "#=Id#" }))
+                        )
+                        .Pageable()
+                        //.Sortable()
+                        .ToClientTemplate())
+                </text>);
+                @*items.Add().Text("Contact Information").Content(@<text>
+                    @(Html.Kendo().Grid<ImageViewModel>()
+                    .Name("grid_#=Id#") // template expression, to be evaluated in the master context
+                    .Columns(columns =>
+                    {
+                        columns.Bound(c => c.Id).Title("ID")/*.Width(56)*/;
+                        columns.Bound(c => c.OriginalFileName)/*.Width(110)*/;
+                        columns.Bound(c => c.ProductId)/*.ClientTemplate("\\#= ShipAddress \\#")*/; // escaped template expression, to be evaluated in the child/detail context
+                        columns.Bound(c => c.UrlPath)/*.Width(190)*/;
+                    })
+                    .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .PageSize(10)
+                        .Read(read => read.Action("Read", "Images", new { Area = "Admin" /*employeeID = "#=Id#" */}))
+                    )
+                    .Pageable()
+                    .Sortable()
+                    .ToClientTemplate())
+                </text>);*@
+
+                //.Content(
+                //    "<div class='employee-details'>" +
+                //        "<ul>" +
+                //            "<li><label>Country:</label>#= Country #</li>" +
+                //            "<li><label>City:</label>#= City #</li>" +
+                //            "<li><label>Address:</label>#= Address #</li>" +
+                //            "<li><label>Home Phone:</label>#= HomePhone #</li>" +
+                //        "</ul>" +
+                //    "</div>"
+                //);
+            })
+            .ToClientTemplate())
+    </script>
+
+    <script>
+        function dataBound() {
+            this.expandRow(this.tbody.find("tr.k-master-row").first());
+        }
+
+        //function detailsData() {
+
+        //}
+    </script>
+
 }

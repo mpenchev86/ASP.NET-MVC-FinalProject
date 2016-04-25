@@ -30,7 +30,6 @@
 
         public Product GetById(string id)
         {
-            //var product = this.products.GetById(id);
             var idAsInt = this.idProvider.DecodeId(id);
             var product = this.products.GetById(idAsInt);
             return product;
@@ -39,6 +38,11 @@
         public void Create(Product model)
         {
             throw new NotImplementedException();
+        }
+
+        public Product GetById(int id)
+        {
+            return this.products.GetById(id);
         }
 
         //public IQueryable<Product> GetRandomProducts(int count)
