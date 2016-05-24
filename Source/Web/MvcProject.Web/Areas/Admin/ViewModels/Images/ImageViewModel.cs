@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
     using System.Web;
     using AutoMapper;
@@ -27,9 +28,16 @@
 
         public int? ProductId { get; set; }
 
+        [Index]
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
+
         public void CreateMappings(IMapperConfiguration configuration)
         {
-            //throw new NotImplementedException();
+            configuration.CreateMap<Image, ImageViewModel>()
+                .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
+                ;
         }
     }
 }

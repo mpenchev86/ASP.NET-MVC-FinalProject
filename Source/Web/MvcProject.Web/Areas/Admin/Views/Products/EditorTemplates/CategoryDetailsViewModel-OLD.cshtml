@@ -1,0 +1,15 @@
+﻿@*@model MvcProject.Web.Areas.Admin.ViewModels.Categories.CategoryDetailsViewModel*@
+@model int
+
+@(Html.Kendo().DropDownListFor(m => m)
+    //.Name("Category")
+    //.DataValueField("Id")
+    //.DataTextField("Name")
+    //.BindTo((System.Collections.IEnumerable)ViewData["categories"])
+
+    .Name("CategoryId")
+    .OptionLabel("- Select Category - ")
+    .DataValueField("Id")
+    .DataTextField("Name")
+    .BindTo((System.Collections.IEnumerable)ViewData["categories"])
+)

@@ -7,11 +7,12 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using MvcProject.GlobalConstants;
+
     using Microsoft.AspNet.Identity.EntityFramework;
     using Migrations;
     using Models;
     using Models.EntityContracts;
+    using MvcProject.GlobalConstants;
 
     public class MvcProjectDbContext : IdentityDbContext<ApplicationUser>, IMvcProjectDbContext
     {

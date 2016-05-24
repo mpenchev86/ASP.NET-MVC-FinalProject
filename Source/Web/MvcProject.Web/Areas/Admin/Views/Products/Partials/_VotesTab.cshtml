@@ -1,0 +1,18 @@
+﻿@using MvcProject.Web.Areas.Admin.ViewModels.Votes
+@using MvcProject.Web.Infrastructure.HtmlHelpers
+
+@(Html.ClientDetailsGrid<VoteDetailsForProductViewModel>(
+    name: "votes_grid_#=Id#",
+    action: "GetVotesByProductId",
+    controller: "Products",
+    routeValues: new { area = "Admin", productId = "#=Id#" },
+    pageSize: 10,
+    columns: col =>
+    {
+        col.Bound(c => c.Id).Title("ID").Width("10%");
+        col.Bound(c => c.VoteValue);
+        col.Bound(c => c.UserId);
+        col.Bound(c => c.CreatedOn);
+        col.Bound(c => c.ModifiedOn);
+    })
+    .ToClientTemplate())

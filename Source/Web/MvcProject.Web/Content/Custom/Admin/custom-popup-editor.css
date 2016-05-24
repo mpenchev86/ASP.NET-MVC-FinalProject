@@ -1,0 +1,21 @@
+﻿.k-window {
+    min-width: 70% !important;
+    /*left: 25% !important;*/
+}
+
+.k-edit-form-container {
+    width: 100% !important;
+}
+
+.k-edit-form-container /*input, select,*/ textarea {
+    min-width: 90%;
+    max-width: none;
+}
+
+.k-edit-form-container .editor-label {
+    width: 20%;
+}
+
+.k-edit-form-container .editor-field {
+    width: 70%;
+}

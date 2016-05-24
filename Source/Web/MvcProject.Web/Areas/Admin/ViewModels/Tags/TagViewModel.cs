@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
     using System.Web;
     using AutoMapper;
@@ -10,7 +11,7 @@
     using Infrastructure.Mapping;
     using Products;
 
-    public class TagViewModel : IMapFrom<Tag>, IHaveCustomMappings
+    public class TagViewModel : BaseAdminViewModel, IMapFrom<Tag>, IHaveCustomMappings
     {
         private ICollection<ProductDetailsForTagViewModel> products;
 
@@ -26,11 +27,16 @@
         [MaxLength(20)]
         public string Name { get; set; }
 
-        public virtual ICollection<ProductDetailsForTagViewModel> Products
+        public ICollection<ProductDetailsForTagViewModel> Products
         {
             get { return this.products; }
             set { this.products = value; }
         }
+
+        [Index]
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)
         {

@@ -7,12 +7,13 @@
     using System.Web.Mvc;
 
     using GlobalConstants;
+    using Kendo.Mvc.Extensions;
     using Kendo.Mvc.UI;
     using Services.Data;
     using ViewModels.Categories;
 
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
-    public class CategoriesController : BaseGridController<ICategoriesService, CategoryViewModel>
+    public class CategoriesController : BaseGridController<CategoryViewModel, ICategoriesService>
     {
         private readonly ICategoriesService categoriesService;
 
@@ -70,6 +71,16 @@
             //return this.Json(new[] { viewModel }.ToDataSourceResult(request, this.ModelState));
 
             return base.Destroy(request, viewModel);
+        }
+
+        public override IEnumerable<CategoryViewModel> GetDataAsEnumerable()
+        {
+            return base.GetDataAsEnumerable().OrderBy(x => x.Name);
+        }
+
+        public override JsonResult GetDataAsJson()
+        {
+            return base.GetDataAsJson();
         }
     }
 }

@@ -6,8 +6,10 @@
     using System.Linq.Expressions;
     using System.Text;
     using System.Threading.Tasks;
+    using System.Web;
     using System.Web.Mvc;
-
+    using System.Web.Security.AntiXss;
+    using System.Web.Util;
     using Kendo.Mvc.UI;
     using Kendo.Mvc.UI.Fluent;
 
@@ -15,17 +17,33 @@
     {
         public static GridBuilder<T> FullFeaturedGrid<T>(
             this HtmlHelper helper,
+            string gridName,
             string controllerName,
             object routeValues,
-            Expression<Func<T, object>> modelIdExpression,
             int pageSize,
             bool virtualScroll = false,
+            Action<DataSourceModelDescriptorFactory<T>> model = null,
             Action<GridColumnFactory<T>> columns = null,
-            GridEditMode editMode = GridEditMode.PopUp,
+            Action<DataSourceEventBuilder> dataSourceEvents = null,
+            Action<DataSourceAggregateDescriptorFactory<T>> aggregates = null,
             Action<GridSortSettingsBuilder<T>> sortSettings = null,
-            Action<GridFilterableSettingsBuilder> filterSettings = null)
+            Action<GridFilterableSettingsBuilder> filterSettings = null,
+            Action<GridEditingSettingsBuilder<T>> editingSettings = null,
+            object htmlAttributes = null,
+            bool isBatch = false,
+            bool isServerOperation = false,
+            string readHandler = null,
+            string createHandler = null,
+            string updateHandler = null,
+            string destroyHandler = null
+            )
             where T : class
         {
+            if (model == null)
+            {
+                model = m => { };
+            }
+
             if (columns == null)
             {
                 columns = cols =>
@@ -34,6 +52,16 @@
                     cols.Command(c => c.Edit());
                     cols.Command(c => c.Destroy());
                 };
+            }
+
+            if (dataSourceEvents == null)
+            {
+                dataSourceEvents = e => { };
+            }
+
+            if (aggregates == null)
+            {
+                aggregates = s => { };
             }
 
             if (sortSettings == null)
@@ -46,34 +74,81 @@
                 filterSettings = f => { };
             }
 
+            if (editingSettings == null)
+            {
+                editingSettings = e => { e.Mode(GridEditMode.PopUp); };
+            }
+
+            if (htmlAttributes == null)
+            {
+                htmlAttributes = new { };
+            }
+
             return helper.Kendo()
                 .Grid<T>()
-                .Name("grid")
+                .Name(gridName)
+                .HtmlAttributes(htmlAttributes)
                 .Columns(columns)
                 .ColumnMenu()
-                .Pageable(page => page.Refresh(true))
+                .Pageable(page => page.Refresh(true).Input(true))
                 .Sortable(sortSettings)
                 .Groupable()
                 .Scrollable(scrollable => scrollable
                     .Virtual(virtualScroll)
-                    .Height(500)/*.Enabled(true)*/)
+                    .Height(500))
                 .Reorderable(reorderable => reorderable.Columns(true))
                 .Resizable(resizable => resizable.Columns(true))
                 .Filterable(filterSettings)
-                .Editable(edit => edit
-                    .Mode(editMode)
-                    .Window(w => w
-                        .Title(false)
-                        .Resizable()))
-                .ToolBar(toolbar => toolbar.Create())
+                .Editable(editingSettings)
+                .ToolBar(toolbar =>
+                {
+                    toolbar.Create();
+                })
+                .DataSource(data => data
+                    .Ajax()
+                    .Batch(isBatch)
+                    .ServerOperation(isServerOperation)
+                    .Events(dataSourceEvents)
+                    .PageSize(pageSize)
+                    .Model(model)
+                    .Aggregates(aggregates)
+                    .Read(read => read.Action("Read", controllerName, routeValues).Data(readHandler))
+                    .Create(create => create.Action("Create", controllerName, routeValues).Data(createHandler))
+                    .Update(update => update.Action("Update", controllerName, routeValues).Data(updateHandler))
+                    .Destroy(destroy => destroy.Action("Destroy", controllerName, routeValues).Data(destroyHandler))
+                );
+        }
+
+        public static GridBuilder<T> ClientDetailsGrid<T>(
+            this HtmlHelper helper,
+            string name,
+            string action,
+            string controller,
+            object routeValues,
+            int pageSize,
+            Action<GridColumnFactory<T>> columns = null,
+            string readHandler = null)
+            where T : class
+        {
+            if (columns == null)
+            {
+                columns = cols =>
+                {
+                    cols.AutoGenerate(true);
+                };
+            }
+
+            return helper.Kendo()
+                .Grid<T>()
+                .Name(name)
+                .Columns(columns)
                 .DataSource(data => data
                     .Ajax()
                     .PageSize(pageSize)
-                    .Model(m => m.Id(modelIdExpression))
-                    .Read(read => read.Action("Read", controllerName, routeValues))
-                    .Create(create => create.Action("Create", controllerName))
-                    .Update(update => update.Action("Update", controllerName))
-                    .Destroy(destroy => destroy.Action("Destroy", controllerName)));
+                    .Read(read => read.Action(action, controller, routeValues).Data(readHandler)))
+                .Pageable()
+                .Resizable(resizable => resizable.Columns(true))
+                .Sortable();
         }
 
         public static ListViewBuilder<T> ListViewHelper<T>(
@@ -120,6 +195,67 @@
                     .Filter(filterSettings)
                     .Sort(sortSettings)
                     .AutoSync(false));
+        }
+
+        public static TabStripBuilder TabStripHelper(
+            this HtmlHelper helper,
+            string name,
+            int selectedIndex,
+            Action<TabStripItemFactory> items,
+            Action<PopupAnimationBuilder> animation = null)
+        {
+            if (animation == null)
+            {
+                animation = a => a.Open(open => open.Fade(FadeDirection.In));
+            }
+
+            return helper.Kendo()
+                .TabStrip()
+                .Name(name)
+                .SelectedIndex(selectedIndex)
+                .Animation(animation)
+                .Items(items);
+        }
+
+        // Possible fix for "\u0026#32;" instead of " " in rendered html
+        public static IHtmlString ToMvcClientTemplate(this MvcHtmlString mvcString)
+        {
+            if (HttpEncoder.Current.GetType() == typeof(AntiXssEncoder))
+            {
+                var initial = mvcString.ToHtmlString();
+                var corrected = initial.Replace("\\u0026", "&").Replace("%23", "#").Replace("%3D", "=").Replace("&#32;", " ");
+                return new HtmlString(corrected);
+            }
+
+            return mvcString;
+        }
+
+        public static WindowBuilder ConfirmWindow(
+            this HtmlHelper helper,
+            string name,
+            string title,
+            string action,
+            string controller,
+            object routeValues = null,
+            Action<WindowActionsBuilder> actions = null)
+        {
+            if (actions == null)
+            {
+                actions = a => a.Minimize().Maximize().Close();
+            }
+
+            if (routeValues == null)
+            {
+                routeValues = new { };
+            }
+
+            return helper.Kendo()
+                .Window()
+                .Name(name)
+                .Title(title)
+                .LoadContentFrom(action, controller, routeValues)
+                .Actions(actions)
+                .Animation(true);
         }
     }
 }

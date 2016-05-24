@@ -72,7 +72,7 @@
                         CreatedOn = DateTime.Now,
                         IsDeleted = false,
                         Email = "initial1@mail.com",
-                        EmailConfirmed = true,
+                        EmailConfirmed = false,
                         PhoneNumberConfirmed = false,
                         TwoFactorEnabled = false,
                         LockoutEnabled = false,
@@ -84,7 +84,7 @@
                         CreatedOn = DateTime.Now,
                         IsDeleted = false,
                         Email = "initial2@mail.com",
-                        EmailConfirmed = true,
+                        EmailConfirmed = false,
                         PhoneNumberConfirmed = false,
                         TwoFactorEnabled = false,
                         LockoutEnabled = false,
@@ -207,6 +207,10 @@
                         QuantityInStock = 60,
                         UnitPrice = 2499.00M,
                         CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(0).FirstOrDefault()
+                        }
                     },
                     new Product
                     {
@@ -217,6 +221,12 @@
                         QuantityInStock = 314,
                         UnitPrice = 179.00M,
                         CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(1).FirstOrDefault(),
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault(),
+                            context.Tags.OrderBy(t => t.Id).Skip(2).FirstOrDefault()
+                        }
                     },
                     new Product
                     {
@@ -227,6 +237,10 @@
                         QuantityInStock = 226,
                         UnitPrice = 355.95M,
                         CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(3).FirstOrDefault()
+                        }
                     },
                     new Product
                     {
@@ -237,6 +251,11 @@
                         QuantityInStock = 130,
                         UnitPrice = 1346.95M,
                         CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(2).FirstOrDefault(),
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
                     },
                     new Product
                     {
@@ -265,6 +284,11 @@
                         QuantityInStock = 0,
                         UnitPrice = 32.453M,
                         CategoryId = 4,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(6).FirstOrDefault(),
+                            context.Tags.OrderBy(t => t.Id).Skip(3).FirstOrDefault()
+                        }
                     },
                     new Product
                     {
@@ -283,6 +307,10 @@
                         QuantityInStock = 26,
                         UnitPrice = 7.88773M,
                         CategoryId = 2,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
                     });
 
                 context.SaveChanges();

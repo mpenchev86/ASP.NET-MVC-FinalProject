@@ -1,0 +1,19 @@
+﻿@using MvcProject.Web.Areas.Admin.ViewModels.Images
+@using MvcProject.Web.Infrastructure.HtmlHelpers
+
+@(Html.ClientDetailsGrid<ImageDetailsForProductViewModel>(
+    name: "images_grid_#=Id#",
+    action: "GetImagesByProductId",
+    controller: "Products",
+    routeValues: new { area = "Admin", productId = "#=Id#" },
+    pageSize: 10,
+    columns: col =>
+    {
+        col.Bound(c => c.Id).Title("ID").Width("10%");
+        col.Bound(c => c.OriginalFileName);
+        col.Bound(c => c.FileExtension);
+        col.Bound(c => c.UrlPath);
+        col.Bound(c => c.CreatedOn);
+        col.Bound(c => c.ModifiedOn);
+    })
+    .ToClientTemplate())

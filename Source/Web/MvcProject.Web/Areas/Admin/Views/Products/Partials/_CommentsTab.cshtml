@@ -1,0 +1,20 @@
+﻿@using MvcProject.Web.Areas.Admin.ViewModels.Comments
+@using MvcProject.Web.Infrastructure.HtmlHelpers
+
+@(Html.ClientDetailsGrid<CommentDetailsForProductViewModel>(
+    name: "comments_grid_#=Id#",
+    action: "GetCommentsByProductId",
+    controller: "Products",
+    routeValues: new { area = "Admin", productId = "#=Id#" },
+    pageSize: 10,
+    columns: col =>
+    {
+        col.Bound(c => c.Id).Title("ID");
+        col.Bound(c => c.Content).Width("40%");
+        col.Bound(c => c.UserId).Title("User ID");
+        col.Bound(c => c.CreatedOn);
+        col.Bound(c => c.ModifiedOn);
+    },
+    readHandler: "dataHandler")
+    .ToClientTemplate()
+    .ToMvcClientTemplate())

@@ -1,0 +1,38 @@
+﻿@using MvcProject.Web.Areas.Admin.ViewModels.Descriptions
+@model DescriptionDetailsForProductViewModel
+
+@{ 
+    Layout = null;
+    //string id = Model.Id == 0 ? string.Empty : Model.Id.ToString();
+    //string createdOn = Model.Id == 0 ? string.Empty : Model.CreatedOn.ToString();
+}
+
+@if (Model.Id != 0)
+{
+<div id="description-details" class="description-details container">
+    <div class="row">
+        <div class="col-md-2">@(Html.LabelFor(m => m.Id))</div>
+        <div class="col-md-9">@Model.Id</div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-2">@(Html.LabelFor(m => m.Content))</div>
+        <div class="col-md-9">@Model.Content</div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-2">@(Html.LabelFor(m => m.Properties))</div>
+        <div class="col-md-9">@(Html.Partial("_DescriptionPropertiesGrid", Model.Properties))</div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-2">@(Html.LabelFor(m => m.CreatedOn))</div>
+        <div class="col-md-9">@Model.CreatedOn</div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-2">@(Html.LabelFor(m => m.ModifiedOn))</div>
+        <div class="col-md-9">@Model.ModifiedOn</div>
+    </div>
+</div>
+}

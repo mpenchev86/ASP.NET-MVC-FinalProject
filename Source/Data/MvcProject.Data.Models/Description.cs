@@ -2,8 +2,9 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using MvcProject.GlobalConstants;
+
     using EntityContracts;
+    using MvcProject.GlobalConstants;
 
     public class Description : BaseEntityModel<int>, IAdministerable
     {
@@ -16,11 +17,8 @@
 
         [Required]
         //[MaxLength(GlobalConstants.ValidationConstants.MaxFullDescriptionLength)]
+        [DataType(DataType.MultilineText)]
         public string Content { get; set; }
-
-        //public int? ProductId { get; set; }
-
-        //public virtual Product Product { get; set; }
 
         public virtual ICollection<Property> Properties
         {

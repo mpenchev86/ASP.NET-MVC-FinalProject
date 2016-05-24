@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+    <title>@ViewBag.Title - Simple MVC E-Commerce Application</title>
     @Styles.Render(MvcProject.GlobalConstants.Bundles.StylesContentKendoCss)
     @Styles.Render(MvcProject.GlobalConstants.Bundles.StylesContentCss)
     @RenderSection("styles", required: false)
@@ -125,8 +125,8 @@
     <!-- SCRIPTS -->
     @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptsJQuery)
     @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptsJQueryValidate)
-    @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptsBootstrap)
     @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptsKendo)
+    @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptsBootstrap)
     @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptsSignalR)
     @RenderSection("Scripts", required: false)
 </body>

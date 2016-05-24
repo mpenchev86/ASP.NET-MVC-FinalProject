@@ -12,7 +12,7 @@
     using ViewModels.Images;
 
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
-    public class ImagesController : BaseGridController<IImagesService, ImageViewModel>
+    public class ImagesController : BaseGridController<ImageViewModel, IImagesService>
     {
         private readonly IImagesService imagesService;
 

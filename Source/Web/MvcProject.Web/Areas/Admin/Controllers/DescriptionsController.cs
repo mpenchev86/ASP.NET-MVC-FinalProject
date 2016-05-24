@@ -7,12 +7,14 @@
     using System.Web.Mvc;
 
     using GlobalConstants;
+    using Infrastructure.Extensions;
+    using Kendo.Mvc.Extensions;
     using Kendo.Mvc.UI;
     using Services.Data;
     using ViewModels.Descriptions;
-
+    using ViewModels.Properties;
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
-    public class DescriptionsController : BaseGridController<IDescriptionsService, DescriptionViewModel>
+    public class DescriptionsController : BaseGridController<DescriptionViewModel, IDescriptionsService>
     {
         private readonly IDescriptionsService descriptionsService;
 
@@ -70,6 +72,11 @@
             //return this.Json(new[] { viewModel }.ToDataSourceResult(request, this.ModelState));
 
             return base.Destroy(request, viewModel);
+        }
+
+        public override IEnumerable<DescriptionViewModel> GetDataAsEnumerable()
+        {
+            return base.GetDataAsEnumerable().OrderBy(x => x.Id);
         }
     }
 }

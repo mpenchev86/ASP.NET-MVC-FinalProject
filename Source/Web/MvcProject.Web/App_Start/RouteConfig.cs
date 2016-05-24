@@ -31,20 +31,27 @@
             //        isChrome = new CustomRouteConstraints()
             //    });
 
-            // MvcRouteTester doesn't work if this route is defined in the area registration
-            routes
-                .MapRoute(
-                    name: "ProductPage",
-                    url: "Product/{id}",
-                    defaults: new { controller = "Products", action = "ById" })
-                .DataTokens.Add("area", "Common");
+            //// MvcRouteTester doesn't work if this route is defined in the area registration
+            //routes
+            //    .MapRoute(
+            //        name: "ProductPage",
+            //        url: "Product/{id}",
+            //        defaults: new { controller = "Products", action = "ById" })
+            //    .DataTokens.Add("area", "Common");
 
-            routes
-                .MapRoute(
-                    name: "Default",
-                    url: "{controller}/{action}/{id}",
-                    defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional })
-                .DataTokens.Add("area", "Common");
+            //routes
+            //    .MapRoute(
+            //        name: "Default",
+            //        url: "{controller}/{action}/{id}",
+            //        defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional })
+            //    .DataTokens.Add("area", "Common");
+
+            //routes
+            //    .MapRoute(
+            //        name: "Default",
+            //        url: "{controller}/{action}",
+            //        defaults: new { controller = "Products", action = "Index"},
+            //        namespaces: new string[] { "MvcProject.Web.Controllers.ProductsController" });
         }
 
         // TEST - route constraints

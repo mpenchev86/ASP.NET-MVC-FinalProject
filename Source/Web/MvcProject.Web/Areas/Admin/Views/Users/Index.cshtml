@@ -1,10 +1,33 @@
-﻿@model List<MvcProject.Web.Areas.Admin.ViewModels.Users.IndexUserViewModel>
+﻿@*@model List<MvcProject.Web.Areas.Admin.ViewModels.Users.UserViewModel>*@
 
-@foreach (var user in Model)
+@*@foreach (var user in Model)
 {
     <div>
         <h3>@user.Name - @user.Roles.FirstOrDefault()</h3>
     </div>
+}*@
+
+@{
+    var data = new List<SelectListItem>();
+    for (int i = 0; i < 3; i++)
+    {
+        data.Add(new SelectListItem() { Text = i.ToString() + "cifra", Value = i.ToString() });
+    }
 }
 
-@*@(Html.DropDownList())*@
+@(Html.Kendo().DropDownList()
+    .Name("kdropdownlist")
+    .DataTextField("Text")
+    .DataValueField("Value")
+    .Deferred()
+    //.DataSource(data =>
+    //{
+    //    data.Read();
+    //})
+    .BindTo(Model)
+    .OptionLabel("Select...")
+)
+
+@section Scripts{
+    @(Html.Kendo().DeferredScripts())
+}

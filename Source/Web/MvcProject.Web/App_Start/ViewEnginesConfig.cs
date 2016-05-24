@@ -15,7 +15,8 @@
             viewEngines.Clear();
 
             // viewEngines.Add(new RazorViewEngine());
-            viewEngines.Add(new CustomViewLocationRazorViewEngine());
+            //viewEngines.Add(new CustomViewLocationRazorViewEngine());
+            viewEngines.Add(new RazorViewEngine());
         }
     }
 }

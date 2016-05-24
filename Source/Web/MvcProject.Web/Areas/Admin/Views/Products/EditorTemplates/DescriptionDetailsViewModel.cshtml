@@ -1,0 +1,11 @@
+﻿@model MvcProject.Web.Areas.Admin.ViewModels.Descriptions.DescriptionDetailsViewModel
+
+@(Html.Kendo().DropDownListFor(m => m)
+        .DataValueField("Id")
+        .DataTextField("Id")
+        .DataSource(data =>
+        {
+            data.Read("GetDataAsJson", "Descriptions", new { area = "Admin" });
+        })
+//.BindTo((System.Collections.IEnumerable)ViewData["descriptions"])
+)

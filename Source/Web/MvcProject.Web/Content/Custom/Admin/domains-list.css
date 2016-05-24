@@ -19,6 +19,7 @@ h4 {
 
 #domains-container > li {
     background-color: #fef88e;
+    padding: 0;
     /*display: block;*/
 }
 
@@ -29,10 +30,16 @@ h4 {
 
     #domains-container > li > a {
         text-decoration: none;
+        padding: 10px;
         color: #808080;
     }
 
         #domains-container > li > a:hover {
             text-decoration: none;
             /*color: white;*/
+        }
+
+        #domains-container > li > a:first-child {
+            text-decoration: none;
+            display: block;
         }

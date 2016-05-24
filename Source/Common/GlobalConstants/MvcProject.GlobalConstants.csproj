@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationSpecialStrings.cs" />
     <Compile Include="Bundles.cs" />
     <Compile Include="DbAccess.cs" />
     <Compile Include="ExceptionMessages.cs" />

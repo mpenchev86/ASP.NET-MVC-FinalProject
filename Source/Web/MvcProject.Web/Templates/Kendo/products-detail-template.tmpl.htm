@@ -1,0 +1,73 @@
+﻿<script id="products-detail-template" type="text/kendo-tmpl">
+    @(Html.TabStripHelper(
+        "tabStrip_#=Id#",
+        0,
+        items =>
+        {
+            items.Add().Text("Comments").Content(
+                @<text>
+                    @(Html.ClientDetailsGridHelper<CommentDetailsForProductViewModel>(
+                        name: "comments_grid_#=Id#",
+                        action: "GetCommentsByProductId",
+                        controller: "Products",
+                        routeValues: new { area = "Admin", productId = "#=Id#" },
+                        pageSize: 10,
+                        columns: col =>
+                        {
+                            col.Bound(c => c.Id).Title("ID").Width("10%");
+                            col.Bound(c => c.Content).Width("60%");
+                            col.Bound(c => c.UserId).Title("User ID").Width("20%");
+                        })
+                        .ToClientTemplate())
+                </text>);
+            items.Add().Text("Tags").Content(
+                @<text>
+                    @(Html.ClientDetailsGridHelper<TagDetailsForProductViewModel>(
+                        name: "tags_grid_#=Id#",
+                        action: "GetTagsByProductId",
+                        controller: "Products",
+                        routeValues: new { area = "Admin", productId = "#=Id#" },
+                        pageSize: 10,
+                        columns: col =>
+                        {
+                            col.Bound(c => c.Id).Title("ID").Width("10%");
+                            col.Bound(c => c.Name)/*.Width("60%")*/;
+                        })
+                        .ToClientTemplate())
+                </text>);
+            items.Add().Text("Votes").Content(
+                @<text>
+                    @(Html.ClientDetailsGridHelper<VoteDetailsForProductViewModel>(
+                        name: "votes_grid_#=Id#",
+                        action: "GetVotesByProductId",
+                        controller: "Products",
+                        routeValues: new { area = "Admin", productId = "#=Id#" },
+                        pageSize: 10,
+                        columns: col =>
+                        {
+                            col.Bound(c => c.Id).Title("ID").Width("10%");
+                            col.Bound(c => c.VoteValue)/*.Width("60%")*/;
+                            col.Bound(c => c.UserId)/*.Width("60%")*/;
+                        })
+                        .ToClientTemplate())
+                </text>);
+            items.Add().Text("Images").Content(
+                @<text>
+                    @(Html.ClientDetailsGridHelper<ImageDetailsForProductViewModel>(
+                        name: "images_grid_#=Id#",
+                        action: "GetImagesByProductId",
+                        controller: "Products",
+                        routeValues: new { area = "Admin", productId = "#=Id#" },
+                        pageSize: 10,
+                        columns: col =>
+                        {
+                            col.Bound(c => c.Id).Title("ID").Width("10%");
+                            col.Bound(c => c.OriginalFileName)/*.Width("60%")*/;
+                            col.Bound(c => c.FileExtension)/*.Width("60%")*/;
+                            col.Bound(c => c.UrlPath)/*.Width("60%")*/;
+                        })
+                        .ToClientTemplate())
+                </text>);
+        })
+        .ToClientTemplate())
+</script>

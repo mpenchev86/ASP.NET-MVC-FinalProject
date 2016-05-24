@@ -3,43 +3,60 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web;
     using System.Web.Mvc;
 
-    using Data.Models;
-    using Data.Models.EntityContracts;
     using GlobalConstants;
     using Infrastructure.Extensions;
     using Kendo.Mvc.Extensions;
     using Kendo.Mvc.UI;
+    using Data.Models.EntityContracts;
     using MvcProject.Web.Areas.Common.Controllers;
     using Services.Data;
+    using ViewModels.Categories;
     using ViewModels.Comments;
+    using ViewModels.Descriptions;
+    using ViewModels.Images;
     using ViewModels.Products;
+    using ViewModels.Properties;
     using ViewModels.Tags;
+    using ViewModels.Votes;
+
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
-    public class ProductsController : BaseGridController<IProductsService, ProductViewModel>
+    public class ProductsController : BaseGridController<ProductViewModel, IProductsService>
     {
         private readonly IProductsService productsService;
+        private readonly ICategoriesService categoriesService;
+        private readonly IImagesService imagesService;
+        private readonly IDescriptionsService descriptionsService;
 
-        public ProductsController(IProductsService productsService)
+        public ProductsController(
+            IProductsService productsService,
+            ICategoriesService categoriesService,
+            IImagesService imagesService,
+            IDescriptionsService descriptionsService)
             : base(productsService)
         {
             this.productsService = productsService;
+            this.categoriesService = categoriesService;
+            this.imagesService = imagesService;
+            this.descriptionsService = descriptionsService;
         }
 
         public ActionResult Index()
         {
-            return this.View();
+            var foreignKeys = new ProductForeignKeysViewModel
+            {
+                Categories = this.categoriesService.GetAll().To<CategoryDetailsForProductViewModel>().ToList(),
+                Images = this.imagesService.GetAll().To<ImageDetailsForProductViewModel>().ToList(),
+                Descriptions = this.descriptionsService.GetAll().To<DescriptionDetailsForProductViewModel>().ToList()
+            };
+
+            return this.View(foreignKeys);
         }
 
         [HttpPost]
         public override ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
-            //var viewModel = this.productsService.GetAll().To<ProductViewModel>();
-
-            //return this.Json(viewModel.ToDataSourceResult(request));
-
             return base.Read(request);
         }
 
@@ -82,28 +99,55 @@
             return base.Destroy(request, viewModel);
         }
 
-        #region ClientDetailsHelpers
+        #region ProductClientDetailsHelpers
         [HttpPost]
         public ActionResult GetTagsByProductId([DataSourceRequest]DataSourceRequest request, int productId)
         {
-            var result = this.productsService
-                .GetById(productId)
-                .Tags
-                .AsQueryable()
-                .To<TagDetailsForProductViewModel>();
-            return this.Json(result.ToDataSourceResult(request, this.ModelState));
+            var tags = this.productsService.GetById(productId).Tags.AsQueryable().To<TagDetailsForProductViewModel>();
+            return this.GetCollectionAsDataSourceResult(request, tags, this.ModelState);
         }
 
         [HttpPost]
         public ActionResult GetCommentsByProductId([DataSourceRequest]DataSourceRequest request, int productId)
         {
-            var result = this.productsService
-                .GetById(productId)
-                .Comments
-                .AsQueryable()
-                .To<CommentDetailsForProductViewModel>();
-            return this.Json(result.ToDataSourceResult(request, this.ModelState));
+            var comments = this.productsService.GetById(productId).Comments.AsQueryable().To<CommentDetailsForProductViewModel>();
+            return this.GetCollectionAsDataSourceResult(request, comments, this.ModelState);
+        }
+
+        [HttpPost]
+        public ActionResult GetVotesByProductId([DataSourceRequest]DataSourceRequest request, int productId)
+        {
+            var votes = this.productsService.GetById(productId).Votes.AsQueryable().To<VoteDetailsForProductViewModel>();
+            return this.GetCollectionAsDataSourceResult(request, votes, this.ModelState);
+        }
+
+        [HttpPost]
+        public ActionResult GetImagesByProductId([DataSourceRequest]DataSourceRequest request, int productId)
+        {
+            var images = this.productsService.GetById(productId).Images.AsQueryable().To<ImageDetailsForProductViewModel>();
+            return this.GetCollectionAsDataSourceResult(request, images, this.ModelState);
+        }
+
+        [HttpGet]
+        public ActionResult GetDescriptionByProductId(int? descriptionId)
+        {
+            var description = new DescriptionDetailsForProductViewModel();
+            if (descriptionId != null)
+            {
+                description = this.descriptionsService
+                    .GetAll()
+                    .Where(x => x.Id == (int)descriptionId)
+                    .To<DescriptionDetailsForProductViewModel>()
+                    .FirstOrDefault();
+            }
+
+            return this.PartialView("_DescriptionTab", description);
         }
         #endregion
+
+        public override IEnumerable<ProductViewModel> GetDataAsEnumerable()
+        {
+            return base.GetDataAsEnumerable().OrderBy(x => x.Id);
+        }
     }
 }

@@ -14,7 +14,7 @@
     using ViewModels.Comments;
 
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
-    public class CommentsController : BaseGridController<ICommentsService, CommentViewModel>
+    public class CommentsController : BaseGridController<CommentViewModel, ICommentsService>
     {
         private readonly ICommentsService commentsService;
 

@@ -12,7 +12,7 @@
     using ViewModels.Votes;
 
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
-    public class VotesController : BaseGridController<IVotesService, VoteViewModel>
+    public class VotesController : BaseGridController<VoteViewModel, IVotesService>
     {
         private readonly IVotesService votesService;
 

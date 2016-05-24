@@ -2,16 +2,19 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
 
     public abstract class BaseAdminViewModel
     {
-        [HiddenInput(DisplayValue = false)]
+        //[HiddenInput(DisplayValue = false)]
+        //[DataType(DataType.Date)]
         public DateTime CreatedOn { get; set; }
 
-        [HiddenInput(DisplayValue = false)]
+        //[HiddenInput(DisplayValue = false)]
+        //[DataType(DataType.DateTime)]
         public DateTime? ModifiedOn { get; set; }
     }
 }

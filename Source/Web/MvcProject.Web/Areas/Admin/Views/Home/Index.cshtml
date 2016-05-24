@@ -27,10 +27,11 @@
         @foreach (PropertyInfo property in Model)
             {
             <li class="btn btn-default">
-                @(Html.ActionLink(property.Name, "Index", property.Name, new { Area = "Admin" }, new { }))
+                @Html.ActionLink(property.Name, "Index", property.Name, new { Area = "Admin" }, new { })
             </li>
         }
     </ul>
+
 </div>
 
 @section styles{
@@ -39,7 +40,7 @@
 
 @section Scripts{
     <script>
-        @*@(Html.Kendo().DeferredScripts())*@
+        @(Html.Kendo().DeferredScripts())
 
         function submitForm() {
             $('#select-form').submit();

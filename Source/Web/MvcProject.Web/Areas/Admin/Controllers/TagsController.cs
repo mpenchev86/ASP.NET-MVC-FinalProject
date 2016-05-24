@@ -14,7 +14,7 @@
     using ViewModels.Tags;
 
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
-    public class TagsController : BaseGridController<ITagsService, TagViewModel>
+    public class TagsController : BaseGridController<TagViewModel, ITagsService>
     {
         private readonly ITagsService tagsService;
 

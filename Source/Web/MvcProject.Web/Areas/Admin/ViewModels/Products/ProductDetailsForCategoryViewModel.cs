@@ -10,25 +10,27 @@
     using AutoMapper;
     using Comments;
     using Data.Models;
+    using Descriptions;
+    using Images;
     using Infrastructure.Extensions;
     using Infrastructure.Mapping;
     using MvcProject.GlobalConstants;
+    using Tags;
+    using Votes;
 
     public class ProductDetailsForCategoryViewModel : BaseAdminViewModel, IMapFrom<Product>, IHaveCustomMappings
     {
-        //private IEnumerable<string> tagsNames;
-        //private ICollection<CommentDetailsForProductViewModel> comments;
-        //private IEnumerable<int> commentsIds;
-        //private IEnumerable<int> imagesIds;
-        //private IEnumerable<int> votesIds;
+        private ICollection<TagDetailsForProductViewModel> tags;
+        private ICollection<CommentDetailsForProductViewModel> comments;
+        private ICollection<VoteDetailsForProductViewModel> votes;
+        private ICollection<ImageDetailsForProductViewModel> images;
 
         public ProductDetailsForCategoryViewModel()
         {
-            //this.tagsNames = new HashSet<string>();
-            //this.comments = new HashSet<CommentDetailsForProductViewModel>();
-            //this.commentsIds = new HashSet<int>();
-            //this.imagesIds = new HashSet<int>();
-            //this.votesIds = new HashSet<int>();
+            this.tags = new HashSet<TagDetailsForProductViewModel>();
+            this.comments = new HashSet<CommentDetailsForProductViewModel>();
+            this.votes = new HashSet<VoteDetailsForProductViewModel>();
+            this.images = new HashSet<ImageDetailsForProductViewModel>();
         }
 
         [Key]
@@ -43,92 +45,112 @@
         [MaxLength(GlobalConstants.ValidationConstants.MaxShortDescriptionLength)]
         public string ShortDescription { get; set; }
 
-        //public int? MainImageId { get; set; }
+        [UIHint("DropDownForNull")]
+        public int? DescriptionId { get; set; }
 
-        //[Required]
-        //[Range(0, int.MaxValue)]
-        //public int QuantityInStock { get; set; }
+        public DescriptionDetailsForProductViewModel Description { get; set; }
+
+        [UIHint("DropDownForNull")]
+        public int? MainImageId { get; set; }
+
+        public ImageDetailsForProductViewModel MainImage { get; set; }
+
+        public bool IsInStock
+        {
+            get { return this.QuantityInStock != 0; }
+        }
+
+        [Required]
+        [Range(0, int.MaxValue)]
+        public int QuantityInStock { get; set; }
 
         [Required]
         [Range(0, double.MaxValue)]
         public decimal UnitPrice { get; set; }
 
-        //[Range(0, double.MaxValue)]
-        //public decimal? ShippingPrice { get; set; }
+        [Range(0, double.MaxValue)]
+        public decimal? ShippingPrice { get; set; }
 
-        //[Range(0, double.MaxValue)]
-        //public double? Length { get; set; }
+        [Range(0, double.MaxValue)]
+        public double? Length { get; set; }
 
-        //[Range(0, double.MaxValue)]
-        //public double? Height { get; set; }
+        [Range(0, double.MaxValue)]
+        public double? Height { get; set; }
 
-        //[Range(0, double.MaxValue)]
-        //public double? Width { get; set; }
+        [Range(0, double.MaxValue)]
+        public double? Width { get; set; }
 
-        //[Range(0, double.MaxValue)]
-        //public double? Weight { get; set; }
+        [Range(0, double.MaxValue)]
+        public double? Weight { get; set; }
 
-        //public virtual IEnumerable<int> CommentsIds
-        //{
-        //    get { return this.commentsIds; }
-        //    set { this.commentsIds = value; }
-        //}
+        public ICollection<CommentDetailsForProductViewModel> Comments
+        {
+            get { return this.comments; }
+            set { this.comments = value; }
+        }
 
-        //public virtual ICollection<CommentDetailsForProductViewModel> Comments
-        //{
-        //    get { return this.comments; }
-        //    set { this.comments = value; }
-        //}
+        public ICollection<TagDetailsForProductViewModel> Tags
+        {
+            get { return this.tags; }
+            set { this.tags = value; }
+        }
 
-        //public virtual IEnumerable<string> TagsNames
-        //{
-        //    get { return this.tagsNames; }
-        //    set { this.tagsNames = value; }
-        //}
+        public ICollection<ImageDetailsForProductViewModel> Images
+        {
+            get { return this.images; }
+            set { this.images = value; }
+        }
 
-        //public virtual ICollection<Tag> Tags
-        //{
-        //    get { return this.tags; }
-        //    set { this.tags = value; }
-        //}
+        public ICollection<VoteDetailsForProductViewModel> Votes
+        {
+            get { return this.votes; }
+            set { this.votes = value; }
+        }
 
-        //public virtual IEnumerable<int> ImagesIds
-        //{
-        //    get { return this.imagesIds; }
-        //    set { this.imagesIds = value; }
-        //}
+        [Index]
+        public bool IsDeleted { get; set; }
 
-        //public virtual ICollection<Image> Images
-        //{
-        //    get { return this.images; }
-        //    set { this.images = value; }
-        //}
-
-        //public virtual IEnumerable<int> VotesIds
-        //{
-        //    get { return this.votesIds; }
-        //    set { this.votesIds = value; }
-        //}
-
-        //public virtual ICollection<Vote> Votes
-        //{
-        //    get { return this.votes; }
-        //    set { this.votes = value; }
-        //}
+        public DateTime? DeletedOn { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Product, ProductDetailsForCategoryViewModel>()
-                //.ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title/*.Substring(0, 30) + "..."*/))
-                //.ForMember(dest => dest.ShortDescription, opt => opt.MapFrom(src => src.ShortDescription/*.Substring(0, 30) + "..."*/))
-                //.ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description.Content/*.Substring(0, 30) + "..."*/))
-                //.ForMember(dest => dest.MainImage, opt => opt.MapFrom(src => src.MainImageId))
-                //.ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category.Name))
-                //.ForMember(dest => dest.TagsNames, opt => opt.MapFrom(src => src.Tags.Select(t => t.Name)))
-                //.ForMember(dest => dest.CommentsIds, opt => opt.MapFrom(src => src.Comments.Select(c => c.Id)))
-                //.ForMember(dest => dest.Comments, opt => opt.MapFrom(src => src.Comments.Select(c => new CommentDetailsForProductViewModel { Id = c.Id, Content = c.Content, UserId = c.UserId })))
-                //.ForMember(dest => dest.ImagesIds, opt => opt.MapFrom(src => src.Images.Select(i => i.Id)))
-                //.ForMember(dest => dest.VotesIds, opt => opt.MapFrom(src => src.Votes.Select(v => v.Id)))
+                .ForMember(dest => dest.MainImage, opt => opt.MapFrom(
+                           src => src.MainImage == null ? null : new ImageDetailsForProductViewModel
+                           {
+                               Id = src.MainImage.Id,
+                               OriginalFileName = src.MainImage.OriginalFileName,
+                               FileExtension = src.MainImage.FileExtension,
+                               UrlPath = src.MainImage.UrlPath
+                           }))
+                .ForMember(dest => dest.Comments, opt => opt.MapFrom(
+                           src => src.Comments.Select(c => new CommentDetailsForProductViewModel
+                           {
+                               Id = c.Id,
+                               Content = c.Content,
+                               UserId = c.UserId
+                           })))
+                .ForMember(dest => dest.tags, opt => opt.MapFrom(
+                           src => src.Tags.Select(t => new TagDetailsForProductViewModel
+                           {
+                               Id = t.Id,
+                               Name = t.Name
+                           })))
+                .ForMember(dest => dest.Votes, opt => opt.MapFrom(
+                           src => src.Votes.Select(v => new VoteDetailsForProductViewModel
+                           {
+                               Id = v.Id,
+                               VoteValue = v.VoteValue,
+                               UserId = v.UserId
+                           })))
+                .ForMember(dest => dest.Images, opt => opt.MapFrom(
+                           src => src.Images.Select(i => new ImageDetailsForProductViewModel
+                           {
+                               Id = i.Id,
+                               OriginalFileName = i.OriginalFileName,
+                               FileExtension = i.FileExtension,
+                               UrlPath = i.UrlPath
+                           })))
                 ;
         }
     }

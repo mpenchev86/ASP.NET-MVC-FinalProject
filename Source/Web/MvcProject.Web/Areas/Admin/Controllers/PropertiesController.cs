@@ -2,29 +2,40 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
+    using System.Threading;
     using System.Web;
     using System.Web.Mvc;
 
     using GlobalConstants;
+    using Infrastructure.Extensions;
     using Kendo.Mvc.UI;
     using Services.Data;
+    using ViewModels.Descriptions;
     using ViewModels.Properties;
 
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
-    public class PropertiesController : BaseGridController<IPropertiesService, PropertyViewModel>
+    public class PropertiesController : BaseGridController<PropertyViewModel, IPropertiesService>
     {
         private readonly IPropertiesService propertiesService;
+        private readonly IDescriptionsService descriptionsService;
 
-        public PropertiesController(IPropertiesService propertiesService)
+        public PropertiesController(IPropertiesService propertiesService, IDescriptionsService descriptionsService)
             : base(propertiesService)
         {
             this.propertiesService = propertiesService;
+            this.descriptionsService = descriptionsService;
         }
 
         public ActionResult Index()
         {
-            return this.View();
+            var foreignKeys = new PropertyForeignKeysViewModel
+            {
+                Descriptions = this.descriptionsService.GetAll().To<DescriptionDetailsForPropertyViewModel>().ToList()
+            };
+
+            return this.View(foreignKeys);
         }
 
         [HttpPost]

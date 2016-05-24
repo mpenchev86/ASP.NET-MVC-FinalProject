@@ -1,0 +1,18 @@
+﻿@using MvcProject.Web.Areas.Admin.ViewModels.Descriptions
+
+@(Html.TabStripHelper(
+    "tabStrip_#=Id#",
+    0,
+    items =>
+    {
+        items.Add().Text("Comments").Content(@<text>@Html.Partial("_CommentsTab")</text>);
+        items.Add().Text("Tags").Content(@<text>@Html.Partial("_TagsTab")</text>);
+        items.Add().Text("Votes").Content(@<text>@Html.Partial("_VotesTab")</text>);
+        items.Add().Text("Images").Content(@<text>@Html.Partial("_ImagesTab")</text>);
+        items.Add().Text("Description").LoadContentFrom(
+            "GetDescriptionByProductId",
+            "Products",
+            new { Area = "Admin", descriptionId = "#=DescriptionId#" });
+    })
+    .ToClientTemplate()
+    .ToMvcClientTemplate())

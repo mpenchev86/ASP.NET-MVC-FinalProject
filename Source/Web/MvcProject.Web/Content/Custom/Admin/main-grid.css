@@ -1,0 +1,12 @@
+﻿button, input, optgroup, select, textarea {
+    color: initial;
+}
+
+.k-state-selected {
+    color: initial;
+}
+
+.admin-grid {
+    min-width: 100%;
+    font-family: Arial, sans-serif;
+}
