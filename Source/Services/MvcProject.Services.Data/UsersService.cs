@@ -19,6 +19,7 @@
     public class UsersService : IUsersService
     {
         private readonly UserManager<ApplicationUser> userManager;
+        //private readonly GenericRepository<ApplicationUser> users;
 
         public UsersService(UserManager<ApplicationUser> userManager)
         {
@@ -30,6 +31,16 @@
             return this.userManager.Users;
         }
 
+        public IQueryable<ApplicationUser> GetAllNotDeleted()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ApplicationUser GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public ApplicationUser GetById(string id)
         {
             var result = this.userManager
@@ -38,6 +49,16 @@
                 .FirstOrDefault();
 
             return result;
+        }
+
+        public ApplicationUser GetByIdFromAll(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ApplicationUser GetByIdFromAll(string id)
+        {
+            throw new NotImplementedException();
         }
 
         public IQueryable<string> GetUserRoles(string userId)
@@ -69,10 +90,29 @@
             return this.userManager.Delete(user);
         }
 
-        public ApplicationUser GetById(int id)
+        public void Insert(ApplicationUser propertyEntity)
         {
-            // throw new NotImplementedException();
-            return null;
+            throw new NotImplementedException();
+        }
+
+        public void Update(ApplicationUser propertyEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MarkAsDeleted(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeletePermanent(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeletePermanent(ApplicationUser propertyEntity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

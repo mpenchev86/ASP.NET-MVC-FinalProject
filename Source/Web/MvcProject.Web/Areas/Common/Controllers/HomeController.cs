@@ -22,16 +22,13 @@
     // [LogFilter]
     public class HomeController : BaseController
     {
-        private ISampleService sampleService;
         private IProductsService productsService;
         private ICategoriesService categoriesService;
 
         public HomeController(
-            ISampleService service,
             IProductsService productsService,
             ICategoriesService categoriesService)
         {
-            this.sampleService = service;
             this.productsService = productsService;
             this.categoriesService = categoriesService;
         }
@@ -113,7 +110,6 @@
 
         public ActionResult About()
         {
-            this.sampleService.Work();
             this.ViewBag.Message = "Your application description page.";
             return this.View();
         }

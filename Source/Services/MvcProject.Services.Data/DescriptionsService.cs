@@ -23,9 +23,13 @@
 
         public IQueryable<Description> GetAll()
         {
-            var result = this.descriptions
-                             .All()
-                             .OrderBy(x => x.Content);
+            var result = this.descriptions.All().OrderBy(x => x.Content);
+            return result;
+        }
+
+        public IQueryable<Description> GetAllNotDeleted()
+        {
+            var result = this.descriptions.AllNotDeleted().OrderBy(x => x.Content);
             return result;
         }
 
@@ -39,6 +43,43 @@
             var idAsInt = this.idProvider.DecodeId(id);
             var description = this.descriptions.GetById(idAsInt);
             return description;
+        }
+
+        public Description GetByIdFromAll(int id)
+        {
+            return this.descriptions.GetByIdFromAll(id);
+        }
+
+        public Description GetByIdFromAll(string id)
+        {
+            var idAsInt = this.idProvider.DecodeId(id);
+            var description = this.descriptions.GetByIdFromAll(idAsInt);
+            return description;
+        }
+
+        public void Insert(Description propertyEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Description propertyEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MarkAsDeleted(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeletePermanent(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeletePermanent(Description propertyEntity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

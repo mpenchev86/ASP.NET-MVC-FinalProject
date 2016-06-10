@@ -12,8 +12,8 @@
 
     public class CommentDetailsForUserViewModel : BaseAdminViewModel, IMapFrom<Comment>, IHaveCustomMappings
     {
-        [Key]
-        public int Id { get; set; }
+        //[Key]
+        //public int Id { get; set; }
 
         [Required]
         [DataType(DataType.MultilineText)]

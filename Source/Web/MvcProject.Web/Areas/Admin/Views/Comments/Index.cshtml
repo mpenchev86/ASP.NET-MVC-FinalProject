@@ -1,0 +1,91 @@
+﻿@using MvcProject.Web.Areas.Admin.ViewModels.Comments
+@using MvcProject.Web.Infrastructure.HtmlHelpers
+
+@model CommentViewModelForeignKeys
+
+@{
+    ViewBag.Title = "Comments (ADMIN)";
+}
+
+@(Html.FullFeaturedGrid<CommentViewModel>(
+    gridName: "commentsGrid",
+    controllerName: "Comments",
+    routeValues: new { Area = "Admin" },
+    model: m =>
+    {
+        m.Id(p => p.Id);
+        m.Field(p => p.Id).Editable(false);
+    },
+    pageSize: 20,
+    virtualScroll: false,
+    columns: c =>
+    {
+        c.Command(cm => cm.Edit().UpdateText("Save")).Width("100px");
+        c.Command(cm => cm.Destroy().Text("Delete")).Width("120px");
+        c.Bound(m => m.Id).Width("150px");
+        c.Bound(m => m.Content).Width("40%");
+        c.ForeignKey(m => m.ProductId, Model.Products, "Id", "Id").Title("Product Id");
+        c.ForeignKey(m => m.UserId, Model.Users, "UserId", "DisplayName").Title("User");
+        c.Bound(m => m.ModifiedOn);
+        c.Bound(m => m.IsDeleted).Title("Marked As Deleted");
+        c.Bound(m => m.DeletedOn);
+    },
+    dataSourceEvents: ev => { ev.Error("errorHandler.handler"); },
+    isBatch: false,
+    isServerOperation: true,
+    editingSettings: editor =>
+    {
+        editor
+            .Mode(GridEditMode.PopUp)
+            .Window(window =>
+            {
+                window
+                    .Actions(a => { a.Minimize().Maximize().Close(); })
+                    .Draggable(true)
+                    .Scrollable(false)
+                    .Resizable();
+            })
+            //.CreateAt(GridInsertRowPosition.Bottom)
+            .TemplateName("CommentViewModelPopupEditor")
+            //.AdditionalViewData(new { hasDescription = "" })
+            //.DisplayDeleteConfirmation(false)
+            ;
+    },
+    htmlAttributes: new { @class = "admin-grid" },
+    //readHandler: "dataHandler",
+    createHandler: "dataHandler",
+    updateHandler: "dataHandler",
+    destroyHandler: "dataHandler"
+    )
+    .Selectable()
+    .AllowCopy(true)
+    .Deferred()
+    )
+
+@section styles{
+    <style>
+        /*horizontal Grid scrollbar should appear if the browser window is shrinked too much*/
+        #commentsGrid table {
+            width: 2500px;
+        }
+    </style>
+
+    <link href="@Url.Content("~/Content/Custom/Admin/main-grid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Custom/Admin/custom-popup-editor.css")" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts{
+    @(Html.Kendo().DeferredScripts())
+
+    <script src="@Url.Content("~/Scripts/Custom/error-handler.js")"></script>
+    @*<script src="@Url.Content("~/Scripts/Kendo/cultures/kendo.culture." + culture + ".min.js")"></script>*@
+    <script src="@Url.Content("~/Scripts/Custom/datetime-handlers.js")"></script>
+
+    <script>
+        kendo.culture("@BundleConfig.UiCulture");
+
+        function dataHandler(data) {
+            datetimeHandlers.normalizeDateProperties(data);
+        }
+    </script>
+}

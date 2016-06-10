@@ -8,6 +8,7 @@
     using System.Web;
     using AutoMapper;
     using Data.Models;
+    using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
     using Products;
 
@@ -20,8 +21,8 @@
             this.products = new HashSet<ProductDetailsForTagViewModel>();
         }
 
-        [Key]
-        public int Id { get; set; }
+        //[Key]
+        //public int Id { get; set; }
 
         [Required]
         [MaxLength(20)]
@@ -36,6 +37,7 @@
         [Index]
         public bool IsDeleted { get; set; }
 
+        [LongDateTimeFormat]
         public DateTime? DeletedOn { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)

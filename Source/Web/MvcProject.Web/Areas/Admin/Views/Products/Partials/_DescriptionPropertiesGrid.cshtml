@@ -4,15 +4,16 @@
 
 @if (Model.Count() != 0)
 {
-
-@(Html.Kendo().Grid(Model)
-    .Name("properties_grid")
-    .Columns(cols =>
-    {
-        cols.Bound(p => p.Id);
-        cols.Bound(p => p.Name);
-        cols.Bound(p => p.Value);
-        cols.Bound(p => p.CreatedOn);
-        cols.Bound(p => p.ModifiedOn);
-    }))
+    @(Html.Kendo().Grid(Model)
+        .Name("properties_grid")
+        .Columns(cols =>
+        {
+            cols.Bound(p => p.Id);
+            cols.Bound(p => p.Name);
+            cols.Bound(p => p.Value);
+            cols.Bound(p => p.CreatedOn);
+            cols.Bound(p => p.ModifiedOn);
+        })
+        .Scrollable()
+        .Resizable(resizable => resizable.Columns(true)))
 }

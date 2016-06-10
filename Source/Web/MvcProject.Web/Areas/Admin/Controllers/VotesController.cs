@@ -6,25 +6,42 @@
     using System.Web;
     using System.Web.Mvc;
 
+    using Data.Models;
     using GlobalConstants;
+    using Infrastructure.Extensions;
     using Kendo.Mvc.UI;
     using Services.Data;
+    using ViewModels.Products;
+    using ViewModels.Users;
     using ViewModels.Votes;
 
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
-    public class VotesController : BaseGridController<VoteViewModel, IVotesService>
+    public class VotesController : BaseGridController<Vote, VoteViewModel, IVotesService>
     {
         private readonly IVotesService votesService;
+        private readonly IProductsService productsService;
+        private readonly IUsersService usersService;
 
-        public VotesController(IVotesService votesService)
+        public VotesController(
+            IVotesService votesService,
+            IProductsService productsService,
+            IUsersService usersService)
             : base(votesService)
         {
             this.votesService = votesService;
+            this.productsService = productsService;
+            this.usersService = usersService;
         }
 
         public ActionResult Index()
         {
-            return this.View();
+            var foreignKeys = new VoteViewModelForeignKeys
+            {
+                Users = this.usersService.GetAll().To<UserDetailsForVoteViewModel>().ToList(),
+                Products = this.productsService.GetAll().To<ProductDetailsForVoteViewModel>().ToList()
+            };
+
+            return this.View(foreignKeys);
         }
 
         [HttpPost]
@@ -36,12 +53,13 @@
         [HttpPost]
         public override ActionResult Create([DataSourceRequest]DataSourceRequest request, VoteViewModel viewModel)
         {
-            //if (viewModel != null && this.ModelState.IsValid)
-            //{
-            //    // Save record to base
-            //}
-
-            //return this.Json(new[] { viewModel }.ToDataSourceResult(request, this.ModelState));
+            if (viewModel != null && this.ModelState.IsValid)
+            {
+                var entity = new Vote { };
+                this.MapEntity(entity, viewModel);
+                this.votesService.Insert(entity);
+                viewModel.Id = entity.Id;
+            }
 
             return base.Create(request, viewModel);
         }
@@ -49,12 +67,12 @@
         [HttpPost]
         public override ActionResult Update([DataSourceRequest]DataSourceRequest request, VoteViewModel viewModel)
         {
-            //if (viewModel != null && this.ModelState.IsValid)
-            //{
-            //    // Edit record
-            //}
-
-            //return this.Json(new[] { viewModel }.ToDataSourceResult(request, this.ModelState));
+            if (viewModel != null && this.ModelState.IsValid)
+            {
+                var entity = new Vote { Id = viewModel.Id };
+                this.MapEntity(entity, viewModel);
+                this.votesService.Update(entity);
+            }
 
             return base.Update(request, viewModel);
         }
@@ -62,14 +80,18 @@
         [HttpPost]
         public override ActionResult Destroy([DataSourceRequest]DataSourceRequest request, VoteViewModel viewModel)
         {
-            //if (viewModel != null)
-            //{
-            //    // Destroy record
-            //}
-
-            //return this.Json(new[] { viewModel }.ToDataSourceResult(request, this.ModelState));
-
             return base.Destroy(request, viewModel);
+        }
+
+        public override void MapEntity(Vote entity, VoteViewModel viewModel)
+        {
+            entity.VoteValue = viewModel.VoteValue;
+            entity.ProductId = viewModel.ProductId;
+            entity.UserId = viewModel.UserId;
+            entity.CreatedOn = viewModel.CreatedOn;
+            entity.ModifiedOn = viewModel.ModifiedOn;
+            entity.IsDeleted = viewModel.IsDeleted;
+            entity.DeletedOn = viewModel.DeletedOn;
         }
     }
 }

@@ -1,0 +1,115 @@
+﻿@model MvcProject.Web.Areas.Admin.ViewModels.Votes.VoteViewModel
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.VoteValue)
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.VoteValue)
+                @Html.ValidationMessageFor(model => model.VoteValue, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProductId)
+            <div class="col-md-10">
+                @Html.EditorFor(
+                model => model.ProductId,
+                new
+                {
+                    OptionLabel = "Select Product...",
+                    DropDownName = "ProductId",
+                    Text = "Id",
+                    Value = "Id",
+                    Action = "GetDataAsJson",
+                    Controller = "Products",
+                })
+                @Html.ValidationMessageFor(model => model.ProductId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserId)
+            <div class="col-md-10">
+                @Html.EditorFor(
+                model => model.UserId,
+                new
+                {
+                    OptionLabel = "Select User...",
+                    DropDownName = "UserId",
+                    Text = "DisplayName",
+                    Value = "UserId",
+                    Action = "GetDataAsJson",
+                    Controller = "Users",
+                })
+                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="row">
+            <div class="editor-label">
+                @Html.LabelFor(m => m.UserId, "User")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(
+                m => m.UserId,
+                new
+                {
+                    OptionLabel = "Select User...",
+                    DropDownName = "UserId",
+                    Text = "DisplayName",
+                    Value = "UserId",
+                    Action = "GetDataAsJson",
+                    Controller = "Users"
+                })
+                @Html.ValidationMessageFor(m => m.UserId)
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsDeleted)
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsDeleted)
+                    @Html.ValidationMessageFor(model => model.IsDeleted, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DeletedOn)
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DeletedOn)
+                @Html.ValidationMessageFor(model => model.DeletedOn, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CreatedOn)
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CreatedOn)
+                @Html.ValidationMessageFor(model => model.CreatedOn, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ModifiedOn)
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ModifiedOn)
+                @Html.ValidationMessageFor(model => model.ModifiedOn, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>*@
+    </div>
+}

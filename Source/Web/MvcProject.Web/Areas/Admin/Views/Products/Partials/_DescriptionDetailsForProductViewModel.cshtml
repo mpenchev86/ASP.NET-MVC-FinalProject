@@ -1,0 +1,40 @@
+﻿@using MvcProject.Web.Areas.Admin.ViewModels.Descriptions
+@using MvcProject.Web.Areas.Admin.ViewModels.Products
+@*@model DescriptionDetailsForProductViewModel*@
+@model ProductViewModel
+
+<div class="row">
+    <div class="editor-label">
+        @Html.LabelFor(m => m.Description.Content)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(m => m.Description.Content)
+        @Html.ValidationMessageFor(m => m.Description.Content)
+    </div>
+</div>
+<div class="row">
+    <div class="editor-label">
+        @Html.LabelFor(m => m.Description.Properties)
+    </div>
+    <div>
+        @(Model.DescriptionId == null)
+    </div>
+    @if (Model.DescriptionId != null)
+    {
+        <div class="editor-field">
+            @Html.EditorFor(
+                m => m.Description.Properties,
+                new
+                {
+                    desc = Model.Description,
+                    htmlAttributes = new
+                    {
+                        data_bind = "value: Description.Properties",
+                    }
+                })
+
+            @*@Html.EditorFor(model => model.Description.Properties)*@
+            @Html.ValidationMessageFor(model => model.Description.Properties)
+        </div>
+    }
+</div>

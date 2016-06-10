@@ -1,0 +1,67 @@
+﻿@model MvcProject.Web.Areas.Admin.ViewModels.Comments.CommentViewModel
+
+<div class="container-fluid">
+    <div class="row">
+        @Html.HiddenFor(m => m.Id)
+    </div>
+
+    <div class="row">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Content)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(m => m.Content)
+            @Html.ValidationMessageFor(model => model.Content)
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.ProductId, "Product Id")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(
+                m => m.ProductId,
+                new
+                {
+                    OptionLabel = "Select Product...",
+                    DropDownName = "ProductId",
+                    Text = "Id",
+                    Value = "Id",
+                    Action = "GetDataAsJson",
+                    Controller = "Products"
+                })
+            @Html.ValidationMessageFor(m => m.ProductId)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.UserId, "User")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(
+                m => m.UserId,
+                new
+                {
+                    OptionLabel = "Select User...",
+                    DropDownName = "UserId",
+                    Text = "DisplayName",
+                    Value = "UserId",
+                    Action = "GetDataAsJson",
+                    Controller = "Users"
+                })
+            @Html.ValidationMessageFor(m => m.UserId)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.IsDeleted, "Mark as deleted")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(m => m.IsDeleted)
+            @Html.ValidationMessageFor(model => model.IsDeleted)
+        </div>
+    </div>
+</div>

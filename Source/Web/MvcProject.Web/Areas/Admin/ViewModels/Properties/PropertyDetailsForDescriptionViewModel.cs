@@ -11,13 +11,18 @@
 
     public class PropertyDetailsForDescriptionViewModel : BaseAdminViewModel, IMapFrom<Property>, IHaveCustomMappings
     {
-        [Key]
-        public int Id { get; set; }
+        //[Key]
+        //public int Id { get; set; }
 
         [Required]
         public string Name { get; set; }
 
         public string Value { get; set; }
+
+        public string NameValue
+        {
+            get { return this.Name + " : " + this.Value; }
+        }
 
         public void CreateMappings(IMapperConfiguration configuration)
         {

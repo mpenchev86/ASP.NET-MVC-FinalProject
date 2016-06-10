@@ -9,6 +9,7 @@
 
     using AutoMapper;
     using Data.Models;
+    using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
     using MvcProject.GlobalConstants;
     using Properties;
@@ -22,8 +23,8 @@
             this.properties = new HashSet<PropertyDetailsForDescriptionViewModel>();
         }
 
-        [Key]
-        public int Id { get; set; }
+        //[Key]
+        //public int Id { get; set; }
 
         [Required]
         //[MaxLength(GlobalConstants.ValidationConstants.MaxFullDescriptionLength)]
@@ -39,6 +40,7 @@
         [Index]
         public bool IsDeleted { get; set; }
 
+        [LongDateTimeFormat]
         public DateTime? DeletedOn { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)

@@ -20,14 +20,15 @@
             this.properties = new HashSet<PropertyDetailsForDescriptionViewModel>();
         }
 
-        [Key]
-        public int Id { get; set; }
+        //[Key]
+        //public int Id { get; set; }
 
         [Required]
         //[MaxLength(GlobalConstants.ValidationConstants.MaxFullDescriptionLength)]
         [DataType(DataType.MultilineText)]
         public string Content { get; set; }
 
+        [UIHint("PropertiesMultiSelectEditor")]
         public ICollection<PropertyDetailsForDescriptionViewModel> Properties
         {
             get { return this.properties; }
@@ -42,7 +43,9 @@
                            {
                                Id = p.Id,
                                Name = p.Name,
-                               Value = p.Value
+                               Value = p.Value,
+                               CreatedOn = p.CreatedOn,
+                               ModifiedOn = p.ModifiedOn
                            })))
                 ;
         }

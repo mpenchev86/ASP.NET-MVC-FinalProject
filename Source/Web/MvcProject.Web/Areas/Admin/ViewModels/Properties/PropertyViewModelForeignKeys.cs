@@ -7,8 +7,10 @@
 
     using Descriptions;
 
-    public class PropertyForeignKeysViewModel
+    public class PropertyViewModelForeignKeys
     {
         public IEnumerable<DescriptionDetailsForPropertyViewModel> Descriptions { get; set; }
+
+        //public IEnumerable<int> DescriptionIds { get; set; }
     }
 }

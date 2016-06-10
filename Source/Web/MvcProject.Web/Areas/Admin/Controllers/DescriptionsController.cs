@@ -6,6 +6,7 @@
     using System.Web;
     using System.Web.Mvc;
 
+    using Data.Models;
     using GlobalConstants;
     using Infrastructure.Extensions;
     using Kendo.Mvc.Extensions;
@@ -13,8 +14,9 @@
     using Services.Data;
     using ViewModels.Descriptions;
     using ViewModels.Properties;
+
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
-    public class DescriptionsController : BaseGridController<DescriptionViewModel, IDescriptionsService>
+    public class DescriptionsController : BaseGridController<Description, DescriptionViewModel, IDescriptionsService>
     {
         private readonly IDescriptionsService descriptionsService;
 
@@ -74,9 +76,28 @@
             return base.Destroy(request, viewModel);
         }
 
-        public override IEnumerable<DescriptionViewModel> GetDataAsEnumerable()
-        {
-            return base.GetDataAsEnumerable().OrderBy(x => x.Id);
-        }
+        //[HttpPost]
+        //public ActionResult GetPropertiesByDescriptionId([DataSourceRequest]DataSourceRequest request, int? descriptionId)
+        //{
+        //    var properties = new List<PropertyDetailsForDescriptionViewModel>();
+        //    if (descriptionId != null)
+        //    {
+        //        properties = this.descriptionsService
+        //            .GetById((int)descriptionId)
+        //            .Properties
+        //            .AsQueryable()
+        //            .To<PropertyDetailsForDescriptionViewModel>()
+        //            .ToList()
+        //            ;
+        //    }
+
+        //    //return this.GetCollectionAsDataSourceResult(request, properties, this.ModelState);
+        //    return this.Json(properties.AsEnumerable().ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
+        //}
+
+        //public override IEnumerable<DescriptionViewModel> GetDataAsEnumerable()
+        //{
+        //    return base.GetDataAsEnumerable().OrderBy(x => x.Id);
+        //}
     }
 }

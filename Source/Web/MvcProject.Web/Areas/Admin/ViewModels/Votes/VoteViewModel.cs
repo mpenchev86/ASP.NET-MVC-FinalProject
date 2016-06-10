@@ -8,22 +8,30 @@
     using System.Web;
     using AutoMapper;
     using Data.Models;
+    using Infrastructure.DataAnnotations;
     using MvcProject.Web.Infrastructure.Mapping;
 
     public class VoteViewModel : BaseAdminViewModel, IMapFrom<Vote>, IHaveCustomMappings
     {
-        [Key]
-        public int Id { get; set; }
+        //[Key]
+        //public int Id { get; set; }
 
+        [Required]
+        [Range(1, 10)]
+        public int VoteValue { get; set; }
+
+        [Required]
+        [UIHint("GridForeignKey")]
         public int ProductId { get; set; }
 
+        [Required]
+        [UIHint("DropDownUserId")]
         public string UserId { get; set; }
-
-        public int VoteValue { get; set; }
 
         [Index]
         public bool IsDeleted { get; set; }
 
+        [LongDateTimeFormat]
         public DateTime? DeletedOn { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)

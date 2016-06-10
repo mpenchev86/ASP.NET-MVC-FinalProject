@@ -2,13 +2,9 @@
 {
     using System.Linq;
     using MvcProject.Data.Models;
+    using MvcProject.Web.Infrastructure.Mapping;
 
     public interface IProductsService : IBaseService<Product>
     {
-        //IQueryable<Product> GetRandomProducts(int count);
-
-        //Product GetById(string count);
-
-        void Create(Product model);
     }
 }

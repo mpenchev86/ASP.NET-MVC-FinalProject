@@ -8,6 +8,7 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using MvcProject.Data.Models;
+    using MvcProject.Web.Infrastructure.Mapping;
 
     public interface IUsersService : IBaseService<ApplicationUser>
     {

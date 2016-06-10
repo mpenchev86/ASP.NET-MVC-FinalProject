@@ -5,11 +5,12 @@
     using System.Linq;
     using System.Web.Mvc;
 
+    using Data.Models;
+    using Data.Models.EntityContracts;
     using GlobalConstants;
     using Infrastructure.Extensions;
     using Kendo.Mvc.Extensions;
     using Kendo.Mvc.UI;
-    using Data.Models.EntityContracts;
     using MvcProject.Web.Areas.Common.Controllers;
     using Services.Data;
     using ViewModels.Categories;
@@ -22,7 +23,7 @@
     using ViewModels.Votes;
 
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
-    public class ProductsController : BaseGridController<ProductViewModel, IProductsService>
+    public class ProductsController : BaseGridController<Product, ProductViewModel, IProductsService>
     {
         private readonly IProductsService productsService;
         private readonly ICategoriesService categoriesService;
@@ -44,11 +45,11 @@
 
         public ActionResult Index()
         {
-            var foreignKeys = new ProductForeignKeysViewModel
+            var foreignKeys = new ProductViewModelForeignKeys
             {
                 Categories = this.categoriesService.GetAll().To<CategoryDetailsForProductViewModel>().ToList(),
                 Images = this.imagesService.GetAll().To<ImageDetailsForProductViewModel>().ToList(),
-                Descriptions = this.descriptionsService.GetAll().To<DescriptionDetailsForProductViewModel>().ToList()
+                //Descriptions = this.descriptionsService.GetAll().To<DescriptionDetailsForProductViewModel>().ToList()
             };
 
             return this.View(foreignKeys);
@@ -99,7 +100,7 @@
             return base.Destroy(request, viewModel);
         }
 
-        #region ProductClientDetailsHelpers
+#region ProductDetailsHelpers
         [HttpPost]
         public ActionResult GetTagsByProductId([DataSourceRequest]DataSourceRequest request, int productId)
         {
@@ -143,11 +144,11 @@
 
             return this.PartialView("_DescriptionTab", description);
         }
-        #endregion
+#endregion
 
-        public override IEnumerable<ProductViewModel> GetDataAsEnumerable()
-        {
-            return base.GetDataAsEnumerable().OrderBy(x => x.Id);
-        }
+        //public override IEnumerable<ProductViewModel> GetDataAsEnumerable()
+        //{
+        //    return base.GetDataAsEnumerable().OrderBy(x => x.Id);
+        //}
     }
 }

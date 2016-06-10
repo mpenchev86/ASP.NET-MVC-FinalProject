@@ -117,6 +117,10 @@
       <Project>{f3dfda1d-99d1-46ad-9cfa-a0b9aa7a750c}</Project>
       <Name>MvcProject.Data.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Web\MvcProject.Web.Infrastructure\MvcProject.Web.Infrastructure.csproj">
+      <Project>{b14dfb67-88f5-4714-a592-ecab1f8f74a9}</Project>
+      <Name>MvcProject.Web.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MvcProject.Services.Web\MvcProject.Services.Web.csproj">
       <Project>{bfbd7dc4-f46c-41e3-aa95-317230fe6558}</Project>
       <Name>MvcProject.Services.Web</Name>

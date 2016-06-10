@@ -92,6 +92,7 @@
     <Compile Include="Caching\NoCacheAttribute.cs" />
     <Compile Include="Crawlers\Contracts\IEntityTypesCrawler.cs" />
     <Compile Include="Crawlers\TypesCrawler.cs" />
+    <Compile Include="DataAnnotations\LongDateTimeFormatAttribute.cs" />
     <Compile Include="Extensions\AppBuilderExtensions.cs" />
     <Compile Include="HtmlHelpers\KendoHelpers.cs" />
     <Compile Include="Mapping\AutoMapperConfig.cs" />

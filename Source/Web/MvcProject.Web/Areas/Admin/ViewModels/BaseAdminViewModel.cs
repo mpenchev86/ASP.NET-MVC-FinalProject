@@ -6,15 +6,17 @@
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
+    using Infrastructure.DataAnnotations;
 
     public abstract class BaseAdminViewModel
     {
-        //[HiddenInput(DisplayValue = false)]
-        //[DataType(DataType.Date)]
+        [Key]
+        public int Id { get; set; }
+
+        [LongDateTimeFormat]
         public DateTime CreatedOn { get; set; }
 
-        //[HiddenInput(DisplayValue = false)]
-        //[DataType(DataType.DateTime)]
+        [LongDateTimeFormat]
         public DateTime? ModifiedOn { get; set; }
     }
 }

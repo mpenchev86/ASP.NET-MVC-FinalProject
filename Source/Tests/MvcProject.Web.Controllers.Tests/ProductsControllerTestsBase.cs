@@ -14,6 +14,7 @@
     using Moq;
     using Services.Data;
     using Services.Web;
+
     public class ProductsControllerTestsBase
     {
         private string productDescription = "SomeDescr";

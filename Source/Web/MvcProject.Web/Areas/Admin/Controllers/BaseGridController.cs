@@ -9,6 +9,7 @@
 
     using Data.Models.EntityContracts;
     using GlobalConstants;
+    using Infrastructure.Caching;
     using Infrastructure.Extensions;
     using Infrastructure.Mapping;
     using Kendo.Mvc.Extensions;
@@ -19,10 +20,12 @@
     using ViewModels.Products;
 
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
-    public class BaseGridController</*TSourceModel, */TDestModel, TService> : BaseController
-        //where TSourceModel : class, IAdministerable
-        where TDestModel : IMapFrom<IAdministerable>
-        where TService : IBaseService<IAdministerable>
+    //[OutputCache(Duration = 0, NoStore = true, VaryByParam = "None")]
+    //[NoCache]
+    public class BaseGridController<TEntityModel, TViewModel, TService> : BaseController
+        where TEntityModel : class, IAdministerable
+        where TViewModel : BaseAdminViewModel, IMapFrom<TEntityModel>
+        where TService : IBaseService<TEntityModel>
     {
         private TService dataService;
 
@@ -37,47 +40,51 @@
             var viewModel = this.GetDataAsEnumerable().ToList();
             var dataSourceResult = viewModel.ToDataSourceResult(request, this.ModelState);
             return this.Json(dataSourceResult, JsonRequestBehavior.AllowGet);
-            //return this.Json(viewModel.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public virtual ActionResult Create([DataSourceRequest]DataSourceRequest request, TDestModel viewModel)
+        public virtual ActionResult Create([DataSourceRequest]DataSourceRequest request, TViewModel viewModel)
+        {
+            //if (viewModel != null && this.ModelState.IsValid)
+            //{
+            //    // Save record to base
+            //    //var model = this.service.Post
+            //}
+
+            return this.GetEntityAsDataSourceResult(request, viewModel, this.ModelState);
+        }
+
+        [HttpPost]
+        public virtual ActionResult Update([DataSourceRequest]DataSourceRequest request, TViewModel viewModel)
+        {
+            //if (viewModel != null && this.ModelState.IsValid)
+            //{
+            //    // Edit record
+            //}
+
+            return this.GetEntityAsDataSourceResult(request, viewModel, this.ModelState);
+        }
+
+        [HttpPost]
+        public virtual ActionResult Destroy([DataSourceRequest]DataSourceRequest request, TViewModel viewModel)
         {
             if (viewModel != null && this.ModelState.IsValid)
             {
-                // Save record to base
-                //var model = this.service.Post
+                //var entity = this.dataService.GetById();
+                this.dataService.DeletePermanent(viewModel.Id);
             }
 
             return this.GetEntityAsDataSourceResult(request, viewModel, this.ModelState);
         }
 
-        [HttpPost]
-        public virtual ActionResult Update([DataSourceRequest]DataSourceRequest request, TDestModel viewModel)
+        public virtual void MapEntity(TEntityModel entity, TViewModel viewModel)
         {
-            if (viewModel != null && this.ModelState.IsValid)
-            {
-                // Edit record
-            }
-
-            return this.GetEntityAsDataSourceResult(request, viewModel, this.ModelState);
-        }
-
-        [HttpPost]
-        public virtual ActionResult Destroy([DataSourceRequest]DataSourceRequest request, TDestModel viewModel)
-        {
-            if (viewModel != null)
-            {
-                // Destroy record
-            }
-
-            return this.GetEntityAsDataSourceResult(request, viewModel, this.ModelState);
         }
 
 #region DataProviders
-        public virtual IEnumerable<TDestModel> GetDataAsEnumerable()
+        public virtual IEnumerable<TViewModel> GetDataAsEnumerable()
         {
-            return this.dataService.GetAll().To<TDestModel>();
+            return this.dataService.GetAll().To<TViewModel>();
         }
 
         public virtual JsonResult GetDataAsJson()
@@ -85,12 +92,12 @@
             return this.Json(this.GetDataAsEnumerable(), JsonRequestBehavior.AllowGet);
         }
 
-        public virtual JsonResult GetEntityAsDataSourceResult<TModel>([DataSourceRequest]DataSourceRequest request, TModel data, ModelStateDictionary modelState)
+        public virtual JsonResult GetEntityAsDataSourceResult<T>([DataSourceRequest]DataSourceRequest request, T data, ModelStateDictionary modelState)
         {
             return this.Json(new[] { data }.ToDataSourceResult(request, modelState), JsonRequestBehavior.AllowGet);
         }
 
-        public virtual JsonResult GetCollectionAsDataSourceResult<TModel>([DataSourceRequest]DataSourceRequest request, IEnumerable<TModel> data, ModelStateDictionary modelState)
+        public virtual JsonResult GetCollectionAsDataSourceResult<T>([DataSourceRequest]DataSourceRequest request, IEnumerable<T> data, ModelStateDictionary modelState)
         {
             return this.Json(data.ToDataSourceResult(request, modelState), JsonRequestBehavior.AllowGet);
         }

@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
-
+    using Data.Models;
     using GlobalConstants;
     using Kendo.Mvc.Extensions;
     using Kendo.Mvc.UI;
@@ -13,7 +13,7 @@
     using ViewModels.Categories;
 
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
-    public class CategoriesController : BaseGridController<CategoryViewModel, ICategoriesService>
+    public class CategoriesController : BaseGridController<Category, CategoryViewModel, ICategoriesService>
     {
         private readonly ICategoriesService categoriesService;
 

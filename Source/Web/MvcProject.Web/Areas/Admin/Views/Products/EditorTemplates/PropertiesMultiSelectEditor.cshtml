@@ -1,0 +1,30 @@
+﻿@using MvcProject.Web.Areas.Admin.ViewModels.Properties
+@model IEnumerable<PropertyDetailsForDescriptionViewModel>
+
+@(Html.Kendo().MultiSelect()
+    .Name("propertiesMultiSelect")
+    .TagMode(TagMode.Multiple)
+    .Placeholder("Select properties...")
+    .DataTextField("NameValue")
+    .DataValueField("Id")
+    .Filter(FilterType.Contains)
+    .DataSource(data =>
+    {
+        data
+            .ServerFiltering(true)
+            .Read(read =>
+            {
+                read
+                    .Action("GetAllPropertyDetailsForDescriptionViewModel", "Properties", new { area = "Admin"})
+                    ;
+            })
+            ;
+    })
+    .HtmlAttributes(ViewData["htmlAttributes"])
+    )
+
+@section Scripts{
+    <script>
+
+    </script>
+}

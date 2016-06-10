@@ -1,10 +1,11 @@
 ﻿@using MvcProject.Web.Infrastructure.HtmlHelpers
 @using MvcProject.Web.Areas.Admin.ViewModels.Products
 
-@model ProductForeignKeysViewModel
+@model ProductViewModelForeignKeys
 
 @{
     ViewBag.Title = "Products (ADMIN)";
+    //var hasDescription = 
 }
 
 @(Html.FullFeaturedGrid<ProductViewModel>(
@@ -54,12 +55,19 @@
                     .Scrollable(false)
                     .Resizable();
             })
-            .TemplateName("ProductViewModelPopupEditor");
+            .TemplateName("ProductViewModelPopupEditor")
+            //.AdditionalViewData(new { hasDescription = "" })
+            .CreateAt(GridInsertRowPosition.Top)
+            //.ConfirmDelete("Delete?")
+            .DisplayDeleteConfirmation(false)
+            ;
     },
     htmlAttributes: new { @class = "admin-grid" },
     //readHandler: "dataHandler",
     createHandler: "dataHandler",
-    updateHandler: "dataHandler")
+    updateHandler: "dataHandler",
+    destroyHandler: "dataHandler"
+    )
     .Selectable()
     .AllowCopy(true)
     .ClientDetailTemplateId("products-detail-template")
@@ -99,5 +107,33 @@
         function dataHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);
         }
+
+        function onAdditionalData() {
+            console.log(Object
+                .keys($("#propertiesMultiSelect")
+                .data("kendoMultiSelect")
+                ));
+            return {
+                descriptionId: data["Description.Id"]
+            };
+        }
+
+        //$(document).ready(function () {
+        //    var gridData = $('#productsGrid').data("kendoGrid");
+        //    console.log(gridData);
+        //});
+
+        //function loadProperties() {
+        //    $("#propertiesMultiSelect").kendoMultiSelect();
+
+        //    var multiselect = $("#propertiesMultiSelect").data("kendoMultiSelect");
+
+        //    // get data items for the selected options.
+        //    //var dataItem = multiselect.dataItems();
+
+        //    //console.log(dataItem);
+        //    //console.log(multiselect.initialValues);
+        //    console.log(multiselect._initialValues);
+        //}
     </script>
 }

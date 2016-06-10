@@ -1,0 +1,36 @@
+﻿@using MvcProject.Web.Areas.Admin.ViewModels.Properties
+@using MvcProject.Web.Areas.Admin.ViewModels.Products
+@*@model ProductViewModel*@
+
+@(Html.Kendo().MultiSelect()
+    .Name("propertiesMultiSelect")
+    .Placeholder("Select properties...")
+    .DataTextField("NameValue")
+    .DataValueField("Id")
+    .Filter(FilterType.Contains)
+    .DataSource(data =>
+    {
+        data
+            .ServerFiltering(true)
+            //.Custom()
+            //.Type("aspnetmvc-ajax")
+            //.Transport(transport =>
+            //{
+            //    transport.Read("GetPropertiesByDescriptionId", "Descriptions", new { area = "Admin", descriptionId = Model.Description.Id });
+            //})
+            //.Read("GetPropertiesByDescriptionId", "Descriptions", new { area = "Admin", descriptionId = Model.Description.Id })
+            //.Schema(schema =>
+            //{
+            //    schema.Data("Data") //define the [data](http://docs.telerik.com/kendo-ui/api/javascript/data/datasource#configuration-schema.data) option
+            //          .Total("Total"); //define the [total](http://docs.telerik.com/kendo-ui/api/javascript/data/datasource#configuration-schema.total) option
+            //})
+            .Read(read =>
+            {
+                read.Action("GetAllPropertyDetailsForDescriptionViewModel", "Properties", new { area = "Admin"/*, descriptionId = Model.Description.Id */})
+                    //.Data("onAdditionalData")
+                    ;
+            })
+            ;
+    })
+    //.Value()
+    )

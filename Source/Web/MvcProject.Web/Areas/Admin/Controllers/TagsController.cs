@@ -6,6 +6,7 @@
     using System.Web;
     using System.Web.Mvc;
 
+    using Data.Models;
     using GlobalConstants;
     using Infrastructure.Extensions;
     using Kendo.Mvc.Extensions;
@@ -14,7 +15,7 @@
     using ViewModels.Tags;
 
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
-    public class TagsController : BaseGridController<TagViewModel, ITagsService>
+    public class TagsController : BaseGridController<Tag, TagViewModel, ITagsService>
     {
         private readonly ITagsService tagsService;
 

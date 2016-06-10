@@ -11,11 +11,14 @@
 
     public class VoteDetailsForUserViewModel : BaseAdminViewModel, IMapFrom<Vote>, IHaveCustomMappings
     {
-        [Key]
-        public int Id { get; set; }
+        //[Key]
+        //public int Id { get; set; }
 
+        [Required]
         public int ProductId { get; set; }
 
+        [Required]
+        [Range(1, 10)]
         public int VoteValue { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)

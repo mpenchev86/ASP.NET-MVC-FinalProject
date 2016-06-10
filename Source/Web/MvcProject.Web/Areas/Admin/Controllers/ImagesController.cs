@@ -5,14 +5,14 @@
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
-
+    using Data.Models;
     using GlobalConstants;
     using Kendo.Mvc.UI;
     using Services.Data;
     using ViewModels.Images;
 
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
-    public class ImagesController : BaseGridController<ImageViewModel, IImagesService>
+    public class ImagesController : BaseGridController<Image, ImageViewModel, IImagesService>
     {
         private readonly IImagesService imagesService;
 

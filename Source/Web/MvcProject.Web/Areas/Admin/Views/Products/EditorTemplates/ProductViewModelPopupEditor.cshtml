@@ -1,11 +1,17 @@
 ﻿@using Kendo.Mvc.UI;
 @using Kendo.Mvc.Extensions;
+@using MvcProject.Web.Areas.Admin.ViewModels.Properties
 @model MvcProject.Web.Areas.Admin.ViewModels.Products.ProductViewModel
+
+@{ 
+    var description = Model.Description;
+}
 
 <div class="container-fluid">
     <div class="row">
         @Html.HiddenFor(m => m.Id)
     </div>
+
     <div class="row">
         <div class="editor-label">
             @Html.LabelFor(m => m.Title)
@@ -15,6 +21,7 @@
             @Html.ValidationMessageFor(model => model.Title)
         </div>
     </div>
+
     <div class="row">
         <div class="editor-label">
             @Html.LabelFor(m => m.ShortDescription)
@@ -24,6 +31,60 @@
             @Html.ValidationMessageFor(model => model.ShortDescription)
         </div>
     </div>
+
+    <div class="row">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.DescriptionId, "Description Id")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(
+                m => m.DescriptionId,
+                new
+                {
+                    OptionLabel = "Select Description...",
+                    DropDownName = "DescriptionId",
+                    Text = "Id",
+                    Value = "Id",
+                    Action = "GetDataAsJson",
+                    Controller = "Descriptions"
+                })
+            @Html.ValidationMessageFor(m => m.DescriptionId)
+        </div>
+    </div>
+
+    @*<hr />
+    <div class="row" style="text-align: center">
+        @Html.LabelFor(m => m.Description)
+    </div>
+    <br />
+    <div class="row">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Description.Content)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(m => m.Description.Content)
+            @Html.ValidationMessageFor(m => m.Description.Content)
+        </div>
+    </div>
+    <div class="row">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Description.Properties)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(
+                m => m.Description.Properties,
+                new
+                {
+                    htmlAttributes = new
+                    {
+                        data_bind = "value: Description.Properties",
+                    }
+                })
+            @Html.ValidationMessageFor(model => model.Description.Properties)
+        </div>
+    </div>
+    <hr />*@
+
     <div class="row">
         <div class="editor-label">
             @Html.LabelFor(m => m.CategoryId, "Category")
@@ -40,42 +101,45 @@
                     Action = "GetDataAsJson",
                     Controller = "Categories"
                 })
-            @Html.ValidationMessageFor(model => model.CategoryId)
+            @Html.ValidationMessageFor(m => m.CategoryId)
         </div>
     </div>
-    <hr />
 
-    @*<div class="row">
+    <div class="row">
         <div class="editor-label">
-            @Html.LabelFor(m => m.DescriptionId)
+            @Html.LabelFor(m => m.MainImageId, "MainImage Id")
         </div>
         <div class="editor-field">
             @Html.EditorFor(
-                m => m.DescriptionId,
+                m => m.MainImageId,
                 new
                 {
-                    OptionLabel = "Select Description...",
-                    DropDownName = "DescriptionId",
+                    OptionLabel = "Select Main Image...",
+                    DropDownName = "MainImageId",
                     Text = "Id",
                     Value = "Id",
                     Action = "GetDataAsJson",
-                    Controller = "Descriptions"
+                    Controller = "Images"
                 })
-            @Html.ValidationMessageFor(model => model.DescriptionId)
-        </div>
-    </div>*@
-    @Html.LabelFor(m => m.Description, new { text = "center" })
-    <div class="row">
-        <div class="editor-label">
-            @Html.LabelFor(m => m.Description.Content)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(m => m.Description.Content)
-            @Html.ValidationMessageFor(model => model.Description.Content)
+            @Html.ValidationMessageFor(m => m.MainImageId)
         </div>
     </div>
 
-    <hr />
+    @*<form method="post" action='@Url.Action("Submit")'>
+        <div class="demo-section k-content">*@
+    
+            @*@(Html.Kendo().Upload()
+                .Name("mainImage")
+                .Async(async => async
+                    .Save("Save", "Home"))
+            )*@
+
+            @*<p style="padding-top: 1em; text-align: right">
+                <input type="submit" value="Submit" class="k-button k-primary" />
+            </p>
+        </div>
+    </form>*@
+
     <div class="row">
         <div class="editor-label">
             @Html.LabelFor(m => m.QuantityInStock)
@@ -85,6 +149,7 @@
             @Html.ValidationMessageFor(model => model.QuantityInStock)
         </div>
     </div>
+
     <div class="row">
         <div class="editor-label">
             @Html.LabelFor(m => m.UnitPrice)
@@ -94,6 +159,7 @@
             @Html.ValidationMessageFor(model => model.UnitPrice)
         </div>
     </div>
+
     <div class="row">
         <div class="editor-label">
             @Html.LabelFor(m => m.ShippingPrice)
@@ -103,6 +169,7 @@
             @Html.ValidationMessageFor(model => model.ShippingPrice)
         </div>
     </div>
+
     <div class="row">
         <div class="editor-label">
             @Html.LabelFor(m => m.Length)
@@ -112,6 +179,7 @@
             @Html.ValidationMessageFor(model => model.Length)
         </div>
     </div>
+
     <div class="row">
         <div class="editor-label">
             @Html.LabelFor(m => m.Height)
@@ -121,6 +189,7 @@
             @Html.ValidationMessageFor(model => model.Height)
         </div>
     </div>
+
     <div class="row">
         <div class="editor-label">
             @Html.LabelFor(m => m.Width)
@@ -130,6 +199,7 @@
             @Html.ValidationMessageFor(model => model.Width)
         </div>
     </div>
+
     <div class="row">
         <div class="editor-label">
             @Html.LabelFor(m => m.Weight)
@@ -139,26 +209,24 @@
             @Html.ValidationMessageFor(model => model.Weight)
         </div>
     </div>
+
     <div class="row">
         <div class="editor-label">
-            @Html.LabelFor(m => m.IsDeleted)
+            @Html.LabelFor(m => m.IsDeleted, "Mark as deleted")
         </div>
         <div class="editor-field">
             @Html.EditorFor(m => m.IsDeleted)
             @Html.ValidationMessageFor(model => model.IsDeleted)
         </div>
     </div>
-    @*<div class="row">
-            <div class="editor-label">
-                @Html.LabelFor(m => m.DeletedOn)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(m => m.DeletedOn)
-                @Html.ValidationMessageFor(model => model.DeletedOn)
-            </div>
-        </div>*@
 </div>
 
 @section styles{
-    <link href="@Url.Content("~/Content/Custom/Admin/custom-popup-editor.css")" rel="stylesheet" type="text/css" />
+    @*NOTHING LOADS HERE*@
+}
+
+@section Scripts{
+    <script>
+        @*NOTHING LOADS HERE*@
+    </script>
 }

@@ -13,6 +13,7 @@
     using Data.Models;
     using Descriptions;
     using Images;
+    using Infrastructure.DataAnnotations;
     using Infrastructure.Extensions;
     using Infrastructure.Mapping;
     using MvcProject.GlobalConstants;
@@ -35,8 +36,8 @@
             this.images = new HashSet<ImageDetailsForProductViewModel>();
         }
 
-        [Key]
-        public int Id { get; set; }
+        //[Key]
+        //public int Id { get; set; }
 
         [Required]
         [DataType(DataType.MultilineText)]
@@ -50,6 +51,7 @@
         [UIHint("DropDownForNull")]
         public int? DescriptionId { get; set; }
 
+        //[UIHint("DescriptionDetailsForProductViewModel")]
         public DescriptionDetailsForProductViewModel Description { get; set; }
 
         [UIHint("DropDownForNonNull")]
@@ -117,6 +119,7 @@
         [Index]
         public bool IsDeleted { get; set; }
 
+        [LongDateTimeFormat]
         public DateTime? DeletedOn { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)
@@ -129,6 +132,22 @@
                                Name = src.Category.Name,
                                CreatedOn = src.Category.CreatedOn,
                                ModifiedOn = src.Category.ModifiedOn
+                           }))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(
+                           src => src.Description == null ? null : new DescriptionDetailsForProductViewModel
+                           {
+                               Id = src.Description.Id,
+                               Content = src.Description.Content,
+                               Properties = src.Description.Properties.Select(p => new PropertyDetailsForDescriptionViewModel
+                               {
+                                   Id = p.Id,
+                                   Name = p.Name,
+                                   Value = p.Value,
+                                   CreatedOn = p.CreatedOn,
+                                   ModifiedOn = p.ModifiedOn
+                               }).ToList(),
+                               CreatedOn = src.Description.CreatedOn,
+                               ModifiedOn = src.Description.ModifiedOn
                            }))
                 .ForMember(dest => dest.MainImage, opt => opt.MapFrom(
                            src => src.MainImage == null ? null : new ImageDetailsForProductViewModel

@@ -5,15 +5,33 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using MvcProject.Data.Models.EntityContracts;
+    using MvcProject.Web.Infrastructure.Mapping;
 
     // out - "cannot convert from IProductsService to IBaseService<IAdministerable>"
-    public interface IBaseService<out T>
-        where T : class
+    public interface IBaseService<T>
+        where T : class, IAdministerable
     {
         IQueryable<T> GetAll();
 
-        T GetById(string id);
+        IQueryable<T> GetAllNotDeleted();
 
         T GetById(int id);
+
+        T GetById(string id);
+
+        T GetByIdFromAll(int id);
+
+        T GetByIdFromAll(string id);
+
+        void Insert(T propertyEntity);
+
+        void Update(T propertyEntity);
+
+        void MarkAsDeleted(int id);
+
+        void DeletePermanent(int id);
+
+        void DeletePermanent(T propertyEntity);
     }
 }

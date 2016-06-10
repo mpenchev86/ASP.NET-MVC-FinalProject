@@ -22,9 +22,13 @@
 
         public IQueryable<Category> GetAll()
         {
-            var result = this.categories
-                             .All()
-                             .OrderBy(x => x.Name);
+            var result = this.categories.All().OrderBy(x => x.Name);
+            return result;
+        }
+
+        public IQueryable<Category> GetAllNotDeleted()
+        {
+            var result = this.categories.AllNotDeleted().OrderBy(x => x.Name);
             return result;
         }
 
@@ -38,6 +42,43 @@
             var idAsInt = this.idProvider.DecodeId(id);
             var category = this.categories.GetById(idAsInt);
             return category;
+        }
+
+        public Category GetByIdFromAll(int id)
+        {
+            return this.categories.GetByIdFromAll(id);
+        }
+
+        public Category GetByIdFromAll(string id)
+        {
+            var idAsInt = this.idProvider.DecodeId(id);
+            var category = this.categories.GetByIdFromAll(idAsInt);
+            return category;
+        }
+
+        public void Insert(Category propertyEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Category propertyEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MarkAsDeleted(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeletePermanent(Category propertyEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeletePermanent(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -7,8 +7,10 @@
     using System.Threading;
     using System.Web;
     using System.Web.Mvc;
-
+    using AutoMapper;
+    using Data.Models;
     using GlobalConstants;
+    using Infrastructure.Caching;
     using Infrastructure.Extensions;
     using Kendo.Mvc.UI;
     using Services.Data;
@@ -16,12 +18,16 @@
     using ViewModels.Properties;
 
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
-    public class PropertiesController : BaseGridController<PropertyViewModel, IPropertiesService>
+    //[NoCache]
+    //[OutputCache(Duration = 0, NoStore = true, VaryByParam = "None")]
+    public class PropertiesController : BaseGridController<Property, PropertyViewModel, IPropertiesService>
     {
         private readonly IPropertiesService propertiesService;
         private readonly IDescriptionsService descriptionsService;
 
-        public PropertiesController(IPropertiesService propertiesService, IDescriptionsService descriptionsService)
+        public PropertiesController(
+            IPropertiesService propertiesService,
+            IDescriptionsService descriptionsService)
             : base(propertiesService)
         {
             this.propertiesService = propertiesService;
@@ -30,7 +36,7 @@
 
         public ActionResult Index()
         {
-            var foreignKeys = new PropertyForeignKeysViewModel
+            var foreignKeys = new PropertyViewModelForeignKeys
             {
                 Descriptions = this.descriptionsService.GetAll().To<DescriptionDetailsForPropertyViewModel>().ToList()
             };
@@ -47,12 +53,23 @@
         [HttpPost]
         public override ActionResult Create([DataSourceRequest]DataSourceRequest request, PropertyViewModel viewModel)
         {
-            //if (viewModel != null && this.ModelState.IsValid)
-            //{
-            //    // Save record to base
-            //}
+            if (viewModel != null && this.ModelState.IsValid)
+            {
+                var entity = new Property
+                {
+                    //Name = viewModel.Name,
+                    //Value = viewModel.Value,
+                    //DescriptionId = viewModel.DescriptionId,
+                    //CreatedOn = viewModel.CreatedOn,
+                    //ModifiedOn = viewModel.ModifiedOn,
+                    //IsDeleted = viewModel.IsDeleted,
+                    //DeletedOn = viewModel.DeletedOn
+                };
 
-            //return this.Json(new[] { viewModel }.ToDataSourceResult(request, this.ModelState));
+                this.MapEntity(entity, viewModel);
+                this.propertiesService.Insert(entity);
+                viewModel.Id = entity.Id;
+            }
 
             return base.Create(request, viewModel);
         }
@@ -60,12 +77,23 @@
         [HttpPost]
         public override ActionResult Update([DataSourceRequest]DataSourceRequest request, PropertyViewModel viewModel)
         {
-            //if (viewModel != null && this.ModelState.IsValid)
-            //{
-            //    // Edit record
-            //}
+            if (viewModel != null && this.ModelState.IsValid)
+            {
+                var entity = new Property
+                {
+                    Id = viewModel.Id,
+                    //Name = viewModel.Name,
+                    //Value = viewModel.Value,
+                    //DescriptionId = viewModel.DescriptionId,
+                    //CreatedOn = viewModel.CreatedOn,
+                    //ModifiedOn = viewModel.ModifiedOn,
+                    //IsDeleted = viewModel.IsDeleted,
+                    //DeletedOn = viewModel.DeletedOn
+                };
 
-            //return this.Json(new[] { viewModel }.ToDataSourceResult(request, this.ModelState));
+                this.MapEntity(entity, viewModel);
+                this.propertiesService.Update(entity);
+            }
 
             return base.Update(request, viewModel);
         }
@@ -73,14 +101,31 @@
         [HttpPost]
         public override ActionResult Destroy([DataSourceRequest]DataSourceRequest request, PropertyViewModel viewModel)
         {
-            //if (viewModel != null)
+            //if (viewModel != null && this.ModelState.IsValid)
             //{
-            //    // Destroy record
+            //    this.propertiesService.DeletePermanent(viewModel.Id);
             //}
-
-            //return this.Json(new[] { viewModel }.ToDataSourceResult(request, this.ModelState));
 
             return base.Destroy(request, viewModel);
         }
+
+        public override void MapEntity(Property entity, PropertyViewModel viewModel)
+        {
+            entity.Name = viewModel.Name;
+            entity.Value = viewModel.Value;
+            entity.DescriptionId = viewModel.DescriptionId;
+            entity.CreatedOn = viewModel.CreatedOn;
+            entity.ModifiedOn = viewModel.ModifiedOn;
+            entity.IsDeleted = viewModel.IsDeleted;
+            entity.DeletedOn = viewModel.DeletedOn;
+        }
+
+#region PropertyDetailsHelpers
+        public JsonResult GetAllPropertyDetailsForDescriptionViewModel()
+        {
+            var properties = this.propertiesService.GetAll().To<PropertyDetailsForDescriptionViewModel>();
+            return this.Json(properties, JsonRequestBehavior.AllowGet);
+        }
+#endregion
     }
 }

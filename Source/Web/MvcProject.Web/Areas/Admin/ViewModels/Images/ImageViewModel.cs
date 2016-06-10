@@ -9,12 +9,13 @@
     using AutoMapper;
     using Data.Models;
     using GlobalConstants;
+    using Infrastructure.DataAnnotations;
     using MvcProject.Web.Infrastructure.Mapping;
 
     public class ImageViewModel : BaseAdminViewModel, IMapFrom<Image>, IHaveCustomMappings
     {
-        [Key]
-        public int Id { get; set; }
+        //[Key]
+        //public int Id { get; set; }
 
         [Required]
         [MaxLength(GlobalConstants.ValidationConstants.MaxOriginalFileNameLength)]
@@ -31,6 +32,7 @@
         [Index]
         public bool IsDeleted { get; set; }
 
+        [LongDateTimeFormat]
         public DateTime? DeletedOn { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)

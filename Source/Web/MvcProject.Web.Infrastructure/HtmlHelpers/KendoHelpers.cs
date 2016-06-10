@@ -10,6 +10,7 @@
     using System.Web.Mvc;
     using System.Web.Security.AntiXss;
     using System.Web.Util;
+
     using Kendo.Mvc.UI;
     using Kendo.Mvc.UI.Fluent;
 
@@ -23,26 +24,39 @@
             int pageSize,
             bool virtualScroll = false,
             Action<DataSourceModelDescriptorFactory<T>> model = null,
+            //Expression<Func<T, int>> modelId = null,
+            //IEnumerable<Expression<Func<T, object>>> modelFields = null,
             Action<GridColumnFactory<T>> columns = null,
             Action<DataSourceEventBuilder> dataSourceEvents = null,
+            Action<GridEventBuilder> gridEvents = null,
             Action<DataSourceAggregateDescriptorFactory<T>> aggregates = null,
             Action<GridSortSettingsBuilder<T>> sortSettings = null,
             Action<GridFilterableSettingsBuilder> filterSettings = null,
             Action<GridEditingSettingsBuilder<T>> editingSettings = null,
+            bool userCrud = false,
             object htmlAttributes = null,
             bool isBatch = false,
             bool isServerOperation = false,
             string readHandler = null,
             string createHandler = null,
             string updateHandler = null,
-            string destroyHandler = null
-            )
+            string destroyHandler = null)
             where T : class
         {
-            if (model == null)
-            {
-                model = m => { };
-            }
+            //if (model == null)
+            //{
+            //    model = m => { };
+            //}
+
+            //if (modelId == null)
+            //{
+            //    modelId = ;
+            //}
+
+            //if (modelFields == null)
+            //{
+            //    modelFields = m => { };
+            //}
 
             if (columns == null)
             {
@@ -57,6 +71,11 @@
             if (dataSourceEvents == null)
             {
                 dataSourceEvents = e => { };
+            }
+
+            if (gridEvents == null)
+            {
+                gridEvents = g => { };
             }
 
             if (aggregates == null)
@@ -84,13 +103,27 @@
                 htmlAttributes = new { };
             }
 
+            Action<CrudOperationBuilder> create;
+
+            if (userCrud == false)
+            {
+                create = c => c.Action("Create", controllerName, routeValues).Data(createHandler);
+            }
+            else
+            {
+                create = null;
+            }
+
             return helper.Kendo()
                 .Grid<T>()
                 .Name(gridName)
                 .HtmlAttributes(htmlAttributes)
                 .Columns(columns)
                 .ColumnMenu()
-                .Pageable(page => page.Refresh(true).Input(true))
+                .Pageable(page => page
+                    .Refresh(true)
+                    .Input(true)
+                    .PageSizes(new int[] { 20, 50, 200, 500 }))
                 .Sortable(sortSettings)
                 .Groupable()
                 .Scrollable(scrollable => scrollable
@@ -100,20 +133,58 @@
                 .Resizable(resizable => resizable.Columns(true))
                 .Filterable(filterSettings)
                 .Editable(editingSettings)
+                .Events(gridEvents)
                 .ToolBar(toolbar =>
                 {
                     toolbar.Create();
                 })
                 .DataSource(data => data
+                //.Custom()
+                //.Type("aspnetmvc-ajax")
+                //.Schema(schema => schema
+                //    .Data("Data")
+                //    .Total("Total")
+                //    .Errors("Errors")
+                //    .Model(m =>
+                //    {
+                //        m.Id(modelId);
+                //        //foreach (var field in modelFields)
+                //        //{
+                //        //    m.Field(field);
+                //        //}
+                //    }))
+                //.PageSize(30)
+                //.ServerPaging(isServerOperation)
+                //.ServerSorting(isServerOperation)
+                //.ServerFiltering(isServerOperation)
+                //.Transport(t => t
+                //    .Read(r => r
+                //        .Action("Read", controllerName, routeValues)
+                //        .Data(readHandler)
+                //        .Cache(false))
+                //    .Create(create => create
+                //        .Action("Create", controllerName, routeValues)
+                //        .Data(createHandler)
+                //        .Cache(false))
+                //    .Update(update => update
+                //        .Action("Update", controllerName, routeValues)
+                //        .Data(updateHandler))
+                //    .Destroy(destroy => destroy
+                //        .Action("Destroy", controllerName, routeValues)
+                //        .Data(destroyHandler))
+                //)
                     .Ajax()
                     .Batch(isBatch)
+                    .ServerOperation(isServerOperation)
                     .ServerOperation(isServerOperation)
                     .Events(dataSourceEvents)
                     .PageSize(pageSize)
                     .Model(model)
+                    .Sort(s => s.Add("Id").Ascending())
                     .Aggregates(aggregates)
-                    .Read(read => read.Action("Read", controllerName, routeValues).Data(readHandler))
-                    .Create(create => create.Action("Create", controllerName, routeValues).Data(createHandler))
+                    .Read(read => read.Action("Read", controllerName, routeValues).Type(HttpVerbs.Post).Data(readHandler))
+                    //.Create(create => create.Action("Create", controllerName, routeValues).Data(createHandler))
+                    .Create(create)
                     .Update(update => update.Action("Update", controllerName, routeValues).Data(updateHandler))
                     .Destroy(destroy => destroy.Action("Destroy", controllerName, routeValues).Data(destroyHandler))
                 );

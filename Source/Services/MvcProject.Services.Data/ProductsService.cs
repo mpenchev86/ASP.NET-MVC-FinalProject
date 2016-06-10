@@ -24,8 +24,19 @@
 
         public IQueryable<Product> GetAll()
         {
-            var result = this.products.All();
+            var result = this.products.All().OrderBy(p => p.Id);
             return result;
+        }
+
+        public IQueryable<Product> GetAllNotDeleted()
+        {
+            var result = this.products.AllNotDeleted().OrderBy(p => p.Id);
+            return result;
+        }
+
+        public Product GetById(int id)
+        {
+            return this.products.GetById(id);
         }
 
         public Product GetById(string id)
@@ -35,23 +46,41 @@
             return product;
         }
 
-        public void Create(Product model)
+        public Product GetByIdFromAll(int id)
+        {
+            return this.products.GetByIdFromAll(id);
+        }
+
+        public Product GetByIdFromAll(string id)
+        {
+            var idAsInt = this.idProvider.DecodeId(id);
+            var product = this.products.GetByIdFromAll(idAsInt);
+            return product;
+        }
+
+        public void Insert(Product propertyEntity)
         {
             throw new NotImplementedException();
         }
 
-        public Product GetById(int id)
+        public void Update(Product propertyEntity)
         {
-            return this.products.GetById(id);
+            throw new NotImplementedException();
         }
 
-        //public IQueryable<Product> GetRandomProducts(int count)
-        //{
-        //    var result = this.products
-        //                     .All()
-        //                     .OrderBy(x => Guid.NewGuid())
-        //                     .Take(count);
-        //    return result;
-        //}
+        public void MarkAsDeleted(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeletePermanent(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeletePermanent(Product propertyEntity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

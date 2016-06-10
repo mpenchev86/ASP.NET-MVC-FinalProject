@@ -7,6 +7,7 @@
     using System.Linq;
     using System.Web;
     using AutoMapper;
+    using Infrastructure.DataAnnotations;
     using MvcProject.Data.Models;
     using MvcProject.Web.Infrastructure.Mapping;
     using Products;
@@ -20,8 +21,8 @@
             this.products = new HashSet<ProductDetailsForCategoryViewModel>();
         }
 
-        [Key]
-        public int Id { get; set; }
+        //[Key]
+        //public int Id { get; set; }
 
         [Required]
         [DataType(DataType.MultilineText)]
@@ -37,6 +38,7 @@
         [Index]
         public bool IsDeleted { get; set; }
 
+        [LongDateTimeFormat]
         public DateTime? DeletedOn { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)

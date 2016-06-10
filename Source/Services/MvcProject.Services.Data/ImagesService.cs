@@ -23,9 +23,22 @@
         public IQueryable<Image> GetAll()
         {
             var result = this.images
-                             .All()
-                             .OrderBy(x => x.UrlPath);
+                .All()
+                .OrderBy(x => x.UrlPath);
             return result;
+        }
+
+        public IQueryable<Image> GetAllNotDeleted()
+        {
+            var result = this.images
+                .AllNotDeleted()
+                .OrderBy(x => x.UrlPath);
+            return result;
+        }
+
+        public Image GetById(int id)
+        {
+            return this.images.GetById(id);
         }
 
         public Image GetById(string id)
@@ -35,9 +48,41 @@
             return image;
         }
 
-        public Image GetById(int id)
+        public Image GetByIdFromAll(int id)
         {
-            return this.images.GetById(id);
+            return this.images.GetByIdFromAll(id);
+        }
+
+        public Image GetByIdFromAll(string id)
+        {
+            var idAsInt = this.idProvider.DecodeId(id);
+            var image = this.images.GetByIdFromAll(idAsInt);
+            return image;
+        }
+
+        public void Insert(Image propertyEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Image propertyEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MarkAsDeleted(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeletePermanent(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeletePermanent(Image propertyEntity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

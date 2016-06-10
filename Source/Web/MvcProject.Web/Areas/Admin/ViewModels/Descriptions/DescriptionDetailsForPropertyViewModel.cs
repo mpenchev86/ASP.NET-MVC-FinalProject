@@ -12,13 +12,13 @@
 
     public class DescriptionDetailsForPropertyViewModel : BaseAdminViewModel, IMapFrom<Description>, IHaveCustomMappings
     {
-        [Key]
-        public int Id { get; set; }
+        //[Key]
+        //public int Id { get; set; }
 
-        [Required]
-        //[MaxLength(GlobalConstants.ValidationConstants.MaxFullDescriptionLength)]
-        [DataType(DataType.MultilineText)]
-        public string Content { get; set; }
+        //[Required]
+        ////[MaxLength(GlobalConstants.ValidationConstants.MaxFullDescriptionLength)]
+        //[DataType(DataType.MultilineText)]
+        //public string Content { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)
         {

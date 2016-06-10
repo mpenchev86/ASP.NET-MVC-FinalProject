@@ -12,8 +12,8 @@
 
     public class ImageDetailsForProductViewModel : BaseAdminViewModel, IMapFrom<Image>, IHaveCustomMappings
     {
-        [Key]
-        public int Id { get; set; }
+        //[Key]
+        //public int Id { get; set; }
 
         [Required]
         [MaxLength(GlobalConstants.ValidationConstants.MaxOriginalFileNameLength)]

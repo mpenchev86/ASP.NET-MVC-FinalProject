@@ -12,8 +12,8 @@
 
     public class TagDetailsForProductViewModel : BaseAdminViewModel, IMapFrom<Tag>, IHaveCustomMappings
     {
-        [Key]
-        public int Id { get; set; }
+        //[Key]
+        //public int Id { get; set; }
 
         [Required]
         [MaxLength(20)]

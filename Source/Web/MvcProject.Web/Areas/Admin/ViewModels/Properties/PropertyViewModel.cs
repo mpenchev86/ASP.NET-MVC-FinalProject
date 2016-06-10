@@ -9,45 +9,45 @@
     using AutoMapper;
     using Data.Models;
     using Descriptions;
+    using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
 
-    public class PropertyViewModel : /*BaseAdminViewModel, */IMapFrom<Property>, IHaveCustomMappings
+    public class PropertyViewModel : BaseAdminViewModel, IMapFrom<Property>, IHaveCustomMappings
     {
-        [Key]
-        public int Id { get; set; }
+        //[Key]
+        //public int Id { get; set; }
 
         [Required]
+        [DataType(DataType.MultilineText)]
         public string Name { get; set; }
 
         [DataType(DataType.MultilineText)]
         public string Value { get; set; }
 
-        //[UIHint("DescriptionDropDown")]
+        [UIHint("GridForeignKey")]
         public int DescriptionId { get; set; }
 
-        public DescriptionDetailsForPropertyViewModel Description { get; set; }
-
-        public DateTime CreatedOn { get; set; }
-
-        public DateTime? ModifiedOn { get; set; }
+        //public DescriptionDetailsForPropertyViewModel Description { get; set; }
 
         [Index]
         public bool IsDeleted { get; set; }
 
+        [LongDateTimeFormat]
         public DateTime? DeletedOn { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Property, PropertyViewModel>()
                 .ForMember(dest => dest.DescriptionId, opt => opt.MapFrom(src => src.DescriptionId))
-                .ForMember(dest => dest.Description, opt => opt.MapFrom(
-                           src => new DescriptionDetailsForPropertyViewModel
-                           {
-                               Id = src.Description.Id,
-                               Content = src.Description.Content,
-                               CreatedOn = src.Description.CreatedOn,
-                               ModifiedOn = src.Description.ModifiedOn
-                           }));
+                //.ForMember(dest => dest.Description, opt => opt.MapFrom(
+                //           src => new DescriptionDetailsForPropertyViewModel
+                //           {
+                //               Id = src.Description.Id,
+                //               Content = src.Description.Content,
+                //               CreatedOn = src.Description.CreatedOn,
+                //               ModifiedOn = src.Description.ModifiedOn
+                //           }))
+                           ;
         }
     }
 }

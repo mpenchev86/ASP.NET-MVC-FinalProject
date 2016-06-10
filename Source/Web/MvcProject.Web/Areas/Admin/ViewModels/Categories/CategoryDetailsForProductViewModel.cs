@@ -12,8 +12,8 @@
 
     public class CategoryDetailsForProductViewModel : BaseAdminViewModel, IMapFrom<Category>, IHaveCustomMappings
     {
-        [Key]
-        public int Id { get; set; }
+        //[Key]
+        //public int Id { get; set; }
 
         [Required]
         [DataType(DataType.MultilineText)]
