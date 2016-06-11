@@ -1,0 +1,95 @@
+﻿@using MvcProject.Web.Areas.Admin.ViewModels.Tags
+@using MvcProject.Web.Infrastructure.HtmlHelpers
+
+@*@model VoteViewModelForeignKeys*@
+
+@{
+    ViewBag.Title = "Tags (ADMIN)";
+}
+
+@(Html.FullFeaturedGrid<TagViewModel>(
+    gridName: "tagsGrid",
+    controllerName: "Tags",
+    routeValues: new { Area = "Admin" },
+    model: m =>
+    {
+        m.Id(p => p.Id);
+        m.Field(p => p.Id).Editable(false);
+    },
+    pageSize: 20,
+    virtualScroll: false,
+    columns: c =>
+    {
+        c.Command(cm => cm.Edit().UpdateText("Save")).Width("100px");
+        c.Command(cm => cm.Destroy().Text("Delete")).Width("120px");
+        c.Bound(m => m.Id).Width("150px");
+        c.Bound(m => m.Name).Width("40%");
+        c.Bound(m => m.CreatedOn);
+        c.Bound(m => m.ModifiedOn);
+        c.Bound(m => m.IsDeleted).Title("Marked As Deleted");
+        c.Bound(m => m.DeletedOn);
+    },
+    dataSourceEvents: ev => { ev.Error("errorHandler.handler"); },
+    isBatch: false,
+    isServerOperation: true,
+    editingSettings: editor =>
+    {
+        editor
+            .Mode(GridEditMode.PopUp)
+            .Window(window =>
+            {
+                window
+                    .Actions(a => { a.Minimize().Maximize().Close(); })
+                    .Draggable(true)
+                    .Scrollable(false)
+                    .Resizable();
+            })
+            //.CreateAt(GridInsertRowPosition.Bottom)
+            .TemplateName("TagViewModelPopupEditor")
+            //.AdditionalViewData(new { hasDescription = "" })
+            //.DisplayDeleteConfirmation(false)
+            ;
+    },
+    htmlAttributes: new { @class = "admin-grid" },
+    //readHandler: "dataHandler",
+    createHandler: "dataHandler",
+    updateHandler: "dataHandler",
+    destroyHandler: "dataHandler"
+    )
+    .Selectable()
+    .AllowCopy(true)
+    .ClientDetailTemplateId("tags-detail-template")
+    .Deferred()
+)
+
+@section styles{
+    <style>
+        /*horizontal Grid scrollbar should appear if the browser window is shrinked too much*/
+        #tagsGrid table {
+            width: 2500px;
+        }
+    </style>
+
+    <link href="@Url.Content("~/Content/Custom/Admin/main-grid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Custom/Admin/custom-popup-editor.css")" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts{
+    @(Html.Kendo().DeferredScripts())
+
+    <script src="@Url.Content("~/Scripts/Custom/error-handler.js")"></script>
+    @*<script src="@Url.Content("~/Scripts/Kendo/cultures/kendo.culture." + culture + ".min.js")"></script>*@
+    <script src="@Url.Content("~/Scripts/Custom/datetime-handlers.js")"></script>
+
+    <script id="tags-detail-template" type="text/kendo-tmpl">
+        @(Html.Partial("_TagDetailsTabStrip"))
+    </script>
+
+    <script>
+        kendo.culture("@BundleConfig.UiCulture");
+
+        function dataHandler(data) {
+            datetimeHandlers.normalizeDateProperties(data);
+        }
+    </script>
+}

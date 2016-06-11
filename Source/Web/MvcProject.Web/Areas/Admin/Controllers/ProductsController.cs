@@ -90,40 +90,33 @@
         [HttpPost]
         public override ActionResult Destroy([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel)
         {
-            //if (viewModel != null)
-            //{
-            //    // Destroy record
-            //}
-
-            //return this.Json(new[] { viewModel }.ToDataSourceResult(request, this.ModelState));
-
             return base.Destroy(request, viewModel);
         }
 
 #region ProductDetailsHelpers
         [HttpPost]
-        public ActionResult GetTagsByProductId([DataSourceRequest]DataSourceRequest request, int productId)
-        {
-            var tags = this.productsService.GetById(productId).Tags.AsQueryable().To<TagDetailsForProductViewModel>();
-            return this.GetCollectionAsDataSourceResult(request, tags, this.ModelState);
-        }
-
-        [HttpPost]
-        public ActionResult GetCommentsByProductId([DataSourceRequest]DataSourceRequest request, int productId)
+        public JsonResult GetCommentsByProductId([DataSourceRequest]DataSourceRequest request, int productId)
         {
             var comments = this.productsService.GetById(productId).Comments.AsQueryable().To<CommentDetailsForProductViewModel>();
             return this.GetCollectionAsDataSourceResult(request, comments, this.ModelState);
         }
 
         [HttpPost]
-        public ActionResult GetVotesByProductId([DataSourceRequest]DataSourceRequest request, int productId)
+        public JsonResult GetTagsByProductId([DataSourceRequest]DataSourceRequest request, int productId)
+        {
+            var tags = this.productsService.GetById(productId).Tags.AsQueryable().To<TagDetailsForProductViewModel>();
+            return this.GetCollectionAsDataSourceResult(request, tags, this.ModelState);
+        }
+
+        [HttpPost]
+        public JsonResult GetVotesByProductId([DataSourceRequest]DataSourceRequest request, int productId)
         {
             var votes = this.productsService.GetById(productId).Votes.AsQueryable().To<VoteDetailsForProductViewModel>();
             return this.GetCollectionAsDataSourceResult(request, votes, this.ModelState);
         }
 
         [HttpPost]
-        public ActionResult GetImagesByProductId([DataSourceRequest]DataSourceRequest request, int productId)
+        public JsonResult GetImagesByProductId([DataSourceRequest]DataSourceRequest request, int productId)
         {
             var images = this.productsService.GetById(productId).Images.AsQueryable().To<ImageDetailsForProductViewModel>();
             return this.GetCollectionAsDataSourceResult(request, images, this.ModelState);

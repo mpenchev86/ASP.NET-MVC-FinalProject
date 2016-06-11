@@ -96,7 +96,22 @@
                 context.SaveChanges();
             }
 
-            context.Users.AddOrUpdate();
+            //context.Users.AddOrUpdate();
+
+            if (!context.Categories.Any())
+            {
+                context.Categories.AddOrUpdate(
+                    c => c.Name,
+                    new Category { /*Id = "1", */Name = "Appliances" },
+                    new Category { /*Id = "2", */Name = "Books" },
+                    new Category { /*Id = "3", */Name = "Cameras" },
+                    new Category { /*Id = "4", */Name = "Furniture" },
+                    new Category { /*Id = "5", */Name = "Health & Beauty" },
+                    new Category { /*Id = "6", */Name = "Notebooks" },
+                    new Category { /*Id = "7", */Name = "Sports Equipment" });
+
+                context.SaveChanges();
+            }
 
             if (!context.Tags.Any())
             {
@@ -112,21 +127,6 @@
                     new Tag { /*Id = "8", */Name = "functional" },
                     new Tag { /*Id = "9", */Name = "trendy" },
                     new Tag { /*Id = "10", */Name = "new" });
-
-                context.SaveChanges();
-            }
-
-            if (!context.Categories.Any())
-            {
-                context.Categories.AddOrUpdate(
-                    c => c.Name,
-                    new Category { /*Id = "1", */Name = "Appliances" },
-                    new Category { /*Id = "2", */Name = "Books" },
-                    new Category { /*Id = "3", */Name = "Cameras" },
-                    new Category { /*Id = "4", */Name = "Furniture" },
-                    new Category { /*Id = "5", */Name = "Health & Beauty" },
-                    new Category { /*Id = "6", */Name = "Notebooks" },
-                    new Category { /*Id = "7", */Name = "Sports Equipment" });
 
                 context.SaveChanges();
             }

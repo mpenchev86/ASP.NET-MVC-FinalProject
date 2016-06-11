@@ -23,7 +23,7 @@
 
         T GetById(TKey id);
 
-        T GetByIdFromAll(TKey id);
+        T GetByIdFromNotDeleted(TKey id);
 
         void Add(T entity);
 

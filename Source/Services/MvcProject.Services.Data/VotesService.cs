@@ -44,15 +44,15 @@
             return vote;
         }
 
-        public Vote GetByIdFromAll(int id)
+        public Vote GetByIdFromNotDeleted(int id)
         {
-            return this.votes.GetByIdFromAll(id);
+            return this.votes.GetByIdFromNotDeleted(id);
         }
 
-        public Vote GetByIdFromAll(string id)
+        public Vote GetByIdFromNotDeleted(string id)
         {
             var idAsInt = this.idProvider.DecodeId(id);
-            var vote = this.votes.GetByIdFromAll(idAsInt);
+            var vote = this.votes.GetByIdFromNotDeleted(idAsInt);
             return vote;
         }
 
@@ -77,7 +77,7 @@
 
         public void DeletePermanent(int id)
         {
-            var entity = this.GetByIdFromAll(id);
+            var entity = this.GetByIdFromNotDeleted(id);
             this.DeletePermanent(entity);
         }
 

@@ -51,12 +51,12 @@
             return result;
         }
 
-        public ApplicationUser GetByIdFromAll(int id)
+        public ApplicationUser GetByIdFromNotDeleted(int id)
         {
             throw new NotImplementedException();
         }
 
-        public ApplicationUser GetByIdFromAll(string id)
+        public ApplicationUser GetByIdFromNotDeleted(string id)
         {
             throw new NotImplementedException();
         }

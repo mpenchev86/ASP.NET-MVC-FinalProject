@@ -1304,6 +1304,10 @@
     <Content Include="Areas\Admin\Views\Shared\EditorTemplates\DropDownUserId.cshtml" />
     <Content Include="Areas\Admin\Views\Votes\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Votes\EditorTemplates\VoteViewModelPopupEditor.cshtml" />
+    <Content Include="Areas\Admin\Views\Tags\EditorTemplates\TagViewModelPopupEditor.cshtml" />
+    <Content Include="Areas\Admin\Views\Tags\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Tags\Partials\_TagDetailsTabStrip.cshtml" />
+    <Content Include="Areas\Admin\Views\Tags\Partials\_ProductsTab.cshtml" />
     <None Include="Properties\PublishProfiles\testWebDep.pubxml" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.dll" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.xml" />

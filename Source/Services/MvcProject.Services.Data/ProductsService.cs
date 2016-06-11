@@ -46,15 +46,15 @@
             return product;
         }
 
-        public Product GetByIdFromAll(int id)
+        public Product GetByIdFromNotDeleted(int id)
         {
-            return this.products.GetByIdFromAll(id);
+            return this.products.GetByIdFromNotDeleted(id);
         }
 
-        public Product GetByIdFromAll(string id)
+        public Product GetByIdFromNotDeleted(string id)
         {
             var idAsInt = this.idProvider.DecodeId(id);
-            var product = this.products.GetByIdFromAll(idAsInt);
+            var product = this.products.GetByIdFromNotDeleted(idAsInt);
             return product;
         }
 

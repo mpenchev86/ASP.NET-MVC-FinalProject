@@ -44,15 +44,15 @@
             return comment;
         }
 
-        public Comment GetByIdFromAll(int id)
+        public Comment GetByIdFromNotDeleted(int id)
         {
-            return this.comments.GetByIdFromAll(id);
+            return this.comments.GetByIdFromNotDeleted(id);
         }
 
-        public Comment GetByIdFromAll(string id)
+        public Comment GetByIdFromNotDeleted(string id)
         {
             var idAsInt = this.idProvider.DecodeId(id);
-            var comment = this.comments.GetByIdFromAll(idAsInt);
+            var comment = this.comments.GetByIdFromNotDeleted(idAsInt);
             return comment;
         }
 
@@ -77,7 +77,7 @@
 
         public void DeletePermanent(int id)
         {
-            var entity = this.GetByIdFromAll(id);
+            var entity = this.GetByIdFromNotDeleted(id);
             this.DeletePermanent(entity);
             //this.comments.SaveChanges();
         }

@@ -11,6 +11,7 @@
     using Categories;
     using Comments;
     using Data.Models;
+    using Data.Models.EntityContracts;
     using Descriptions;
     using Images;
     using Infrastructure.DataAnnotations;
@@ -195,6 +196,7 @@
                                CreatedOn = i.CreatedOn,
                                ModifiedOn = i.ModifiedOn
                            })))
+                .IncludeBase<BaseEntityModel<int>, BaseAdminViewModel>()
                 ;
         }
     }

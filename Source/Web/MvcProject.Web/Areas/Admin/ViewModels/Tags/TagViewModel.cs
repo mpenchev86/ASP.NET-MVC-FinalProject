@@ -8,6 +8,7 @@
     using System.Web;
     using AutoMapper;
     using Data.Models;
+    using Data.Models.EntityContracts;
     using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
     using Products;
@@ -48,9 +49,10 @@
                            {
                                Id = p.Id,
                                Title = p.Title,
-                               ShortDescription = p.ShortDescription,
-                               UnitPrice = p.UnitPrice
+                               //ShortDescription = p.ShortDescription,
+                               //UnitPrice = p.UnitPrice
                            })))
+                .IncludeBase<BaseEntityModel<int>, BaseAdminViewModel>()
                 ;
         }
     }

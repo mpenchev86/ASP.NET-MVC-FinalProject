@@ -5,8 +5,10 @@
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Web;
+
     using AutoMapper;
     using Data.Models;
+    using Data.Models.EntityContracts;
     using Infrastructure.Mapping;
     using Products;
 
@@ -21,7 +23,20 @@
 
         public void CreateMappings(IMapperConfiguration configuration)
         {
-            //throw new NotImplementedException();
+            configuration.CreateMap<Tag, TagDetailsForProductViewModel>()
+                //.InheritMappingFromBaseType(WithBaseFor.Destination)
+                //.IncludeBase<Tag, BaseAdminViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .IncludeBase<BaseEntityModel<int>, BaseAdminViewModel>()
+                ;
+
+            //configuration.CreateMap<Tag, BaseAdminViewModel<Tag>>()
+            //    .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Mapper.Map<Tag, TagDetailsForProductViewModel>(src)))
+            //    .ForMember(dest => dest.CreatedOn, opt => opt.MapFrom(src => Mapper.Map<Tag, TagDetailsForProductViewModel>(src)))
+            //    .ForMember(dest => dest.ModifiedOn, opt => opt.MapFrom(src => Mapper.Map<Tag, TagDetailsForProductViewModel>(src)))
+            //    ;
+
+            //base.CreateMappings(configuration);
         }
     }
 }

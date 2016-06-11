@@ -44,41 +44,48 @@
             return tag;
         }
 
-        public Tag GetByIdFromAll(int id)
+        public Tag GetByIdFromNotDeleted(int id)
         {
-            return this.tags.GetByIdFromAll(id);
+            return this.tags.GetByIdFromNotDeleted(id);
         }
 
-        public Tag GetByIdFromAll(string id)
+        public Tag GetByIdFromNotDeleted(string id)
         {
             var idAsInt = this.idProvider.DecodeId(id);
-            var tag = this.tags.GetByIdFromAll(idAsInt);
+            var tag = this.tags.GetByIdFromNotDeleted(idAsInt);
             return tag;
         }
 
         public void Insert(Tag propertyEntity)
         {
-            throw new NotImplementedException();
+            this.tags.Add(propertyEntity);
+            this.tags.SaveChanges();
         }
 
         public void Update(Tag propertyEntity)
         {
-            throw new NotImplementedException();
+            this.tags.Update(propertyEntity);
+            this.tags.SaveChanges();
         }
 
         public void MarkAsDeleted(int id)
         {
-            throw new NotImplementedException();
+            var entity = this.GetById(id);
+            entity.IsDeleted = true;
+            this.tags.SaveChanges();
         }
 
         public void DeletePermanent(int id)
         {
-            throw new NotImplementedException();
+            var entity = this.GetByIdFromNotDeleted(id);
+            this.DeletePermanent(entity);
+            this.tags.SaveChanges();
         }
 
-        public void DeletePermanent(Tag propertyEntity)
+        public void DeletePermanent(Tag entity)
         {
-            throw new NotImplementedException();
+            this.tags.DeletePermanent(entity);
+            this.tags.SaveChanges();
         }
     }
 }

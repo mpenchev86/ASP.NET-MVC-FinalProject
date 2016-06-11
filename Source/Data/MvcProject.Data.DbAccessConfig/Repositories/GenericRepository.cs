@@ -41,12 +41,12 @@
 
         public virtual T GetById(int id)
         {
-            return this.AllNotDeleted().FirstOrDefault(x => x.Id == id);
+            return this.All().FirstOrDefault(x => x.Id == id);
         }
 
-        public virtual T GetByIdFromAll(int id)
+        public virtual T GetByIdFromNotDeleted(int id)
         {
-            return this.All().FirstOrDefault(x => x.Id == id);
+            return this.AllNotDeleted().FirstOrDefault(x => x.Id == id);
         }
 
         public virtual void Add(T entity)

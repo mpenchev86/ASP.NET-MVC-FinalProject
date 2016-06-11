@@ -44,15 +44,15 @@
             return category;
         }
 
-        public Category GetByIdFromAll(int id)
+        public Category GetByIdFromNotDeleted(int id)
         {
-            return this.categories.GetByIdFromAll(id);
+            return this.categories.GetByIdFromNotDeleted(id);
         }
 
-        public Category GetByIdFromAll(string id)
+        public Category GetByIdFromNotDeleted(string id)
         {
             var idAsInt = this.idProvider.DecodeId(id);
-            var category = this.categories.GetByIdFromAll(idAsInt);
+            var category = this.categories.GetByIdFromNotDeleted(idAsInt);
             return category;
         }
 

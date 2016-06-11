@@ -46,15 +46,15 @@
             return property;
         }
 
-        public Property GetByIdFromAll(int id)
+        public Property GetByIdFromNotDeleted(int id)
         {
-            return this.properties.GetByIdFromAll(id);
+            return this.properties.GetByIdFromNotDeleted(id);
         }
 
-        public Property GetByIdFromAll(string id)
+        public Property GetByIdFromNotDeleted(string id)
         {
             var idAsInt = this.idProvider.DecodeId(id);
-            var property = this.properties.GetByIdFromAll(idAsInt);
+            var property = this.properties.GetByIdFromNotDeleted(idAsInt);
             return property;
         }
 
@@ -79,7 +79,7 @@
 
         public void DeletePermanent(int id)
         {
-            var entity = this.GetByIdFromAll(id);
+            var entity = this.GetByIdFromNotDeleted(id);
             this.DeletePermanent(entity);
             //this.properties.SaveChanges();
         }

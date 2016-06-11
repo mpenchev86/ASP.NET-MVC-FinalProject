@@ -57,9 +57,9 @@
             })
             .TemplateName("ProductViewModelPopupEditor")
             //.AdditionalViewData(new { hasDescription = "" })
-            .CreateAt(GridInsertRowPosition.Top)
+            //.CreateAt(GridInsertRowPosition.Bottom)
             //.ConfirmDelete("Delete?")
-            .DisplayDeleteConfirmation(false)
+            //.DisplayDeleteConfirmation(false)
             ;
     },
     htmlAttributes: new { @class = "admin-grid" },
@@ -108,15 +108,15 @@
             datetimeHandlers.normalizeDateProperties(data);
         }
 
-        function onAdditionalData() {
-            console.log(Object
-                .keys($("#propertiesMultiSelect")
-                .data("kendoMultiSelect")
-                ));
-            return {
-                descriptionId: data["Description.Id"]
-            };
-        }
+        //function onAdditionalData() {
+        //    console.log(Object
+        //        .keys($("#propertiesMultiSelect")
+        //        .data("kendoMultiSelect")
+        //        ));
+        //    return {
+        //        descriptionId: data["Description.Id"]
+        //    };
+        //}
 
         //$(document).ready(function () {
         //    var gridData = $('#productsGrid').data("kendoGrid");

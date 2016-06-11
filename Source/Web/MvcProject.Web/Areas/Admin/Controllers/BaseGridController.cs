@@ -23,8 +23,8 @@
     //[OutputCache(Duration = 0, NoStore = true, VaryByParam = "None")]
     //[NoCache]
     public class BaseGridController<TEntityModel, TViewModel, TService> : BaseController
-        where TEntityModel : class, IAdministerable
-        where TViewModel : BaseAdminViewModel, IMapFrom<TEntityModel>
+        where TEntityModel : /*class*/ BaseEntityModel<int>, IAdministerable
+        where TViewModel : /*class*/ BaseAdminViewModel, IMapFrom<TEntityModel>
         where TService : IBaseService<TEntityModel>
     {
         private TService dataService;

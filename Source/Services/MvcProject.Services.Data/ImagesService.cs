@@ -48,15 +48,15 @@
             return image;
         }
 
-        public Image GetByIdFromAll(int id)
+        public Image GetByIdFromNotDeleted(int id)
         {
-            return this.images.GetByIdFromAll(id);
+            return this.images.GetByIdFromNotDeleted(id);
         }
 
-        public Image GetByIdFromAll(string id)
+        public Image GetByIdFromNotDeleted(string id)
         {
             var idAsInt = this.idProvider.DecodeId(id);
-            var image = this.images.GetByIdFromAll(idAsInt);
+            var image = this.images.GetByIdFromNotDeleted(idAsInt);
             return image;
         }
 

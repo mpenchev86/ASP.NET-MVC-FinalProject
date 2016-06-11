@@ -45,15 +45,15 @@
             return description;
         }
 
-        public Description GetByIdFromAll(int id)
+        public Description GetByIdFromNotDeleted(int id)
         {
-            return this.descriptions.GetByIdFromAll(id);
+            return this.descriptions.GetByIdFromNotDeleted(id);
         }
 
-        public Description GetByIdFromAll(string id)
+        public Description GetByIdFromNotDeleted(string id)
         {
             var idAsInt = this.idProvider.DecodeId(id);
-            var description = this.descriptions.GetByIdFromAll(idAsInt);
+            var description = this.descriptions.GetByIdFromNotDeleted(idAsInt);
             return description;
         }
 

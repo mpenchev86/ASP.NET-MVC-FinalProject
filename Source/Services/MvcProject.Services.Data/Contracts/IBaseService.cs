@@ -20,9 +20,9 @@
 
         T GetById(string id);
 
-        T GetByIdFromAll(int id);
+        T GetByIdFromNotDeleted(int id);
 
-        T GetByIdFromAll(string id);
+        T GetByIdFromNotDeleted(string id);
 
         void Insert(T propertyEntity);
 

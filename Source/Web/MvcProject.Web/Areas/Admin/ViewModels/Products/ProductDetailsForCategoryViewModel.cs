@@ -48,12 +48,12 @@
         [UIHint("DropDownForNull")]
         public int? DescriptionId { get; set; }
 
-        public DescriptionDetailsForProductViewModel Description { get; set; }
+        //public DescriptionDetailsForProductViewModel Description { get; set; }
 
         [UIHint("DropDownForNull")]
         public int? MainImageId { get; set; }
 
-        public ImageDetailsForProductViewModel MainImage { get; set; }
+        //public ImageDetailsForProductViewModel MainImage { get; set; }
 
         public bool IsInStock
         {
@@ -115,14 +115,15 @@
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Product, ProductDetailsForCategoryViewModel>()
-                .ForMember(dest => dest.MainImage, opt => opt.MapFrom(
-                           src => src.MainImage == null ? null : new ImageDetailsForProductViewModel
-                           {
-                               Id = src.MainImage.Id,
-                               OriginalFileName = src.MainImage.OriginalFileName,
-                               FileExtension = src.MainImage.FileExtension,
-                               UrlPath = src.MainImage.UrlPath
-                           }))
+                //.Include<BaseAdminViewModel, ProductDetailsForCategoryViewModel>()
+                //.ForMember(dest => dest.MainImage, opt => opt.MapFrom(
+                //           src => src.MainImage == null ? null : new ImageDetailsForProductViewModel
+                //           {
+                //               Id = src.MainImage.Id,
+                //               OriginalFileName = src.MainImage.OriginalFileName,
+                //               FileExtension = src.MainImage.FileExtension,
+                //               UrlPath = src.MainImage.UrlPath
+                //           }))
                 .ForMember(dest => dest.Comments, opt => opt.MapFrom(
                            src => src.Comments.Select(c => new CommentDetailsForProductViewModel
                            {
@@ -134,7 +135,9 @@
                            src => src.Tags.Select(t => new TagDetailsForProductViewModel
                            {
                                Id = t.Id,
-                               Name = t.Name
+                               Name = t.Name,
+                               CreatedOn = t.CreatedOn,
+                               ModifiedOn = t.ModifiedOn
                            })))
                 .ForMember(dest => dest.Votes, opt => opt.MapFrom(
                            src => src.Votes.Select(v => new VoteDetailsForProductViewModel
