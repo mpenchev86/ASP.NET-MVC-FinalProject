@@ -9,7 +9,7 @@
     using Data.Models;
     using MvcProject.Web.Infrastructure.Mapping;
 
-    public class VoteDetailsForProductViewModel : BaseAdminViewModel, IMapFrom<Vote>, IHaveCustomMappings
+    public class VoteDetailsForProductViewModel : BaseAdminViewModel<int>, IMapFrom<Vote>, IHaveCustomMappings
     {
         //[Key]
         //public int Id { get; set; }

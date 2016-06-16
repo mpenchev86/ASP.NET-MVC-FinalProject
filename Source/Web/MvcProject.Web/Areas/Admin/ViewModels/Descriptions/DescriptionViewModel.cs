@@ -14,7 +14,7 @@
     using MvcProject.GlobalConstants;
     using Properties;
 
-    public class DescriptionViewModel : BaseAdminViewModel, IMapFrom<Description>, IHaveCustomMappings
+    public class DescriptionViewModel : BaseAdminViewModel<int>, IMapFrom<Description>, IHaveCustomMappings
     {
         private ICollection<PropertyDetailsForDescriptionViewModel> properties;
 

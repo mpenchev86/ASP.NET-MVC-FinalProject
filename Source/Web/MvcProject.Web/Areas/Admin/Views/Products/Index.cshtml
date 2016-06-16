@@ -16,7 +16,7 @@
     {
         m.Id(p => p.Id);
         m.Field(p => p.Id).Editable(false);
-        m.Field(p => p.CategoryId).Editable(false).DefaultValue(0);
+        m.Field(p => p.DescriptionId).DefaultValue(0);
     },
     pageSize: 20,
     virtualScroll: false,
@@ -29,6 +29,7 @@
         c.Bound(m => m.ShortDescription).Width("20%");
         c.Bound(m => m.UnitPrice);
         c.ForeignKey(m => m.CategoryId, Model.Categories, "Id", "Name").Title("Category");
+        c.ForeignKey(m => m.DescriptionId, Model.Descriptions, "Id", "Id").Title("Description Id").Visible(false);
         c.Bound(m => m.IsInStock);
         c.Bound(m => m.QuantityInStock);
         c.Bound(m => m.Height);
@@ -53,24 +54,26 @@
                     .Actions(a => { a.Minimize().Maximize().Close(); })
                     .Draggable(true)
                     .Scrollable(false)
-                    .Resizable();
+                    .Resizable()
+                    //.ContentSettings(c => { c.Action("ContentSettings", "Products", new { area = "Admin" }); })
+                    ;
             })
             .TemplateName("ProductViewModelPopupEditor")
-            //.AdditionalViewData(new { hasDescription = "" })
+            //.AdditionalViewData(new { categories = Model.Categories })
             //.CreateAt(GridInsertRowPosition.Bottom)
             //.ConfirmDelete("Delete?")
             //.DisplayDeleteConfirmation(false)
             ;
     },
     htmlAttributes: new { @class = "admin-grid" },
-    //readHandler: "dataHandler",
-    createHandler: "dataHandler",
-    updateHandler: "dataHandler",
-    destroyHandler: "dataHandler"
+    readHandler: "readHandler",
+    createHandler: "createHandler",
+    updateHandler: "updateHandler",
+    destroyHandler: "destroyHandler"
     )
     .Selectable()
     .AllowCopy(true)
-    .ClientDetailTemplateId("products-detail-template")
+    .ClientDetailTemplateId("product-details-template")
     .Deferred())
 
 @section styles{
@@ -97,12 +100,33 @@
     <script src="@Url.Content("~/Scripts/Custom/error-handler.js")"></script>
     <script src="@Url.Content("~/Scripts/Custom/datetime-handlers.js")"></script>
 
-    <script id="products-detail-template" type="text/kendo-tmpl">
+    <script id="product-details-template" type="text/kendo-tmpl">
         @(Html.Partial("_ProductDetailsTabStrip"))
     </script>
 
     <script>
         kendo.culture('@BundleConfig.UiCulture');
+
+        function readHandler(data) {
+            //console.log($("#productsGrid").data("kendoGrid"));
+            //console.log($(".k-window-content").data("kendoWindow"));
+            dataHandler(data);
+        }
+
+        function createHandler(data) {
+            dataHandler(data);
+            //console.log($("#productsGrid").data("kendoGrid"));
+            //console.log($(".k-window-content").data("kendoWindow").element.context);
+            //showData(data);
+        }
+
+        function updateHandler(data) {
+            dataHandler(data);
+        }
+
+        function destroyHandler(data) {
+            dataHandler(data);
+        }
 
         function dataHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);
@@ -135,5 +159,13 @@
         //    //console.log(multiselect.initialValues);
         //    console.log(multiselect._initialValues);
         //}
+
+        // jquery.validate to ignore the empty string in dropdownlist value
+        $.validator.defaults.ignore = "";
+
+        function showData(data) {
+            console.log($("#CategoryId").data("kendoDropDownList").dataItem());
+            console.log($("#CategoryId").data("kendoDropDownList").value());
+        }
     </script>
 }

@@ -34,7 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>MvcProject.Web.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\..\..\..\..\TAcademy\Track WEB\ASP.NET-MVC\Workshops\ASP.NET-MVC-Template\Source\Rules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -1257,7 +1257,6 @@
     <Content Include="Areas\Common\Views\Shared\Partials\_CarouselPartial.cshtml" />
     <Content Include="MvcProject.Web.ruleset" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\GetUser.cshtml" />
     <Content Include="Areas\Admin\Views\Products\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Properties\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Products\Partials\_CommentsTab.cshtml" />
@@ -1279,8 +1278,7 @@
     <Content Include="Areas\Admin\Views\Shared\EditorTemplates\Time.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\DropDownForNonNull.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\DropDownForNull.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\DropDown.cshtml" />
     <Content Include="Areas\Admin\Views\Products\Partials\_DescriptionTab.cshtml" />
     <Content Include="Areas\Admin\Views\Products\Partials\_DescriptionPropertiesGrid.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\Partials\DeleteWindow.cshtml" />
@@ -1301,13 +1299,24 @@
     <Content Include="Areas\Admin\Views\Properties\EditorTemplates\PropertyViewModelPopupEditor.cshtml" />
     <Content Include="Areas\Admin\Views\Comments\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Comments\EditorTemplates\CommentViewModelPopupEditor.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\DropDownUserId.cshtml" />
     <Content Include="Areas\Admin\Views\Votes\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Votes\EditorTemplates\VoteViewModelPopupEditor.cshtml" />
     <Content Include="Areas\Admin\Views\Tags\EditorTemplates\TagViewModelPopupEditor.cshtml" />
     <Content Include="Areas\Admin\Views\Tags\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Tags\Partials\_TagDetailsTabStrip.cshtml" />
     <Content Include="Areas\Admin\Views\Tags\Partials\_ProductsTab.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\EditorTemplates\CategoryViewModelPopupEditor.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Partials\_CategoryDetailsTabStrip.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Partials\_ProductsTab.cshtml" />
+    <Content Include="Areas\Admin\Views\Descriptions\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Descriptions\EditorTemplates\DescriptionViewModelPopupEditor.cshtml" />
+    <Content Include="Areas\Admin\Views\Descriptions\Partials\_DescriptionDetailsTabStrip.cshtml" />
+    <Content Include="Areas\Admin\Views\Descriptions\Partials\_PropertiesTab.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\EditorTemplates\UserViewModelPopupEditor.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Partials\_UserDetailsTabStrip.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Partials\_CommentsTab.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Partials\_VotesTab.cshtml" />
     <None Include="Properties\PublishProfiles\testWebDep.pubxml" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.dll" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.xml" />

@@ -15,6 +15,7 @@
     {
         m.Id(p => p.Id);
         m.Field(p => p.Id).Editable(false);
+        m.Field(p => p.UserId).DefaultValue("");
     },
     pageSize: 20,
     virtualScroll: false,
@@ -23,9 +24,9 @@
         c.Command(cm => cm.Edit().UpdateText("Save")).Width("100px");
         c.Command(cm => cm.Destroy().Text("Delete")).Width("120px");
         c.Bound(m => m.Id).Width("150px");
-        c.Bound(m => m.VoteValue).Width("40%");
+        c.Bound(m => m.VoteValue).Width("100px")/*.Width("40%")*/;
         c.ForeignKey(m => m.ProductId, Model.Products, "Id", "Id").Title("Product Id");
-        c.ForeignKey(m => m.UserId, Model.Users, "UserId", "DisplayName").Title("User");
+        c.ForeignKey(m => m.UserId, Model.Users, "Id", "UserName").Title("User");
         c.Bound(m => m.CreatedOn);
         c.Bound(m => m.ModifiedOn);
         c.Bound(m => m.IsDeleted).Title("Marked As Deleted");
@@ -87,6 +88,13 @@
 
         function dataHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);
+            //console.log($("#votesGrid").data("kendoGrid"));
+            //showData(data);
+        }
+
+        function showData(data) {
+            console.log($("#UserId").data("kendoDropDownList").dataItem());
+            console.log($("#UserId").data("kendoDropDownList").value());
         }
     </script>
 }

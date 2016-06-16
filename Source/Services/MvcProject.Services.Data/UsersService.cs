@@ -8,6 +8,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using System.Web;
+
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Microsoft.AspNet.Identity.Owin;
@@ -15,50 +16,61 @@
     using MvcProject.Data.DbAccessConfig;
     using MvcProject.Data.DbAccessConfig.Repositories;
     using MvcProject.Data.Models;
+    using Web;
 
     public class UsersService : IUsersService
     {
         private readonly UserManager<ApplicationUser> userManager;
-        //private readonly GenericRepository<ApplicationUser> users;
+        private IIdentifierProvider idProvider;
 
-        public UsersService(UserManager<ApplicationUser> userManager)
+        public UsersService(UserManager<ApplicationUser> userManager, IIdentifierProvider idProvider)
         {
             this.userManager = userManager;
+            this.idProvider = idProvider;
         }
 
         public IQueryable<ApplicationUser> GetAll()
         {
-            return this.userManager.Users;
+            var users = this.userManager.Users;
+            var asList = users.ToList();
+            return users;
         }
 
         public IQueryable<ApplicationUser> GetAllNotDeleted()
         {
-            throw new NotImplementedException();
-        }
-
-        public ApplicationUser GetById(int id)
-        {
-            throw new NotImplementedException();
+            return this.userManager.Users.Where(user => !user.IsDeleted);
         }
 
         public ApplicationUser GetById(string id)
         {
-            var result = this.userManager
-                .Users
+            var result = this.GetAll()
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
-
             return result;
         }
 
-        public ApplicationUser GetByIdFromNotDeleted(int id)
+        public ApplicationUser GetByEncodedId(string id)
         {
-            throw new NotImplementedException();
+            var decodedId = this.idProvider.DecodeIdToString(id);
+            var user = this.GetById(decodedId);
+            return user;
         }
 
         public ApplicationUser GetByIdFromNotDeleted(string id)
         {
-            throw new NotImplementedException();
+            var result = this.GetAllNotDeleted()
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
+            return result;
+        }
+
+        public ApplicationUser GetByEncodedIdFromNotDeleted(string id)
+        {
+            var decodedId = this.idProvider.DecodeIdToString(id);
+            var result = this.GetAllNotDeleted()
+                .Where(x => x.Id == decodedId)
+                .FirstOrDefault();
+            return result;
         }
 
         public IQueryable<string> GetUserRoles(string userId)
@@ -67,37 +79,25 @@
             return roles;
         }
 
-        public IdentityResult RemoveFromRoles(string userId, string[] roles)
-        {
-            return this.userManager.RemoveFromRoles(userId, roles);
-        }
-
         public IdentityResult AddToRole(string userId, string[] roles)
         {
             return this.userManager.AddToRoles(userId, roles);
         }
 
-        public void DeleteUser(string userId)
+        public IdentityResult RemoveFromRoles(string userId, string[] roles)
         {
-            var user = this.GetById(userId);
-            user.IsDeleted = true;
-            user.DeletedOn = DateTime.UtcNow;
+            return this.userManager.RemoveFromRoles(userId, roles);
         }
 
-        public IdentityResult DeleteUserPermanent(string userId)
-        {
-            var user = this.GetById(userId);
-            return this.userManager.Delete(user);
-        }
-
-        public void Insert(ApplicationUser propertyEntity)
+        public void Insert(ApplicationUser entity)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(ApplicationUser propertyEntity)
+        public void Update(ApplicationUser entity)
         {
-            throw new NotImplementedException();
+            this.ApplyMarkAsDeleted(entity);
+            this.userManager.Update(entity);
         }
 
         public void MarkAsDeleted(int id)
@@ -105,14 +105,42 @@
             throw new NotImplementedException();
         }
 
-        public void DeletePermanent(int id)
+        public void MarkAsDeleted(string id)
         {
-            throw new NotImplementedException();
+            var entity = this.GetById(id);
+            this.MarkAsDeleted(entity);
+            this.userManager.Update(entity);
         }
 
-        public void DeletePermanent(ApplicationUser propertyEntity)
+        public void MarkAsDeleted(ApplicationUser entity)
         {
-            throw new NotImplementedException();
+            entity.DeletedOn = DateTime.Now;
+            this.userManager.Update(entity);
+        }
+
+        public void DeletePermanent(string id)
+        {
+            var entity = this.GetById(id);
+            this.DeletePermanent(entity);
+        }
+
+        public void DeletePermanent(ApplicationUser entity)
+        {
+            this.userManager.Delete(entity);
+        }
+
+        //public IdentityResult DeleteUserPermanent(string userId)
+        //{
+        //    var user = this.GetById(userId);
+        //    return this.userManager.Delete(user);
+        //}
+
+        private void ApplyMarkAsDeleted(ApplicationUser entity)
+        {
+            if (entity.IsDeleted)
+            {
+                this.MarkAsDeleted(entity);
+            }
         }
     }
 }

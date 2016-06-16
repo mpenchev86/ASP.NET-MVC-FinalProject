@@ -11,7 +11,7 @@
 
     public class ProductViewModelForeignKeys
     {
-        //public IEnumerable<DescriptionDetailsForProductViewModel> Descriptions { get; set; }
+        public IEnumerable<DescriptionDetailsForProductViewModel> Descriptions { get; set; }
 
         public IEnumerable<ImageDetailsForProductViewModel> Images { get; set; }
 

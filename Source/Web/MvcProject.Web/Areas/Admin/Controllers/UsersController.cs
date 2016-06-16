@@ -20,57 +20,51 @@
     using ViewModels;
     using ViewModels.Comments;
     using ViewModels.Users;
-
+    using ViewModels.Votes;
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
-    public class UsersController : BaseController
+    public class UsersController : /*BaseController*/BaseGridController<ApplicationUser, UserViewModel, IUsersService, string>
     {
         private readonly IUsersService usersService;
+        private readonly ICommentsService commentsService;
+        private readonly IVotesService votesService;
 
-        public UsersController(IUsersService usersService)
+        public UsersController(
+            IUsersService usersService,
+            ICommentsService commentsService,
+            IVotesService votesService)
+            : base(usersService)
         {
             this.usersService = usersService;
+            this.commentsService = commentsService;
+            this.votesService = votesService;
         }
 
         // GET: Admin/Users
         public ActionResult Index()
         {
-            //var userManager = this.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            var model = this.usersService.GetAll().To<UserViewModel>().ToList();
-            return this.View(model);
-        }
-
-        public ActionResult GetUser(string id)
-        {
-            var model = this.Mapper.Map<UserViewModel>(this.usersService.GetById(id));
-            model.MainRole = this.usersService.GetUserRoles(model.UserId).FirstOrDefault();
-            return this.View(model);
+            return this.View();
         }
 
         [HttpPost]
-        public ActionResult Read([DataSourceRequest]DataSourceRequest request)
+        public override ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
-            var viewModel = this.usersService.GetAll().ToList();
-            var dataSourceResult = viewModel.ToDataSourceResult(request, this.ModelState);
-            return this.Json(dataSourceResult, JsonRequestBehavior.AllowGet);
+            return base.Read(request);
         }
 
-        //[HttpPost]
-        //public override ActionResult Create([DataSourceRequest]DataSourceRequest request, UserViewModel viewModel)
-        //{
-        //    if (viewModel != null && this.ModelState.IsValid)
-        //    {
-        //    }
-        //
-        //    return base.Create(request, viewModel);
-        //}
+        // Implemented through ASP.NET Identity user manager
+        [HttpPost]
+        public override ActionResult Create([DataSourceRequest]DataSourceRequest request, UserViewModel viewModel)
+        {
+            return base.Create(request, viewModel);
+        }
 
         [HttpPost]
-        public ActionResult Update([DataSourceRequest]DataSourceRequest request, UserViewModel viewModel)
+        public override ActionResult Update([DataSourceRequest]DataSourceRequest request, UserViewModel viewModel)
         {
             if (viewModel != null && this.ModelState.IsValid)
             {
-                var entity = new ApplicationUser { Id = viewModel.UserId };
-                this.MapEntity(entity, viewModel);
+                var entity = new ApplicationUser { Id = viewModel.Id };
+                this.PopulateEntity(entity, viewModel);
                 this.usersService.Update(entity);
             }
 
@@ -78,66 +72,12 @@
         }
 
         [HttpPost]
-        public ActionResult Destroy([DataSourceRequest]DataSourceRequest request, UserViewModel viewModel)
+        public override ActionResult Destroy([DataSourceRequest]DataSourceRequest request, UserViewModel viewModel)
         {
-            if (viewModel != null && this.ModelState.IsValid)
-            {
-                this.usersService.DeleteUser(viewModel.UserId);
-            }
-
-            return this.Json(new[] { viewModel }.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
+            return base.Destroy(request, viewModel);
         }
 
-        public void MapEntity(ApplicationUser entity, UserViewModel viewModel)
-        {
-            entity.UserName = viewModel.Name;
-            entity.CreatedOn = viewModel.CreatedOn;
-            entity.ModifiedOn = viewModel.ModifiedOn;
-            entity.IsDeleted = viewModel.IsDeleted;
-            entity.DeletedOn = viewModel.DeletedOn;
-        }
-
-        //[HttpPost]
-        //public ActionResult EditUser(UserPostModel model)
-        //{
-        //    return null;
-        //}
-
-        //[HttpPost]
-        //public ActionResult DeleteUser(UserPostModel model)
-        //{
-        //    return null;
-        //}
-
-        #region DataProviders
-        public virtual IEnumerable<UserViewModel> GetDataAsEnumerable()
-        {
-            return this.usersService.GetAll().To<UserViewModel>();
-        }
-
-        public virtual JsonResult GetDataAsJson()
-        {
-            return this.Json(this.GetDataAsEnumerable(), JsonRequestBehavior.AllowGet);
-        }
-
-        //public virtual JsonResult GetEntityAsDataSourceResult<T>([DataSourceRequest]DataSourceRequest request, T data, ModelStateDictionary modelState)
-        //{
-        //    return this.Json(new[] { data }.ToDataSourceResult(request, modelState), JsonRequestBehavior.AllowGet);
-        //}
-
-        //public virtual JsonResult GetCollectionAsDataSourceResult<T>([DataSourceRequest]DataSourceRequest request, IEnumerable<T> data, ModelStateDictionary modelState)
-        //{
-        //    return this.Json(data.ToDataSourceResult(request, modelState), JsonRequestBehavior.AllowGet);
-        //}
-
-        //public virtual JsonResult GetAsSelectList(string text, string value)
-        //{
-        //    var data = this.GetDataAsEnumerable().Select(x => new SelectListItem { Text = text, Value = value });
-        //    return this.Json(data, JsonRequestBehavior.AllowGet);
-        //}
-        #endregion
-
-        #region UserDetailsHelpers
+#region DataProviders
         [HttpPost]
         public JsonResult GetCommentsByUserId([DataSourceRequest]DataSourceRequest request, string userId)
         {
@@ -145,9 +85,48 @@
                 .GetById(userId)
                 .Comments
                 .AsQueryable()
-                .To<CommentDetailsForProductViewModel>();
+                .To<CommentDetailsForUserViewModel>();
             return this.Json(result.ToDataSourceResult(request, this.ModelState));
         }
-        #endregion
+
+        [HttpPost]
+        public JsonResult GetVotesByUserId([DataSourceRequest]DataSourceRequest request, string userId)
+        {
+            var result = this.usersService
+                .GetById(userId)
+                .Votes
+                .AsQueryable()
+                .To<VoteDetailsForUserViewModel>();
+            return this.Json(result.ToDataSourceResult(request, this.ModelState));
+        }
+
+        protected override void PopulateEntity(ApplicationUser entity, UserViewModel viewModel)
+        {
+            if (viewModel.Comments != null)
+            {
+                entity.Comments = new List<Comment>();
+                foreach (var comment in viewModel.Comments)
+                {
+                    entity.Comments.Add(this.commentsService.GetById(comment.Id));
+                }
+            }
+
+            if (viewModel.Votes != null)
+            {
+                entity.Votes = new List<Vote>();
+                foreach (var vote in viewModel.Votes)
+                {
+                    entity.Votes.Add(this.votesService.GetById(vote.Id));
+                }
+            }
+
+            entity.UserName = viewModel.UserName;
+            entity.MainRole = viewModel.MainRole;
+            entity.CreatedOn = viewModel.CreatedOn;
+            entity.ModifiedOn = viewModel.ModifiedOn;
+            entity.IsDeleted = viewModel.IsDeleted;
+            entity.DeletedOn = viewModel.DeletedOn;
+        }
+#endregion
     }
 }

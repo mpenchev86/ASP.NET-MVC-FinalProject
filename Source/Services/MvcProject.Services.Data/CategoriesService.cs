@@ -37,9 +37,9 @@
             return this.categories.GetById(id);
         }
 
-        public Category GetById(string id)
+        public Category GetByEncodedId(string id)
         {
-            var idAsInt = this.idProvider.DecodeId(id);
+            var idAsInt = this.idProvider.DecodeIdToInt(id);
             var category = this.categories.GetById(idAsInt);
             return category;
         }
@@ -49,36 +49,49 @@
             return this.categories.GetByIdFromNotDeleted(id);
         }
 
-        public Category GetByIdFromNotDeleted(string id)
+        public Category GetByEncodedIdFromNotDeleted(string id)
         {
-            var idAsInt = this.idProvider.DecodeId(id);
+            var idAsInt = this.idProvider.DecodeIdToInt(id);
             var category = this.categories.GetByIdFromNotDeleted(idAsInt);
             return category;
         }
 
-        public void Insert(Category propertyEntity)
+        public void Insert(Category entity)
         {
-            throw new NotImplementedException();
+            this.categories.Add(entity);
+            this.categories.SaveChanges();
         }
 
-        public void Update(Category propertyEntity)
+        public void Update(Category entity)
         {
-            throw new NotImplementedException();
+            this.categories.Update(entity);
+            this.categories.SaveChanges();
         }
 
         public void MarkAsDeleted(int id)
         {
-            throw new NotImplementedException();
+            var entity = this.GetById(id);
+            this.MarkAsDeleted(entity);
+            this.categories.SaveChanges();
         }
 
-        public void DeletePermanent(Category propertyEntity)
+        public void MarkAsDeleted(Category entity)
         {
-            throw new NotImplementedException();
+            entity.IsDeleted = true;
+            this.categories.SaveChanges();
         }
 
         public void DeletePermanent(int id)
         {
-            throw new NotImplementedException();
+            var entity = this.GetById(id);
+            this.DeletePermanent(entity);
+            this.categories.SaveChanges();
+        }
+
+        public void DeletePermanent(Category entity)
+        {
+            this.categories.DeletePermanent(entity);
+            this.categories.SaveChanges();
         }
     }
 }

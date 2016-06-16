@@ -37,9 +37,9 @@
             return this.comments.GetById(id);
         }
 
-        public Comment GetById(string id)
+        public Comment GetByEncodedId(string id)
         {
-            var idAsInt = this.idProvider.DecodeId(id);
+            var idAsInt = this.idProvider.DecodeIdToInt(id);
             var comment = this.comments.GetById(idAsInt);
             return comment;
         }
@@ -49,37 +49,43 @@
             return this.comments.GetByIdFromNotDeleted(id);
         }
 
-        public Comment GetByIdFromNotDeleted(string id)
+        public Comment GetByEncodedIdFromNotDeleted(string id)
         {
-            var idAsInt = this.idProvider.DecodeId(id);
+            var idAsInt = this.idProvider.DecodeIdToInt(id);
             var comment = this.comments.GetByIdFromNotDeleted(idAsInt);
             return comment;
         }
 
-        public void Insert(Comment propertyEntity)
+        public void Insert(Comment entity)
         {
-            this.comments.Add(propertyEntity);
+            this.comments.Add(entity);
             this.comments.SaveChanges();
         }
 
-        public void Update(Comment propertyEntity)
+        public void Update(Comment entity)
         {
-            this.comments.Update(propertyEntity);
+            this.comments.Update(entity);
             this.comments.SaveChanges();
         }
 
         public void MarkAsDeleted(int id)
         {
             var entity = this.GetById(id);
+            this.MarkAsDeleted(entity);
+            this.comments.SaveChanges();
+        }
+
+        public void MarkAsDeleted(Comment entity)
+        {
             entity.IsDeleted = true;
             this.comments.SaveChanges();
         }
 
         public void DeletePermanent(int id)
         {
-            var entity = this.GetByIdFromNotDeleted(id);
+            var entity = this.GetById(id);
             this.DeletePermanent(entity);
-            //this.comments.SaveChanges();
+            this.comments.SaveChanges();
         }
 
         public void DeletePermanent(Comment entity)

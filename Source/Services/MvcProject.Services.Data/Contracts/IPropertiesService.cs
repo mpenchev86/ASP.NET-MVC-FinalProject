@@ -10,7 +10,7 @@
     using MvcProject.Data.Models.EntityContracts;
     using MvcProject.Web.Infrastructure.Mapping;
 
-    public interface IPropertiesService : IBaseService<Property>
+    public interface IPropertiesService : IBaseService<Property, int>
     {
     }
 }

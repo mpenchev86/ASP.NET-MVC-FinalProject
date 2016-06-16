@@ -1,14 +1,17 @@
-﻿@model int
+﻿@*@model int*@
 
-@(Html.Kendo().DropDownListFor(m => m)
+@(Html.Kendo()@*.DropDownListFor(m => m)*@.DropDownList()
     .Name((string)ViewData["DropDownName"])
     .OptionLabel((string)ViewData["OptionLabel"])
     .DataTextField((string)ViewData["Text"])
     .DataValueField((string)ViewData["Value"])
-    .DataSource(dataSource =>
+    .DataSource(source =>
     {
-        dataSource
+        source
             .Read(read => read.Action((string)ViewData["Action"], (string)ViewData["Controller"], new { area = "Admin" }))
-            .ServerFiltering(true);
+            .ServerFiltering(true)
+            ;
     })
+//.Value(Model == 0 ? "" : Model.ToString())
+//.SelectedIndex(0)
 )

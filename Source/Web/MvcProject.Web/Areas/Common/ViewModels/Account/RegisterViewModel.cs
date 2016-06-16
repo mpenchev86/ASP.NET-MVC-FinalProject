@@ -16,6 +16,11 @@
         public string Email { get; set; }
 
         [Required]
+        [StringLength(20, ErrorMessage = ValidationConstants.UsernameLengthErrorMessage, MinimumLength = 6)]
+        //[Display(Name = "UserName")]
+        public string UserName { get; set; }
+
+        [Required]
         [StringLength(100, ErrorMessage = ValidationConstants.MinPasswordLengthErrorMessage, MinimumLength = 4)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]

@@ -37,9 +37,9 @@
             return this.tags.GetById(id);
         }
 
-        public Tag GetById(string id)
+        public Tag GetByEncodedId(string id)
         {
-            var idAsInt = this.idProvider.DecodeId(id);
+            var idAsInt = this.idProvider.DecodeIdToInt(id);
             var tag = this.tags.GetById(idAsInt);
             return tag;
         }
@@ -49,35 +49,41 @@
             return this.tags.GetByIdFromNotDeleted(id);
         }
 
-        public Tag GetByIdFromNotDeleted(string id)
+        public Tag GetByEncodedIdFromNotDeleted(string id)
         {
-            var idAsInt = this.idProvider.DecodeId(id);
+            var idAsInt = this.idProvider.DecodeIdToInt(id);
             var tag = this.tags.GetByIdFromNotDeleted(idAsInt);
             return tag;
         }
 
-        public void Insert(Tag propertyEntity)
+        public void Insert(Tag entity)
         {
-            this.tags.Add(propertyEntity);
+            this.tags.Add(entity);
             this.tags.SaveChanges();
         }
 
-        public void Update(Tag propertyEntity)
+        public void Update(Tag entity)
         {
-            this.tags.Update(propertyEntity);
+            this.tags.Update(entity);
             this.tags.SaveChanges();
         }
 
         public void MarkAsDeleted(int id)
         {
             var entity = this.GetById(id);
+            this.MarkAsDeleted(entity);
+            this.tags.SaveChanges();
+        }
+
+        public void MarkAsDeleted(Tag entity)
+        {
             entity.IsDeleted = true;
             this.tags.SaveChanges();
         }
 
         public void DeletePermanent(int id)
         {
-            var entity = this.GetByIdFromNotDeleted(id);
+            var entity = this.GetById(id);
             this.DeletePermanent(entity);
             this.tags.SaveChanges();
         }

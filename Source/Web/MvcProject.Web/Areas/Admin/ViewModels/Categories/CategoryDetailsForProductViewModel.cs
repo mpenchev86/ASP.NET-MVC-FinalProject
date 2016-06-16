@@ -10,7 +10,7 @@
     using MvcProject.Web.Infrastructure.Mapping;
     using Products;
 
-    public class CategoryDetailsForProductViewModel : BaseAdminViewModel, IMapFrom<Category>, IHaveCustomMappings
+    public class CategoryDetailsForProductViewModel : BaseAdminViewModel<int>, IMapFrom<Category>, IHaveCustomMappings
     {
         //[Key]
         //public int Id { get; set; }

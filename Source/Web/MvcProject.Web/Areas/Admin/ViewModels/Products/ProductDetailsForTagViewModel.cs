@@ -19,7 +19,7 @@
     using MvcProject.GlobalConstants;
     using Votes;
 
-    public class ProductDetailsForTagViewModel : BaseAdminViewModel, IMapFrom<Product>, IHaveCustomMappings
+    public class ProductDetailsForTagViewModel : BaseAdminViewModel<int>, IMapFrom<Product>, IHaveCustomMappings
     {
         //private ICollection<CommentDetailsForProductViewModel> comments;
         //private ICollection<VoteDetailsForProductViewModel> votes;
@@ -159,7 +159,7 @@
                 //               CreatedOn = i.CreatedOn,
                 //               ModifiedOn = i.ModifiedOn
                 //           })))
-                .IncludeBase<BaseEntityModel<int>, BaseAdminViewModel>()
+                .IncludeBase<BaseEntityModel<int>, BaseAdminViewModel<int>>()
                 ;
         }
     }

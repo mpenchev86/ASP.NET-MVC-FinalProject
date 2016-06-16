@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
+    using System.Data.Entity.Infrastructure;
     using System.Data.Entity.Validation;
     using System.Linq;
     using System.Text;
@@ -46,7 +47,7 @@
 
         public override int SaveChanges()
         {
-            this.ApplyAuditInfoRules();
+            this.ApplyAdditionalInfoRules();
 
             //// Debug db operations
             //try
@@ -73,24 +74,51 @@
             return base.SaveChanges();
         }
 
-        private void ApplyAuditInfoRules()
+        private void ApplyAdditionalInfoRules()
         {
             // Approach via @julielerman: http://bit.ly/123661P
             foreach (var entry in
                 this.ChangeTracker.Entries()
-                    .Where(
-                        e =>
-                        e.Entity is IAuditInfo && ((e.State == EntityState.Added) || (e.State == EntityState.Modified))))
+                    .Where(e =>
+                        (e.Entity is IAuditInfo || e.Entity is IDeletableEntity) &&
+                        ((e.State == EntityState.Added) ||
+                        (e.State == EntityState.Modified))))
             {
-                var entity = (IAuditInfo)entry.Entity;
-                if (entry.State == EntityState.Added)
+                if (entry.Entity is IAuditInfo)
                 {
-                    entity.CreatedOn = DateTime.Now;
+                    this.ApplyAuditInfoRules(entry);
                 }
-                else
+
+                if (entry.Entity is IDeletableEntity)
                 {
-                    entity.ModifiedOn = DateTime.Now;
+                    this.ApplyDeletableRules(entry);
                 }
+            }
+        }
+
+        private void ApplyAuditInfoRules(DbEntityEntry entry)
+        {
+            var entity = (IAuditInfo)entry.Entity;
+            if (entry.State == EntityState.Added)
+            {
+                entity.CreatedOn = DateTime.Now;
+            }
+            else
+            {
+                entity.ModifiedOn = DateTime.Now;
+            }
+        }
+
+        private void ApplyDeletableRules(DbEntityEntry entry)
+        {
+            var entity = (IDeletableEntity)entry.Entity;
+            if (entity.IsDeleted == true)
+            {
+                entity.DeletedOn = DateTime.Now;
+            }
+            else
+            {
+                entity.DeletedOn = null;
             }
         }
     }

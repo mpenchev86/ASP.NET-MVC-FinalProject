@@ -12,7 +12,7 @@
     using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
 
-    public class PropertyViewModel : BaseAdminViewModel, IMapFrom<Property>, IHaveCustomMappings
+    public class PropertyViewModel : BaseAdminViewModel<int>, IMapFrom<Property>, IHaveCustomMappings
     {
         //[Key]
         //public int Id { get; set; }
@@ -24,7 +24,7 @@
         [DataType(DataType.MultilineText)]
         public string Value { get; set; }
 
-        [UIHint("GridForeignKey")]
+        [UIHint("DropDown")]
         public int DescriptionId { get; set; }
 
         //public DescriptionDetailsForPropertyViewModel Description { get; set; }

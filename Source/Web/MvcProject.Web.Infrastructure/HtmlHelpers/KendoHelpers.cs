@@ -27,13 +27,14 @@
             //Expression<Func<T, int>> modelId = null,
             //IEnumerable<Expression<Func<T, object>>> modelFields = null,
             Action<GridColumnFactory<T>> columns = null,
+            Action<GridToolBarCommandFactory<T>> toolbar = null,
             Action<DataSourceEventBuilder> dataSourceEvents = null,
             Action<GridEventBuilder> gridEvents = null,
             Action<DataSourceAggregateDescriptorFactory<T>> aggregates = null,
             Action<GridSortSettingsBuilder<T>> sortSettings = null,
             Action<GridFilterableSettingsBuilder> filterSettings = null,
             Action<GridEditingSettingsBuilder<T>> editingSettings = null,
-            bool userCrud = false,
+            //bool userCrud = false,
             object htmlAttributes = null,
             bool isBatch = false,
             bool isServerOperation = false,
@@ -66,6 +67,11 @@
                     cols.Command(c => c.Edit());
                     cols.Command(c => c.Destroy());
                 };
+            }
+
+            if (toolbar == null)
+            {
+                toolbar = t => { t.Create(); };
             }
 
             if (dataSourceEvents == null)
@@ -103,16 +109,16 @@
                 htmlAttributes = new { };
             }
 
-            Action<CrudOperationBuilder> create;
+            //Action<CrudOperationBuilder> create;
 
-            if (userCrud == false)
-            {
-                create = c => c.Action("Create", controllerName, routeValues).Data(createHandler);
-            }
-            else
-            {
-                create = null;
-            }
+            //if (userCrud == false)
+            //{
+            //    create = c => c.Action("Create", controllerName, routeValues).Data(createHandler);
+            //}
+            //else
+            //{
+            //    create = null;
+            //}
 
             return helper.Kendo()
                 .Grid<T>()
@@ -134,10 +140,7 @@
                 .Filterable(filterSettings)
                 .Editable(editingSettings)
                 .Events(gridEvents)
-                .ToolBar(toolbar =>
-                {
-                    toolbar.Create();
-                })
+                .ToolBar(toolbar)
                 .DataSource(data => data
                 //.Custom()
                 //.Type("aspnetmvc-ajax")
@@ -182,12 +185,11 @@
                     .Model(model)
                     .Sort(s => s.Add("Id").Ascending())
                     .Aggregates(aggregates)
-                    .Read(read => read.Action("Read", controllerName, routeValues).Type(HttpVerbs.Post).Data(readHandler))
-                    //.Create(create => create.Action("Create", controllerName, routeValues).Data(createHandler))
-                    .Create(create)
+                    .Read(read => read.Action("Read", controllerName, routeValues).Data(readHandler))
+                    .Create(create => create.Action("Create", controllerName, routeValues).Data(createHandler))
+                    //.Create(create)
                     .Update(update => update.Action("Update", controllerName, routeValues).Data(updateHandler))
-                    .Destroy(destroy => destroy.Action("Destroy", controllerName, routeValues).Data(destroyHandler))
-                );
+                    .Destroy(destroy => destroy.Action("Destroy", controllerName, routeValues).Data(destroyHandler)));
         }
 
         public static GridBuilder<T> ClientDetailsGrid<T>(

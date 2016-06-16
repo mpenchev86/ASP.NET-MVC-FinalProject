@@ -18,9 +18,7 @@
     using ViewModels.Properties;
 
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
-    //[NoCache]
-    //[OutputCache(Duration = 0, NoStore = true, VaryByParam = "None")]
-    public class PropertiesController : BaseGridController<Property, PropertyViewModel, IPropertiesService>
+    public class PropertiesController : BaseGridController<Property, PropertyViewModel, IPropertiesService, int>
     {
         private readonly IPropertiesService propertiesService;
         private readonly IDescriptionsService descriptionsService;
@@ -55,18 +53,8 @@
         {
             if (viewModel != null && this.ModelState.IsValid)
             {
-                var entity = new Property
-                {
-                    //Name = viewModel.Name,
-                    //Value = viewModel.Value,
-                    //DescriptionId = viewModel.DescriptionId,
-                    //CreatedOn = viewModel.CreatedOn,
-                    //ModifiedOn = viewModel.ModifiedOn,
-                    //IsDeleted = viewModel.IsDeleted,
-                    //DeletedOn = viewModel.DeletedOn
-                };
-
-                this.MapEntity(entity, viewModel);
+                var entity = new Property { };
+                this.PopulateEntity(entity, viewModel);
                 this.propertiesService.Insert(entity);
                 viewModel.Id = entity.Id;
             }
@@ -79,19 +67,8 @@
         {
             if (viewModel != null && this.ModelState.IsValid)
             {
-                var entity = new Property
-                {
-                    Id = viewModel.Id,
-                    //Name = viewModel.Name,
-                    //Value = viewModel.Value,
-                    //DescriptionId = viewModel.DescriptionId,
-                    //CreatedOn = viewModel.CreatedOn,
-                    //ModifiedOn = viewModel.ModifiedOn,
-                    //IsDeleted = viewModel.IsDeleted,
-                    //DeletedOn = viewModel.DeletedOn
-                };
-
-                this.MapEntity(entity, viewModel);
+                var entity = new Property { Id = viewModel.Id };
+                this.PopulateEntity(entity, viewModel);
                 this.propertiesService.Update(entity);
             }
 
@@ -101,15 +78,17 @@
         [HttpPost]
         public override ActionResult Destroy([DataSourceRequest]DataSourceRequest request, PropertyViewModel viewModel)
         {
-            //if (viewModel != null && this.ModelState.IsValid)
-            //{
-            //    this.propertiesService.DeletePermanent(viewModel.Id);
-            //}
-
             return base.Destroy(request, viewModel);
         }
 
-        public override void MapEntity(Property entity, PropertyViewModel viewModel)
+#region DataProviders
+        public JsonResult GetAllPropertyDetailsForDescriptionViewModel()
+        {
+            var properties = this.propertiesService.GetAll().To<PropertyDetailsForDescriptionViewModel>();
+            return this.Json(properties, JsonRequestBehavior.AllowGet);
+        }
+
+        protected override void PopulateEntity(Property entity, PropertyViewModel viewModel)
         {
             entity.Name = viewModel.Name;
             entity.Value = viewModel.Value;
@@ -118,13 +97,6 @@
             entity.ModifiedOn = viewModel.ModifiedOn;
             entity.IsDeleted = viewModel.IsDeleted;
             entity.DeletedOn = viewModel.DeletedOn;
-        }
-
-#region PropertyDetailsHelpers
-        public JsonResult GetAllPropertyDetailsForDescriptionViewModel()
-        {
-            var properties = this.propertiesService.GetAll().To<PropertyDetailsForDescriptionViewModel>();
-            return this.Json(properties, JsonRequestBehavior.AllowGet);
         }
 #endregion
     }

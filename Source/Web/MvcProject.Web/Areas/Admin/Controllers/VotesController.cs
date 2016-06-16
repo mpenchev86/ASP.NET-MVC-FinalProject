@@ -16,7 +16,7 @@
     using ViewModels.Votes;
 
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
-    public class VotesController : BaseGridController<Vote, VoteViewModel, IVotesService>
+    public class VotesController : BaseGridController<Vote, VoteViewModel, IVotesService, int>
     {
         private readonly IVotesService votesService;
         private readonly IProductsService productsService;
@@ -56,7 +56,7 @@
             if (viewModel != null && this.ModelState.IsValid)
             {
                 var entity = new Vote { };
-                this.MapEntity(entity, viewModel);
+                this.PopulateEntity(entity, viewModel);
                 this.votesService.Insert(entity);
                 viewModel.Id = entity.Id;
             }
@@ -70,7 +70,7 @@
             if (viewModel != null && this.ModelState.IsValid)
             {
                 var entity = new Vote { Id = viewModel.Id };
-                this.MapEntity(entity, viewModel);
+                this.PopulateEntity(entity, viewModel);
                 this.votesService.Update(entity);
             }
 
@@ -83,7 +83,8 @@
             return base.Destroy(request, viewModel);
         }
 
-        public override void MapEntity(Vote entity, VoteViewModel viewModel)
+#region DataProviders
+        protected override void PopulateEntity(Vote entity, VoteViewModel viewModel)
         {
             entity.VoteValue = viewModel.VoteValue;
             entity.ProductId = viewModel.ProductId;
@@ -93,5 +94,6 @@
             entity.IsDeleted = viewModel.IsDeleted;
             entity.DeletedOn = viewModel.DeletedOn;
         }
+#endregion
     }
 }

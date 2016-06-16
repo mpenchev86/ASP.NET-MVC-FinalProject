@@ -11,7 +11,7 @@
     using Infrastructure.DataAnnotations;
     using MvcProject.Web.Infrastructure.Mapping;
 
-    public class VoteViewModel : BaseAdminViewModel, IMapFrom<Vote>, IHaveCustomMappings
+    public class VoteViewModel : BaseAdminViewModel<int>, IMapFrom<Vote>, IHaveCustomMappings
     {
         //[Key]
         //public int Id { get; set; }
@@ -21,11 +21,11 @@
         public int VoteValue { get; set; }
 
         [Required]
-        [UIHint("GridForeignKey")]
+        [UIHint("DropDown")]
         public int ProductId { get; set; }
 
         [Required]
-        [UIHint("DropDownUserId")]
+        [UIHint("DropDown")]
         public string UserId { get; set; }
 
         [Index]

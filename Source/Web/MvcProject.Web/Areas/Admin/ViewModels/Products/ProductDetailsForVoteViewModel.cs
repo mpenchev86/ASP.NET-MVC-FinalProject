@@ -12,8 +12,11 @@
     using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
 
-    public class ProductDetailsForVoteViewModel : BaseAdminViewModel, IMapFrom<Product>, IHaveCustomMappings
+    public class ProductDetailsForVoteViewModel : BaseAdminViewModel<int>, IMapFrom<Product>, IHaveCustomMappings
     {
+        //[Key]
+        //public int Id { get; set; }
+
         [Required]
         [DataType(DataType.MultilineText)]
         [MaxLength(GlobalConstants.ValidationConstants.MaxProductTitleLength)]

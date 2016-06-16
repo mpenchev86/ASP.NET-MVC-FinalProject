@@ -12,7 +12,7 @@
     using Infrastructure.DataAnnotations;
     using MvcProject.Web.Infrastructure.Mapping;
 
-    public class ImageViewModel : BaseAdminViewModel, IMapFrom<Image>, IHaveCustomMappings
+    public class ImageViewModel : BaseAdminViewModel<int>, IMapFrom<Image>, IHaveCustomMappings
     {
         //[Key]
         //public int Id { get; set; }

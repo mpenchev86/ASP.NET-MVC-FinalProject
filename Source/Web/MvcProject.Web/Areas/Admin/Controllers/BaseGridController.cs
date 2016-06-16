@@ -22,10 +22,10 @@
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
     //[OutputCache(Duration = 0, NoStore = true, VaryByParam = "None")]
     //[NoCache]
-    public class BaseGridController<TEntityModel, TViewModel, TService> : BaseController
-        where TEntityModel : /*class*/ BaseEntityModel<int>, IAdministerable
-        where TViewModel : /*class*/ BaseAdminViewModel, IMapFrom<TEntityModel>
-        where TService : IBaseService<TEntityModel>
+    public class BaseGridController<TEntityModel, TViewModel, TService, TKey> : BaseController
+        where TEntityModel : class, IBaseEntityModel<TKey>, IAdministerable
+        where TViewModel : /*class */BaseAdminViewModel<TKey>, IMapFrom<TEntityModel>
+        where TService : IBaseService<TEntityModel, TKey>
     {
         private TService dataService;
 
@@ -45,66 +45,54 @@
         [HttpPost]
         public virtual ActionResult Create([DataSourceRequest]DataSourceRequest request, TViewModel viewModel)
         {
-            //if (viewModel != null && this.ModelState.IsValid)
-            //{
-            //    // Save record to base
-            //    //var model = this.service.Post
-            //}
-
             return this.GetEntityAsDataSourceResult(request, viewModel, this.ModelState);
         }
 
         [HttpPost]
         public virtual ActionResult Update([DataSourceRequest]DataSourceRequest request, TViewModel viewModel)
         {
-            //if (viewModel != null && this.ModelState.IsValid)
-            //{
-            //    // Edit record
-            //}
-
             return this.GetEntityAsDataSourceResult(request, viewModel, this.ModelState);
         }
 
         [HttpPost]
-        public virtual ActionResult Destroy([DataSourceRequest]DataSourceRequest request, TViewModel viewModel)
+        public virtual ActionResult Destroy([DataSourceRequest]DataSourceRequest request, TViewModel viewModel/*, int viewModelId*/)
         {
             if (viewModel != null && this.ModelState.IsValid)
             {
-                //var entity = this.dataService.GetById();
                 this.dataService.DeletePermanent(viewModel.Id);
             }
 
             return this.GetEntityAsDataSourceResult(request, viewModel, this.ModelState);
         }
 
-        public virtual void MapEntity(TEntityModel entity, TViewModel viewModel)
+#region DataProviders
+        protected virtual void PopulateEntity(TEntityModel entity, TViewModel viewModel)
         {
         }
 
-#region DataProviders
-        public virtual IEnumerable<TViewModel> GetDataAsEnumerable()
+        protected virtual IEnumerable<TViewModel> GetDataAsEnumerable()
         {
             return this.dataService.GetAll().To<TViewModel>();
         }
 
-        public virtual JsonResult GetDataAsJson()
+        protected virtual JsonResult GetDataAsJson()
         {
             return this.Json(this.GetDataAsEnumerable(), JsonRequestBehavior.AllowGet);
         }
 
-        public virtual JsonResult GetEntityAsDataSourceResult<T>([DataSourceRequest]DataSourceRequest request, T data, ModelStateDictionary modelState)
+        protected virtual JsonResult GetEntityAsDataSourceResult<T>([DataSourceRequest]DataSourceRequest request, T data, ModelStateDictionary modelState)
         {
             return this.Json(new[] { data }.ToDataSourceResult(request, modelState), JsonRequestBehavior.AllowGet);
         }
 
-        public virtual JsonResult GetCollectionAsDataSourceResult<T>([DataSourceRequest]DataSourceRequest request, IEnumerable<T> data, ModelStateDictionary modelState)
+        protected virtual JsonResult GetCollectionAsDataSourceResult<T>([DataSourceRequest]DataSourceRequest request, IEnumerable<T> data, ModelStateDictionary modelState)
         {
             return this.Json(data.ToDataSourceResult(request, modelState), JsonRequestBehavior.AllowGet);
         }
 
-        public virtual JsonResult GetAsSelectList(string text, string value)
+        protected virtual JsonResult GetAsSelectList(string text, string value)
         {
-            var data = this.GetDataAsEnumerable().Select(x => new SelectListItem { Text = text, Value = value});
+            var data = this.GetDataAsEnumerable().Select(x => new SelectListItem { Text = text, Value = value });
             return this.Json(data, JsonRequestBehavior.AllowGet);
         }
 #endregion

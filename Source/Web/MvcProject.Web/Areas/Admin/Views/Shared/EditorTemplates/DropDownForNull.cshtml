@@ -5,10 +5,10 @@
     .OptionLabel((string)ViewData["OptionLabel"])
     .DataTextField((string)ViewData["Text"])
     .DataValueField((string)ViewData["Value"])
-    .DataSource(dataSource =>
+    .DataSource(source =>
     {
-        dataSource
+        source
             .Read(read => read.Action((string)ViewData["Action"], (string)ViewData["Controller"], new { area = "Admin" }))
-            .ServerFiltering(true);
+            .ServerFiltering(false);
     })
 )

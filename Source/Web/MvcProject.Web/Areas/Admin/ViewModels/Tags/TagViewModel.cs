@@ -13,7 +13,7 @@
     using Infrastructure.Mapping;
     using Products;
 
-    public class TagViewModel : BaseAdminViewModel, IMapFrom<Tag>, IHaveCustomMappings
+    public class TagViewModel : BaseAdminViewModel<int>, IMapFrom<Tag>, IHaveCustomMappings
     {
         private ICollection<ProductDetailsForTagViewModel> products;
 
@@ -44,6 +44,7 @@
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Tag, TagViewModel>()
+                //.ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Products, opt => opt.MapFrom(
                            src => src.Products.Select(p => new ProductDetailsForTagViewModel
                            {
@@ -52,7 +53,7 @@
                                //ShortDescription = p.ShortDescription,
                                //UnitPrice = p.UnitPrice
                            })))
-                .IncludeBase<BaseEntityModel<int>, BaseAdminViewModel>()
+                //.IncludeBase<BaseEntityModel<int>, BaseAdminViewModel>()
                 ;
         }
     }

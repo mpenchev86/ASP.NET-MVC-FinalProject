@@ -16,7 +16,7 @@
     using ViewModels.Tags;
 
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
-    public class TagsController : BaseGridController<Tag, TagViewModel, ITagsService>
+    public class TagsController : BaseGridController<Tag, TagViewModel, ITagsService, int>
     {
         private readonly ITagsService tagsService;
         private readonly IProductsService productsService;
@@ -45,7 +45,7 @@
             if (viewModel != null && this.ModelState.IsValid)
             {
                 var entity = new Tag { };
-                this.MapEntity(entity, viewModel);
+                this.PopulateEntity(entity, viewModel);
                 this.tagsService.Insert(entity);
                 viewModel.Id = entity.Id;
             }
@@ -59,7 +59,7 @@
             if (viewModel != null && this.ModelState.IsValid)
             {
                 var entity = new Tag { Id = viewModel.Id };
-                this.MapEntity(entity, viewModel);
+                this.PopulateEntity(entity, viewModel);
                 this.tagsService.Update(entity);
             }
 
@@ -72,7 +72,15 @@
             return base.Destroy(request, viewModel);
         }
 
-        public override void MapEntity(Tag entity, TagViewModel viewModel)
+#region DataProviders
+        [HttpPost]
+        public JsonResult GetProductsByTagId([DataSourceRequest]DataSourceRequest request, int tagId)
+        {
+            var products = this.tagsService.GetById(tagId).Products.AsQueryable().To<ProductDetailsForTagViewModel>();
+            return this.GetCollectionAsDataSourceResult(request, products, this.ModelState);
+        }
+
+        protected override void PopulateEntity(Tag entity, TagViewModel viewModel)
         {
             if (viewModel.Products != null)
             {
@@ -81,8 +89,6 @@
                 {
                     entity.Products.Add(this.productsService.GetById(product.Id));
                 }
-
-                //entity.Products = viewModel.Products.AsQueryable().To<Product>().ToList();
             }
 
             entity.Name = viewModel.Name;
@@ -91,24 +97,6 @@
             entity.IsDeleted = viewModel.IsDeleted;
             entity.DeletedOn = viewModel.DeletedOn;
         }
-
-        #region TagDetailsHelpers
-        [HttpPost]
-        public JsonResult GetProductsByTagId([DataSourceRequest]DataSourceRequest request, int tagId)
-        {
-            var products = this.tagsService.GetById(tagId).Products.AsQueryable().To<ProductDetailsForTagViewModel>();
-            return this.GetCollectionAsDataSourceResult(request, products, this.ModelState);
-        }
-        
-        //[HttpPost]
-        //public JsonResult ReadByProductId([DataSourceRequest]DataSourceRequest request, int productId)
-        //{
-        //    var result = this.tagsService
-        //        .GetAll()
-        //        .Where(t => t.Products.Any(p => p.Id == productId))
-        //        .To<TagDetailsForProductViewModel>();
-        //    return this.Json(result.ToDataSourceResult(request, this.ModelState));
-        //}
-        #endregion
+#endregion
     }
 }

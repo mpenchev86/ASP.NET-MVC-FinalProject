@@ -9,29 +9,31 @@
     using MvcProject.Web.Infrastructure.Mapping;
 
     // out - "cannot convert from IProductsService to IBaseService<IAdministerable>"
-    public interface IBaseService<T>
+    public interface IBaseService<T, TKey>
         where T : class, IAdministerable
     {
         IQueryable<T> GetAll();
 
         IQueryable<T> GetAllNotDeleted();
 
-        T GetById(int id);
+        T GetById(TKey id);
 
-        T GetById(string id);
+        T GetByEncodedId(string id);
 
-        T GetByIdFromNotDeleted(int id);
+        T GetByIdFromNotDeleted(TKey id);
 
-        T GetByIdFromNotDeleted(string id);
+        T GetByEncodedIdFromNotDeleted(string id);
 
         void Insert(T propertyEntity);
 
         void Update(T propertyEntity);
 
-        void MarkAsDeleted(int id);
+        void MarkAsDeleted(TKey id);
 
-        void DeletePermanent(int id);
+        void MarkAsDeleted(T entity);
 
-        void DeletePermanent(T propertyEntity);
+        void DeletePermanent(TKey id);
+
+        void DeletePermanent(T entity);
     }
 }

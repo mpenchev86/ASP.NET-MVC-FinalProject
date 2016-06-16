@@ -9,7 +9,7 @@
     using Data.Models;
     using MvcProject.Web.Infrastructure.Mapping;
 
-    public class VoteDetailsForUserViewModel : BaseAdminViewModel, IMapFrom<Vote>, IHaveCustomMappings
+    public class VoteDetailsForUserViewModel : BaseAdminViewModel<int>, IMapFrom<Vote>, IHaveCustomMappings
     {
         //[Key]
         //public int Id { get; set; }
@@ -25,6 +25,7 @@
         {
             configuration.CreateMap<Vote, VoteDetailsForUserViewModel>()
                 .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
+                .ForMember(dest => dest.VoteValue, opt => opt.MapFrom(src => src.VoteValue))
                 ;
         }
     }

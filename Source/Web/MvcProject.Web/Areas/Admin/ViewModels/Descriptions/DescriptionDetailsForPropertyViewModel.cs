@@ -10,7 +10,7 @@
     using Data.Models;
     using Infrastructure.Mapping;
 
-    public class DescriptionDetailsForPropertyViewModel : BaseAdminViewModel, IMapFrom<Description>, IHaveCustomMappings
+    public class DescriptionDetailsForPropertyViewModel : BaseAdminViewModel<int>, IMapFrom<Description>, IHaveCustomMappings
     {
         //[Key]
         //public int Id { get; set; }

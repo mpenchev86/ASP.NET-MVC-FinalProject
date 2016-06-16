@@ -40,9 +40,7 @@
             var result = !r.IsSourceValueNull &&
                    Mapper.FindTypeMapFor(sourceType, desitnationType)
                         .GetPropertyMaps()
-                        .Where(m => m.DestinationProperty
-                            .Name
-                            .Equals(r.MemberName))
+                        .Where(m => m.DestinationProperty.Name.Equals(r.MemberName))
                         .Select(y => !y.IsMapped())
                         .All(b => b);
 

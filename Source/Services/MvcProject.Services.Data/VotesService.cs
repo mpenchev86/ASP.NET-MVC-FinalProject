@@ -37,9 +37,9 @@
             return this.votes.GetById(id);
         }
 
-        public Vote GetById(string id)
+        public Vote GetByEncodedId(string id)
         {
-            var idAsInt = this.idProvider.DecodeId(id);
+            var idAsInt = this.idProvider.DecodeIdToInt(id);
             var vote = this.votes.GetById(idAsInt);
             return vote;
         }
@@ -49,36 +49,43 @@
             return this.votes.GetByIdFromNotDeleted(id);
         }
 
-        public Vote GetByIdFromNotDeleted(string id)
+        public Vote GetByEncodedIdFromNotDeleted(string id)
         {
-            var idAsInt = this.idProvider.DecodeId(id);
+            var idAsInt = this.idProvider.DecodeIdToInt(id);
             var vote = this.votes.GetByIdFromNotDeleted(idAsInt);
             return vote;
         }
 
-        public void Insert(Vote propertyEntity)
+        public void Insert(Vote entity)
         {
-            this.votes.Add(propertyEntity);
+            this.votes.Add(entity);
             this.votes.SaveChanges();
         }
 
-        public void Update(Vote propertyEntity)
+        public void Update(Vote entity)
         {
-            this.votes.Update(propertyEntity);
+            this.votes.Update(entity);
             this.votes.SaveChanges();
         }
 
         public void MarkAsDeleted(int id)
         {
             var entity = this.GetById(id);
+            this.MarkAsDeleted(entity);
+            this.votes.SaveChanges();
+        }
+
+        public void MarkAsDeleted(Vote entity)
+        {
             entity.IsDeleted = true;
             this.votes.SaveChanges();
         }
 
         public void DeletePermanent(int id)
         {
-            var entity = this.GetByIdFromNotDeleted(id);
+            var entity = this.GetById(id);
             this.DeletePermanent(entity);
+            this.votes.SaveChanges();
         }
 
         public void DeletePermanent(Vote entity)

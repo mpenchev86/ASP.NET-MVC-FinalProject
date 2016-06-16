@@ -39,9 +39,9 @@
             return this.products.GetById(id);
         }
 
-        public Product GetById(string id)
+        public Product GetByEncodedId(string id)
         {
-            var idAsInt = this.idProvider.DecodeId(id);
+            var idAsInt = this.idProvider.DecodeIdToInt(id);
             var product = this.products.GetById(idAsInt);
             return product;
         }
@@ -51,36 +51,49 @@
             return this.products.GetByIdFromNotDeleted(id);
         }
 
-        public Product GetByIdFromNotDeleted(string id)
+        public Product GetByEncodedIdFromNotDeleted(string id)
         {
-            var idAsInt = this.idProvider.DecodeId(id);
+            var idAsInt = this.idProvider.DecodeIdToInt(id);
             var product = this.products.GetByIdFromNotDeleted(idAsInt);
             return product;
         }
 
-        public void Insert(Product propertyEntity)
+        public void Insert(Product entity)
         {
-            throw new NotImplementedException();
+            this.products.Add(entity);
+            this.products.SaveChanges();
         }
 
-        public void Update(Product propertyEntity)
+        public void Update(Product entity)
         {
-            throw new NotImplementedException();
+            this.products.Update(entity);
+            this.products.SaveChanges();
         }
 
         public void MarkAsDeleted(int id)
         {
-            throw new NotImplementedException();
+            var entity = this.GetById(id);
+            this.MarkAsDeleted(entity);
+            this.products.SaveChanges();
+        }
+
+        public void MarkAsDeleted(Product entity)
+        {
+            entity.IsDeleted = true;
+            this.products.SaveChanges();
         }
 
         public void DeletePermanent(int id)
         {
-            throw new NotImplementedException();
+            var entity = this.GetById(id);
+            this.DeletePermanent(entity);
+            this.products.SaveChanges();
         }
 
-        public void DeletePermanent(Product propertyEntity)
+        public void DeletePermanent(Product entity)
         {
-            throw new NotImplementedException();
+            this.products.DeletePermanent(entity);
+            this.products.SaveChanges();
         }
     }
 }

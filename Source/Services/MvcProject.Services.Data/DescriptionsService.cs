@@ -38,9 +38,9 @@
             return this.descriptions.GetById(id);
         }
 
-        public Description GetById(string id)
+        public Description GetByEncodedId(string id)
         {
-            var idAsInt = this.idProvider.DecodeId(id);
+            var idAsInt = this.idProvider.DecodeIdToInt(id);
             var description = this.descriptions.GetById(idAsInt);
             return description;
         }
@@ -50,36 +50,49 @@
             return this.descriptions.GetByIdFromNotDeleted(id);
         }
 
-        public Description GetByIdFromNotDeleted(string id)
+        public Description GetByEncodedIdFromNotDeleted(string id)
         {
-            var idAsInt = this.idProvider.DecodeId(id);
+            var idAsInt = this.idProvider.DecodeIdToInt(id);
             var description = this.descriptions.GetByIdFromNotDeleted(idAsInt);
             return description;
         }
 
-        public void Insert(Description propertyEntity)
+        public void Insert(Description entity)
         {
-            throw new NotImplementedException();
+            this.descriptions.Add(entity);
+            this.descriptions.SaveChanges();
         }
 
-        public void Update(Description propertyEntity)
+        public void Update(Description entity)
         {
-            throw new NotImplementedException();
+            this.descriptions.Update(entity);
+            this.descriptions.SaveChanges();
         }
 
         public void MarkAsDeleted(int id)
         {
-            throw new NotImplementedException();
+            var entity = this.GetById(id);
+            this.MarkAsDeleted(entity);
+            this.descriptions.SaveChanges();
+        }
+
+        public void MarkAsDeleted(Description entity)
+        {
+            entity.IsDeleted = true;
+            this.descriptions.SaveChanges();
         }
 
         public void DeletePermanent(int id)
         {
-            throw new NotImplementedException();
+            var entity = this.GetById(id);
+            this.DeletePermanent(entity);
+            this.descriptions.SaveChanges();
         }
 
-        public void DeletePermanent(Description propertyEntity)
+        public void DeletePermanent(Description entity)
         {
-            throw new NotImplementedException();
+            this.descriptions.DeletePermanent(entity);
+            this.descriptions.SaveChanges();
         }
     }
 }

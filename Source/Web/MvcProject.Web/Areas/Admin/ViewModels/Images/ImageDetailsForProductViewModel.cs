@@ -10,7 +10,7 @@
     using GlobalConstants;
     using MvcProject.Web.Infrastructure.Mapping;
 
-    public class ImageDetailsForProductViewModel : BaseAdminViewModel, IMapFrom<Image>, IHaveCustomMappings
+    public class ImageDetailsForProductViewModel : BaseAdminViewModel<int>, IMapFrom<Image>, IHaveCustomMappings
     {
         //[Key]
         //public int Id { get; set; }

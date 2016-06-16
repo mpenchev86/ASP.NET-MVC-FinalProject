@@ -28,7 +28,7 @@
         {
             var viewModel = this.cacheService.Get<ProductViewModel>(
                 "Product_Id_" + id,
-                () => this.Mapper.Map<ProductViewModel>(this.productsService.GetById(id)),
+                () => this.Mapper.Map<ProductViewModel>(this.productsService.GetByEncodedId(id)),
                 5 * 60);
 
             return this.View(viewModel);

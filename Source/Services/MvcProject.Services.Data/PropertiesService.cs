@@ -39,9 +39,9 @@
             return this.properties.GetById(id);
         }
 
-        public Property GetById(string id)
+        public Property GetByEncodedId(string id)
         {
-            var idAsInt = this.idProvider.DecodeId(id);
+            var idAsInt = this.idProvider.DecodeIdToInt(id);
             var property = this.properties.GetById(idAsInt);
             return property;
         }
@@ -51,37 +51,43 @@
             return this.properties.GetByIdFromNotDeleted(id);
         }
 
-        public Property GetByIdFromNotDeleted(string id)
+        public Property GetByEncodedIdFromNotDeleted(string id)
         {
-            var idAsInt = this.idProvider.DecodeId(id);
+            var idAsInt = this.idProvider.DecodeIdToInt(id);
             var property = this.properties.GetByIdFromNotDeleted(idAsInt);
             return property;
         }
 
-        public void Insert(Property propertyEntity)
+        public void Insert(Property entity)
         {
-            this.properties.Add(propertyEntity);
+            this.properties.Add(entity);
             this.properties.SaveChanges();
         }
 
-        public void Update(Property propertyEntity)
+        public void Update(Property entity)
         {
-            this.properties.Update(propertyEntity);
+            this.properties.Update(entity);
             this.properties.SaveChanges();
         }
 
         public void MarkAsDeleted(int id)
         {
             var entity = this.GetById(id);
+            this.MarkAsDeleted(entity);
+            this.properties.SaveChanges();
+        }
+
+        public void MarkAsDeleted(Property entity)
+        {
             entity.IsDeleted = true;
             this.properties.SaveChanges();
         }
 
         public void DeletePermanent(int id)
         {
-            var entity = this.GetByIdFromNotDeleted(id);
+            var entity = this.GetById(id);
             this.DeletePermanent(entity);
-            //this.properties.SaveChanges();
+            this.properties.SaveChanges();
         }
 
         public void DeletePermanent(Property entity)

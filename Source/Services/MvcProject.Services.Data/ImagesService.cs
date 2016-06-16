@@ -41,9 +41,9 @@
             return this.images.GetById(id);
         }
 
-        public Image GetById(string id)
+        public Image GetByEncodedId(string id)
         {
-            var idAsInt = this.idProvider.DecodeId(id);
+            var idAsInt = this.idProvider.DecodeIdToInt(id);
             var image = this.images.GetById(idAsInt);
             return image;
         }
@@ -53,36 +53,49 @@
             return this.images.GetByIdFromNotDeleted(id);
         }
 
-        public Image GetByIdFromNotDeleted(string id)
+        public Image GetByEncodedIdFromNotDeleted(string id)
         {
-            var idAsInt = this.idProvider.DecodeId(id);
+            var idAsInt = this.idProvider.DecodeIdToInt(id);
             var image = this.images.GetByIdFromNotDeleted(idAsInt);
             return image;
         }
 
-        public void Insert(Image propertyEntity)
+        public void Insert(Image entity)
         {
-            throw new NotImplementedException();
+            this.images.Add(entity);
+            this.images.SaveChanges();
         }
 
-        public void Update(Image propertyEntity)
+        public void Update(Image entity)
         {
-            throw new NotImplementedException();
+            this.images.Update(entity);
+            this.images.SaveChanges();
         }
 
         public void MarkAsDeleted(int id)
         {
-            throw new NotImplementedException();
+            var entity = this.GetById(id);
+            this.MarkAsDeleted(entity);
+            this.images.SaveChanges();
+        }
+
+        public void MarkAsDeleted(Image entity)
+        {
+            entity.IsDeleted = true;
+            this.images.SaveChanges();
         }
 
         public void DeletePermanent(int id)
         {
-            throw new NotImplementedException();
+            var entity = this.GetById(id);
+            this.DeletePermanent(entity);
+            this.images.SaveChanges();
         }
 
-        public void DeletePermanent(Image propertyEntity)
+        public void DeletePermanent(Image entity)
         {
-            throw new NotImplementedException();
+            this.images.DeletePermanent(entity);
+            this.images.SaveChanges();
         }
     }
 }

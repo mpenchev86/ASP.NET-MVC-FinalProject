@@ -8,7 +8,7 @@
     using MvcProject.Data.Models;
     using MvcProject.Web.Infrastructure.Mapping;
 
-    public interface IDescriptionsService : IBaseService<Description>
+    public interface IDescriptionsService : IBaseService<Description, int>
     {
     }
 }

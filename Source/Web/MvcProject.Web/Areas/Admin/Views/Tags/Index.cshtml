@@ -58,7 +58,7 @@
     )
     .Selectable()
     .AllowCopy(true)
-    .ClientDetailTemplateId("tags-detail-template")
+    .ClientDetailTemplateId("tag-details-template")
     .Deferred()
 )
 
@@ -81,7 +81,7 @@
     @*<script src="@Url.Content("~/Scripts/Kendo/cultures/kendo.culture." + culture + ".min.js")"></script>*@
     <script src="@Url.Content("~/Scripts/Custom/datetime-handlers.js")"></script>
 
-    <script id="tags-detail-template" type="text/kendo-tmpl">
+    <script id="tag-details-template" type="text/kendo-tmpl">
         @(Html.Partial("_TagDetailsTabStrip"))
     </script>
 

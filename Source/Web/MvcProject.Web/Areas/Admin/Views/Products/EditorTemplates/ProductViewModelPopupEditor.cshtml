@@ -1,6 +1,7 @@
 ﻿@using Kendo.Mvc.UI;
 @using Kendo.Mvc.Extensions;
 @using MvcProject.Web.Areas.Admin.ViewModels.Properties
+@using MvcProject.Web.Areas.Admin.ViewModels.Categories
 @model MvcProject.Web.Areas.Admin.ViewModels.Products.ProductViewModel
 
 @{ 
@@ -90,7 +91,7 @@
             @Html.LabelFor(m => m.CategoryId, "Category")
         </div>
         <div class="editor-field">
-            @Html.EditorFor(
+            @(Html.EditorFor(
                 m => m.CategoryId,
                 new
                 {
@@ -101,6 +102,7 @@
                     Action = "GetDataAsJson",
                     Controller = "Categories"
                 })
+                )
             @Html.ValidationMessageFor(m => m.CategoryId)
         </div>
     </div>

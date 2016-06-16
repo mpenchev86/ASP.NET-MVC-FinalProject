@@ -8,7 +8,7 @@
     using MvcProject.Data.Models;
     using MvcProject.Web.Infrastructure.Mapping;
 
-    public interface IVotesService : IBaseService<Vote>
+    public interface IVotesService : IBaseService<Vote, int>
     {
     }
 }

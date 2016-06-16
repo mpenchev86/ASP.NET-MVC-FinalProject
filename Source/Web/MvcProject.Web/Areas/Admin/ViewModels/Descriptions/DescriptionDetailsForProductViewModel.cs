@@ -11,7 +11,7 @@
     using Infrastructure.Mapping;
     using Properties;
 
-    public class DescriptionDetailsForProductViewModel : BaseAdminViewModel, IMapFrom<Description>, IHaveCustomMappings
+    public class DescriptionDetailsForProductViewModel : BaseAdminViewModel<int>, IMapFrom<Description>, IHaveCustomMappings
     {
         private ICollection<PropertyDetailsForDescriptionViewModel> properties;
 
@@ -38,6 +38,7 @@
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Description, DescriptionDetailsForProductViewModel>()
+                //.ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Properties, opt => opt.MapFrom(
                            src => src.Properties.Select(p => new PropertyDetailsForDescriptionViewModel
                            {

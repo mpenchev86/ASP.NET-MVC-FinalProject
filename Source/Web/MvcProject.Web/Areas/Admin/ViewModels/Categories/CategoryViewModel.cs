@@ -12,7 +12,7 @@
     using MvcProject.Web.Infrastructure.Mapping;
     using Products;
 
-    public class CategoryViewModel : BaseAdminViewModel, IMapFrom<Category>, IHaveCustomMappings
+    public class CategoryViewModel : BaseAdminViewModel<int>, IMapFrom<Category>, IHaveCustomMappings
     {
         private ICollection<ProductDetailsForCategoryViewModel> products;
 

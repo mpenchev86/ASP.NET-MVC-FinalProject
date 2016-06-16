@@ -7,15 +7,15 @@
     </div>
 }*@
 
-@{
+@*@{
     var data = new List<SelectListItem>();
     for (int i = 0; i < 3; i++)
     {
         data.Add(new SelectListItem() { Text = i.ToString() + "cifra", Value = i.ToString() });
     }
-}
+}*@
 
-@(Html.Kendo().DropDownList()
+@*@(Html.Kendo().DropDownList()
     .Name("kdropdownlist")
     .DataTextField("Text")
     .DataValueField("Value")
@@ -26,8 +26,171 @@
     //})
     .BindTo(Model)
     .OptionLabel("Select...")
-)
+)*@
+
+
+
+
+
+@using MvcProject.Web.Infrastructure.HtmlHelpers
+@using MvcProject.Web.Areas.Admin.ViewModels.Users
+
+@*@model ProductViewModelForeignKeys*@
+
+@{
+    ViewBag.Title = "Users (ADMIN)";
+}
+
+@(Html.FullFeaturedGrid<UserViewModel>(
+    gridName: "usersGrid",
+    controllerName: "Users",
+    routeValues: new { Area = "Admin" },
+    model: m =>
+    {
+        m.Id(p => p.Id);
+        m.Field(p => p.Id).Editable(false);
+    },
+    pageSize: 20,
+    virtualScroll: false,
+    columns: c =>
+    {
+        c.Command(cm => cm.Edit().UpdateText("Save")).Width("100px");
+        c.Command(cm => cm.Destroy().Text("Delete")).Width("120px");
+        c.Bound(m => m.Id).Width("20%");
+        c.Bound(m => m.UserName).Width("15%");
+        c.Bound(m => m.MainRole).Width("15%");
+        c.Bound(m => m.CreatedOn);
+        c.Bound(m => m.ModifiedOn);
+        c.Bound(m => m.IsDeleted).Title("Marked As Deleted");
+        c.Bound(m => m.DeletedOn);
+    },
+    toolbar: t => { },
+    //userCrud: true,
+    dataSourceEvents: ev => { ev.Error("errorHandler.handler"); },
+    isBatch: false,
+    isServerOperation: true,
+    editingSettings: editor =>
+    {
+        editor
+            .Mode(GridEditMode.PopUp)
+            .Window(window =>
+            {
+                window
+                    .Actions(a => { a.Minimize().Maximize().Close(); })
+                    .Draggable(true)
+                    .Scrollable(false)
+                    .Resizable()
+                    //.ContentSettings(c => { c.Action("ContentSettings", "Products", new { area = "Admin" }); })
+                    ;
+            })
+            .TemplateName("UserViewModelPopupEditor")
+            //.AdditionalViewData(new { categories = Model.Categories })
+            //.CreateAt(GridInsertRowPosition.Bottom)
+            //.ConfirmDelete("Delete?")
+            //.DisplayDeleteConfirmation(false)
+            ;
+    },
+    htmlAttributes: new { @class = "admin-grid" },
+    readHandler: "readHandler",
+    //createHandler: "createHandler",
+    updateHandler: "updateHandler",
+    destroyHandler: "destroyHandler"
+    )
+    .Selectable()
+    .AllowCopy(true)
+    .ClientDetailTemplateId("user-details-template")
+    .Deferred())
+
+@section styles{
+    <style>
+        /*horizontal Grid scrollbar should appear if the browser window is shrinked too much*/
+        #usersGrid table {
+            width: 2000px;
+        }
+
+        #description-details {
+            margin-left: 0;
+            margin-right: 0;
+            width: 100%;
+        }
+    </style>
+
+    <link href="@Url.Content("~/Content/Custom/Admin/custom-popup-editor.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Custom/Admin/main-grid.css")" rel="stylesheet" type="text/css" />
+}
 
 @section Scripts{
     @(Html.Kendo().DeferredScripts())
+
+    <script src="@Url.Content("~/Scripts/Custom/error-handler.js")"></script>
+    <script src="@Url.Content("~/Scripts/Custom/datetime-handlers.js")"></script>
+
+    <script id="user-details-template" type="text/kendo-tmpl">
+        @(Html.Partial("_UserDetailsTabStrip"))
+    </script>
+
+    <script>
+        kendo.culture('@BundleConfig.UiCulture');
+
+        function readHandler(data) {
+            //console.log($("#productsGrid").data("kendoGrid"));
+            //console.log($(".k-window-content").data("kendoWindow"));
+            dataHandler(data);
+        }
+
+        //function createHandler(data) {
+        //    dataHandler(data);
+        //    //console.log($("#productsGrid").data("kendoGrid"));
+        //    //console.log($(".k-window-content").data("kendoWindow").element.context);
+        //    //showData(data);
+        //}
+
+        function updateHandler(data) {
+            dataHandler(data);
+        }
+
+        function destroyHandler(data) {
+            dataHandler(data);
+        }
+
+        function dataHandler(data) {
+            datetimeHandlers.normalizeDateProperties(data);
+        }
+
+        //function onAdditionalData() {
+        //    console.log(Object
+        //        .keys($("#propertiesMultiSelect")
+        //        .data("kendoMultiSelect")
+        //        ));
+        //    return {
+        //        descriptionId: data["Description.Id"]
+        //    };
+        //}
+
+        //$(document).ready(function () {
+        //    var gridData = $('#productsGrid').data("kendoGrid");
+        //    console.log(gridData);
+        //});
+
+        //function loadProperties() {
+        //    $("#propertiesMultiSelect").kendoMultiSelect();
+
+        //    var multiselect = $("#propertiesMultiSelect").data("kendoMultiSelect");
+
+        //    // get data items for the selected options.
+        //    //var dataItem = multiselect.dataItems();
+
+        //    //console.log(dataItem);
+        //    //console.log(multiselect.initialValues);
+        //    console.log(multiselect._initialValues);
+        //}
+
+        //// jquery.validate to ignore the empty string in dropdownlist value
+        //$.validator.defaults.ignore = "";
+
+        //function showData(data) {
+        //    console.log($("#CategoryId").data("kendoDropDownList").dataItem());
+        //    console.log($("#CategoryId").data("kendoDropDownList").value());
+        //}
+    </script>
 }

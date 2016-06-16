@@ -15,7 +15,7 @@
     using Products;
     using Users;
 
-    public class CommentViewModel : BaseAdminViewModel, IMapFrom<Comment>, IHaveCustomMappings
+    public class CommentViewModel : BaseAdminViewModel<int>, IMapFrom<Comment>, IHaveCustomMappings
     {
         //[Key]
         //public int Id { get; set; }
@@ -27,13 +27,15 @@
         public string Content { get; set; }
 
         [Required]
-        [UIHint("DropDownUserId")]
+        //[UIHint("DropDownUserId")]
+        [UIHint("DropDown")]
         public string UserId { get; set; }
 
         //public UserDetailsForCommentViewModel User { get; set; }
 
         [Required]
-        [UIHint("GridForeignKey")]
+        [UIHint("DropDown")]
+        //[UIHint("GridForeignKey")]
         public int ProductId { get; set; }
 
         //public ProductDetailsForCommentViewModel Product { get; set; }

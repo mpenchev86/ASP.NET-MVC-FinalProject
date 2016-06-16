@@ -12,7 +12,7 @@
     using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
 
-    public class ProductDetailsForCommentViewModel : BaseAdminViewModel, IMapFrom<Product>, IHaveCustomMappings
+    public class ProductDetailsForCommentViewModel : BaseAdminViewModel<int>, IMapFrom<Product>, IHaveCustomMappings
     {
         //[Key]
         //public int Id { get; set; }

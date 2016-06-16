@@ -91,6 +91,7 @@
             var model = new IndexViewModel
             {
                 HasPassword = this.HasPassword(),
+                HasUserName = this.HasUserName(),
                 PhoneNumber = await this.UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await this.UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await this.UserManager.GetLoginsAsync(userId),
@@ -377,6 +378,17 @@
             if (user != null)
             {
                 return user.PasswordHash != null;
+            }
+
+            return false;
+        }
+
+        private bool HasUserName()
+        {
+            var user = this.UserManager.FindById(this.User.Identity.GetUserId());
+            if (user != null)
+            {
+                return user.UserName != null;
             }
 
             return false;

@@ -12,7 +12,7 @@
     using ViewModels.Images;
 
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
-    public class ImagesController : BaseGridController<Image, ImageViewModel, IImagesService>
+    public class ImagesController : BaseGridController<Image, ImageViewModel, IImagesService, int>
     {
         private readonly IImagesService imagesService;
 
@@ -36,12 +36,13 @@
         [HttpPost]
         public override ActionResult Create([DataSourceRequest]DataSourceRequest request, ImageViewModel viewModel)
         {
-            //if (viewModel != null && this.ModelState.IsValid)
-            //{
-            //    // Save record to base
-            //}
-
-            //return this.Json(new[] { viewModel }.ToDataSourceResult(request, this.ModelState));
+            if (viewModel != null && this.ModelState.IsValid)
+            {
+                var entity = new Image { };
+                this.PopulateEntity(entity, viewModel);
+                this.imagesService.Insert(entity);
+                viewModel.Id = entity.Id;
+            }
 
             return base.Create(request, viewModel);
         }
@@ -49,12 +50,12 @@
         [HttpPost]
         public override ActionResult Update([DataSourceRequest]DataSourceRequest request, ImageViewModel viewModel)
         {
-            //if (viewModel != null && this.ModelState.IsValid)
-            //{
-            //    // Edit record
-            //}
-
-            //return this.Json(new[] { viewModel }.ToDataSourceResult(request, this.ModelState));
+            if (viewModel != null && this.ModelState.IsValid)
+            {
+                var entity = new Image { Id = viewModel.Id };
+                this.PopulateEntity(entity, viewModel);
+                this.imagesService.Update(entity);
+            }
 
             return base.Update(request, viewModel);
         }
@@ -62,14 +63,19 @@
         [HttpPost]
         public override ActionResult Destroy([DataSourceRequest]DataSourceRequest request, ImageViewModel viewModel)
         {
-            //if (viewModel != null)
-            //{
-            //    // Destroy record
-            //}
-
-            //return this.Json(new[] { viewModel }.ToDataSourceResult(request, this.ModelState));
-
             return base.Destroy(request, viewModel);
+        }
+
+        protected override void PopulateEntity(Image entity, ImageViewModel viewModel)
+        {
+            entity.OriginalFileName = viewModel.OriginalFileName;
+            entity.ProductId = viewModel.ProductId;
+            entity.UrlPath = viewModel.UrlPath;
+            entity.FileExtension = viewModel.FileExtension;
+            entity.CreatedOn = viewModel.CreatedOn;
+            entity.ModifiedOn = viewModel.ModifiedOn;
+            entity.IsDeleted = viewModel.IsDeleted;
+            entity.DeletedOn = viewModel.DeletedOn;
         }
     }
 }

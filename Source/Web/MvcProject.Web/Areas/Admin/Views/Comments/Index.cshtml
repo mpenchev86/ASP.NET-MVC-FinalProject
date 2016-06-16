@@ -25,7 +25,8 @@
         c.Bound(m => m.Id).Width("150px");
         c.Bound(m => m.Content).Width("40%");
         c.ForeignKey(m => m.ProductId, Model.Products, "Id", "Id").Title("Product Id");
-        c.ForeignKey(m => m.UserId, Model.Users, "UserId", "DisplayName").Title("User");
+        c.ForeignKey(m => m.UserId, Model.Users, "Id", "UserName").Title("User");
+        c.Bound(m => m.CreatedOn);
         c.Bound(m => m.ModifiedOn);
         c.Bound(m => m.IsDeleted).Title("Marked As Deleted");
         c.Bound(m => m.DeletedOn);

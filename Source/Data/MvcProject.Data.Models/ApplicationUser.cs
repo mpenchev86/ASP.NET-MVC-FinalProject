@@ -26,6 +26,8 @@
             this.votes = new HashSet<Vote>();
         }
 
+        public string MainRole { get; set; }
+
         public DateTime CreatedOn { get; set; }
 
         public DateTime? ModifiedOn { get; set; }

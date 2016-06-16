@@ -13,7 +13,7 @@
     <h4 class="col-md-2">
         Choose domain entity:
     </h4>
-    <div class="col-md-6">
+    @*<div class="col-md-6">
     @using (Html.BeginForm("DomainModelRedirect", "Home", new { Area = "Admin" }, FormMethod.Get, new { id = "select-form" }))
     {
         @Html.DropDownList(
@@ -22,7 +22,7 @@
             new { id = "dropdown-list", @onchange = "submitForm()"})
 
     }
-    </div>
+    </div>*@
     <ul id="domains-container" class="col-md-10">
         @foreach (PropertyInfo property in Model)
             {

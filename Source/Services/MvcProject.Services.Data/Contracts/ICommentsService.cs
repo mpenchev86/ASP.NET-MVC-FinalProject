@@ -9,7 +9,7 @@
     using MvcProject.Data.Models.EntityContracts;
     using MvcProject.Web.Infrastructure.Mapping;
 
-    public interface ICommentsService : IBaseService<Comment>
+    public interface ICommentsService : IBaseService<Comment, int>
     {
     }
 }

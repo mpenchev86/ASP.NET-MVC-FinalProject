@@ -94,6 +94,7 @@
     <Compile Include="Crawlers\TypesCrawler.cs" />
     <Compile Include="DataAnnotations\LongDateTimeFormatAttribute.cs" />
     <Compile Include="Extensions\AppBuilderExtensions.cs" />
+    <Compile Include="Filters\ActionMethodSelectors\AdminDestroySelectorAttribute.cs" />
     <Compile Include="HtmlHelpers\KendoHelpers.cs" />
     <Compile Include="Mapping\AutoMapperConfig.cs" />
     <Compile Include="Mapping\MappingExtensions.cs" />

@@ -17,7 +17,7 @@
     using ViewModels.Users;
 
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
-    public class CommentsController : BaseGridController<Comment, CommentViewModel, ICommentsService>
+    public class CommentsController : BaseGridController<Comment, CommentViewModel, ICommentsService, int>
     {
         private readonly ICommentsService commentsService;
         private readonly IProductsService productsService;
@@ -57,7 +57,7 @@
             if (viewModel != null && this.ModelState.IsValid)
             {
                 var entity = new Comment { };
-                this.MapEntity(entity, viewModel);
+                this.PopulateEntity(entity, viewModel);
                 this.commentsService.Insert(entity);
                 viewModel.Id = entity.Id;
             }
@@ -71,7 +71,7 @@
             if (viewModel != null && this.ModelState.IsValid)
             {
                 var entity = new Comment { Id = viewModel.Id };
-                this.MapEntity(entity, viewModel);
+                this.PopulateEntity(entity, viewModel);
                 this.commentsService.Update(entity);
             }
 
@@ -84,7 +84,8 @@
             return base.Destroy(request, viewModel);
         }
 
-        public override void MapEntity(Comment entity, CommentViewModel viewModel)
+#region DataProviders
+        protected override void PopulateEntity(Comment entity, CommentViewModel viewModel)
         {
             entity.Content = viewModel.Content;
             entity.ProductId = viewModel.ProductId;
@@ -94,27 +95,6 @@
             entity.IsDeleted = viewModel.IsDeleted;
             entity.DeletedOn = viewModel.DeletedOn;
         }
-
-        #region CommentDetailsHelpers
-        //[HttpPost]
-        //public JsonResult ReadByProductId([DataSourceRequest]DataSourceRequest request, int productId)
-        //{
-        //    var result = this.commentsService
-        //        .GetAll()
-        //        .Where(c => c.ProductId == productId)
-        //        .To<CommentDetailsForProductViewModel>();
-        //    return this.Json(result.ToDataSourceResult(request, this.ModelState));
-        //}
-
-        //[HttpPost]
-        //public JsonResult ReadByUserId([DataSourceRequest]DataSourceRequest request, string userId)
-        //{
-        //    var result = this.commentsService
-        //        .GetAll()
-        //        .Where(c => c.UserId == userId)
-        //        .To<CommentDetailsForProductViewModel>();
-        //    return this.Json(result.ToDataSourceResult(request, this.ModelState));
-        //}
-        #endregion
+#endregion
     }
 }

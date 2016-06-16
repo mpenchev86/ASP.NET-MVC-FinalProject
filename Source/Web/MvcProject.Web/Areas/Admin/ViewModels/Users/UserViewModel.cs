@@ -21,7 +21,7 @@
     using Services.Data;
     using Votes;
 
-    public class UserViewModel : IMapFrom<ApplicationUser>, IHaveCustomMappings
+    public class UserViewModel : BaseAdminViewModel<string>, IMapFrom<ApplicationUser>, IHaveCustomMappings
     {
         private ICollection<CommentDetailsForUserViewModel> comments;
         private ICollection<VoteDetailsForUserViewModel> votes;
@@ -32,16 +32,18 @@
             this.votes = new HashSet<VoteDetailsForUserViewModel>();
         }
 
-        [Key]
-        public string UserId { get; set; }
+        // The custom binding doesn't work if the key is named UserId
+        //[Key]
+        //public string Id { get; set; }
 
-        public string Name { get; set; }
+        // Maps from ApplicationUser.UserName
+        public string UserName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the name of the user as displayed in the user interface,
-        /// depending on whether the user has been deleted from the system or not.
-        /// </summary>
-        public string DisplayName { get; set; }
+        ///// <summary>
+        ///// Gets or sets the name of the user as displayed in the user interface,
+        ///// depending on whether the user has been deleted from the system or not.
+        ///// </summary>
+        //public string DisplayName { get; set; }
 
         public string MainRole { get; set; }
 
@@ -67,11 +69,11 @@
             set { this.votes = value; }
         }
 
-        [LongDateTimeFormat]
-        public DateTime CreatedOn { get; set; }
+        //[LongDateTimeFormat]
+        //public DateTime CreatedOn { get; set; }
 
-        [LongDateTimeFormat]
-        public DateTime? ModifiedOn { get; set; }
+        //[LongDateTimeFormat]
+        //public DateTime? ModifiedOn { get; set; }
 
         [Index]
         public bool IsDeleted { get; set; }
@@ -82,10 +84,8 @@
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<ApplicationUser, UserViewModel>()
-                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.UserName))
-                .ForMember(dest => dest.DisplayName, opt => opt.MapFrom(
-                           src => src.IsDeleted ? GlobalConstants.ApplicationSpecialStrings.UserNameDeletedUser : src.UserName))
+                //.ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
                 ;
         }
     }

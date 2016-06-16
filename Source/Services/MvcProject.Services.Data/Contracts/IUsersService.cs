@@ -10,7 +10,7 @@
     using MvcProject.Data.Models;
     using MvcProject.Web.Infrastructure.Mapping;
 
-    public interface IUsersService : IBaseService<ApplicationUser>
+    public interface IUsersService : IBaseService<ApplicationUser, string>
     {
         IQueryable<string> GetUserRoles(string userId);
 
@@ -18,8 +18,6 @@
 
         IdentityResult AddToRole(string userId, string[] roles);
 
-        void DeleteUser(string userId);
-
-        IdentityResult DeleteUserPermanent(string userId);
+        //IdentityResult DeleteUserPermanent(string userId);
     }
 }

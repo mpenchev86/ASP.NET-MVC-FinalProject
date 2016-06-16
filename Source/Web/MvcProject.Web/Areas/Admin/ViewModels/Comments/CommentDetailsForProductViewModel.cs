@@ -10,7 +10,7 @@
     using Infrastructure.Mapping;
     using MvcProject.GlobalConstants;
 
-    public class CommentDetailsForProductViewModel : BaseAdminViewModel, IMapFrom<Comment>, IHaveCustomMappings
+    public class CommentDetailsForProductViewModel : BaseAdminViewModel<int>, IMapFrom<Comment>, IHaveCustomMappings
     {
         //[Key]
         //public int Id { get; set; }

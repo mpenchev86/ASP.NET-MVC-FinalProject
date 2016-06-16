@@ -13,10 +13,10 @@
     using Infrastructure.Mapping;
     using Tags;
 
-    public abstract class BaseAdminViewModel : IMapFrom<BaseEntityModel<int>>, IHaveCustomMappings
+    public class BaseAdminViewModel<TKey> : IMapFrom<BaseEntityModel<int>>/*, IHaveCustomMappings*/
     {
         [Key]
-        public int Id { get; set; }
+        public TKey Id { get; set; }
 
         [LongDateTimeFormat]
         public DateTime CreatedOn { get; set; }
@@ -24,14 +24,13 @@
         [LongDateTimeFormat]
         public DateTime? ModifiedOn { get; set; }
 
-        public void CreateMappings(IMapperConfiguration configuration)
-        {
-            configuration.CreateMap<BaseEntityModel<int>, BaseAdminViewModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.CreatedOn, opt => opt.MapFrom(src => src.CreatedOn))
-                .ForMember(dest => dest.ModifiedOn, opt => opt.MapFrom(src => src.ModifiedOn))
-                //.Include<T, TagViewModel>()
-                ;
-        }
+        //public void CreateMappings(IMapperConfiguration configuration)
+        //{
+        //    configuration.CreateMap<BaseEntityModel<int>, BaseAdminViewModel<TKey>>()
+        //        //.ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+        //        //.ForMember(dest => dest.CreatedOn, opt => opt.MapFrom(src => src.CreatedOn))
+        //        //.ForMember(dest => dest.ModifiedOn, opt => opt.MapFrom(src => src.ModifiedOn))
+        //        ;
+        //}
     }
 }
