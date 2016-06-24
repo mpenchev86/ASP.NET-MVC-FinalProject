@@ -2,19 +2,15 @@
 @using MvcProject.Web.Infrastructure.HtmlHelpers
 
 @(Html.ClientDetailsGrid<CommentDetailsForProductViewModel>(
-    name: "comments_grid_#=Id#",
-    action: "GetCommentsByProductId",
-    controller: "Products",
-    routeValues: new { area = "Admin", productId = "#=Id#" },
-    pageSize: 10,
-    columns: col =>
+    name: "comments-grid_#=Id#",
+    columns: cols =>
     {
-        col.Bound(c => c.Id).Title("ID");
-        col.Bound(c => c.Content).Width("40%");
-        col.Bound(c => c.UserId).Title("User ID");
-        col.Bound(c => c.CreatedOn);
-        col.Bound(c => c.ModifiedOn);
-    },
-    readHandler: "dataHandler")
+        cols.Bound(p => p.Id).Width("10%");
+        cols.Bound(p => p.Content);
+        cols.Bound(p => p.UserId);
+        cols.Bound(p => p.CreatedOn).Width("10%");
+        cols.Bound(p => p.ModifiedOn).Width("10%");
+    })
+    .HtmlAttributes(new { @class = "details-grid" })
     .ToClientTemplate()
-    .ToMvcClientTemplate())
+)

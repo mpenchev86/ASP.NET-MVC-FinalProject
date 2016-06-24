@@ -1,0 +1,24 @@
+﻿@using MvcProject.Web.Areas.Admin.ViewModels.Products
+@model IEnumerable<ProductViewModel>
+
+@{
+    ViewBag.Title = "Test";
+}
+
+@foreach (var product in Model)
+    {
+        <div>
+            <p>
+                <strong>@product.Id</strong>
+            </p>
+        </div>
+        foreach (var tag in product.Tags)
+        {
+            <div>
+                <p>
+                    @tag.Id - @tag.Name
+                </p>
+            </div>
+        }
+    }
+

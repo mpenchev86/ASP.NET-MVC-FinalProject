@@ -120,9 +120,9 @@ textarea {
 /* Set padding to keep content from hitting the edges */
 #body-content {
     padding: 0 0 100px 0;
-    min-height: 190%;
+    /*min-height: 190%;*/
+    min-height: 600px;
     width: 90%;
-    min-height: 1000px;
 }
 
 /* FOOTER */

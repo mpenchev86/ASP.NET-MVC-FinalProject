@@ -15,8 +15,8 @@
         {
             const int Id = 213;
             IIdentifierProvider provider = new IdentifierProvider();
-            var encoded = provider.EncodeId(Id);
-            var actual = provider.DecodeId(encoded);
+            var encoded = provider.EncodeIntId(Id);
+            var actual = provider.DecodeIdToInt(encoded);
             Assert.AreEqual(Id, actual);
         }
     }

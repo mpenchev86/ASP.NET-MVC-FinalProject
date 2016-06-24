@@ -8,11 +8,12 @@
     using System.Threading.Tasks;
 
     using EntityContracts;
+    using MvcProject.GlobalConstants;
 
     public class Vote : BaseEntityModel<int>, IAdministerable
     {
         [Required]
-        [Range(1, 10)]
+        [Range(ValidationConstants.VoteValueMin, ValidationConstants.VoteValueMax)]
         public int VoteValue { get; set; }
 
         [Required]

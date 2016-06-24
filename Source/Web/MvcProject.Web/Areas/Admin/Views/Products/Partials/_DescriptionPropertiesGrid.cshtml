@@ -1,6 +1,8 @@
 ﻿@using MvcProject.Web.Areas.Admin.ViewModels.Properties
+@using MvcProject.Web.Infrastructure.HtmlHelpers
 @using System.Collections.Generic
-@model IEnumerable<PropertyDetailsForDescriptionViewModel>
+
+@*@model IEnumerable<PropertyDetailsForDescriptionViewModel>
 
 @if (Model.Count() != 0)
 {
@@ -8,12 +10,30 @@
         .Name("properties_grid")
         .Columns(cols =>
         {
-            cols.Bound(p => p.Id);
+            cols.Bound(p => p.Id).Width("10%");
             cols.Bound(p => p.Name);
             cols.Bound(p => p.Value);
-            cols.Bound(p => p.CreatedOn);
-            cols.Bound(p => p.ModifiedOn);
+            cols.Bound(p => p.CreatedOn).Width("10%");
+            cols.Bound(p => p.ModifiedOn).Width("10%");
         })
-        .Scrollable()
+        //.Scrollable()
+        //.Pageable(page => page
+        //    .Refresh(true)
+        //    .Input(true))
         .Resizable(resizable => resizable.Columns(true)))
-}
+}*@
+
+@(Html.ClientDetailsGrid<PropertyDetailsForDescriptionViewModel>(
+    name: "properties-grid_#=Id#",
+    columns: cols =>
+    {
+        cols.Bound(p => p.Id).Width("10%");
+        cols.Bound(p => p.Name);
+        cols.Bound(p => p.Value);
+        cols.Bound(p => p.CreatedOn).Width("10%");
+        cols.Bound(p => p.ModifiedOn).Width("10%");
+    },
+    height: 300)
+    .HtmlAttributes(new { @class = "details-grid" })
+    .ToClientTemplate()
+)

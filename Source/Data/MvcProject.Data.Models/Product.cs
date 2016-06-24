@@ -28,10 +28,10 @@
         }
 
         [Required]
-        [MaxLength(GlobalConstants.ValidationConstants.MaxProductTitleLength)]
+        [MaxLength(ValidationConstants.ProductTitleMaxLength)]
         public string Title { get; set; }
 
-        [MaxLength(GlobalConstants.ValidationConstants.MaxShortDescriptionLength)]
+        [MaxLength(ValidationConstants.ShortDescriptionMaxLength)]
         public string ShortDescription { get; set; }
 
         public int? DescriptionId { get; set; }

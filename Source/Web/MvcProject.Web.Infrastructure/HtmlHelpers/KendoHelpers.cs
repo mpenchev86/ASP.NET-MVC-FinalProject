@@ -22,7 +22,9 @@
             string controllerName,
             object routeValues,
             int pageSize,
+            bool scrollable = true,
             bool virtualScroll = false,
+            int height = 500,
             Action<DataSourceModelDescriptorFactory<T>> model = null,
             //Expression<Func<T, int>> modelId = null,
             //IEnumerable<Expression<Func<T, object>>> modelFields = null,
@@ -132,9 +134,10 @@
                     .PageSizes(new int[] { 20, 50, 200, 500 }))
                 .Sortable(sortSettings)
                 .Groupable()
-                .Scrollable(scrollable => scrollable
+                .Scrollable(scroll => scroll
+                    .Enabled(scrollable)
                     .Virtual(virtualScroll)
-                    .Height(500))
+                    .Height(height))
                 .Reorderable(reorderable => reorderable.Columns(true))
                 .Resizable(resizable => resizable.Columns(true))
                 .Filterable(filterSettings)
@@ -193,6 +196,41 @@
         }
 
         public static GridBuilder<T> ClientDetailsGrid<T>(
+            this HtmlHelper helper,
+            string name,
+            Action<GridColumnFactory<T>> columns = null,
+            bool scrollable = true,
+            int height = 300)
+            where T : class
+        {
+            if (columns == null)
+            {
+                columns = cols =>
+                {
+                    cols.AutoGenerate(true);
+                };
+            }
+
+            if (true)
+            {
+
+            }
+
+            return helper.Kendo()
+                .Grid<T>()
+                .Name(name)
+                .Columns(columns)
+                .Pageable(page => page
+                    .Refresh(true)
+                    .Input(true))
+                .Scrollable(scroll => scroll
+                    .Enabled(scrollable)
+                    .Virtual(false)
+                    .Height(height))
+                .Resizable(resizable => resizable.Columns(true));
+        }
+
+        public static GridBuilder<T> ClientDetailsGridWithDataSource<T>(
             this HtmlHelper helper,
             string name,
             string action,

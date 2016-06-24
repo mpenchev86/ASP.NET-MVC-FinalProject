@@ -6,7 +6,9 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+
     using EntityContracts;
+    using MvcProject.GlobalConstants;
 
     public class Category : BaseEntityModel<int>, IAdministerable
     {
@@ -18,7 +20,7 @@
         }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(ValidationConstants.CategoryNameMaxLenght)]
         public string Name { get; set; }
 
         public virtual ICollection<Product> Products

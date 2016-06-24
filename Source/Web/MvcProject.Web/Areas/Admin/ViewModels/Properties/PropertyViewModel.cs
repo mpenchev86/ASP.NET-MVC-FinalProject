@@ -38,16 +38,9 @@
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Property, PropertyViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.DescriptionId, opt => opt.MapFrom(src => src.DescriptionId))
-                //.ForMember(dest => dest.Description, opt => opt.MapFrom(
-                //           src => new DescriptionDetailsForPropertyViewModel
-                //           {
-                //               Id = src.Description.Id,
-                //               Content = src.Description.Content,
-                //               CreatedOn = src.Description.CreatedOn,
-                //               ModifiedOn = src.Description.ModifiedOn
-                //           }))
-                           ;
+                ;
         }
     }
 }

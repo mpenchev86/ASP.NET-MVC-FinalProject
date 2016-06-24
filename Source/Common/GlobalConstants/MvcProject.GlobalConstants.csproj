@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationSpecialStrings.cs" />
+    <Compile Include="Assemblies.cs" />
     <Compile Include="Bundles.cs" />
     <Compile Include="DbAccess.cs" />
     <Compile Include="ExceptionMessages.cs" />

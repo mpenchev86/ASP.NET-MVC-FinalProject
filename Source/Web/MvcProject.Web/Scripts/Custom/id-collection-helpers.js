@@ -1,6 +1,4 @@
-﻿//export collectionHelpers;
-
-var collectionHelpers = (function () {
+﻿var collectionHelpers = (function () {
     function idsCollection(collection) {
         if (collection.length == 0) {
             return "";

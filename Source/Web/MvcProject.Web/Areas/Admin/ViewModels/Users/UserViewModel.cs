@@ -39,23 +39,7 @@
         // Maps from ApplicationUser.UserName
         public string UserName { get; set; }
 
-        ///// <summary>
-        ///// Gets or sets the name of the user as displayed in the user interface,
-        ///// depending on whether the user has been deleted from the system or not.
-        ///// </summary>
-        //public string DisplayName { get; set; }
-
         public string MainRole { get; set; }
-
-        //public IList<string> Roles
-        //{
-        //    get
-        //    {
-        //        var userManager = HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-        //        var list = userManager.GetRoles(this.Id);
-        //        return list;
-        //    }
-        //}
 
         public ICollection<CommentDetailsForUserViewModel> Comments
         {
@@ -69,12 +53,6 @@
             set { this.votes = value; }
         }
 
-        //[LongDateTimeFormat]
-        //public DateTime CreatedOn { get; set; }
-
-        //[LongDateTimeFormat]
-        //public DateTime? ModifiedOn { get; set; }
-
         [Index]
         public bool IsDeleted { get; set; }
 
@@ -84,8 +62,24 @@
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<ApplicationUser, UserViewModel>()
-                //.ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
+                .ForMember(dest => dest.Comments, opt => opt.MapFrom(
+                            src => src.Comments.Select(c => new CommentDetailsForUserViewModel
+                            {
+                                Content = c.Content,
+                                ProductId = c.ProductId,
+                                CreatedOn = c.CreatedOn,
+                                ModifiedOn = c.ModifiedOn
+                            })))
+                .ForMember(dest => dest.Votes, opt => opt.MapFrom(
+                            src => src.Votes.Select(c => new VoteDetailsForUserViewModel
+                            {
+                                VoteValue = c.VoteValue,
+                                ProductId = c.ProductId,
+                                CreatedOn = c.CreatedOn,
+                                ModifiedOn = c.ModifiedOn
+                            })))
                 ;
         }
     }

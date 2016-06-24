@@ -2,11 +2,8 @@
 @using Kendo.Mvc.Extensions;
 @using MvcProject.Web.Areas.Admin.ViewModels.Properties
 @using MvcProject.Web.Areas.Admin.ViewModels.Categories
-@model MvcProject.Web.Areas.Admin.ViewModels.Products.ProductViewModel
 
-@{ 
-    var description = Model.Description;
-}
+@model MvcProject.Web.Areas.Admin.ViewModels.Products.ProductViewModel
 
 <div class="container-fluid">
     <div class="row">
@@ -53,39 +50,6 @@
         </div>
     </div>
 
-    @*<hr />
-    <div class="row" style="text-align: center">
-        @Html.LabelFor(m => m.Description)
-    </div>
-    <br />
-    <div class="row">
-        <div class="editor-label">
-            @Html.LabelFor(m => m.Description.Content)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(m => m.Description.Content)
-            @Html.ValidationMessageFor(m => m.Description.Content)
-        </div>
-    </div>
-    <div class="row">
-        <div class="editor-label">
-            @Html.LabelFor(m => m.Description.Properties)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(
-                m => m.Description.Properties,
-                new
-                {
-                    htmlAttributes = new
-                    {
-                        data_bind = "value: Description.Properties",
-                    }
-                })
-            @Html.ValidationMessageFor(model => model.Description.Properties)
-        </div>
-    </div>
-    <hr />*@
-
     <div class="row">
         <div class="editor-label">
             @Html.LabelFor(m => m.CategoryId, "Category")
@@ -126,21 +90,6 @@
             @Html.ValidationMessageFor(m => m.MainImageId)
         </div>
     </div>
-
-    @*<form method="post" action='@Url.Action("Submit")'>
-        <div class="demo-section k-content">*@
-    
-            @*@(Html.Kendo().Upload()
-                .Name("mainImage")
-                .Async(async => async
-                    .Save("Save", "Home"))
-            )*@
-
-            @*<p style="padding-top: 1em; text-align: right">
-                <input type="submit" value="Submit" class="k-button k-primary" />
-            </p>
-        </div>
-    </form>*@
 
     <div class="row">
         <div class="editor-label">

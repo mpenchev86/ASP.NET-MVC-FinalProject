@@ -7,8 +7,8 @@
     public class Comment : BaseEntityModel<int>, IAdministerable
     {
         [Required]
-        [MinLength(GlobalConstants.ValidationConstants.MinProductCommentLength)]
-        [MaxLength(GlobalConstants.ValidationConstants.MaxProductCommentLength)]
+        [MinLength(ValidationConstants.CommentContentMinLength)]
+        [MaxLength(ValidationConstants.CommentContentMaxLength)]
         public string Content { get; set; }
 
         [Required]

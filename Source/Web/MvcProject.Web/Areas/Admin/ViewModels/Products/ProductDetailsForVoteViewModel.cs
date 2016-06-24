@@ -11,6 +11,7 @@
     using Data.Models;
     using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
+    using MvcProject.GlobalConstants;
 
     public class ProductDetailsForVoteViewModel : BaseAdminViewModel<int>, IMapFrom<Product>, IHaveCustomMappings
     {
@@ -19,7 +20,7 @@
 
         [Required]
         [DataType(DataType.MultilineText)]
-        [MaxLength(GlobalConstants.ValidationConstants.MaxProductTitleLength)]
+        [MaxLength(ValidationConstants.ProductTitleMaxLength)]
         public string Title { get; set; }
 
         [Index]
@@ -30,7 +31,9 @@
 
         public void CreateMappings(IMapperConfiguration configuration)
         {
-            //throw new NotImplementedException();
+            configuration.CreateMap<Product, ProductDetailsForVoteViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                ;
         }
     }
 }

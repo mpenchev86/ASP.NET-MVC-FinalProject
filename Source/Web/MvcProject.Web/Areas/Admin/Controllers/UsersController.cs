@@ -21,8 +21,9 @@
     using ViewModels.Comments;
     using ViewModels.Users;
     using ViewModels.Votes;
+
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
-    public class UsersController : /*BaseController*/BaseGridController<ApplicationUser, UserViewModel, IUsersService, string>
+    public class UsersController : BaseGridController<ApplicationUser, UserViewModel, IUsersService, string>
     {
         private readonly IUsersService usersService;
         private readonly ICommentsService commentsService;
@@ -127,6 +128,11 @@
             entity.IsDeleted = viewModel.IsDeleted;
             entity.DeletedOn = viewModel.DeletedOn;
         }
-#endregion
+
+        //public override JsonResult GetDataAsJson()
+        //{
+        //    return base.GetDataAsJson();
+        //}
+        #endregion
     }
 }

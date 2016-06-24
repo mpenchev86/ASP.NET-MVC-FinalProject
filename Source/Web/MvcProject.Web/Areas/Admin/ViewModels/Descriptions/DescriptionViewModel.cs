@@ -27,7 +27,7 @@
         //public int Id { get; set; }
 
         [Required]
-        //[MaxLength(GlobalConstants.ValidationConstants.MaxFullDescriptionLength)]
+        [MaxLength(ValidationConstants.DescriptionContentMaxLength)]
         [DataType(DataType.MultilineText)]
         public string Content { get; set; }
 
@@ -46,14 +46,16 @@
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Description, DescriptionViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Properties, opt => opt.MapFrom(
-                           src => src.Properties.Select(p => new PropertyDetailsForDescriptionViewModel
-                           {
-                               Id = p.Id,
-                               Name = p.Name,
-                               Value = p.Value
-                           })))
-                ;
+                            src => src.Properties.Select(p => new PropertyDetailsForDescriptionViewModel
+                            {
+                                Id = p.Id,
+                                Name = p.Name,
+                                Value = p.Value,
+                                CreatedOn = p.CreatedOn,
+                                ModifiedOn = p.ModifiedOn
+                            })));
         }
     }
 }

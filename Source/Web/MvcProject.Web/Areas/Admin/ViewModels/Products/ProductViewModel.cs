@@ -42,11 +42,11 @@
 
         [Required]
         [DataType(DataType.MultilineText)]
-        [MaxLength(GlobalConstants.ValidationConstants.MaxProductTitleLength)]
+        [MaxLength(ValidationConstants.ProductTitleMaxLength)]
         public string Title { get; set; }
 
         [DataType(DataType.MultilineText)]
-        [MaxLength(GlobalConstants.ValidationConstants.MaxShortDescriptionLength)]
+        [MaxLength(ValidationConstants.ShortDescriptionMaxLength)]
         public string ShortDescription { get; set; }
 
         [UIHint("DropDown")]
@@ -125,79 +125,59 @@
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Product, ProductViewModel>()
-                //.ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                //.ForMember(dest => dest.Category, opt => opt.MapFrom(
-                //           src => new CategoryDetailsForProductViewModel
-                //           {
-                //               Id = src.Category.Id,
-                //               Name = src.Category.Name,
-                //               CreatedOn = src.Category.CreatedOn,
-                //               ModifiedOn = src.Category.ModifiedOn
-                //           }))
-                //.ForMember(dest => dest.MainImage, opt => opt.MapFrom(
-                //           src => src.MainImage == null ? null : new ImageDetailsForProductViewModel
-                //           {
-                //               Id = src.MainImage.Id,
-                //               OriginalFileName = src.MainImage.OriginalFileName,
-                //               FileExtension = src.MainImage.FileExtension,
-                //               UrlPath = src.MainImage.UrlPath,
-                //               CreatedOn = src.MainImage.CreatedOn,
-                //               ModifiedOn = src.MainImage.ModifiedOn
-                //           }))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(
-                           src => src.Description == null ? null : new DescriptionDetailsForProductViewModel
-                           {
-                               Id = src.Description.Id,
-                               Content = src.Description.Content,
-                               Properties = src.Description.Properties.Select(p => new PropertyDetailsForDescriptionViewModel
-                               {
-                                   Id = p.Id,
-                                   Name = p.Name,
-                                   Value = p.Value,
-                                   CreatedOn = p.CreatedOn,
-                                   ModifiedOn = p.ModifiedOn
-                               }).ToList(),
-                               CreatedOn = src.Description.CreatedOn,
-                               ModifiedOn = src.Description.ModifiedOn
-                           }))
+                            src => src.Description == null ? null : new DescriptionDetailsForProductViewModel
+                            {
+                                Id = src.Description.Id,
+                                Content = src.Description.Content,
+                                Properties = src.Description.Properties.Select(p => new PropertyDetailsForDescriptionViewModel
+                                {
+                                    Id = p.Id,
+                                    Name = p.Name,
+                                    Value = p.Value,
+                                    CreatedOn = p.CreatedOn,
+                                    ModifiedOn = p.ModifiedOn
+                                }).ToList(),
+                                CreatedOn = src.Description.CreatedOn,
+                                ModifiedOn = src.Description.ModifiedOn
+                            }))
                 .ForMember(dest => dest.Images, opt => opt.MapFrom(
-                           src => src.Images.Select(i => new ImageDetailsForProductViewModel
-                           {
-                               Id = i.Id,
-                               OriginalFileName = i.OriginalFileName,
-                               FileExtension = i.FileExtension,
-                               UrlPath = i.UrlPath,
-                               CreatedOn = i.CreatedOn,
-                               ModifiedOn = i.ModifiedOn
-                           })))
+                            src => src.Images.Select(i => new ImageDetailsForProductViewModel
+                            {
+                                Id = i.Id,
+                                OriginalFileName = i.OriginalFileName,
+                                FileExtension = i.FileExtension,
+                                UrlPath = i.UrlPath,
+                                CreatedOn = i.CreatedOn,
+                                ModifiedOn = i.ModifiedOn
+                            })))
                 .ForMember(dest => dest.Comments, opt => opt.MapFrom(
-                           src => src.Comments.Select(c => new CommentDetailsForProductViewModel
-                           {
-                               Id = c.Id,
-                               Content = c.Content,
-                               UserId = c.UserId,
-                               CreatedOn = c.CreatedOn,
-                               ModifiedOn = c.ModifiedOn
-                           })))
+                            src => src.Comments.Select(c => new CommentDetailsForProductViewModel
+                            {
+                                Id = c.Id,
+                                Content = c.Content,
+                                UserId = c.UserId,
+                                CreatedOn = c.CreatedOn,
+                                ModifiedOn = c.ModifiedOn
+                            })))
                 .ForMember(dest => dest.Votes, opt => opt.MapFrom(
-                           src => src.Votes.Select(v => new VoteDetailsForProductViewModel
-                           {
-                               Id = v.Id,
-                               VoteValue = v.VoteValue,
-                               UserId = v.UserId,
-                               CreatedOn = v.CreatedOn,
-                               ModifiedOn = v.ModifiedOn
-                           })))
+                            src => src.Votes.Select(v => new VoteDetailsForProductViewModel
+                            {
+                                Id = v.Id,
+                                VoteValue = v.VoteValue,
+                                UserId = v.UserId,
+                                CreatedOn = v.CreatedOn,
+                                ModifiedOn = v.ModifiedOn
+                            })))
                 .ForMember(dest => dest.tags, opt => opt.MapFrom(
-                           src => src.Tags.Select(t => new TagDetailsForProductViewModel
-                           {
-                               Id = t.Id,
-                               Name = t.Name,
-                               CreatedOn = t.CreatedOn,
-                               ModifiedOn = t.ModifiedOn
-                           })))
-                //.IncludeBase<BaseEntityModel<int>, BaseAdminViewModel>()
-                //.InheritMappingFromBaseType(/*WithBaseFor.Destination*/)
+                            src => src.Tags.Select(t => new TagDetailsForProductViewModel
+                            {
+                                Id = t.Id,
+                                Name = t.Name,
+                                CreatedOn = t.CreatedOn,
+                                ModifiedOn = t.ModifiedOn
+                            }).ToList()))
                 ;
         }
     }

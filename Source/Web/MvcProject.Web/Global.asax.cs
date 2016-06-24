@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
+    using System.Data.Entity.Infrastructure;
     using System.Linq;
     using System.Reflection;
     using System.Web;
@@ -31,6 +32,21 @@
             // If problematic, use constructor to get an instance of AutoMapperConfig and use its Execute()
             AutoMapperInit.Initialize(Assembly.GetExecutingAssembly());
         }
+
+        //protected void Application_BeginRequest(
+        //    object sender,
+        //    EventArgs e)
+        //{
+        //    if (this.Request.IsLocal)
+        //    {
+        //        MiniProfiler.Start();
+        //    }
+        //}
+
+        //protected void Application_EndRequest()
+        //{
+        //    MiniProfiler.Stop(/*discardResults: true*/);
+        //}
 
         //// For custom OutPutCache VaryByCustom
         // public override string GetVaryByCustomString(HttpContext context, string custom)

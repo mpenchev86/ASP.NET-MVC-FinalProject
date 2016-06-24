@@ -65,10 +65,20 @@
             return this.View(foreignKeys);
         }
 
+        public ActionResult Test()
+        {
+            var enumData = this.productsService.GetAll().To<ProductViewModel>();
+            var viewModel = enumData.ToList();
+            return this.View(viewModel);
+        }
+
         [HttpPost]
         public override ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
-            return base.Read(request);
+            var viewModel = this.GetDataAsEnumerable()/*.ToList()*/;
+            var dataSourceResult = viewModel.ToDataSourceResult(request, this.ModelState);
+            return this.Json(dataSourceResult, JsonRequestBehavior.AllowGet);
+            //return base.Read(request);
         }
 
         [HttpPost]
@@ -108,34 +118,7 @@
         }
 
 #region DataProviders
-        [HttpPost]
-        public JsonResult GetCommentsByProductId([DataSourceRequest]DataSourceRequest request, int productId)
-        {
-            var comments = this.productsService.GetById(productId).Comments.AsQueryable().To<CommentDetailsForProductViewModel>();
-            return this.GetCollectionAsDataSourceResult(request, comments, this.ModelState);
-        }
-
-        [HttpPost]
-        public JsonResult GetTagsByProductId([DataSourceRequest]DataSourceRequest request, int productId)
-        {
-            var tags = this.productsService.GetById(productId).Tags.AsQueryable().To<TagDetailsForProductViewModel>();
-            return this.GetCollectionAsDataSourceResult(request, tags, this.ModelState);
-        }
-
-        [HttpPost]
-        public JsonResult GetVotesByProductId([DataSourceRequest]DataSourceRequest request, int productId)
-        {
-            var votes = this.productsService.GetById(productId).Votes.AsQueryable().To<VoteDetailsForProductViewModel>();
-            return this.GetCollectionAsDataSourceResult(request, votes, this.ModelState);
-        }
-
-        [HttpPost]
-        public JsonResult GetImagesByProductId([DataSourceRequest]DataSourceRequest request, int productId)
-        {
-            var images = this.productsService.GetById(productId).Images.AsQueryable().To<ImageDetailsForProductViewModel>();
-            return this.GetCollectionAsDataSourceResult(request, images, this.ModelState);
-        }
-
+        //[HttpPost]
         [HttpGet]
         public ActionResult GetDescriptionByProductId(int? descriptionId)
         {
@@ -151,6 +134,52 @@
 
             return this.PartialView("_DescriptionTab", description);
         }
+
+        //[HttpGet]
+        //public ActionResult CommentsTest(ICollection<CommentDetailsForProductViewModel> comments)
+        //{
+        //    return this.PartialView("_CommentsTab", comments);
+        //}
+
+        //[HttpGet]
+        //public ActionResult CommentsTestTwo(int productId)
+        //{
+        //    var comments = this.productsService.GetById(productId).Comments.AsQueryable().To<CommentDetailsForProductViewModel>();
+        //    return this.PartialView("_CommentsTab", comments);
+        //}
+
+        //[HttpPost]
+        //public JsonResult GetImagesByProductId([DataSourceRequest]DataSourceRequest request, int productId)
+        //{
+        //    var images = this.productsService.GetById(productId).Images.AsQueryable().To<ImageDetailsForProductViewModel>();
+        //    return this.GetCollectionAsDataSourceResult(request, images, this.ModelState);
+        //}
+
+        //[HttpPost]
+        //public JsonResult GetCommentsByProductId([DataSourceRequest]DataSourceRequest request, int productId)
+        //{
+        //    var comments = this.productsService.GetById(productId).Comments.AsQueryable().To<CommentDetailsForProductViewModel>();
+        //    return this.GetCollectionAsDataSourceResult(request, comments, this.ModelState);
+        //}
+
+        //[HttpPost]
+        //public JsonResult GetVotesByProductId([DataSourceRequest]DataSourceRequest request, int productId)
+        //{
+        //    var votes = this.productsService.GetById(productId).Votes.AsQueryable().To<VoteDetailsForProductViewModel>();
+        //    return this.GetCollectionAsDataSourceResult(request, votes, this.ModelState);
+        //}
+
+        //[HttpPost]
+        //public JsonResult GetTagsByProductId([DataSourceRequest]DataSourceRequest request, int productId)
+        //{
+        //    var tags = this.productsService.GetById(productId).Tags.AsQueryable().To<TagDetailsForProductViewModel>().ToList();
+        //    return this.GetCollectionAsDataSourceResult(request, tags, this.ModelState);
+        //}
+
+        //public override JsonResult GetDataAsJson()
+        //{
+        //    return base.GetDataAsJson();
+        //}
 
         protected override void PopulateEntity(Product entity, ProductViewModel viewModel)
         {
@@ -207,6 +236,6 @@
             entity.IsDeleted = viewModel.IsDeleted;
             entity.DeletedOn = viewModel.DeletedOn;
         }
-#endregion
+        #endregion
     }
 }

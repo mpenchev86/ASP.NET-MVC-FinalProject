@@ -8,11 +8,11 @@
     public class Image : BaseEntityModel<int>, IAdministerable
     {
         [Required]
-        [MaxLength(GlobalConstants.ValidationConstants.MaxOriginalFileNameLength)]
+        [MaxLength(ValidationConstants.ImageOriginalFileNameMaxLength)]
         public string OriginalFileName { get; set; }
 
         [Required]
-        [MaxLength(GlobalConstants.ValidationConstants.MaxFileExtensionLength)]
+        [MaxLength(ValidationConstants.ImageFileExtensionMaxLength)]
         public string FileExtension { get; set; }
 
         public string UrlPath { get; set; }

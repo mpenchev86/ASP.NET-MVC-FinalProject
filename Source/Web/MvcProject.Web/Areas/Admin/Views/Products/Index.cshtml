@@ -1,11 +1,11 @@
 ﻿@using MvcProject.Web.Infrastructure.HtmlHelpers
+@using MvcProject.Web.Areas.Admin.ViewModels.Descriptions
 @using MvcProject.Web.Areas.Admin.ViewModels.Products
 
 @model ProductViewModelForeignKeys
 
 @{
     ViewBag.Title = "Products (ADMIN)";
-    //var hasDescription = 
 }
 
 @(Html.FullFeaturedGrid<ProductViewModel>(
@@ -41,7 +41,10 @@
         c.Bound(m => m.IsDeleted).Title("Marked As Deleted");
         c.Bound(m => m.DeletedOn);
     },
-    dataSourceEvents: ev => { ev.Error("errorHandler.handler"); },
+    dataSourceEvents: ev =>
+    {
+        ev.Error("errorHandler.handler");
+    },
     isBatch: false,
     isServerOperation: true,
     editingSettings: editor =>
@@ -55,7 +58,6 @@
                     .Draggable(true)
                     .Scrollable(false)
                     .Resizable()
-                    //.ContentSettings(c => { c.Action("ContentSettings", "Products", new { area = "Admin" }); })
                     ;
             })
             .TemplateName("ProductViewModelPopupEditor")
@@ -65,15 +67,16 @@
             //.DisplayDeleteConfirmation(false)
             ;
     },
-    htmlAttributes: new { @class = "admin-grid" },
+    htmlAttributes: new { @class = "main-grid" },
     readHandler: "readHandler",
     createHandler: "createHandler",
     updateHandler: "updateHandler",
     destroyHandler: "destroyHandler"
     )
+    .Events(e => e.DetailInit("detailInit"))
+    .ClientDetailTemplateId("product-details-template")
     .Selectable()
     .AllowCopy(true)
-    .ClientDetailTemplateId("product-details-template")
     .Deferred())
 
 @section styles{
@@ -90,8 +93,9 @@
         }
     </style>
 
-    <link href="@Url.Content("~/Content/Custom/Admin/custom-popup-editor.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Custom/Admin/main-grid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Custom/Admin/details-grid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Custom/Admin/custom-popup-editor.css")" rel="stylesheet" type="text/css" />
 }
 
 @section Scripts{
@@ -99,6 +103,7 @@
 
     <script src="@Url.Content("~/Scripts/Custom/error-handler.js")"></script>
     <script src="@Url.Content("~/Scripts/Custom/datetime-handlers.js")"></script>
+    <script src="@Url.Content("~/Scripts/Custom/grid-details-helpers.js")"></script>
 
     <script id="product-details-template" type="text/kendo-tmpl">
         @(Html.Partial("_ProductDetailsTabStrip"))
@@ -108,29 +113,36 @@
         kendo.culture('@BundleConfig.UiCulture');
 
         function readHandler(data) {
-            //console.log($("#productsGrid").data("kendoGrid"));
-            //console.log($(".k-window-content").data("kendoWindow"));
-            dataHandler(data);
+            datetimeHandlers.normalizeDateProperties(data);
         }
 
         function createHandler(data) {
-            dataHandler(data);
-            //console.log($("#productsGrid").data("kendoGrid"));
-            //console.log($(".k-window-content").data("kendoWindow").element.context);
-            //showData(data);
+            datetimeHandlers.normalizeDateProperties(data);
         }
 
         function updateHandler(data) {
-            dataHandler(data);
+            datetimeHandlers.normalizeDateProperties(data);
         }
 
         function destroyHandler(data) {
-            dataHandler(data);
-        }
-
-        function dataHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);
         }
+
+        function detailInit(e) {
+            gridDetailsHelpers.setProductDescription(e.data.Id, e.data.Description, 8);
+            gridDetailsHelpers.setDataSource("#images-grid_" + e.data.Id, e.data.Images, 10);
+            gridDetailsHelpers.setDataSource("#comments-grid_" + e.data.Id, e.data.Comments, 10);
+            gridDetailsHelpers.setDataSource("#votes-grid_" + e.data.Id, e.data.Votes, 10);
+            gridDetailsHelpers.setDataSource("#tags-grid_" + e.data.Id, e.data.Tags, 10);
+        }
+
+        //// jquery.validate to ignore the empty string in dropdownlist value
+        //$.validator.defaults.ignore = "";
+
+        //function showData(data) {
+        //    console.log($("#CategoryId").data("kendoDropDownList").dataItem());
+        //    console.log($("#CategoryId").data("kendoDropDownList").value());
+        //}
 
         //function onAdditionalData() {
         //    console.log(Object
@@ -159,13 +171,5 @@
         //    //console.log(multiselect.initialValues);
         //    console.log(multiselect._initialValues);
         //}
-
-        // jquery.validate to ignore the empty string in dropdownlist value
-        $.validator.defaults.ignore = "";
-
-        function showData(data) {
-            console.log($("#CategoryId").data("kendoDropDownList").dataItem());
-            console.log($("#CategoryId").data("kendoDropDownList").value());
-        }
     </script>
 }

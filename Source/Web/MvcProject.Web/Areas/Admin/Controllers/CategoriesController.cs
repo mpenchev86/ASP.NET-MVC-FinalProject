@@ -102,7 +102,7 @@
             return base.GetDataAsEnumerable().OrderBy(x => x.Name);
         }
 
-        protected override JsonResult GetDataAsJson()
+        public override JsonResult GetDataAsJson()
         {
             var categories = this.GetDataAsEnumerable();
             return this.Json(categories, JsonRequestBehavior.AllowGet);

@@ -2,18 +2,16 @@
 @using MvcProject.Web.Infrastructure.HtmlHelpers
 
 @(Html.ClientDetailsGrid<ImageDetailsForProductViewModel>(
-    name: "images_grid_#=Id#",
-    action: "GetImagesByProductId",
-    controller: "Products",
-    routeValues: new { area = "Admin", productId = "#=Id#" },
-    pageSize: 10,
-    columns: col =>
+    name: "images-grid_#=Id#",
+    columns: cols =>
     {
-        col.Bound(c => c.Id).Title("ID").Width("10%");
-        col.Bound(c => c.OriginalFileName);
-        col.Bound(c => c.FileExtension);
-        col.Bound(c => c.UrlPath);
-        col.Bound(c => c.CreatedOn);
-        col.Bound(c => c.ModifiedOn);
+        cols.Bound(c => c.Id).Title("ID").Width("10%");
+        cols.Bound(c => c.OriginalFileName);
+        cols.Bound(c => c.FileExtension);
+        cols.Bound(c => c.UrlPath);
+        cols.Bound(c => c.CreatedOn).Width("10%");
+        cols.Bound(c => c.ModifiedOn).Width("10%");
     })
-    .ToClientTemplate())
+    .HtmlAttributes(new { @class = "details-grid" })
+    .ToClientTemplate()
+)

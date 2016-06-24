@@ -49,7 +49,8 @@
         {
             this.ApplyAdditionalInfoRules();
 
-            //// Debug db operations
+            //// Debug db operations.
+            //// Source: http://stackoverflow.com/a/15820506/4491770
             //try
             //{
             //    return base.SaveChanges();
@@ -71,7 +72,33 @@
             //    throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
             //}
 
-            return base.SaveChanges();
+            // Debug db operations.
+            // Source: http://stackoverflow.com/a/10676526/4491770
+            try
+            {
+                return base.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                StringBuilder sb = new StringBuilder();
+
+                foreach (var failure in ex.EntityValidationErrors)
+                {
+                    sb.AppendFormat("{0} failed validation\n", failure.Entry.Entity.GetType());
+                    foreach (var error in failure.ValidationErrors)
+                    {
+                        sb.AppendFormat("- {0} : {1}", error.PropertyName, error.ErrorMessage);
+                        sb.AppendLine();
+                    }
+                }
+
+                throw new DbEntityValidationException(
+                    "Entity Validation Failed - errors follow:\n" +
+                    sb.ToString(), ex
+                ); // Add the original exception as the innerException
+            }
+
+            //return base.SaveChanges();
         }
 
         private void ApplyAdditionalInfoRules()

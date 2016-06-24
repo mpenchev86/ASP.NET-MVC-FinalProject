@@ -26,7 +26,9 @@
 
         public void CreateMappings(IMapperConfiguration configuration)
         {
-            //throw new NotImplementedException();
+            configuration.CreateMap<Property, PropertyDetailsForDescriptionViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                ;
         }
     }
 }

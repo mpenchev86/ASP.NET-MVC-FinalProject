@@ -6,9 +6,11 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
     using System.Web;
+
     using AutoMapper;
     using Data.Models;
     using Infrastructure.DataAnnotations;
+    using MvcProject.GlobalConstants;
     using MvcProject.Web.Infrastructure.Mapping;
 
     public class VoteViewModel : BaseAdminViewModel<int>, IMapFrom<Vote>, IHaveCustomMappings
@@ -17,7 +19,7 @@
         //public int Id { get; set; }
 
         [Required]
-        [Range(1, 10)]
+        [Range(ValidationConstants.VoteValueMin, ValidationConstants.VoteValueMax)]
         public int VoteValue { get; set; }
 
         [Required]
@@ -37,6 +39,7 @@
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Vote, VoteViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId))
                 ;

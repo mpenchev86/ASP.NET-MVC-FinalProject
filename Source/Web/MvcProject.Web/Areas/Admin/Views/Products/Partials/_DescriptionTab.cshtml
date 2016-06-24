@@ -1,5 +1,6 @@
 ﻿@using MvcProject.Web.Areas.Admin.ViewModels.Descriptions
-@model DescriptionDetailsForProductViewModel
+
+@*@model DescriptionDetailsForProductViewModel
 
 @{ 
     Layout = null;
@@ -7,35 +8,57 @@
 
 @if (Model.Id != 0)
 {
+    <div id="description-details" class="description-details container">
+        <div class="row">
+            <div class="col-md-1">@(Html.LabelFor(m => m.Id))</div>
+            <div id="description-id" class="col-md-10">@(Html.DisplayFor(m => m.Id))</div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1">@(Html.LabelFor(m => m.Content))</div>
+            <div id="description-content" class="col-md-10">@(Html.DisplayFor(m => m.Content))</div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1">@(Html.LabelFor(m => m.Properties))</div>
+            <div class="col-md-10">@(Html.Partial("_DescriptionPropertiesGrid", Model.Properties))</div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1">@(Html.LabelFor(m => m.CreatedOn))</div>
+            <div id="description-createdOn" class="col-md-10">@(Html.DisplayFor(m => m.CreatedOn))</div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-1">@(Html.LabelFor(m => m.ModifiedOn))</div>
+            <div id="description-modifiedOn" class="col-md-10">@(Html.DisplayFor(m => m.ModifiedOn))</div>
+        </div>
+    </div>
+}*@
+
 <div id="description-details" class="description-details container">
     <div class="row">
-        <div class="col-md-2">@(Html.LabelFor(m => m.Id))</div>
-        @*<div class="col-md-9">@Model.Id</div>*@
-        <div class="col-md-9">@(Html.DisplayFor(m => m.Id))</div>
+        <div class="col-md-1"><label for="description-id">Id</label></div>
+        <div id="description-id_#=Id#" class="col-md-10"></div>
     </div>
     <br />
     <div class="row">
-        <div class="col-md-2">@(Html.LabelFor(m => m.Content))</div>
-        @*<div class="col-md-9">@Model.Content</div>*@
-        <div class="col-md-9">@(Html.DisplayFor(m => m.Content))</div>
+        <div class="col-md-1"><label for="description-content">Content</label></div>
+        <div id="description-content_#=Id#" class="col-md-10"></div>
     </div>
     <br />
     <div class="row">
-        <div class="col-md-2">@(Html.LabelFor(m => m.Properties))</div>
-        <div class="col-md-9">@(Html.Partial("_DescriptionPropertiesGrid", Model.Properties))</div>
-        @*<div class="col-md-9">@(Html.DisplayFor(m => m.Properties, new { properties = Model.Properties }))</div>*@
+        <div class="col-md-1"><label for="description-properties">Properties</label></div>
+        <div class="col-md-10">@(Html.Partial("_DescriptionPropertiesGrid"))</div>
     </div>
     <br />
     <div class="row">
-        <div class="col-md-2">@(Html.LabelFor(m => m.CreatedOn))</div>
-        @*<div class="col-md-9">@Model.CreatedOn</div>*@
-        <div class="col-md-9">@(Html.DisplayFor(m => m.CreatedOn))</div>
+        <div class="col-md-1"><label for="description-createdOn">Created On</label></div>
+        <div id="description-createdOn_#=Id#" class="col-md-10"></div>
     </div>
     <br />
     <div class="row">
-        <div class="col-md-2">@(Html.LabelFor(m => m.ModifiedOn))</div>
-        @*<div class="col-md-9">@Model.ModifiedOn</div>*@
-        <div class="col-md-9">@(Html.DisplayFor(m => m.ModifiedOn))</div>
+        <div class="col-md-1"><label for="description-modifiedOn">Modified On</label></div>
+        <div id="description-modifiedOn_#=Id#" class="col-md-10"></div>
     </div>
 </div>
-}

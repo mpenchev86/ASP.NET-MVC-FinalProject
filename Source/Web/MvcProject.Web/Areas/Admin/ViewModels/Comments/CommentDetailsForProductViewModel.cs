@@ -17,8 +17,8 @@
 
         [Required]
         [DataType(DataType.MultilineText)]
-        [MinLength(GlobalConstants.ValidationConstants.MinProductCommentLength)]
-        [MaxLength(GlobalConstants.ValidationConstants.MaxProductCommentLength)]
+        [MinLength(ValidationConstants.CommentContentMinLength)]
+        [MaxLength(ValidationConstants.CommentContentMaxLength)]
         public string Content { get; set; }
 
         [Required]
@@ -27,6 +27,7 @@
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Comment, CommentDetailsForProductViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId))
                 ;
         }

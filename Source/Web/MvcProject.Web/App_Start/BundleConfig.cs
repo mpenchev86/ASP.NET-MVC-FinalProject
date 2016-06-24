@@ -15,9 +15,7 @@
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle(GlobalConstants.Bundles.ScriptsJQuery)
-                .Include(
-                    "~/Scripts/jquery-2.2.1.min.js"
-                    ));
+                .Include("~/Scripts/jquery-2.2.1.min.js"));
 
             bundles.Add(new ScriptBundle(GlobalConstants.Bundles.ScriptsJQueryValidate)
                 .Include(
@@ -46,8 +44,7 @@
                 .Include(
                     "~/Scripts/Custom/id-collection-helpers.js",
                     "~/Scripts/Custom/template-loader.js",
-                    "~/Scripts/Custom/error-handler.js"
-                ));
+                    "~/Scripts/Custom/error-handler.js"));
 
             bundles.Add(new StyleBundle(GlobalConstants.Bundles.StylesContentCss)
                 .Include(
@@ -59,23 +56,19 @@
                 .Include("~/Content/Kendo/kendo.common-bootstrap.min.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Kendo/kendo.bootstrap.min.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Kendo/kendo.default.min.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Kendo/kendo.silver.min.css", new CssRewriteUrlTransform())
-                );
+                .Include("~/Content/Kendo/kendo.silver.min.css", new CssRewriteUrlTransform()));
 
             bundles.Add(new StyleBundle(GlobalConstants.Bundles.StylesContentCustomCss)
                 .Include(
                     "~/Content/Custom/custom-popup-editor.css",
                     "~/Content/Custom/listView.css",
-                    "~/Content/Custom/Admin/domains-list.css"
-                ));
+                    "~/Content/Custom/Admin/domains-list.css"));
 
             bundles.IgnoreList.Clear();
 
             bundles.IgnoreList.Ignore("*.intellisense.js");
             bundles.IgnoreList.Ignore("*-vsdoc.js");
             bundles.IgnoreList.Ignore("*.debug.js", OptimizationMode.WhenEnabled);
-
-            //BundleTable.EnableOptimizations = true;
 
             // Optimization in both debug and release
 #if DEBUG

@@ -37,7 +37,7 @@
         [HttpPost]
         public virtual ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
-            var viewModel = this.GetDataAsEnumerable().ToList();
+            var viewModel = this.GetDataAsEnumerable()/*.ToList()*/;
             var dataSourceResult = viewModel.ToDataSourceResult(request, this.ModelState);
             return this.Json(dataSourceResult, JsonRequestBehavior.AllowGet);
         }
@@ -66,18 +66,15 @@
         }
 
 #region DataProviders
-        protected virtual void PopulateEntity(TEntityModel entity, TViewModel viewModel)
+        public virtual JsonResult GetDataAsJson()
         {
+            return this.Json(this.GetDataAsEnumerable(), JsonRequestBehavior.AllowGet);
         }
 
         protected virtual IEnumerable<TViewModel> GetDataAsEnumerable()
         {
-            return this.dataService.GetAll().To<TViewModel>();
-        }
-
-        protected virtual JsonResult GetDataAsJson()
-        {
-            return this.Json(this.GetDataAsEnumerable(), JsonRequestBehavior.AllowGet);
+            var result = this.dataService.GetAll().To<TViewModel>();
+            return result;
         }
 
         protected virtual JsonResult GetEntityAsDataSourceResult<T>([DataSourceRequest]DataSourceRequest request, T data, ModelStateDictionary modelState)
@@ -88,6 +85,10 @@
         protected virtual JsonResult GetCollectionAsDataSourceResult<T>([DataSourceRequest]DataSourceRequest request, IEnumerable<T> data, ModelStateDictionary modelState)
         {
             return this.Json(data.ToDataSourceResult(request, modelState), JsonRequestBehavior.AllowGet);
+        }
+
+        protected virtual void PopulateEntity(TEntityModel entity, TViewModel viewModel)
+        {
         }
 
         protected virtual JsonResult GetAsSelectList(string text, string value)

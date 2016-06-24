@@ -15,14 +15,11 @@
         //[Key]
         //public int Id { get; set; }
 
-        //[Required]
-        ////[MaxLength(GlobalConstants.ValidationConstants.MaxFullDescriptionLength)]
-        //[DataType(DataType.MultilineText)]
-        //public string Content { get; set; }
-
         public void CreateMappings(IMapperConfiguration configuration)
         {
-            //throw new NotImplementedException();
+            configuration.CreateMap<Description, DescriptionDetailsForPropertyViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                ;
         }
     }
 }

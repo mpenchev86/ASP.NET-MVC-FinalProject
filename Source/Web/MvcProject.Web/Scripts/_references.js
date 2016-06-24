@@ -2,6 +2,7 @@
 /// <reference path="bootstrap.min.js" />
 /// <reference path="custom/datetime-handlers.js" />
 /// <reference path="custom/error-handler.js" />
+/// <reference path="custom/grid-details-helpers.js" />
 /// <reference path="custom/id-collection-helpers.js" />
 /// <reference path="custom/template-loader.js" />
 /// <reference path="jquery.min.js" />

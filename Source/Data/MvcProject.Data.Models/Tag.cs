@@ -7,7 +7,9 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+
     using EntityContracts;
+    using MvcProject.GlobalConstants;
 
     public class Tag : BaseEntityModel<int>, IAdministerable
     {
@@ -19,7 +21,7 @@
         }
 
         [Required]
-        [MaxLength(20)]
+        [MaxLength(ValidationConstants.TagNameMaxLength)]
         public string Name { get; set; }
 
         public virtual ICollection<Product> Products

@@ -6,7 +6,7 @@
     using System.Linq;
     using System.Web;
 
-    using MvcProject.Web.Common.Constants;
+    using MvcProject.GlobalConstants;
 
     public class ResetPasswordViewModel
     {
@@ -16,14 +16,14 @@
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = ValidationConstants.MinPasswordLengthErrorMessage, MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = ValidationConstants.ErrorMessagePasswordMinLength, MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = ValidationConstants.ConfirmPasswordErrorMessage)]
+        [Compare("Password", ErrorMessage = ValidationConstants.ErrorMessagePasswordConfirm)]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }

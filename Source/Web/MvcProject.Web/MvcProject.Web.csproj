@@ -298,15 +298,12 @@
     <Compile Include="Areas\Common\Controllers\AjaxController.cs" />
     <Compile Include="Areas\Common\Controllers\BaseController.cs" />
     <Compile Include="Areas\Common\Controllers\ChildActionsController.cs" />
-    <Compile Include="Areas\Common\Controllers\GridController.cs" />
     <Compile Include="Areas\Common\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Common\Controllers\KendoController.cs" />
     <Compile Include="Areas\Common\Controllers\ManageController.cs" />
     <Compile Include="App_Start\GlimpseSecurityPolicy.cs" />
     <Compile Include="Areas\Common\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Common\ViewModels\Home\IndexViewModel.cs" />
     <Compile Include="Areas\Common\ViewModels\Home\CategoryViewModel.cs" />
-    <Compile Include="Areas\Common\ViewModels\Kendo\KendoTestViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -333,8 +330,10 @@
     <Compile Include="Areas\Common\ViewModels\Manage\VerifyPhoneNumberViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Custom\Admin\details-grid.css" />
     <Content Include="Content\Custom\Admin\main-grid.css" />
     <Content Include="Scripts\Custom\datetime-handlers.js" />
+    <Content Include="Scripts\Custom\grid-details-helpers.js" />
     <Content Include="Scripts\Custom\error-handler.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.min.map" />
@@ -789,7 +788,6 @@
     <Content Include="Scripts\Kendo\messages\kendo.messages.zh-CN.min.js" />
     <Content Include="Scripts\Kendo\messages\kendo.messages.zh-HK.min.js" />
     <Content Include="Scripts\Kendo\messages\kendo.messages.zh-TW.min.js" />
-    <Content Include="Templates\Kendo\products-detail-template.tmpl.htm" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -1251,9 +1249,6 @@
     <Content Include="Content\Kendo\kendo.silver.mobile.min.css.map" />
     <Content Include="Content\Kendo\kendo.uniform.min.css.map" />
     <Content Include="Content\Kendo\kendo.uniform.mobile.min.css.map" />
-    <Content Include="Areas\Common\Views\Kendo\DatePicker.cshtml" />
-    <Content Include="Areas\Common\Views\Kendo\AutoComplete.cshtml" />
-    <Content Include="Areas\Common\Views\Grid\Index.cshtml" />
     <Content Include="Areas\Common\Views\Shared\Partials\_CarouselPartial.cshtml" />
     <Content Include="MvcProject.Web.ruleset" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
@@ -1294,8 +1289,6 @@
     <Content Include="Areas\Common\Views\Shared\EditorTemplates\String.cshtml" />
     <Content Include="Areas\Common\Views\Shared\EditorTemplates\Time.cshtml" />
     <Content Include="Areas\Common\Views\Shared\EditorTemplates\Url.cshtml" />
-    <Content Include="Areas\Common\Views\Shared\EditorTemplates\DropDownForNonNull.cshtml" />
-    <Content Include="Areas\Common\Views\Shared\EditorTemplates\DropDownForNull.cshtml" />
     <Content Include="Areas\Admin\Views\Properties\EditorTemplates\PropertyViewModelPopupEditor.cshtml" />
     <Content Include="Areas\Admin\Views\Comments\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Comments\EditorTemplates\CommentViewModelPopupEditor.cshtml" />
@@ -1317,6 +1310,7 @@
     <Content Include="Areas\Admin\Views\Users\Partials\_UserDetailsTabStrip.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Partials\_CommentsTab.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Partials\_VotesTab.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Test.cshtml" />
     <None Include="Properties\PublishProfiles\testWebDep.pubxml" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.dll" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.xml" />
@@ -1450,7 +1444,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1267</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:1267/</IISUrl>
+          <IISUrl>http://localhost:1267</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

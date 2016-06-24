@@ -6,10 +6,11 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
     using System.Web;
+
     using AutoMapper;
     using Data.Models;
-    using GlobalConstants;
     using Infrastructure.DataAnnotations;
+    using MvcProject.GlobalConstants;
     using MvcProject.Web.Infrastructure.Mapping;
 
     public class ImageViewModel : BaseAdminViewModel<int>, IMapFrom<Image>, IHaveCustomMappings
@@ -18,11 +19,11 @@
         //public int Id { get; set; }
 
         [Required]
-        [MaxLength(GlobalConstants.ValidationConstants.MaxOriginalFileNameLength)]
+        [MaxLength(ValidationConstants.ImageOriginalFileNameMaxLength)]
         public string OriginalFileName { get; set; }
 
         [Required]
-        [MaxLength(GlobalConstants.ValidationConstants.MaxFileExtensionLength)]
+        [MaxLength(ValidationConstants.ImageFileExtensionMaxLength)]
         public string FileExtension { get; set; }
 
         public string UrlPath { get; set; }
@@ -38,6 +39,7 @@
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Image, ImageViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
                 ;
         }

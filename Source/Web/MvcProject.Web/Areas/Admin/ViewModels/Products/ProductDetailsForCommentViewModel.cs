@@ -11,6 +11,7 @@
     using Data.Models;
     using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
+    using MvcProject.GlobalConstants;
 
     public class ProductDetailsForCommentViewModel : BaseAdminViewModel<int>, IMapFrom<Product>, IHaveCustomMappings
     {
@@ -19,7 +20,7 @@
 
         [Required]
         [DataType(DataType.MultilineText)]
-        [MaxLength(GlobalConstants.ValidationConstants.MaxProductTitleLength)]
+        [MaxLength(ValidationConstants.ProductTitleMaxLength)]
         public string Title { get; set; }
 
         [Index]
@@ -30,23 +31,9 @@
 
         public void CreateMappings(IMapperConfiguration configuration)
         {
-            //configuration.CreateMap<Product, ProductViewModel>()
-            //    .ForMember(dest => dest.Description, opt => opt.MapFrom(
-            //               src => src.Description == null ? null : new DescriptionDetailsForProductViewModel
-            //               {
-            //                   Id = src.Description.Id,
-            //                   Content = src.Description.Content,
-            //                   Properties = src.Description.Properties.Select(p => new PropertyDetailsForDescriptionViewModel
-            //                   {
-            //                       Id = p.Id,
-            //                       Name = p.Name,
-            //                       Value = p.Value,
-            //                       CreatedOn = p.CreatedOn,
-            //                       ModifiedOn = p.ModifiedOn
-            //                   }).ToList(),
-            //                   CreatedOn = src.Description.CreatedOn,
-            //                   ModifiedOn = src.Description.ModifiedOn
-            //               }));
+            configuration.CreateMap<Product, ProductDetailsForCommentViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                ;
         }
     }
 }

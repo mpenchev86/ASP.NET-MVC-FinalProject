@@ -6,9 +6,11 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
     using System.Web;
+
     using AutoMapper;
     using Infrastructure.DataAnnotations;
     using MvcProject.Data.Models;
+    using MvcProject.GlobalConstants;
     using MvcProject.Web.Infrastructure.Mapping;
     using Products;
 
@@ -26,7 +28,7 @@
 
         [Required]
         [DataType(DataType.MultilineText)]
-        [MaxLength(50)]
+        [MaxLength(ValidationConstants.CategoryNameMaxLenght)]
         public string Name { get; set; }
 
         public ICollection<ProductDetailsForCategoryViewModel> Products
@@ -44,14 +46,15 @@
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Category, CategoryViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Products, opt => opt.MapFrom(
-                           src => src.Products.Select(p => new ProductDetailsForCategoryViewModel
-                           {
-                               Id = p.Id,
-                               Title = p.Title,
-                               ShortDescription = p.ShortDescription,
-                               UnitPrice = p.UnitPrice
-                           })))
+                            src => src.Products.Select(p => new ProductDetailsForCategoryViewModel
+                            {
+                                Id = p.Id,
+                                Title = p.Title,
+                                ShortDescription = p.ShortDescription,
+                                UnitPrice = p.UnitPrice
+                            })))
                 ;
         }
     }

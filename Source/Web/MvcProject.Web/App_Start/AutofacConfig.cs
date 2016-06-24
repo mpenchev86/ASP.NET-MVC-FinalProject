@@ -11,7 +11,6 @@
     using Areas.Common.Controllers;
     using Autofac;
     using Autofac.Integration.Mvc;
-    using Common.Constants;
     using Data.DbAccessConfig;
     using Data.DbAccessConfig.Repositories;
     using Data.Models;
@@ -20,6 +19,7 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Microsoft.AspNet.Identity.Owin;
+    using MvcProject.GlobalConstants;
     using Services.Data;
     using Services.Web;
 

@@ -22,12 +22,11 @@
 
         [Required]
         [DataType(DataType.MultilineText)]
-        [MinLength(GlobalConstants.ValidationConstants.MinProductCommentLength)]
-        [MaxLength(GlobalConstants.ValidationConstants.MaxProductCommentLength)]
+        [MinLength(ValidationConstants.CommentContentMinLength)]
+        [MaxLength(ValidationConstants.CommentContentMaxLength)]
         public string Content { get; set; }
 
         [Required]
-        //[UIHint("DropDownUserId")]
         [UIHint("DropDown")]
         public string UserId { get; set; }
 
@@ -35,7 +34,6 @@
 
         [Required]
         [UIHint("DropDown")]
-        //[UIHint("GridForeignKey")]
         public int ProductId { get; set; }
 
         //public ProductDetailsForCommentViewModel Product { get; set; }
@@ -49,6 +47,7 @@
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Comment, CommentViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId))
                 .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
                 ;

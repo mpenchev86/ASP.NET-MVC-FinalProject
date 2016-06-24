@@ -16,18 +16,19 @@
         //public int Id { get; set; }
 
         [Required]
-        [MaxLength(GlobalConstants.ValidationConstants.MaxOriginalFileNameLength)]
+        [MaxLength(ValidationConstants.ImageOriginalFileNameMaxLength)]
         public string OriginalFileName { get; set; }
 
         [Required]
-        [MaxLength(GlobalConstants.ValidationConstants.MaxFileExtensionLength)]
+        [MaxLength(ValidationConstants.ImageFileExtensionMaxLength)]
         public string FileExtension { get; set; }
 
         public string UrlPath { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)
         {
-            //throw new NotImplementedException();
+            configuration.CreateMap<Image, ImageDetailsForProductViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
         }
     }
 }
