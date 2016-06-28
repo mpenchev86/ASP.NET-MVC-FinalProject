@@ -82,12 +82,6 @@
         }
 
 #region DataProviders
-        public JsonResult GetAllPropertyDetailsForDescriptionViewModel()
-        {
-            var properties = this.propertiesService.GetAll().To<PropertyDetailsForDescriptionViewModel>();
-            return this.Json(properties, JsonRequestBehavior.AllowGet);
-        }
-
         protected override void PopulateEntity(Property entity, PropertyViewModel viewModel)
         {
             entity.Name = viewModel.Name;

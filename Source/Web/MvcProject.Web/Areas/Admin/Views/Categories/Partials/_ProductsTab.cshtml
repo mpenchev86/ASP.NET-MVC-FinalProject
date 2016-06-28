@@ -1,25 +1,6 @@
 ﻿@using MvcProject.Web.Areas.Admin.ViewModels.Products
 @using MvcProject.Web.Infrastructure.HtmlHelpers
 
-@*@(Html.ClientDetailsGrid<ProductDetailsForCategoryViewModel>(
-    name: "products_grid_#=Id#",
-    action: "GetProductsByCategoryId",
-    controller: "Categories",
-    routeValues: new { area = "Admin", categoryId = "#=Id#" },
-    pageSize: 10,
-    columns: col =>
-    {
-        col.Bound(c => c.Id).Title("ID");
-        col.Bound(c => c.Title).Width("30%");
-        col.Bound(c => c.ShortDescription).Width("40%");
-        col.Bound(c => c.UnitPrice);
-        col.Bound(c => c.CreatedOn);
-        col.Bound(c => c.ModifiedOn);
-    },
-    readHandler: "dataHandler")
-    .ToClientTemplate()
-    .ToMvcClientTemplate())*@
-
 @(Html.ClientDetailsGrid<ProductDetailsForCategoryViewModel>(
     name: "products-grid_#=Id#",
     columns: cols =>
@@ -27,10 +8,9 @@
         cols.Bound(c => c.Id).Title("ID");
         cols.Bound(c => c.Title).Width("30%");
         cols.Bound(c => c.ShortDescription).Width("40%");
-        cols.Bound(c => c.UnitPrice);
+        //cols.Bound(c => c.UnitPrice);
         cols.Bound(c => c.CreatedOn);
-        cols.Bound(c => c.ModifiedOn);
+        //cols.Bound(c => c.ModifiedOn);
     })
-    .HtmlAttributes(new { @class = "details-grid" })
     .ToClientTemplate()
 )

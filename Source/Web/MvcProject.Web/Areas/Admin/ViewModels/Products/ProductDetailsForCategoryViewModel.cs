@@ -20,9 +20,6 @@
 
     public class ProductDetailsForCategoryViewModel : BaseAdminViewModel<int>, IMapFrom<Product>, IHaveCustomMappings
     {
-        //[Key]
-        //public int Id { get; set; }
-
         [Required]
         [DataType(DataType.MultilineText)]
         [MaxLength(ValidationConstants.ProductTitleMaxLength)]

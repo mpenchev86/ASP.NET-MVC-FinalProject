@@ -72,13 +72,6 @@
         }
 
 #region DataProviders
-        [HttpPost]
-        public JsonResult GetProductsByCategoryId([DataSourceRequest]DataSourceRequest request, int categoryId)
-        {
-            var products = this.categoriesService.GetById(categoryId).Products.AsQueryable().To<ProductDetailsForCategoryViewModel>();
-            return this.GetCollectionAsDataSourceResult(request, products, this.ModelState);
-        }
-
         protected override void PopulateEntity(Category entity, CategoryViewModel viewModel)
         {
             if (viewModel.Products != null)
@@ -100,12 +93,6 @@
         protected override IEnumerable<CategoryViewModel> GetDataAsEnumerable()
         {
             return base.GetDataAsEnumerable().OrderBy(x => x.Name);
-        }
-
-        public override JsonResult GetDataAsJson()
-        {
-            var categories = this.GetDataAsEnumerable();
-            return this.Json(categories, JsonRequestBehavior.AllowGet);
         }
 #endregion
     }

@@ -1,0 +1,67 @@
+﻿@model MvcProject.Web.Areas.Admin.ViewModels.Images.ImageViewModel
+
+<div class="container-fluid">
+    <div class="row">
+        @Html.HiddenFor(m => m.Id)
+    </div>
+
+    <div class="row">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.OriginalFileName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(m => m.OriginalFileName)
+            @Html.ValidationMessageFor(model => model.OriginalFileName)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.FileExtension)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(m => m.FileExtension)
+            @Html.ValidationMessageFor(model => model.FileExtension)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.UrlPath)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(m => m.UrlPath)
+            @Html.ValidationMessageFor(model => model.UrlPath)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.ProductId, "Product Id")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(
+                m => m.ProductId,
+                new
+                {
+                    OptionLabel = "Select Product...",
+                    DropDownName = "ProductId",
+                    Text = "Id",
+                    Value = "Id",
+                    Action = "GetDataAsJson",
+                    Controller = "Products"
+                })
+            @Html.ValidationMessageFor(m => m.ProductId)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.IsDeleted, "Mark as deleted")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(m => m.IsDeleted)
+            @Html.ValidationMessageFor(model => model.IsDeleted)
+        </div>
+    </div>
+</div>

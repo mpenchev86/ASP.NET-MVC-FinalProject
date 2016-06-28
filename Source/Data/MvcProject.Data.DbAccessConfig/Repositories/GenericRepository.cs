@@ -11,8 +11,8 @@
     using Models.EntityContracts;
 
     // TODO: Why BaseModel<int> instead BaseModel<TKey>?
-    public class GenericRepository<T> : IRepository<T>
-        where T : class, IBaseEntityModel<int>
+    public abstract class GenericRepository<T, TKey> : IRepository<T, TKey>
+        where T : class, IBaseEntityModel<TKey>
     {
         public GenericRepository(DbContext context)
         {
@@ -29,7 +29,7 @@
 
         protected DbContext Context { get; set; }
 
-        public IQueryable<T> All()
+        public virtual IQueryable<T> All()
         {
             return this.DbSet;
         }
@@ -39,15 +39,9 @@
             return this.DbSet.Where(x => !x.IsDeleted);
         }
 
-        public virtual T GetById(int id)
-        {
-            return this.All().FirstOrDefault(x => x.Id == id);
-        }
+        public abstract T GetById(TKey id);
 
-        public virtual T GetByIdFromNotDeleted(int id)
-        {
-            return this.AllNotDeleted().FirstOrDefault(x => x.Id == id);
-        }
+        public abstract T GetByIdFromNotDeleted(TKey id);
 
         public virtual void Add(T entity)
         {
@@ -79,7 +73,7 @@
             entity.DeletedOn = DateTime.Now;
         }
 
-        public virtual void DeletePermanent(int id)
+        public virtual void DeletePermanent(TKey id)
         {
             var entity = this.GetById(id);
             this.DeletePermanent(entity);
@@ -107,12 +101,12 @@
             entry.State = EntityState.Detached;
         }
 
-        public void SaveChanges()
+        public virtual void SaveChanges()
         {
             this.Context.SaveChanges();
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             this.Context.Dispose();
         }

@@ -4,16 +4,6 @@
     using System.Linq;
     using Models.EntityContracts;
 
-    public interface IRepository<T> : IRepository<T, int>
-        where T : class, IBaseEntityModel<int>
-    {
-    }
-
-    //public interface IUserRepository<T> : IRepository<T, string>
-    //    where T : class, IBaseEntityModel<string>
-    //{
-    //}
-
     public interface IRepository<T, TKey>
         where T : IBaseEntityModel<TKey>
     {
@@ -33,12 +23,22 @@
 
         void DeletePermanent(T entity);
 
-        void DeletePermanent(int id);
+        void DeletePermanent(TKey id);
 
         void Detach(T entity);
 
         void SaveChanges();
 
         void Dispose();
+    }
+
+    public interface IIntPKRepository<T> : IRepository<T, int>
+        where T : class, IBaseEntityModel<int>
+    {
+    }
+
+    public interface IStringPKRepository<T> : IRepository<T, string>
+        where T : class, IBaseEntityModel<string>
+    {
     }
 }

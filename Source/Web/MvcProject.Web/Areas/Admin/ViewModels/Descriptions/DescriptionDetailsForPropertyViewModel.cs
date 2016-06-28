@@ -12,9 +12,6 @@
 
     public class DescriptionDetailsForPropertyViewModel : BaseAdminViewModel<int>, IMapFrom<Description>, IHaveCustomMappings
     {
-        //[Key]
-        //public int Id { get; set; }
-
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Description, DescriptionDetailsForPropertyViewModel>()

@@ -14,9 +14,6 @@
 
     public class PropertyViewModel : BaseAdminViewModel<int>, IMapFrom<Property>, IHaveCustomMappings
     {
-        //[Key]
-        //public int Id { get; set; }
-
         [Required]
         [DataType(DataType.MultilineText)]
         public string Name { get; set; }

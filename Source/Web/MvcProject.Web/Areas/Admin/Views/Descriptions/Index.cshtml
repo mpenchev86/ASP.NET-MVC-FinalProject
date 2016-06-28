@@ -51,14 +51,15 @@
             ;
     },
     htmlAttributes: new { @class = "main-grid" },
-    //readHandler: "dataHandler",
-    createHandler: "dataHandler",
-    updateHandler: "dataHandler",
-    destroyHandler: "dataHandler"
+    readHandler: "readHandler",
+    createHandler: "createHandler",
+    updateHandler: "updateHandler",
+    destroyHandler: "destroyHandler"
     )
+    .Events(e => e.DetailInit("detailInit"))
+    .ClientDetailTemplateId("description-details-template")
     .Selectable()
     .AllowCopy(true)
-    .ClientDetailTemplateId("description-details-template")
     .Deferred()
 )
 
@@ -71,6 +72,7 @@
     </style>
 
     <link href="@Url.Content("~/Content/Custom/Admin/main-grid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Custom/Admin/details-grid.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Custom/Admin/custom-popup-editor.css")" rel="stylesheet" type="text/css" />
 }
 
@@ -79,6 +81,7 @@
 
     <script src="@Url.Content("~/Scripts/Custom/error-handler.js")"></script>
     <script src="@Url.Content("~/Scripts/Custom/datetime-handlers.js")"></script>
+    <script src="@Url.Content("~/Scripts/Custom/grid-details-helpers.js")"></script>
 
     <script id="description-details-template" type="text/kendo-tmpl">
         @(Html.Partial("_DescriptionDetailsTabStrip"))
@@ -87,8 +90,24 @@
     <script>
         kendo.culture("@BundleConfig.UiCulture");
 
-        function dataHandler(data) {
+        function readHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);
+        }
+
+        function createHandler(data) {
+            datetimeHandlers.normalizeDateProperties(data);
+        }
+
+        function updateHandler(data) {
+            datetimeHandlers.normalizeDateProperties(data);
+        }
+
+        function destroyHandler(data) {
+            datetimeHandlers.normalizeDateProperties(data);
+        }
+
+        function detailInit(e) {
+            gridDetailsHelpers.setDataSource("#properties-grid_" + e.data.Id, e.data.Properties, 10);
         }
     </script>
 }

@@ -19,6 +19,7 @@
     using MvcProject.Services.Data;
     using ViewModels;
     using ViewModels.Comments;
+    using ViewModels.Roles;
     using ViewModels.Users;
     using ViewModels.Votes;
 
@@ -26,16 +27,19 @@
     public class UsersController : BaseGridController<ApplicationUser, UserViewModel, IUsersService, string>
     {
         private readonly IUsersService usersService;
+        private readonly IRolesService rolesService;
         private readonly ICommentsService commentsService;
         private readonly IVotesService votesService;
 
         public UsersController(
             IUsersService usersService,
+            IRolesService rolesService,
             ICommentsService commentsService,
             IVotesService votesService)
             : base(usersService)
         {
             this.usersService = usersService;
+            this.rolesService = rolesService;
             this.commentsService = commentsService;
             this.votesService = votesService;
         }
@@ -43,7 +47,12 @@
         // GET: Admin/Users
         public ActionResult Index()
         {
-            return this.View();
+            var foreignKeys = new UserViewModelForeignKeys
+            {
+                Roles = this.rolesService.GetAll().To<RoleDetailsForUserViewModel>().ToList()
+            };
+
+            return this.View(foreignKeys);
         }
 
         [HttpPost]
@@ -78,28 +87,12 @@
             return base.Destroy(request, viewModel);
         }
 
-#region DataProviders
-        [HttpPost]
-        public JsonResult GetCommentsByUserId([DataSourceRequest]DataSourceRequest request, string userId)
-        {
-            var result = this.usersService
-                .GetById(userId)
-                .Comments
-                .AsQueryable()
-                .To<CommentDetailsForUserViewModel>();
-            return this.Json(result.ToDataSourceResult(request, this.ModelState));
-        }
-
-        [HttpPost]
-        public JsonResult GetVotesByUserId([DataSourceRequest]DataSourceRequest request, string userId)
-        {
-            var result = this.usersService
-                .GetById(userId)
-                .Votes
-                .AsQueryable()
-                .To<VoteDetailsForUserViewModel>();
-            return this.Json(result.ToDataSourceResult(request, this.ModelState));
-        }
+        #region DataProviders
+        //public JsonResult GetAllRoles()
+        //{
+        //    var roles = this.rolesService.GetAllRoles().To<RoleDetailsForUserViewModel>();
+        //    return this.Json(roles, JsonRequestBehavior.AllowGet);
+        //}
 
         protected override void PopulateEntity(ApplicationUser entity, UserViewModel viewModel)
         {
@@ -122,17 +115,11 @@
             }
 
             entity.UserName = viewModel.UserName;
-            entity.MainRole = viewModel.MainRole;
             entity.CreatedOn = viewModel.CreatedOn;
             entity.ModifiedOn = viewModel.ModifiedOn;
             entity.IsDeleted = viewModel.IsDeleted;
             entity.DeletedOn = viewModel.DeletedOn;
         }
-
-        //public override JsonResult GetDataAsJson()
-        //{
-        //    return base.GetDataAsJson();
-        //}
         #endregion
     }
 }

@@ -15,9 +15,6 @@
 
     public class VoteViewModel : BaseAdminViewModel<int>, IMapFrom<Vote>, IHaveCustomMappings
     {
-        //[Key]
-        //public int Id { get; set; }
-
         [Required]
         [Range(ValidationConstants.VoteValueMin, ValidationConstants.VoteValueMax)]
         public int VoteValue { get; set; }

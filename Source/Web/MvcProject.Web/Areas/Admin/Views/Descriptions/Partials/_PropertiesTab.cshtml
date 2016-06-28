@@ -2,11 +2,7 @@
 @using MvcProject.Web.Infrastructure.HtmlHelpers
 
 @(Html.ClientDetailsGrid<PropertyDetailsForDescriptionViewModel>(
-    name: "properties_grid_#=Id#",
-    action: "GetPropertiesByDescriptionId",
-    controller: "Descriptions",
-    routeValues: new { area = "Admin", descriptionId = "#=Id#" },
-    pageSize: 10,
+    name: "properties-grid_#=Id#",
     columns: col =>
     {
         col.Bound(c => c.Id).Title("ID");
@@ -14,8 +10,6 @@
         col.Bound(c => c.Value).Width("40%");
         col.Bound(c => c.CreatedOn);
         col.Bound(c => c.ModifiedOn);
-    },
-    readHandler: "dataHandler")
-    .ToClientTemplate()
-    .ToMvcClientTemplate())
+    })
+    .ToClientTemplate())
 

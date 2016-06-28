@@ -20,30 +20,22 @@
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
-        private ApplicationSignInManager signInManager;
         private ApplicationUserManager userManager;
+        private ApplicationRoleManager roleManager;
+        private ApplicationSignInManager signInManager;
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public AccountController(
+            ApplicationUserManager userManager,
+            ApplicationRoleManager roleManager,
+            ApplicationSignInManager signInManager)
         {
             this.UserManager = userManager;
+            this.RoleManager = roleManager;
             this.SignInManager = signInManager;
-        }
-
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return this.signInManager ?? this.HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-
-            private set
-            {
-                this.signInManager = value;
-            }
         }
 
         public ApplicationUserManager UserManager
@@ -56,6 +48,32 @@
             private set
             {
                 this.userManager = value;
+            }
+        }
+
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return this.roleManager ?? this.HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+            }
+
+            private set
+            {
+                this.roleManager = value;
+            }
+        }
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return this.signInManager ?? this.HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+
+            private set
+            {
+                this.signInManager = value;
             }
         }
 
@@ -444,10 +462,8 @@
             base.Dispose(disposing);
         }
 
-#pragma warning disable SA1124 // Do not use regions
         #region Helpers
         private void AddErrors(IdentityResult result)
-#pragma warning restore SA1124 // Do not use regions
         {
             foreach (var error in result.Errors)
             {

@@ -11,9 +11,6 @@
 
     public class PropertyDetailsForDescriptionViewModel : BaseAdminViewModel<int>, IMapFrom<Property>, IHaveCustomMappings
     {
-        //[Key]
-        //public int Id { get; set; }
-
         [Required]
         public string Name { get; set; }
 

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
     using System.Security.Claims;
@@ -15,7 +16,7 @@
     public class ApplicationUser : IdentityUser, IBaseEntityModel<string>, IAdministerable
     {
         private ICollection<Comment> comments;
-
+        //private ICollection<ApplicationRole> applicationRoles;
         private ICollection<Vote> votes;
 
         public ApplicationUser()
@@ -23,10 +24,15 @@
             // Prevents causing datetime2 convertion exception
             this.CreatedOn = DateTime.Now;
             this.comments = new HashSet<Comment>();
+            //this.applicationRoles = new HashSet<ApplicationRole>();
             this.votes = new HashSet<Vote>();
         }
 
-        public string MainRole { get; set; }
+        //public virtual ICollection<ApplicationRole> ApplicationRoles
+        //{
+        //    get { return this.applicationRoles; }
+        //    set { this.applicationRoles = value; }
+        //}
 
         public DateTime CreatedOn { get; set; }
 
@@ -49,7 +55,7 @@
             set { this.votes = value; }
         }
 
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser, string> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);

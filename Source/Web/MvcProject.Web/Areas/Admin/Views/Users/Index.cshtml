@@ -1,41 +1,7 @@
-﻿@*@model List<MvcProject.Web.Areas.Admin.ViewModels.Users.UserViewModel>*@
-
-@*@foreach (var user in Model)
-{
-    <div>
-        <h3>@user.Name - @user.Roles.FirstOrDefault()</h3>
-    </div>
-}*@
-
-@*@{
-    var data = new List<SelectListItem>();
-    for (int i = 0; i < 3; i++)
-    {
-        data.Add(new SelectListItem() { Text = i.ToString() + "cifra", Value = i.ToString() });
-    }
-}*@
-
-@*@(Html.Kendo().DropDownList()
-    .Name("kdropdownlist")
-    .DataTextField("Text")
-    .DataValueField("Value")
-    .Deferred()
-    //.DataSource(data =>
-    //{
-    //    data.Read();
-    //})
-    .BindTo(Model)
-    .OptionLabel("Select...")
-)*@
-
-
-
-
-
-@using MvcProject.Web.Infrastructure.HtmlHelpers
+﻿@using MvcProject.Web.Infrastructure.HtmlHelpers
 @using MvcProject.Web.Areas.Admin.ViewModels.Users
 
-@*@model ProductViewModelForeignKeys*@
+@model UserViewModelForeignKeys
 
 @{
     ViewBag.Title = "Users (ADMIN)";
@@ -58,14 +24,12 @@
         c.Command(cm => cm.Destroy().Text("Delete")).Width("120px");
         c.Bound(m => m.Id).Width("20%");
         c.Bound(m => m.UserName).Width("15%");
-        c.Bound(m => m.MainRole).Width("15%");
         c.Bound(m => m.CreatedOn);
         c.Bound(m => m.ModifiedOn);
         c.Bound(m => m.IsDeleted).Title("Marked As Deleted");
         c.Bound(m => m.DeletedOn);
     },
     toolbar: t => { },
-    //userCrud: true,
     dataSourceEvents: ev => { ev.Error("errorHandler.handler"); },
     isBatch: false,
     isServerOperation: true,
@@ -80,14 +44,9 @@
                     .Draggable(true)
                     .Scrollable(false)
                     .Resizable()
-                    //.ContentSettings(c => { c.Action("ContentSettings", "Products", new { area = "Admin" }); })
                     ;
             })
             .TemplateName("UserViewModelPopupEditor")
-            //.AdditionalViewData(new { categories = Model.Categories })
-            //.CreateAt(GridInsertRowPosition.Bottom)
-            //.ConfirmDelete("Delete?")
-            //.DisplayDeleteConfirmation(false)
             ;
     },
     htmlAttributes: new { @class = "main-grid" },
@@ -96,9 +55,10 @@
     updateHandler: "updateHandler",
     destroyHandler: "destroyHandler"
     )
+    .Events(e => e.DetailInit("detailInit"))
+    .ClientDetailTemplateId("user-details-template")
     .Selectable()
     .AllowCopy(true)
-    .ClientDetailTemplateId("user-details-template")
     .Deferred())
 
 @section styles{
@@ -107,16 +67,11 @@
         #usersGrid table {
             width: 2000px;
         }
-
-        #description-details {
-            margin-left: 0;
-            margin-right: 0;
-            width: 100%;
-        }
     </style>
 
-    <link href="@Url.Content("~/Content/Custom/Admin/custom-popup-editor.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Custom/Admin/main-grid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Custom/Admin/details-grid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Custom/Admin/custom-popup-editor.css")" rel="stylesheet" type="text/css" />
 }
 
 @section Scripts{
@@ -124,6 +79,7 @@
 
     <script src="@Url.Content("~/Scripts/Custom/error-handler.js")"></script>
     <script src="@Url.Content("~/Scripts/Custom/datetime-handlers.js")"></script>
+    <script src="@Url.Content("~/Scripts/Custom/grid-details-helpers.js")"></script>
 
     <script id="user-details-template" type="text/kendo-tmpl">
         @(Html.Partial("_UserDetailsTabStrip"))
@@ -133,64 +89,25 @@
         kendo.culture('@BundleConfig.UiCulture');
 
         function readHandler(data) {
-            //console.log($("#productsGrid").data("kendoGrid"));
-            //console.log($(".k-window-content").data("kendoWindow"));
-            dataHandler(data);
-        }
-
-        //function createHandler(data) {
-        //    dataHandler(data);
-        //    //console.log($("#productsGrid").data("kendoGrid"));
-        //    //console.log($(".k-window-content").data("kendoWindow").element.context);
-        //    //showData(data);
-        //}
-
-        function updateHandler(data) {
-            dataHandler(data);
-        }
-
-        function destroyHandler(data) {
-            dataHandler(data);
-        }
-
-        function dataHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);
         }
 
-        //function onAdditionalData() {
-        //    console.log(Object
-        //        .keys($("#propertiesMultiSelect")
-        //        .data("kendoMultiSelect")
-        //        ));
-        //    return {
-        //        descriptionId: data["Description.Id"]
-        //    };
+        //function createHandler(data) {
+        //    datetimeHandlers.normalizeDateProperties(data);
         //}
 
-        //$(document).ready(function () {
-        //    var gridData = $('#productsGrid').data("kendoGrid");
-        //    console.log(gridData);
-        //});
+        function updateHandler(data) {
+            datetimeHandlers.normalizeDateProperties(data);
+        }
 
-        //function loadProperties() {
-        //    $("#propertiesMultiSelect").kendoMultiSelect();
+        function destroyHandler(data) {
+            datetimeHandlers.normalizeDateProperties(data);
+        }
 
-        //    var multiselect = $("#propertiesMultiSelect").data("kendoMultiSelect");
-
-        //    // get data items for the selected options.
-        //    //var dataItem = multiselect.dataItems();
-
-        //    //console.log(dataItem);
-        //    //console.log(multiselect.initialValues);
-        //    console.log(multiselect._initialValues);
-        //}
-
-        //// jquery.validate to ignore the empty string in dropdownlist value
-        //$.validator.defaults.ignore = "";
-
-        //function showData(data) {
-        //    console.log($("#CategoryId").data("kendoDropDownList").dataItem());
-        //    console.log($("#CategoryId").data("kendoDropDownList").value());
-        //}
+        function detailInit(e) {
+            gridDetailsHelpers.setDataSource("#comments-grid_" + e.data.Id, e.data.Comments, 10);
+            gridDetailsHelpers.setDataSource("#votes-grid_" + e.data.Id, e.data.Votes, 10);
+            gridDetailsHelpers.setDataSource("#roles-grid_" + e.data.Id, e.data.Roles, 10);
+        }
     </script>
 }

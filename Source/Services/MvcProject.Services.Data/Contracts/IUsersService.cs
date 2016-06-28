@@ -12,12 +12,12 @@
 
     public interface IUsersService : IBaseService<ApplicationUser, string>
     {
-        IQueryable<string> GetUserRoles(string userId);
+        //IQueryable<ApplicationRole> GetAllRoles();
+
+        //IQueryable<string> GetUserRoles(string userId);
 
         IdentityResult RemoveFromRoles(string userId, string[] roles);
 
         IdentityResult AddToRole(string userId, string[] roles);
-
-        //IdentityResult DeleteUserPermanent(string userId);
     }
 }

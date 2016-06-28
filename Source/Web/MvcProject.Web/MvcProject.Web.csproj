@@ -241,6 +241,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\ApplicationRoleManager.cs" />
     <Compile Include="App_Start\ApplicationSignInManager.cs" />
     <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\AutoMapperInit.cs" />
@@ -259,6 +260,7 @@
     <Compile Include="Areas\Admin\Controllers\ImagesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\PropertiesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\TagsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Admin\Controllers\VotesController.cs" />
@@ -274,8 +276,10 @@
     <Compile Include="Areas\Admin\ViewModels\Descriptions\DescriptionViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Images\ImageDetailsForProductViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Images\ImageViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Images\ImageViewModelForeignKeys.cs" />
     <Compile Include="Areas\Admin\ViewModels\Products\ProductDetailsForCategoryViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Products\ProductDetailsForCommentViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Products\ProductDetailsForImageViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Products\ProductDetailsForTagViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Products\ProductDetailsForVoteViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Products\ProductViewModelForeignKeys.cs" />
@@ -285,9 +289,14 @@
     <Compile Include="Areas\Admin\ViewModels\Properties\PropertyViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Tags\TagDetailsForProductViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Tags\TagViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Roles\RoleDetailsForUserViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Roles\RoleViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Roles\RoleViewModelForeignKeys.cs" />
     <Compile Include="Areas\Admin\ViewModels\Users\UserDetailsForCommentViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Users\UserDetailsForRoleViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Users\UserDetailsForVoteViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Users\UserViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Users\UserViewModelForeignKeys.cs" />
     <Compile Include="Areas\Admin\ViewModels\Votes\VoteDetailsForProductViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Votes\VoteDetailsForUserViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Votes\VoteViewModel.cs" />
@@ -1310,7 +1319,13 @@
     <Content Include="Areas\Admin\Views\Users\Partials\_UserDetailsTabStrip.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Partials\_CommentsTab.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Partials\_VotesTab.cshtml" />
-    <Content Include="Areas\Admin\Views\Products\Test.cshtml" />
+    <Content Include="Areas\Admin\Views\Images\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Partials\_RolesTab.cshtml" />
+    <Content Include="Areas\Admin\Views\Roles\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Roles\EditorTemplates\RoleViewModelPopupEditor.cshtml" />
+    <Content Include="Areas\Admin\Views\Roles\Partials\_RoleDetailsTabStrip.cshtml" />
+    <Content Include="Areas\Admin\Views\Roles\Partials\_UsersTab.cshtml" />
+    <Content Include="Areas\Admin\Views\Images\EditorTemplates\ImageViewModelPopupEditor.cshtml" />
     <None Include="Properties\PublishProfiles\testWebDep.pubxml" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.dll" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.xml" />

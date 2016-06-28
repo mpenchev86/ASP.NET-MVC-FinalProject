@@ -23,9 +23,6 @@
             this.properties = new HashSet<PropertyDetailsForDescriptionViewModel>();
         }
 
-        //[Key]
-        //public int Id { get; set; }
-
         [Required]
         [MaxLength(ValidationConstants.DescriptionContentMaxLength)]
         [DataType(DataType.MultilineText)]

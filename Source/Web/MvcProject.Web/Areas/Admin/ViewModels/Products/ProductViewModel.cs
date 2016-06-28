@@ -37,9 +37,6 @@
             this.images = new HashSet<ImageDetailsForProductViewModel>();
         }
 
-        //[Key]
-        //public int Id { get; set; }
-
         [Required]
         [DataType(DataType.MultilineText)]
         [MaxLength(ValidationConstants.ProductTitleMaxLength)]
@@ -170,14 +167,14 @@
                                 CreatedOn = v.CreatedOn,
                                 ModifiedOn = v.ModifiedOn
                             })))
-                .ForMember(dest => dest.tags, opt => opt.MapFrom(
+                .ForMember(dest => dest.Tags, opt => opt.MapFrom(
                             src => src.Tags.Select(t => new TagDetailsForProductViewModel
                             {
                                 Id = t.Id,
                                 Name = t.Name,
                                 CreatedOn = t.CreatedOn,
                                 ModifiedOn = t.ModifiedOn
-                            }).ToList()))
+                            })))
                 ;
         }
     }

@@ -1,6 +1,6 @@
 ﻿var collectionHelpers = (function () {
     function idsCollection(collection) {
-        if (collection.length == 0) {
+        if (collection.length === 0) {
             return "";
         }
 
@@ -16,7 +16,7 @@
     }
 
     function objectIdsCollection(collection) {
-        if (collection.length == 0) {
+        if (collection.length === 0) {
             return "";
         }
 

@@ -23,9 +23,6 @@
             this.products = new HashSet<ProductDetailsForCategoryViewModel>();
         }
 
-        //[Key]
-        //public int Id { get; set; }
-
         [Required]
         [DataType(DataType.MultilineText)]
         [MaxLength(ValidationConstants.CategoryNameMaxLenght)]
@@ -53,7 +50,9 @@
                                 Id = p.Id,
                                 Title = p.Title,
                                 ShortDescription = p.ShortDescription,
-                                UnitPrice = p.UnitPrice
+                                //UnitPrice = p.UnitPrice,
+                                CreatedOn = p.CreatedOn,
+                                //ModifiedOn = p.ModifiedOn
                             })))
                 ;
         }

@@ -12,9 +12,6 @@
 
     public class CommentDetailsForProductViewModel : BaseAdminViewModel<int>, IMapFrom<Comment>, IHaveCustomMappings
     {
-        //[Key]
-        //public int Id { get; set; }
-
         [Required]
         [DataType(DataType.MultilineText)]
         [MinLength(ValidationConstants.CommentContentMinLength)]

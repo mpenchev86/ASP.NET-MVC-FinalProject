@@ -24,9 +24,6 @@
             this.products = new HashSet<ProductDetailsForTagViewModel>();
         }
 
-        //[Key]
-        //public int Id { get; set; }
-
         [Required]
         [MaxLength(ValidationConstants.TagNameMaxLength)]
         public string Name { get; set; }

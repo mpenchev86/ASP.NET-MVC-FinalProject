@@ -35,22 +35,21 @@
             //    new Person { FullName = "Rowan Miller" }
             //  );
 
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-            if (!roleManager.Roles.Any())
+            //var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            if (!context.Roles.Any())
             {
-                string[] roles =
-                {
-                    GlobalConstants.IdentityRoles.Admin,
-                    GlobalConstants.IdentityRoles.Customer
-                };
-                IdentityResult roleResult;
-                foreach (var role in roles)
-                {
-                    if (!roleManager.RoleExists(role))
+                context.Roles.AddOrUpdate(
+                    r => r.Id,
+                    new ApplicationRole
                     {
-                        roleResult = roleManager.Create(new IdentityRole(role));
-                    }
-                }
+                        Name = GlobalConstants.IdentityRoles.Admin,
+                        CreatedOn = DateTime.Now
+                    },
+                    new ApplicationRole
+                    {
+                        Name = GlobalConstants.IdentityRoles.Customer,
+                        CreatedOn = DateTime.Now
+                    });
             }
 
             if (!context.Users.Any())
@@ -67,7 +66,8 @@
                         TwoFactorEnabled = false,
                         LockoutEnabled = false,
                         AccessFailedCount = 50,
-                        UserName = "initial1@mail.com"
+                        UserName = "initial1@mail.com",
+                        //MainRoleId = roleManager.Roles.FirstOrDefault(r => r.Name == "Customer").Id
                     },
                     new ApplicationUser
                     {
@@ -79,7 +79,8 @@
                         TwoFactorEnabled = false,
                         LockoutEnabled = false,
                         AccessFailedCount = 50,
-                        UserName = "initial2@mail.com"
+                        UserName = "initial2@mail.com",
+                        //MainRoleId = roleManager.Roles.FirstOrDefault(r => r.Name == "Customer").Id
                     });
 
                 context.SaveChanges();

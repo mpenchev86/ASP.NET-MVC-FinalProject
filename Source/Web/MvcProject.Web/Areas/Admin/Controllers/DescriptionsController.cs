@@ -73,23 +73,6 @@
         }
 
 #region DataProviders
-        [HttpPost]
-        public ActionResult GetPropertiesByDescriptionId([DataSourceRequest]DataSourceRequest request, int? descriptionId)
-        {
-            var properties = new List<PropertyDetailsForDescriptionViewModel>();
-            if (descriptionId != null)
-            {
-                properties = this.descriptionsService
-                    .GetById((int)descriptionId)
-                    .Properties
-                    .AsQueryable()
-                    .To<PropertyDetailsForDescriptionViewModel>()
-                    .ToList();
-            }
-
-            return this.Json(properties.AsEnumerable().ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
-        }
-
         protected override void PopulateEntity(Description entity, DescriptionViewModel viewModel)
         {
             if (viewModel.Properties != null)
@@ -108,10 +91,10 @@
             entity.DeletedOn = viewModel.DeletedOn;
         }
 
-        protected override IEnumerable<DescriptionViewModel> GetDataAsEnumerable()
-        {
-            return base.GetDataAsEnumerable().OrderBy(x => x.Id);
-        }
-        #endregion
+        //protected override IEnumerable<DescriptionViewModel> GetDataAsEnumerable()
+        //{
+        //    return base.GetDataAsEnumerable().OrderBy(x => x.Id);
+        //}
+#endregion
     }
 }

@@ -15,9 +15,6 @@
 
     public class ImageViewModel : BaseAdminViewModel<int>, IMapFrom<Image>, IHaveCustomMappings
     {
-        //[Key]
-        //public int Id { get; set; }
-
         [Required]
         [MaxLength(ValidationConstants.ImageOriginalFileNameMaxLength)]
         public string OriginalFileName { get; set; }
@@ -28,6 +25,7 @@
 
         public string UrlPath { get; set; }
 
+        [UIHint("DropDown")]
         public int? ProductId { get; set; }
 
         [Index]

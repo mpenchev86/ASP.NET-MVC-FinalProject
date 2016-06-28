@@ -5,26 +5,38 @@
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
+
     using Data.Models;
     using GlobalConstants;
+    using Infrastructure.Extensions;
     using Kendo.Mvc.UI;
     using Services.Data;
     using ViewModels.Images;
+    using ViewModels.Products;
 
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
     public class ImagesController : BaseGridController<Image, ImageViewModel, IImagesService, int>
     {
         private readonly IImagesService imagesService;
+        private readonly IProductsService productsService;
 
-        public ImagesController(IImagesService imagesService)
+        public ImagesController(
+            IImagesService imagesService,
+            IProductsService productsService)
             : base(imagesService)
         {
             this.imagesService = imagesService;
+            this.productsService = productsService;
         }
 
         public ActionResult Index()
         {
-            return this.View();
+            var foreignKeys = new ImageViewModelForeignKeys
+            {
+                Products = this.productsService.GetAll().To<ProductDetailsForImageViewModel>().ToList()
+            };
+
+            return this.View(foreignKeys);
         }
 
         [HttpPost]
@@ -66,6 +78,7 @@
             return base.Destroy(request, viewModel);
         }
 
+        #region DataProviders
         protected override void PopulateEntity(Image entity, ImageViewModel viewModel)
         {
             entity.OriginalFileName = viewModel.OriginalFileName;
@@ -77,5 +90,6 @@
             entity.IsDeleted = viewModel.IsDeleted;
             entity.DeletedOn = viewModel.DeletedOn;
         }
+        #endregion
     }
 }

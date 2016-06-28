@@ -2,11 +2,7 @@
 @using MvcProject.Web.Infrastructure.HtmlHelpers
 
 @(Html.ClientDetailsGrid<VoteDetailsForUserViewModel>(
-    name: "votes_grid_#=Id#",
-    action: "GetVotesByUserId",
-    controller: "Users",
-    routeValues: new { area = "Admin", userId = "#=Id#" },
-    pageSize: 10,
+    name: "votes-grid_#=Id#",
     columns: col =>
     {
         col.Bound(c => c.Id).Title("ID").Width("10%");
@@ -15,5 +11,4 @@
         col.Bound(c => c.CreatedOn);
         col.Bound(c => c.ModifiedOn);
     })
-    .ToClientTemplate()
-    .ToMvcClientTemplate())
+    .ToClientTemplate())

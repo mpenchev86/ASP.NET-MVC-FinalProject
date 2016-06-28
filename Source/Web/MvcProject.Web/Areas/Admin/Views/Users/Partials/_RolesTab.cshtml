@@ -1,0 +1,11 @@
+﻿@using MvcProject.Web.Areas.Admin.ViewModels.Roles
+@using MvcProject.Web.Infrastructure.HtmlHelpers
+
+@(Html.ClientDetailsGrid<RoleDetailsForUserViewModel>(
+    name: "roles-grid_#=Id#",
+    columns: col =>
+    {
+        col.Bound(c => c.Id).Title("ID").Width("10%");
+        col.Bound(c => c.Name).Width("40%");
+    })
+    .ToClientTemplate())

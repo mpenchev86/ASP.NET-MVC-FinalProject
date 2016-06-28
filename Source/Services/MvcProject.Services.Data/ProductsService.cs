@@ -11,11 +11,11 @@
 
     public class ProductsService : IProductsService
     {
-        private readonly IRepository<Product> products;
+        private readonly IIntPKRepository<Product> products;
         private IIdentifierProvider idProvider;
 
         public ProductsService(
-            IRepository<Product> products,
+            IIntPKRepository<Product> products,
             IIdentifierProvider idProvider)
         {
             this.products = products;

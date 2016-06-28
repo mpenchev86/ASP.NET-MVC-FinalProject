@@ -15,10 +15,10 @@
     using Models.EntityContracts;
     using MvcProject.GlobalConstants;
 
-    public class MvcProjectDbContext : IdentityDbContext<ApplicationUser>, IMvcProjectDbContext
+    public class MvcProjectDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string, IdentityUserLogin, IdentityUserRole, IdentityUserClaim>, IMvcProjectDbContext
     {
         public MvcProjectDbContext()
-            : base(GlobalConstants.DbAccess.DefaultConnectionString, throwIfV1Schema: false)
+            : base(GlobalConstants.DbAccess.DefaultConnectionString/*, throwIfV1Schema: false*/)
         {
         }
 

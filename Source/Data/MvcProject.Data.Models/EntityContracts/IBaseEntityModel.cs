@@ -9,6 +9,7 @@
 
     public interface IBaseEntityModel<TKey> : IAuditInfo, IDeletableEntity
     {
+        [Key]
         TKey Id { get; set; }
     }
 }

@@ -63,12 +63,30 @@
             builder
                 .Register(x => HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationUserManager>()
                 /*new ApplicationUserManager(new UserStore<ApplicationUser>(new MvcProjectDbContext()))*/)
-                .As<UserManager<ApplicationUser>>();
-                //.InstancePerRequest();
+                .As<UserManager<ApplicationUser, string>>()
+                //.InstancePerRequest()
+                ;
 
             builder
-                .RegisterGeneric(typeof(GenericRepository<>))
-                .As(typeof(IRepository<>))
+                .Register(x => HttpContext.Current.Request.GetOwinContext().Get<ApplicationRoleManager>()
+                /*new ApplicationUserManager(new UserStore<ApplicationUser>(new MvcProjectDbContext()))*/)
+                .As<RoleManager<ApplicationRole, string>>()
+                //.InstancePerRequest()
+                ;
+
+            //builder
+            //    .RegisterGeneric(typeof(GenericRepository<>))
+            //    .As(typeof(IRepository<>))
+            //    .InstancePerRequest();
+
+            builder
+                .RegisterGeneric(typeof(EfIntPKRepository<>))
+                .As(typeof(IIntPKRepository<>))
+                .InstancePerRequest();
+
+            builder
+                .RegisterGeneric(typeof(EfStringPKRepository<>))
+                .As(typeof(IStringPKRepository<>))
                 .InstancePerRequest();
 
             builder
@@ -90,19 +108,19 @@
             builder
                 .RegisterAssemblyTypes(dataServicesAssembly)
                 .AsImplementedInterfaces()
-                .InstancePerRequest();  // Could be wrong
+                .InstancePerRequest();
 
             var webServicesAssembly = Assembly.Load(Assemblies.WebServicesAssemblyName);
             builder
                 .RegisterAssemblyTypes(webServicesAssembly)
                 .AsImplementedInterfaces()
-                .InstancePerRequest();  // Could be wrong
+                .InstancePerRequest();
 
             var infrastructureAssembly = Assembly.Load(Assemblies.InfrastructureAssemblyName);
             builder
                 .RegisterAssemblyTypes(infrastructureAssembly)
                 .AsImplementedInterfaces()
-                .InstancePerRequest();  // Could be wrong
+                .InstancePerRequest();
 
             builder
                 .RegisterAssemblyTypes(Assembly.GetExecutingAssembly())

@@ -13,9 +13,6 @@
 
     public class VoteDetailsForUserViewModel : BaseAdminViewModel<int>, IMapFrom<Vote>, IHaveCustomMappings
     {
-        //[Key]
-        //public int Id { get; set; }
-
         [Required]
         public int ProductId { get; set; }
 

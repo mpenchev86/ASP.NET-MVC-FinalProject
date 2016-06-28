@@ -20,64 +20,87 @@
 
     public class UsersService : IUsersService
     {
-        private readonly UserManager<ApplicationUser> userManager;
+        private readonly UserManager<ApplicationUser, string> userManager;
+        private readonly RoleManager<ApplicationRole, string> roleManager;
+        private readonly IStringPKRepository<ApplicationUser> users;
         private IIdentifierProvider idProvider;
 
-        public UsersService(UserManager<ApplicationUser> userManager, IIdentifierProvider idProvider)
+        public UsersService(
+            UserManager<ApplicationUser, string> userManager,
+            RoleManager<ApplicationRole, string> roleManager,
+            IStringPKRepository<ApplicationUser> users,
+            IIdentifierProvider idProvider)
         {
             this.userManager = userManager;
+            this.roleManager = roleManager;
+            this.users = users;
             this.idProvider = idProvider;
         }
 
         public IQueryable<ApplicationUser> GetAll()
         {
-            var users = this.userManager.Users;
-            var asList = users.ToList();
-            return users;
+            // var users = this.userManager.Users;
+            // var asList = users.ToList();
+            // return users;
+            var result = this.users.All().OrderBy(x => x.Id);
+            return result;
         }
 
         public IQueryable<ApplicationUser> GetAllNotDeleted()
         {
-            return this.userManager.Users.Where(user => !user.IsDeleted);
+            // return this.userManager.Users.Where(user => !user.IsDeleted);
+            var result = this.users.AllNotDeleted().OrderBy(x => x.Id);
+            return result;
         }
 
         public ApplicationUser GetById(string id)
         {
-            var result = this.GetAll()
-                .Where(x => x.Id == id)
-                .FirstOrDefault();
-            return result;
+            // var result = this.GetAll()
+            //    .Where(x => x.Id == id)
+            //    .FirstOrDefault();
+            // return result;
+            return this.users.GetById(id);
         }
 
         public ApplicationUser GetByEncodedId(string id)
         {
             var decodedId = this.idProvider.DecodeIdToString(id);
-            var user = this.GetById(decodedId);
+            var user = this.users.GetById(decodedId);
             return user;
         }
 
         public ApplicationUser GetByIdFromNotDeleted(string id)
         {
-            var result = this.GetAllNotDeleted()
-                .Where(x => x.Id == id)
-                .FirstOrDefault();
-            return result;
+            // var result = this.GetAllNotDeleted()
+            //    .Where(x => x.Id == id)
+            //    .FirstOrDefault();
+            // return result;
+            return this.users.GetByIdFromNotDeleted(id);
         }
 
         public ApplicationUser GetByEncodedIdFromNotDeleted(string id)
         {
+            // var decodedId = this.idProvider.DecodeIdToString(id);
+            // var result = this.GetAllNotDeleted()
+            //    .Where(x => x.Id == decodedId)
+            //    .FirstOrDefault();
+            // return result;
             var decodedId = this.idProvider.DecodeIdToString(id);
-            var result = this.GetAllNotDeleted()
-                .Where(x => x.Id == decodedId)
-                .FirstOrDefault();
-            return result;
+            var user = this.users.GetByIdFromNotDeleted(decodedId);
+            return user;
         }
 
-        public IQueryable<string> GetUserRoles(string userId)
-        {
-            var roles = this.userManager.GetRoles(userId).AsQueryable();
-            return roles;
-        }
+        //public IQueryable<ApplicationRole> GetAllRoles()
+        //{
+        //    var roles = this.roleManager.Roles.OrderBy(r => r.Name);
+        //    return roles;
+        //}
+
+        //public IQueryable<string> GetUserRoles(string userId)
+        //{
+        //    var roles = this.userManager.GetRoles(userId).AsQueryable();
+        //    return roles;
+        //}
 
         public IdentityResult AddToRole(string userId, string[] roles)
         {
@@ -89,58 +112,52 @@
             return this.userManager.RemoveFromRoles(userId, roles);
         }
 
+        // Not used, AccountController has Register method implemented with userManager
         public void Insert(ApplicationUser entity)
         {
-            throw new NotImplementedException();
+            // throw new NotImplementedException();
+            this.users.Add(entity);
+            this.users.SaveChanges();
         }
 
         public void Update(ApplicationUser entity)
         {
-            this.ApplyMarkAsDeleted(entity);
-            this.userManager.Update(entity);
-        }
-
-        public void MarkAsDeleted(int id)
-        {
-            throw new NotImplementedException();
+            // this.ApplyMarkAsDeleted(entity);
+            // this.userManager.Update(entity);
+            this.users.Update(entity);
+            this.users.SaveChanges();
         }
 
         public void MarkAsDeleted(string id)
         {
+            // var entity = this.GetById(id);
+            // this.MarkAsDeleted(entity);
+            // this.userManager.Update(entity);
             var entity = this.GetById(id);
             this.MarkAsDeleted(entity);
-            this.userManager.Update(entity);
+            this.users.SaveChanges();
         }
 
         public void MarkAsDeleted(ApplicationUser entity)
         {
-            entity.DeletedOn = DateTime.Now;
-            this.userManager.Update(entity);
+            // entity.DeletedOn = DateTime.Now;
+            // this.userManager.Update(entity);
+            entity.IsDeleted = true;
+            this.users.SaveChanges();
         }
 
         public void DeletePermanent(string id)
         {
             var entity = this.GetById(id);
             this.DeletePermanent(entity);
+            this.users.SaveChanges();
         }
 
         public void DeletePermanent(ApplicationUser entity)
         {
-            this.userManager.Delete(entity);
-        }
-
-        //public IdentityResult DeleteUserPermanent(string userId)
-        //{
-        //    var user = this.GetById(userId);
-        //    return this.userManager.Delete(user);
-        //}
-
-        private void ApplyMarkAsDeleted(ApplicationUser entity)
-        {
-            if (entity.IsDeleted)
-            {
-                this.MarkAsDeleted(entity);
-            }
+            // this.userManager.Delete(entity);
+            this.users.DeletePermanent(entity);
+            this.users.SaveChanges();
         }
     }
 }

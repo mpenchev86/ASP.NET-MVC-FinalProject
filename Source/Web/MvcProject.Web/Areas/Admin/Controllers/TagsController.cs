@@ -73,13 +73,6 @@
         }
 
 #region DataProviders
-        [HttpPost]
-        public JsonResult GetProductsByTagId([DataSourceRequest]DataSourceRequest request, int tagId)
-        {
-            var products = this.tagsService.GetById(tagId).Products.AsQueryable().To<ProductDetailsForTagViewModel>();
-            return this.GetCollectionAsDataSourceResult(request, products, this.ModelState);
-        }
-
         protected override void PopulateEntity(Tag entity, TagViewModel viewModel)
         {
             if (viewModel.Products != null)

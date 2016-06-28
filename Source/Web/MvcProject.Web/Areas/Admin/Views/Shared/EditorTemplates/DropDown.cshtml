@@ -12,6 +12,10 @@
             .ServerFiltering(true)
             ;
     })
+    // Updating nullable fields when their current value is null doesn't work without it.
+    .ValuePrimitive(true)
+//// Updating nullable fields when their current value is null doesn't work without it.
+//.HtmlAttributes(new { data_value_primitive = "true" })
 //.Value(Model == 0 ? "" : Model.ToString())
 //.SelectedIndex(0)
 )

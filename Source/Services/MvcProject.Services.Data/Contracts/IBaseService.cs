@@ -24,9 +24,9 @@
 
         T GetByEncodedIdFromNotDeleted(string id);
 
-        void Insert(T propertyEntity);
+        void Insert(T entity);
 
-        void Update(T propertyEntity);
+        void Update(T entity);
 
         void MarkAsDeleted(TKey id);
 

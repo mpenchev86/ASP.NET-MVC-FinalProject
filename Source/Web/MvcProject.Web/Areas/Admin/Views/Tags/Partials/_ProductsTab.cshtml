@@ -2,18 +2,12 @@
 @using MvcProject.Web.Infrastructure.HtmlHelpers
 
 @(Html.ClientDetailsGrid<ProductDetailsForTagViewModel>(
-    name: "products_grid_#=Id#",
-    action: "GetProductsByTagId",
-    controller: "Tags",
-    routeValues: new { area = "Admin", tagId = "#=Id#" },
-    pageSize: 10,
+    name: "products-grid_#=Id#",
     columns: col =>
     {
-        col.Bound(c => c.Id).Title("ID");
+        col.Bound(c => c.Id).Title("ID").Width("10%");
         col.Bound(c => c.Title).Width("40%");
         col.Bound(c => c.CreatedOn);
         col.Bound(c => c.ModifiedOn);
-    },
-    readHandler: "dataHandler")
-    .ToClientTemplate()
-    .ToMvcClientTemplate())
+    })
+    .ToClientTemplate())

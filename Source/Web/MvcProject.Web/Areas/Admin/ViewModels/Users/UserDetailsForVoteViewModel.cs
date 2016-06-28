@@ -12,9 +12,6 @@
 
     public class UserDetailsForVoteViewModel : BaseAdminViewModel<string>, IMapFrom<ApplicationUser>, IHaveCustomMappings
     {
-        //[Key]
-        //public string Id { get; set; }
-
         /// <summary>
         /// Gets or sets the name of the user as displayed in the user interface.
         /// </summary>

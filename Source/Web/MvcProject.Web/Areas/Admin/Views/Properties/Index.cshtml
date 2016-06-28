@@ -12,14 +12,11 @@
     gridName: "propertiesGrid",
     controllerName: "Properties",
     routeValues: new { Area = "Admin" },
-    // For Non-Custom DataSource
     model: m =>
     {
         m.Id(p => p.Id);
         m.Field(p => p.Id).Editable(false);
     },
-    //// For Custom DataSource
-    //modelId: m => m.Id,
     pageSize: 50,
     virtualScroll: false,
     columns: c =>
@@ -35,12 +32,7 @@
         c.Bound(m => m.IsDeleted).Title("Marked As Deleted");
         c.Bound(m => m.DeletedOn);
     },
-    dataSourceEvents: events =>
-    {
-        events
-            .Error("errorHandler.handler")
-            ;
-    },
+    dataSourceEvents: events => { events.Error("errorHandler.handler"); },
     isBatch: false,
     isServerOperation: true,
     editingSettings: editor =>
@@ -55,19 +47,17 @@
                     .Scrollable(false)
                     .Resizable();
             })
-            //.CreateAt(GridInsertRowPosition.Bottom)
             .TemplateName("PropertyViewModelPopupEditor")
             .DisplayDeleteConfirmation(true);
     },
     htmlAttributes: new { @class = "main-grid" },
-    //readHandler: "dataHandler",
-    createHandler: "dataHandler",
-    updateHandler: "dataHandler",
-    destroyHandler: "dataHandler"
+    readHandler: "readHandler",
+    createHandler: "createHandler",
+    updateHandler: "updateHandler",
+    destroyHandler: "destroyHandler"
     )
-    //.ToolBar(t => t.Save())
-    //.Selectable()
-    //.AllowCopy(true)
+    .Selectable()
+    .AllowCopy(true)
     .Deferred())
 
 @section styles{
@@ -86,19 +76,25 @@
     @(Html.Kendo().DeferredScripts())
 
     <script src="@Url.Content("~/Scripts/Custom/error-handler.js")"></script>
-    @*<script src="@Url.Content("~/Scripts/Kendo/cultures/kendo.culture." + culture + ".min.js")"></script>*@
     <script src="@Url.Content("~/Scripts/Custom/datetime-handlers.js")"></script>
 
     <script>
         kendo.culture("@BundleConfig.UiCulture");
         
-        function dataHandler(data) {
+        function readHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);
         }
 
-        //$.ajaxSetup({
-        //    // Disable caching of AJAX responses
-        //    cache: false
-        //});
+        function createHandler(data) {
+            datetimeHandlers.normalizeDateProperties(data);
+        }
+
+        function updateHandler(data) {
+            datetimeHandlers.normalizeDateProperties(data);
+        }
+
+        function destroyHandler(data) {
+            datetimeHandlers.normalizeDateProperties(data);
+        }
     </script>
 }

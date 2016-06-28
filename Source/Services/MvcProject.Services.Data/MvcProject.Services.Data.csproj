@@ -96,6 +96,7 @@
     <Compile Include="Contracts\IImagesService.cs" />
     <Compile Include="Contracts\IProductsService.cs" />
     <Compile Include="Contracts\IPropertiesService.cs" />
+    <Compile Include="Contracts\IRolesService.cs" />
     <Compile Include="Contracts\ITagsService.cs" />
     <Compile Include="Contracts\IUsersService.cs" />
     <Compile Include="Contracts\IVotesService.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="ProductsService.cs" />
     <Compile Include="PropertiesService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RolesService.cs" />
     <Compile Include="TagsService.cs" />
     <Compile Include="UsersService.cs" />
     <Compile Include="VotesService.cs" />

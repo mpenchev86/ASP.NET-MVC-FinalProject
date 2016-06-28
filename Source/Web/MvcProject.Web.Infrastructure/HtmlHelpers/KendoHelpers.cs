@@ -26,8 +26,6 @@
             bool virtualScroll = false,
             int height = 500,
             Action<DataSourceModelDescriptorFactory<T>> model = null,
-            //Expression<Func<T, int>> modelId = null,
-            //IEnumerable<Expression<Func<T, object>>> modelFields = null,
             Action<GridColumnFactory<T>> columns = null,
             Action<GridToolBarCommandFactory<T>> toolbar = null,
             Action<DataSourceEventBuilder> dataSourceEvents = null,
@@ -36,7 +34,6 @@
             Action<GridSortSettingsBuilder<T>> sortSettings = null,
             Action<GridFilterableSettingsBuilder> filterSettings = null,
             Action<GridEditingSettingsBuilder<T>> editingSettings = null,
-            //bool userCrud = false,
             object htmlAttributes = null,
             bool isBatch = false,
             bool isServerOperation = false,
@@ -46,21 +43,6 @@
             string destroyHandler = null)
             where T : class
         {
-            //if (model == null)
-            //{
-            //    model = m => { };
-            //}
-
-            //if (modelId == null)
-            //{
-            //    modelId = ;
-            //}
-
-            //if (modelFields == null)
-            //{
-            //    modelFields = m => { };
-            //}
-
             if (columns == null)
             {
                 columns = cols =>
@@ -111,17 +93,6 @@
                 htmlAttributes = new { };
             }
 
-            //Action<CrudOperationBuilder> create;
-
-            //if (userCrud == false)
-            //{
-            //    create = c => c.Action("Create", controllerName, routeValues).Data(createHandler);
-            //}
-            //else
-            //{
-            //    create = null;
-            //}
-
             return helper.Kendo()
                 .Grid<T>()
                 .Name(gridName)
@@ -145,40 +116,6 @@
                 .Events(gridEvents)
                 .ToolBar(toolbar)
                 .DataSource(data => data
-                //.Custom()
-                //.Type("aspnetmvc-ajax")
-                //.Schema(schema => schema
-                //    .Data("Data")
-                //    .Total("Total")
-                //    .Errors("Errors")
-                //    .Model(m =>
-                //    {
-                //        m.Id(modelId);
-                //        //foreach (var field in modelFields)
-                //        //{
-                //        //    m.Field(field);
-                //        //}
-                //    }))
-                //.PageSize(30)
-                //.ServerPaging(isServerOperation)
-                //.ServerSorting(isServerOperation)
-                //.ServerFiltering(isServerOperation)
-                //.Transport(t => t
-                //    .Read(r => r
-                //        .Action("Read", controllerName, routeValues)
-                //        .Data(readHandler)
-                //        .Cache(false))
-                //    .Create(create => create
-                //        .Action("Create", controllerName, routeValues)
-                //        .Data(createHandler)
-                //        .Cache(false))
-                //    .Update(update => update
-                //        .Action("Update", controllerName, routeValues)
-                //        .Data(updateHandler))
-                //    .Destroy(destroy => destroy
-                //        .Action("Destroy", controllerName, routeValues)
-                //        .Data(destroyHandler))
-                //)
                     .Ajax()
                     .Batch(isBatch)
                     .ServerOperation(isServerOperation)
@@ -190,7 +127,6 @@
                     .Aggregates(aggregates)
                     .Read(read => read.Action("Read", controllerName, routeValues).Data(readHandler))
                     .Create(create => create.Action("Create", controllerName, routeValues).Data(createHandler))
-                    //.Create(create)
                     .Update(update => update.Action("Update", controllerName, routeValues).Data(updateHandler))
                     .Destroy(destroy => destroy.Action("Destroy", controllerName, routeValues).Data(destroyHandler)));
         }
@@ -211,11 +147,6 @@
                 };
             }
 
-            if (true)
-            {
-
-            }
-
             return helper.Kendo()
                 .Grid<T>()
                 .Name(name)
@@ -227,6 +158,8 @@
                     .Enabled(scrollable)
                     .Virtual(false)
                     .Height(height))
+                .Sortable()
+                .HtmlAttributes(new { @class = "details-grid" })
                 .Resizable(resizable => resizable.Columns(true));
         }
 
