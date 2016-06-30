@@ -22,13 +22,13 @@
     {
         private readonly UserManager<ApplicationUser, string> userManager;
         private readonly RoleManager<ApplicationRole, string> roleManager;
-        private readonly IStringPKRepository<ApplicationUser> users;
+        private readonly IStringPKRepositoryDeletable<ApplicationUser> users;
         private IIdentifierProvider idProvider;
 
         public UsersService(
             UserManager<ApplicationUser, string> userManager,
             RoleManager<ApplicationRole, string> roleManager,
-            IStringPKRepository<ApplicationUser> users,
+            IStringPKRepositoryDeletable<ApplicationUser> users,
             IIdentifierProvider idProvider)
         {
             this.userManager = userManager;
@@ -108,9 +108,24 @@
             return result;
         }
 
+        public async Task<IdentityResult> RemoveFromRole(string userId, string role)
+        {
+            var result = await this.userManager.RemoveFromRoleAsync(userId, role);
+            return result;
+        }
+
         public async Task<IdentityResult> RemoveFromRoles(string userId, string[] roles)
         {
-            var result = await this.userManager.RemoveFromRolesAsync(userId, roles);
+            IdentityResult result = new IdentityResult();
+            foreach (var role in roles)
+            {
+                result = await this.RemoveFromRole(userId, role);
+                if (!result.Succeeded)
+                {
+                    return result;
+                }
+            }
+
             return result;
         }
 

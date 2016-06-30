@@ -28,18 +28,21 @@
     {
         private readonly IUsersService usersService;
         private readonly IRolesService rolesService;
+        private readonly IUserRolesService<ApplicationUserRole> userRolesService;
         private readonly ICommentsService commentsService;
         private readonly IVotesService votesService;
 
         public UsersController(
             IUsersService usersService,
             IRolesService rolesService,
+            IUserRolesService<ApplicationUserRole> userRolesService,
             ICommentsService commentsService,
             IVotesService votesService)
             : base(usersService)
         {
             this.usersService = usersService;
             this.rolesService = rolesService;
+            this.userRolesService = userRolesService;
             this.commentsService = commentsService;
             this.votesService = votesService;
         }
@@ -138,17 +141,50 @@
             //using (var userManager = this.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>())
             //{
             //}
-            //var userManager = this.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            var entityRoles = this.usersService.GetUserRoles(entity.Id).ToArray();
-            this.usersService.RemoveFromRoles(entity.Id, entityRoles);
-            var viewRoles = viewModel.Roles.Select(r => r.Name).ToArray();
-            this.usersService.AddToRoles(viewModel.Id, viewRoles);
+
+            //var entityRoles = this.usersService.GetUserRoles(entity.Id).ToArray();
+            //this.usersService.RemoveFromRoles(entity.Id, entityRoles);
+            //var viewRoles = viewModel.Roles.Select(r => r.Name).ToArray();
+            //this.usersService.AddToRoles(viewModel.Id, viewRoles);
+
+            this.ProcessUserRoles(entity.Roles, viewModel.Roles, viewModel.Id, viewModel.UserName);
 
             entity.UserName = viewModel.UserName;
             entity.CreatedOn = viewModel.CreatedOn;
             entity.ModifiedOn = viewModel.ModifiedOn;
             entity.IsDeleted = viewModel.IsDeleted;
             entity.DeletedOn = viewModel.DeletedOn;
+        }
+
+        private void ProcessUserRoles(ICollection<ApplicationUserRole> entityRoles, ICollection<RoleDetailsForUserViewModel> viewModelRoles, string userId, string userName)
+        {
+            //var entityRolesNames = entityRoles.Select(r => r.RoleName).ToList();
+            var viewModelRolesNames = viewModelRoles.Select(r => r.Name).ToList();
+
+            //foreach (var roleName in entityRolesNames)
+            //{
+            //    if (viewModelRolesNames.Contains(roleName))
+            //    {
+            //        viewModelRolesNames.Remove(roleName);
+            //    }
+            //    else
+            //    {
+            //        this.userRolesService.RemoveUserFromAllRoles(userName);
+            //    }
+            //}
+
+            this.userRolesService.RemoveUserFromAllRoles(userName);
+
+            foreach (var role in viewModelRolesNames)
+            {
+                this.userRolesService.AddUserToRole(new ApplicationUserRole
+                {
+                    UserId = userId,
+                    UserName = userName,
+                    RoleId = this.rolesService.GetByName(role).Id,
+                    RoleName = role
+                });
+            }
         }
         #endregion
     }

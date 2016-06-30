@@ -1,4 +1,4 @@
-﻿namespace MvcProject.Data.DbAccessConfig
+﻿namespace MvcProject.Data.DbAccessConfig.IdentityStores
 {
     using System;
     using System.Collections.Generic;
@@ -10,9 +10,9 @@
     using Microsoft.AspNet.Identity.EntityFramework;
     using Models;
 
-    public class ApplicationUserStore : UserStore<ApplicationUser, ApplicationRole, string, IdentityUserLogin, ApplicationUserRole, IdentityUserClaim>
+    public class ApplicationRoleStore : RoleStore<ApplicationRole, string, ApplicationUserRole>
     {
-        public ApplicationUserStore(DbContext context)
+        public ApplicationRoleStore(DbContext context)
             : base(context)
         {
         }

@@ -9,5 +9,6 @@
 
     public interface IRolesService : IBaseService<ApplicationRole, string>
     {
+        ApplicationRole GetByName(string name);
     }
 }

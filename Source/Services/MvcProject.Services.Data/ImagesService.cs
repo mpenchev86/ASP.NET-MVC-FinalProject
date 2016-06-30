@@ -11,10 +11,10 @@
 
     public class ImagesService : IImagesService
     {
-        private readonly IIntPKRepository<Image> images;
+        private readonly IIntPKRepositoryDeletable<Image> images;
         private IIdentifierProvider idProvider;
 
-        public ImagesService(IIntPKRepository<Image> images, IIdentifierProvider idProvider)
+        public ImagesService(IIntPKRepositoryDeletable<Image> images, IIdentifierProvider idProvider)
         {
             this.images = images;
             this.idProvider = idProvider;

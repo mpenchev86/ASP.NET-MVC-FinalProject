@@ -11,10 +11,10 @@
 
     public class TagsService : ITagsService
     {
-        private readonly IIntPKRepository<Tag> tags;
+        private readonly IIntPKRepositoryDeletable<Tag> tags;
         private IIdentifierProvider idProvider;
 
-        public TagsService(IIntPKRepository<Tag> tags, IIdentifierProvider idProvider)
+        public TagsService(IIntPKRepositoryDeletable<Tag> tags, IIdentifierProvider idProvider)
         {
             this.tags = tags;
             this.idProvider = idProvider;

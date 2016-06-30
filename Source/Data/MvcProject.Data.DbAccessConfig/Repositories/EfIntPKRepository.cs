@@ -20,10 +20,5 @@
         {
             return this.All().FirstOrDefault(x => x.Id == id);
         }
-
-        public override T GetByIdFromNotDeleted(int id)
-        {
-            return this.AllNotDeleted().FirstOrDefault(x => x.Id == id);
-        }
     }
 }

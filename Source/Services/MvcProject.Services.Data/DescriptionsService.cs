@@ -12,10 +12,10 @@
 
     public class DescriptionsService : IDescriptionsService
     {
-        private readonly IIntPKRepository<Description> descriptions;
+        private readonly IIntPKRepositoryDeletable<Description> descriptions;
         private IIdentifierProvider idProvider;
 
-        public DescriptionsService(IIntPKRepository<Description> descriptions, IIdentifierProvider idProvider)
+        public DescriptionsService(IIntPKRepositoryDeletable<Description> descriptions, IIdentifierProvider idProvider)
         {
             this.descriptions = descriptions;
             this.idProvider = idProvider;

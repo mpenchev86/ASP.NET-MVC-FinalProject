@@ -4,7 +4,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
+
     using Data.DbAccessConfig;
+    using Data.DbAccessConfig.IdentityStores;
     using Data.Models;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
@@ -20,7 +22,7 @@
 
         public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options, IOwinContext context)
         {
-            var roleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole, string, ApplicationUserRole>(context.Get<MvcProjectDbContext>()));
+            var roleManager = new ApplicationRoleManager(/*new RoleStore<ApplicationRole, string, ApplicationUserRole>*/new ApplicationRoleStore(context.Get<MvcProjectDbContext>()));
             return roleManager;
         }
     }

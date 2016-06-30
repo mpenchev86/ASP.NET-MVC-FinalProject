@@ -6,7 +6,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using Models.EntityContracts;
+    using MvcProject.Data.Models.EntityContracts;
 
     public class EfStringPKRepository<T> : GenericRepository<T, string>, IStringPKRepository<T>
         where T : class, IBaseEntityModel<string>
@@ -19,11 +19,6 @@
         public override T GetById(string id)
         {
             return this.All().FirstOrDefault(x => x.Id == id);
-        }
-
-        public override T GetByIdFromNotDeleted(string id)
-        {
-            return this.AllNotDeleted().FirstOrDefault(x => x.Id == id);
         }
     }
 }

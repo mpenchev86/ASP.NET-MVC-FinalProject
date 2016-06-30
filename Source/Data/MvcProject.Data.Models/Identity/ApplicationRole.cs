@@ -10,7 +10,7 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
 
-    public class ApplicationRole : IdentityRole<string, ApplicationUserRole>, IBaseEntityModel<string>, IAdministerable
+    public class ApplicationRole : IdentityRole<string, ApplicationUserRole>, IBaseEntityModel<string>, IDeletableEntity, IAuditInfo, IAdministerable
     {
         //private ICollection<ApplicationUser> applicationUsers;
 

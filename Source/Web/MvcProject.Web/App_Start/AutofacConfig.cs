@@ -80,13 +80,28 @@
             //    .InstancePerRequest();
 
             builder
-                .RegisterGeneric(typeof(EfIntPKRepository<>))
-                .As(typeof(IIntPKRepository<>))
+                .RegisterGeneric(typeof(EfIntPKRepositoryDeletable<>))
+                .As(typeof(IIntPKRepositoryDeletable<>))
                 .InstancePerRequest();
+
+            builder
+                .RegisterGeneric(typeof(EfStringPKRepositoryDeletable<>))
+                .As(typeof(IStringPKRepositoryDeletable<>))
+                .InstancePerRequest();
+
+            builder
+               .RegisterGeneric(typeof(EfIntPKRepository<>))
+               .As(typeof(IIntPKRepository<>))
+               .InstancePerRequest();
 
             builder
                 .RegisterGeneric(typeof(EfStringPKRepository<>))
                 .As(typeof(IStringPKRepository<>))
+                .InstancePerRequest();
+
+            builder
+                .Register(x => new UserRolesService(new EfIntPKRepository<ApplicationUserRole>(new MvcProjectDbContext())))
+                .As<IUserRolesService<ApplicationUserRole>>()
                 .InstancePerRequest();
 
             //builder

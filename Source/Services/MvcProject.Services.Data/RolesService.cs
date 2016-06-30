@@ -5,20 +5,24 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Microsoft.AspNet.Identity;
     using MvcProject.Data.DbAccessConfig.Repositories;
     using MvcProject.Data.Models;
     using Web;
 
     public class RolesService : IRolesService
     {
-        private readonly IStringPKRepository<ApplicationRole> roles;
+        private readonly IStringPKRepositoryDeletable<ApplicationRole> roles;
+        private readonly RoleManager<ApplicationRole, string> roleManager;
         private IIdentifierProvider idProvider;
 
         public RolesService(
-            IStringPKRepository<ApplicationRole> roles,
+            IStringPKRepositoryDeletable<ApplicationRole> roles,
+            RoleManager<ApplicationRole, string> roleManager,
             IIdentifierProvider idProvider)
         {
             this.roles = roles;
+            this.roleManager = roleManager;
             this.idProvider = idProvider;
         }
 
@@ -37,6 +41,11 @@
         public ApplicationRole GetById(string id)
         {
             return this.roles.GetById(id);
+        }
+
+        public ApplicationRole GetByName(string name)
+        {
+            return this.roleManager.FindByName(name);
         }
 
         public ApplicationRole GetByEncodedId(string id)

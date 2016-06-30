@@ -18,6 +18,8 @@
 
         Task<IdentityResult> RemoveFromRoles(string userId, string[] roles);
 
+        Task<IdentityResult> RemoveFromRole(string userId, string role);
+
         Task<IdentityResult> AddToRoles(string userId, string[] roles);
     }
 }

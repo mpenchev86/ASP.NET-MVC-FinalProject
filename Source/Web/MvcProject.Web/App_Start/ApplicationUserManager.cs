@@ -31,7 +31,7 @@
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser, ApplicationRole, string, IdentityUserLogin, ApplicationUserRole, IdentityUserClaim>/*new ApplicationUserStore*/(context.Get<MvcProjectDbContext>()), new EmailService(), new SmsService());
+            var manager = new ApplicationUserManager(/*new UserStore<ApplicationUser, ApplicationRole, string, IdentityUserLogin, ApplicationUserRole, IdentityUserClaim>*/new ApplicationUserStore(context.Get<MvcProjectDbContext>()), new EmailService(), new SmsService());
 
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)

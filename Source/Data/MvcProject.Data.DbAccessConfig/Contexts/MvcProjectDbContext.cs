@@ -101,6 +101,17 @@
             //return base.SaveChanges();
         }
 
+        //// Change the names of tables in sql server
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
+        //    modelBuilder.Entity<ApplicationUser>().ToTable("Users", "dbo");
+        //    modelBuilder.Entity<ApplicationRole>().ToTable("Roles", "dbo");
+        //    modelBuilder.Entity<ApplicationUserRole>().ToTable("UserRoles", "dbo");
+        //    modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaims", "dbo");
+        //    modelBuilder.Entity<IdentityUserLogin>().ToTable("UserLogins", "dbo");
+        //}
+
         private void ApplyAdditionalInfoRules()
         {
             // Approach via @julielerman: http://bit.ly/123661P

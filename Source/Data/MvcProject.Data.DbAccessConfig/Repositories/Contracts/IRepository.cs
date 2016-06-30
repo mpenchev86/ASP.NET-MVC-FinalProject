@@ -1,6 +1,5 @@
 ﻿namespace MvcProject.Data.DbAccessConfig.Repositories
 {
-    using System;
     using System.Linq;
     using Models.EntityContracts;
 
@@ -9,17 +8,11 @@
     {
         IQueryable<T> All();
 
-        IQueryable<T> AllNotDeleted();
-
         T GetById(TKey id);
-
-        T GetByIdFromNotDeleted(TKey id);
 
         void Add(T entity);
 
         void Update(T entity);
-
-        void DeleteMark(T entity);
 
         void DeletePermanent(T entity);
 
@@ -30,15 +23,5 @@
         void SaveChanges();
 
         void Dispose();
-    }
-
-    public interface IIntPKRepository<T> : IRepository<T, int>
-        where T : class, IBaseEntityModel<int>
-    {
-    }
-
-    public interface IStringPKRepository<T> : IRepository<T, string>
-        where T : class, IBaseEntityModel<string>
-    {
     }
 }

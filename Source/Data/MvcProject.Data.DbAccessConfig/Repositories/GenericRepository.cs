@@ -34,14 +34,10 @@
             return this.DbSet;
         }
 
-        public virtual IQueryable<T> AllNotDeleted()
-        {
-            return this.DbSet.Where(x => !x.IsDeleted);
-        }
-
+        
         public abstract T GetById(TKey id);
 
-        public abstract T GetByIdFromNotDeleted(TKey id);
+        //public abstract T GetByIdFromNotDeleted(TKey id);
 
         public virtual void Add(T entity)
         {
@@ -67,11 +63,7 @@
             entry.State = EntityState.Modified;
         }
 
-        public virtual void DeleteMark(T entity)
-        {
-            entity.IsDeleted = true;
-            entity.DeletedOn = DateTime.Now;
-        }
+        
 
         public virtual void DeletePermanent(TKey id)
         {

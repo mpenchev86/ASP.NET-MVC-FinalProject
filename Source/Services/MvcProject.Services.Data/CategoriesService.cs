@@ -11,10 +11,10 @@
 
     public class CategoriesService : ICategoriesService
     {
-        private readonly IIntPKRepository<Category> categories;
+        private readonly IIntPKRepositoryDeletable<Category> categories;
         private IIdentifierProvider idProvider;
 
-        public CategoriesService(IIntPKRepository<Category> categories, IIdentifierProvider idProvider)
+        public CategoriesService(IIntPKRepositoryDeletable<Category> categories, IIdentifierProvider idProvider)
         {
             this.categories = categories;
             this.idProvider = idProvider;

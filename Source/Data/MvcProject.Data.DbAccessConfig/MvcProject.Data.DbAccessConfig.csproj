@@ -58,15 +58,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IMvcProjectDbContext.cs" />
+    <Compile Include="IdentityStores\ApplicationRoleStore.cs" />
+    <Compile Include="IdentityStores\ApplicationUserStore.cs" />
+    <Compile Include="Contexts\IMvcProjectDbContext.cs" />
     <Compile Include="Migrations\201602041650145_InitialCreate.cs" />
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="MvcProjectDbContext.cs" />
+    <Compile Include="Contexts\MvcProjectDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Contracts\IDeletableRepository.cs" />
+    <Compile Include="Repositories\Contracts\IIntPKRepository.cs" />
+    <Compile Include="Repositories\Contracts\IIntPKRepositoryDeletable.cs" />
+    <Compile Include="Repositories\Contracts\IStringPKRepository.cs" />
+    <Compile Include="Repositories\Contracts\IStringPKRepositoryDeletable.cs" />
     <Compile Include="Repositories\EfIntPKRepository.cs" />
+    <Compile Include="Repositories\EfIntPKRepositoryDeletable.cs" />
     <Compile Include="Repositories\EfStringPKRepository.cs" />
+    <Compile Include="Repositories\EfStringPKRepositoryDeletable.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
-    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\Contracts\IRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -91,6 +100,7 @@
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

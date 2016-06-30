@@ -11,10 +11,10 @@
 
     public class CommentsService : ICommentsService
     {
-        private readonly IIntPKRepository<Comment> comments;
+        private readonly IIntPKRepositoryDeletable<Comment> comments;
         private IIdentifierProvider idProvider;
 
-        public CommentsService(IIntPKRepository<Comment> comments, IIdentifierProvider idProvider)
+        public CommentsService(IIntPKRepositoryDeletable<Comment> comments, IIdentifierProvider idProvider)
         {
             this.comments = comments;
             this.idProvider = idProvider;
