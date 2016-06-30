@@ -89,20 +89,20 @@
                 .As(typeof(IStringPKRepository<>))
                 .InstancePerRequest();
 
-            builder
-                .Register(x => new HttpCacheService())
-                .As<ICacheService>()
-                .InstancePerRequest();
+            //builder
+            //    .Register(x => new HttpCacheService())
+            //    .As<ICacheService>()
+            //    .InstancePerRequest();
 
-            builder
-                .Register(x => new IdentifierProvider())
-                .As<IIdentifierProvider>()
-                .InstancePerRequest();
+            //builder
+            //    .Register(x => new IdentifierProvider())
+            //    .As<IIdentifierProvider>()
+            //    .InstancePerRequest();
 
-            builder
-                .Register(x => new HtmlSanitizerAdapter())
-                .As<ISanitizer>()
-                .InstancePerRequest();
+            //builder
+            //    .Register(x => new HtmlSanitizerAdapter())
+            //    .As<ISanitizer>()
+            //    .InstancePerRequest();
 
             var dataServicesAssembly = Assembly.Load(Assemblies.DataServicesAssemblyName);
             builder

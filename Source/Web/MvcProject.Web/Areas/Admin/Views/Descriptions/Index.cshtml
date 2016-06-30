@@ -1,10 +1,9 @@
 ﻿@using MvcProject.Web.Areas.Admin.ViewModels.Descriptions
 @using MvcProject.Web.Infrastructure.HtmlHelpers
 
-@*@model CommentViewModelForeignKeys*@
-
 @{
     ViewBag.Title = "Descriptions (ADMIN)";
+    var userCulture = this.Request.UserLanguages.FirstOrDefault() ?? "en-US";
 }
 
 @(Html.FullFeaturedGrid<DescriptionViewModel>(
@@ -44,10 +43,7 @@
                     .Scrollable(false)
                     .Resizable();
             })
-            //.CreateAt(GridInsertRowPosition.Bottom)
             .TemplateName("DescriptionViewModelPopupEditor")
-            //.AdditionalViewData(new { hasDescription = "" })
-            //.DisplayDeleteConfirmation(false)
             ;
     },
     htmlAttributes: new { @class = "main-grid" },
@@ -88,7 +84,7 @@
     </script>
 
     <script>
-        kendo.culture("@BundleConfig.UiCulture");
+        kendo.culture('@userCulture');
 
         function readHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);

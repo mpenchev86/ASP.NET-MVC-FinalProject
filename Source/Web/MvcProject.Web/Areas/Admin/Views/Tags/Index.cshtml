@@ -1,10 +1,9 @@
 ﻿@using MvcProject.Web.Areas.Admin.ViewModels.Tags
 @using MvcProject.Web.Infrastructure.HtmlHelpers
 
-@*@model VoteViewModelForeignKeys*@
-
 @{
     ViewBag.Title = "Tags (ADMIN)";
+    var userCulture = this.Request.UserLanguages.FirstOrDefault() ?? "en-US";
 }
 
 @(Html.FullFeaturedGrid<TagViewModel>(
@@ -44,10 +43,7 @@
                     .Scrollable(false)
                     .Resizable();
             })
-            //.CreateAt(GridInsertRowPosition.Bottom)
             .TemplateName("TagViewModelPopupEditor")
-            //.AdditionalViewData(new { hasDescription = "" })
-            //.DisplayDeleteConfirmation(false)
             ;
     },
     htmlAttributes: new { @class = "main-grid" },
@@ -88,7 +84,7 @@
     </script>
 
     <script>
-        kendo.culture("@BundleConfig.UiCulture");
+        kendo.culture('@userCulture');
 
         function readHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);

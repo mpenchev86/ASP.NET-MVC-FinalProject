@@ -19,13 +19,11 @@
         public override T GetById(string id)
         {
             return this.All().FirstOrDefault(x => x.Id == id);
-            throw new NotImplementedException();
         }
 
         public override T GetByIdFromNotDeleted(string id)
         {
             return this.AllNotDeleted().FirstOrDefault(x => x.Id == id);
-            throw new NotImplementedException();
         }
     }
 }

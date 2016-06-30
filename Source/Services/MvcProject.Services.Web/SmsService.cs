@@ -7,7 +7,7 @@
     using System.Threading.Tasks;
     using Microsoft.AspNet.Identity;
 
-    public class SmsService : IIdentityMessageService
+    public class SmsService : /*IIdentityMessageService, */ISmsService
     {
         public Task SendAsync(IdentityMessage message)
         {

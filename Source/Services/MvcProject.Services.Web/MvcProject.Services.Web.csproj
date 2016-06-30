@@ -46,7 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\ICacheService.cs" />
+    <Compile Include="Contracts\IEmailService.cs" />
     <Compile Include="Contracts\IIdentifierProvider.cs" />
+    <Compile Include="Contracts\ISmsService.cs" />
     <Compile Include="EmailService.cs" />
     <Compile Include="HttpCacheService.cs" />
     <Compile Include="IdentifierProvider.cs" />

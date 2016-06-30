@@ -10,13 +10,26 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
 
-    public class ApplicationRole : IdentityRole, IBaseEntityModel<string>, IAdministerable
+    public class ApplicationRole : IdentityRole<string, ApplicationUserRole>, IBaseEntityModel<string>, IAdministerable
     {
         //private ICollection<ApplicationUser> applicationUsers;
 
         public ApplicationRole()
+            : base()
         {
+            // Initialized the new role with a Guid Id. The default implementation of IdentityRole takes care of it automatically.
+            // The following error occurs otherwise:
+            // [DbEntityValidationException: Entity Validation Failed - errors follow:
+            // MvcProject.Data.Models.ApplicationRole failed validation
+            // - Id : The Id field is required.
+            this.Id = Guid.NewGuid().ToString();
             //this.applicationUsers = new HashSet<ApplicationUser>();
+        }
+
+        public ApplicationRole(string name)
+            : this()
+        {
+            this.Name = name;
         }
 
         public DateTime CreatedOn { get; set; }

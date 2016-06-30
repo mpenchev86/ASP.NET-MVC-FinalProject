@@ -9,7 +9,7 @@
     public class BundleConfig
     {
         // Improve, if possible
-        public static string UiCulture = CultureInfo.CurrentUICulture.ToString();
+        private static string userCulture = CultureInfo.CurrentUICulture.ToString();
 
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
@@ -32,7 +32,7 @@
                     "~/Scripts/Kendo/jquery.min.js",
                     "~/Scripts/Kendo/kendo.all.min.js",
                     "~/Scripts/Kendo/kendo.aspnetmvc.min.js",
-                    "~/Scripts/Kendo/cultures/kendo.culture." + UiCulture + ".min.js"));
+                    "~/Scripts/Kendo/cultures/kendo.culture." + userCulture + ".min.js"));
 
             bundles.Add(new ScriptBundle(GlobalConstants.Bundles.ScriptsSignalR)
                 .Include(

@@ -17,6 +17,41 @@
 
     <div class="row">
         <div class="editor-label">
+            @Html.LabelFor(m => m.Roles)
+        </div>
+        <div class="editor-field">
+            @*@Html.EditorFor(m => m.Roles)*@
+            @(Html.Kendo().MultiSelect()
+                .Name("rolesMultiSelect")
+                .TagMode(TagMode.Multiple)
+                .Placeholder("Select roles...")
+                .DataTextField("Name")
+                .DataValueField("Id")
+                .Filter(FilterType.Contains)
+                //.BindTo(Model.Roles)
+                .DataSource(data =>
+                {
+                    data
+                        .ServerFiltering(true)
+                        .Read(read =>
+                        {
+                            read
+                                .Action("GetRolesForUserViewModel", "Users", new { area = "Admin", id = "b8ce53a3-5dda-4cf1-b826-62d0be8e52a1" })
+                                ;
+                        })
+                        ;
+                })
+                .HtmlAttributes(/*ViewData["htmlAttributes"]*/new
+                {
+                    data_bind = "value: Roles",
+                })
+            )
+            @Html.ValidationMessageFor(model => model.Roles)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="editor-label">
             @Html.LabelFor(m => m.IsDeleted, "Mark as deleted")
         </div>
         <div class="editor-field">

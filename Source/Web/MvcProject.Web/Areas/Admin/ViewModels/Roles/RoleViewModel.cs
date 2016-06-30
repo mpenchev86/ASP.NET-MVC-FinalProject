@@ -9,16 +9,18 @@
     using Data.Models;
     using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin;
     using Users;
     using ViewModels;
 
     public class RoleViewModel : BaseAdminViewModel<string>, IMapFrom<ApplicationRole>, IHaveCustomMappings
     {
-        private ICollection<UserDetailsForRoleViewModel> applicationUsers;
+        private ICollection<UserDetailsForRoleViewModel> users;
 
         public RoleViewModel()
         {
-            this.applicationUsers = new HashSet<UserDetailsForRoleViewModel>();
+            this.users = new HashSet<UserDetailsForRoleViewModel>();
         }
 
         public string Name { get; set; }
@@ -29,10 +31,10 @@
         [LongDateTimeFormat]
         public DateTime? DeletedOn { get; set; }
 
-        public virtual ICollection<UserDetailsForRoleViewModel> ApplicationUsers
+        public virtual ICollection<UserDetailsForRoleViewModel> Users
         {
-            get { return this.applicationUsers; }
-            set { this.applicationUsers = value; }
+            get { return this.users; }
+            set { this.users = value; }
         }
 
         public void CreateMappings(IMapperConfiguration configuration)
@@ -40,14 +42,14 @@
             configuration.CreateMap<ApplicationRole, RoleViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-                //.ForMember(dest => dest.ApplicationUsers, opt => opt.MapFrom(
-                //            src => src.ApplicationUsers.Select(user => new UserDetailsForRoleViewModel
-                //            {
-                //                Id = user.Id,
-                //                UserName = user.UserName,
-                //                CreatedOn = user.CreatedOn,
-                //                ModifiedOn = user.ModifiedOn
-                //            })))
+                .ForMember(dest => dest.Users, opt => opt.MapFrom(
+                            src => src.Users.Select(user => new UserDetailsForRoleViewModel
+                            {
+                                Id = user.UserId,
+                                UserName = user.UserName,
+                                //CreatedOn = user.CreatedOn,
+                                //ModifiedOn = user.ModifiedOn
+                            })))
                 ;
         }
     }

@@ -20,11 +20,9 @@
     using ViewModels.Products;
 
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
-    //[OutputCache(Duration = 0, NoStore = true, VaryByParam = "None")]
-    //[NoCache]
     public class BaseGridController<TEntityModel, TViewModel, TService, TKey> : BaseController
         where TEntityModel : class, IBaseEntityModel<TKey>, IAdministerable
-        where TViewModel : /*class */BaseAdminViewModel<TKey>, IMapFrom<TEntityModel>
+        where TViewModel : BaseAdminViewModel<TKey>, IMapFrom<TEntityModel>
         where TService : IBaseService<TEntityModel, TKey>
     {
         private TService dataService;
@@ -37,7 +35,7 @@
         [HttpPost]
         public virtual ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
-            var viewModel = this.GetDataAsEnumerable()/*.ToList()*/;
+            var viewModel = this.GetDataAsEnumerable();
             var dataSourceResult = viewModel.ToDataSourceResult(request, this.ModelState);
             return this.Json(dataSourceResult, JsonRequestBehavior.AllowGet);
         }
@@ -55,7 +53,7 @@
         }
 
         [HttpPost]
-        public virtual ActionResult Destroy([DataSourceRequest]DataSourceRequest request, TViewModel viewModel/*, int viewModelId*/)
+        public virtual ActionResult Destroy([DataSourceRequest]DataSourceRequest request, TViewModel viewModel)
         {
             if (viewModel != null && this.ModelState.IsValid)
             {

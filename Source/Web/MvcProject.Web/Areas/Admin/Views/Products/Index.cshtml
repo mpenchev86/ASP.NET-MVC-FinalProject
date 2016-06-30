@@ -1,11 +1,13 @@
 ﻿@using MvcProject.Web.Infrastructure.HtmlHelpers
 @using MvcProject.Web.Areas.Admin.ViewModels.Descriptions
 @using MvcProject.Web.Areas.Admin.ViewModels.Products
+@using System.Globalization
 
 @model ProductViewModelForeignKeys
 
 @{
     ViewBag.Title = "Products (ADMIN)";
+    var userCulture = this.Request.UserLanguages.FirstOrDefault() ?? "en-US";
 }
 
 @(Html.FullFeaturedGrid<ProductViewModel>(
@@ -110,7 +112,7 @@
     </script>
 
     <script>
-        kendo.culture('@BundleConfig.UiCulture');
+        kendo.culture('@userCulture');
 
         function readHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);

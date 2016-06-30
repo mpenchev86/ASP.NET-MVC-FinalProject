@@ -4,6 +4,7 @@
 
 @{
     ViewBag.Title = "Home - OrderIt";
+    var userCulture = this.Request.UserLanguages.FirstOrDefault() ?? "en-US";
 }
 
 
@@ -63,6 +64,6 @@
 @section Scripts {
     @Html.Kendo().DeferredScripts()
     <script>
-        kendo.culture('@BundleConfig.UiCulture');
+        kendo.culture('@userCulture');
     </script>
 }

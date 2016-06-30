@@ -1,12 +1,9 @@
 ﻿@using MvcProject.Web.Areas.Admin.ViewModels.Categories
 @using MvcProject.Web.Infrastructure.HtmlHelpers
-@using System.Globalization
-
-@*@model CommentViewModelForeignKeys*@
 
 @{
     ViewBag.Title = "Categories (ADMIN)";
-    //var culture = CultureInfo.CurrentUICulture.ToString();
+    var userCulture = this.Request.UserLanguages.FirstOrDefault() ?? "en-US";
 }
 
 @(Html.FullFeaturedGrid<CategoryViewModel>(
@@ -46,10 +43,7 @@
                     .Scrollable(false)
                     .Resizable();
             })
-            //.CreateAt(GridInsertRowPosition.Bottom)
             .TemplateName("CategoryViewModelPopupEditor")
-            //.AdditionalViewData(new { hasDescription = "" })
-            //.DisplayDeleteConfirmation(false)
             ;
     },
     htmlAttributes: new { @class = "main-grid" },
@@ -90,7 +84,7 @@
     </script>
 
     <script>
-        kendo.culture("@BundleConfig.UiCulture");
+        kendo.culture('@userCulture');
 
         function readHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);

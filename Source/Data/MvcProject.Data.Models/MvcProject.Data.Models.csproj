@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Identity\ApplicationUserRole.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Comment.cs" />
     <Compile Include="Description.cs" />
@@ -68,10 +69,10 @@
     <Compile Include="EntityContracts\IDeletableEntity.cs" />
     <Compile Include="Image.cs" />
     <Compile Include="Property.cs" />
-    <Compile Include="ApplicationRole.cs" />
+    <Compile Include="Identity\ApplicationRole.cs" />
     <Compile Include="Vote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ApplicationUser.cs" />
+    <Compile Include="Identity\ApplicationUser.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="ShippingInfo.cs" />
     <Compile Include="Tag.cs" />

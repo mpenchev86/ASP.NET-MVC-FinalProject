@@ -5,6 +5,7 @@
 
 @{
     ViewBag.Title = "Users (ADMIN)";
+    var userCulture = this.Request.UserLanguages.FirstOrDefault() ?? "en-US";
 }
 
 @(Html.FullFeaturedGrid<UserViewModel>(
@@ -51,7 +52,7 @@
     },
     htmlAttributes: new { @class = "main-grid" },
     readHandler: "readHandler",
-    //createHandler: "createHandler",
+    createHandler: "createHandler",
     updateHandler: "updateHandler",
     destroyHandler: "destroyHandler"
     )
@@ -86,15 +87,15 @@
     </script>
 
     <script>
-        kendo.culture('@BundleConfig.UiCulture');
+        kendo.culture('@userCulture');
 
         function readHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);
         }
 
-        //function createHandler(data) {
-        //    datetimeHandlers.normalizeDateProperties(data);
-        //}
+        function createHandler(data) {
+            datetimeHandlers.normalizeDateProperties(data);
+        }
 
         function updateHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);

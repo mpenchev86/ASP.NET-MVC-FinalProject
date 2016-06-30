@@ -1,11 +1,11 @@
 ﻿@using MvcProject.Web.Infrastructure.HtmlHelpers
 @using MvcProject.Web.Areas.Admin.ViewModels.Properties
-@using MvcProject.GlobalConstants
 
 @model PropertyViewModelForeignKeys
 
 @{
     ViewBag.Title = "Properties (ADMIN)";
+    var userCulture = this.Request.UserLanguages.FirstOrDefault() ?? "en-US";
 }
 
 @(Html.FullFeaturedGrid<PropertyViewModel>(
@@ -79,7 +79,7 @@
     <script src="@Url.Content("~/Scripts/Custom/datetime-handlers.js")"></script>
 
     <script>
-        kendo.culture("@BundleConfig.UiCulture");
+        kendo.culture('@userCulture');
         
         function readHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);

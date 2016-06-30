@@ -20,7 +20,7 @@
 
         public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options, IOwinContext context)
         {
-            var roleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole, string, IdentityUserRole>(context.Get<MvcProjectDbContext>()));
+            var roleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole, string, ApplicationUserRole>(context.Get<MvcProjectDbContext>()));
             return roleManager;
         }
     }

@@ -19,14 +19,19 @@
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
     public class ApplicationUserManager : UserManager<ApplicationUser, string>
     {
-        public ApplicationUserManager(IUserStore<ApplicationUser, string> store)
+        public ApplicationUserManager(
+            IUserStore<ApplicationUser, string> store,
+            IEmailService emailService,
+            ISmsService smsService)
             : base(store)
         {
+            this.EmailService = emailService;
+            this.SmsService = smsService;
         }
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser, ApplicationRole, string, IdentityUserLogin, IdentityUserRole, IdentityUserClaim>(context.Get<MvcProjectDbContext>()));
+            var manager = new ApplicationUserManager(new UserStore<ApplicationUser, ApplicationRole, string, IdentityUserLogin, ApplicationUserRole, IdentityUserClaim>/*new ApplicationUserStore*/(context.Get<MvcProjectDbContext>()), new EmailService(), new SmsService());
 
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
@@ -57,8 +62,8 @@
                 new PhoneNumberTokenProvider<ApplicationUser> { MessageFormat = "Your security code is {0}" });
             manager.RegisterTwoFactorProvider(
                 "Email Code", new EmailTokenProvider<ApplicationUser> { Subject = "Security Code", BodyFormat = "Your security code is {0}" });
-            manager.EmailService = new EmailService();
-            manager.SmsService = new SmsService();
+            //manager.EmailService = new EmailService();
+            //manager.SmsService = new SmsService();
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
@@ -67,6 +72,16 @@
             }
 
             return manager;
+        }
+
+        public override Task<IdentityResult> RemoveFromRolesAsync(string userId, params string[] roles)
+        {
+            return base.RemoveFromRolesAsync(userId, roles);
+        }
+
+        public override Task<IdentityResult> AddToRolesAsync(string userId, params string[] roles)
+        {
+            return base.AddToRolesAsync(userId, roles);
         }
     }
 }

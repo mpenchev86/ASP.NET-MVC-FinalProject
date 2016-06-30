@@ -5,6 +5,7 @@
 
 @{
     ViewBag.Title = "Comments (ADMIN)";
+    var userCulture = this.Request.UserLanguages.FirstOrDefault() ?? "en-US";
 }
 
 @(Html.FullFeaturedGrid<CommentViewModel>(
@@ -46,17 +47,14 @@
                     .Scrollable(false)
                     .Resizable();
             })
-            //.CreateAt(GridInsertRowPosition.Bottom)
             .TemplateName("CommentViewModelPopupEditor")
-            //.AdditionalViewData(new { hasDescription = "" })
-            //.DisplayDeleteConfirmation(false)
             ;
     },
     htmlAttributes: new { @class = "main-grid" },
-    //readHandler: "dataHandler",
-    createHandler: "dataHandler",
-    updateHandler: "dataHandler",
-    destroyHandler: "dataHandler"
+    readHandler: "readHandler",
+    createHandler: "createHandler",
+    updateHandler: "updateHandler",
+    destroyHandler: "destroyHandler"
     )
     .Selectable()
     .AllowCopy(true)
@@ -79,13 +77,24 @@
     @(Html.Kendo().DeferredScripts())
 
     <script src="@Url.Content("~/Scripts/Custom/error-handler.js")"></script>
-    @*<script src="@Url.Content("~/Scripts/Kendo/cultures/kendo.culture." + culture + ".min.js")"></script>*@
     <script src="@Url.Content("~/Scripts/Custom/datetime-handlers.js")"></script>
 
     <script>
-        kendo.culture("@BundleConfig.UiCulture");
+        kendo.culture('@userCulture');
 
-        function dataHandler(data) {
+        function readHandler(data) {
+            datetimeHandlers.normalizeDateProperties(data);
+        }
+
+        function createHandler(data) {
+            datetimeHandlers.normalizeDateProperties(data);
+        }
+
+        function updateHandler(data) {
+            datetimeHandlers.normalizeDateProperties(data);
+        }
+
+        function destroyHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);
         }
     </script>

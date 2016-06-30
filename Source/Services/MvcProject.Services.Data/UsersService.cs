@@ -90,26 +90,28 @@
             return user;
         }
 
-        //public IQueryable<ApplicationRole> GetAllRoles()
-        //{
-        //    var roles = this.roleManager.Roles.OrderBy(r => r.Name);
-        //    return roles;
-        //}
-
-        //public IQueryable<string> GetUserRoles(string userId)
-        //{
-        //    var roles = this.userManager.GetRoles(userId).AsQueryable();
-        //    return roles;
-        //}
-
-        public IdentityResult AddToRole(string userId, string[] roles)
+        public IQueryable<ApplicationRole> GetAllRoles()
         {
-            return this.userManager.AddToRoles(userId, roles);
+            var roles = this.roleManager.Roles.OrderBy(r => r.Name);
+            return roles;
         }
 
-        public IdentityResult RemoveFromRoles(string userId, string[] roles)
+        public IQueryable<string> GetUserRoles(string userId)
         {
-            return this.userManager.RemoveFromRoles(userId, roles);
+            var roles = this.userManager.GetRoles(userId).AsQueryable();
+            return roles;
+        }
+
+        public async Task<IdentityResult> AddToRoles(string userId, string[] roles)
+        {
+            var result = await this.userManager.AddToRolesAsync(userId, roles);
+            return result;
+        }
+
+        public async Task<IdentityResult> RemoveFromRoles(string userId, string[] roles)
+        {
+            var result = await this.userManager.RemoveFromRolesAsync(userId, roles);
+            return result;
         }
 
         // Not used, AccountController has Register method implemented with userManager

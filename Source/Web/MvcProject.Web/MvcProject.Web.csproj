@@ -1326,6 +1326,7 @@
     <Content Include="Areas\Admin\Views\Roles\Partials\_RoleDetailsTabStrip.cshtml" />
     <Content Include="Areas\Admin\Views\Roles\Partials\_UsersTab.cshtml" />
     <Content Include="Areas\Admin\Views\Images\EditorTemplates\ImageViewModelPopupEditor.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\TestRemoveFromRole.cshtml" />
     <None Include="Properties\PublishProfiles\testWebDep.pubxml" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.dll" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.xml" />

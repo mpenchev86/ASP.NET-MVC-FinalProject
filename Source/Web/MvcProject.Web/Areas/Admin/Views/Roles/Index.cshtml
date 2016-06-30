@@ -5,6 +5,7 @@
 
 @{
     ViewBag.Title = "Roles (ADMIN)";
+    var userCulture = this.Request.UserLanguages.FirstOrDefault() ?? "en-US";
 }
 
 @(Html.FullFeaturedGrid<RoleViewModel>(
@@ -29,7 +30,7 @@
         c.Bound(m => m.IsDeleted).Title("Marked As Deleted");
         c.Bound(m => m.DeletedOn);
     },
-    toolbar: t => { },
+    //toolbar: t => { },
     dataSourceEvents: ev => { ev.Error("errorHandler.handler"); },
     isBatch: false,
     isServerOperation: true,
@@ -56,9 +57,9 @@
     destroyHandler: "destroyHandler"
     )
     .Events(e => e.DetailInit("detailInit"))
+    .ClientDetailTemplateId("role-details-template")
     .Selectable()
     .AllowCopy(true)
-    .ClientDetailTemplateId("role-details-template")
     .Deferred())
 
 @section styles{
@@ -86,7 +87,7 @@
     </script>
 
     <script>
-        kendo.culture('@BundleConfig.UiCulture');
+        kendo.culture('@userCulture');
 
         function readHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);

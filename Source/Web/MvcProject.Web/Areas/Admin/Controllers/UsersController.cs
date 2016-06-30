@@ -55,6 +55,20 @@
             return this.View(foreignKeys);
         }
 
+        [HttpGet]
+        public ActionResult TestRemoveFromRole()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        public ActionResult TestRemoveFromRole(string removeId, string addId)
+        {
+            this.usersService.RemoveFromRoles(removeId, new string[] { "test" });
+            this.usersService.AddToRoles(addId, new string[] { "Customer" });
+            return this.View();
+        }
+
         [HttpPost]
         public override ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
@@ -94,6 +108,13 @@
         //    return this.Json(roles, JsonRequestBehavior.AllowGet);
         //}
 
+        public ActionResult GetRolesForUserViewModel(string id)
+        {
+            // Missing map from ApplicationUserRole to RoleDetailsForUserViewModel
+            var roles = this.usersService.GetById(id).Roles.Select(r => new RoleDetailsForUserViewModel { Id = r.RoleId, Name = r.RoleName })/*AsQueryable().To<RoleDetailsForUserViewModel>()*/;
+            return this.Json(roles, JsonRequestBehavior.AllowGet);
+        }
+
         protected override void PopulateEntity(ApplicationUser entity, UserViewModel viewModel)
         {
             if (viewModel.Comments != null)
@@ -113,6 +134,15 @@
                     entity.Votes.Add(this.votesService.GetById(vote.Id));
                 }
             }
+
+            //using (var userManager = this.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>())
+            //{
+            //}
+            //var userManager = this.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var entityRoles = this.usersService.GetUserRoles(entity.Id).ToArray();
+            this.usersService.RemoveFromRoles(entity.Id, entityRoles);
+            var viewRoles = viewModel.Roles.Select(r => r.Name).ToArray();
+            this.usersService.AddToRoles(viewModel.Id, viewRoles);
 
             entity.UserName = viewModel.UserName;
             entity.CreatedOn = viewModel.CreatedOn;
