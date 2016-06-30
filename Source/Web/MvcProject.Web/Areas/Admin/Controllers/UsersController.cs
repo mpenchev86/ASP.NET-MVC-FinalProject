@@ -105,11 +105,11 @@
         }
 
         #region DataProviders
-        //public JsonResult GetAllRoles()
-        //{
-        //    var roles = this.rolesService.GetAllRoles().To<RoleDetailsForUserViewModel>();
-        //    return this.Json(roles, JsonRequestBehavior.AllowGet);
-        //}
+        public JsonResult GetAllRoles()
+        {
+            var roles = this.rolesService.GetAll().To<RoleDetailsForUserViewModel>();
+            return this.Json(roles, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult GetRolesForUserViewModel(string id)
         {

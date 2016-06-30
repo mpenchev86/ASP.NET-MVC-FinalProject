@@ -1,4 +1,6 @@
-﻿@model MvcProject.Web.Areas.Admin.ViewModels.Users.UserViewModel
+﻿@using MvcProject.Web.Areas.Admin.ViewModels.Roles
+
+@model MvcProject.Web.Areas.Admin.ViewModels.Users.UserViewModel
 
 <div class="container-fluid">
     <div class="row">
@@ -28,23 +30,13 @@
                 .DataTextField("Name")
                 .DataValueField("Id")
                 .Filter(FilterType.Contains)
-                //.BindTo(Model.Roles)
                 .DataSource(data =>
                 {
                     data
                         .ServerFiltering(true)
-                        .Read(read =>
-                        {
-                            read
-                                .Action("GetRolesForUserViewModel", "Users", new { area = "Admin", id = "8bac2e78-710e-4a39-84ce-cd4e7dfb228d" })
-                                ;
-                        })
-                        ;
+                        .Read(read => { read.Action("GetAllRoles", "Users", new { area = "Admin" }); });
                 })
-                .HtmlAttributes(/*ViewData["htmlAttributes"]*/new
-                {
-                    data_bind = "value: Roles",
-                })
+                .HtmlAttributes(new { data_bind = "value: Roles" })
             )
             @Html.ValidationMessageFor(model => model.Roles)
         </div>
