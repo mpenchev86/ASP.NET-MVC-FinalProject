@@ -35,22 +35,6 @@
                     area = "Admin",
                     data_bind = "value: Roles"
                 })
-            
-            @*@(Html.Kendo().MultiSelect()
-                .Name("rolesMultiSelect")
-                .TagMode(TagMode.Multiple)
-                .Placeholder("Select roles...")
-                .DataTextField("Name")
-                .DataValueField("Id")
-                .Filter(FilterType.Contains)
-                .DataSource(data =>
-                {
-                    data
-                        .ServerFiltering(true)
-                        .Read(read => { read.Action("GetAllRoles", "Users", new { area = "Admin" }); });
-                })
-                .HtmlAttributes(new { data_bind = "value: Roles" })
-            )*@
             @Html.ValidationMessageFor(model => model.Roles)
         </div>
     </div>

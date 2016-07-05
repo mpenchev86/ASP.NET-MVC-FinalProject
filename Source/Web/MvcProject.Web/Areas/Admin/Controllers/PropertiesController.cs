@@ -51,13 +51,13 @@
         [HttpPost]
         public override ActionResult Create([DataSourceRequest]DataSourceRequest request, PropertyViewModel viewModel)
         {
-            if (viewModel != null && this.ModelState.IsValid)
-            {
-                var entity = new Property { };
-                this.PopulateEntity(entity, viewModel);
-                this.propertiesService.Insert(entity);
-                viewModel.Id = entity.Id;
-            }
+            //if (viewModel != null && this.ModelState.IsValid)
+            //{
+            //    var entity = new Property { };
+            //    this.PopulateEntity(entity, viewModel);
+            //    this.propertiesService.Insert(entity);
+            //    viewModel.Id = entity.Id;
+            //}
 
             return base.Create(request, viewModel);
         }

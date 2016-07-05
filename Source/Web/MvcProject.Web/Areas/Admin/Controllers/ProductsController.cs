@@ -76,13 +76,13 @@
         //[ValidateAntiForgeryToken]
         public override ActionResult Create([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel)
         {
-            if (viewModel != null && this.ModelState.IsValid)
-            {
-                var entity = new Product { };
-                this.PopulateEntity(entity, viewModel);
-                this.productsService.Insert(entity);
-                viewModel.Id = entity.Id;
-            }
+            //if (viewModel != null && this.ModelState.IsValid)
+            //{
+            //    var entity = new Product { };
+            //    this.PopulateEntity(entity, viewModel);
+            //    this.productsService.Insert(entity);
+            //    viewModel.Id = entity.Id;
+            //}
 
             return base.Create(request, viewModel);
         }
@@ -91,15 +91,15 @@
         //[ValidateAntiForgeryToken]
         public override ActionResult Update([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel)
         {
-            if (viewModel != null && this.ModelState.IsValid)
-            {
-                var entity = this.productsService.GetById(viewModel.Id);
-                if (entity != null)
-                {
-                    this.PopulateEntity(entity, viewModel);
-                    this.productsService.Update(entity);
-                }
-            }
+            //if (viewModel != null && this.ModelState.IsValid)
+            //{
+            //    var entity = this.productsService.GetById(viewModel.Id);
+            //    if (entity != null)
+            //    {
+            //        this.PopulateEntity(entity, viewModel);
+            //        this.productsService.Update(entity);
+            //    }
+            //}
 
             return base.Update(request, viewModel);
         }
@@ -127,7 +127,6 @@
 
             if (viewModel.Comments != null)
             {
-                //entity.Comments.Clear();
                 foreach (var comment in viewModel.Comments)
                 {
                     entity.Comments.Add(this.commentsService.GetById(comment.Id));

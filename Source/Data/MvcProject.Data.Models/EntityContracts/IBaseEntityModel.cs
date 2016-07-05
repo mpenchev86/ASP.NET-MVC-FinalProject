@@ -1,14 +1,19 @@
 ﻿namespace MvcProject.Data.Models.EntityContracts
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
-    public interface IBaseEntityModel<TKey>/* : IAuditInfo, IDeletableEntity*/
+    /// <summary>
+    /// Base interface inherited by all entities
+    /// </summary>
+    /// <typeparam name="TKey">The type of the entity's primary key</typeparam>
+    public interface IBaseEntityModel<TKey>
     {
+        /// <summary>
+        /// Gets or sets the unique identifier of the entity
+        /// </summary>
+        /// <value>
+        /// The unique identifier of the entity
+        /// </value>
         [Key]
         TKey Id { get; set; }
     }

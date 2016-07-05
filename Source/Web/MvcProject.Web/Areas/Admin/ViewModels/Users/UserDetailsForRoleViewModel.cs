@@ -6,6 +6,12 @@
 
     public class UserDetailsForRoleViewModel : BaseAdminViewModel<string>, IMapFrom<ApplicationUser>, IHaveCustomMappings
     {
+        /// <summary>
+        /// Gets or sets the name of the user as displayed in the user interface.
+        /// </summary>
+        /// <value>
+        /// The name of the user as displayed in the user interface.
+        /// </value>
         public string UserName { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)

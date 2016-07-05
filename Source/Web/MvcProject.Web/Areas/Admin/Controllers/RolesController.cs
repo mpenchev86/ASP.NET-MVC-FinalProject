@@ -47,30 +47,12 @@
         [HttpPost]
         public override ActionResult Create([DataSourceRequest]DataSourceRequest request, RoleViewModel viewModel)
         {
-            if (viewModel != null && this.ModelState.IsValid)
-            {
-                var entity = new ApplicationRole { };
-                this.PopulateEntity(entity, viewModel);
-                this.rolesService.Insert(entity);
-                viewModel.Id = entity.Id;
-            }
-
             return base.Create(request, viewModel);
         }
 
         [HttpPost]
         public override ActionResult Update([DataSourceRequest]DataSourceRequest request, RoleViewModel viewModel)
         {
-            if (viewModel != null && this.ModelState.IsValid)
-            {
-                var entity = this.rolesService.GetById(viewModel.Id);
-                if (entity != null)
-                {
-                    this.PopulateEntity(entity, viewModel);
-                    this.rolesService.Update(entity);
-                }
-            }
-
             return this.Json(new[] { viewModel }.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
         }
 
@@ -80,16 +62,15 @@
             return base.Destroy(request, viewModel);
         }
 
-        #region DataProviders
+#region DataProviders
         protected override void PopulateEntity(ApplicationRole entity, RoleViewModel viewModel)
         {
             entity.Name = viewModel.Name;
-            //entity.Users = viewModel.Users;
             entity.CreatedOn = viewModel.CreatedOn;
             entity.ModifiedOn = viewModel.ModifiedOn;
             entity.IsDeleted = viewModel.IsDeleted;
             entity.DeletedOn = viewModel.DeletedOn;
         }
-        #endregion
+#endregion
     }
 }

@@ -10,7 +10,7 @@
 
     // out - "cannot convert from IProductsService to IBaseService<IAdministerable>"
     public interface IDeletableEntitiesBaseService<T, TKey> : IBaseService<T, TKey>
-        where T : class, IAdministerable
+        where T : class, /*IAdministerable*/IBaseEntityModel<TKey>
     {
         IQueryable<T> GetAllNotDeleted();
 

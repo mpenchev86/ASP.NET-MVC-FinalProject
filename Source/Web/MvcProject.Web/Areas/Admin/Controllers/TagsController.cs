@@ -42,30 +42,12 @@
         [HttpPost]
         public override ActionResult Create([DataSourceRequest]DataSourceRequest request, TagViewModel viewModel)
         {
-            if (viewModel != null && this.ModelState.IsValid)
-            {
-                var entity = new Tag { };
-                this.PopulateEntity(entity, viewModel);
-                this.tagsService.Insert(entity);
-                viewModel.Id = entity.Id;
-            }
-
             return base.Create(request, viewModel);
         }
 
         [HttpPost]
         public override ActionResult Update([DataSourceRequest]DataSourceRequest request, TagViewModel viewModel)
         {
-            if (viewModel != null && this.ModelState.IsValid)
-            {
-                var entity = this.tagsService.GetById(viewModel.Id);
-                if (entity != null)
-                {
-                    this.PopulateEntity(entity, viewModel);
-                    this.tagsService.Update(entity);
-                }
-            }
-
             return base.Update(request, viewModel);
         }
 
@@ -80,7 +62,6 @@
         {
             if (viewModel.Products != null)
             {
-                //entity.Products = new List<Product>();
                 foreach (var product in viewModel.Products)
                 {
                     entity.Products.Add(this.productsService.GetById(product.Id));

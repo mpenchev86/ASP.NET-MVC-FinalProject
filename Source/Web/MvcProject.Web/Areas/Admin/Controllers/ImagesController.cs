@@ -48,30 +48,12 @@
         [HttpPost]
         public override ActionResult Create([DataSourceRequest]DataSourceRequest request, ImageViewModel viewModel)
         {
-            if (viewModel != null && this.ModelState.IsValid)
-            {
-                var entity = new Image { };
-                this.PopulateEntity(entity, viewModel);
-                this.imagesService.Insert(entity);
-                viewModel.Id = entity.Id;
-            }
-
             return base.Create(request, viewModel);
         }
 
         [HttpPost]
         public override ActionResult Update([DataSourceRequest]DataSourceRequest request, ImageViewModel viewModel)
         {
-            if (viewModel != null && this.ModelState.IsValid)
-            {
-                var entity = this.imagesService.GetById(viewModel.Id);
-                if (entity != null)
-                {
-                    this.PopulateEntity(entity, viewModel);
-                    this.imagesService.Update(entity);
-                }
-            }
-
             return base.Update(request, viewModel);
         }
 
@@ -81,7 +63,7 @@
             return base.Destroy(request, viewModel);
         }
 
-        #region DataProviders
+#region DataProviders
         protected override void PopulateEntity(Image entity, ImageViewModel viewModel)
         {
             entity.OriginalFileName = viewModel.OriginalFileName;
@@ -93,6 +75,6 @@
             entity.IsDeleted = viewModel.IsDeleted;
             entity.DeletedOn = viewModel.DeletedOn;
         }
-        #endregion
+#endregion
     }
 }

@@ -53,30 +53,12 @@
         [HttpPost]
         public override ActionResult Create([DataSourceRequest]DataSourceRequest request, VoteViewModel viewModel)
         {
-            if (viewModel != null && this.ModelState.IsValid)
-            {
-                var entity = new Vote { };
-                this.PopulateEntity(entity, viewModel);
-                this.votesService.Insert(entity);
-                viewModel.Id = entity.Id;
-            }
-
             return base.Create(request, viewModel);
         }
 
         [HttpPost]
         public override ActionResult Update([DataSourceRequest]DataSourceRequest request, VoteViewModel viewModel)
         {
-            if (viewModel != null && this.ModelState.IsValid)
-            {
-                var entity = this.votesService.GetById(viewModel.Id);
-                if (entity != null)
-                {
-                    this.PopulateEntity(entity, viewModel);
-                    this.votesService.Update(entity);
-                }
-            }
-
             return base.Update(request, viewModel);
         }
 

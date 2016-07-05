@@ -21,9 +21,9 @@
 
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
     public class BaseGridController<TEntityModel, TViewModel, TService, TKey> : BaseController
-        where TEntityModel : class, IBaseEntityModel<TKey>, IAdministerable
+        where TEntityModel : class, IBaseEntityModel<TKey>, IAdministerable, new()
         where TViewModel : BaseAdminViewModel<TKey>, IMapFrom<TEntityModel>
-        where TService : IDeletableEntitiesBaseService<TEntityModel, TKey>
+        where TService : IBaseService<TEntityModel, TKey>
     {
         private TService dataService;
 
@@ -43,12 +43,30 @@
         [HttpPost]
         public virtual ActionResult Create([DataSourceRequest]DataSourceRequest request, TViewModel viewModel)
         {
+            if (viewModel != null && this.ModelState.IsValid)
+            {
+                var entity = new TEntityModel();
+                this.PopulateEntity(entity, viewModel);
+                this.dataService.Insert(entity);
+                viewModel.Id = entity.Id;
+            }
+
             return this.GetEntityAsDataSourceResult(request, viewModel, this.ModelState);
         }
 
         [HttpPost]
         public virtual ActionResult Update([DataSourceRequest]DataSourceRequest request, TViewModel viewModel)
         {
+            if (viewModel != null && this.ModelState.IsValid)
+            {
+                var entity = this.dataService.GetById(viewModel.Id);
+                if (entity != null)
+                {
+                    this.PopulateEntity(entity, viewModel);
+                    this.dataService.Update(entity);
+                }
+            }
+
             return this.GetEntityAsDataSourceResult(request, viewModel, this.ModelState);
         }
 

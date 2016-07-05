@@ -8,7 +8,7 @@
     using MvcProject.Data.Models.EntityContracts;
 
     public interface IBaseService<T, TKey>
-        where T : class, IAdministerable
+        where T : class, /*IAdministerable, */IBaseEntityModel<TKey>
     {
         IQueryable<T> GetAll();
 

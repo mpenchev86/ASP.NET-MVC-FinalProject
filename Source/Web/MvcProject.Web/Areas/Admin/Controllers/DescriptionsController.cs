@@ -42,30 +42,12 @@
         [HttpPost]
         public override ActionResult Create([DataSourceRequest]DataSourceRequest request, DescriptionViewModel viewModel)
         {
-            if (viewModel != null && this.ModelState.IsValid)
-            {
-                var entity = new Description { };
-                this.PopulateEntity(entity, viewModel);
-                this.descriptionsService.Insert(entity);
-                viewModel.Id = entity.Id;
-            }
-
             return base.Create(request, viewModel);
         }
 
         [HttpPost]
         public override ActionResult Update([DataSourceRequest]DataSourceRequest request, DescriptionViewModel viewModel)
         {
-            if (viewModel != null && this.ModelState.IsValid)
-            {
-                var entity = this.descriptionsService.GetById(viewModel.Id);
-                if (entity != null)
-                {
-                    this.PopulateEntity(entity, viewModel);
-                    this.descriptionsService.Update(entity);
-                }
-            }
-
             return base.Update(request, viewModel);
         }
 
@@ -92,11 +74,6 @@
             entity.IsDeleted = viewModel.IsDeleted;
             entity.DeletedOn = viewModel.DeletedOn;
         }
-
-        //protected override IEnumerable<DescriptionViewModel> GetDataAsEnumerable()
-        //{
-        //    return base.GetDataAsEnumerable().OrderBy(x => x.Id);
-        //}
 #endregion
     }
 }

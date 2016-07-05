@@ -64,7 +64,8 @@
             return base.Read(request);
         }
 
-        // Implemented through ASP.NET Identity user manager
+        // Implemented through ASP.NET Identity user manager. Currently, users are created by the registration form
+        // of the AccountController and the grid Create toolbar button in the view is disabled
         [HttpPost]
         public override ActionResult Create([DataSourceRequest]DataSourceRequest request, UserViewModel viewModel)
         {
@@ -74,16 +75,6 @@
         [HttpPost]
         public override ActionResult Update([DataSourceRequest]DataSourceRequest request, UserViewModel viewModel)
         {
-            if (viewModel != null && this.ModelState.IsValid)
-            {
-                var entity = this.usersService.GetById(viewModel.Id);
-                if (entity != null)
-                {
-                    this.PopulateEntity(entity, viewModel);
-                    this.usersService.Update(entity);
-                }
-            }
-
             return this.Json(new[] { viewModel }.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
         }
 
@@ -93,7 +84,7 @@
             return base.Destroy(request, viewModel);
         }
 
-        #region DataProviders
+#region DataProviders
         public JsonResult GetAllRoles()
         {
             var roles = this.rolesService.GetAll().To<RoleDetailsForUserViewModel>();
@@ -104,7 +95,6 @@
         {
             if (viewModel.Comments != null)
             {
-                //entity.Comments = new List<Comment>();
                 foreach (var comment in viewModel.Comments)
                 {
                     entity.Comments.Add(this.commentsService.GetById(comment.Id));
@@ -113,7 +103,6 @@
 
             if (viewModel.Votes != null)
             {
-                //entity.Votes = new List<Vote>();
                 foreach (var vote in viewModel.Votes)
                 {
                     entity.Votes.Add(this.votesService.GetById(vote.Id));
@@ -143,7 +132,6 @@
         private void ProcessUserRoles(ICollection<string> viewModelRoleNames, string userId, string userName)
         {
             this.userRolesService.RemoveUserFromAllRoles(userName);
-
             foreach (var role in viewModelRoleNames)
             {
                 this.userRolesService.CreateUserRole(new ApplicationUserRole
@@ -155,6 +143,6 @@
                 });
             }
         }
-        #endregion
+#endregion
     }
 }

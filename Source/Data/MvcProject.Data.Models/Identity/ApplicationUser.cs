@@ -16,7 +16,6 @@
     public class ApplicationUser : IdentityUser<string, IdentityUserLogin, ApplicationUserRole, IdentityUserClaim>, IBaseEntityModel<string>, IDeletableEntity, IAuditInfo, IAdministerable
     {
         private ICollection<Comment> comments;
-        //private ICollection<ApplicationRole> applicationRoles;
         private ICollection<Vote> votes;
 
         public ApplicationUser()
@@ -34,31 +33,60 @@
             // The statement has been terminated.
             this.CreatedOn = DateTime.Now;
             this.comments = new HashSet<Comment>();
-            //this.applicationRoles = new HashSet<ApplicationRole>();
             this.votes = new HashSet<Vote>();
         }
 
-        //public virtual ICollection<ApplicationRole> ApplicationRoles
-        //{
-        //    get { return this.applicationRoles; }
-        //    set { this.applicationRoles = value; }
-        //}
-
+        /// <summary>
+        /// Gets or sets the date and time when the entity was created.
+        /// </summary>
+        /// <value>
+        /// The date and time when the entity was created.
+        /// </value>
         public DateTime CreatedOn { get; set; }
 
+        /// <summary>
+        /// Gets or sets the date and time when the entity was last modified.
+        /// </summary>
+        /// <value>
+        /// The date and time when the entity was last modified.
+        /// </value>
         public DateTime? ModifiedOn { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the entity is marked as deleted
+        /// </summary>
+        /// <value>
+        /// A value indicating whether the entity is marked as deleted
+        /// </value>
         [Index]
         public bool IsDeleted { get; set; }
 
+        /// <summary>
+        /// Gets or sets the date and time when the entity was marked as deleted
+        /// </summary>
+        /// <value>
+        /// The date and time when the entity was marked as deleted
+        /// </value>
         public DateTime? DeletedOn { get; set; }
 
+        /// <summary>
+        /// Gets or sets the collection of comments submitted by the user.
+        /// </summary>
+        /// <value>
+        /// The collection of comments submitted by the user.
+        /// </value>
         public virtual ICollection<Comment> Comments
         {
             get { return this.comments; }
             set { this.comments = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the collection of votes submitted by the user.
+        /// </summary>
+        /// <value>
+        /// The collection of votes submitted by the user.
+        /// </value>
         public virtual ICollection<Vote> Votes
         {
             get { return this.votes; }
