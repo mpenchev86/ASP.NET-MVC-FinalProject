@@ -38,16 +38,16 @@
             return this.repository.All().Where(r => r.UserName == userName);
         }
 
-        public void AddUserToRole(ApplicationUserRole role)
+        public void CreateUserRole(ApplicationUserRole role)
         {
             this.repository.Add(role);
             this.repository.SaveChanges();
         }
 
-        public void AddUserToRoles(string userId, string[] roles)
-        {
-            throw new NotImplementedException();
-        }
+        //public void AddUserToRoles(string userId, string[] roles)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public void RemoveUserFromRole(string userName, string roleName)
         {
@@ -57,7 +57,13 @@
 
         public void RemoveUserFromRoles(string userId, string[] roles)
         {
-            throw new NotImplementedException();
+            var userRoles = this.repository.All().Where(r => (r.UserId == userId) && roles.Contains(r.RoleName));
+            foreach (var userRole in userRoles)
+            {
+                this.repository.DeletePermanent(userRole);
+            }
+
+            this.repository.SaveChanges();
         }
 
         public void RemoveUserFromAllRoles(string userName)

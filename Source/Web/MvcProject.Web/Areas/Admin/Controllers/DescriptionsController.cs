@@ -58,9 +58,12 @@
         {
             if (viewModel != null && this.ModelState.IsValid)
             {
-                var entity = new Description { Id = viewModel.Id };
-                this.PopulateEntity(entity, viewModel);
-                this.descriptionsService.Update(entity);
+                var entity = this.descriptionsService.GetById(viewModel.Id);
+                if (entity != null)
+                {
+                    this.PopulateEntity(entity, viewModel);
+                    this.descriptionsService.Update(entity);
+                }
             }
 
             return base.Update(request, viewModel);
@@ -77,7 +80,6 @@
         {
             if (viewModel.Properties != null)
             {
-                entity.Properties = new List<Property>();
                 foreach (var property in viewModel.Properties)
                 {
                     entity.Properties.Add(this.propertiesService.GetById(property.Id));

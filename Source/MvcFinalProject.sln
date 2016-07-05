@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{9DC8729B-38F3-4B60-B928-9770099D0C66}"
 EndProject
@@ -34,10 +34,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.Web.Routes.Tests", "Tests\MvcProject.Web.Routes.Tests\MvcProject.Web.Routes.Tests.csproj", "{183A0EC6-E9A4-4BC6-81F0-1C2EDCAF054B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.Web.Controllers.Tests", "Tests\MvcProject.Web.Controllers.Tests\MvcProject.Web.Controllers.Tests.csproj", "{92D029D5-A36E-4C92-B00E-05745E28F8D6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.Web.Common", "Web\MvcProject.Web.Common\MvcProject.Web.Common.csproj", "{0321CCB8-700E-45DE-A5D1-77EAED273FEE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.Data.Common", "Data\MvcProject.Data.Common\MvcProject.Data.Common.csproj", "{736C2EE0-6D23-432E-B2FB-245807F0946E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,14 +85,6 @@ Global
 		{92D029D5-A36E-4C92-B00E-05745E28F8D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92D029D5-A36E-4C92-B00E-05745E28F8D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92D029D5-A36E-4C92-B00E-05745E28F8D6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0321CCB8-700E-45DE-A5D1-77EAED273FEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0321CCB8-700E-45DE-A5D1-77EAED273FEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0321CCB8-700E-45DE-A5D1-77EAED273FEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0321CCB8-700E-45DE-A5D1-77EAED273FEE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{736C2EE0-6D23-432E-B2FB-245807F0946E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{736C2EE0-6D23-432E-B2FB-245807F0946E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{736C2EE0-6D23-432E-B2FB-245807F0946E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{736C2EE0-6D23-432E-B2FB-245807F0946E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -113,7 +101,5 @@ Global
 		{282C6693-6C41-44A8-B413-9C8DBA25B0DC} = {462F3DD2-6BEA-42B9-95A4-94031690EA48}
 		{183A0EC6-E9A4-4BC6-81F0-1C2EDCAF054B} = {462F3DD2-6BEA-42B9-95A4-94031690EA48}
 		{92D029D5-A36E-4C92-B00E-05745E28F8D6} = {462F3DD2-6BEA-42B9-95A4-94031690EA48}
-		{0321CCB8-700E-45DE-A5D1-77EAED273FEE} = {9DC8729B-38F3-4B60-B928-9770099D0C66}
-		{736C2EE0-6D23-432E-B2FB-245807F0946E} = {EC24F7D3-97B8-4D27-A15E-B4AF5C7F7825}
 	EndGlobalSection
 EndGlobal

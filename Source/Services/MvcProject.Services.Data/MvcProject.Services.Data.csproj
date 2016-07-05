@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\..\..\..\..\TAcademy\Track WEB\ASP.NET-MVC\Workshops\ASP.NET-MVC-Template\Source\Rules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -90,6 +91,7 @@
     <Compile Include="CategoriesService.cs" />
     <Compile Include="CommentsService.cs" />
     <Compile Include="Contracts\IBaseService.cs" />
+    <Compile Include="Contracts\IDeletableEntitiesBaseService.cs" />
     <Compile Include="Contracts\ICategoriesService.cs" />
     <Compile Include="Contracts\ICommentsService.cs" />
     <Compile Include="Contracts\IDescriptionsService.cs" />

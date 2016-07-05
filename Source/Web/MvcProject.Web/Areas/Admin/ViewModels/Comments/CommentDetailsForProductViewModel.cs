@@ -25,8 +25,7 @@
         {
             configuration.CreateMap<Comment, CommentDetailsForProductViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId))
-                ;
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId));
         }
     }
 }

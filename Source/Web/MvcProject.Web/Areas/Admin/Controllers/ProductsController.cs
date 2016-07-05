@@ -55,6 +55,7 @@
 
         public ActionResult Index()
         {
+            //Cache maybe
             var foreignKeys = new ProductViewModelForeignKeys
             {
                 Categories = this.categoriesService.GetAll().To<CategoryDetailsForProductViewModel>().ToList(),
@@ -92,9 +93,12 @@
         {
             if (viewModel != null && this.ModelState.IsValid)
             {
-                var entity = new Product { Id = viewModel.Id };
-                this.PopulateEntity(entity, viewModel);
-                this.productsService.Update(entity);
+                var entity = this.productsService.GetById(viewModel.Id);
+                if (entity != null)
+                {
+                    this.PopulateEntity(entity, viewModel);
+                    this.productsService.Update(entity);
+                }
             }
 
             return base.Update(request, viewModel);
@@ -107,21 +111,23 @@
             return base.Destroy(request, viewModel);
         }
 
-#region DataProviders
+        #region DataProviders
+
+        //Cache maybe
+        public JsonResult GetAllTags()
+        {
+            var tags = this.tagsService.GetAll().To<TagDetailsForProductViewModel>();
+            return this.Json(tags, JsonRequestBehavior.AllowGet);
+        }
+
         protected override void PopulateEntity(Product entity, ProductViewModel viewModel)
         {
-            if (viewModel.Tags != null)
-            {
-                entity.Tags = new List<Tag>();
-                foreach (var tag in viewModel.Tags)
-                {
-                    entity.Tags.Add(this.tagsService.GetById(tag.Id));
-                }
-            }
+            var tagIds = viewModel.Tags.Select(tag => tag.Id);
+            this.ProcessProductTags(entity, viewModel.Id, tagIds);
 
             if (viewModel.Comments != null)
             {
-                entity.Comments = new List<Comment>();
+                //entity.Comments.Clear();
                 foreach (var comment in viewModel.Comments)
                 {
                     entity.Comments.Add(this.commentsService.GetById(comment.Id));
@@ -130,7 +136,6 @@
 
             if (viewModel.Images != null)
             {
-                entity.Images = new List<Image>();
                 foreach (var image in viewModel.Images)
                 {
                     entity.Images.Add(this.imagesService.GetById(image.Id));
@@ -139,7 +144,6 @@
 
             if (viewModel.Votes != null)
             {
-                entity.Votes = new List<Vote>();
                 foreach (var vote in viewModel.Votes)
                 {
                     entity.Votes.Add(this.votesService.GetById(vote.Id));
@@ -163,6 +167,16 @@
             entity.IsDeleted = viewModel.IsDeleted;
             entity.DeletedOn = viewModel.DeletedOn;
         }
-#endregion
+
+        private void ProcessProductTags(Product entity, int productId, IEnumerable<int> tagIds)
+        {
+            entity.Tags.Clear();
+            foreach (var tagId in tagIds)
+            {
+                var tag = this.tagsService.GetById(tagId);
+                entity.Tags.Add(tag);
+            }
+        }
+        #endregion
     }
 }

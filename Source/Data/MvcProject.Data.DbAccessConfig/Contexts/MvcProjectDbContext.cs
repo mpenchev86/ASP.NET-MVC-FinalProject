@@ -1,4 +1,4 @@
-﻿namespace MvcProject.Data.DbAccessConfig
+﻿namespace MvcProject.Data.DbAccessConfig.Contexts
 {
     using System;
     using System.Collections.Generic;
@@ -51,26 +51,26 @@
 
             //// Debug db operations.
             //// Source: http://stackoverflow.com/a/15820506/4491770
-            //try
-            //{
+            // try
+            // {
             //    return base.SaveChanges();
-            //}
-            //catch (DbEntityValidationException ex)
-            //{
+            // }
+            // catch (DbEntityValidationException ex)
+            // {
             //    // Retrieve the error messages as a list of strings.
             //    var errorMessages = ex.EntityValidationErrors
             //            .SelectMany(x => x.ValidationErrors)
             //            .Select(x => x.ErrorMessage);
 
-            //    // Join the list to a single string.
+            // // Join the list to a single string.
             //    var fullErrorMessage = string.Join("; ", errorMessages);
 
-            //    // Combine the original exception message with the new one.
+            // // Combine the original exception message with the new one.
             //    var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
 
-            //    // Throw a new DbEntityValidationException with the improved exception message.
+            // // Throw a new DbEntityValidationException with the improved exception message.
             //    throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
-            //}
+            // }
 
             // Debug db operations.
             // Source: http://stackoverflow.com/a/10676526/4491770
@@ -92,25 +92,36 @@
                     }
                 }
 
+                // Add the original exception as the innerException
                 throw new DbEntityValidationException(
                     "Entity Validation Failed - errors follow:\n" +
-                    sb.ToString(), ex
-                ); // Add the original exception as the innerException
+                    sb.ToString(), ex);
             }
 
-            //return base.SaveChanges();
+            // return base.SaveChanges();
         }
 
-        //// Change the names of tables in sql server
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-        //    base.OnModelCreating(modelBuilder);
-        //    modelBuilder.Entity<ApplicationUser>().ToTable("Users", "dbo");
-        //    modelBuilder.Entity<ApplicationRole>().ToTable("Roles", "dbo");
-        //    modelBuilder.Entity<ApplicationUserRole>().ToTable("UserRoles", "dbo");
-        //    modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaims", "dbo");
-        //    modelBuilder.Entity<IdentityUserLogin>().ToTable("UserLogins", "dbo");
-        //}
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            //// Change the names of tables in sql server
+            // modelBuilder.Entity<ApplicationUser>().ToTable("Users", "dbo");
+            // modelBuilder.Entity<ApplicationRole>().ToTable("Roles", "dbo");
+            // modelBuilder.Entity<ApplicationUserRole>().ToTable("UserRoles", "dbo");
+            // modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaims", "dbo");
+            // modelBuilder.Entity<IdentityUserLogin>().ToTable("UserLogins", "dbo");
+
+            modelBuilder.Entity<Product>()
+                .HasMany<Tag>(p => p.Tags)
+                .WithMany(t => t.Products)
+                .Map(pt =>
+                {
+                    pt.MapLeftKey("ProductId");
+                    pt.MapRightKey("TagId");
+                    pt.ToTable("ProductsTags");
+                });
+
+            base.OnModelCreating(modelBuilder);
+        }
 
         private void ApplyAdditionalInfoRules()
         {
@@ -152,7 +163,10 @@
             var entity = (IDeletableEntity)entry.Entity;
             if (entity.IsDeleted == true)
             {
-                entity.DeletedOn = DateTime.Now;
+                if (entity.DeletedOn == null)
+                {
+                    entity.DeletedOn = DateTime.Now;
+                }
             }
             else
             {

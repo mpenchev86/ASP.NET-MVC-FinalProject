@@ -22,8 +22,21 @@
             @Html.LabelFor(m => m.Roles)
         </div>
         <div class="editor-field">
-            @*@Html.EditorFor(m => m.Roles)*@
-            @(Html.Kendo().MultiSelect()
+            @Html.EditorFor(
+                m => m.Roles,
+                new
+                {
+                    name = "rolesMultiSelect",
+                    placeHolder = "Select roles...",
+                    dataTextField = "Name",
+                    dataValueField = "Id",
+                    action = "GetAllRoles",
+                    controller = "Users",
+                    area = "Admin",
+                    data_bind = "value: Roles"
+                })
+            
+            @*@(Html.Kendo().MultiSelect()
                 .Name("rolesMultiSelect")
                 .TagMode(TagMode.Multiple)
                 .Placeholder("Select roles...")
@@ -37,7 +50,7 @@
                         .Read(read => { read.Action("GetAllRoles", "Users", new { area = "Admin" }); });
                 })
                 .HtmlAttributes(new { data_bind = "value: Roles" })
-            )
+            )*@
             @Html.ValidationMessageFor(model => model.Roles)
         </div>
     </div>

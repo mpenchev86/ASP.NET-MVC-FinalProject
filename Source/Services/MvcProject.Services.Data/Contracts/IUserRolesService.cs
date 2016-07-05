@@ -16,10 +16,9 @@
 
         IQueryable<T> GetByRoleName(string roleName);
 
+        void CreateUserRole(T role);
 
-        void AddUserToRole(T role);
-
-        void AddUserToRoles(string userId, string[] roles);
+        //void AddUserToRoles(string userId, string[] roles);
 
         void RemoveUserFromRole(string userId, string role);
 

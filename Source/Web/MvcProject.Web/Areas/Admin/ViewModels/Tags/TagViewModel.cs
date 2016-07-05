@@ -5,11 +5,9 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
-    using System.Web;
 
     using AutoMapper;
     using Data.Models;
-    using Data.Models.EntityContracts;
     using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
     using MvcProject.GlobalConstants;
@@ -51,8 +49,7 @@
                                 Title = p.Title,
                                 CreatedOn = p.CreatedOn,
                                 ModifiedOn = p.ModifiedOn
-                            })))
-                ;
+                            })));
         }
     }
 }

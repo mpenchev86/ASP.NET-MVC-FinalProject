@@ -50,11 +50,9 @@
                                 Id = p.Id,
                                 Title = p.Title,
                                 ShortDescription = p.ShortDescription,
-                                //UnitPrice = p.UnitPrice,
                                 CreatedOn = p.CreatedOn,
-                                //ModifiedOn = p.ModifiedOn
-                            })))
-                ;
+                                ModifiedOn = p.ModifiedOn
+                            })));
         }
     }
 }

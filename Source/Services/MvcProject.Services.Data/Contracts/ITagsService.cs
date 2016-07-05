@@ -8,7 +8,7 @@
     using MvcProject.Data.Models;
     using MvcProject.Web.Infrastructure.Mapping;
 
-    public interface ITagsService : IBaseService<Tag, int>
+    public interface ITagsService : IDeletableEntitiesBaseService<Tag, int>
     {
     }
 }

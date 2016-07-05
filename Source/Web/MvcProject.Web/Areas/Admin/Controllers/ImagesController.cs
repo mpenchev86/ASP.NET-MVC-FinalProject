@@ -64,9 +64,12 @@
         {
             if (viewModel != null && this.ModelState.IsValid)
             {
-                var entity = new Image { Id = viewModel.Id };
-                this.PopulateEntity(entity, viewModel);
-                this.imagesService.Update(entity);
+                var entity = this.imagesService.GetById(viewModel.Id);
+                if (entity != null)
+                {
+                    this.PopulateEntity(entity, viewModel);
+                    this.imagesService.Update(entity);
+                }
             }
 
             return base.Update(request, viewModel);

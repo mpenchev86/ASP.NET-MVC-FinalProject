@@ -10,7 +10,7 @@
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
-    using Data.DbAccessConfig;
+    using Data.DbAccessConfig.Contexts;
     using Data.DbAccessConfig.Migrations;
     using Infrastructure.Mapping;
 

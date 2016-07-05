@@ -4,7 +4,7 @@
     using MvcProject.Data.Models;
     using MvcProject.Web.Infrastructure.Mapping;
 
-    public interface IProductsService : IBaseService<Product, int>
+    public interface IProductsService : IDeletableEntitiesBaseService<Product, int>
     {
     }
 }

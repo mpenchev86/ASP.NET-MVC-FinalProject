@@ -24,8 +24,6 @@
         [UIHint("DropDown")]
         public int DescriptionId { get; set; }
 
-        //public DescriptionDetailsForPropertyViewModel Description { get; set; }
-
         [Index]
         public bool IsDeleted { get; set; }
 
@@ -36,8 +34,7 @@
         {
             configuration.CreateMap<Property, PropertyViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.DescriptionId, opt => opt.MapFrom(src => src.DescriptionId))
-                ;
+                .ForMember(dest => dest.DescriptionId, opt => opt.MapFrom(src => src.DescriptionId));
         }
     }
 }

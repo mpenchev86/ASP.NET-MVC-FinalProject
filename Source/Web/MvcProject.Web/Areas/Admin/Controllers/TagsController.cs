@@ -58,9 +58,12 @@
         {
             if (viewModel != null && this.ModelState.IsValid)
             {
-                var entity = new Tag { Id = viewModel.Id };
-                this.PopulateEntity(entity, viewModel);
-                this.tagsService.Update(entity);
+                var entity = this.tagsService.GetById(viewModel.Id);
+                if (entity != null)
+                {
+                    this.PopulateEntity(entity, viewModel);
+                    this.tagsService.Update(entity);
+                }
             }
 
             return base.Update(request, viewModel);
@@ -77,7 +80,7 @@
         {
             if (viewModel.Products != null)
             {
-                entity.Products = new List<Product>();
+                //entity.Products = new List<Product>();
                 foreach (var product in viewModel.Products)
                 {
                     entity.Products.Add(this.productsService.GetById(product.Id));

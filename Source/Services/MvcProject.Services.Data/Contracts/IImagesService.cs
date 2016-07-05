@@ -9,7 +9,7 @@
     using MvcProject.Data.Models.EntityContracts;
     using MvcProject.Web.Infrastructure.Mapping;
 
-    public interface IImagesService : IBaseService<Image, int>
+    public interface IImagesService : IDeletableEntitiesBaseService<Image, int>
     {
     }
 }

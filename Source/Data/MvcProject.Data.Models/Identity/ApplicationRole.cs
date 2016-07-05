@@ -1,10 +1,7 @@
 ﻿namespace MvcProject.Data.Models
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
     using EntityContracts;
     using Microsoft.AspNet.Identity;
@@ -12,8 +9,6 @@
 
     public class ApplicationRole : IdentityRole<string, ApplicationUserRole>, IBaseEntityModel<string>, IDeletableEntity, IAuditInfo, IAdministerable
     {
-        //private ICollection<ApplicationUser> applicationUsers;
-
         public ApplicationRole()
             : base()
         {
@@ -23,7 +18,6 @@
             // MvcProject.Data.Models.ApplicationRole failed validation
             // - Id : The Id field is required.
             this.Id = Guid.NewGuid().ToString();
-            //this.applicationUsers = new HashSet<ApplicationUser>();
         }
 
         public ApplicationRole(string name)
@@ -41,13 +35,7 @@
 
         public DateTime? DeletedOn { get; set; }
 
-        //public virtual ICollection<ApplicationUser> ApplicationUsers
-        //{
-        //    get { return this.applicationUsers; }
-        //    set { this.applicationUsers = value; }
-        //}
-
-        public async Task<IdentityResult> GenerateRoleAsync(RoleManager<ApplicationRole/*, string*/> roleManager)
+        public async Task<IdentityResult> GenerateRoleAsync(RoleManager<ApplicationRole> roleManager)
         {
             var identrole = await roleManager.CreateAsync(this);
 

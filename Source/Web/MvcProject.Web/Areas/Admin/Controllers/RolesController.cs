@@ -63,9 +63,12 @@
         {
             if (viewModel != null && this.ModelState.IsValid)
             {
-                var entity = new ApplicationRole { Id = viewModel.Id };
-                this.PopulateEntity(entity, viewModel);
-                this.rolesService.Update(entity);
+                var entity = this.rolesService.GetById(viewModel.Id);
+                if (entity != null)
+                {
+                    this.PopulateEntity(entity, viewModel);
+                    this.rolesService.Update(entity);
+                }
             }
 
             return this.Json(new[] { viewModel }.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);

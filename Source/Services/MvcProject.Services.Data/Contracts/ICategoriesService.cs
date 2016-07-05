@@ -9,7 +9,7 @@
     using MvcProject.Data.Models.EntityContracts;
     using MvcProject.Web.Infrastructure.Mapping;
 
-    public interface ICategoriesService : IBaseService<Category, int>
+    public interface ICategoriesService : IDeletableEntitiesBaseService<Category, int>
     {
     }
 }

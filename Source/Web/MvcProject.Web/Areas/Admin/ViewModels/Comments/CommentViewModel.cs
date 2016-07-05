@@ -27,13 +27,9 @@
         [UIHint("DropDown")]
         public string UserId { get; set; }
 
-        //public UserDetailsForCommentViewModel User { get; set; }
-
         [Required]
         [UIHint("DropDown")]
         public int ProductId { get; set; }
-
-        //public ProductDetailsForCommentViewModel Product { get; set; }
 
         [Index]
         public bool IsDeleted { get; set; }
@@ -46,8 +42,7 @@
             configuration.CreateMap<Comment, CommentViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId))
-                .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
-                ;
+                .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId));
         }
     }
 }

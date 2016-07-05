@@ -29,10 +29,6 @@
         [MaxLength(ValidationConstants.ShortDescriptionMaxLength)]
         public string ShortDescription { get; set; }
 
-        [Required]
-        [Range(0, double.MaxValue)]
-        public decimal UnitPrice { get; set; }
-
         [Index]
         public bool IsDeleted { get; set; }
 
@@ -41,8 +37,7 @@
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Product, ProductDetailsForCategoryViewModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                ;
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
         }
     }
 }

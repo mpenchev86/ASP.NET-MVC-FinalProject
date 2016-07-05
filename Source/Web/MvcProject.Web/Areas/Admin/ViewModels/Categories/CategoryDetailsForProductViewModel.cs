@@ -22,8 +22,7 @@
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Category, CategoryDetailsForProductViewModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                ;
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
         }
     }
 }

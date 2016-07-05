@@ -16,6 +16,7 @@
     {
         m.Id(p => p.Id);
         m.Field(p => p.Id).Editable(false);
+        m.Field(p => p.DescriptionId).Editable(true).DefaultValue(0);
     },
     pageSize: 50,
     virtualScroll: false,

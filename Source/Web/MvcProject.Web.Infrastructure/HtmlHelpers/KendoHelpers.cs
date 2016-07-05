@@ -136,7 +136,7 @@
             string name,
             Action<GridColumnFactory<T>> columns = null,
             bool scrollable = true,
-            int height = 300)
+            int height = 400)
             where T : class
         {
             if (columns == null)

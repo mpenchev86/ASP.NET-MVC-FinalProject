@@ -23,7 +23,7 @@
     public class BaseGridController<TEntityModel, TViewModel, TService, TKey> : BaseController
         where TEntityModel : class, IBaseEntityModel<TKey>, IAdministerable
         where TViewModel : BaseAdminViewModel<TKey>, IMapFrom<TEntityModel>
-        where TService : IBaseService<TEntityModel, TKey>
+        where TService : IDeletableEntitiesBaseService<TEntityModel, TKey>
     {
         private TService dataService;
 

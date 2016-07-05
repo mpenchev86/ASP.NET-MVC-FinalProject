@@ -58,20 +58,6 @@
             return this.View(foreignKeys);
         }
 
-        [HttpGet]
-        public ActionResult TestRemoveFromRole()
-        {
-            return this.View();
-        }
-
-        [HttpPost]
-        public ActionResult TestRemoveFromRole(string removeId, string addId)
-        {
-            this.usersService.RemoveFromRoles(removeId, new string[] { "test" });
-            this.usersService.AddToRoles(addId, new string[] { "Customer" });
-            return this.View();
-        }
-
         [HttpPost]
         public override ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
@@ -90,9 +76,12 @@
         {
             if (viewModel != null && this.ModelState.IsValid)
             {
-                var entity = new ApplicationUser { Id = viewModel.Id };
-                this.PopulateEntity(entity, viewModel);
-                this.usersService.Update(entity);
+                var entity = this.usersService.GetById(viewModel.Id);
+                if (entity != null)
+                {
+                    this.PopulateEntity(entity, viewModel);
+                    this.usersService.Update(entity);
+                }
             }
 
             return this.Json(new[] { viewModel }.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
@@ -111,18 +100,11 @@
             return this.Json(roles, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult GetRolesForUserViewModel(string id)
-        {
-            // Missing map from ApplicationUserRole to RoleDetailsForUserViewModel
-            var roles = this.usersService.GetById(id).Roles.Select(r => new RoleDetailsForUserViewModel { Id = r.RoleId, Name = r.RoleName })/*AsQueryable().To<RoleDetailsForUserViewModel>()*/;
-            return this.Json(roles, JsonRequestBehavior.AllowGet);
-        }
-
         protected override void PopulateEntity(ApplicationUser entity, UserViewModel viewModel)
         {
             if (viewModel.Comments != null)
             {
-                entity.Comments = new List<Comment>();
+                //entity.Comments = new List<Comment>();
                 foreach (var comment in viewModel.Comments)
                 {
                     entity.Comments.Add(this.commentsService.GetById(comment.Id));
@@ -131,53 +113,40 @@
 
             if (viewModel.Votes != null)
             {
-                entity.Votes = new List<Vote>();
+                //entity.Votes = new List<Vote>();
                 foreach (var vote in viewModel.Votes)
                 {
                     entity.Votes.Add(this.votesService.GetById(vote.Id));
                 }
             }
 
-            //using (var userManager = this.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>())
-            //{
-            //}
-
-            //var entityRoles = this.usersService.GetUserRoles(entity.Id).ToArray();
-            //this.usersService.RemoveFromRoles(entity.Id, entityRoles);
-            //var viewRoles = viewModel.Roles.Select(r => r.Name).ToArray();
-            //this.usersService.AddToRoles(viewModel.Id, viewRoles);
-
-            this.ProcessUserRoles(entity.Roles, viewModel.Roles, viewModel.Id, viewModel.UserName);
+            var viewModelRoleNames = viewModel.Roles.Select(r => r.Name).ToList();
+            this.ProcessUserRoles(viewModelRoleNames, viewModel.Id, viewModel.UserName);
 
             entity.UserName = viewModel.UserName;
+            entity.Email = viewModel.Email;
+            entity.EmailConfirmed = viewModel.EmailConfirmed;
+            entity.PasswordHash = viewModel.PasswordHash;
+            entity.AccessFailedCount = viewModel.AccessFailedCount;
+            entity.SecurityStamp = viewModel.SecurityStamp;
+            entity.PhoneNumber = viewModel.PhoneNumber;
+            entity.PhoneNumberConfirmed = viewModel.PhoneNumberConfirmed;
+            entity.TwoFactorEnabled = viewModel.TwoFactorEnabled;
+            entity.LockoutEndDateUtc = viewModel.LockoutEndDateUtc;
+            entity.LockoutEnabled = viewModel.LockoutEnabled;
             entity.CreatedOn = viewModel.CreatedOn;
             entity.ModifiedOn = viewModel.ModifiedOn;
             entity.IsDeleted = viewModel.IsDeleted;
             entity.DeletedOn = viewModel.DeletedOn;
         }
 
-        private void ProcessUserRoles(ICollection<ApplicationUserRole> entityRoles, ICollection<RoleDetailsForUserViewModel> viewModelRoles, string userId, string userName)
+        private void ProcessUserRoles(ICollection<string> viewModelRoleNames, string userId, string userName)
         {
-            //var entityRolesNames = entityRoles.Select(r => r.RoleName).ToList();
-            var viewModelRolesNames = viewModelRoles.Select(r => r.Name).ToList();
-
-            //foreach (var roleName in entityRolesNames)
-            //{
-            //    if (viewModelRolesNames.Contains(roleName))
-            //    {
-            //        viewModelRolesNames.Remove(roleName);
-            //    }
-            //    else
-            //    {
-            //        this.userRolesService.RemoveUserFromAllRoles(userName);
-            //    }
-            //}
-
             this.userRolesService.RemoveUserFromAllRoles(userName);
 
-            foreach (var role in viewModelRolesNames)
+            foreach (var role in viewModelRoleNames)
             {
-                this.userRolesService.AddUserToRole(new ApplicationUserRole
+                this.userRolesService.CreateUserRole(new ApplicationUserRole
                 {
                     UserId = userId,
                     UserName = userName,

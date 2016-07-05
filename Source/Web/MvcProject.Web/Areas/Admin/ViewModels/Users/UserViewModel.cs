@@ -5,20 +5,12 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
-    using System.Threading.Tasks;
-    using System.Web;
 
     using AutoMapper;
     using Comments;
-    using Data.DbAccessConfig;
     using Data.Models;
-    using GlobalConstants;
     using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
-    using Microsoft.AspNet.Identity;
-    using Microsoft.AspNet.Identity.EntityFramework;
-    using Microsoft.AspNet.Identity.Owin;
-    using Services.Data;
     using Roles;
     using Votes;
 
@@ -37,7 +29,88 @@
 
         public string UserName { get; set; }
 
-        //[UIHint("MultiSelect")]
+        /// <summary>
+        /// Gets or sets the salted/hashed form of the user password.
+        /// </summary>
+        /// <value>
+        /// The salted/hashed form of the user password.
+        /// </value>
+        public virtual string PasswordHash { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user's email.
+        /// </summary>
+        /// <value>
+        /// The user's email.
+        /// </value>
+        public virtual string Email { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the email is confirmed, default is false
+        /// </summary>
+        /// <value>
+        /// True if the email is confirmed, default is false
+        /// </value>
+        public virtual bool EmailConfirmed { get; set; }
+
+        /// <summary>
+        /// Gets or sets the failures for the purposes of lockout
+        /// </summary>
+        /// <value>
+        /// The failures for the purposes of lockout
+        /// </value>
+        public virtual int AccessFailedCount { get; set; }
+
+        /// <summary>
+        /// Gets or sets a random value that should change whenever a users credentials have
+        /// changed (password changed, login removed)
+        /// </summary>
+        /// <value>
+        /// A random value that should change whenever a users credentials have changed (password changed, login removed)
+        /// </value>
+        public virtual string SecurityStamp { get; set; }
+
+        /// <summary>
+        /// Gets or sets phoneNumber for the user
+        /// </summary>
+        /// <value>
+        /// PhoneNumber for the user
+        /// </value>
+        public virtual string PhoneNumber { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the phone number is confirmed, default is false
+        /// </summary>
+        /// <value>
+        /// True if the phone number is confirmed, default is false
+        /// </value>
+        public virtual bool PhoneNumberConfirmed { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether two factor authentication is enabled for the user
+        /// </summary>
+        /// <value>
+        /// True if two factor authentication is enabled for the user
+        /// </value>
+        public virtual bool TwoFactorEnabled { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether lockout is enabled for this user
+        /// </summary>
+        /// <value>
+        /// Is lockout enabled for this user
+        /// </value>
+        public virtual bool LockoutEnabled { get; set; }
+
+        /// <summary>
+        /// Gets or sets dateTime in UTC when lockout ends, any time in the past is considered not locked out.
+        /// </summary>
+        /// <value>
+        /// DateTime in UTC when lockout ends, any time in the past is considered not locked out.
+        /// </value>
+        public virtual DateTime? LockoutEndDateUtc { get; set; }
+
+        [UIHint("MultiSelect")]
         public ICollection<RoleDetailsForUserViewModel> Roles
         {
             get { return this.roles; }
@@ -67,16 +140,16 @@
             configuration.CreateMap<ApplicationUser, UserViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
+                .ForMember(dest => dest.EmailConfirmed, opt => opt.MapFrom(src => src.EmailConfirmed))
+                .ForMember(dest => dest.AccessFailedCount, opt => opt.MapFrom(src => src.AccessFailedCount))
+                .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.PasswordHash))
                 .ForMember(dest => dest.Roles, opt => opt.MapFrom(
-                            src => src.Roles.Select(c =>
-                                new RoleDetailsForUserViewModel
-                                {
-                                    Id = c.RoleId,
-                                    Name = c.RoleName,
-                                    //CreatedOn = c.CreatedOn,
-                                    //ModifiedOn = c.ModifiedOn
-                                }
-                            )))
+                            src => src.Roles.Select(c => new RoleDetailsForUserViewModel
+                            {
+                                Id = c.RoleId,
+                                Name = c.RoleName
+                            })))
                 .ForMember(dest => dest.Comments, opt => opt.MapFrom(
                             src => src.Comments.Select(c => new CommentDetailsForUserViewModel
                             {
@@ -94,8 +167,7 @@
                                 ProductId = c.ProductId,
                                 CreatedOn = c.CreatedOn,
                                 ModifiedOn = c.ModifiedOn
-                            })))
-                ;
+                            })));
         }
     }
 }

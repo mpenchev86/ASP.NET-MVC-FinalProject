@@ -1,4 +1,4 @@
-﻿namespace MvcProject.Data.DbAccessConfig
+﻿namespace MvcProject.Data.DbAccessConfig.IdentityStores
 {
     using System;
     using System.Collections.Generic;

@@ -1,12 +1,8 @@
-﻿namespace MvcProject.Data.DbAccessConfig
+﻿namespace MvcProject.Data.DbAccessConfig.Contexts
 {
     using System;
-    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using MvcProject.Data.Models;
 
     public interface IMvcProjectDbContext : IDisposable
@@ -32,6 +28,8 @@
         IDbSet<ApplicationUser> Users { get; set; }
 
         IDbSet<ApplicationRole> Roles { get; set; }
+
+        //IDbSet<TagProduct> TagProducts { get; set; }
 
         //IDbSet<ApplicationUserRole> UserRoles { get; set; }
 

@@ -7,7 +7,7 @@
     using System.Threading.Tasks;
     using MvcProject.Data.Models;
 
-    public interface IRolesService : IBaseService<ApplicationRole, string>
+    public interface IRolesService : IDeletableEntitiesBaseService<ApplicationRole, string>
     {
         ApplicationRole GetByName(string name);
     }

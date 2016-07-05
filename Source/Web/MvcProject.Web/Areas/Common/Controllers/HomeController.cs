@@ -9,7 +9,7 @@
     using System.Web.Mvc;
     using System.Web.UI;
 
-    using Data.DbAccessConfig;
+    using Data.DbAccessConfig.Contexts;
     using Infrastructure.Caching;
     using Infrastructure.Extensions;
     using Infrastructure.Filters;
@@ -33,7 +33,7 @@
             this.categoriesService = categoriesService;
         }
 
-        //[OutputCache(Duration = 30 * 60, Location = OutputCacheLocation.Server, VaryByCustom = "SomeOtherIdentifier")]
+        // [OutputCache(Duration = 30 * 60, Location = OutputCacheLocation.Server, VaryByCustom = "SomeOtherIdentifier")]
         public ActionResult Index()
         {
             return this.View();
@@ -50,11 +50,6 @@
 
             return this.Json(viewModel.ToDataSourceResult(request));
         }
-
-
-
-
-
 
         [CommonOutputCache]
         public ActionResult FormResults()
@@ -97,16 +92,6 @@
 
             return this.Content(product.ShortDescription);
         }
-
-        //public ActionResult Random(int count)
-        //{
-        //    var randoms = this.productsService.GetRandomProducts(count).To<ProductViewModel>().ToList();
-        //    return this.View(randoms);
-        //}
-
-
-
-
 
         public ActionResult About()
         {

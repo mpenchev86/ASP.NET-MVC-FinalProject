@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\..\..\..\..\TAcademy\Track WEB\ASP.NET-MVC\Workshops\ASP.NET-MVC-Template\Source\Rules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -90,10 +91,6 @@
     <ProjectReference Include="..\..\Common\GlobalConstants\MvcProject.GlobalConstants.csproj">
       <Project>{5f2803a7-770d-4509-8d69-cfbf4d6dc772}</Project>
       <Name>MvcProject.GlobalConstants</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MvcProject.Data.Common\MvcProject.Data.Common.csproj">
-      <Project>{736c2ee0-6d23-432e-b2fb-245807f0946e}</Project>
-      <Name>MvcProject.Data.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

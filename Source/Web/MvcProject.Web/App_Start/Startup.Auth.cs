@@ -1,7 +1,7 @@
 ﻿namespace MvcProject.Web
 {
     using System;
-    using Data.DbAccessConfig;
+    using Data.DbAccessConfig.Contexts;
     using Data.Models;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;

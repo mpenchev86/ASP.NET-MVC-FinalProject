@@ -70,9 +70,12 @@
         {
             if (viewModel != null && this.ModelState.IsValid)
             {
-                var entity = new Comment { Id = viewModel.Id };
-                this.PopulateEntity(entity, viewModel);
-                this.commentsService.Update(entity);
+                var entity = this.commentsService.GetById(viewModel.Id);
+                if (entity != null)
+                {
+                    this.PopulateEntity(entity, viewModel);
+                    this.commentsService.Update(entity);
+                }
             }
 
             return base.Update(request, viewModel);

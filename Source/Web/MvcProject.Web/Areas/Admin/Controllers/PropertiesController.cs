@@ -67,9 +67,12 @@
         {
             if (viewModel != null && this.ModelState.IsValid)
             {
-                var entity = new Property { Id = viewModel.Id };
-                this.PopulateEntity(entity, viewModel);
-                this.propertiesService.Update(entity);
+                var entity = this.propertiesService.GetById(viewModel.Id);
+                if (entity != null)
+                {
+                    this.PopulateEntity(entity, viewModel);
+                    this.propertiesService.Update(entity);
+                }
             }
 
             return base.Update(request, viewModel);

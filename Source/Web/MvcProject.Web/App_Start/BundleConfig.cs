@@ -42,9 +42,9 @@
             // Custom*
             bundles.Add(new ScriptBundle(GlobalConstants.Bundles.ScriptsCustom)
                 .Include(
-                    "~/Scripts/Custom/id-collection-helpers.js",
-                    "~/Scripts/Custom/template-loader.js",
-                    "~/Scripts/Custom/error-handler.js"));
+                    "~/Scripts/Custom/datetime-handler.js",
+                    "~/Scripts/Custom/error-handler.js",
+                    "~/Scripts/Custom/grid-details-helpers.js"));
 
             bundles.Add(new StyleBundle(GlobalConstants.Bundles.StylesContentCss)
                 .Include(
@@ -60,9 +60,11 @@
 
             bundles.Add(new StyleBundle(GlobalConstants.Bundles.StylesContentCustomCss)
                 .Include(
-                    "~/Content/Custom/custom-popup-editor.css",
-                    "~/Content/Custom/listView.css",
-                    "~/Content/Custom/Admin/domains-list.css"));
+                    "~/Content/Custom/Admin/custom-popup-editor.css",
+                    "~/Content/Custom/Admin/details-grid.css",
+                    "~/Content/Custom/Admin/domains-list.css",
+                    "~/Content/Custom/Admin/main-grid.css",
+                    "~/Content/Custom/listView.css"));
 
             bundles.IgnoreList.Clear();
 

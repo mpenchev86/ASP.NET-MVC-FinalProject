@@ -69,9 +69,12 @@
         {
             if (viewModel != null && this.ModelState.IsValid)
             {
-                var entity = new Vote { Id = viewModel.Id };
-                this.PopulateEntity(entity, viewModel);
-                this.votesService.Update(entity);
+                var entity = this.votesService.GetById(viewModel.Id);
+                if (entity != null)
+                {
+                    this.PopulateEntity(entity, viewModel);
+                    this.votesService.Update(entity);
+                }
             }
 
             return base.Update(request, viewModel);

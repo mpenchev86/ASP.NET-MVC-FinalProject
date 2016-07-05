@@ -13,6 +13,7 @@
 
         public string Value { get; set; }
 
+        //[Required]
         public int DescriptionId { get; set; }
 
         [InverseProperty("Properties")]

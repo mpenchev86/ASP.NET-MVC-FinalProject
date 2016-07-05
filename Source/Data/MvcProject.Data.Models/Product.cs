@@ -7,8 +7,8 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using MvcProject.GlobalConstants;
     using EntityContracts;
+    using MvcProject.GlobalConstants;
 
     public class Product : BaseEntityModel<int>, IAdministerable
     {

@@ -54,12 +54,8 @@
         [UIHint("DropDown")]
         public int CategoryId { get; set; }
 
-        //public CategoryDetailsForProductViewModel Category { get; set; }
-
         [UIHint("DropDown")]
         public int? MainImageId { get; set; }
-
-        //public ImageDetailsForProductViewModel MainImage { get; set; }
 
         public bool IsInStock
         {
@@ -95,6 +91,7 @@
             set { this.comments = value; }
         }
 
+        [UIHint("MultiSelect")]
         public ICollection<TagDetailsForProductViewModel> Tags
         {
             get { return this.tags; }
@@ -174,8 +171,7 @@
                                 Name = t.Name,
                                 CreatedOn = t.CreatedOn,
                                 ModifiedOn = t.ModifiedOn
-                            })))
-                ;
+                            })));
         }
     }
 }

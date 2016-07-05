@@ -1,10 +1,6 @@
 ﻿namespace MvcProject.Web.Areas.Admin.ViewModels.Votes
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Web;
 
     using AutoMapper;
     using Data.Models;
@@ -25,8 +21,7 @@
             configuration.CreateMap<Vote, VoteDetailsForUserViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
-                .ForMember(dest => dest.VoteValue, opt => opt.MapFrom(src => src.VoteValue))
-                ;
+                .ForMember(dest => dest.VoteValue, opt => opt.MapFrom(src => src.VoteValue));
         }
     }
 }

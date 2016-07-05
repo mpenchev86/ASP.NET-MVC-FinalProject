@@ -7,7 +7,9 @@
     using System.Security.Claims;
     using System.Threading.Tasks;
     using System.Web;
-    using Data.DbAccessConfig;
+
+    using Data.DbAccessConfig.Contexts;
+    using Data.DbAccessConfig.IdentityStores;
     using Data.Models;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
@@ -31,7 +33,7 @@
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            var manager = new ApplicationUserManager(/*new UserStore<ApplicationUser, ApplicationRole, string, IdentityUserLogin, ApplicationUserRole, IdentityUserClaim>*/new ApplicationUserStore(context.Get<MvcProjectDbContext>()), new EmailService(), new SmsService());
+            var manager = new ApplicationUserManager(new ApplicationUserStore(context.Get<MvcProjectDbContext>()), new EmailService(), new SmsService());
 
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
@@ -62,8 +64,7 @@
                 new PhoneNumberTokenProvider<ApplicationUser> { MessageFormat = "Your security code is {0}" });
             manager.RegisterTwoFactorProvider(
                 "Email Code", new EmailTokenProvider<ApplicationUser> { Subject = "Security Code", BodyFormat = "Your security code is {0}" });
-            //manager.EmailService = new EmailService();
-            //manager.SmsService = new SmsService();
+
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
@@ -72,16 +73,6 @@
             }
 
             return manager;
-        }
-
-        public override Task<IdentityResult> RemoveFromRolesAsync(string userId, params string[] roles)
-        {
-            return base.RemoveFromRolesAsync(userId, roles);
-        }
-
-        public override Task<IdentityResult> AddToRolesAsync(string userId, params string[] roles)
-        {
-            return base.AddToRolesAsync(userId, roles);
         }
     }
 }

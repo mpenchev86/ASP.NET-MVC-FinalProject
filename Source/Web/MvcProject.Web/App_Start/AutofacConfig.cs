@@ -11,7 +11,8 @@
     using Areas.Common.Controllers;
     using Autofac;
     using Autofac.Integration.Mvc;
-    using Data.DbAccessConfig;
+    using Data.DbAccessConfig.Contexts;
+    using Data.DbAccessConfig.IdentityStores;
     using Data.DbAccessConfig.Repositories;
     using Data.Models;
     using Infrastructure.Sanitizer;
@@ -61,23 +62,22 @@
                 .InstancePerRequest();
 
             builder
-                .Register(x => HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationUserManager>()
-                /*new ApplicationUserManager(new UserStore<ApplicationUser>(new MvcProjectDbContext()))*/)
+                .Register(x => HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationUserManager>())
                 .As<UserManager<ApplicationUser, string>>()
-                //.InstancePerRequest()
+                .InstancePerRequest()
                 ;
 
             builder
-                .Register(x => HttpContext.Current.Request.GetOwinContext().Get<ApplicationRoleManager>()
-                /*new ApplicationUserManager(new UserStore<ApplicationUser>(new MvcProjectDbContext()))*/)
+                .Register(x => HttpContext.Current.Request.GetOwinContext().Get<ApplicationRoleManager>())
                 .As<RoleManager<ApplicationRole, string>>()
-                //.InstancePerRequest()
+                .InstancePerRequest()
                 ;
 
-            //builder
-            //    .RegisterGeneric(typeof(GenericRepository<>))
-            //    .As(typeof(IRepository<>))
-            //    .InstancePerRequest();
+            builder
+                .Register(x => HttpContext.Current.Request.GetOwinContext().Get<ApplicationSignInManager>())
+                .As<SignInManager<ApplicationUser, string>>()
+                .InstancePerRequest()
+                ;
 
             builder
                 .RegisterGeneric(typeof(EfIntPKRepositoryDeletable<>))
@@ -98,26 +98,6 @@
                 .RegisterGeneric(typeof(EfStringPKRepository<>))
                 .As(typeof(IStringPKRepository<>))
                 .InstancePerRequest();
-
-            builder
-                .Register(x => new UserRolesService(new EfIntPKRepository<ApplicationUserRole>(new MvcProjectDbContext())))
-                .As<IUserRolesService<ApplicationUserRole>>()
-                .InstancePerRequest();
-
-            //builder
-            //    .Register(x => new HttpCacheService())
-            //    .As<ICacheService>()
-            //    .InstancePerRequest();
-
-            //builder
-            //    .Register(x => new IdentifierProvider())
-            //    .As<IIdentifierProvider>()
-            //    .InstancePerRequest();
-
-            //builder
-            //    .Register(x => new HtmlSanitizerAdapter())
-            //    .As<ISanitizer>()
-            //    .InstancePerRequest();
 
             var dataServicesAssembly = Assembly.Load(Assemblies.DataServicesAssemblyName);
             builder

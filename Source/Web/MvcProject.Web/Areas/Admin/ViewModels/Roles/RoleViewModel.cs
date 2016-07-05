@@ -4,13 +4,10 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
-    using System.Web;
     using AutoMapper;
     using Data.Models;
     using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
-    using Microsoft.AspNet.Identity.Owin;
-    using Microsoft.Owin;
     using Users;
     using ViewModels;
 
@@ -46,11 +43,8 @@
                             src => src.Users.Select(user => new UserDetailsForRoleViewModel
                             {
                                 Id = user.UserId,
-                                UserName = user.UserName,
-                                //CreatedOn = user.CreatedOn,
-                                //ModifiedOn = user.ModifiedOn
-                            })))
-                ;
+                                UserName = user.UserName
+                            })));
         }
     }
 }
