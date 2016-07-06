@@ -8,6 +8,9 @@
     using MvcProject.Data.Models;
     using MvcProject.Web.Infrastructure.Mapping;
 
+    /// <summary>
+    /// Allows extension of the data service for Description entity
+    /// </summary>
     public interface IDescriptionsService : IDeletableEntitiesBaseService<Description, int>
     {
     }

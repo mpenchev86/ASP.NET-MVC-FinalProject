@@ -10,6 +10,9 @@
     using MvcProject.Data.Models.EntityContracts;
     using MvcProject.Web.Infrastructure.Mapping;
 
+    /// <summary>
+    /// Allows extension of the data service for Property entity
+    /// </summary>
     public interface IPropertiesService : IDeletableEntitiesBaseService<Property, int>
     {
     }

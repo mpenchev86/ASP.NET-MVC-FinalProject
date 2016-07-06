@@ -248,6 +248,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\ApplicationUserManager.cs" />
+    <Compile Include="App_Start\GlimpseSecurityPolicy.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
@@ -309,7 +310,6 @@
     <Compile Include="Areas\Common\Controllers\ChildActionsController.cs" />
     <Compile Include="Areas\Common\Controllers\HomeController.cs" />
     <Compile Include="Areas\Common\Controllers\ManageController.cs" />
-    <Compile Include="App_Start\GlimpseSecurityPolicy.cs" />
     <Compile Include="Areas\Common\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Common\ViewModels\Home\IndexViewModel.cs" />
     <Compile Include="Areas\Common\ViewModels\Home\CategoryViewModel.cs" />

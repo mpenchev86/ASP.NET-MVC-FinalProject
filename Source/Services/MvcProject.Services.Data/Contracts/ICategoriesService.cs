@@ -9,6 +9,9 @@
     using MvcProject.Data.Models.EntityContracts;
     using MvcProject.Web.Infrastructure.Mapping;
 
+    /// <summary>
+    /// Allows extension of the data service for Category entity
+    /// </summary>
     public interface ICategoriesService : IDeletableEntitiesBaseService<Category, int>
     {
     }

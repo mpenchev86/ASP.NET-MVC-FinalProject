@@ -39,11 +39,6 @@
             this.repository.SaveChanges();
         }
 
-        //public void AddUserToRoles(string userId, string[] roles)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
         public void RemoveUserFromRole(string userName, string roleName)
         {
             this.repository.DeletePermanent(this.GetByUserName(userName).FirstOrDefault(r => r.RoleName == roleName));

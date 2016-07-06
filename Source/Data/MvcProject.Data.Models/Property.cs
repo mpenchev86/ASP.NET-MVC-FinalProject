@@ -18,6 +18,7 @@
         /// The name of a property.
         /// </value>
         [Required]
+        [DataType(DataType.MultilineText)]
         public string Name { get; set; }
 
         /// <summary>
@@ -26,6 +27,7 @@
         /// <value>
         /// The value of a property.
         /// </value>
+        [DataType(DataType.MultilineText)]
         public string Value { get; set; }
 
         /// <summary>
@@ -34,8 +36,7 @@
         /// <value>
         /// The foreign key of the description to which the property belongs.
         /// </value>
-        // [Required]
-        public int DescriptionId { get; set; }
+        public int? DescriptionId { get; set; }
 
         /// <summary>
         /// Gets or sets the description to which the property belongs.

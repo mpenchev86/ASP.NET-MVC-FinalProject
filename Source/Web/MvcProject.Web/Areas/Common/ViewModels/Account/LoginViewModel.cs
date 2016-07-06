@@ -8,11 +8,6 @@
 
     public class LoginViewModel
     {
-        //[Required]
-        //[Display(Name = "Email")]
-        //[EmailAddress]
-        //public string Email { get; set; }
-
         [Required]
         [Display(Name = "UserName")]
         public string UserName { get; set; }

@@ -56,11 +56,13 @@
 
         public static void RegisterServices(ContainerBuilder builder)
         {
+            // Application Context
             builder
                 .Register(x => new MvcProjectDbContext())
                 .As<DbContext>()
                 .InstancePerRequest();
 
+            // ASP.NET Identity
             builder
                 .Register(x => HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationUserManager>())
                 .As<UserManager<ApplicationUser, string>>()
@@ -79,6 +81,7 @@
                 .InstancePerRequest()
                 ;
 
+            // Repositories
             builder
                 .RegisterGeneric(typeof(EfIntPKDeletableRepository<>))
                 .As(typeof(IIntPKDeletableRepository<>))
@@ -99,6 +102,7 @@
                 .As(typeof(IStringPKRepository<>))
                 .InstancePerRequest();
 
+            // Application Services
             var dataServicesAssembly = Assembly.Load(Assemblies.DataServicesAssemblyName);
             builder
                 .RegisterAssemblyTypes(dataServicesAssembly)
@@ -111,12 +115,14 @@
                 .AsImplementedInterfaces()
                 .InstancePerRequest();
 
+            // Infrastructure
             var infrastructureAssembly = Assembly.Load(Assemblies.InfrastructureAssemblyName);
             builder
                 .RegisterAssemblyTypes(infrastructureAssembly)
                 .AsImplementedInterfaces()
                 .InstancePerRequest();
 
+            // Controllers
             builder
                 .RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
                 .AssignableTo<BaseController>()

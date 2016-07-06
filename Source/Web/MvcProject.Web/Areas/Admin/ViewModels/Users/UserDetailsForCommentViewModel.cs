@@ -1,5 +1,6 @@
 ﻿namespace MvcProject.Web.Areas.Admin.ViewModels.Users
 {
+    using System.ComponentModel.DataAnnotations;
     using AutoMapper;
     using Data.Models;
     using Infrastructure.Mapping;
@@ -12,6 +13,7 @@
         /// <value>
         /// The name of the user as displayed in the user interface.
         /// </value>
+        [Required]
         public string UserName { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)

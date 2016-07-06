@@ -8,6 +8,9 @@
     using MvcProject.Data.Models;
     using MvcProject.Web.Infrastructure.Mapping;
 
+    /// <summary>
+    /// Allows extension of the data service for Tag entity
+    /// </summary>
     public interface ITagsService : IDeletableEntitiesBaseService<Tag, int>
     {
     }

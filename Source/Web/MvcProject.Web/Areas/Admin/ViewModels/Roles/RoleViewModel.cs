@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
     using AutoMapper;
@@ -20,6 +21,7 @@
             this.users = new HashSet<UserDetailsForRoleViewModel>();
         }
 
+        [Required]
         public string Name { get; set; }
 
         [Index]

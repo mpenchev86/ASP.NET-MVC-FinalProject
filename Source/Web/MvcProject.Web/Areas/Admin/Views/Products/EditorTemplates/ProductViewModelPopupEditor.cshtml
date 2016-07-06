@@ -55,7 +55,7 @@
             @Html.LabelFor(m => m.CategoryId, "Category")
         </div>
         <div class="editor-field">
-            @(Html.EditorFor(
+            @Html.EditorFor(
                 m => m.CategoryId,
                 new
                 {
@@ -64,9 +64,13 @@
                     Text = "Name",
                     Value = "Id",
                     Action = "GetDataAsJson",
-                    Controller = "Categories"
+                    Controller = "Categories",
+                    htmlAttributes = new
+                    {
+                        data_val_number = "The field CategoryId must be a number.",
+                        data_val_required = "The CategoryId field is required."
+                    }
                 })
-                )
             @Html.ValidationMessageFor(m => m.CategoryId)
         </div>
     </div>
@@ -176,7 +180,6 @@
                     dataValueField = "Id",
                     action = "GetAllTags",
                     controller = "Products",
-                    area = "Admin",
                     data_bind = "value: Tags"
                 })
             @Html.ValidationMessageFor(model => model.Tags)
@@ -193,13 +196,3 @@
         </div>
     </div>
 </div>
-
-@section styles{
-    @*NOTHING LOADS HERE*@
-}
-
-@section Scripts{
-    <script>
-        @*NOTHING LOADS HERE*@
-    </script>
-}

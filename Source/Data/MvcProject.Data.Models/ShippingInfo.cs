@@ -16,18 +16,6 @@
             this.products = new HashSet<Product>();
         }
 
-        //[Column(TypeName = "datetime2")]
-        //public DateTime EarliestShippingDate { get; set; }
-
-        //[Column(TypeName = "datetime2")]
-        //public DateTime LatestShippingDate { get; set; }
-
-        //[Column(TypeName = "datetime2")]
-        //public DateTime EarliestDeliveryDate { get; set; }
-
-        //[Column(TypeName = "datetime2")]
-        //public DateTime LatestDeliveryDate { get; set; }
-
         [Range(0, int.MaxValue)]
         public int DaysToDelivery { get; set; }
 

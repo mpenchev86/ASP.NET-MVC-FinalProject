@@ -27,6 +27,7 @@
             this.votes = new HashSet<VoteDetailsForUserViewModel>();
         }
 
+        [Required]
         public string UserName { get; set; }
 
         /// <summary>
@@ -35,7 +36,8 @@
         /// <value>
         /// The salted/hashed form of the user password.
         /// </value>
-        public virtual string PasswordHash { get; set; }
+        [DataType(DataType.Password)]
+        public string PasswordHash { get; set; }
 
         /// <summary>
         /// Gets or sets the user's email.
@@ -43,7 +45,8 @@
         /// <value>
         /// The user's email.
         /// </value>
-        public virtual string Email { get; set; }
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the email is confirmed, default is false
@@ -51,7 +54,7 @@
         /// <value>
         /// True if the email is confirmed, default is false
         /// </value>
-        public virtual bool EmailConfirmed { get; set; }
+        public bool EmailConfirmed { get; set; }
 
         /// <summary>
         /// Gets or sets the failures for the purposes of lockout
@@ -59,7 +62,7 @@
         /// <value>
         /// The failures for the purposes of lockout
         /// </value>
-        public virtual int AccessFailedCount { get; set; }
+        public int AccessFailedCount { get; set; }
 
         /// <summary>
         /// Gets or sets a random value that should change whenever a users credentials have
@@ -68,7 +71,7 @@
         /// <value>
         /// A random value that should change whenever a users credentials have changed (password changed, login removed)
         /// </value>
-        public virtual string SecurityStamp { get; set; }
+        public string SecurityStamp { get; set; }
 
         /// <summary>
         /// Gets or sets phoneNumber for the user
@@ -76,7 +79,8 @@
         /// <value>
         /// PhoneNumber for the user
         /// </value>
-        public virtual string PhoneNumber { get; set; }
+        [DataType(DataType.PhoneNumber)]
+        public string PhoneNumber { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the phone number is confirmed, default is false
@@ -84,7 +88,7 @@
         /// <value>
         /// True if the phone number is confirmed, default is false
         /// </value>
-        public virtual bool PhoneNumberConfirmed { get; set; }
+        public bool PhoneNumberConfirmed { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether two factor authentication is enabled for the user
@@ -92,7 +96,7 @@
         /// <value>
         /// True if two factor authentication is enabled for the user
         /// </value>
-        public virtual bool TwoFactorEnabled { get; set; }
+        public bool TwoFactorEnabled { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether lockout is enabled for this user
@@ -100,7 +104,7 @@
         /// <value>
         /// Is lockout enabled for this user
         /// </value>
-        public virtual bool LockoutEnabled { get; set; }
+        public bool LockoutEnabled { get; set; }
 
         /// <summary>
         /// Gets or sets dateTime in UTC when lockout ends, any time in the past is considered not locked out.
@@ -108,7 +112,7 @@
         /// <value>
         /// DateTime in UTC when lockout ends, any time in the past is considered not locked out.
         /// </value>
-        public virtual DateTime? LockoutEndDateUtc { get; set; }
+        public DateTime? LockoutEndDateUtc { get; set; }
 
         [UIHint("MultiSelect")]
         public ICollection<RoleDetailsForUserViewModel> Roles

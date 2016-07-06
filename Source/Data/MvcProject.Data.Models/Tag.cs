@@ -28,6 +28,7 @@
         /// The tag's name.
         /// </value>
         [Required]
+        [DataType(DataType.Text)]
         [MaxLength(ValidationConstants.TagNameMaxLength)]
         public string Name { get; set; }
 

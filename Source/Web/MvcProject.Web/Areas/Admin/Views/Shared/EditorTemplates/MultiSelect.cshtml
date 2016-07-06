@@ -11,7 +11,7 @@
             .ServerFiltering(true)
             .Read(read =>
             {
-                read.Action((string)ViewData["action"], (string)ViewData["controller"], new { area = (string)ViewData["area"] }); });
+                read.Action((string)ViewData["action"], (string)ViewData["controller"], new { area = "Admin" }); });
     })
     .HtmlAttributes(new { data_bind = (string)ViewData["data_bind"] })
 )

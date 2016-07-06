@@ -9,6 +9,9 @@
     using MvcProject.Data.Models.EntityContracts;
     using MvcProject.Web.Infrastructure.Mapping;
 
+    /// <summary>
+    /// Allows extension of the data service for Comment entity
+    /// </summary>
     public interface ICommentsService : IDeletableEntitiesBaseService<Comment, int>
     {
     }

@@ -21,6 +21,7 @@
         // Image entity
         public const int ImageOriginalFileNameMaxLength = 255;
         public const int ImageFileExtensionMaxLength = 4;
+        public const int ImageUrlPathMaxLength = 255;
 
         // Product entity
         public const int ProductTitleMaxLength = 150;

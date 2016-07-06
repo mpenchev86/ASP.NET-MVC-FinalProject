@@ -27,6 +27,7 @@
         /// The name of the category.
         /// </value>
         [Required]
+        [DataType(DataType.MultilineText)]
         [MaxLength(ValidationConstants.CategoryNameMaxLenght)]
         public string Name { get; set; }
 

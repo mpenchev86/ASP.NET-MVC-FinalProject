@@ -19,8 +19,6 @@
 
         IDbSet<Property> Properties { get; set; }
 
-        //public IDbSet<ShippingInfo> ShippingInfoes { get; set; }
-
         IDbSet<Tag> Tags { get; set; }
 
         IDbSet<Vote> Votes { get; set; }

@@ -1,11 +1,13 @@
 ﻿namespace MvcProject.Web.Areas.Admin.ViewModels.Roles
 {
+    using System.ComponentModel.DataAnnotations;
     using AutoMapper;
     using Data.Models;
     using Infrastructure.Mapping;
 
     public class RoleDetailsForUserViewModel : BaseAdminViewModel<string>, IMapFrom<ApplicationRole>, IHaveCustomMappings
     {
+        [Required]
         public string Name { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)

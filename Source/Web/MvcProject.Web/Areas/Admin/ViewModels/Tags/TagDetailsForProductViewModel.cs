@@ -9,6 +9,7 @@
     public class TagDetailsForProductViewModel : BaseAdminViewModel<int>, IMapFrom<Tag>, IHaveCustomMappings
     {
         [Required]
+        [DataType(DataType.Text)]
         [MaxLength(ValidationConstants.TagNameMaxLength)]
         public string Name { get; set; }
 

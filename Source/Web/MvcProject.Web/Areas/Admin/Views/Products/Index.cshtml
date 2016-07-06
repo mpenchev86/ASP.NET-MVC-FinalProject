@@ -45,10 +45,7 @@
         c.Bound(m => m.IsDeleted).Title("Marked As Deleted");
         c.Bound(m => m.DeletedOn);
     },
-    dataSourceEvents: ev =>
-    {
-        ev.Error("errorHandler.handler");
-    },
+    dataSourceEvents: ev => { ev.Error("errorHandler.handler"); },
     isBatch: false,
     isServerOperation: true,
     editingSettings: editor =>
@@ -61,15 +58,9 @@
                     .Actions(a => { a.Minimize().Maximize().Close(); })
                     .Draggable(true)
                     .Scrollable(false)
-                    .Resizable()
-                    ;
+                    .Resizable();
             })
-            .TemplateName("ProductViewModelPopupEditor")
-            //.AdditionalViewData(new { categories = Model.Categories })
-            //.CreateAt(GridInsertRowPosition.Bottom)
-            //.ConfirmDelete("Delete?")
-            //.DisplayDeleteConfirmation(false)
-            ;
+            .TemplateName("ProductViewModelPopupEditor");
     },
     htmlAttributes: new { @class = "main-grid" },
     readHandler: "readHandler",
@@ -139,41 +130,5 @@
             gridDetailsHelpers.setDataSource("#votes-grid_" + e.data.Id, e.data.Votes, 10);
             gridDetailsHelpers.setDataSource("#tags-grid_" + e.data.Id, e.data.Tags, 10);
         }
-
-        //// jquery.validate to ignore the empty string in dropdownlist value
-        //$.validator.defaults.ignore = "";
-
-        //function showData(data) {
-        //    console.log($("#CategoryId").data("kendoDropDownList").dataItem());
-        //    console.log($("#CategoryId").data("kendoDropDownList").value());
-        //}
-
-        //function onAdditionalData() {
-        //    console.log(Object
-        //        .keys($("#propertiesMultiSelect")
-        //        .data("kendoMultiSelect")
-        //        ));
-        //    return {
-        //        descriptionId: data["Description.Id"]
-        //    };
-        //}
-
-        //$(document).ready(function () {
-        //    var gridData = $('#productsGrid').data("kendoGrid");
-        //    console.log(gridData);
-        //});
-
-        //function loadProperties() {
-        //    $("#propertiesMultiSelect").kendoMultiSelect();
-
-        //    var multiselect = $("#propertiesMultiSelect").data("kendoMultiSelect");
-
-        //    // get data items for the selected options.
-        //    //var dataItem = multiselect.dataItems();
-
-        //    //console.log(dataItem);
-        //    //console.log(multiselect.initialValues);
-        //    console.log(multiselect._initialValues);
-        //}
     </script>
 }

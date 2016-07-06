@@ -12,21 +12,17 @@
     {
         private readonly string firstParam;
         private readonly string secondParam;
-        //private readonly string thirdParam;
 
-        public AdminDestroySelectorAttribute(string firstParam, string secondParam/*, string thirdParam*/)
+        public AdminDestroySelectorAttribute(string firstParam, string secondParam)
         {
             this.firstParam = firstParam;
             this.secondParam = secondParam;
-            //this.thirdParam = thirdParam;
         }
 
         public override bool IsValidForRequest(ControllerContext controllerContext, MethodInfo methodInfo)
         {
             return controllerContext.RouteData.Values[this.firstParam] != null
-                && controllerContext.RouteData.Values[this.secondParam] != null
-                //&& controllerContext.RouteData.Values[this.thirdParam] != null
-                ;
+                && controllerContext.RouteData.Values[this.secondParam] != null;
         }
     }
 }

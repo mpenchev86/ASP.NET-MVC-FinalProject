@@ -17,7 +17,7 @@
 
         [Required]
         [StringLength(20, ErrorMessage = ValidationConstants.ErrorMessageUsernameLength, MinimumLength = 6)]
-        //[Display(Name = "UserName")]
+        [Display(Name = "UserName")]
         public string UserName { get; set; }
 
         [Required]

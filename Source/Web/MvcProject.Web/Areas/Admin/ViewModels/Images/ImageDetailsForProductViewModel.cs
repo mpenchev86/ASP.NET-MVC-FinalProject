@@ -20,6 +20,9 @@
         [MaxLength(ValidationConstants.ImageFileExtensionMaxLength)]
         public string FileExtension { get; set; }
 
+        [Required]
+        [DataType(DataType.ImageUrl)]
+        [MaxLength(ValidationConstants.ImageUrlPathMaxLength)]
         public string UrlPath { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)

@@ -16,6 +16,7 @@
         /// The contents of the comment.
         /// </value>
         [Required]
+        [DataType(DataType.MultilineText)]
         [MinLength(ValidationConstants.CommentContentMinLength)]
         [MaxLength(ValidationConstants.CommentContentMaxLength)]
         public string Content { get; set; }

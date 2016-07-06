@@ -10,6 +10,9 @@
     using MvcProject.Data.Models;
     using MvcProject.Web.Infrastructure.Mapping;
 
+    /// <summary>
+    /// Allows extension of the data service for the ApplicationUser entity
+    /// </summary>
     public interface IUsersService : IDeletableEntitiesBaseService<ApplicationUser, string>
     {
     }

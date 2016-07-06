@@ -18,7 +18,6 @@
         private ICollection<Tag> tags;
         private ICollection<Image> images;
         private ICollection<Comment> comments;
-        //private ICollection<ShippingInfo> shippingOptions;
         private ICollection<Vote> votes;
 
         public Product()
@@ -27,7 +26,6 @@
             this.images = new HashSet<Image>();
             this.comments = new HashSet<Comment>();
             this.votes = new HashSet<Vote>();
-            //this.shippingOptions = new HashSet<ShippingInfo>();
         }
 
         /// <summary>
@@ -37,6 +35,7 @@
         /// The title of the product.
         /// </value>
         [Required]
+        [DataType(DataType.MultilineText)]
         [MaxLength(ValidationConstants.ProductTitleMaxLength)]
         public string Title { get; set; }
 
@@ -46,6 +45,7 @@
         /// <value>
         /// A short description used in a quick view of a product.
         /// </value>
+        [DataType(DataType.MultilineText)]
         [MaxLength(ValidationConstants.ShortDescriptionMaxLength)]
         public string ShortDescription { get; set; }
 
@@ -104,7 +104,6 @@
         /// <value>
         /// A value indicating whether the product is in stock (there's one or more items of this product).
         /// </value>
-        [NotMapped]
         public bool IsInStock
         {
             get { return this.QuantityInStock != 0; }
@@ -222,11 +221,5 @@
             get { return this.votes; }
             set { this.votes = value; }
         }
-
-        //public virtual ICollection<ShippingInfo> ShippingOptions
-        //{
-        //    get { return this.shippingOptions; }
-        //    set { this.shippingOptions = value; }
-        //}
     }
 }

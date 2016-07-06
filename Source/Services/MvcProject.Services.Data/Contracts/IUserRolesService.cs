@@ -6,6 +6,10 @@
     using System.Text;
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// Exposes functionality for manipulation of data in the junction table for users and roles
+    /// </summary>
+    /// <typeparam name="T">The type representing the junction table.</typeparam>
     public interface IUserRolesService<T>
     {
         IQueryable<T> GetByUserId(string userId);
@@ -17,8 +21,6 @@
         IQueryable<T> GetByRoleName(string roleName);
 
         void CreateUserRole(T role);
-
-        //void AddUserToRoles(string userId, string[] roles);
 
         void RemoveUserFromRole(string userId, string role);
 

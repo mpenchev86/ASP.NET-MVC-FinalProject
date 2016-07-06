@@ -12,14 +12,11 @@
     public class PropertyDetailsForDescriptionViewModel : BaseAdminViewModel<int>, IMapFrom<Property>, IHaveCustomMappings
     {
         [Required]
+        [DataType(DataType.MultilineText)]
         public string Name { get; set; }
 
+        [DataType(DataType.MultilineText)]
         public string Value { get; set; }
-
-        public string NameValue
-        {
-            get { return this.Name + " : " + this.Value; }
-        }
 
         public void CreateMappings(IMapperConfiguration configuration)
         {

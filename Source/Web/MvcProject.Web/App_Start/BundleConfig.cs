@@ -19,8 +19,8 @@
 
             bundles.Add(new ScriptBundle(GlobalConstants.Bundles.ScriptsJQueryValidate)
                 .Include(
-                    "~/Scripts/jquery.unobtrusive*",
-                    "~/Scripts/jquery.validate*"));
+                    "~/Scripts/jquery.validate*",
+                    "~/Scripts/jquery.unobtrusive*"));
 
             bundles.Add(new ScriptBundle(GlobalConstants.Bundles.ScriptsBootstrap)
                 .Include(
@@ -29,7 +29,6 @@
 
             bundles.Add(new ScriptBundle(GlobalConstants.Bundles.ScriptsKendo)
                 .Include(
-                    "~/Scripts/Kendo/jquery.min.js",
                     "~/Scripts/Kendo/kendo.all.min.js",
                     "~/Scripts/Kendo/kendo.aspnetmvc.min.js",
                     "~/Scripts/Kendo/cultures/kendo.culture." + userCulture + ".min.js"));
@@ -71,6 +70,7 @@
             bundles.IgnoreList.Ignore("*.intellisense.js");
             bundles.IgnoreList.Ignore("*-vsdoc.js");
             bundles.IgnoreList.Ignore("*.debug.js", OptimizationMode.WhenEnabled);
+            bundles.IgnoreList.Ignore("*.unobtrusive-ajax.min.js", OptimizationMode.WhenDisabled);
 
             // Optimization in both debug and release
 #if DEBUG

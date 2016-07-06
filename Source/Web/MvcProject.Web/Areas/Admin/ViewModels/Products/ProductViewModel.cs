@@ -51,6 +51,7 @@
 
         public DescriptionDetailsForProductViewModel Description { get; set; }
 
+        [Required]
         [UIHint("DropDown")]
         public int CategoryId { get; set; }
 

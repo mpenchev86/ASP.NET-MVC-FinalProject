@@ -9,6 +9,9 @@
     using MvcProject.Data.Models.EntityContracts;
     using MvcProject.Web.Infrastructure.Mapping;
 
+    /// <summary>
+    /// Allows extension of the data service for Image entity
+    /// </summary>
     public interface IImagesService : IDeletableEntitiesBaseService<Image, int>
     {
     }

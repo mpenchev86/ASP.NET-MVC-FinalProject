@@ -34,8 +34,6 @@
 
         public IDbSet<Property> Properties { get; set; }
 
-        //public IDbSet<ShippingInfo> ShippingInfoes { get; set; }
-
         public IDbSet<Tag> Tags { get; set; }
 
         public IDbSet<Vote> Votes { get; set; }
@@ -80,13 +78,6 @@
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //// Change the names of tables in sql server
-            // modelBuilder.Entity<ApplicationUser>().ToTable("Users", "dbo");
-            // modelBuilder.Entity<ApplicationRole>().ToTable("Roles", "dbo");
-            // modelBuilder.Entity<ApplicationUserRole>().ToTable("UserRoles", "dbo");
-            // modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaims", "dbo");
-            // modelBuilder.Entity<IdentityUserLogin>().ToTable("UserLogins", "dbo");
-
             modelBuilder.Entity<Product>()
                 .HasMany<Tag>(p => p.Tags)
                 .WithMany(t => t.Products)

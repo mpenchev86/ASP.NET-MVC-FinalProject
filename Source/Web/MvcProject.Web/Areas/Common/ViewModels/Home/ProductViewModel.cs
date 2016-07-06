@@ -13,7 +13,6 @@
     using Infrastructure.Sanitizer;
     using Services.Web;
 
-    //[Bind(Include = "Name,Description,Category")]
     public class ProductViewModel : IMapFrom<Product>, IHaveCustomMappings
     {
         private ISanitizer sanitizer;
@@ -25,7 +24,7 @@
 
         public string Id { get; set; }
 
-        //[Required(ErrorMessageResourceType = typeof(Resources.Home.Index), ErrorMessageResourceName = nameof(Resources.Home.Index.RequiredField))]
+        [Required(ErrorMessageResourceType = typeof(Resources.Home.Index), ErrorMessageResourceName = nameof(Resources.Home.Index.RequiredField))]
         public string Title { get; set; }
 
         [UIHint(GlobalConstants.Templates.CustomStringTemplate)]
@@ -41,8 +40,7 @@
         {
             get
             {
-                //IIdentifierProvider provider = new IdentifierProvider();
-                return $"/Product/{/*provider.EncodeId(this.Id)*/this.Id}";
+                return string.Format("/Product/{0}", this.Id);
             }
         }
 

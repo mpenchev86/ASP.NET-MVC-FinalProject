@@ -67,13 +67,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Contracts\IDeletableRepository.cs" />
     <Compile Include="Repositories\Contracts\IIntPKRepository.cs" />
-    <Compile Include="Repositories\Contracts\IIntPKRepositoryDeletable.cs" />
+    <Compile Include="Repositories\Contracts\IIntPKDeletableRepository.cs" />
     <Compile Include="Repositories\Contracts\IStringPKRepository.cs" />
-    <Compile Include="Repositories\Contracts\IStringPKRepositoryDeletable.cs" />
+    <Compile Include="Repositories\Contracts\IStringPKDeletableRepository.cs" />
     <Compile Include="Repositories\EfIntPKRepository.cs" />
-    <Compile Include="Repositories\EfIntPKRepositoryDeletable.cs" />
+    <Compile Include="Repositories\EfIntPKDeletableRepository.cs" />
     <Compile Include="Repositories\EfStringPKRepository.cs" />
-    <Compile Include="Repositories\EfStringPKRepositoryDeletable.cs" />
+    <Compile Include="Repositories\EfStringPKDeletableRepository.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Repositories\Contracts\IRepository.cs" />
   </ItemGroup>
