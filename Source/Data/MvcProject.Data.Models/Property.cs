@@ -6,16 +6,43 @@
 
     using MvcProject.Data.Models.EntityContracts;
 
+    /// <summary>
+    /// Represents the property entity of a product's description.
+    /// </summary>
     public class Property : BaseEntityModel<int>, IAdministerable
     {
+        /// <summary>
+        /// Gets or sets the name of a property.
+        /// </summary>
+        /// <value>
+        /// The name of a property.
+        /// </value>
         [Required]
         public string Name { get; set; }
 
+        /// <summary>
+        /// Gets or sets the value of a property.
+        /// </summary>
+        /// <value>
+        /// The value of a property.
+        /// </value>
         public string Value { get; set; }
 
-        //[Required]
+        /// <summary>
+        /// Gets or sets the foreign key of the description to which the property belongs.
+        /// </summary>
+        /// <value>
+        /// The foreign key of the description to which the property belongs.
+        /// </value>
+        // [Required]
         public int DescriptionId { get; set; }
 
+        /// <summary>
+        /// Gets or sets the description to which the property belongs.
+        /// </summary>
+        /// <value>
+        /// The description to which the property belongs.
+        /// </value>
         [InverseProperty("Properties")]
         public virtual Description Description { get; set; }
     }

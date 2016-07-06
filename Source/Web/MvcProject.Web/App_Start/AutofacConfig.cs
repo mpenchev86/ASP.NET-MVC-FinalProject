@@ -80,13 +80,13 @@
                 ;
 
             builder
-                .RegisterGeneric(typeof(EfIntPKRepositoryDeletable<>))
-                .As(typeof(IIntPKRepositoryDeletable<>))
+                .RegisterGeneric(typeof(EfIntPKDeletableRepository<>))
+                .As(typeof(IIntPKDeletableRepository<>))
                 .InstancePerRequest();
 
             builder
-                .RegisterGeneric(typeof(EfStringPKRepositoryDeletable<>))
-                .As(typeof(IStringPKRepositoryDeletable<>))
+                .RegisterGeneric(typeof(EfStringPKDeletableRepository<>))
+                .As(typeof(IStringPKDeletableRepository<>))
                 .InstancePerRequest();
 
             builder

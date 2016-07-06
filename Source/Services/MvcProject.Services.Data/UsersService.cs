@@ -20,11 +20,11 @@
 
     public class UsersService : IUsersService
     {
-        private readonly IStringPKRepositoryDeletable<ApplicationUser> users;
+        private readonly IStringPKDeletableRepository<ApplicationUser> users;
         private IIdentifierProvider idProvider;
 
         public UsersService(
-            IStringPKRepositoryDeletable<ApplicationUser> users,
+            IStringPKDeletableRepository<ApplicationUser> users,
             IIdentifierProvider idProvider)
         {
             this.users = users;

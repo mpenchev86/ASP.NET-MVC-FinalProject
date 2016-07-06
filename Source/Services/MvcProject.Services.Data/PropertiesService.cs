@@ -13,10 +13,10 @@
 
     public class PropertiesService : IPropertiesService
     {
-        private readonly IIntPKRepositoryDeletable<Property> properties;
+        private readonly IIntPKDeletableRepository<Property> properties;
         private IIdentifierProvider idProvider;
 
-        public PropertiesService(IIntPKRepositoryDeletable<Property> properties, IIdentifierProvider idProvider)
+        public PropertiesService(IIntPKDeletableRepository<Property> properties, IIdentifierProvider idProvider)
         {
             this.properties = properties;
             this.idProvider = idProvider;

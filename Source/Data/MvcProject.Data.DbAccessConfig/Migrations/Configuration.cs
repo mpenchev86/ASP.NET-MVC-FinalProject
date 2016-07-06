@@ -24,19 +24,6 @@
 
         protected override void Seed(MvcProjectDbContext context)
         {
-            // This method will be called after migrating to the latest version.
-
-            // You can use the DbSet<T>.AddOrUpdate() helper extension method
-            // to avoid creating duplicate seed data.E.g.
-
-            // context.People.AddOrUpdate(
-            //    p => p.FullName,
-            //    new Person { FullName = "Andrew Peters" },
-            //    new Person { FullName = "Brice Lambson" },
-            //    new Person { FullName = "Rowan Miller" }
-            //  );
-
-            //var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             if (!context.Roles.Any())
             {
                 context.Roles.AddOrUpdate(
@@ -68,7 +55,6 @@
                         LockoutEnabled = false,
                         AccessFailedCount = 50,
                         UserName = "initial1@mail.com",
-                        //MainRoleId = roleManager.Roles.FirstOrDefault(r => r.Name == "Customer").Id
                     },
                     new ApplicationUser
                     {
@@ -81,7 +67,6 @@
                         LockoutEnabled = false,
                         AccessFailedCount = 50,
                         UserName = "initial2@mail.com",
-                        //MainRoleId = roleManager.Roles.FirstOrDefault(r => r.Name == "Customer").Id
                     });
 
                 context.SaveChanges();
@@ -163,19 +148,6 @@
 
                 context.SaveChanges();
             }
-
-            //if (!context.Images.Any())
-            //{
-            //    context.Images.AddOrUpdate(
-            //        new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
-            //        new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
-            //        new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
-            //        new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
-            //        new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" }
-            //        );
-            //
-            //    context.SaveChanges();
-            //}
 
             if (!context.Products.Any())
             {

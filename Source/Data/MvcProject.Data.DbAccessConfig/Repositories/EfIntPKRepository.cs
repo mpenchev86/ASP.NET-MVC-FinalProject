@@ -8,6 +8,10 @@
     using System.Threading.Tasks;
     using Models.EntityContracts;
 
+    /// <summary>
+    /// Extends the generic Entity Framework repository for entities with integer primary key.
+    /// </summary>
+    /// <typeparam name="T">The type of the entity which the repository manages.</typeparam>
     public class EfIntPKRepository<T> : GenericRepository<T, int>, IIntPKRepository<T>
         where T : class, IBaseEntityModel<int>
     {

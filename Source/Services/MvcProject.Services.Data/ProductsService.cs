@@ -11,13 +11,13 @@
 
     public class ProductsService : IProductsService
     {
-        private readonly IIntPKRepositoryDeletable<Product> products;
-        private readonly IIntPKRepositoryDeletable<Tag> tags;
+        private readonly IIntPKDeletableRepository<Product> products;
+        private readonly IIntPKDeletableRepository<Tag> tags;
         private IIdentifierProvider idProvider;
 
         public ProductsService(
-            IIntPKRepositoryDeletable<Product> products,
-            IIntPKRepositoryDeletable<Tag> tags,
+            IIntPKDeletableRepository<Product> products,
+            IIntPKDeletableRepository<Tag> tags,
             IIdentifierProvider idProvider)
         {
             this.products = products;

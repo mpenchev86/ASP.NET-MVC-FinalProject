@@ -55,7 +55,7 @@
 
         public ActionResult Index()
         {
-            //Cache maybe
+            // Cache maybe
             var foreignKeys = new ProductViewModelForeignKeys
             {
                 Categories = this.categoriesService.GetAll().To<CategoryDetailsForProductViewModel>().ToList(),
@@ -72,40 +72,22 @@
             return base.Read(request);
         }
 
+        // [ValidateAntiForgeryToken]
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public override ActionResult Create([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel)
         {
-            //if (viewModel != null && this.ModelState.IsValid)
-            //{
-            //    var entity = new Product { };
-            //    this.PopulateEntity(entity, viewModel);
-            //    this.productsService.Insert(entity);
-            //    viewModel.Id = entity.Id;
-            //}
-
             return base.Create(request, viewModel);
         }
 
+        // [ValidateAntiForgeryToken]
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public override ActionResult Update([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel)
         {
-            //if (viewModel != null && this.ModelState.IsValid)
-            //{
-            //    var entity = this.productsService.GetById(viewModel.Id);
-            //    if (entity != null)
-            //    {
-            //        this.PopulateEntity(entity, viewModel);
-            //        this.productsService.Update(entity);
-            //    }
-            //}
-
             return base.Update(request, viewModel);
         }
 
+        // [ValidateAntiForgeryToken]
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public override ActionResult Destroy([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel)
         {
             return base.Destroy(request, viewModel);
@@ -113,7 +95,7 @@
 
         #region DataProviders
 
-        //Cache maybe
+        // Cache maybe
         public JsonResult GetAllTags()
         {
             var tags = this.tagsService.GetAll().To<TagDetailsForProductViewModel>();
@@ -122,9 +104,6 @@
 
         protected override void PopulateEntity(Product entity, ProductViewModel viewModel)
         {
-            var tagIds = viewModel.Tags.Select(tag => tag.Id);
-            this.ProcessProductTags(entity, viewModel.Id, tagIds);
-
             if (viewModel.Comments != null)
             {
                 foreach (var comment in viewModel.Comments)
@@ -148,6 +127,9 @@
                     entity.Votes.Add(this.votesService.GetById(vote.Id));
                 }
             }
+
+            var tagIds = viewModel.Tags.Select(tag => tag.Id);
+            this.ProcessProductTags(entity, viewModel.Id, tagIds);
 
             entity.Title = viewModel.Title;
             entity.CategoryId = viewModel.CategoryId;

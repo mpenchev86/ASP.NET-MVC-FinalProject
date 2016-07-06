@@ -11,10 +11,10 @@
 
     public class VotesService : IVotesService
     {
-        private readonly IIntPKRepositoryDeletable<Vote> votes;
+        private readonly IIntPKDeletableRepository<Vote> votes;
         private IIdentifierProvider idProvider;
 
-        public VotesService(IIntPKRepositoryDeletable<Vote> votes, IIdentifierProvider idProvider)
+        public VotesService(IIntPKDeletableRepository<Vote> votes, IIdentifierProvider idProvider)
         {
             this.votes = votes;
             this.idProvider = idProvider;

@@ -3,10 +3,11 @@
     using Models.EntityContracts;
 
     /// <summary>
-    /// Implements the base repository interface with string entity primary key.
+    /// Implements the base repository interface and the repository functionality for entities implementing
+    /// the IDeletableEntity interface with string primary key.
     /// </summary>
     /// <typeparam name="T">The type of the entity which the repository manages.</typeparam>
-    public interface IStringPKRepository<T> : IRepository<T, string>
+    public interface IStringPKDeletableRepository<T> : IRepository<T, string>, IDeletableRepository<T, string>
         where T : class, IBaseEntityModel<string>
     {
     }

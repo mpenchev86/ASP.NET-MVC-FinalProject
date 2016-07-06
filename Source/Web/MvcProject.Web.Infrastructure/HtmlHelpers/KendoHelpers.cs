@@ -225,9 +225,6 @@
                 .ClientTemplateId(templateId)
                 .Editable()
                 .Pageable()
-                // These two are for selection
-                //.Navigatable()
-                //.Selectable()
                 .DataSource(source => source
                     .ServerOperation(isServerOps)
                     .Model(m => m.Id(modelIdExpression))

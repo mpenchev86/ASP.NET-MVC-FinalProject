@@ -8,20 +8,25 @@
     using System.Threading.Tasks;
     using Models.EntityContracts;
 
-    public class EfStringPKRepositoryDeletable<T> : GenericRepository<T, string>, IStringPKRepositoryDeletable<T>
-        where T : class, IBaseEntityModel<string>, IDeletableEntity
+    /// <summary>
+    /// Extends the generic Entity Framework repository for entities with integer primary key and implements
+    /// the repository functionality for entities implementing the IDeletableEntity interface.
+    /// </summary>
+    /// <typeparam name="T">The type of the entity which the repository manages.</typeparam>
+    public class EfIntPKDeletableRepository<T> : GenericRepository<T, int>, IIntPKDeletableRepository<T>
+        where T : class, IBaseEntityModel<int>, IDeletableEntity
     {
-        public EfStringPKRepositoryDeletable(DbContext context)
+        public EfIntPKDeletableRepository(DbContext context)
             : base(context)
         {
         }
 
-        public override T GetById(string id)
+        public override T GetById(int id)
         {
             return this.All().FirstOrDefault(x => x.Id == id);
         }
 
-        public T GetByIdFromNotDeleted(string id)
+        public T GetByIdFromNotDeleted(int id)
         {
             return this.AllNotDeleted().FirstOrDefault(x => x.Id == id);
         }

@@ -10,6 +10,11 @@
     using GlobalConstants;
     using Models.EntityContracts;
 
+    /// <summary>
+    /// A generic implementation of an Entity Framework repository.
+    /// </summary>
+    /// <typeparam name="T">The type of the entity which the repository manages.</typeparam>
+    /// <typeparam name="TKey">The type of the entity's primary key.</typeparam>
     public abstract class GenericRepository<T, TKey> : IRepository<T, TKey>
         where T : class, IBaseEntityModel<TKey>
     {
@@ -51,7 +56,6 @@
         public virtual void Update(T entity)
         {
             DbEntityEntry entry = this.Context.Entry(entity);
-            //if (entry.State != EntityState.Detached)
             if (entry.State == EntityState.Detached)
             {
                 this.DbSet.Attach(entity);
@@ -81,8 +85,6 @@
                 this.DbSet.Attach(entity);
                 this.DbSet.Remove(entity);
             }
-
-            //this.DbSet.Remove(entity);
         }
 
         public virtual void Detach(T entity)

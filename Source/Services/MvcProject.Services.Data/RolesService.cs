@@ -12,12 +12,12 @@
 
     public class RolesService : IRolesService
     {
-        private readonly IStringPKRepositoryDeletable<ApplicationRole> roles;
+        private readonly IStringPKDeletableRepository<ApplicationRole> roles;
         private readonly RoleManager<ApplicationRole, string> roleManager;
         private IIdentifierProvider idProvider;
 
         public RolesService(
-            IStringPKRepositoryDeletable<ApplicationRole> roles,
+            IStringPKDeletableRepository<ApplicationRole> roles,
             RoleManager<ApplicationRole, string> roleManager,
             IIdentifierProvider idProvider)
         {

@@ -51,30 +51,12 @@
         [HttpPost]
         public override ActionResult Create([DataSourceRequest]DataSourceRequest request, PropertyViewModel viewModel)
         {
-            //if (viewModel != null && this.ModelState.IsValid)
-            //{
-            //    var entity = new Property { };
-            //    this.PopulateEntity(entity, viewModel);
-            //    this.propertiesService.Insert(entity);
-            //    viewModel.Id = entity.Id;
-            //}
-
             return base.Create(request, viewModel);
         }
 
         [HttpPost]
         public override ActionResult Update([DataSourceRequest]DataSourceRequest request, PropertyViewModel viewModel)
         {
-            if (viewModel != null && this.ModelState.IsValid)
-            {
-                var entity = this.propertiesService.GetById(viewModel.Id);
-                if (entity != null)
-                {
-                    this.PopulateEntity(entity, viewModel);
-                    this.propertiesService.Update(entity);
-                }
-            }
-
             return base.Update(request, viewModel);
         }
 

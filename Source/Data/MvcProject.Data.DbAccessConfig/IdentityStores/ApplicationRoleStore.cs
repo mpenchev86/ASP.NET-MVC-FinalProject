@@ -4,12 +4,13 @@
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     using Microsoft.AspNet.Identity.EntityFramework;
     using Models;
 
+    /// <summary>
+    /// Inherits and extends the Entity Framework implementation of a basic role management.
+    /// </summary>
     public class ApplicationRoleStore : RoleStore<ApplicationRole, string, ApplicationUserRole>
     {
         public ApplicationRoleStore(DbContext context)

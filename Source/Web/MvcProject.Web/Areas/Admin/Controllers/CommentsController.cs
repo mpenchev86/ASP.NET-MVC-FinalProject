@@ -54,30 +54,12 @@
         [HttpPost]
         public override ActionResult Create([DataSourceRequest]DataSourceRequest request, CommentViewModel viewModel)
         {
-            //if (viewModel != null && this.ModelState.IsValid)
-            //{
-            //    var entity = new Comment { };
-            //    this.PopulateEntity(entity, viewModel);
-            //    this.commentsService.Insert(entity);
-            //    viewModel.Id = entity.Id;
-            //}
-
             return base.Create(request, viewModel);
         }
 
         [HttpPost]
         public override ActionResult Update([DataSourceRequest]DataSourceRequest request, CommentViewModel viewModel)
         {
-            //if (viewModel != null && this.ModelState.IsValid)
-            //{
-            //    var entity = this.commentsService.GetById(viewModel.Id);
-            //    if (entity != null)
-            //    {
-            //        this.PopulateEntity(entity, viewModel);
-            //        this.commentsService.Update(entity);
-            //    }
-            //}
-
             return base.Update(request, viewModel);
         }
 

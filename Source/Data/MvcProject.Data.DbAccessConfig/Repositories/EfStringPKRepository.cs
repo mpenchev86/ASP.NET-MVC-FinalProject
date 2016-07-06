@@ -8,6 +8,10 @@
     using System.Threading.Tasks;
     using MvcProject.Data.Models.EntityContracts;
 
+    /// <summary>
+    /// Extends the generic Entity Framework repository for entities with string primary key.
+    /// </summary>
+    /// <typeparam name="T">The type of the entity which the repository manages.</typeparam>
     public class EfStringPKRepository<T> : GenericRepository<T, string>, IStringPKRepository<T>
         where T : class, IBaseEntityModel<string>
     {
