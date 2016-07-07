@@ -6,7 +6,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using Models.EntityContracts;
+    using Models.Contracts;
 
     /// <summary>
     /// Extends the generic Entity Framework repository for entities with integer primary key.

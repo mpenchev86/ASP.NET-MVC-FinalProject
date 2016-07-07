@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Reflection;
 
-    using Data.Models.EntityContracts;
+    using Data.Models.Contracts;
 
     public class TypesCrawler : ITypesCrawler
     {

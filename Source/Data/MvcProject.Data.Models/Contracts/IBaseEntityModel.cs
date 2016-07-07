@@ -1,4 +1,4 @@
-﻿namespace MvcProject.Data.Models.EntityContracts
+﻿namespace MvcProject.Data.Models.Contracts
 {
     using System.ComponentModel.DataAnnotations;
 

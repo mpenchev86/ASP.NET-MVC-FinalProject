@@ -1,6 +1,6 @@
 ﻿namespace MvcProject.Data.DbAccessConfig.Repositories
 {
-    using Models.EntityContracts;
+    using Models.Contracts;
 
     /// <summary>
     /// Implements the base repository interface and the repository functionality for entities implementing

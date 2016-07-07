@@ -1,7 +1,7 @@
 ﻿namespace MvcProject.Data.DbAccessConfig.Repositories
 {
     using System.Linq;
-    using Models.EntityContracts;
+    using Models.Contracts;
 
     /// <summary>
     /// The repository interface containing basic CRUD functionality.

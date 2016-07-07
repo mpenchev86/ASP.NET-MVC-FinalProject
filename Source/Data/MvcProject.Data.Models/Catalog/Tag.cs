@@ -6,7 +6,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    using EntityContracts;
+    using Contracts;
     using MvcProject.GlobalConstants;
 
     /// <summary>

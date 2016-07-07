@@ -3,7 +3,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    using Data.Models.EntityContracts;
+    using Data.Models.Contracts;
     using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
 

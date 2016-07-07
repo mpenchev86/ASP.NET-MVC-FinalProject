@@ -1,7 +1,7 @@
 ﻿namespace MvcProject.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
-    using MvcProject.Data.Models.EntityContracts;
+    using MvcProject.Data.Models.Contracts;
     using MvcProject.GlobalConstants;
 
     /// <summary>

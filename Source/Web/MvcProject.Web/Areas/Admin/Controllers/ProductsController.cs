@@ -6,7 +6,7 @@
     using System.Web.Mvc;
 
     using Data.Models;
-    using Data.Models.EntityContracts;
+    using Data.Models.Contracts;
     using GlobalConstants;
     using Infrastructure.Extensions;
     using Infrastructure.Filters.ActionMethodSelectors;

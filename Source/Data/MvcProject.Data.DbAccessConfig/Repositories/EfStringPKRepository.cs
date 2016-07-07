@@ -6,7 +6,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using MvcProject.Data.Models.EntityContracts;
+    using MvcProject.Data.Models.Contracts;
 
     /// <summary>
     /// Extends the generic Entity Framework repository for entities with string primary key.

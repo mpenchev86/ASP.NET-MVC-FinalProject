@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using EntityContracts;
+    using Contracts;
     using MvcProject.GlobalConstants;
 
     /// <summary>

@@ -11,7 +11,7 @@
     using Categories;
     using Comments;
     using Data.Models;
-    using Data.Models.EntityContracts;
+    using Data.Models.Contracts;
     using Descriptions;
     using Images;
     using Infrastructure.DataAnnotations;

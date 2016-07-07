@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using MvcProject.Data.Models.EntityContracts;
+    using MvcProject.Data.Models.Contracts;
 
     /// <summary>
     /// Exposes base functionality for data manipulation services as an abstraction over the data access layer

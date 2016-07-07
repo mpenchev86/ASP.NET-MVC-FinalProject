@@ -12,7 +12,7 @@
     using Microsoft.AspNet.Identity.EntityFramework;
     using Migrations;
     using Models;
-    using Models.EntityContracts;
+    using Models.Contracts;
     using MvcProject.GlobalConstants;
 
     public class MvcProjectDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string, IdentityUserLogin, ApplicationUserRole, IdentityUserClaim>, IMvcProjectDbContext

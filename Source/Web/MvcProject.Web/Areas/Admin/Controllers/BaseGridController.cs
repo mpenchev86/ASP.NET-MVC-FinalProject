@@ -7,7 +7,7 @@
     using System.Web;
     using System.Web.Mvc;
 
-    using Data.Models.EntityContracts;
+    using Data.Models.Contracts;
     using GlobalConstants;
     using Infrastructure.Caching;
     using Infrastructure.Extensions;

@@ -104,6 +104,7 @@
     <Compile Include="Contracts\IUsersService.cs" />
     <Compile Include="Contracts\IVotesService.cs" />
     <Compile Include="DescriptionsService.cs" />
+    <Compile Include="BaseDataService.cs" />
     <Compile Include="ImagesService.cs" />
     <Compile Include="ProductsService.cs" />
     <Compile Include="PropertiesService.cs" />

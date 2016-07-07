@@ -5,11 +5,11 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using MvcProject.Data.Models.EntityContracts;
+    using MvcProject.Data.Models.Contracts;
     using MvcProject.Web.Infrastructure.Mapping;
 
     /// <summary>
-    /// Extends the base data service with functionality for IDeletable entities.
+    /// Extends the base data service interface with functionality for IDeletable entities.
     /// </summary>
     /// <typeparam name="T">The type of data entity which the service manipulates.</typeparam>
     /// <typeparam name="TKey">The type of the entity's primary key.</typeparam>

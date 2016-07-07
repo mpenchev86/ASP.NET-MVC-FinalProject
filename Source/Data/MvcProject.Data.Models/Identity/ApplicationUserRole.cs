@@ -2,7 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations.Schema;
 
-    using EntityContracts;
+    using Contracts;
     using Microsoft.AspNet.Identity.EntityFramework;
 
     /// <summary>

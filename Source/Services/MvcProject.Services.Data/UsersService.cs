@@ -18,93 +18,30 @@
     using MvcProject.Data.Models;
     using Web;
 
-    public class UsersService : IUsersService
+    public class UsersService : BaseDataService<ApplicationUser, string, IStringPKDeletableRepository<ApplicationUser>>, IUsersService
     {
         private readonly IStringPKDeletableRepository<ApplicationUser> users;
         private IIdentifierProvider idProvider;
 
-        public UsersService(
-            IStringPKDeletableRepository<ApplicationUser> users,
-            IIdentifierProvider idProvider)
+        public UsersService(IStringPKDeletableRepository<ApplicationUser> users, IIdentifierProvider idProvider)
+            : base(users, idProvider)
         {
             this.users = users;
             this.idProvider = idProvider;
         }
 
-        public IQueryable<ApplicationUser> GetAll()
-        {
-            var result = this.users.All().OrderBy(x => x.Id);
-            return result;
-        }
-
-        public IQueryable<ApplicationUser> GetAllNotDeleted()
-        {
-            var result = this.users.AllNotDeleted().OrderBy(x => x.Id);
-            return result;
-        }
-
-        public ApplicationUser GetById(string id)
-        {
-            return this.users.GetById(id);
-        }
-
-        public ApplicationUser GetByEncodedId(string id)
+        public override ApplicationUser GetByEncodedId(string id)
         {
             var decodedId = this.idProvider.DecodeIdToString(id);
             var user = this.users.GetById(decodedId);
             return user;
         }
 
-        public ApplicationUser GetByIdFromNotDeleted(string id)
-        {
-            return this.users.GetByIdFromNotDeleted(id);
-        }
-
-        public ApplicationUser GetByEncodedIdFromNotDeleted(string id)
+        public override ApplicationUser GetByEncodedIdFromNotDeleted(string id)
         {
             var decodedId = this.idProvider.DecodeIdToString(id);
             var user = this.users.GetByIdFromNotDeleted(decodedId);
             return user;
-        }
-
-        // Not used, AccountController has Register method implemented with userManager
-        public void Insert(ApplicationUser entity)
-        {
-            // throw new NotImplementedException();
-            this.users.Add(entity);
-            this.users.SaveChanges();
-        }
-
-        public void Update(ApplicationUser entity)
-        {
-            this.users.Update(entity);
-            this.users.SaveChanges();
-        }
-
-        public void MarkAsDeleted(string id)
-        {
-            var entity = this.GetById(id);
-            this.MarkAsDeleted(entity);
-            this.users.SaveChanges();
-        }
-
-        public void MarkAsDeleted(ApplicationUser entity)
-        {
-            entity.IsDeleted = true;
-            this.users.SaveChanges();
-        }
-
-        public void DeletePermanent(string id)
-        {
-            var entity = this.GetById(id);
-            this.DeletePermanent(entity);
-            this.users.SaveChanges();
-        }
-
-        public void DeletePermanent(ApplicationUser entity)
-        {
-            this.users.DeletePermanent(entity);
-            this.users.SaveChanges();
         }
     }
 }

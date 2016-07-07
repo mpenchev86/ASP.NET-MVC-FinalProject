@@ -5,7 +5,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
 
-    using EntityContracts;
+    using Contracts;
     using MvcProject.GlobalConstants;
 
     /// <summary>

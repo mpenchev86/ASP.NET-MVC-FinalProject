@@ -7,7 +7,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using EntityContracts;
+    using Contracts;
     using MvcProject.GlobalConstants;
 
     /// <summary>
