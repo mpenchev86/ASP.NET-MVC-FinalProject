@@ -21,6 +21,11 @@
             this.idProvider = idProvider;
         }
 
+        public override IQueryable<Statistics> GetAll()
+        {
+            return base.GetAll();
+        }
+
         public override Statistics GetByEncodedId(string id)
         {
             var idAsInt = this.idProvider.DecodeIdToInt(id);

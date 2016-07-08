@@ -29,11 +29,6 @@
         [MaxLength(ValidationConstants.ProductShortDescriptionMaxLength)]
         public string ShortDescription { get; set; }
 
-        [Index]
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
-
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Product, ProductDetailsForCategoryViewModel>()

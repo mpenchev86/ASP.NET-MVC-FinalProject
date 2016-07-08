@@ -38,8 +38,8 @@
         {
             var foreignKeys = new CommentViewModelForeignKeys
             {
-                Users = this.usersService.GetAll().To<UserDetailsForCommentViewModel>().ToList(),
-                Products = this.productsService.GetAll().To<ProductDetailsForCommentViewModel>().ToList()
+                Users = this.usersService.GetAll().To<UserDetailsForCommentViewModel>(),
+                Products = this.productsService.GetAll().To<ProductDetailsForCommentViewModel>()
             };
 
             return this.View(foreignKeys);

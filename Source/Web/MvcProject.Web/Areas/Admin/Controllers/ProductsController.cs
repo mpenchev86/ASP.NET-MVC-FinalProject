@@ -62,8 +62,8 @@
             // Cache maybe
             var foreignKeys = new ProductViewModelForeignKeys
             {
-                Categories = this.categoriesService.GetAll().To<CategoryDetailsForProductViewModel>().ToList(),
-                Images = this.imagesService.GetAll().To<ImageDetailsForProductViewModel>().ToList(),
+                Categories = this.categoriesService.GetAll().To<CategoryDetailsForProductViewModel>(),
+                Images = this.imagesService.GetAll().To<ImageDetailsForProductViewModel>(),
                 Descriptions = this.descriptionsService.GetAll().To<DescriptionDetailsForProductViewModel>(),
                 StatisticsCollection = this.statisticsService.GetAll().To<StatisticsDetailsForProductViewModel>()
             };
@@ -136,16 +136,19 @@
             var tagIds = viewModel.Tags.Select(tag => tag.Id);
             this.ProcessProductTags(entity, viewModel.Id, tagIds);
 
+            entity.Title = viewModel.Title;
+            entity.ShortDescription = viewModel.ShortDescription;
+            entity.CategoryId = viewModel.CategoryId;
             entity.DescriptionId = viewModel.DescriptionId;
-            entity.Height = viewModel.Height;
-            entity.Length = viewModel.Length;
+            entity.StatisticsId = viewModel.StatisticsId;
             entity.MainImageId = viewModel.MainImageId;
             entity.QuantityInStock = viewModel.QuantityInStock;
-            entity.ShippingPrice = viewModel.ShippingPrice;
-            entity.ShortDescription = viewModel.ShortDescription;
             entity.UnitPrice = viewModel.UnitPrice;
-            entity.Weight = viewModel.Weight;
+            entity.ShippingPrice = viewModel.ShippingPrice;
+            entity.Length = viewModel.Length;
+            entity.Height = viewModel.Height;
             entity.Width = viewModel.Width;
+            entity.Weight = viewModel.Weight;
             entity.CreatedOn = viewModel.CreatedOn;
             entity.ModifiedOn = viewModel.ModifiedOn;
             entity.IsDeleted = viewModel.IsDeleted;

@@ -47,6 +47,10 @@
         [MaxLength(ValidationConstants.ProductShortDescriptionMaxLength)]
         public string ShortDescription { get; set; }
 
+        [Required]
+        [UIHint("DropDown")]
+        public int CategoryId { get; set; }
+
         [UIHint("DropDown")]
         public int? DescriptionId { get; set; }
 
@@ -56,10 +60,6 @@
         public int? StatisticsId { get; set; }
 
         public StatisticsDetailsForProductViewModel Statistics { get; set; }
-
-        [Required]
-        [UIHint("DropDown")]
-        public int CategoryId { get; set; }
 
         [UIHint("DropDown")]
         public int? MainImageId { get; set; }
@@ -98,13 +98,6 @@
             set { this.comments = value; }
         }
 
-        [UIHint("MultiSelect")]
-        public ICollection<TagDetailsForProductViewModel> Tags
-        {
-            get { return this.tags; }
-            set { this.tags = value; }
-        }
-
         public ICollection<ImageDetailsForProductViewModel> Images
         {
             get { return this.images; }
@@ -115,6 +108,13 @@
         {
             get { return this.votes; }
             set { this.votes = value; }
+        }
+
+        [UIHint("MultiSelect")]
+        public ICollection<TagDetailsForProductViewModel> Tags
+        {
+            get { return this.tags; }
+            set { this.tags = value; }
         }
 
         [Index]
@@ -147,7 +147,7 @@
                             src => src.Statistics == null ? null : new StatisticsDetailsForProductViewModel
                             {
                                 Id = src.Statistics.Id,
-                                AllTimesItemsBought = src.Statistics.AllTimesItemsBought,
+                                AllTimeItemsBought = src.Statistics.AllTimeItemsBought,
                                 OverAllRating = src.Statistics.OverAllRating,
                                 CreatedOn = src.Statistics.CreatedOn,
                                 ModifiedOn = src.Statistics.ModifiedOn

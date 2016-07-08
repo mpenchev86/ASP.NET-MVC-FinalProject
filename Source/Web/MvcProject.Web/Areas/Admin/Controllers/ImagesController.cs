@@ -33,7 +33,7 @@
         {
             var foreignKeys = new ImageViewModelForeignKeys
             {
-                Products = this.productsService.GetAll().To<ProductDetailsForImageViewModel>().ToList()
+                Products = this.productsService.GetAll().To<ProductDetailsForImageViewModel>()
             };
 
             return this.View(foreignKeys);

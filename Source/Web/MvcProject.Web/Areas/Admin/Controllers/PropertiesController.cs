@@ -36,7 +36,7 @@
         {
             var foreignKeys = new PropertyViewModelForeignKeys
             {
-                Descriptions = this.descriptionsService.GetAll().To<DescriptionDetailsForPropertyViewModel>().ToList()
+                Descriptions = this.descriptionsService.GetAll().To<DescriptionDetailsForPropertyViewModel>()
             };
 
             return this.View(foreignKeys);

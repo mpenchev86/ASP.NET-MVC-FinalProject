@@ -15,17 +15,6 @@
 
     public class ProductDetailsForVoteViewModel : BaseAdminViewModel<int>, IMapFrom<Product>, IHaveCustomMappings
     {
-        [Required]
-        [DataType(DataType.MultilineText)]
-        [MaxLength(ValidationConstants.ProductTitleMaxLength)]
-        public string Title { get; set; }
-
-        [Index]
-        public bool IsDeleted { get; set; }
-
-        [LongDateTimeFormat]
-        public DateTime? DeletedOn { get; set; }
-
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Product, ProductDetailsForVoteViewModel>()

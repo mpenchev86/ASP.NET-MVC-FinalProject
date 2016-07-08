@@ -37,8 +37,8 @@
         {
             var foreignKeys = new VoteViewModelForeignKeys
             {
-                Users = this.usersService.GetAll().To<UserDetailsForVoteViewModel>().ToList(),
-                Products = this.productsService.GetAll().To<ProductDetailsForVoteViewModel>().ToList()
+                Users = this.usersService.GetAll().To<UserDetailsForVoteViewModel>(),
+                Products = this.productsService.GetAll().To<ProductDetailsForVoteViewModel>()
             };
 
             return this.View(foreignKeys);

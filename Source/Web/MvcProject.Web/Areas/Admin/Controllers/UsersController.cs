@@ -52,7 +52,7 @@
         {
             var foreignKeys = new UserViewModelForeignKeys
             {
-                Roles = this.rolesService.GetAll().To<RoleDetailsForUserViewModel>().ToList()
+                Roles = this.rolesService.GetAll().To<RoleDetailsForUserViewModel>()
             };
 
             return this.View(foreignKeys);

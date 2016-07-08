@@ -32,7 +32,7 @@
         {
             var foreignKeys = new RoleViewModelForeignKeys
             {
-                Users = this.usersService.GetAll().To<UserDetailsForRoleViewModel>().ToList()
+                Users = this.usersService.GetAll().To<UserDetailsForRoleViewModel>()
             };
 
             return this.View(foreignKeys);

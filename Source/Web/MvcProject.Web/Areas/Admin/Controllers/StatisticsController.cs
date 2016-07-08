@@ -57,7 +57,7 @@
 #region DataProviders
         protected override void PopulateEntity(Statistics entity, StatisticsViewModel viewModel)
         {
-            entity.AllTimesItemsBought = viewModel.AllTimesItemsBought;
+            entity.AllTimeItemsBought = viewModel.AllTimeItemsBought;
             entity.OverAllRating = viewModel.OverAllRating;
             entity.CreatedOn = viewModel.CreatedOn;
             entity.ModifiedOn = viewModel.ModifiedOn;

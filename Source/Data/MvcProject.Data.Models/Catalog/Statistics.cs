@@ -21,7 +21,7 @@
         /// The overall number of bought product units.
         /// </value>
         [Range(ValidationConstants.StatisticsAllTimesItemsBoughtMin, ValidationConstants.StatisticsAllTimesItemsBoughtMax)]
-        public int AllTimesItemsBought { get; set; }
+        public int AllTimeItemsBought { get; set; }
 
         /// <summary>
         /// Gets or sets the overall rating of a product.

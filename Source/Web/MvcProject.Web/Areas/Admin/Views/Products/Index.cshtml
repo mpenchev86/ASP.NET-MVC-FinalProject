@@ -1,6 +1,9 @@
 ﻿@using MvcProject.Web.Infrastructure.HtmlHelpers
+@using MvcProject.Web.Areas.Admin.ViewModels.Categories
 @using MvcProject.Web.Areas.Admin.ViewModels.Descriptions
+@using MvcProject.Web.Areas.Admin.ViewModels.Images
 @using MvcProject.Web.Areas.Admin.ViewModels.Products
+@using MvcProject.Web.Areas.Admin.ViewModels.Statistics
 @using System.Globalization
 @using System.Web.Mvc
 
@@ -21,6 +24,7 @@
         m.Field(p => p.Id).Editable(false);
         m.Field(p => p.DescriptionId).Editable(true).DefaultValue(null);
         m.Field(p => p.MainImageId).Editable(true).DefaultValue(null);
+        m.Field(p => p.StatisticsId).Editable(true).DefaultValue(null);
     },
     pageSize: 20,
     virtualScroll: false,
@@ -84,6 +88,12 @@
         }
 
         #description-details {
+            margin-left: 0;
+            margin-right: 0;
+            width: 100%;
+        }
+
+        #statistics-details {
             margin-left: 0;
             margin-right: 0;
             width: 100%;

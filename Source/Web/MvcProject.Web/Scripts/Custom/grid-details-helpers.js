@@ -52,11 +52,11 @@
                 $('#statistics-id_' + productId).text(statistics.Id);
             }
 
-            if (statistics.Content) {
-                $('div#statistics-allTimesItemsBought_' + productId).text(statistics.AllTimesItemsBought);
+            if (statistics.AllTimeItemsBought || statistics.AllTimeItemsBought === 0) {
+                $('div#statistics-allTimeItemsBought_' + productId).text(statistics.AllTimeItemsBought);
             }
 
-            if (statistics.ModifiedOn) {
+            if (statistics.OverAllRating || statistics.OverAllRating === 0) {
                 $('div#statistics-overAllRating_' + productId).text(statistics.OverAllRating);
             }
 

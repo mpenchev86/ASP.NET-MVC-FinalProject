@@ -21,7 +21,7 @@
         /// The overall number of bought product units.
         /// </value>
         [Range(ValidationConstants.StatisticsAllTimesItemsBoughtMin, ValidationConstants.StatisticsAllTimesItemsBoughtMax)]
-        public int AllTimesItemsBought { get; set; }
+        public int AllTimeItemsBought { get; set; }
 
         /// <summary>
         /// Gets or sets the overall rating of a product.
@@ -31,12 +31,6 @@
         /// </value>
         [Range(ValidationConstants.VoteValueMin, ValidationConstants.VoteValueMax)]
         public int OverAllRating { get; set; }
-
-        [Index]
-        public bool IsDeleted { get; set; }
-
-        [LongDateTimeFormat]
-        public DateTime? DeletedOn { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)
         {
