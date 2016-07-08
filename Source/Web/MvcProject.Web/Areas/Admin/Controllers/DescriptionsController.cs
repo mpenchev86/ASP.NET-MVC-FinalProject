@@ -13,6 +13,7 @@
     using Kendo.Mvc.UI;
     using Services.Data;
     using ViewModels.Descriptions;
+    using ViewModels.Products;
     using ViewModels.Properties;
 
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
@@ -20,12 +21,17 @@
     {
         private readonly IDescriptionsService descriptionsService;
         private readonly IPropertiesService propertiesService;
+        private readonly IProductsService productsService;
 
-        public DescriptionsController(IDescriptionsService descriptionsService, IPropertiesService propertiesService)
+        public DescriptionsController(
+            IDescriptionsService descriptionsService,
+            IPropertiesService propertiesService,
+            IProductsService productsService)
             : base(descriptionsService)
         {
             this.descriptionsService = descriptionsService;
             this.propertiesService = propertiesService;
+            this.productsService = productsService;
         }
 
         public ActionResult Index()

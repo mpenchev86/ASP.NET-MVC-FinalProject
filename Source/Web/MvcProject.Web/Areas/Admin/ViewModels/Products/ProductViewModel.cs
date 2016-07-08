@@ -19,6 +19,7 @@
     using Infrastructure.Mapping;
     using MvcProject.GlobalConstants;
     using Properties;
+    using Statistics;
     using Tags;
     using Votes;
 
@@ -43,13 +44,18 @@
         public string Title { get; set; }
 
         [DataType(DataType.MultilineText)]
-        [MaxLength(ValidationConstants.ShortDescriptionMaxLength)]
+        [MaxLength(ValidationConstants.ProductShortDescriptionMaxLength)]
         public string ShortDescription { get; set; }
 
         [UIHint("DropDown")]
         public int? DescriptionId { get; set; }
 
         public DescriptionDetailsForProductViewModel Description { get; set; }
+
+        [UIHint("DropDown")]
+        public int? StatisticsId { get; set; }
+
+        public StatisticsDetailsForProductViewModel Statistics { get; set; }
 
         [Required]
         [UIHint("DropDown")]
@@ -136,6 +142,15 @@
                                 }).ToList(),
                                 CreatedOn = src.Description.CreatedOn,
                                 ModifiedOn = src.Description.ModifiedOn
+                            }))
+                .ForMember(dest => dest.Statistics, opt => opt.MapFrom(
+                            src => src.Statistics == null ? null : new StatisticsDetailsForProductViewModel
+                            {
+                                Id = src.Statistics.Id,
+                                AllTimesItemsBought = src.Statistics.AllTimesItemsBought,
+                                OverAllRating = src.Statistics.OverAllRating,
+                                CreatedOn = src.Statistics.CreatedOn,
+                                ModifiedOn = src.Statistics.ModifiedOn
                             }))
                 .ForMember(dest => dest.Images, opt => opt.MapFrom(
                             src => src.Images.Select(i => new ImageDetailsForProductViewModel

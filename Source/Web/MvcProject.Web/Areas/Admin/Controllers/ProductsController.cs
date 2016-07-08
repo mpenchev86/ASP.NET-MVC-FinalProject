@@ -20,6 +20,7 @@
     using ViewModels.Images;
     using ViewModels.Products;
     using ViewModels.Properties;
+    using ViewModels.Statistics;
     using ViewModels.Tags;
     using ViewModels.Votes;
 
@@ -31,6 +32,7 @@
         private readonly ICommentsService commentsService;
         private readonly IImagesService imagesService;
         private readonly IDescriptionsService descriptionsService;
+        private readonly IStatisticsService statisticsService;
         private readonly ITagsService tagsService;
         private readonly IVotesService votesService;
 
@@ -40,6 +42,7 @@
             ICommentsService commentsService,
             IImagesService imagesService,
             IDescriptionsService descriptionsService,
+            IStatisticsService statisticsService,
             ITagsService tagsService,
             IVotesService votesService)
             : base(productsService)
@@ -49,6 +52,7 @@
             this.commentsService = commentsService;
             this.imagesService = imagesService;
             this.descriptionsService = descriptionsService;
+            this.statisticsService = statisticsService;
             this.tagsService = tagsService;
             this.votesService = votesService;
         }
@@ -60,7 +64,8 @@
             {
                 Categories = this.categoriesService.GetAll().To<CategoryDetailsForProductViewModel>().ToList(),
                 Images = this.imagesService.GetAll().To<ImageDetailsForProductViewModel>().ToList(),
-                Descriptions = this.descriptionsService.GetAll().To<DescriptionDetailsForProductViewModel>().ToList()
+                Descriptions = this.descriptionsService.GetAll().To<DescriptionDetailsForProductViewModel>(),
+                StatisticsCollection = this.statisticsService.GetAll().To<StatisticsDetailsForProductViewModel>()
             };
 
             return this.View(foreignKeys);
@@ -93,7 +98,7 @@
             return base.Destroy(request, viewModel);
         }
 
-        #region DataProviders
+#region DataProviders
 
         // Cache maybe
         public JsonResult GetAllTags()
@@ -131,8 +136,6 @@
             var tagIds = viewModel.Tags.Select(tag => tag.Id);
             this.ProcessProductTags(entity, viewModel.Id, tagIds);
 
-            entity.Title = viewModel.Title;
-            entity.CategoryId = viewModel.CategoryId;
             entity.DescriptionId = viewModel.DescriptionId;
             entity.Height = viewModel.Height;
             entity.Length = viewModel.Length;
@@ -158,6 +161,6 @@
                 entity.Tags.Add(tag);
             }
         }
-        #endregion
+#endregion
     }
 }

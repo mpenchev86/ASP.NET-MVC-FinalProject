@@ -39,14 +39,14 @@
             return this.View();
         }
 
+        // Cached
         public ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
-            var viewModel =
-                this.Cache.Get(
-                    "products",
-                    () => this.productsService.GetAll().To<ProductViewModel>().ToList(),
-                    15 * 60)
-                    .AsQueryable();
+            var viewModel = this.Cache.Get(
+                "products",
+                () => this.productsService.GetAll().To<ProductViewModel>().ToList(),
+                15 * 60)
+                .AsQueryable();
 
             return this.Json(viewModel.ToDataSourceResult(request));
         }

@@ -195,7 +195,7 @@
                 .Sortable();
         }
 
-        public static ListViewBuilder<T> ListViewHelper<T>(
+        public static ListViewBuilder<T> GenericListViewHelper<T>(
             this HtmlHelper helper,
             string wrapperId,
             string wrapperTagName,
@@ -203,6 +203,10 @@
             string controllerName,
             Expression<Func<T, object>> modelIdExpression,
             int pageSize,
+            string readAction = "Read",
+            string createAction = "Create",
+            string updateAction = "Update",
+            string destroyAction = "Destroy",
             Action<DataSourceFilterDescriptorFactory<T>> filterSettings = null,
             Action<DataSourceSortDescriptorFactory<T>> sortSettings = null,
             bool isServerOps = true)
@@ -228,10 +232,10 @@
                 .DataSource(source => source
                     .ServerOperation(isServerOps)
                     .Model(m => m.Id(modelIdExpression))
-                    .Read(read => read.Action("Read", controllerName))
-                    .Create(create => create.Action("Create", controllerName))
-                    .Update(update => update.Action("Update", controllerName))
-                    .Destroy(destroy => destroy.Action("Destroy", controllerName))
+                    .Read(read => read.Action(readAction, controllerName))
+                    .Create(create => create.Action(createAction, controllerName))
+                    .Update(update => update.Action(updateAction, controllerName))
+                    .Destroy(destroy => destroy.Action(destroyAction, controllerName))
                     .PageSize(pageSize)
                     .Filter(filterSettings)
                     .Sort(sortSettings)

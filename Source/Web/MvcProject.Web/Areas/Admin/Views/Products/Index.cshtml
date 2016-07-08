@@ -34,6 +34,7 @@
         c.Bound(m => m.UnitPrice);
         c.ForeignKey(m => m.CategoryId, Model.Categories, "Id", "Name").Title("Category");
         c.ForeignKey(m => m.DescriptionId, Model.Descriptions, "Id", "Id").Title("Description Id").Visible(false);
+        c.ForeignKey(m => m.StatisticsId, Model.StatisticsCollection, "Id", "Id").Title("Statistics Id").Visible(false);
         c.ForeignKey(m => m.MainImageId, Model.Images, "Id", "Id").Title("Main Image Id").Visible(false);
         c.Bound(m => m.IsInStock);
         c.Bound(m => m.QuantityInStock);
@@ -125,7 +126,8 @@
         }
 
         function detailInit(e) {
-            gridDetailsHelpers.setProductDescription(e.data.Id, e.data.Description, 8);
+            gridDetailsHelpers.populateProductDescription(e.data.Id, e.data.Description, 8);
+            gridDetailsHelpers.populateProductStatistics(e.data.Id, e.data.Statistics);
             gridDetailsHelpers.setDataSource("#images-grid_" + e.data.Id, e.data.Images, 10);
             gridDetailsHelpers.setDataSource("#comments-grid_" + e.data.Id, e.data.Comments, 10);
             gridDetailsHelpers.setDataSource("#votes-grid_" + e.data.Id, e.data.Votes, 10);

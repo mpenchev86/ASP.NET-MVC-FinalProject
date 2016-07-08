@@ -77,6 +77,11 @@
             entity.IsDeleted = viewModel.IsDeleted;
             entity.DeletedOn = viewModel.DeletedOn;
         }
+
+        protected override IEnumerable<PropertyViewModel> GetDataAsEnumerable()
+        {
+            return this.propertiesService.GetAll().To<PropertyViewModel>().OrderBy(p => p.Name);
+        }
 #endregion
     }
 }

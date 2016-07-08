@@ -89,7 +89,7 @@
 
         protected virtual IEnumerable<TViewModel> GetDataAsEnumerable()
         {
-            var result = this.dataService.GetAll().To<TViewModel>();
+            var result = this.dataService.GetAll().To<TViewModel>().OrderBy(vm => vm.Id);
             return result;
         }
 

@@ -5,26 +5,23 @@
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
-
     using Data.Models;
     using GlobalConstants;
-    using Infrastructure.Extensions;
     using Kendo.Mvc.Extensions;
     using Kendo.Mvc.UI;
     using Services.Data;
-    using ViewModels.Products;
-    using ViewModels.Tags;
+    using ViewModels.Statistics;
 
     [Authorize(Roles = GlobalConstants.IdentityRoles.Admin)]
-    public class TagsController : BaseGridController<Tag, TagViewModel, ITagsService, int>
+    public class StatisticsController : BaseGridController<Statistics, StatisticsViewModel, IStatisticsService, int>
     {
-        private readonly ITagsService tagsService;
+        private readonly IStatisticsService statisticsService;
         private readonly IProductsService productsService;
 
-        public TagsController(ITagsService tagsService, IProductsService productsService)
-            : base(tagsService)
+        public StatisticsController(IStatisticsService statisticsService, IProductsService productsService)
+            : base(statisticsService)
         {
-            this.tagsService = tagsService;
+            this.statisticsService = statisticsService;
             this.productsService = productsService;
         }
 
@@ -40,44 +37,32 @@
         }
 
         [HttpPost]
-        public override ActionResult Create([DataSourceRequest]DataSourceRequest request, TagViewModel viewModel)
+        public override ActionResult Create([DataSourceRequest]DataSourceRequest request, StatisticsViewModel viewModel)
         {
             return base.Create(request, viewModel);
         }
 
         [HttpPost]
-        public override ActionResult Update([DataSourceRequest]DataSourceRequest request, TagViewModel viewModel)
+        public override ActionResult Update([DataSourceRequest]DataSourceRequest request, StatisticsViewModel viewModel)
         {
             return base.Update(request, viewModel);
         }
 
         [HttpPost]
-        public override ActionResult Destroy([DataSourceRequest]DataSourceRequest request, TagViewModel viewModel)
+        public override ActionResult Destroy([DataSourceRequest]DataSourceRequest request, StatisticsViewModel viewModel)
         {
             return base.Destroy(request, viewModel);
         }
 
 #region DataProviders
-        protected override void PopulateEntity(Tag entity, TagViewModel viewModel)
+        protected override void PopulateEntity(Statistics entity, StatisticsViewModel viewModel)
         {
-            if (viewModel.Products != null)
-            {
-                foreach (var product in viewModel.Products)
-                {
-                    entity.Products.Add(this.productsService.GetById(product.Id));
-                }
-            }
-
-            entity.Name = viewModel.Name;
+            entity.AllTimesItemsBought = viewModel.AllTimesItemsBought;
+            entity.OverAllRating = viewModel.OverAllRating;
             entity.CreatedOn = viewModel.CreatedOn;
             entity.ModifiedOn = viewModel.ModifiedOn;
             entity.IsDeleted = viewModel.IsDeleted;
             entity.DeletedOn = viewModel.DeletedOn;
-        }
-
-        protected override IEnumerable<TagViewModel> GetDataAsEnumerable()
-        {
-            return this.tagsService.GetAll().To<TagViewModel>().OrderBy(t => t.Name);
         }
 #endregion
     }

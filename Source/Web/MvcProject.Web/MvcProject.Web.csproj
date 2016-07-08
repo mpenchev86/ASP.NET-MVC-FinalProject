@@ -262,6 +262,7 @@
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\PropertiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\StatisticsController.cs" />
     <Compile Include="Areas\Admin\Controllers\TagsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Admin\Controllers\VotesController.cs" />
@@ -288,6 +289,8 @@
     <Compile Include="Areas\Admin\ViewModels\Properties\PropertyDetailsForDescriptionViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Properties\PropertyViewModelForeignKeys.cs" />
     <Compile Include="Areas\Admin\ViewModels\Properties\PropertyViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Statistics\StatisticsDetailsForProductViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Statistics\StatisticsViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Tags\TagDetailsForProductViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Tags\TagViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Roles\RoleDetailsForUserViewModel.cs" />
@@ -305,9 +308,7 @@
     <Compile Include="Areas\Common\CommonAreaRegistration.cs" />
     <Compile Include="Areas\Common\Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Common\Controllers\AjaxController.cs" />
     <Compile Include="Areas\Common\Controllers\BaseController.cs" />
-    <Compile Include="Areas\Common\Controllers\ChildActionsController.cs" />
     <Compile Include="Areas\Common\Controllers\HomeController.cs" />
     <Compile Include="Areas\Common\Controllers\ManageController.cs" />
     <Compile Include="Areas\Common\Controllers\ProductsController.cs" />
@@ -1007,6 +1008,9 @@
     <Content Include="Areas\Admin\Views\Roles\Partials\_UsersTab.cshtml" />
     <Content Include="Areas\Admin\Views\Images\EditorTemplates\ImageViewModelPopupEditor.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\EditorTemplates\MultiSelect.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Partials\_StatisticsTab.cshtml" />
+    <Content Include="Areas\Admin\Views\Statistics\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Statistics\EditorTemplates\StatisticsViewModelPopupEditor.cshtml" />
     <None Include="Properties\PublishProfiles\testWebDep.pubxml" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.dll" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.xml" />
@@ -1063,7 +1067,6 @@
     <Content Include="Areas\Common\Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Areas\Common\Views\Shared\Lockout.cshtml" />
     <Content Include="Areas\Common\Views\Shared\Partials\_LoginPartial.cshtml" />
-    <Content Include="Areas\Common\Views\Home\CacheMe.cshtml" />
     <Content Include="stylecop.json" />
     <Content Include="Scripts\Kendo\kendo.all.min.js.map" />
     <Content Include="Scripts\Kendo\kendo.aspnetmvc.min.js.map" />

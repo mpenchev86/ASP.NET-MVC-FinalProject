@@ -1,25 +1,25 @@
-﻿namespace MvcProject.Web.Areas.Admin.ViewModels.Descriptions
+﻿namespace MvcProject.Web.Areas.Admin.ViewModels.Products
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Web;
-
     using AutoMapper;
     using Data.Models;
+    using GlobalConstants;
     using Infrastructure.Mapping;
 
-    public class DescriptionDetailsForPropertyViewModel : BaseAdminViewModel<int>, IMapFrom<Description>, IHaveCustomMappings
+    public class ProductDetailsForStatisticsViewModel : BaseAdminViewModel<int>, IMapFrom<Product>, IHaveCustomMappings
     {
         [Required]
-        public int ProductId { get; set; }
-
-        public virtual Product Product { get; set; }
+        [DataType(DataType.MultilineText)]
+        [MaxLength(ValidationConstants.ProductTitleMaxLength)]
+        public string Title { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)
         {
-            configuration.CreateMap<Description, DescriptionDetailsForPropertyViewModel>()
+            configuration.CreateMap<Product, ProductDetailsForStatisticsViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
         }
     }

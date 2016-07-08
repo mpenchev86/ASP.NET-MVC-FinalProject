@@ -46,8 +46,25 @@
         /// A short description used in a quick view of a product.
         /// </value>
         [DataType(DataType.MultilineText)]
-        [MaxLength(ValidationConstants.ShortDescriptionMaxLength)]
+        [MaxLength(ValidationConstants.ProductShortDescriptionMaxLength)]
         public string ShortDescription { get; set; }
+
+        /// <summary>
+        /// Gets or sets the foreign key to the category of a product.
+        /// </summary>
+        /// <value>
+        /// The foreign key to the category of a product.
+        /// </value>
+        [Required]
+        public int CategoryId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the category of a product.
+        /// </summary>
+        /// <value>
+        /// The category of a product.
+        /// </value>
+        public virtual Category Category { get; set; }
 
         /// <summary>
         /// Gets or sets the foreign key to a description of a product.
@@ -66,6 +83,22 @@
         public virtual Description Description { get; set; }
 
         /// <summary>
+        /// Gets or sets the foreign key to the statistics entity for a product.
+        /// </summary>
+        /// <value>
+        /// The foreign key to the statistics entity for a product.
+        /// </value>
+        public int? StatisticsId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the statistics entity for a product.
+        /// </summary>
+        /// <value>
+        /// The statistics entity for a product.
+        /// </value>
+        public virtual Statistics Statistics { get; set; }
+
+        /// <summary>
         /// Gets or sets the foreign key to a main image of a product.
         /// </summary>
         /// <value>
@@ -80,23 +113,6 @@
         /// The main image of a product.
         /// </value>
         public virtual Image MainImage { get; set; }
-
-        /// <summary>
-        /// Gets or sets the foreign key to the category of a product.
-        /// </summary>
-        /// <value>
-        /// The foreign key to the category of a product.
-        /// </value>
-        [Required]
-        public int CategoryId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the category of a product.
-        /// </summary>
-        /// <value>
-        /// The category of a product.
-        /// </value>
-        public virtual Category Category { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether the product is in stock (there's one or more items of this product).

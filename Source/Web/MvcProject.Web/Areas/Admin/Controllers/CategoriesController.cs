@@ -76,7 +76,7 @@
 
         protected override IEnumerable<CategoryViewModel> GetDataAsEnumerable()
         {
-            return base.GetDataAsEnumerable().OrderBy(x => x.Name);
+            return this.categoriesService.GetAll().To<CategoryViewModel>().OrderBy(x => x.Name);
         }
 #endregion
     }

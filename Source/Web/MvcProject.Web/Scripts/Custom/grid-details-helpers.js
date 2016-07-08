@@ -20,7 +20,7 @@
         detailGrid.dataSource.read();
     }
 
-    function setProductDescription(productId, description, propertiesGridPageSize) {
+    function populateProductDescription(productId, description, propertiesGridPageSize) {
         if (description) {
             datetimeHandlers.normalizeDateProperties(description);
             if (description.Id) {
@@ -43,15 +43,36 @@
                 setDataSource('#properties-grid_' + productId, description.Properties, propertiesGridPageSize);
             }
         }
+    }
 
-        //$('#tabStrip_' + id + '-1').ready(function myfunction() {
-        //    console.log($('#tabStrip_' + id + '-1').html());
-        //    console.log($('#description-id').text());
-        //});
+    function populateProductStatistics(productId, statistics) {
+        if (statistics) {
+            datetimeHandlers.normalizeDateProperties(statistics);
+            if (statistics.Id) {
+                $('#statistics-id_' + productId).text(statistics.Id);
+            }
+
+            if (statistics.Content) {
+                $('div#statistics-allTimesItemsBought_' + productId).text(statistics.AllTimesItemsBought);
+            }
+
+            if (statistics.ModifiedOn) {
+                $('div#statistics-overAllRating_' + productId).text(statistics.OverAllRating);
+            }
+
+            if (statistics.CreatedOn) {
+                $('div#statistics-createdOn_' + productId).text(statistics.CreatedOn);
+            }
+
+            if (statistics.ModifiedOn) {
+                $('div#statistics-modifiedOn_' + productId).text(statistics.ModifiedOn);
+            }
+        }
     }
 
     return {
         setDataSource: setDataSource,
-        setProductDescription: setProductDescription
-    }
+        populateProductDescription: populateProductDescription,
+        populateProductStatistics: populateProductStatistics
+    };
 }());

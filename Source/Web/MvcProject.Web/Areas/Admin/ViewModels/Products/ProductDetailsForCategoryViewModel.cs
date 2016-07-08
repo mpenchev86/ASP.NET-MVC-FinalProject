@@ -26,7 +26,7 @@
         public string Title { get; set; }
 
         [DataType(DataType.MultilineText)]
-        [MaxLength(ValidationConstants.ShortDescriptionMaxLength)]
+        [MaxLength(ValidationConstants.ProductShortDescriptionMaxLength)]
         public string ShortDescription { get; set; }
 
         [Index]

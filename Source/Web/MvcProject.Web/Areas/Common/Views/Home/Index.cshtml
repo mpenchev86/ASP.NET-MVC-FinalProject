@@ -7,10 +7,9 @@
     var userCulture = this.Request.UserLanguages.FirstOrDefault() ?? "en-US";
 }
 
-
 <div class="row">
     <h3>New Arrivals</h3>
-    @(Html.ListViewHelper<ProductViewModel>(
+    @(Html.GenericListViewHelper<ProductViewModel>(
         "productsList-1",
         "table",
         "list-products-template",
@@ -23,7 +22,7 @@
 <hr />
 <div class="row">
     <h3>Best Selling</h3>
-    @(Html.ListViewHelper<ProductViewModel>(
+    @(Html.GenericListViewHelper<ProductViewModel>(
         "productsList-2",
         "table",
         "list-products-template",
@@ -36,7 +35,7 @@
 <hr />
 <div class="row">
     <h3>Stars We Got!</h3>
-    @(Html.ListViewHelper<ProductViewModel>(
+    @(Html.GenericListViewHelper<ProductViewModel>(
         "productsList-3",
         "table",
         "list-products-template",
