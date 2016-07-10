@@ -26,12 +26,12 @@
         // Product entity
         public const int ProductTitleMaxLength = 150;
         public const int ProductShortDescriptionMaxLength = 300;
+        public const int ProductAllTimeItemsSoldMin = 0;
+        public const int ProductAllTimeItemsSoldMax = int.MaxValue;
+        public const int ProductAllTimeAverageRatingMin = 0;
+        public const int ProductAllTimeAverageRatingMax = 10;
 
         // Property entity
-
-        // Statistics
-        public const int StatisticsAllTimesItemsBoughtMin = 0;
-        public const int StatisticsAllTimesItemsBoughtMax = int.MaxValue;
 
         // Tag entity
         public const int TagNameMaxLength = 20;

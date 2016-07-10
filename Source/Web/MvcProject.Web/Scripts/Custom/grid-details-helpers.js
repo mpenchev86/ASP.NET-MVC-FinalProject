@@ -52,8 +52,8 @@
                 $('#statistics-id_' + productId).text(statistics.Id);
             }
 
-            if (statistics.AllTimeItemsBought || statistics.AllTimeItemsBought === 0) {
-                $('div#statistics-allTimeItemsBought_' + productId).text(statistics.AllTimeItemsBought);
+            if (statistics.AllTimeItemsSold || statistics.AllTimeItemsSold === 0) {
+                $('div#statistics-allTimeItemsSold_' + productId).text(statistics.AllTimeItemsSold);
             }
 
             if (statistics.OverAllRating || statistics.OverAllRating === 0) {

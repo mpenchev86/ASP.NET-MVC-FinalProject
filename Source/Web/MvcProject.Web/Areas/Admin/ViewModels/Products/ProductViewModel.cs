@@ -19,7 +19,6 @@
     using Infrastructure.Mapping;
     using MvcProject.GlobalConstants;
     using Properties;
-    using Statistics;
     using Tags;
     using Votes;
 
@@ -57,11 +56,6 @@
         public DescriptionDetailsForProductViewModel Description { get; set; }
 
         [UIHint("DropDown")]
-        public int? StatisticsId { get; set; }
-
-        public StatisticsDetailsForProductViewModel Statistics { get; set; }
-
-        [UIHint("DropDown")]
         public int? MainImageId { get; set; }
 
         public bool IsInStock
@@ -79,6 +73,12 @@
 
         [Range(0, double.MaxValue)]
         public decimal? ShippingPrice { get; set; }
+
+        [Range(ValidationConstants.ProductAllTimeItemsSoldMin, ValidationConstants.ProductAllTimeItemsSoldMax)]
+        public int AllTimeItemsSold { get; set; }
+
+        [Range(ValidationConstants.ProductAllTimeAverageRatingMin, ValidationConstants.ProductAllTimeAverageRatingMax)]
+        public int AllTimeAverageRating { get; set; }
 
         [Range(0, double.MaxValue)]
         public double? Length { get; set; }
@@ -142,15 +142,6 @@
                                 }).ToList(),
                                 CreatedOn = src.Description.CreatedOn,
                                 ModifiedOn = src.Description.ModifiedOn
-                            }))
-                .ForMember(dest => dest.Statistics, opt => opt.MapFrom(
-                            src => src.Statistics == null ? null : new StatisticsDetailsForProductViewModel
-                            {
-                                Id = src.Statistics.Id,
-                                AllTimeItemsBought = src.Statistics.AllTimeItemsBought,
-                                OverAllRating = src.Statistics.OverAllRating,
-                                CreatedOn = src.Statistics.CreatedOn,
-                                ModifiedOn = src.Statistics.ModifiedOn
                             }))
                 .ForMember(dest => dest.Images, opt => opt.MapFrom(
                             src => src.Images.Select(i => new ImageDetailsForProductViewModel

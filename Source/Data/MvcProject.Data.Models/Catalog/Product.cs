@@ -83,20 +83,22 @@
         public virtual Description Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the foreign key to the statistics entity for a product.
+        /// Gets or sets the overall number of sold product units.
         /// </summary>
         /// <value>
-        /// The foreign key to the statistics entity for a product.
+        /// The overall number of sold product units.
         /// </value>
-        public int? StatisticsId { get; set; }
+        [Range(ValidationConstants.ProductAllTimeItemsSoldMin, ValidationConstants.ProductAllTimeItemsSoldMax)]
+        public int AllTimeItemsSold { get; set; }
 
         /// <summary>
-        /// Gets or sets the statistics entity for a product.
+        /// Gets or sets the overall rating of a product.
         /// </summary>
         /// <value>
-        /// The statistics entity for a product.
+        /// The overall rating of a product.
         /// </value>
-        public virtual Statistics Statistics { get; set; }
+        [Range(ValidationConstants.ProductAllTimeAverageRatingMin, ValidationConstants.ProductAllTimeAverageRatingMax)]
+        public int AllTimeAverageRating { get; set; }
 
         /// <summary>
         /// Gets or sets the foreign key to a main image of a product.

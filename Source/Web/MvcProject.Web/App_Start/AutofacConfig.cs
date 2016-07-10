@@ -9,6 +9,7 @@
     using System.Web.Mvc;
 
     using Areas.Common.Controllers;
+    using Areas.Public.Controllers;
     using Autofac;
     using Autofac.Integration.Mvc;
     using Data.DbAccessConfig.Contexts;
@@ -32,6 +33,7 @@
 
             // Register your MVC controllers.
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
+            builder.RegisterControllers(typeof(BasePublicController).Assembly);
 
             // OPTIONAL: Register model binders that require DI.
             builder.RegisterModelBinders(Assembly.GetExecutingAssembly());
@@ -127,6 +129,22 @@
                 .RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
                 .AssignableTo<BaseController>()
                 .PropertiesAutowired();
+
+            //var testModuleAssembly = Assembly.Load(Assemblies.TestModuleAssemblyName);
+            //builder
+            //    .RegisterAssemblyTypes(testModuleAssembly)
+            //    .AssignableTo<BaseTestController>()
+            //    .PropertiesAutowired();
+
+            builder
+                .RegisterAssemblyTypes(Assembly.GetAssembly(typeof(BasePublicController)))
+                .AssignableTo<BasePublicController>()
+                .PropertiesAutowired();
+
+            //builder
+            //    .RegisterType(typeof(TestModule.Controllers.HomeController))
+            //    .As(typeof(BaseController))
+            //    .InstancePerRequest();
         }
     }
 }

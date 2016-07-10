@@ -44,9 +44,8 @@
         {
             var viewModel = this.Cache.Get(
                 "products",
-                () => this.productsService.GetAll().To<ProductViewModel>().ToList(),
-                15 * 60)
-                .AsQueryable();
+                () => this.productsService.GetAll().To<ProductViewModel>(),
+                2 * 60);
 
             return this.Json(viewModel.ToDataSourceResult(request));
         }
@@ -112,12 +111,10 @@
             return await Task.FromResult(this.View("Contact"));
         }
 
-#pragma warning disable SA1124 // Do not use regions
-        #region Tests
+#region Tests
 
-        // TEST - route constraints
+        // route constraints
         public string ProductsList(int nonNullableInt, int page = 39)
-#pragma warning restore SA1124 // Do not use regions
         {
             string str = string.Empty;
             try
@@ -134,7 +131,7 @@
                    str;
         }
 
-        // TEST - FAIL - return a file result
+        // FAIL - return a file result
         public FileResult GetFile(string fileName)
         {
             string fileFormat = fileName.Split(new char['.'], StringSplitOptions.RemoveEmptyEntries)[0];
@@ -148,32 +145,31 @@
             // return this.File(fileContent, "text/plain", "mybytes.txt");
         }
 
-        // TEST - return JS
+        // return JS
         public JavaScriptResult ReturnJS()
         {
             return this.JavaScript("var a = 1; alert(a);");
         }
 
-        // TEST - return Json
+        // return Json
         public JsonResult ReturnJson()
         {
             return this.Json(new { error = "Error", code = 200 }, JsonRequestBehavior.AllowGet);
         }
 
-        // TEST - redirect to other action
+        // redirect to other action
         public RedirectToRouteResult RedirectAction()
         {
             return this.RedirectToAction(nameof(HomeController.Index));
         }
 
-        // TEST - redirect to a specifig URL
+        // redirect to a specifig URL
         public RedirectResult RedirectToURL()
         {
             return this.Redirect("https://google.com");
         }
 
-        // TEST - attributes
-
+        //// Attributes
         // [ActionName("AttributesTest")]
         // [NonAction]
         // [Authorize]
@@ -186,7 +182,7 @@
             return this.Content("Attributes");
         }
 
-        // TEST - caching
+        // caching
         [OutputCache(Duration = 60 * 60, Location = System.Web.UI.OutputCacheLocation.Server)]
         public ActionResult CacheMe()
         {
@@ -194,13 +190,13 @@
             return this.View(db.Users.Count());
         }
 
-        // TEST - choosing non-default view
+        // choosing non-default view
         public ActionResult Pesho()
         {
             return this.View("CacheMe", null, "pepeto");
         }
 
-        // TEST - complex object for action parameters
+        // complex object for action parameters
         public ActionResult ComplexParams(Param @param)
         {
             return this.Json(@param, JsonRequestBehavior.AllowGet);
@@ -213,6 +209,6 @@
             [AllowHtml]
             public string StringValue { get; set; }
         }
-        #endregion
+#endregion
     }
 }

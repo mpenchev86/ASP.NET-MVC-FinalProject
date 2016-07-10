@@ -27,8 +27,6 @@
 
         IDbSet<ApplicationRole> Roles { get; set; }
 
-        IDbSet<Statistics> Statistics { get; set; }
-
         DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity)
             where TEntity : class;
 

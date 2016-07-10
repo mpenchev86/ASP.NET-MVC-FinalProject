@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.Web.Routes.Tests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.Web.Controllers.Tests", "Tests\MvcProject.Web.Controllers.Tests\MvcProject.Web.Controllers.Tests.csproj", "{92D029D5-A36E-4C92-B00E-05745E28F8D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.Web.Public", "Web\MvcProject.Web\Areas\Public\MvcProject.Web.Public.csproj", "{26B96B91-8598-4CB7-BD7B-92A6A0BCFCC5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,10 @@ Global
 		{92D029D5-A36E-4C92-B00E-05745E28F8D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92D029D5-A36E-4C92-B00E-05745E28F8D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92D029D5-A36E-4C92-B00E-05745E28F8D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26B96B91-8598-4CB7-BD7B-92A6A0BCFCC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26B96B91-8598-4CB7-BD7B-92A6A0BCFCC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26B96B91-8598-4CB7-BD7B-92A6A0BCFCC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26B96B91-8598-4CB7-BD7B-92A6A0BCFCC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,5 +107,6 @@ Global
 		{282C6693-6C41-44A8-B413-9C8DBA25B0DC} = {462F3DD2-6BEA-42B9-95A4-94031690EA48}
 		{183A0EC6-E9A4-4BC6-81F0-1C2EDCAF054B} = {462F3DD2-6BEA-42B9-95A4-94031690EA48}
 		{92D029D5-A36E-4C92-B00E-05745E28F8D6} = {462F3DD2-6BEA-42B9-95A4-94031690EA48}
+		{26B96B91-8598-4CB7-BD7B-92A6A0BCFCC5} = {9DC8729B-38F3-4B60-B928-9770099D0C66}
 	EndGlobalSection
 EndGlobal

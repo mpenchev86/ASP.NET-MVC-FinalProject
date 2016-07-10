@@ -38,8 +38,6 @@
 
         public IDbSet<Vote> Votes { get; set; }
 
-        public IDbSet<Statistics> Statistics { get; set; }
-
         public static MvcProjectDbContext Create()
         {
             return new MvcProjectDbContext();
@@ -80,9 +78,6 @@
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Statistics>()
-                .HasEntitySetName("Statistics");
-
             modelBuilder.Entity<Product>()
                 .HasMany<Tag>(p => p.Tags)
                 .WithMany(t => t.Products)

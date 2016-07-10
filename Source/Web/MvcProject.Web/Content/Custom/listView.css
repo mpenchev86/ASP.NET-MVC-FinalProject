@@ -1,5 +1,4 @@
-﻿/*<style >*/ 
-.productsList .k-widget .k-listview {
+﻿.productsList .k-widget .k-listview {
     border-style: none;
 }
 
@@ -24,11 +23,11 @@ table td {
     display: inline;
     visibility: hidden;
     position: absolute;
-    margin: 0;
+    /*margin: 0;*/
     padding: 0;
     top: 0;
-    /*width: 100%;
-            height: 100%;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
     border: none;
     overflow: hidden;
 }
@@ -72,5 +71,3 @@ k-pager-wrap k-widget k-floatwrap {
     clear: both;
     visibility: hidden;
 }
-
-/*</style >*/

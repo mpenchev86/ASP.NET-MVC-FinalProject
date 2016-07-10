@@ -3,7 +3,6 @@
 @using MvcProject.Web.Areas.Admin.ViewModels.Descriptions
 @using MvcProject.Web.Areas.Admin.ViewModels.Images
 @using MvcProject.Web.Areas.Admin.ViewModels.Products
-@using MvcProject.Web.Areas.Admin.ViewModels.Statistics
 @using System.Globalization
 @using System.Web.Mvc
 
@@ -24,7 +23,6 @@
         m.Field(p => p.Id).Editable(false);
         m.Field(p => p.DescriptionId).Editable(true).DefaultValue(null);
         m.Field(p => p.MainImageId).Editable(true).DefaultValue(null);
-        m.Field(p => p.StatisticsId).Editable(true).DefaultValue(null);
     },
     pageSize: 20,
     virtualScroll: false,
@@ -38,10 +36,11 @@
         c.Bound(m => m.UnitPrice);
         c.ForeignKey(m => m.CategoryId, Model.Categories, "Id", "Name").Title("Category");
         c.ForeignKey(m => m.DescriptionId, Model.Descriptions, "Id", "Id").Title("Description Id").Visible(false);
-        c.ForeignKey(m => m.StatisticsId, Model.StatisticsCollection, "Id", "Id").Title("Statistics Id").Visible(false);
         c.ForeignKey(m => m.MainImageId, Model.Images, "Id", "Id").Title("Main Image Id").Visible(false);
         c.Bound(m => m.IsInStock);
         c.Bound(m => m.QuantityInStock);
+        c.Bound(m => m.AllTimeItemsSold);
+        c.Bound(m => m.AllTimeAverageRating);
         c.Bound(m => m.Height);
         c.Bound(m => m.Length);
         c.Bound(m => m.Width);
@@ -137,7 +136,6 @@
 
         function detailInit(e) {
             gridDetailsHelpers.populateProductDescription(e.data.Id, e.data.Description, 8);
-            gridDetailsHelpers.populateProductStatistics(e.data.Id, e.data.Statistics);
             gridDetailsHelpers.setDataSource("#images-grid_" + e.data.Id, e.data.Images, 10);
             gridDetailsHelpers.setDataSource("#comments-grid_" + e.data.Id, e.data.Comments, 10);
             gridDetailsHelpers.setDataSource("#votes-grid_" + e.data.Id, e.data.Votes, 10);

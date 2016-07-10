@@ -20,7 +20,6 @@
     using ViewModels.Images;
     using ViewModels.Products;
     using ViewModels.Properties;
-    using ViewModels.Statistics;
     using ViewModels.Tags;
     using ViewModels.Votes;
 
@@ -32,7 +31,6 @@
         private readonly ICommentsService commentsService;
         private readonly IImagesService imagesService;
         private readonly IDescriptionsService descriptionsService;
-        private readonly IStatisticsService statisticsService;
         private readonly ITagsService tagsService;
         private readonly IVotesService votesService;
 
@@ -42,7 +40,6 @@
             ICommentsService commentsService,
             IImagesService imagesService,
             IDescriptionsService descriptionsService,
-            IStatisticsService statisticsService,
             ITagsService tagsService,
             IVotesService votesService)
             : base(productsService)
@@ -52,7 +49,6 @@
             this.commentsService = commentsService;
             this.imagesService = imagesService;
             this.descriptionsService = descriptionsService;
-            this.statisticsService = statisticsService;
             this.tagsService = tagsService;
             this.votesService = votesService;
         }
@@ -65,7 +61,6 @@
                 Categories = this.categoriesService.GetAll().To<CategoryDetailsForProductViewModel>(),
                 Images = this.imagesService.GetAll().To<ImageDetailsForProductViewModel>(),
                 Descriptions = this.descriptionsService.GetAll().To<DescriptionDetailsForProductViewModel>(),
-                StatisticsCollection = this.statisticsService.GetAll().To<StatisticsDetailsForProductViewModel>()
             };
 
             return this.View(foreignKeys);
@@ -133,6 +128,9 @@
                 }
             }
 
+            // Votes should be populated first.
+            entity.AllTimeAverageRating = entity.Votes.Any() ? (int)entity.Votes.Average(v => v.VoteValue) : 0;
+
             var tagIds = viewModel.Tags.Select(tag => tag.Id);
             this.ProcessProductTags(entity, viewModel.Id, tagIds);
 
@@ -140,11 +138,11 @@
             entity.ShortDescription = viewModel.ShortDescription;
             entity.CategoryId = viewModel.CategoryId;
             entity.DescriptionId = viewModel.DescriptionId;
-            entity.StatisticsId = viewModel.StatisticsId;
             entity.MainImageId = viewModel.MainImageId;
             entity.QuantityInStock = viewModel.QuantityInStock;
             entity.UnitPrice = viewModel.UnitPrice;
             entity.ShippingPrice = viewModel.ShippingPrice;
+            entity.AllTimeItemsSold = viewModel.AllTimeItemsSold;
             entity.Length = viewModel.Length;
             entity.Height = viewModel.Height;
             entity.Width = viewModel.Width;

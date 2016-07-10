@@ -262,7 +262,6 @@
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\PropertiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
-    <Compile Include="Areas\Admin\Controllers\StatisticsController.cs" />
     <Compile Include="Areas\Admin\Controllers\TagsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Admin\Controllers\VotesController.cs" />
@@ -289,8 +288,6 @@
     <Compile Include="Areas\Admin\ViewModels\Properties\PropertyDetailsForDescriptionViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Properties\PropertyViewModelForeignKeys.cs" />
     <Compile Include="Areas\Admin\ViewModels\Properties\PropertyViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Statistics\StatisticsDetailsForProductViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Statistics\StatisticsViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Tags\TagDetailsForProductViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Tags\TagViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\Roles\RoleDetailsForUserViewModel.cs" />
@@ -342,6 +339,7 @@
   <ItemGroup>
     <Content Include="Content\Custom\Admin\details-grid.css" />
     <Content Include="Content\Custom\Admin\main-grid.css" />
+    <Content Include="Content\Images\Logos\just-orderit-com.png" />
     <Content Include="Content\Kendo\Bootstrap\editor.png" />
     <Content Include="Content\Kendo\Bootstrap\imagebrowser.png" />
     <Content Include="Content\Kendo\Bootstrap\indeterminate.gif" />
@@ -821,10 +819,6 @@
     <Content Include="Content\Custom\Admin\domains-list.css" />
     <Content Include="Content\Custom\Admin\custom-popup-editor.css" />
     <Content Include="Content\Custom\listView.css" />
-    <Content Include="Content\Images\Products\1.jpg" />
-    <Content Include="Content\Images\Products\2.jpg" />
-    <Content Include="Content\Images\Products\3.jpg" />
-    <Content Include="Content\Images\Logos\logo-main.png" />
     <Content Include="Content\Kendo\Default\editor.png" />
     <Content Include="Content\Kendo\Default\imagebrowser.png" />
     <Content Include="Content\Kendo\Default\indeterminate.gif" />
@@ -1008,9 +1002,6 @@
     <Content Include="Areas\Admin\Views\Roles\Partials\_UsersTab.cshtml" />
     <Content Include="Areas\Admin\Views\Images\EditorTemplates\ImageViewModelPopupEditor.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\EditorTemplates\MultiSelect.cshtml" />
-    <Content Include="Areas\Admin\Views\Products\Partials\_StatisticsTab.cshtml" />
-    <Content Include="Areas\Admin\Views\Statistics\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Statistics\EditorTemplates\StatisticsViewModelPopupEditor.cshtml" />
     <None Include="Properties\PublishProfiles\testWebDep.pubxml" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.dll" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.xml" />
@@ -1108,6 +1099,10 @@
     <ProjectReference Include="..\MvcProject.Web.Infrastructure\MvcProject.Web.Infrastructure.csproj">
       <Project>{b14dfb67-88f5-4714-a592-ecab1f8f74a9}</Project>
       <Name>MvcProject.Web.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="Areas\Public\MvcProject.Web.Public.csproj">
+      <Project>{26B96B91-8598-4CB7-BD7B-92A6A0BCFCC5}</Project>
+      <Name>MvcProject.Web.Public</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

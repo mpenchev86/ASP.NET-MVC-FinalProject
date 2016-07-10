@@ -99,7 +99,6 @@
     <Compile Include="Contracts\IProductsService.cs" />
     <Compile Include="Contracts\IPropertiesService.cs" />
     <Compile Include="Contracts\IRolesService.cs" />
-    <Compile Include="Contracts\IStatisticsService.cs" />
     <Compile Include="Contracts\ITagsService.cs" />
     <Compile Include="Contracts\IUserRolesService.cs" />
     <Compile Include="Contracts\IUsersService.cs" />
@@ -111,7 +110,6 @@
     <Compile Include="PropertiesService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RolesService.cs" />
-    <Compile Include="StatisticsService.cs" />
     <Compile Include="TagsService.cs" />
     <Compile Include="UserRolesService.cs" />
     <Compile Include="UsersService.cs" />

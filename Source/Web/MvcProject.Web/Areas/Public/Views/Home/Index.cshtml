@@ -1,0 +1,83 @@
+﻿@using MvcProject.GlobalConstants
+@using MvcProject.Web.Areas.Public.ViewModels.Home
+@using MvcProject.Web.Infrastructure.HtmlHelpers
+
+@{
+    ViewBag.Title = "Home - OrderIt";
+    var userCulture = this.Request.UserLanguages.FirstOrDefault() ?? "en-US";
+}
+
+<div class="row">
+    <h3>@ApplicationSpecificConstants.IndexListViewNumberOfNewestProducts New Arrivals</h3>
+    @(Html.GenericListViewHelper<ProductDetailsForIndexListView>(
+        name: "newestProducts",
+        wrapperTagName: "table",
+        templateId: "products-listView-template",
+        readAction: "ReadNewestProducts",
+        controllerName: "Home",
+        modelIdExpression: m => m.Id,
+        pageSize: 5,
+        isServerOps: true
+        //,
+        //sortSettings: sort => { sort.Add(p => p.CreatedOn).Descending(); }
+        )
+        .HtmlAttributes(new { @class = "productsList" })
+        .Deferred())
+</div>
+<hr />
+<div class="row">
+    <h3>Top @ApplicationSpecificConstants.IndexListViewNumberOfBestSellingProducts Best Selling</h3>
+    @(Html.GenericListViewHelper<ProductDetailsForIndexListView>(
+        name: "bestSellingProducts",
+        wrapperTagName: "table",
+        templateId: "products-listView-template",
+        readAction: "ReadBestSellingProducts",
+        controllerName: "Home",
+        modelIdExpression: m => m.Id,
+        pageSize: 5,
+        isServerOps: true
+        //,
+        //sortSettings: sort => { sort.Add(p => p.AllTimeItemsSold); }
+        )
+        .HtmlAttributes(new { @class = "productsList" })
+        .Deferred())
+</div>
+<hr />
+<div class="row">
+    <h3>Stars We Got! The @ApplicationSpecificConstants.IndexListViewNumberOfhighestVotedProducts highest rated items</h3>
+    @(Html.GenericListViewHelper<ProductDetailsForIndexListView>(
+        name: "highestVotedProducts",
+        wrapperTagName: "table",
+        templateId: "products-listView-template",
+        readAction: "ReadHighestVotedProducts",
+        controllerName: "Home",
+        modelIdExpression: m => m.Id,
+        pageSize: 5,
+        isServerOps: true
+        //,
+        //sortSettings: sort => { sort.Add(p => p.AllTimeAverageRating); }
+        )
+        .HtmlAttributes(new { @class = "productsList" })
+        .Deferred())
+</div>
+
+<script type="text/x-kendo-tmpl" id="products-listView-template">
+    <td class="product">
+        <div class="img-div">
+            <img src="@Url.Content("~/Content/Images/Products/#=Id#/")main-image.jpg" alt="#:Title# image" />
+        </div>
+        <a href="/" class="btn btn-link"><p>#:Title# sneak peek</p></a>
+        @*<p>#:kendo.toString(UnitPrice, "c")#</p>*@
+    </td>
+</script>
+
+@section styles{
+    <link href="@Url.Content("~/Content/Custom/listView.css")" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts {
+    @Html.Kendo().DeferredScripts()
+    <script>
+        kendo.culture('@userCulture');
+    </script>
+}

@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationSpecialStrings.cs" />
+    <Compile Include="ApplicationSpecificConstants.cs" />
     <Compile Include="Assemblies.cs" />
     <Compile Include="Bundles.cs" />
     <Compile Include="DbAccess.cs" />

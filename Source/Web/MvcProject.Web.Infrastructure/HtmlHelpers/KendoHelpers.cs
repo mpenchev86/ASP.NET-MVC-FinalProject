@@ -197,7 +197,7 @@
 
         public static ListViewBuilder<T> GenericListViewHelper<T>(
             this HtmlHelper helper,
-            string wrapperId,
+            string name,
             string wrapperTagName,
             string templateId,
             string controllerName,
@@ -224,7 +224,7 @@
 
             return helper.Kendo()
                 .ListView<T>()
-                .Name(wrapperId)
+                .Name(name)
                 .TagName(wrapperTagName)
                 .ClientTemplateId(templateId)
                 .Editable()

@@ -1,5 +1,6 @@
 ﻿@using MvcProject.Web.Areas.Common.ViewModels.Home
 @using MvcProject.Web.Infrastructure.HtmlHelpers
+
 @model IEnumerable<MvcProject.Web.Areas.Common.ViewModels.Home.ProductViewModel>
 
 @{
@@ -10,7 +11,7 @@
 <div class="row">
     <h3>New Arrivals</h3>
     @(Html.GenericListViewHelper<ProductViewModel>(
-        "productsList-1",
+        "newestProducts",
         "table",
         "list-products-template",
         "Home",
@@ -23,7 +24,7 @@
 <div class="row">
     <h3>Best Selling</h3>
     @(Html.GenericListViewHelper<ProductViewModel>(
-        "productsList-2",
+        "bestSellingProducts",
         "table",
         "list-products-template",
         "Home",
@@ -36,7 +37,7 @@
 <div class="row">
     <h3>Stars We Got!</h3>
     @(Html.GenericListViewHelper<ProductViewModel>(
-        "productsList-3",
+        "highestVotedProducts",
         "table",
         "list-products-template",
         "Home",

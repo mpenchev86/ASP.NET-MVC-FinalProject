@@ -10,6 +10,7 @@
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
+    using Areas.Public.Controllers;
     using Data.DbAccessConfig.Contexts;
     using Data.DbAccessConfig.Migrations;
     using Infrastructure.Mapping;
@@ -29,7 +30,7 @@
             ViewEnginesConfig.RegisterEngines(ViewEngines.Engines);
             AutofacConfig.RegisterAutofac();
 
-            AutoMapperInit.Initialize(Assembly.GetExecutingAssembly());
+            AutoMapperInit.Initialize(Assembly.GetExecutingAssembly(), Assembly.GetAssembly(typeof(BasePublicController)));
         }
     }
 }

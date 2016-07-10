@@ -14,12 +14,17 @@
     {
         public static MapperConfiguration Configuration { get; private set; }
 
-        public void Execute(Assembly assembly)
+        public void Execute(params Assembly[] assemblies)
         {
             Configuration = new MapperConfiguration(
                 cfg =>
                 {
-                    var types = assembly.GetExportedTypes();
+                    var types = new List<Type>();
+                    foreach (var assembly in assemblies)
+                    {
+                        types.AddRange(assembly.GetExportedTypes());
+                    }
+
                     LoadStandardMappings(types, cfg);
                     LoadReverseMappings(types, cfg);
                     LoadCustomMappings(types, cfg);

@@ -59,7 +59,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Catalog\Statistics.cs" />
     <Compile Include="Identity\ApplicationUserRole.cs" />
     <Compile Include="Catalog\Category.cs" />
     <Compile Include="Catalog\Comment.cs" />
