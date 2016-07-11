@@ -7,8 +7,7 @@
     using System.Reflection;
     using System.Web;
     using System.Web.Mvc;
-
-    using Areas.Common.Controllers;
+    using Areas.Administration.Controllers;
     using Areas.Public.Controllers;
     using Autofac;
     using Autofac.Integration.Mvc;
@@ -21,8 +20,9 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Microsoft.AspNet.Identity.Owin;
-    using MvcProject.GlobalConstants;
+    using MvcProject.Common.GlobalConstants;
     using Services.Data;
+    using Services.Identity;
     using Services.Web;
 
     public static class AutofacConfig
@@ -34,6 +34,8 @@
             // Register your MVC controllers.
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             builder.RegisterControllers(typeof(BasePublicController).Assembly);
+            builder.RegisterControllers(typeof(BaseAdminController).Assembly);
+            //builder.RegisterControllers(typeof(BaseCommonController).Assembly);
 
             // OPTIONAL: Register model binders that require DI.
             builder.RegisterModelBinders(Assembly.GetExecutingAssembly());
@@ -125,10 +127,10 @@
                 .InstancePerRequest();
 
             // Controllers
-            builder
-                .RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
-                .AssignableTo<BaseController>()
-                .PropertiesAutowired();
+            //builder
+            //    .RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+            //    .AssignableTo<BaseCommonController>()
+            //    .PropertiesAutowired();
 
             //var testModuleAssembly = Assembly.Load(Assemblies.TestModuleAssemblyName);
             //builder

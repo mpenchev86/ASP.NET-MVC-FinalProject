@@ -241,100 +241,39 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\ApplicationRoleManager.cs" />
-    <Compile Include="App_Start\ApplicationSignInManager.cs" />
     <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\AutoMapperInit.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\ApplicationUserManager.cs" />
     <Compile Include="App_Start\GlimpseSecurityPolicy.cs" />
-    <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\ViewEnginesConfig.cs" />
-    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\BaseGridController.cs" />
-    <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
-    <Compile Include="Areas\Admin\Controllers\CommentsController.cs" />
-    <Compile Include="Areas\Admin\Controllers\DescriptionsController.cs" />
-    <Compile Include="Areas\Admin\Controllers\ImagesController.cs" />
-    <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
-    <Compile Include="Areas\Admin\Controllers\PropertiesController.cs" />
-    <Compile Include="Areas\Admin\Controllers\RolesController.cs" />
-    <Compile Include="Areas\Admin\Controllers\TagsController.cs" />
-    <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
-    <Compile Include="Areas\Admin\Controllers\VotesController.cs" />
-    <Compile Include="Areas\Admin\ViewModels\BaseAdminViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Categories\CategoryDetailsForProductViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Categories\CategoryViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Comments\CommentDetailsForProductViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Comments\CommentDetailsForUserViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Comments\CommentViewModelForeignKeys.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Comments\CommentViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Descriptions\DescriptionDetailsForProductViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Descriptions\DescriptionDetailsForPropertyViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Descriptions\DescriptionViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Images\ImageDetailsForProductViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Images\ImageViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Images\ImageViewModelForeignKeys.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Products\ProductDetailsForCategoryViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Products\ProductDetailsForCommentViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Products\ProductDetailsForImageViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Products\ProductDetailsForTagViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Products\ProductDetailsForVoteViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Products\ProductViewModelForeignKeys.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Products\ProductViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Properties\PropertyDetailsForDescriptionViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Properties\PropertyViewModelForeignKeys.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Properties\PropertyViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Tags\TagDetailsForProductViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Tags\TagViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Roles\RoleDetailsForUserViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Roles\RoleViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Roles\RoleViewModelForeignKeys.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Users\UserDetailsForCommentViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Users\UserDetailsForRoleViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Users\UserDetailsForVoteViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Users\UserViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Users\UserViewModelForeignKeys.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Votes\VoteDetailsForProductViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Votes\VoteDetailsForUserViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Votes\VoteViewModel.cs" />
-    <Compile Include="Areas\Admin\ViewModels\Votes\VoteViewModelForeignKeys.cs" />
-    <Compile Include="Areas\Common\CommonAreaRegistration.cs" />
-    <Compile Include="Areas\Common\Controllers\AccountController.cs" />
-    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Common\Controllers\BaseController.cs" />
-    <Compile Include="Areas\Common\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Common\Controllers\ManageController.cs" />
-    <Compile Include="Areas\Common\Controllers\ProductsController.cs" />
-    <Compile Include="Areas\Common\ViewModels\Home\IndexViewModel.cs" />
-    <Compile Include="Areas\Common\ViewModels\Home\CategoryViewModel.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Common\ViewModels\Account\ExternalLoginConfirmationViewModel.cs" />
-    <Compile Include="Areas\Common\ViewModels\Account\ExternalLoginListViewModel.cs" />
-    <Compile Include="Areas\Common\ViewModels\Account\ForgotPasswordViewModel.cs" />
-    <Compile Include="Areas\Common\ViewModels\Account\ForgotViewModel.cs" />
-    <Compile Include="Areas\Common\ViewModels\Account\LoginViewModel.cs" />
-    <Compile Include="Areas\Common\ViewModels\Account\RegisterViewModel.cs" />
-    <Compile Include="Areas\Common\ViewModels\Account\ResetPasswordViewModel.cs" />
-    <Compile Include="Areas\Common\ViewModels\Account\SendCodeViewModel.cs" />
-    <Compile Include="Areas\Common\ViewModels\Account\VerifyCodeViewModel.cs" />
-    <Compile Include="Areas\Common\ViewModels\Home\ProductViewModel.cs" />
-    <Compile Include="Areas\Common\ViewModels\Manage\AddPhoneNumberViewModel.cs" />
-    <Compile Include="Areas\Common\ViewModels\Manage\ChangePasswordViewModel.cs" />
-    <Compile Include="Areas\Common\ViewModels\Manage\ConfigureTwoFactorViewModel.cs" />
-    <Compile Include="Areas\Common\ViewModels\Manage\FactorViewModel.cs" />
-    <Compile Include="Areas\Common\ViewModels\Manage\IndexViewModel.cs" />
-    <Compile Include="Areas\Common\ViewModels\Manage\ManageLoginsViewModel.cs" />
     <Compile Include="Hubs\MyChat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Areas\Common\ViewModels\Manage\SetPasswordViewModel.cs" />
-    <Compile Include="Areas\Common\ViewModels\Manage\VerifyPhoneNumberViewModel.cs" />
+    <Compile Include="ViewModels\Account\ExternalLoginConfirmationViewModel.cs" />
+    <Compile Include="ViewModels\Account\ExternalLoginListViewModel.cs" />
+    <Compile Include="ViewModels\Account\ForgotPasswordViewModel.cs" />
+    <Compile Include="ViewModels\Account\ForgotViewModel.cs" />
+    <Compile Include="ViewModels\Account\LoginViewModel.cs" />
+    <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\Account\ResetPasswordViewModel.cs" />
+    <Compile Include="ViewModels\Account\SendCodeViewModel.cs" />
+    <Compile Include="ViewModels\Account\VerifyCodeViewModel.cs" />
+    <Compile Include="ViewModels\Manage\AddPhoneNumberViewModel.cs" />
+    <Compile Include="ViewModels\Manage\ChangePasswordViewModel.cs" />
+    <Compile Include="ViewModels\Manage\ConfigureTwoFactorViewModel.cs" />
+    <Compile Include="ViewModels\Manage\FactorViewModel.cs" />
+    <Compile Include="ViewModels\Manage\IndexViewModel.cs" />
+    <Compile Include="ViewModels\Manage\ManageLoginsViewModel.cs" />
+    <Compile Include="ViewModels\Manage\SetPasswordViewModel.cs" />
+    <Compile Include="ViewModels\Manage\VerifyPhoneNumberViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Custom\Admin\details-grid.css" />
@@ -899,17 +838,6 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Areas\Admin\Views\web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Common\Views\Home\Random.cshtml" />
-    <Content Include="Areas\Common\Views\Shared\DisplayTemplates\String.cshtml" />
-    <Content Include="Areas\Common\Views\Shared\DisplayTemplates\CustomTemplate.cshtml" />
-    <Content Include="Areas\Common\Views\Home\FormResults.cshtml" />
-    <Content Include="Areas\Common\Views\Shared\Partials\_ProductResult.cshtml" />
-    <Content Include="Areas\Common\Views\Products\ById.cshtml" />
     <Content Include="Content\Kendo\fonts\DejaVu\DejaVuSans-Bold.ttf" />
     <Content Include="Content\Kendo\fonts\DejaVu\DejaVuSans-BoldOblique.ttf" />
     <Content Include="Content\Kendo\fonts\DejaVu\DejaVuSans-ExtraLight.ttf" />
@@ -933,75 +861,7 @@
     <Content Include="Content\Kendo\kendo.common.min.css.map" />
     <Content Include="Content\Kendo\kendo.default.min.css.map" />
     <Content Include="Content\Kendo\kendo.silver.min.css.map" />
-    <Content Include="Areas\Common\Views\Shared\Partials\_CarouselPartial.cshtml" />
     <Content Include="MvcProject.Web.ruleset" />
-    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Products\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Properties\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Products\Partials\_CommentsTab.cshtml" />
-    <Content Include="Areas\Admin\Views\Products\Partials\_ProductDetailsTabStrip.cshtml" />
-    <Content Include="Areas\Admin\Views\Products\Partials\_TagsTab.cshtml" />
-    <Content Include="Areas\Admin\Views\Products\Partials\_VotesTab.cshtml" />
-    <Content Include="Areas\Admin\Views\Products\Partials\_ImagesTab.cshtml" />
-    <Content Include="Areas\Admin\Views\Products\EditorTemplates\ProductViewModelPopupEditor.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\Currency.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\Date.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\DateTime.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\Email.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\EmailAddress.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\GridForeignKey.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\Integer.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\Number.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\Password.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\String.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\Time.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\Url.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\DropDown.cshtml" />
-    <Content Include="Areas\Admin\Views\Products\Partials\_DescriptionTab.cshtml" />
-    <Content Include="Areas\Admin\Views\Products\Partials\_DescriptionPropertiesGrid.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\Partials\DeleteWindow.cshtml" />
-    <Content Include="Areas\Common\Views\Shared\EditorTemplates\Currency.cshtml" />
-    <Content Include="Areas\Common\Views\Shared\EditorTemplates\Date.cshtml" />
-    <Content Include="Areas\Common\Views\Shared\EditorTemplates\DateTime.cshtml" />
-    <Content Include="Areas\Common\Views\Shared\EditorTemplates\Email.cshtml" />
-    <Content Include="Areas\Common\Views\Shared\EditorTemplates\EmailAddress.cshtml" />
-    <Content Include="Areas\Common\Views\Shared\EditorTemplates\GridForeignKey.cshtml" />
-    <Content Include="Areas\Common\Views\Shared\EditorTemplates\Integer.cshtml" />
-    <Content Include="Areas\Common\Views\Shared\EditorTemplates\Number.cshtml" />
-    <Content Include="Areas\Common\Views\Shared\EditorTemplates\Password.cshtml" />
-    <Content Include="Areas\Common\Views\Shared\EditorTemplates\String.cshtml" />
-    <Content Include="Areas\Common\Views\Shared\EditorTemplates\Time.cshtml" />
-    <Content Include="Areas\Common\Views\Shared\EditorTemplates\Url.cshtml" />
-    <Content Include="Areas\Admin\Views\Properties\EditorTemplates\PropertyViewModelPopupEditor.cshtml" />
-    <Content Include="Areas\Admin\Views\Comments\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Comments\EditorTemplates\CommentViewModelPopupEditor.cshtml" />
-    <Content Include="Areas\Admin\Views\Votes\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Votes\EditorTemplates\VoteViewModelPopupEditor.cshtml" />
-    <Content Include="Areas\Admin\Views\Tags\EditorTemplates\TagViewModelPopupEditor.cshtml" />
-    <Content Include="Areas\Admin\Views\Tags\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Tags\Partials\_TagDetailsTabStrip.cshtml" />
-    <Content Include="Areas\Admin\Views\Tags\Partials\_ProductsTab.cshtml" />
-    <Content Include="Areas\Admin\Views\Categories\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Categories\EditorTemplates\CategoryViewModelPopupEditor.cshtml" />
-    <Content Include="Areas\Admin\Views\Categories\Partials\_CategoryDetailsTabStrip.cshtml" />
-    <Content Include="Areas\Admin\Views\Categories\Partials\_ProductsTab.cshtml" />
-    <Content Include="Areas\Admin\Views\Descriptions\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Descriptions\EditorTemplates\DescriptionViewModelPopupEditor.cshtml" />
-    <Content Include="Areas\Admin\Views\Descriptions\Partials\_DescriptionDetailsTabStrip.cshtml" />
-    <Content Include="Areas\Admin\Views\Descriptions\Partials\_PropertiesTab.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\EditorTemplates\UserViewModelPopupEditor.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Partials\_UserDetailsTabStrip.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Partials\_CommentsTab.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Partials\_VotesTab.cshtml" />
-    <Content Include="Areas\Admin\Views\Images\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Partials\_RolesTab.cshtml" />
-    <Content Include="Areas\Admin\Views\Roles\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Roles\EditorTemplates\RoleViewModelPopupEditor.cshtml" />
-    <Content Include="Areas\Admin\Views\Roles\Partials\_RoleDetailsTabStrip.cshtml" />
-    <Content Include="Areas\Admin\Views\Roles\Partials\_UsersTab.cshtml" />
-    <Content Include="Areas\Admin\Views\Images\EditorTemplates\ImageViewModelPopupEditor.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\MultiSelect.cshtml" />
     <None Include="Properties\PublishProfiles\testWebDep.pubxml" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.dll" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.xml" />
@@ -1029,56 +889,65 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Areas\Common\Views\web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Areas\Common\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Common\Views\Shared\Error.cshtml" />
-    <Content Include="Areas\Common\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Common\Views\Home\About.cshtml" />
-    <Content Include="Areas\Common\Views\Home\Contact.cshtml" />
-    <Content Include="Areas\Common\Views\Home\Index.cshtml" />
-    <Content Include="Areas\Common\Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Areas\Common\Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Areas\Common\Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Areas\Common\Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Areas\Common\Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Areas\Common\Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Areas\Common\Views\Account\Login.cshtml" />
-    <Content Include="Areas\Common\Views\Account\Register.cshtml" />
-    <Content Include="Areas\Common\Views\Account\ResetPassword.cshtml" />
-    <Content Include="Areas\Common\Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Areas\Common\Views\Account\SendCode.cshtml" />
-    <Content Include="Areas\Common\Views\Account\VerifyCode.cshtml" />
-    <Content Include="Areas\Common\Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Areas\Common\Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Areas\Common\Views\Manage\Index.cshtml" />
-    <Content Include="Areas\Common\Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Areas\Common\Views\Manage\SetPassword.cshtml" />
-    <Content Include="Areas\Common\Views\Manage\VerifyPhoneNumber.cshtml" />
-    <Content Include="Areas\Common\Views\Shared\Lockout.cshtml" />
-    <Content Include="Areas\Common\Views\Shared\Partials\_LoginPartial.cshtml" />
     <Content Include="stylecop.json" />
     <Content Include="Scripts\Kendo\kendo.all.min.js.map" />
     <Content Include="Scripts\Kendo\kendo.aspnetmvc.min.js.map" />
     <Content Include="Scripts\Kendo\jquery.min.map" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\CustomTemplate.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\String.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Currency.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Email.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\EmailAddress.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\GridForeignKey.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Integer.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Number.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Password.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\Partials\_CarouselPartial.cshtml" />
+    <Content Include="Views\Shared\Partials\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Views\Shared\DisplayTemplates\" />
     <Folder Include="Content\Images\Carousel\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\GlobalConstants\MvcProject.GlobalConstants.csproj">
+    <ProjectReference Include="..\..\Common\GlobalConstants\MvcProject.Common.GlobalConstants.csproj">
       <Project>{5f2803a7-770d-4509-8d69-cfbf4d6dc772}</Project>
-      <Name>MvcProject.GlobalConstants</Name>
+      <Name>MvcProject.Common.GlobalConstants</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Common\Resources\MvcProject.Resources.csproj">
+    <ProjectReference Include="..\..\Common\Resources\MvcProject.Common.Resources.csproj">
       <Project>{08374f36-2ebc-4006-988f-3d41a4d6a30c}</Project>
-      <Name>MvcProject.Resources</Name>
+      <Name>MvcProject.Common.Resources</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Data\MvcProject.Data.DbAccessConfig\MvcProject.Data.DbAccessConfig.csproj">
       <Project>{37ead08e-a644-4438-b913-1329c8cb3899}</Project>
@@ -1092,6 +961,10 @@
       <Project>{037141ca-82db-4c81-9ba1-4d02ef877b65}</Project>
       <Name>MvcProject.Services.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Services\MvcProject.Services.Identity\MvcProject.Services.Identity.csproj">
+      <Project>{710d2e6c-decc-4966-9584-e432e0250cd5}</Project>
+      <Name>MvcProject.Services.Identity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Services\MvcProject.Services.Web\MvcProject.Services.Web.csproj">
       <Project>{bfbd7dc4-f46c-41e3-aa95-317230fe6558}</Project>
       <Name>MvcProject.Services.Web</Name>
@@ -1099,6 +972,10 @@
     <ProjectReference Include="..\MvcProject.Web.Infrastructure\MvcProject.Web.Infrastructure.csproj">
       <Project>{b14dfb67-88f5-4714-a592-ecab1f8f74a9}</Project>
       <Name>MvcProject.Web.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="Areas\Administration\MvcProject.Web.Administration.csproj">
+      <Project>{c7cd538c-51a9-40e1-bd56-b2645bcda430}</Project>
+      <Name>MvcProject.Web.Administration</Name>
     </ProjectReference>
     <ProjectReference Include="Areas\Public\MvcProject.Web.Public.csproj">
       <Project>{26B96B91-8598-4CB7-BD7B-92A6A0BCFCC5}</Project>

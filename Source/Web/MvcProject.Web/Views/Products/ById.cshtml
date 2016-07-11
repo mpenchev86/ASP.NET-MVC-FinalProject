@@ -1,0 +1,20 @@
+﻿@model MvcProject.Web.Areas.Common.ViewModels.Home.ProductViewModel
+@{
+    ViewBag.Title = "ById";
+}
+
+<div>
+    <h3>
+        @Model.Id
+    </h3>
+    <div>
+        @Model.Title
+    </div>
+    <div>
+        @Html.Raw(Model.SanitizedDescription)   @*Used instead Model.Description in case we have accepted Html input*@
+    </div>
+    <div>
+        @Model.Category
+    </div>
+</div>
+

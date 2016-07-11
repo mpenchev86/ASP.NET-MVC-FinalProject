@@ -3,7 +3,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using MvcProject.Data.Models.Contracts;
-    using MvcProject.GlobalConstants;
+    using MvcProject.Common.GlobalConstants;
 
     /// <summary>
     /// Represents the entity for an image of a product.

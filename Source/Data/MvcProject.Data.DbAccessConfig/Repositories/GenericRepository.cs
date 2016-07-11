@@ -7,7 +7,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using GlobalConstants;
+    using MvcProject.Common.GlobalConstants;
     using Models.Contracts;
 
     /// <summary>
@@ -22,7 +22,7 @@
         {
             if (context == null)
             {
-                throw new ArgumentException(GlobalConstants.ExceptionMessages.DbContextArgumentException, nameof(context));
+                throw new ArgumentException(ExceptionMessages.DbContextArgumentException, nameof(context));
             }
 
             this.Context = context;

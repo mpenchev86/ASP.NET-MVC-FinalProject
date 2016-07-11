@@ -2,7 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
     using MvcProject.Data.Models.Contracts;
-    using MvcProject.GlobalConstants;
+    using MvcProject.Common.GlobalConstants;
 
     /// <summary>
     /// Represents the entity for a user comment to a product.

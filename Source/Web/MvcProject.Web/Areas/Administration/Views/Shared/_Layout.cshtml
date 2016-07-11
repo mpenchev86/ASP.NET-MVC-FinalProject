@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Simple MVC E-Commerce Application</title>
+    @Styles.Render(MvcProject.Common.GlobalConstants.Bundles.StylesContentKendoCss)
+    @Styles.Render(MvcProject.Common.GlobalConstants.Bundles.StylesContentCss)
+    @RenderSection("styles", required: false)
+</head>
+<body>
+    @Html.Partial("_CarouselPartial")
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-inverse ">
+        <div class="container-fluid">
+            <!-- Brand, Login -->
+            <div class="row">
+                <div id="col-brand" class="col-md-5">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a id="main-logo" class="navbar-brand" href="@Url.Action("Index", "Home", new { Area = Areas.PublicAreaName })">
+                            <img alt="Brand" src="~/Content/Images/Logos/just-orderit-com.png">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+
+            <!-- Search, Links, Dropdowns -->
+            <div class="row container-fluid" id="bs-example-navbar-collapse-1">
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="col-md-2">
+                    <ul class="nav navbar-nav collapse navbar-collapse">
+                        @*<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>*@
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">One more separated link</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-7">
+                    <form id="navbar-search" class="navbar-form collapse navbar-collapse" role="search">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button id="navbar-search-options" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="glyphicon glyphicon-menu-down"></span><text>Options</text>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">One more separated link</a></li>
+                                </ul>
+                                <input id="navbar-search-input" type="text" class="form-control" placeholder="Search">
+                                <button id="navbar-search-btn" type="submit" class="btn btn-default"><content class="glyphicon glyphicon-search"></content></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-md-3">
+                    <ul class="nav navbar-nav navbar-right collapse navbar-collapse">
+                        @if (this.Context.User.IsInRole(MvcProject.Common.GlobalConstants.IdentityRoles.Admin))
+                        {
+                            <li><a @*class="btn btn-default"*@ href="@Url.Action("Index", "Home", new { Area = Areas.AdministrationAreaName })">@Areas.AdministrationAreaName</a></li>
+	                    }
+                        <li><a href="#">Link</a></li>
+                    </ul>
+                </div>
+            </div><!-- /.container-fluid -->
+        </div><!-- /.container -->
+    </nav><!-- /.navbar -->
+    <!-- BODY -->
+    <div id="body-content" class="container">
+        @RenderBody()
+    </div>
+    <!-- FOOTER -->
+    <footer class="panel-footer">
+        <div id="footer-content" class="container-fluid">
+            <div class="row">
+                <ul id="footer-items" class="nav navbar-nav">
+                    <li class="col-md-4">
+                        <ul class="no-bullets">
+                            <li>@Html.ActionLink("Shipping Info", "Delivery", "Home")</li>
+                            <li>@Html.ActionLink("Return Policy", "ReturnPolicy", "Home")</li>
+                            <li>@Html.ActionLink("About", "About", "Home")</li>
+                        </ul>
+                    </li>
+                    <li class="col-md-4">
+                        <ul class="no-bullets">
+                            <li>@Html.ActionLink("Job Openings", "Jobs", "Home")</li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        </ul>
+                    </li>
+                    <li class="col-md-4">
+                        <ul class="no-bullets">
+                            <li>@Html.ActionLink("Help", "Help", "Home")</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="copyright">
+            <p>&copy; @DateTime.Now.Year, forcodesake's ASP.NET MVC Application</p>
+        </div>
+    </footer>
+    <!-- SCRIPTS -->
+    @Scripts.Render(MvcProject.Common.GlobalConstants.Bundles.ScriptsJQuery)
+    @Scripts.Render(MvcProject.Common.GlobalConstants.Bundles.ScriptsJQueryValidate)
+    @Scripts.Render(MvcProject.Common.GlobalConstants.Bundles.ScriptsKendo)
+    @Scripts.Render(MvcProject.Common.GlobalConstants.Bundles.ScriptsBootstrap)
+    @Scripts.Render(MvcProject.Common.GlobalConstants.Bundles.ScriptsSignalR)
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

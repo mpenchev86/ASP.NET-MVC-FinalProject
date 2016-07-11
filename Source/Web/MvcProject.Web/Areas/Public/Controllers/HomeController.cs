@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
-    using GlobalConstants;
+    using MvcProject.Common.GlobalConstants;
     using Infrastructure.Extensions;
     using Kendo.Mvc.Extensions;
     using Kendo.Mvc.UI;
@@ -36,7 +36,7 @@
                     .GetAll()
                     .To<ProductDetailsForIndexListView>()
                     .OrderByDescending(p => p.CreatedOn)
-                    .Take(GlobalConstants.ApplicationSpecificConstants.IndexListViewNumberOfNewestProducts)
+                    .Take(ApplicationSpecificConstants.IndexListViewNumberOfNewestProducts)
                     .ToList(),
                 ApplicationSpecificConstants.IndexListViewCacheDurationInSeconds)
                 ;
@@ -53,7 +53,7 @@
                     .GetAll()
                     .To<ProductDetailsForIndexListView>()
                     .OrderByDescending(p => p.AllTimeItemsSold)
-                    .Take(GlobalConstants.ApplicationSpecificConstants.IndexListViewNumberOfBestSellingProducts)
+                    .Take(ApplicationSpecificConstants.IndexListViewNumberOfBestSellingProducts)
                     .ToList(),
                 ApplicationSpecificConstants.IndexListViewCacheDurationInSeconds)
                 ;
@@ -70,7 +70,7 @@
                     .GetAll()
                     .To<ProductDetailsForIndexListView>()
                     .OrderByDescending(p => p.AllTimeAverageRating)
-                    .Take(GlobalConstants.ApplicationSpecificConstants.IndexListViewNumberOfhighestVotedProducts)
+                    .Take(ApplicationSpecificConstants.IndexListViewNumberOfhighestVotedProducts)
                     .ToList(),
                 ApplicationSpecificConstants.IndexListViewCacheDurationInSeconds)
                 ;

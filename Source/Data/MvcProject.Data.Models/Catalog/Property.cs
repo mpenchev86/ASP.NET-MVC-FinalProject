@@ -36,7 +36,7 @@
         /// <value>
         /// The foreign key of the description to which the property belongs.
         /// </value>
-        public int? DescriptionId { get; set; }
+        public int DescriptionId { get; set; }
 
         /// <summary>
         /// Gets or sets the description to which the property belongs.

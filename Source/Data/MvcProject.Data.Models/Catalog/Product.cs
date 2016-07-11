@@ -8,7 +8,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using Contracts;
-    using MvcProject.GlobalConstants;
+    using MvcProject.Common.GlobalConstants;
 
     /// <summary>
     /// Represents the entity for a product.

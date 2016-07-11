@@ -1,0 +1,15 @@
+﻿@using MvcProject.Web.Areas.Administration.ViewModels.Properties
+@using MvcProject.Web.Infrastructure.HtmlHelpers
+
+@(Html.ClientDetailsGrid<PropertyDetailsForDescriptionViewModel>(
+    name: "properties-grid_#=Id#",
+    columns: cols =>
+    {
+        cols.Bound(p => p.Id).Width("10%");
+        cols.Bound(p => p.Name);
+        cols.Bound(p => p.Value);
+        cols.Bound(p => p.CreatedOn).Width("10%");
+        cols.Bound(p => p.ModifiedOn).Width("10%");
+    })
+    .ToClientTemplate()
+)

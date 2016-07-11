@@ -6,7 +6,7 @@
     using System.Linq;
 
     using Contracts;
-    using MvcProject.GlobalConstants;
+    using MvcProject.Common.GlobalConstants;
 
     /// <summary>
     /// Represents a vote entity of a product.

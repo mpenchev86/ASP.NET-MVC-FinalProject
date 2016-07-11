@@ -13,7 +13,7 @@
     using Migrations;
     using Models;
     using Models.Contracts;
-    using MvcProject.GlobalConstants;
+    using MvcProject.Common.GlobalConstants;
 
     public class MvcProjectDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string, IdentityUserLogin, ApplicationUserRole, IdentityUserClaim>, IMvcProjectDbContext
     {

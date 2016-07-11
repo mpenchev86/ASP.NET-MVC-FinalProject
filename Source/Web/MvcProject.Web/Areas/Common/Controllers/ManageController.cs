@@ -12,7 +12,7 @@
     using ViewModels.Manage;
 
     [Authorize]
-    public class ManageController : BaseController
+    public class ManageController : BaseCommonController
     {
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";

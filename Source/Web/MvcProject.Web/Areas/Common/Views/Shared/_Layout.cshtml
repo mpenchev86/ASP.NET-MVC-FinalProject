@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using MvcProject.GlobalConstants
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -22,7 +24,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a id="main-logo" class="navbar-brand" href="@Url.Action("Index", "Home", new { Area = "Common" })">
+                        <a id="main-logo" class="navbar-brand" href="@Url.Action("Index", "Home", new { Area = Areas.CommonAreaName })">
                             <img alt="Brand" src="~/Content/Images/Logos/just-orderit-com.png">
                         </a>
                     </div>
@@ -80,7 +82,7 @@
                     <ul class="nav navbar-nav navbar-right collapse navbar-collapse">
                         @if (this.Context.User.IsInRole(MvcProject.GlobalConstants.IdentityRoles.Admin))
                         {
-                            <li><a @*class="btn btn-default"*@ href="@Url.Action("Index", "Home", new { Area = "Admin" })">Admin</a></li>
+                            <li><a @*class="btn btn-default"*@ href="@Url.Action("Index", "Home", new { Area = Areas.AdministrationAreaName })">@Areas.AdministrationAreaName</a></li>
 	                    }
                         <li><a href="#">Link</a></li>
                     </ul>

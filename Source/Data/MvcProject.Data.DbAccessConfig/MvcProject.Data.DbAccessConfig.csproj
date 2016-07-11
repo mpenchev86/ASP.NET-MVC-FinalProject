@@ -82,9 +82,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\GlobalConstants\MvcProject.GlobalConstants.csproj">
+    <ProjectReference Include="..\..\Common\GlobalConstants\MvcProject.Common.GlobalConstants.csproj">
       <Project>{5f2803a7-770d-4509-8d69-cfbf4d6dc772}</Project>
-      <Name>MvcProject.GlobalConstants</Name>
+      <Name>MvcProject.Common.GlobalConstants</Name>
     </ProjectReference>
     <ProjectReference Include="..\MvcProject.Data.Models\MvcProject.Data.Models.csproj">
       <Project>{f3dfda1d-99d1-46ad-9cfa-a0b9aa7a750c}</Project>

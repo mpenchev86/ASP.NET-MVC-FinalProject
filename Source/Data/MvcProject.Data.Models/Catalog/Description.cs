@@ -4,7 +4,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using Contracts;
-    using MvcProject.GlobalConstants;
+    using MvcProject.Common.GlobalConstants;
 
     /// <summary>
     /// Represents the entity for a description to a product.

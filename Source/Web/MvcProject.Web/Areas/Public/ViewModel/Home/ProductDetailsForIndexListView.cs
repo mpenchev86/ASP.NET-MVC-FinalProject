@@ -7,7 +7,7 @@
     using System.Web;
     using AutoMapper;
     using Data.Models;
-    using GlobalConstants;
+    using MvcProject.Common.GlobalConstants;
     using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
     using ViewModel;

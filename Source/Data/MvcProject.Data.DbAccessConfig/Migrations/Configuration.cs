@@ -9,7 +9,7 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Models;
-    using MvcProject.GlobalConstants;
+    using MvcProject.Common.GlobalConstants;
 
     public sealed class Configuration : DbMigrationsConfiguration<MvcProjectDbContext>
     {
@@ -19,7 +19,7 @@
             this.AutomaticMigrationsEnabled = true;
             this.AutomaticMigrationDataLossAllowed = true;
 
-            this.ContextKey = GlobalConstants.DbAccess.DbMigrationsConfigurationContextKey;
+            this.ContextKey = DbAccess.DbMigrationsConfigurationContextKey;
         }
 
         protected override void Seed(MvcProjectDbContext context)
@@ -30,12 +30,12 @@
                     r => r.Name,
                     new ApplicationRole
                     {
-                        Name = GlobalConstants.IdentityRoles.Admin,
+                        Name = IdentityRoles.Admin,
                         CreatedOn = DateTime.Now
                     },
                     new ApplicationRole
                     {
-                        Name = GlobalConstants.IdentityRoles.Customer,
+                        Name = IdentityRoles.Customer,
                         CreatedOn = DateTime.Now
                     });
 

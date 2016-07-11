@@ -15,7 +15,7 @@
     using ViewModels.Account;
 
     [Authorize]
-    public class AccountController : BaseController
+    public class AccountController : BaseCommonController
     {
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";

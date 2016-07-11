@@ -6,7 +6,7 @@
     using System.Linq;
 
     using Contracts;
-    using MvcProject.GlobalConstants;
+    using MvcProject.Common.GlobalConstants;
 
     /// <summary>
     /// Represents the entity for a category of products.

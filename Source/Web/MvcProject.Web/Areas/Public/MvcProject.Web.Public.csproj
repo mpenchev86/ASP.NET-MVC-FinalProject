@@ -13,7 +13,7 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MvcProject.Web.Public</RootNamespace>
+    <RootNamespace>MvcProject.Web.Areas.Public</RootNamespace>
     <AssemblyName>MvcProject.Web.Public</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
@@ -179,18 +179,9 @@
     <Compile Include="ViewModel\Home\ProductDetailsForIndexListView.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web.config" />
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Common\GlobalConstants\MvcProject.GlobalConstants.csproj">
+    <ProjectReference Include="..\..\..\..\Common\GlobalConstants\MvcProject.Common.GlobalConstants.csproj">
       <Project>{5f2803a7-770d-4509-8d69-cfbf4d6dc772}</Project>
-      <Name>MvcProject.GlobalConstants</Name>
+      <Name>MvcProject.Common.GlobalConstants</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Data\MvcProject.Data.Models\MvcProject.Data.Models.csproj">
       <Project>{f3dfda1d-99d1-46ad-9cfa-a0b9aa7a750c}</Project>
@@ -218,8 +209,6 @@
     <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DropDown.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\DropDownForNull.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\DropDownUserId.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Email.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\EmailAddress.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\GridForeignKey.cshtml" />
@@ -230,10 +219,24 @@
     <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
-    <Content Include="Views\Shared\Partials\_CarouselPartial.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\web.config" />
+    <Content Include="Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Shared\Partials\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
