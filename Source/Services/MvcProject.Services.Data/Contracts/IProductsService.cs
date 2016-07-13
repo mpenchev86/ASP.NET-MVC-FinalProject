@@ -2,13 +2,12 @@
 {
     using System.Linq;
     using MvcProject.Data.Models;
+    using MvcProject.Web.Infrastructure.Mapping;
 
-    public interface IProductsService
+    /// <summary>
+    /// Allows extension of the data service for Product entity
+    /// </summary>
+    public interface IProductsService : IDeletableEntitiesBaseService<Product, int>
     {
-        IQueryable<Product> GetAllProducts();
-
-        IQueryable<Product> GetRandomProducts(int count);
-
-        Product GetById(string id);
     }
 }

@@ -6,9 +6,13 @@
     using System.Text;
     using System.Threading.Tasks;
     using MvcProject.Data.Models;
+    using MvcProject.Data.Models.Contracts;
+    using MvcProject.Web.Infrastructure.Mapping;
 
-    public interface ICategoriesService
+    /// <summary>
+    /// Allows extension of the data service for Category entity
+    /// </summary>
+    public interface ICategoriesService : IDeletableEntitiesBaseService<Category, int>
     {
-        IQueryable<ProductCategory> GetAll();
     }
 }

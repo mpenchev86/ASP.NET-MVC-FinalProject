@@ -2,6 +2,7 @@
 {
     using System.Web;
     using System.Web.Mvc;
+    using Infrastructure.Caching;
     using Infrastructure.Filters;
 
     public class FilterConfig

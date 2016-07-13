@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{9DC8729B-38F3-4B60-B928-9770099D0C66}"
 EndProject
@@ -23,17 +23,23 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.Services.Data", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{A0643423-A04D-4E88-8533-A15C60383B64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.GlobalConstants", "Common\GlobalConstants\MvcProject.GlobalConstants.csproj", "{5F2803A7-770D-4509-8D69-CFBF4D6DC772}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.Common.GlobalConstants", "Common\GlobalConstants\MvcProject.Common.GlobalConstants.csproj", "{5F2803A7-770D-4509-8D69-CFBF4D6DC772}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.Web.Infrastructure", "Web\MvcProject.Web.Infrastructure\MvcProject.Web.Infrastructure.csproj", "{B14DFB67-88F5-4714-A592-ECAB1F8F74A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.Resources", "Common\Resources\MvcProject.Resources.csproj", "{08374F36-2EBC-4006-988F-3D41A4D6A30C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.Common.Resources", "Common\Resources\MvcProject.Common.Resources.csproj", "{08374F36-2EBC-4006-988F-3D41A4D6A30C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.Services.Web.Tests", "Tests\MvcProject.Services.Web.Tests\MvcProject.Services.Web.Tests.csproj", "{282C6693-6C41-44A8-B413-9C8DBA25B0DC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.Web.Routes.Tests", "Tests\MvcProject.Web.Routes.Tests\MvcProject.Web.Routes.Tests.csproj", "{183A0EC6-E9A4-4BC6-81F0-1C2EDCAF054B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.Web.Controllers.Tests", "Tests\MvcProject.Web.Controllers.Tests\MvcProject.Web.Controllers.Tests.csproj", "{92D029D5-A36E-4C92-B00E-05745E28F8D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.Web.Public", "Web\MvcProject.Web\Areas\Public\MvcProject.Web.Public.csproj", "{26B96B91-8598-4CB7-BD7B-92A6A0BCFCC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.Web.Administration", "Web\MvcProject.Web\Areas\Administration\MvcProject.Web.Administration.csproj", "{C7CD538C-51A9-40E1-BD56-B2645BCDA430}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcProject.Services.Identity", "Services\MvcProject.Services.Identity\MvcProject.Services.Identity.csproj", "{710D2E6C-DECC-4966-9584-E432E0250CD5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,6 +91,18 @@ Global
 		{92D029D5-A36E-4C92-B00E-05745E28F8D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92D029D5-A36E-4C92-B00E-05745E28F8D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92D029D5-A36E-4C92-B00E-05745E28F8D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26B96B91-8598-4CB7-BD7B-92A6A0BCFCC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26B96B91-8598-4CB7-BD7B-92A6A0BCFCC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26B96B91-8598-4CB7-BD7B-92A6A0BCFCC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26B96B91-8598-4CB7-BD7B-92A6A0BCFCC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7CD538C-51A9-40E1-BD56-B2645BCDA430}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7CD538C-51A9-40E1-BD56-B2645BCDA430}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7CD538C-51A9-40E1-BD56-B2645BCDA430}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7CD538C-51A9-40E1-BD56-B2645BCDA430}.Release|Any CPU.Build.0 = Release|Any CPU
+		{710D2E6C-DECC-4966-9584-E432E0250CD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{710D2E6C-DECC-4966-9584-E432E0250CD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{710D2E6C-DECC-4966-9584-E432E0250CD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{710D2E6C-DECC-4966-9584-E432E0250CD5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,5 +119,8 @@ Global
 		{282C6693-6C41-44A8-B413-9C8DBA25B0DC} = {462F3DD2-6BEA-42B9-95A4-94031690EA48}
 		{183A0EC6-E9A4-4BC6-81F0-1C2EDCAF054B} = {462F3DD2-6BEA-42B9-95A4-94031690EA48}
 		{92D029D5-A36E-4C92-B00E-05745E28F8D6} = {462F3DD2-6BEA-42B9-95A4-94031690EA48}
+		{26B96B91-8598-4CB7-BD7B-92A6A0BCFCC5} = {9DC8729B-38F3-4B60-B928-9770099D0C66}
+		{C7CD538C-51A9-40E1-BD56-B2645BCDA430} = {9DC8729B-38F3-4B60-B928-9770099D0C66}
+		{710D2E6C-DECC-4966-9584-E432E0250CD5} = {527A7624-A7AF-40DA-966C-33892DD81D16}
 	EndGlobalSection
 EndGlobal

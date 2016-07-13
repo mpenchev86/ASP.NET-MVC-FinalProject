@@ -9,10 +9,10 @@
 
     public class AutoMapperInit
     {
-        public static void Initialize(Assembly assembly)
+        public static void Initialize(params Assembly[] assemblies)
         {
-            var autoMapper = new AutoMapperConfig();
-            autoMapper.Execute(assembly);
+            var autoMapperConfig = new AutoMapperConfig();
+            autoMapperConfig.Execute(assemblies);
         }
     }
 }

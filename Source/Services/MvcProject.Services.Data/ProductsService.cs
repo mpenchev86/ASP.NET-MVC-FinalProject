@@ -5,44 +5,35 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+
     using MvcProject.Data.DbAccessConfig.Repositories;
     using MvcProject.Data.Models;
     using MvcProject.Services.Web;
 
-    public class ProductsService : IProductsService
+    public class ProductsService : BaseDataService<Product, int, IIntPKDeletableRepository<Product>>, IProductsService
     {
-        private readonly IRepository<Product> products;
-        private IIdentifierProvider provider;
+        private readonly IIntPKDeletableRepository<Product> products;
+        private IIdentifierProvider idProvider;
 
-        public ProductsService(
-            IRepository<Product> products,
-            IIdentifierProvider provider)
+        public ProductsService(IIntPKDeletableRepository<Product> products, IIdentifierProvider idProvider)
+            : base(products, idProvider)
         {
             this.products = products;
-            this.provider = provider;
+            this.idProvider = idProvider;
         }
 
-        public IQueryable<Product> GetAllProducts()
+        public override Product GetByEncodedId(string id)
         {
-            var result = this.products
-                             .All();
-            return result;
-        }
-
-        public Product GetById(string id)
-        {
-            var idAsInt = this.provider.DecodeId(id);
+            var idAsInt = this.idProvider.DecodeIdToInt(id);
             var product = this.products.GetById(idAsInt);
             return product;
         }
 
-        public IQueryable<Product> GetRandomProducts(int count)
+        public override Product GetByEncodedIdFromNotDeleted(string id)
         {
-            var result = this.products
-                             .All()
-                             .OrderBy(x => Guid.NewGuid())
-                             .Take(count);
-            return result;
+            var idAsInt = this.idProvider.DecodeIdToInt(id);
+            var product = this.products.GetByIdFromNotDeleted(idAsInt);
+            return product;
         }
     }
 }

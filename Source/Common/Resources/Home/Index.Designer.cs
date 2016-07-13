@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Resources.Home {
+namespace MvcProject.Common.Resources.Home {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Resources.Home {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Resources.Home.Index", typeof(Index).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MvcProject.Common.Resources.Home.Index", typeof(Index).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
