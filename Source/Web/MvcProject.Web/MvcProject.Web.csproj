@@ -757,7 +757,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Custom\Admin\domains-list.css" />
     <Content Include="Content\Custom\Admin\custom-popup-editor.css" />
-    <Content Include="Content\Custom\listView.css" />
+    <Content Include="Content\Custom\Public\listView.css" />
     <Content Include="Content\Kendo\Default\editor.png" />
     <Content Include="Content\Kendo\Default\imagebrowser.png" />
     <Content Include="Content\Kendo\Default\indeterminate.gif" />
@@ -927,8 +927,8 @@
     <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\Partials\_CarouselPartial.cshtml" />
-    <Content Include="Views\Shared\Partials\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_CarouselPartial.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -936,6 +936,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Images\Carousel\" />
+    <Folder Include="Views\Shared\Partials\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

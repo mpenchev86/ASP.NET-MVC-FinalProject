@@ -173,10 +173,12 @@
   <ItemGroup>
     <Compile Include="Controllers\BasePublicController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublicAreaRegistration.cs" />
-    <Compile Include="ViewModel\BasePublicViewModel.cs" />
-    <Compile Include="ViewModel\Home\ProductDetailsForIndexListView.cs" />
+    <Compile Include="ViewModels\BasePublicViewModel.cs" />
+    <Compile Include="ViewModels\Home\ProductDetailsForIndexListView.cs" />
+    <Compile Include="ViewModels\Products\ProductSneakPeakViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Common\GlobalConstants\MvcProject.Common.GlobalConstants.csproj">
@@ -228,14 +230,13 @@
     <Folder Include="Views\Shared\Partials\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="web.Debug.config">
-      <DependentUpon>web.config</DependentUpon>
+    <Content Include="Web.config" />
+    <Content Include="Views\Products\Partials\_SneakPeak.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
     </None>
-    <None Include="web.Release.config">
-      <DependentUpon>web.config</DependentUpon>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
   <PropertyGroup>

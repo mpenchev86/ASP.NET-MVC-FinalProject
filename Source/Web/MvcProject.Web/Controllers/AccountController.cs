@@ -12,11 +12,12 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
+    using MvcProject.Common.GlobalConstants;
     using Services.Identity;
     using ViewModels.Account;
 
     [Authorize]
-    public class AccountController : Controller /*BaseCommonController*/
+    public class AccountController : Controller
     {
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
@@ -198,7 +199,7 @@
                     //// var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     //// await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return this.RedirectToAction("Index", "Home");
+                    return this.RedirectToAction("Index", "Home", new { area = Areas.PublicAreaName });
                 }
 
                 this.AddErrors(result);
@@ -433,7 +434,7 @@
         public ActionResult LogOff()
         {
             this.AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return this.RedirectToAction("Index", "Home");
+            return this.RedirectToAction("Index", "Home", new { area = Areas.PublicAreaName });
         }
 
         // GET: /Account/ExternalLoginFailure
@@ -479,7 +480,7 @@
                 return this.Redirect(returnUrl);
             }
 
-            return this.RedirectToAction("Index", "Home");
+            return this.RedirectToAction("Index", "Home", new { area = Areas.PublicAreaName });
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

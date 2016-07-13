@@ -54,7 +54,8 @@
                     .To<ProductDetailsForIndexListView>()
                     .OrderByDescending(p => p.AllTimeItemsSold)
                     .Take(ApplicationSpecificConstants.IndexListViewNumberOfBestSellingProducts)
-                    .ToList(),
+                    .ToList()
+                    ,
                 ApplicationSpecificConstants.IndexListViewCacheDurationInSeconds)
                 ;
 

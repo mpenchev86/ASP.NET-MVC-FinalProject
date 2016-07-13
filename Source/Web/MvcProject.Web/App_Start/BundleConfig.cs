@@ -41,9 +41,11 @@
             // Custom*
             bundles.Add(new ScriptBundle(Bundles.ScriptsCustom)
                 .Include(
-                    "~/Scripts/Custom/datetime-handler.js",
-                    "~/Scripts/Custom/error-handler.js",
-                    "~/Scripts/Custom/grid-details-helpers.js"));
+                    //"~/Scripts/Custom/datetime-handler.js",
+                    //"~/Scripts/Custom/error-handler.js",
+                    //"~/Scripts/Custom/grid-details-helpers.js"
+                    "~/Scripts/Custom/*.js"
+                    ));
 
             bundles.Add(new StyleBundle(Bundles.StylesContentCss)
                 .Include(
@@ -59,11 +61,14 @@
 
             bundles.Add(new StyleBundle(Bundles.StylesContentCustomCss)
                 .Include(
-                    "~/Content/Custom/Admin/custom-popup-editor.css",
-                    "~/Content/Custom/Admin/details-grid.css",
-                    "~/Content/Custom/Admin/domains-list.css",
-                    "~/Content/Custom/Admin/main-grid.css",
-                    "~/Content/Custom/listView.css"));
+                    //"~/Content/Custom/Admin/custom-popup-editor.css",
+                    //"~/Content/Custom/Admin/details-grid.css",
+                    //"~/Content/Custom/Admin/domains-list.css",
+                    //"~/Content/Custom/Admin/main-grid.css",
+                    //"~/Content/Custom/Public/listView.css"
+                    "~/Content/Custom/Admin/*.css",
+                    "~/Content/Custom/Public/*.css"
+                    ));
 
             bundles.IgnoreList.Clear();
 

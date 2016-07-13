@@ -13,7 +13,7 @@
     using ViewModels.Manage;
 
     [Authorize]
-    public class ManageController : Controller /*BaseCommonController*/
+    public class ManageController : Controller
     {
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
@@ -362,10 +362,8 @@
             base.Dispose(disposing);
         }
 
-#pragma warning disable SA1124 // Do not use regions
-        #region Helpers
+#region Helpers
         private void AddErrors(IdentityResult result)
-#pragma warning restore SA1124 // Do not use regions
         {
             foreach (var error in result.Errors)
             {

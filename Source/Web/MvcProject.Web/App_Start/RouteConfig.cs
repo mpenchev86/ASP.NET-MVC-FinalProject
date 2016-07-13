@@ -15,7 +15,7 @@
 
             routes.MapRoute(
                "Default",
-               "{controller}/{action}/{id}",
+               "Common/{controller}/{action}/{id}",
                new { controller = "Account", action = "Login", id = UrlParameter.Optional });
 
             //routes.MapRoute(

@@ -7,7 +7,7 @@
 }
 
 <div class="row">
-    <h3>@ApplicationSpecificConstants.IndexListViewNumberOfNewestProducts New Arrivals</h3>
+    <h3>New Arrivals</h3>
     @(Html.GenericListViewHelper<ProductDetailsForIndexListView>(
         name: "newestProducts",
         wrapperTagName: "table",
@@ -16,10 +16,7 @@
         controllerName: "Home",
         modelIdExpression: m => m.Id,
         pageSize: 5,
-        isServerOps: true
-        //,
-        //sortSettings: sort => { sort.Add(p => p.CreatedOn).Descending(); }
-        )
+        isServerOps: true)
         .HtmlAttributes(new { @class = "productsList" })
         .Deferred())
 </div>
@@ -34,10 +31,7 @@
         controllerName: "Home",
         modelIdExpression: m => m.Id,
         pageSize: 5,
-        isServerOps: true
-        //,
-        //sortSettings: sort => { sort.Add(p => p.AllTimeItemsSold); }
-        )
+        isServerOps: true)
         .HtmlAttributes(new { @class = "productsList" })
         .Deferred())
 </div>
@@ -52,11 +46,8 @@
         controllerName: "Home",
         modelIdExpression: m => m.Id,
         pageSize: 5,
-        isServerOps: true
-        //,
-        //sortSettings: sort => { sort.Add(p => p.AllTimeAverageRating); }
-        )
-        .HtmlAttributes(new { @class = "productsList" })
+        isServerOps: true)
+        .HtmlAttributes(new { @class = "productsList", data_bind = "value: #=EncodedId#" })
         .Deferred())
 </div>
 
@@ -65,13 +56,19 @@
         <div class="img-div">
             <img src="@Url.Content("~/Content/Images/Products/#=Id#/")main-image.jpg" alt="#:Title# image" />
         </div>
-        <a href="/" class="btn btn-link"><p>#:Title# sneak peek</p></a>
+        @*@Html.ActionLink("sneak peek", "SneakPeak", "Products", new { Area = Areas.PublicAreaName, Id = "" }, new { @class = "btn btn-link", data_bind = "value: #=EncodedId#" })*@
+        @*<a href="@Url.Action("SneakPeak", "Products", new { Area = Areas.PublicAreaName, Id = "#=EncodedId#" })" data-bind="value: #=EncodedId#" class="btn btn-link">
+            <p id="sneak-peak">sneak peek</p>
+        </a>*@
+        <a href="/Public/Products/SneakPeak?Id=#=EncodedId#" class="btn btn-link">
+            <p id="sneak-peak">sneak peek</p>
+        </a>
         @*<p>#:kendo.toString(UnitPrice, "c")#</p>*@
     </td>
 </script>
 
 @section styles{
-    <link href="@Url.Content("~/Content/Custom/listView.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Custom/Public/listView.css")" rel="stylesheet" type="text/css" />
 }
 
 @section Scripts {
