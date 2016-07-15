@@ -1,0 +1,44 @@
+﻿@using MvcProject.Web.Areas.Public.ViewModels.Properties
+@model ICollection<PropertyForProductFullViewModel>
+
+@{ 
+    var firstHalf = Model.Take(Model.Count() / 2 + (Model.Count() % 2));
+    var secontHalf = Model.Skip(firstHalf.Count());
+}
+
+<div class="col-lg-6">
+    <table>
+        @{
+            foreach (var item in firstHalf)
+            {
+                @*<div class="row">
+                        <div class="col-lg-4">@item.Name</div>
+                        <div class="col-lg-8">@item.Value</div>
+                    </div>*@
+
+                <tr>
+                    <th colspan="1">@item.Name</th>
+                    <td colspan="2">@item.Value</td>
+                </tr>
+            }
+        }
+    </table>
+</div>
+<div class="col-lg-6">
+    <table>
+        @{
+            foreach (var item in secontHalf)
+            {
+                @*<div class="row">
+                        <div class="col-lg-4">@item.Name</div>
+                        <div class="col-lg-8">@item.Value</div>
+                    </div>*@
+
+                <tr>
+                    <th colspan="1">@item.Name</th>
+                    <td colspan="2">@item.Value</td>
+                </tr>
+            }
+        }
+    </table>
+</div>

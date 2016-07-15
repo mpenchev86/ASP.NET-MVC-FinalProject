@@ -7,8 +7,8 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using MvcProject.Common.GlobalConstants;
     using Models.Contracts;
+    using MvcProject.Common.GlobalConstants;
 
     /// <summary>
     /// A generic implementation of an Entity Framework repository.

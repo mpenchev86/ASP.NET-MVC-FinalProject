@@ -1,0 +1,123 @@
+﻿/* -------SideBar--------- */
+#product-sidebar {
+    margin: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 60px 0 0 0;
+}
+
+    #product-sidebar #title{
+        font-size: 18px;
+    }
+
+    #product-sidebar #is-in-stock p:first-child{
+        font-size: 18px;
+        color: green;
+        font-weight: normal;
+        margin: 0;
+    }
+
+    #product-sidebar #category a{
+        color: #27428e;
+        /*font-weight: bold;*/
+    }
+
+    #product-sidebar #category a:hover{
+        font-weight: bold;
+        color: #5f66f3;
+    }
+
+    #product-sidebar #is-in-stock p:last-child{
+        font-size: 12px;
+    }
+
+    #product-sidebar #ref-number p{
+        font-size: 12px !important;
+    }
+
+    #product-sidebar #unit-price td{
+        color: #e4c220;
+    }
+
+    #product-sidebar #shipping td{
+        color: #e4c220;
+    }
+
+    #product-sidebar label{
+        height: 100%;
+        color: darkslategray;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 15px;
+        font-weight: normal;
+    }
+
+    #product-sidebar .col-md-4 {
+        margin: 0 0 0 0;
+        padding: 0 0 0 0;
+        height: 100%;
+    }
+
+/*-------Product Info---------*/
+#product-info {
+    font-family: Arial, Helvetica, sans-serif;
+}
+    #product-info .info-panel{
+        margin: 30px;
+    }
+
+    #product-info table {
+        width: 100%;
+    }
+
+    #product-info table th {
+        text-align: left;
+        font-weight: normal;
+        padding: 10px 10px;
+        border-top: 1px solid #eeeaea;
+        background-color: aliceblue;
+    }
+
+    #product-info table td {
+        text-align: left;
+        font-weight: normal;
+        padding: 10px 10px;
+        border-top: 1px solid #eeeaea;
+    }
+
+    #product-info #description-content p{
+        font-family: verdana,arial,helvetica,sans-serif;
+        font-size: 16px !important;
+    }
+
+    #product-info .btn{
+        padding: 0px 7px;
+        margin: 0 0 0 5px;
+    }
+
+/*---------Product Images----------*/
+#product-images {
+    margin: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/*---------Product Comments----------*/
+#product-comments {
+    margin: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/*---------Product Votes----------*/
+#product-votes {
+    margin: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/*---------Common----------*/
+label {
+    font-size: 18px;
+    font-weight: lighter;
+    color: coral;
+}
+
+a {
+    text-decoration: none !important;
+}

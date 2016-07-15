@@ -142,10 +142,6 @@
             entity.UnitPrice = viewModel.UnitPrice;
             entity.ShippingPrice = viewModel.ShippingPrice;
             entity.AllTimeItemsSold = viewModel.AllTimeItemsSold;
-            entity.Length = viewModel.Length;
-            entity.Height = viewModel.Height;
-            entity.Width = viewModel.Width;
-            entity.Weight = viewModel.Weight;
             entity.CreatedOn = viewModel.CreatedOn;
             entity.ModifiedOn = viewModel.ModifiedOn;
             entity.IsDeleted = viewModel.IsDeleted;

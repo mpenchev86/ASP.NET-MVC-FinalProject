@@ -145,6 +145,7 @@
         /// </value>
         [Required]
         [Range(0, double.MaxValue)]
+        [DataType(DataType.Currency)]
         public decimal UnitPrice { get; set; }
 
         /// <summary>
@@ -154,43 +155,8 @@
         /// The shipping price for one unit of a product.
         /// </value>
         [Range(0, double.MaxValue)]
+        [DataType(DataType.Currency)]
         public decimal? ShippingPrice { get; set; }
-
-        /// <summary>
-        /// Gets or sets the length as a physical dimension of a product unit.
-        /// </summary>
-        /// <value>
-        /// The length as a physical dimension of a product unit.
-        /// </value>
-        [Range(0, double.MaxValue)]
-        public double? Length { get; set; }
-
-        /// <summary>
-        /// Gets or sets the height as a physical dimension of a product unit.
-        /// </summary>
-        /// <value>
-        /// The height as a physical dimension of a product unit.
-        /// </value>
-        [Range(0, double.MaxValue)]
-        public double? Height { get; set; }
-
-        /// <summary>
-        /// Gets or sets the width as a physical dimension of a product unit.
-        /// </summary>
-        /// <value>
-        /// The width as a physical dimension of a product unit.
-        /// </value>
-        [Range(0, double.MaxValue)]
-        public double? Width { get; set; }
-
-        /// <summary>
-        /// Gets or sets the weight as a physical dimension of a product unit.
-        /// </summary>
-        /// <value>
-        /// The weight as a physical dimension of a product unit.
-        /// </value>
-        [Range(0, double.MaxValue)]
-        public double? Weight { get; set; }
 
         /// <summary>
         /// Gets or sets the tags of a product.

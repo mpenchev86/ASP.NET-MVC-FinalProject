@@ -69,9 +69,11 @@
 
         [Required]
         [Range(0, double.MaxValue)]
+        [DataType(DataType.Currency)]
         public decimal UnitPrice { get; set; }
 
         [Range(0, double.MaxValue)]
+        [DataType(DataType.Currency)]
         public decimal? ShippingPrice { get; set; }
 
         [Range(ValidationConstants.ProductAllTimeItemsSoldMin, ValidationConstants.ProductAllTimeItemsSoldMax)]
@@ -79,18 +81,6 @@
 
         [Range(ValidationConstants.ProductAllTimeAverageRatingMin, ValidationConstants.ProductAllTimeAverageRatingMax)]
         public int AllTimeAverageRating { get; set; }
-
-        [Range(0, double.MaxValue)]
-        public double? Length { get; set; }
-
-        [Range(0, double.MaxValue)]
-        public double? Height { get; set; }
-
-        [Range(0, double.MaxValue)]
-        public double? Width { get; set; }
-
-        [Range(0, double.MaxValue)]
-        public double? Weight { get; set; }
 
         public ICollection<CommentDetailsForProductViewModel> Comments
         {

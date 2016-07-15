@@ -1,8 +1,8 @@
 ﻿namespace MvcProject.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
-    using MvcProject.Data.Models.Contracts;
     using MvcProject.Common.GlobalConstants;
+    using MvcProject.Data.Models.Contracts;
 
     /// <summary>
     /// Represents the entity for a user comment to a product.

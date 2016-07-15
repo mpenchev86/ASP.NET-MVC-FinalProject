@@ -1,0 +1,52 @@
+﻿@using MvcProject.Web.Areas.Public.ViewModels.Products
+
+@model ProductFullViewModel
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+@*<div class="row" id="product-title"><b>@Model.Title</b></div>*@
+
+<div class="row">
+    <div id="product-images" class="col-md-7">
+        @Html.Partial("_ProductImages", new ProductImagesPartialViewModel { MainImageId = Model.MainImageId, Images = Model.Images }, null)
+    </div>
+    <div id="product-sidebar" class="col-md-5">
+        @Html.Partial(
+            "_ProductSideBar",
+            new ProductSideBarPartialViewModel
+            {
+                Title = Model.Title,
+                Category = Model.Category.Name,
+                UnitPrice = Model.UnitPrice,
+                ShippingPrice = Model.ShippingPrice,
+                QuantityInStock = Model.QuantityInStock,
+                IsInStock = Model.IsInStock,
+                RefNumber = Model.EncodedId,
+                Rating = Model.AllTimeAverageRating
+            },
+            null)
+    </div>
+</div>
+<div class="row" id="product-info">
+    @Html.Partial(
+        "_ProductInfo",
+        new ProductInfoPartialViewModel
+        {
+            DescriptionContent = Model.Description.Content,
+            DescriptionProperties = Model.Description.Properties,
+            Tags = Model.Tags
+        },
+        null)
+</div>
+<div class="row" id="product-comments">
+    @Html.Partial("_ProductComments", Model.Comments, null)
+</div>
+<div class="row" id="product-votes">
+    @Html.Partial("_ProductVotes", Model.Votes, null)
+</div>
+
+@section styles{
+    <link href="@Url.Content("~/Areas/Public/Content/Custom/product-full-viewmodel.css")" rel="stylesheet" type="text/css" />
+}

@@ -1,0 +1,115 @@
+﻿@using MvcProject.Web.Areas.Public.ViewModels.Products
+@model ProductSideBarPartialViewModel
+
+@*<div class="row">
+    <div class="col-md-4">
+        @Html.LabelFor(m => m.Title)
+    </div>
+    <div class="col-md-8">
+        @Html.DisplayFor(m => m.Title)
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        @Html.LabelFor(m => m.UnitPrice, "Price")
+    </div>
+    <div class="col-md-8">
+        @Html.DisplayFor(m => m.UnitPrice)
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        @Html.LabelFor(m => m.ShippingPrice, "Shipping Cost")
+    </div>
+    <div class="col-md-8">
+        @Html.DisplayFor(m => m.ShippingPrice)
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        @Html.LabelFor(m => m.IsInStock, "Availability")
+    </div>
+    <div class="col-md-8">
+        @if (Model.IsInStock)
+        {
+            <p style="color: green">In Stock</p>
+        }
+        else
+        {
+            <p style="color: red">Out of Stock</p>
+        }
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        @Html.LabelFor(m => m.QuantityInStock)
+    </div>
+    <div class="col-md-8">
+        @Html.DisplayFor(m => m.QuantityInStock)
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        @Html.LabelFor(m => m.RefNumber)
+    </div>
+    <div class="col-md-8">
+        @Html.DisplayFor(m => m.RefNumber)
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        @Html.LabelFor(m => m.Category)
+    </div>
+    <div class="col-md-8">
+        @Html.ActionLink(Model.Category, "AllProductsOfCategory", "Products", new { category = Model.Category }, null)
+    </div>
+</div>*@
+
+
+<table>
+    <tr id="title">
+        @*<th>@Html.LabelFor(m => m.Title)</th>*@
+        <td colspan="2">@Html.DisplayFor(m => m.Title)</td>
+    </tr>
+    <tr id="rating">
+        @*<th>@Html.LabelFor(m => m.Title)</th>*@
+        @*<td>@Html.DisplayFor(m => m.Rating)</td>*@
+        <td colspan="2">@Model.Rating</td>
+    </tr>
+    <tr id="unit-price">
+        <th>@Html.LabelFor(m => m.UnitPrice, "Price")</th>
+        <td>@Html.DisplayFor(m => m.UnitPrice)</td>
+    </tr>
+    <tr id="shipping">
+        <th>@Html.LabelFor(m => m.ShippingPrice, "Shipping")</th>
+        <td>@Html.DisplayFor(m => m.ShippingPrice)</td>
+    </tr>
+    <tr id="is-in-stock">
+        @*<th>@Html.LabelFor(m => m.IsInStock, "Availability")</th>*@
+        <td>
+            @if (Model.IsInStock)
+            {
+                <p>In Stock</p>
+                <p>@Model.QuantityInStock items available</p>
+            }
+            else
+            {
+                <p style="color: red">Out of Stock</p>
+            }
+        </td>
+    </tr>
+    <tr id="category">
+        <th>@Html.LabelFor(m => m.Category)</th>
+        <td>@Html.ActionLink(Model.Category, "AllProductsOfCategory", "Products", new { category = Model.Category }, null)</td>
+    </tr>
+    <tr id="ref-number">
+        <th>@Html.LabelFor(m => m.RefNumber)</th>
+        <td>@Html.DisplayFor(m => m.RefNumber)</td>
+    </tr>
+</table>
