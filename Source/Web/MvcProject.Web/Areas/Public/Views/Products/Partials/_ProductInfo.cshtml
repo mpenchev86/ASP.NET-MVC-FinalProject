@@ -1,7 +1,7 @@
 ﻿@using MvcProject.Web.Areas.Public.ViewModels.Products
 @model ProductInfoPartialViewModel
 
-<div class="info-panel">
+<div class="info-panel" id="properties">
     <div class="row">
         @Html.LabelFor(m => m.DescriptionProperties, "Product Details")
     </div>
@@ -10,7 +10,7 @@
     </div>
 </div>
 
-<div class="info-panel">
+<div class="info-panel" id="description">
     <div class="row">
         @Html.LabelFor(m => m.DescriptionContent, "Description")
     </div>
@@ -19,7 +19,7 @@
     </div>
 </div>
 
-<div class="info-panel">
+<div class="info-panel" id="tags">
     <div class="row">
         <div class="col-md-1">
             @Html.LabelFor(m => m.Tags)

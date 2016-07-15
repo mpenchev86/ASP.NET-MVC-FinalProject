@@ -134,7 +134,7 @@
         /// The available quantity of a product.
         /// </value>
         [Required]
-        [Range(0, int.MaxValue)]
+        [Range(ValidationConstants.ProductQuantityInStockMin, ValidationConstants.ProductQuantityInStockMax)]
         public int QuantityInStock { get; set; }
 
         /// <summary>
@@ -144,7 +144,7 @@
         /// The price of a product unit.
         /// </value>
         [Required]
-        [Range(0, double.MaxValue)]
+        [Range(typeof(decimal), ValidationConstants.ProductUnitPriceMinString, ValidationConstants.ProductUnitPriceMaxString)]
         [DataType(DataType.Currency)]
         public decimal UnitPrice { get; set; }
 
@@ -154,7 +154,7 @@
         /// <value>
         /// The shipping price for one unit of a product.
         /// </value>
-        [Range(0, double.MaxValue)]
+        [Range(typeof(decimal), ValidationConstants.ProductShippingPriceMinString, ValidationConstants.ProductShippingPriceMaxString)]
         [DataType(DataType.Currency)]
         public decimal? ShippingPrice { get; set; }
 

@@ -101,7 +101,7 @@
     <Compile Include="Mapping\MappingExtensions.cs" />
     <Compile Include="Sanitizer\HtmlSanitizerAdapter.cs" />
     <Compile Include="Sanitizer\ISanitizer.cs" />
-    <Compile Include="Validators\MyFirstCustomValidationAttribute.cs" />
+    <Compile Include="Validators\ACustomAttribute.cs" />
     <Compile Include="Caching\CommonOutputCacheAttribute.cs" />
     <Compile Include="Filters\AddSystemHeaderStampActionFilter.cs" />
     <Compile Include="Filters\LogFilter.cs" />

@@ -1,7 +1,4 @@
 ﻿@using MvcProject.Web.Infrastructure.HtmlHelpers
-@using MvcProject.Web.Areas.Administration.ViewModels.Categories
-@using MvcProject.Web.Areas.Administration.ViewModels.Descriptions
-@using MvcProject.Web.Areas.Administration.ViewModels.Images
 @using MvcProject.Web.Areas.Administration.ViewModels.Products
 @using System.Globalization
 @using System.Web.Mvc
@@ -23,6 +20,7 @@
         m.Field(p => p.Id).Editable(false);
         m.Field(p => p.DescriptionId).Editable(true).DefaultValue(null);
         m.Field(p => p.MainImageId).Editable(true).DefaultValue(null);
+        m.Field(p => p.ShippingPrice).Editable(true).DefaultValue(null);
     },
     pageSize: 20,
     virtualScroll: false,
@@ -33,10 +31,11 @@
         c.Bound(m => m.Id).Width(150);
         c.Bound(m => m.Title).Width("15%");
         c.Bound(m => m.ShortDescription).Width("20%");
-        c.Bound(m => m.UnitPrice);
         c.ForeignKey(m => m.CategoryId, Model.Categories, "Id", "Name").Title("Category");
         c.ForeignKey(m => m.DescriptionId, Model.Descriptions, "Id", "Id").Title("Description Id").Visible(false);
         c.ForeignKey(m => m.MainImageId, Model.Images, "Id", "Id").Title("Main Image Id").Visible(false);
+        c.Bound(m => m.UnitPrice);
+        c.Bound(m => m.ShippingPrice);
         c.Bound(m => m.IsInStock);
         c.Bound(m => m.QuantityInStock);
         c.Bound(m => m.AllTimeItemsSold);

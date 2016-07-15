@@ -8,7 +8,7 @@
     using System.Threading.Tasks;
 
     [AttributeUsage(AttributeTargets.Property)]
-    public sealed class MyFirstCustomValidationAttribute : ValidationAttribute
+    public sealed class ACustomAttribute : ValidationAttribute
     {
         public override bool IsValid(object value)
         {

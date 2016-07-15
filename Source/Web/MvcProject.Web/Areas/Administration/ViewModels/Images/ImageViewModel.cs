@@ -16,10 +16,12 @@
     public class ImageViewModel : BaseAdminViewModel<int>, IMapFrom<Image>, IHaveCustomMappings
     {
         [Required]
+        [DataType(DataType.MultilineText)]
         [MaxLength(ValidationConstants.ImageOriginalFileNameMaxLength)]
         public string OriginalFileName { get; set; }
 
         [Required]
+        [DataType(DataType.Text)]
         [MaxLength(ValidationConstants.ImageFileExtensionMaxLength)]
         public string FileExtension { get; set; }
 

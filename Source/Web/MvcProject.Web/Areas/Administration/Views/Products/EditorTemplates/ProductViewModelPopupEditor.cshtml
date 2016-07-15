@@ -15,7 +15,7 @@
             @Html.LabelFor(m => m.Title)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(m => m.Title)
+            @Html.TextAreaFor(m => m.Title)
             @Html.ValidationMessageFor(model => model.Title)
         </div>
     </div>
@@ -25,7 +25,7 @@
             @Html.LabelFor(m => m.ShortDescription)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(m => m.ShortDescription)
+            @Html.TextAreaFor(m => m.ShortDescription)
             @Html.ValidationMessageFor(model => model.ShortDescription)
         </div>
     </div>

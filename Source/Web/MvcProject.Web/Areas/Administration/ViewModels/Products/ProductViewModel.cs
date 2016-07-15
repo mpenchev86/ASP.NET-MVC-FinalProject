@@ -17,6 +17,7 @@
     using Infrastructure.DataAnnotations;
     using Infrastructure.Extensions;
     using Infrastructure.Mapping;
+    using Infrastructure.Validators;
     using MvcProject.Common.GlobalConstants;
     using Properties;
     using Tags;
@@ -64,21 +65,24 @@
         }
 
         [Required]
-        [Range(0, int.MaxValue)]
+        [UIHint("Integer")]
+        [Range(ValidationConstants.ProductQuantityInStockMin, ValidationConstants.ProductQuantityInStockMax)]
         public int QuantityInStock { get; set; }
 
         [Required]
-        [Range(0, double.MaxValue)]
+        [Range(typeof(decimal), ValidationConstants.ProductUnitPriceMinString, ValidationConstants.ProductUnitPriceMaxString)]
         [DataType(DataType.Currency)]
         public decimal UnitPrice { get; set; }
 
-        [Range(0, double.MaxValue)]
+        [Range(typeof(decimal), ValidationConstants.ProductShippingPriceMinString, ValidationConstants.ProductShippingPriceMaxString)]
         [DataType(DataType.Currency)]
         public decimal? ShippingPrice { get; set; }
 
+        [UIHint("Integer")]
         [Range(ValidationConstants.ProductAllTimeItemsSoldMin, ValidationConstants.ProductAllTimeItemsSoldMax)]
         public int AllTimeItemsSold { get; set; }
 
+        [UIHint("Integer")]
         [Range(ValidationConstants.ProductAllTimeAverageRatingMin, ValidationConstants.ProductAllTimeAverageRatingMax)]
         public int AllTimeAverageRating { get; set; }
 

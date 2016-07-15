@@ -28,6 +28,7 @@
         }
 
         [Required]
+        [DataType(DataType.Text)]
         public string UserName { get; set; }
 
         /// <summary>

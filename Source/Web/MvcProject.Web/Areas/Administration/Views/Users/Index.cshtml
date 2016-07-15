@@ -25,6 +25,10 @@
         c.Command(cm => cm.Destroy().Text("Delete")).Width(120);
         c.Bound(m => m.Id).Width("20%");
         c.Bound(m => m.UserName).Width("15%");
+        c.Bound(m => m.Email);
+        c.Bound(m => m.PhoneNumber);
+        c.Bound(m => m.TwoFactorEnabled);
+        c.Bound(m => m.AccessFailedCount);
         c.Bound(m => m.CreatedOn);
         c.Bound(m => m.ModifiedOn);
         c.Bound(m => m.IsDeleted).Title("Marked As Deleted");

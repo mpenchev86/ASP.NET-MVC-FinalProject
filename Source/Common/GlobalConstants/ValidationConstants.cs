@@ -30,6 +30,16 @@
         public const int ProductAllTimeItemsSoldMax = int.MaxValue;
         public const int ProductAllTimeAverageRatingMin = 0;
         public const int ProductAllTimeAverageRatingMax = 10;
+        public const int ProductQuantityInStockMin = 0;
+        public const int ProductQuantityInStockMax = int.MaxValue;
+        public const decimal ProductUnitPriceMin = decimal.Zero;
+        public const string ProductUnitPriceMinString = "0";
+        public const decimal ProductUnitPriceMax = decimal.MaxValue;
+        public const string ProductUnitPriceMaxString = "9999999";
+        public const decimal ProductShippingPriceMin = decimal.Zero;
+        public const string ProductShippingPriceMinString = "0";
+        public const decimal ProductShippingPriceMax = decimal.MaxValue;
+        public const string ProductShippingPriceMaxString = "9999999";
 
         // Property entity
 

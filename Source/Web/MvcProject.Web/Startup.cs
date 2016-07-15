@@ -17,7 +17,7 @@ namespace MvcProject.Web
             // Used to prevent blocking all threads (signalR)
             app.SanitizeThreadCulture();
             this.ConfigureAuth(app);
-            app.MapSignalR();
+            //app.MapSignalR();
         }
     }
 }
