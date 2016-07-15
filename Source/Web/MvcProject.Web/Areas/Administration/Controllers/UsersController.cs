@@ -74,7 +74,8 @@
         [HttpPost]
         public override ActionResult Update([DataSourceRequest]DataSourceRequest request, UserViewModel viewModel)
         {
-            return this.Json(new[] { viewModel }.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
+            //return this.Json(new[] { viewModel }.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
+            return base.Update(request, viewModel);
         }
 
         [HttpPost]
