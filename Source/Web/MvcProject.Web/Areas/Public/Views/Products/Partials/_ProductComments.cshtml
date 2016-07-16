@@ -1,11 +1,25 @@
 ﻿@using MvcProject.Web.Areas.Public.ViewModels.Comments
 @model IEnumerable<CommentForProductFullViewModel>
 
-@{ 
-    foreach (var comment in Model)
+@Html.Label("Comments")
+@{
+    if (!Model.Any())
     {
-        <div class="row">
-
-        </div>
+        <p id="no-comments">no comments yet</p>
+    }
+    else
+    {
+        foreach (var comment in Model)
+        {
+            <div class="row">
+                <p id="comment-metadata">By @Html.ActionLink(
+                     comment.UserName,
+                     "UserProfile",
+                     "Users",
+                     new { userId = comment.UserId }, 
+                     null) on @comment.CreatedOn. rated @comment.UserVote</p>
+                <p id="comment-content">@comment.Content</p>
+            </div>
+        }
     }
 }

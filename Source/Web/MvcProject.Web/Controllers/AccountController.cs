@@ -22,25 +22,25 @@
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
-        private ApplicationUserManager userManager;
-        private ApplicationRoleManager roleManager;
-        private ApplicationSignInManager signInManager;
+        private /*ApplicationUserManager*/UserManager<ApplicationUser, string> userManager;
+        private /*ApplicationRoleManager*/RoleManager<ApplicationRole, string> roleManager;
+        private /*ApplicationSignInManager*/SignInManager<ApplicationUser, string> signInManager;
 
-        public AccountController()
-        {
-        }
+        //public AccountController()
+        //{
+        //}
 
         public AccountController(
-            ApplicationUserManager userManager,
-            ApplicationRoleManager roleManager,
-            ApplicationSignInManager signInManager)
+            /*ApplicationUserManager*/UserManager<ApplicationUser, string> userManager,
+            /*ApplicationRoleManager*/RoleManager<ApplicationRole, string> roleManager,
+            /*ApplicationSignInManager*/SignInManager<ApplicationUser, string> signInManager)
         {
             this.UserManager = userManager;
             this.RoleManager = roleManager;
             this.SignInManager = signInManager;
         }
 
-        public ApplicationUserManager UserManager
+        public /*ApplicationUserManager*/UserManager<ApplicationUser, string> UserManager
         {
             get
             {
@@ -53,7 +53,7 @@
             }
         }
 
-        public ApplicationRoleManager RoleManager
+        public /*ApplicationRoleManager*/RoleManager<ApplicationRole, string> RoleManager
         {
             get
             {
@@ -66,7 +66,7 @@
             }
         }
 
-        public ApplicationSignInManager SignInManager
+        public /*ApplicationSignInManager*/SignInManager<ApplicationUser, string> SignInManager
         {
             get
             {

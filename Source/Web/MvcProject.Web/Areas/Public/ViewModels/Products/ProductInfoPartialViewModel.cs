@@ -10,13 +10,30 @@
 
     public class ProductInfoPartialViewModel
     {
+        private IEnumerable<PropertyForProductFullViewModel> descriptionProperties;
+        private IEnumerable<string> tags;
+
+        public ProductInfoPartialViewModel()
+        {
+            this.descriptionProperties = new HashSet<PropertyForProductFullViewModel>();
+            this.tags = new HashSet<string>();
+        }
+
         [DataType(DataType.MultilineText)]
         public string DescriptionContent { get; set; }
 
         [UIHint("DescriptionProperties")]
-        public ICollection<PropertyForProductFullViewModel> DescriptionProperties { get; set; }
+        public IEnumerable<PropertyForProductFullViewModel> DescriptionProperties
+        {
+            get { return this.descriptionProperties; }
+            set { this.descriptionProperties = value; }
+        }
 
         [UIHint("ProductTags")]
-        public IEnumerable<string> Tags { get; set; }
+        public IEnumerable<string> Tags
+        {
+            get { return this.tags; }
+            set { this.tags = value; }
+        }
     }
 }

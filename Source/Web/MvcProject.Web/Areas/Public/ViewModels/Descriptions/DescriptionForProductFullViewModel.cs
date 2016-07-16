@@ -13,10 +13,21 @@
 
     public class DescriptionForProductFullViewModel : IMapFrom<Description>, IHaveCustomMappings
     {
+        private ICollection<PropertyForProductFullViewModel> properties;
+
+        public DescriptionForProductFullViewModel()
+        {
+            this.properties = new HashSet<PropertyForProductFullViewModel>();
+        }
+
         [DataType(DataType.MultilineText)]
         public string Content { get; set; }
 
-        public ICollection<PropertyForProductFullViewModel> Properties { get; set; }
+        public ICollection<PropertyForProductFullViewModel> Properties
+        {
+            get { return this.properties; }
+            set { this.properties = value; }
+        }
 
         public void CreateMappings(IMapperConfiguration configuration)
         {

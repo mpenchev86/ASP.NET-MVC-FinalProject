@@ -1,21 +1,52 @@
-﻿/* -------SideBar--------- */
+﻿/* ========== Common ========== */
+label {
+    font-size: 18px;
+    font-weight: lighter;
+    color: crimson;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+/* ========== Product Images ========== */
+#product-images {
+    margin: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ========== SideBar ========== */
 #product-sidebar {
     margin: 30px;
     font-family: Arial, Helvetica, sans-serif;
     padding: 60px 0 0 0;
 }
 
+    /* ====== Title ====== */
     #product-sidebar #title{
         font-size: 18px;
     }
 
-    #product-sidebar #is-in-stock p:first-child{
+    /* ====== Is In Stock ====== */
+    #product-sidebar #is-in-stock #in {
         font-size: 18px;
         color: green;
         font-weight: normal;
         margin: 0;
     }
 
+    #product-sidebar #is-in-stock #quantity {
+        font-size: 12px;
+    }
+
+    #product-sidebar #is-in-stock #out {
+        font-size: 18px;
+        color: darkred;
+        font-weight: normal;
+        margin: 0;
+    }
+
+    /* ====== Category ====== */
     #product-sidebar #category a{
         color: #27428e;
         /*font-weight: bold;*/
@@ -26,113 +57,123 @@
         color: #5f66f3;
     }
 
-    #product-sidebar #is-in-stock p:last-child{
-        font-size: 12px;
-    }
-
+    /* ====== Ref Number ====== */
     #product-sidebar #ref-number p{
         font-size: 12px !important;
     }
 
+    /* ====== Unit Price ====== */
     #product-sidebar #unit-price td{
         color: #e4c220;
     }
 
+    /* ====== Shipping Price ====== */
     #product-sidebar #shipping td{
         color: #e4c220;
     }
 
-    #product-sidebar label{
-        height: 100%;
-        color: darkslategray;
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 15px;
-        font-weight: normal;
-    }
+#product-sidebar label{
+    height: 100%;
+    color: darkslategray;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: normal;
+}
 
-    #product-sidebar .col-md-4 {
-        margin: 0 0 0 0;
-        padding: 0 0 0 0;
-        height: 100%;
-    }
+#product-sidebar .col-md-4 {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    height: 100%;
+}
 
-/*-------Product Info---------*/
+/* ========== Product Info ========== */
 #product-info {
     font-family: Arial, Helvetica, sans-serif;
 }
-    #product-info .info-panel{
+
+    /* ====== Properties ====== */
+    #product-info #properties{
         margin: 30px 0 0 0;
         padding: 20px 10px 0 10px;
-    }
-
-    #product-info #properties{
         border-top: 2px solid;
         border-top-style: outset;
     }
 
+        #product-info #properties table {
+            width: 100%;
+        }
+
+        #product-info #properties table th {
+            text-align: left;
+            font-weight: normal;
+            padding: 10px 10px;
+            border-top: 1px solid #eeeaea;
+            background-color: lightgoldenrodyellow;
+        }
+
+        #product-info #properties table td {
+            text-align: left;
+            font-weight: normal;
+            padding: 10px 10px;
+            border-top: 1px solid #eeeaea;
+        }
+
+    /* ====== Description ====== */
     #product-info #description{
+        margin: 30px 0 0 0;
+        padding: 20px 10px 0 10px;
         border-top: 2px solid;
         border-top-style: outset;
     }
 
+        #product-info #description #description-content p{
+            font-family: verdana,arial,helvetica,sans-serif;
+            font-size: 16px !important;
+        }
+
+    /* ====== Tags ====== */
     #product-info #tags{
-        border-top: 2px solid;
-        border-top-style: outset;
-    }
-    #product-info table {
-        width: 100%;
-    }
-
-    #product-info table th {
-        text-align: left;
-        font-weight: normal;
-        padding: 10px 10px;
-        border-top: 1px solid #eeeaea;
-        background-color: aliceblue;
+        margin: 0px 0 0 0;
+        padding: 0px 10px 0 10px;
+        /*border-top: 2px solid;*/
+        /*border-top-style: outset;*/
     }
 
-    #product-info table td {
-        text-align: left;
-        font-weight: normal;
-        padding: 10px 10px;
-        border-top: 1px solid #eeeaea;
-    }
+        #product-info #tags .btn{
+            padding: 0px 7px;
+            margin: 0 0 0 5px;
+        }
 
-    #product-info #description-content p{
-        font-family: verdana,arial,helvetica,sans-serif;
-        font-size: 16px !important;
-    }
-
-    #product-info .btn{
-        padding: 0px 7px;
-        margin: 0 0 0 5px;
-    }
-
-/*---------Product Images----------*/
-#product-images {
-    margin: 30px;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-/*---------Product Comments----------*/
+/* ========== Product Comments ========== */
 #product-comments {
-    margin: 30px;
+    margin: 50px 0 0 0;
     font-family: Arial, Helvetica, sans-serif;
+    /*border-top: 2px solid;*/
+    /*border-top-style: outset;*/
 }
 
-/*---------Product Votes----------*/
+    #product-comments .row {
+        margin: 25px 0 0 0;
+    }
+
+    #product-comments #no-comments{
+        font-size: 13px;
+    }
+
+    #product-comments #comment-metadata{
+        margin: 0 0 0 0;
+        font-size: 13px;
+        font-family: Georgia, sans-serif;
+    }
+
+    #product-comments #comment-content{
+        font-size: 14px;
+        margin: 0 0 0 10px;
+    }
+
+/* ========== Product Votes ========== */
 #product-votes {
     margin: 30px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/*---------Common----------*/
-label {
-    font-size: 18px;
-    font-weight: lighter;
-    color: coral;
-}
-
-a {
-    text-decoration: none !important;
-}

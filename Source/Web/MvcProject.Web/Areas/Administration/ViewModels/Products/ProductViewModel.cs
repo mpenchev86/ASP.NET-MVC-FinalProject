@@ -82,7 +82,7 @@
         [Range(ValidationConstants.ProductAllTimeItemsSoldMin, ValidationConstants.ProductAllTimeItemsSoldMax)]
         public int AllTimeItemsSold { get; set; }
 
-        [UIHint("Integer")]
+        [UIHint("Number")]
         [Range(ValidationConstants.ProductAllTimeAverageRatingMin, ValidationConstants.ProductAllTimeAverageRatingMax)]
         public int AllTimeAverageRating { get; set; }
 

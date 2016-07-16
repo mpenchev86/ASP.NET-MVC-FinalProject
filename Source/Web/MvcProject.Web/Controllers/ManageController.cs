@@ -5,7 +5,7 @@
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
-
+    using Data.Models;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
@@ -18,14 +18,10 @@
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
-        private ApplicationSignInManager signInManager;
-        private ApplicationUserManager userManager;
+        private /*ApplicationSignInManager*/SignInManager<ApplicationUser, string> signInManager;
+        private /*ApplicationUserManager*/UserManager<ApplicationUser, string> userManager;
 
-        public ManageController()
-        {
-        }
-
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public ManageController(/*ApplicationUserManager*/UserManager<ApplicationUser, string> userManager, /*ApplicationSignInManager*/SignInManager<ApplicationUser, string> signInManager)
         {
             this.UserManager = userManager;
             this.SignInManager = signInManager;
@@ -42,7 +38,7 @@
             Error
         }
 
-        public ApplicationSignInManager SignInManager
+        public /*ApplicationSignInManager*/SignInManager<ApplicationUser, string> SignInManager
         {
             get
             {
@@ -55,7 +51,7 @@
             }
         }
 
-        public ApplicationUserManager UserManager
+        public /*ApplicationUserManager*/UserManager<ApplicationUser, string> UserManager
         {
             get
             {

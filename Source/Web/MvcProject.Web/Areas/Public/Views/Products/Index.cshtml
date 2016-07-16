@@ -1,12 +1,11 @@
 ﻿@using MvcProject.Web.Areas.Public.ViewModels.Products
+@using MvcProject.Web.Areas.Public.ViewModels.Properties
 
 @model ProductFullViewModel
 
 @{
     ViewBag.Title = Model.Title;
 }
-
-@*<div class="row" id="product-title"><b>@Model.Title</b></div>*@
 
 <div class="row">
     <div id="product-images" class="col-md-7">
@@ -34,8 +33,8 @@
         "_ProductInfo",
         new ProductInfoPartialViewModel
         {
-            DescriptionContent = Model.Description.Content,
-            DescriptionProperties = Model.Description.Properties,
+            DescriptionContent = Model.Description != null ? Model.Description.Content : string.Empty,
+            DescriptionProperties = Model.Description != null ? Model.Description.Properties : new List<PropertyForProductFullViewModel>(),
             Tags = Model.Tags
         },
         null)
@@ -43,9 +42,9 @@
 <div class="row" id="product-comments">
     @Html.Partial("_ProductComments", Model.Comments, null)
 </div>
-<div class="row" id="product-votes">
+@*<div class="row" id="product-votes">
     @Html.Partial("_ProductVotes", Model.Votes, null)
-</div>
+</div>*@
 
 @section styles{
     <link href="@Url.Content("~/Areas/Public/Content/Custom/product-full-viewmodel.css")" rel="stylesheet" type="text/css" />
