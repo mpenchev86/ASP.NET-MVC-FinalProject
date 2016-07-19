@@ -1,8 +1,0 @@
-﻿@model IEnumerable<string>
-
-@{ 
-    foreach (var item in Model)
-    {
-        @Html.ActionLink(item, "AllProductsWithTag", "Products", new { tag = item }, new { @class = "btn btn-default" })
-    }
-}
