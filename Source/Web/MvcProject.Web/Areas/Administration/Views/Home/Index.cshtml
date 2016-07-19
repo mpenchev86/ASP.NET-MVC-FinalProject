@@ -1,0 +1,39 @@
+﻿@using System.Reflection
+@model IEnumerable<PropertyInfo>
+
+@{
+    ViewBag.Title = "Administration Index";
+}
+
+<div class="row">
+    <h2>Administration panel</h2>
+    <br />
+</div>
+<div class="row">
+    <h4 class="col-md-2">
+        Choose catalog entity:
+    </h4>
+    
+    <ul id="domains-container" class="col-md-10">
+        @foreach (PropertyInfo property in Model.OrderBy(x => x.Name))
+            {
+            <li class="btn btn-default">
+                @Html.ActionLink(property.Name, "Index", property.Name, new { Area = Areas.AdministrationAreaName }, new { })
+            </li>
+        }
+    </ul>
+</div>
+
+@section Styles{
+    <link href="@Url.Content(StaticResourcesUrls.DomainsList)" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts{
+    <script>
+        @(Html.Kendo().DeferredScripts())
+
+        function submitForm() {
+            $('#select-form').submit();
+        }
+    </script>
+}

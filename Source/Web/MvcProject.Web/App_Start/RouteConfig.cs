@@ -13,52 +13,36 @@
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            //// TEST - route constraints
-            // routes.MapRoute(
-            //    name: "ProductsList",
-            //    url: "Products/{page}/{nonNullableInt}",
-            //    defaults: new
-            //    {
-            //        controller = "Home",
-            //        action = "ProductsList",
-            //        page = UrlParameter.Optional,
-            //        nonNullableInt = UrlParameter.Optional
-            //    },
-            //    constraints: new
-            //    {
-            //        page = @"\d{3,}",
-            //        nonNullableInt = @"\d+",
-            //        isChrome = new CustomRouteConstraints()
-            //    });
+            routes.MapRoute(
+               "Default",
+               "Common/{controller}/{action}/{id}",
+               new { controller = "Account", action = "Login", id = UrlParameter.Optional });
 
-            // MvcRouteTester doesn't work if this route is defined in the area registration
-            routes
-                .MapRoute(
-                    name: "ProductPage",
-                    url: "Product/{id}",
-                    defaults: new { controller = "Products", action = "ById" })
-                .DataTokens.Add("area", "Common");
+            //routes.MapRoute(
+            //   "Default",
+            //   "Public/{controller}/{action}/{id}",
+            //   new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            //   //,new string[]
+            //   //{
+            //   //     //"MvcProject.Web.Areas.Admin.Controllers",
+            //   //     "MvcProject.Web.Areas.Public.Controllers",
+            //   //     //"MvcProject.Web.Areas.Common.Controllers",
+            //   //     //"MvcProject.Web.Areas.TestModule.Controllers",
+            //   //}
+            //   );
 
-            routes
-                .MapRoute(
-                    name: "Default",
-                    url: "{controller}/{action}/{id}",
-                    defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional })
-                .DataTokens.Add("area", "Common");
-        }
-
-        // TEST - route constraints
-        private class CustomRouteConstraints : IRouteConstraint
-        {
-            public bool Match(
-                HttpContextBase httpContext,
-                Route route,
-                string parameterName,
-                RouteValueDictionary values,
-                RouteDirection routeDirection)
-            {
-                return HttpContext.Current.Request.UserAgent.Contains("Chrome");
-            }
+            //routes.MapRoute(
+            //   "TestModule_Default",
+            //   "TestModule/{controller}/{action}/{id}",
+            //   new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            //   //, new string[]
+            //   //{
+            //   //     //"MvcProject.Web.Areas.Admin.Controllers",
+            //   //     "MvcProject.Web.Areas.TestModule.Controllers",
+            //   //     //"MvcProject.Web.Areas.Common.Controllers",
+            //   //     //"MvcProject.Web.Areas.TestModule.Controllers",
+            //   //}
+            //   );
         }
     }
 }

@@ -1,0 +1,13 @@
+﻿@(Html.TabStripHelper(
+    "tabStrip_#=Id#",
+    0,
+    items =>
+    {
+        items.Add().Text("Description").Content(@<text>@Html.Partial("_DescriptionTab")</text>);
+        items.Add().Text("Images").Content(@<text>@Html.Partial("_ImagesTab")</text>);
+        items.Add().Text("Comments").Content(@<text>@Html.Partial("_CommentsTab")</text>);
+        items.Add().Text("Votes").Content(@<text>@Html.Partial("_VotesTab")</text>);
+        items.Add().Text("Tags").Content(@<text>@Html.Partial("_TagsTab")</text>);
+    })
+    .ToClientTemplate()
+    .ToMvcClientTemplate())

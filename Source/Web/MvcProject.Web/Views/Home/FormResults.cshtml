@@ -1,0 +1,37 @@
+﻿@model List<MvcProject.Web.Areas.Common.ViewModels.Home.ProductViewModel>
+
+@{
+    ViewBag.Title = "SomeForm";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Ajax.BeginForm("Search", "Home", new { area = "Common" },
+    new AjaxOptions
+    {
+        UpdateTargetId = "updateMe",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST"
+    }, new { id = "submitForm" }))
+{
+    <div class="row">
+        <input type="text" name="query" oninput="changed()" />
+        <input type="submit" />
+    </div>
+}
+<script>
+    function changed() {
+        $("#submitForm").submit();
+    }
+</script>
+<div id="updateMe" class="row">
+    @Html.Partial("_ProductResult", Model)
+</div>
+<<<<<<< HEAD:Source/Web/MvcProject.Web/Areas/Common/Views/Home/FormResults.cshtml
+
+@*client side validation*@
+@*@section scripts{
+    @Scripts.Render(MvcProject.GlobalConstants.Bundles.ScriptsJQueryValidate);     
+}*@
+=======
+>>>>>>> master:Source/Web/MvcProject.Web/Views/Home/FormResults.cshtml

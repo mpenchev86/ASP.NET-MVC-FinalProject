@@ -1,0 +1,90 @@
+﻿@using MvcProject.Web.Areas.Public.ViewModels.Home
+@using MvcProject.Web.Infrastructure.HtmlHelpers
+
+@{
+    ViewBag.Title = "Home - OrderIt";
+    var userCulture = this.Request.UserLanguages.FirstOrDefault() ?? "en-US";
+}
+
+<div class="row homepage-listview">
+    <h3>New Arrivals</h3>
+    @(Html.GenericListViewHelper<ProductDetailsForIndexListView>(
+        name: "newestProducts",
+        wrapperTagName: "table",
+        templateId: "products-listView-template",
+        readAction: "ReadNewestProducts",
+        controllerName: "Home",
+        modelIdExpression: m => m.Id,
+        pageSize: 5,
+        isServerOps: true)
+        .HtmlAttributes(new { @class = "productsList" })
+        .Deferred())
+</div>
+<hr />
+<div class="row homepage-listview">
+    <h3>Top @ApplicationSpecificConstants.IndexListViewNumberOfBestSellingProducts Best Selling</h3>
+    @(Html.GenericListViewHelper<ProductDetailsForIndexListView>(
+        name: "bestSellingProducts",
+        wrapperTagName: "table",
+        templateId: "products-listView-template",
+        readAction: "ReadBestSellingProducts",
+        controllerName: "Home",
+        modelIdExpression: m => m.Id,
+        pageSize: 5,
+        isServerOps: true)
+        .HtmlAttributes(new { @class = "productsList" })
+        .Deferred())
+</div>
+<hr />
+<div class="row homepage-listview">
+    <h3>Stars We Got! The @ApplicationSpecificConstants.IndexListViewNumberOfhighestVotedProducts highest rated items</h3>
+    @(Html.GenericListViewHelper<ProductDetailsForIndexListView>(
+        name: "highestVotedProducts",
+        wrapperTagName: "table",
+        templateId: "products-listView-template",
+        readAction: "ReadHighestVotedProducts",
+        controllerName: "Home",
+        modelIdExpression: m => m.Id,
+        pageSize: 5,
+        isServerOps: true)
+        .HtmlAttributes(new { @class = "productsList" })
+        .Deferred())
+</div>
+
+<script type="text/kendo-tmpl" id="products-listView-template">
+    @*<td class="listview-product-cell">
+        <div class="img-div">
+            <img src="@Url.Content("~/Content/Images/Products/#=Id#/")main-image.jpg" alt="#:Title# image" />
+        </div>
+        
+        @Html.ActionLink("sneak peek", "SneakPeak", "Products", new { Area = Areas.PublicAreaName, id = "#:kendo.toString(EncodedId)#" }, new { @class = "btn btn-link" })
+        
+        <a href="/Public/Products/SneakPeak?Id=#=EncodedId#" class="btn btn-link">
+            <p id="sneak-peak">sneak peek</p>
+        </a>
+        
+        <p>#=kendo.toString(UnitPrice, "c")#</p>
+    </td>*@
+
+    @Html.Partial(
+        "_ListViewProductCellTemplate",
+        null,
+        new ViewDataDictionary(/*this.ViewData*/)
+        {
+            { "id" , "#=Id#" },
+            { "title", "#=Title#" },
+            { "encodedId", "#=EncodedId#" },
+            { "unitPrice", "UnitPrice" }
+        })
+</script>
+
+@section Styles{
+    <link href="@Url.Content(StaticResourcesUrls.ListView)" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts {
+    @Html.Kendo().DeferredScripts()
+    <script>
+        kendo.culture('@userCulture');
+    </script>
+}

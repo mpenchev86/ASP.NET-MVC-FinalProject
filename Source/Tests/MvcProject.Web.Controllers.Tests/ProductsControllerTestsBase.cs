@@ -14,6 +14,10 @@
     using Moq;
     using Services.Data;
     using Services.Web;
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
     public class ProductsControllerTestsBase
     {
         private string productDescription = "SomeDescr";
@@ -45,8 +49,13 @@
                 .Setup(x => x.GetById(It.IsAny<string>()))
                 .Returns(new Product()
                 {
+<<<<<<< HEAD
                     Name = "someName",
                     Description = this.ProductDescription,
+=======
+                    Title = "someName",
+                    ShortDescription = this.ProductDescription,
+>>>>>>> master
                     Category = new Category()
                     {
                         Name = "someName"

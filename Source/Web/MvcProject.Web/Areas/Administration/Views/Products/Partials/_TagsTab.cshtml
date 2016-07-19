@@ -1,0 +1,14 @@
+﻿@using MvcProject.Web.Areas.Administration.ViewModels.Tags
+@using MvcProject.Web.Infrastructure.HtmlHelpers
+
+@(Html.ClientDetailsGrid<TagDetailsForProductViewModel>(
+    name: "tags-grid_#=Id#",
+    columns: cols =>
+    {
+        cols.Bound(c => c.Id).Title("ID").Width("10%");
+        cols.Bound(c => c.Name);
+        cols.Bound(c => c.CreatedOn).Width("10%");
+        cols.Bound(c => c.ModifiedOn).Width("10%");
+    })
+    .ToClientTemplate()
+)

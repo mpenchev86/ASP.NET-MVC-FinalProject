@@ -3,13 +3,16 @@
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
+    using System.Data.Entity.Infrastructure;
     using System.Linq;
     using System.Reflection;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
-    using Data.DbAccessConfig;
+    using Areas.Administration.Controllers;
+    using Areas.Public.Controllers;
+    using Data.DbAccessConfig.Contexts;
     using Data.DbAccessConfig.Migrations;
     using Infrastructure.Mapping;
 
@@ -28,23 +31,7 @@
             ViewEnginesConfig.RegisterEngines(ViewEngines.Engines);
             AutofacConfig.RegisterAutofac();
 
-            // If problematic, use constructor to get an instance of AutoMapperConfig and use its Execute()
-            AutoMapperInit.Initialize(Assembly.GetExecutingAssembly());
+            AutoMapperInit.Initialize(Assembly.GetExecutingAssembly(), Assembly.GetAssembly(typeof(BasePublicController)), Assembly.GetAssembly(typeof(BaseAdminController)));
         }
-
-        //// For custom OutPutCache VaryByCustom
-        // public override string GetVaryByCustomString(HttpContext context, string custom)
-        // {
-        //    if (custom == "SessionCache")
-        //    {
-        //        return this.Session.SessionID;
-        //    }
-        //    else if (custom == "SomeOtherIdentifier")
-        //    {
-        //        // specify how to cache in this case
-        //    }
-
-        // return base.GetVaryByCustomString(context, custom);
-        // }
     }
 }

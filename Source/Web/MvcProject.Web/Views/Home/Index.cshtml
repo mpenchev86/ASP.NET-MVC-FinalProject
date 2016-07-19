@@ -1,0 +1,69 @@
+﻿@using MvcProject.Web.Areas.Common.ViewModels.Home
+@using MvcProject.Web.Infrastructure.HtmlHelpers
+
+@model IEnumerable<MvcProject.Web.Areas.Common.ViewModels.Home.ProductViewModel>
+
+@{
+    ViewBag.Title = "Home - OrderIt";
+    var userCulture = this.Request.UserLanguages.FirstOrDefault() ?? "en-US";
+}
+
+<div class="row">
+    <h3>New Arrivals</h3>
+    @(Html.GenericListViewHelper<ProductViewModel>(
+        "newestProducts",
+        "table",
+        "list-products-template",
+        "Home",
+        m => m.Id,
+        5)
+        .HtmlAttributes(new { @class = "productsList" })
+        .Deferred())
+</div>
+<hr />
+<div class="row">
+    <h3>Best Selling</h3>
+    @(Html.GenericListViewHelper<ProductViewModel>(
+        "bestSellingProducts",
+        "table",
+        "list-products-template",
+        "Home",
+        m => m.Id,
+        5)
+        .HtmlAttributes(new { @class = "productsList" })
+        .Deferred())
+</div>
+<hr />
+<div class="row">
+    <h3>Stars We Got!</h3>
+    @(Html.GenericListViewHelper<ProductViewModel>(
+        "highestVotedProducts",
+        "table",
+        "list-products-template",
+        "Home",
+        m => m.Id,
+        5)
+        .HtmlAttributes(new { @class = "productsList" })
+        .Deferred())
+</div>
+
+<script type="text/x-kendo-tmpl" id="list-products-template">
+    <td class="product">
+        <div class="img-div">
+            <img src="@Url.Content("~/Content/Images/Products/")#:Id#.jpg" alt="#:Title# image" />
+        </div>
+        <a href="/" class="btn btn-link">@*#:Title#*@ sneak peek</a>
+        @*<p>#:kendo.toString(UnitPrice, "c")#</p>*@
+    </td>
+</script>
+
+@section styles{
+    <link href="@Url.Content("~/Content/Custom/listView.css")" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts {
+    @Html.Kendo().DeferredScripts()
+    <script>
+        kendo.culture('@userCulture');
+    </script>
+}

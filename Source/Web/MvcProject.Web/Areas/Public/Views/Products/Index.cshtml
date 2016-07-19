@@ -1,0 +1,77 @@
+﻿@using MvcProject.Web.Areas.Public.ViewModels.Products
+@using MvcProject.Web.Areas.Public.ViewModels.Properties
+
+@model ProductFullViewModel
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<div class="row product-full-view">
+    <div id="product-images" class="col-md-7">
+        @Html.Partial("_ProductImages", new ProductImagesPartialViewModel { MainImageId = Model.MainImageId, Images = Model.Images }, null)
+    </div>
+    <div id="product-sidebar" class="col-md-5">
+        @Html.Partial(
+            "_ProductSideBar",
+            new ProductSideBarPartialViewModel
+            {
+                Title = Model.Title,
+                Category = Model.Category.Name,
+                UnitPrice = Model.UnitPrice,
+                ShippingPrice = Model.ShippingPrice,
+                QuantityInStock = Model.QuantityInStock,
+                IsInStock = Model.IsInStock,
+                RefNumber = Model.EncodedId,
+                Rating = Model.AllTimeAverageRating ?? 0
+            },
+            null)
+    </div>
+</div>
+<div class="row product-full-view" id="product-info">
+    @Html.Partial(
+        "_ProductInfo",
+        new ProductInfoPartialViewModel
+        {
+            DescriptionContent = Model.Description != null ? Model.Description.Content : string.Empty,
+            DescriptionProperties = Model.Description != null ? Model.Description.Properties : new List<PropertyForProductFullViewModel>(),
+            Tags = Model.Tags
+        },
+        null)
+</div>
+<div class="row product-full-view" id="product-comments">
+    @Html.Partial("_ProductCommentsWithRatings", Model.CommentsWithRatings, null)
+</div>
+
+@section Styles{
+    <link href="@Url.Content("~/Areas/Public/Content/Custom/product-full-viewmodel.css")" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts{
+    <script src="@Url.Content("~/Areas/Public/Scripts/Custom/igniteui-rating-handler.js")"></script>
+
+    <script>
+        $(document).ready(function InitializeRatings() {
+            ratingHandler.configureDisplayWidgets("#igRating");
+            //$("#igRating1").igRating("option", "value", 3.5);
+            var rating = $("#igRating0");
+            console.log(rating);
+        })
+
+        ////Bind after initialization
+        //$(document).delegate("#igRating5", "igratinghoverchange", function (evt, ui) {
+        //    //return the triggered event
+        //    evt;
+     
+        //    //the value before the igRating was hovered 
+        //    ui.oldValue;
+        //    //the current hover value
+        //    ui.value;
+        //});  
+ 
+        ////Initialize
+        //$(".selector").igRating({
+        //    hoverChange : function(evt, ui) {...}
+        //});
+    </script>
+}

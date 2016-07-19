@@ -7,17 +7,31 @@
     using System.Reflection;
     using System.Web;
     using System.Web.Mvc;
+<<<<<<< HEAD
 
     using Areas.Common.Controllers;
     using Autofac;
     using Autofac.Integration.Mvc;
     using Common.Constants;
     using Data.DbAccessConfig;
+=======
+    using Areas.Administration.Controllers;
+    using Areas.Public.Controllers;
+    using Autofac;
+    using Autofac.Integration.Mvc;
+    using Data.DbAccessConfig.Contexts;
+    using Data.DbAccessConfig.IdentityStores;
+>>>>>>> master
     using Data.DbAccessConfig.Repositories;
     using Data.Models;
     using Infrastructure.Sanitizer;
     using Infrastructure.ViewEngines;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Microsoft.AspNet.Identity.Owin;
+    using MvcProject.Common.GlobalConstants;
     using Services.Data;
+    using Services.Identity;
     using Services.Web;
 
     public static class AutofacConfig
@@ -28,6 +42,9 @@
 
             // Register your MVC controllers.
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
+            builder.RegisterControllers(typeof(BasePublicController).Assembly);
+            builder.RegisterControllers(typeof(BaseAdminController).Assembly);
+            //builder.RegisterControllers(typeof(BaseCommonController).Assembly);
 
             // OPTIONAL: Register model binders that require DI.
             builder.RegisterModelBinders(Assembly.GetExecutingAssembly());
@@ -52,53 +69,99 @@
 
         public static void RegisterServices(ContainerBuilder builder)
         {
+            // Application Context
             builder
                 .Register(x => new MvcProjectDbContext())
                 .As<DbContext>()
                 .InstancePerRequest();
 
+            // ASP.NET Identity
             builder
-                .RegisterGeneric(typeof(GenericRepository<>))
-                .As(typeof(IRepository<>))
+                .Register(x => HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationUserManager>())
+                .As<UserManager<ApplicationUser, string>>()
+                .InstancePerRequest()
+                ;
+
+            builder
+                .Register(x => HttpContext.Current.Request.GetOwinContext().Get<ApplicationRoleManager>())
+                .As<RoleManager<ApplicationRole, string>>()
+                .InstancePerRequest()
+                ;
+
+            builder
+                .Register(x => HttpContext.Current.Request.GetOwinContext().Get<ApplicationSignInManager>())
+                .As<SignInManager<ApplicationUser, string>>()
+                .InstancePerRequest()
+                ;
+
+            // Repositories
+            builder
+                .RegisterGeneric(typeof(EfIntPKDeletableRepository<>))
+                .As(typeof(IIntPKDeletableRepository<>))
                 .InstancePerRequest();
 
             builder
-                .Register(x => new HttpCacheService())
-                .As<ICacheService>()
+                .RegisterGeneric(typeof(EfStringPKDeletableRepository<>))
+                .As(typeof(IStringPKDeletableRepository<>))
                 .InstancePerRequest();
 
             builder
-                .Register(x => new IdentifierProvider())
-                .As<IIdentifierProvider>()
-                .InstancePerRequest();
+               .RegisterGeneric(typeof(EfIntPKRepository<>))
+               .As(typeof(IIntPKRepository<>))
+               .InstancePerRequest();
 
             builder
-                .Register(x => new HtmlSanitizerAdapter())
-                .As<ISanitizer>()
+                .RegisterGeneric(typeof(EfStringPKRepository<>))
+                .As(typeof(IStringPKRepository<>))
                 .InstancePerRequest();
 
+<<<<<<< HEAD
+=======
+            // Application Services
+>>>>>>> master
             var dataServicesAssembly = Assembly.Load(Assemblies.DataServicesAssemblyName);
             builder
                 .RegisterAssemblyTypes(dataServicesAssembly)
                 .AsImplementedInterfaces()
-                .InstancePerRequest();  // Could be wrong
+                .InstancePerRequest();
 
             var webServicesAssembly = Assembly.Load(Assemblies.WebServicesAssemblyName);
             builder
                 .RegisterAssemblyTypes(webServicesAssembly)
                 .AsImplementedInterfaces()
-                .InstancePerRequest();  // Could be wrong
+                .InstancePerRequest();
 
+<<<<<<< HEAD
+=======
+            // Infrastructure
+>>>>>>> master
             var infrastructureAssembly = Assembly.Load(Assemblies.InfrastructureAssemblyName);
             builder
                 .RegisterAssemblyTypes(infrastructureAssembly)
                 .AsImplementedInterfaces()
-                .InstancePerRequest();  // Could be wrong
+                .InstancePerRequest();
+
+            // Controllers
+            //builder
+            //    .RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+            //    .AssignableTo<BaseCommonController>()
+            //    .PropertiesAutowired();
+
+            //var testModuleAssembly = Assembly.Load(Assemblies.TestModuleAssemblyName);
+            //builder
+            //    .RegisterAssemblyTypes(testModuleAssembly)
+            //    .AssignableTo<BaseTestController>()
+            //    .PropertiesAutowired();
 
             builder
-                .RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
-                .AssignableTo<BaseController>()
+                .RegisterAssemblyTypes(Assembly.GetAssembly(typeof(BasePublicController)))
+                .AssignableTo<BasePublicController>()
                 .PropertiesAutowired();
+
+            //builder
+            //    .RegisterType(typeof(TestModule.Controllers.HomeController))
+            //    .As(typeof(BaseController))
+            //    .InstancePerRequest();
         }
     }
 }

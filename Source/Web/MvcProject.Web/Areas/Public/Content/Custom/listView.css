@@ -1,0 +1,92 @@
+﻿/* ======= Kendo ListView table ======= */
+.productsList .k-listview {
+    border-style: none;
+}
+
+.productsList .k-listview:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.productsList td.listview-product-cell {
+    position: relative;
+    display: table-cell;
+    width: 20%;
+}
+
+/*.product .img-div {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}*/
+
+.listview-product-cell img {
+    vertical-align: inherit;
+}
+
+.listview-product-cell .img-div img {
+    position: relative;
+    margin: auto;
+    width: 100%;
+    /*height: 100%*/
+}
+
+.listview-product-cell a {
+    display: inline;
+    visibility: hidden;
+    position: absolute;
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*margin: 0;*/
+    padding: 0;
+    top: 0;
+    /*width: 100%;*/
+    /*height: 100%;*/
+    border: none;
+    overflow: hidden;
+}
+
+.listview-product-cell:hover a {
+    text-decoration: none;
+    visibility: visible;
+    width: 100%;
+    height: 100%;
+    /*line-height: 210px;*/
+    vertical-align: middle;
+    text-align: center;
+    color: #fff;
+    background-color: rgba(255,200,0,0.55);
+    overflow: hidden;
+    transition: background .2s linear, color .2s linear;
+    -moz-transition: background .2s linear, color .2s linear;
+    -webkit-transition: background .2s linear, color .2s linear;
+    -o-transition: background .2s linear, color .2s linear;
+}
+
+#sneak-peak {
+    margin-top: 25%;
+    margin-bottom: 0;
+    font-size: 1.2em;
+}
+
+.homepage-listview > .k-block,
+.homepage-listview > .k-draghandle,
+.homepage-listview > .k-inline-block,
+.homepage-listview > .k-widget {
+    /*padding-left: 40%;*/
+    border-style: none;
+}
+
+/* ======= Kendo ListView pager ======= */
+.homepage-listview > .k-pager-wrap {
+    text-align: center;
+}
+
+    .homepage-listview > .k-pager-wrap > .k-pager-info {
+        float: right;
+        visibility: inherit;
+    }
+

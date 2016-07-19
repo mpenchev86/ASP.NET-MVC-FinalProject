@@ -1,7 +1,7 @@
 ﻿namespace MvcProject.Web
 {
     using System;
-    using Data.DbAccessConfig;
+    using Data.DbAccessConfig.Contexts;
     using Data.Models;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
@@ -9,8 +9,9 @@
     using Microsoft.Owin.Security.Cookies;
     using Microsoft.Owin.Security.Google;
     using Owin;
+    using Services.Identity;
 
-public partial class Startup
+    public partial class Startup
     {
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
@@ -19,6 +20,7 @@ public partial class Startup
             app.CreatePerOwinContext(MvcProjectDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+            app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider

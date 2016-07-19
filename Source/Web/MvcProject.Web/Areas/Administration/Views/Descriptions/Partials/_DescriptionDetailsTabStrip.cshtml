@@ -1,0 +1,9 @@
+﻿@(Html.TabStripHelper(
+    "tabStrip_#=Id#",
+    0,
+    items =>
+    {
+        items.Add().Text("Properties").Content(@<text>@Html.Partial("_PropertiesTab")</text>);
+    })
+    .ToClientTemplate()
+    .ToMvcClientTemplate())

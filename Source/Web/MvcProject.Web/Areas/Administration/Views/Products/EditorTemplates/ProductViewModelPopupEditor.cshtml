@@ -1,0 +1,158 @@
+﻿@using Kendo.Mvc.UI;
+@using Kendo.Mvc.Extensions;
+@using MvcProject.Web.Areas.Administration.ViewModels.Properties
+@using MvcProject.Web.Areas.Administration.ViewModels.Categories
+
+@model MvcProject.Web.Areas.Administration.ViewModels.Products.ProductViewModel
+
+<div class="container-fluid">
+    <div class="row">
+        @Html.HiddenFor(m => m.Id)
+    </div>
+
+    <div class="row">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Title)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(m => m.Title)
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.ShortDescription)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(m => m.ShortDescription)
+            @Html.ValidationMessageFor(model => model.ShortDescription)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.DescriptionId, "Description Id")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(
+                m => m.DescriptionId,
+                new
+                {
+                    OptionLabel = "Select Description...",
+                    DropDownName = "DescriptionId",
+                    Text = "Id",
+                    Value = "Id",
+                    Action = "GetDataAsJson",
+                    Controller = "Descriptions"
+                })
+            @Html.ValidationMessageFor(m => m.DescriptionId)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.CategoryId, "Category")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(
+                m => m.CategoryId,
+                new
+                {
+                    OptionLabel = "Select Category...",
+                    DropDownName = "CategoryId",
+                    Text = "Name",
+                    Value = "Id",
+                    Action = "GetDataAsJson",
+                    Controller = "Categories",
+                    htmlAttributes = new
+                    {
+                        data_val_number = "The field CategoryId must be a number.",
+                        data_val_required = "The CategoryId field is required."
+                    }
+                })
+            @Html.ValidationMessageFor(m => m.CategoryId)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.MainImageId, "MainImage Id")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(
+                m => m.MainImageId,
+                new
+                {
+                    OptionLabel = "Select Main Image...",
+                    DropDownName = "MainImageId",
+                    Text = "Id",
+                    Value = "Id",
+                    Action = "GetDataAsJson",
+                    Controller = "Images"
+                })
+            @Html.ValidationMessageFor(m => m.MainImageId)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.QuantityInStock)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(m => m.QuantityInStock)
+            @Html.ValidationMessageFor(model => model.QuantityInStock)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.UnitPrice)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(m => m.UnitPrice)
+            @Html.ValidationMessageFor(model => model.UnitPrice)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.ShippingPrice)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(m => m.ShippingPrice)
+            @Html.ValidationMessageFor(model => model.ShippingPrice)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Tags)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(
+                m => m.Tags,
+                new
+                {
+                    name = "tagsMultiSelect",
+                    placeHolder = "Select tags...",
+                    dataTextField = "Name",
+                    dataValueField = "Id",
+                    action = "GetAllTags",
+                    controller = "Products",
+                    data_bind = "value: Tags"
+                })
+            @Html.ValidationMessageFor(model => model.Tags)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.IsDeleted, "Mark as deleted")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(m => m.IsDeleted)
+            @Html.ValidationMessageFor(model => model.IsDeleted)
+        </div>
+    </div>
+</div>

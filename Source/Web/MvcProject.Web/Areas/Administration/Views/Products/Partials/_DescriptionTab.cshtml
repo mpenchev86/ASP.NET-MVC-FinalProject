@@ -1,0 +1,26 @@
+﻿<div id="description-details" class="description-details container">
+    <div class="row">
+        <div class="col-md-1"><label for="description-id">Id</label></div>
+        <div id="description-id_#=Id#" class="col-md-10"></div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-1"><label for="description-content">Content</label></div>
+        <div id="description-content_#=Id#" class="col-md-10"></div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-1"><label for="description-properties">Properties</label></div>
+        <div class="col-md-10">@(Html.Partial("_DescriptionPropertiesGrid"))</div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-1"><label for="description-createdOn">Created On</label></div>
+        <div id="description-createdOn_#=Id#" class="col-md-10"></div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-1"><label for="description-modifiedOn">Modified On</label></div>
+        <div id="description-modifiedOn_#=Id#" class="col-md-10"></div>
+    </div>
+</div>

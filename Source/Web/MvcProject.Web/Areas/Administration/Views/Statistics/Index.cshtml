@@ -1,0 +1,98 @@
+﻿@using MvcProject.Web.Areas.Admin.ViewModels.Statistics
+@using MvcProject.Web.Infrastructure.HtmlHelpers
+
+@{
+    ViewBag.Title = "Statistics (ADMIN)";
+    var userCulture = this.Request.UserLanguages.FirstOrDefault() ?? "en-US";
+}
+
+@(Html.FullFeaturedGrid<StatisticsViewModel>(
+    gridName: "statisticsGrid",
+    controllerName: "Statistics",
+    routeValues: new { Area = "Admin" },
+    model: m =>
+    {
+        m.Id(p => p.Id);
+        m.Field(p => p.Id).Editable(false);
+    },
+    pageSize: 20,
+    virtualScroll: false,
+    columns: c =>
+    {
+        c.Command(cm => cm.Edit().UpdateText("Save")).Width("100px");
+        c.Command(cm => cm.Destroy().Text("Delete")).Width("120px");
+        c.Bound(m => m.Id).Width("150px");
+        c.Bound(m => m.AllTimeItemsSold);
+        c.Bound(m => m.OverAllRating);
+        c.Bound(m => m.CreatedOn);
+        c.Bound(m => m.ModifiedOn);
+        c.Bound(m => m.IsDeleted).Width("120px").Title("Marked As Deleted");
+        c.Bound(m => m.DeletedOn);
+    },
+    dataSourceEvents: ev => { ev.Error("errorHandler.handler"); },
+    isBatch: false,
+    isServerOperation: true,
+    editingSettings: editor =>
+    {
+        editor
+            .Mode(GridEditMode.PopUp)
+            .Window(window =>
+            {
+                window
+                    .Actions(a => { a.Minimize().Maximize().Close(); })
+                    .Draggable(true)
+                    .Scrollable(false)
+                    .Resizable();
+            })
+            .TemplateName("StatisticsViewModelPopupEditor")
+            ;
+    },
+    htmlAttributes: new { @class = "main-grid" },
+    readHandler: "readHandler",
+    createHandler: "createHandler",
+    updateHandler: "updateHandler",
+    destroyHandler: "destroyHandler"
+    )
+    .Selectable()
+    .AllowCopy(true)
+    .Deferred()
+)
+
+@section styles{
+    <style>
+        /*horizontal Grid scrollbar should appear if the browser window is shrinked too much*/
+        #statisticsGrid table {
+            width: 1500px;
+        }
+    </style>
+
+    <link href="@Url.Content("~/Content/Custom/Admin/main-grid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Custom/Admin/custom-popup-editor.css")" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts{
+    @(Html.Kendo().DeferredScripts())
+
+    <script src="@Url.Content("~/Scripts/Custom/error-handler.js")"></script>
+    <script src="@Url.Content("~/Scripts/Custom/datetime-handlers.js")"></script>
+
+    <script>
+        kendo.culture('@userCulture');
+
+        function readHandler(data) {
+            datetimeHandlers.normalizeDateProperties(data);
+        }
+
+        function createHandler(data) {
+            datetimeHandlers.normalizeDateProperties(data);
+        }
+
+        function updateHandler(data) {
+            datetimeHandlers.normalizeDateProperties(data);
+        }
+
+        function destroyHandler(data) {
+            datetimeHandlers.normalizeDateProperties(data);
+        }
+    </script>
+}

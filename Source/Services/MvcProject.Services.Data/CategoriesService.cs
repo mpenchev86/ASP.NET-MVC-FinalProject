@@ -5,24 +5,35 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+
     using MvcProject.Data.DbAccessConfig.Repositories;
     using MvcProject.Data.Models;
+    using MvcProject.Services.Web;
 
-    public class CategoriesService : ICategoriesService
+    public class CategoriesService : BaseDataService<Category, int, IIntPKDeletableRepository<Category>>, ICategoriesService
     {
-        private readonly IRepository<Category> categories;
+        private readonly IIntPKDeletableRepository<Category> categoriesRepository;
+        private IIdentifierProvider idProvider;
 
-        public CategoriesService(IRepository<Category> categories)
+        public CategoriesService(IIntPKDeletableRepository<Category> repository, IIdentifierProvider idProvider)
+            : base(repository, idProvider)
         {
-            this.categories = categories;
+            this.categoriesRepository = repository;
+            this.idProvider = idProvider;
         }
 
-        public IQueryable<Category> GetAll()
+        public override Category GetByEncodedId(string id)
         {
-            var result = this.categories
-                             .All()
-                             .OrderBy(x => x.Name);
-            return result;
+            var idAsInt = this.idProvider.DecodeIdToInt(id);
+            var category = this.categoriesRepository.GetById(idAsInt);
+            return category;
+        }
+
+        public override Category GetByEncodedIdFromNotDeleted(string id)
+        {
+            var idAsInt = this.idProvider.DecodeIdToInt(id);
+            var category = this.categoriesRepository.GetByIdFromNotDeleted(idAsInt);
+            return category;
         }
     }
 }

@@ -29,10 +29,10 @@
 
             this.AreaPartialViewLocationFormats = new string[]
             {
-                "~/Areas/{2}/Views/{1}/{0}.cshtml",
-                "~/Areas/{2}/Views/{1}/{0}.vbhtml",
-                "~/Areas/{2}/Views/Shared/{0}.cshtml",
-                "~/Areas/{2}/Views/Shared/{0}.vbhtml"
+                "~/Areas/{2}/Views/{1}/Partials/{0}.cshtml",
+                "~/Areas/{2}/Views/{1}/Partials/{0}.vbhtml",
+                "~/Areas/{2}/Views/Shared/Partials/{0}.cshtml",
+                "~/Areas/{2}/Views/Shared/Partials/{0}.vbhtml"
             };
 
             this.ViewLocationFormats = new string[]
@@ -55,8 +55,8 @@
             {
                 "~/Areas/Common/Views/{1}/{0}.cshtml",
                 "~/Areas/Common/Views/{1}/{0}.vbhtml",
-                "~/Areas/Common/Views/Shared/{0}.cshtml",
-                "~/Areas/Common/Views/Shared/{0}.vbhtml"
+                "~/Areas/Common/Views/Shared/Partials/{0}.cshtml",
+                "~/Areas/Common/Views/Shared/Partials/{0}.vbhtml"
             };
         }
     }

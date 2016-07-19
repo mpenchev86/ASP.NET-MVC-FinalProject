@@ -1,18 +1,28 @@
 ﻿namespace MvcProject.Web
 {
+<<<<<<< HEAD
 	using System.Globalization;
+=======
+    using System.Globalization;
+>>>>>>> master
     using System.Web;
     using System.Web.Optimization;
 
-    using GlobalConstants;
+    using MvcProject.Common.GlobalConstants;
 
     public class BundleConfig
     {
+<<<<<<< HEAD
         public static string UiCulture = CultureInfo.CurrentUICulture.ToString();
+=======
+        // TODO: Improve, if possible
+        private static string userCulture = CultureInfo.CurrentUICulture.ToString();
+>>>>>>> master
 
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+<<<<<<< HEAD
             bundles.Add(new ScriptBundle(GlobalConstants.Bundles.ScriptsJQuery).Include(
                         "~/Scripts/jquery-2.2.1.min.js",
                         "~/Scripts/jquery.unobtrusive-ajax.js"));
@@ -43,6 +53,52 @@
                         "~/Content/Kendo/kendo.metro.min.css"));
 
             bundles.IgnoreList.Clear();
+=======
+            // JavaScript
+            bundles.Add(new ScriptBundle(Bundles.ScriptsJQuery)
+                .Include("~/Scripts/jquery-2.2.1.min.js"));
+
+            bundles.Add(new ScriptBundle(Bundles.ScriptsJQueryValidate)
+                .Include(
+                    "~/Scripts/jquery.validate*",
+                    "~/Scripts/jquery.unobtrusive*"));
+
+            bundles.Add(new ScriptBundle(Bundles.ScriptsBootstrap)
+                .Include(
+                    "~/Scripts/bootstrap.js",
+                    "~/Scripts/respond.js"));
+
+            bundles.Add(new ScriptBundle(Bundles.ScriptsKendo)
+                .Include(
+                    "~/Scripts/Kendo/kendo.all.min.js",
+                    "~/Scripts/Kendo/kendo.aspnetmvc.min.js",
+                    "~/Scripts/Kendo/cultures/kendo.culture." + userCulture + ".min.js"));
+
+            bundles.Add(new ScriptBundle(Bundles.ScriptsSignalR)
+                .Include(
+                    "~/Scripts/jquery.signalR-2.2.0.min.js",
+                    "~/signalr/hubs"));
+
+            // CSS
+            bundles.Add(new StyleBundle(Bundles.StylesBootStrap)
+                .Include(
+                    "~/Content/bootstrap.journal.css",
+                    "~/Content/Site.css"));
+
+            bundles.Add(new StyleBundle(Bundles.StylesKendoCss)
+                .Include("~/Content/Kendo/kendo.common.min.css", new CssRewriteUrlTransform())
+                .Include("~/Content/Kendo/kendo.common-bootstrap.min.css", new CssRewriteUrlTransform())
+                .Include("~/Content/Kendo/kendo.bootstrap.min.css", new CssRewriteUrlTransform())
+                .Include("~/Content/Kendo/kendo.default.min.css", new CssRewriteUrlTransform())
+                .Include("~/Content/Kendo/kendo.silver.min.css", new CssRewriteUrlTransform()));
+
+            bundles.IgnoreList.Clear();
+
+            bundles.IgnoreList.Ignore("*.intellisense.js");
+            bundles.IgnoreList.Ignore("*-vsdoc.js");
+            bundles.IgnoreList.Ignore("*.debug.js", OptimizationMode.WhenEnabled);
+            bundles.IgnoreList.Ignore("*.unobtrusive-ajax.min.js", OptimizationMode.WhenDisabled);
+>>>>>>> master
 
             BundleTable.EnableOptimizations = true;
 

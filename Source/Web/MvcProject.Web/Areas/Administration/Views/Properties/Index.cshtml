@@ -1,0 +1,101 @@
+﻿@using MvcProject.Web.Infrastructure.HtmlHelpers
+@using MvcProject.Web.Areas.Administration.ViewModels.Properties
+
+@model PropertyViewModelForeignKeys
+
+@{
+    ViewBag.Title = "(" + Areas.AdministrationAreaName + ") - Properties";
+    var userCulture = this.Request.UserLanguages.FirstOrDefault() ?? "en-US";
+}
+
+@(Html.FullFeaturedGrid<PropertyViewModel>(
+    gridName: "propertiesGrid",
+    controllerName: "Properties",
+    routeValues: new { Area = Areas.AdministrationAreaName },
+    model: m =>
+    {
+        m.Id(p => p.Id);
+        m.Field(p => p.Id).Editable(false);
+        m.Field(p => p.DescriptionId).Editable(true).DefaultValue(0);
+    },
+    pageSize: 50,
+    virtualScroll: false,
+    columns: c =>
+    {
+        c.Command(cm => cm.Edit().UpdateText("Save")).Width(100);
+        c.Command(cm => cm.Destroy().Text("Delete")).Width(120);
+        c.Bound(m => m.Id).Width("5%");
+        c.Bound(m => m.Name).Width("20%");
+        c.Bound(m => m.Value).Width("20%");
+        c.ForeignKey(m => m.DescriptionId, Model.Descriptions, "Id", "Id").Title("Description Id");
+        c.Bound(m => m.CreatedOn);
+        c.Bound(m => m.ModifiedOn);
+        c.Bound(m => m.IsDeleted).Title("Marked As Deleted");
+        c.Bound(m => m.DeletedOn);
+    },
+    dataSourceEvents: events => { events.Error("errorHandler.handler"); },
+    isBatch: false,
+    isServerOperation: true,
+    editingSettings: editor =>
+    {
+        editor
+            .Mode(GridEditMode.PopUp)
+            .Window(window =>
+            {
+                window
+                    .Actions(a => { a.Minimize().Maximize().Close(); })
+                    .Draggable(true)
+                    .Scrollable(false)
+                    .Resizable();
+            })
+            .TemplateName("PropertyViewModelPopupEditor")
+            .DisplayDeleteConfirmation(true);
+    },
+    htmlAttributes: new { @class = "main-grid" },
+    readHandler: "readHandler",
+    createHandler: "createHandler",
+    updateHandler: "updateHandler",
+    destroyHandler: "destroyHandler"
+    )
+    .Selectable()
+    .AllowCopy(true)
+    .Deferred())
+
+@section Styles{
+    <style>
+        /*horizontal Grid scrollbar should appear if the browser window is shrinked too much*/
+        #propertiesGrid table {
+            width: 2000px;
+        }
+    </style>
+
+    <link href="@Url.Content(StaticResourcesUrls.MainGrid)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content(StaticResourcesUrls.CustomPopupEditor)" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts{
+    @(Html.Kendo().DeferredScripts())
+
+    <script src="@Url.Content(StaticResourcesUrls.ErrorHandler)"></script>
+    <script src="@Url.Content(StaticResourcesUrls.DatetimeHandlers)"></script>
+
+    <script>
+        kendo.culture('@userCulture');
+        
+        function readHandler(data) {
+            datetimeHandlers.normalizeDateProperties(data);
+        }
+
+        function createHandler(data) {
+            datetimeHandlers.normalizeDateProperties(data);
+        }
+
+        function updateHandler(data) {
+            datetimeHandlers.normalizeDateProperties(data);
+        }
+
+        function destroyHandler(data) {
+            datetimeHandlers.normalizeDateProperties(data);
+        }
+    </script>
+}

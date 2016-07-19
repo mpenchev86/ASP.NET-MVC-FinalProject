@@ -1,0 +1,33 @@
+﻿@using MvcProject.Web.Areas.Public.ViewModels.Products
+@using MvcProject.Web.Infrastructure.Sanitizer
+@model IEnumerable<ProductCommentWithRatingViewModel>
+
+@Html.Label("Comments")
+@{
+    if (!Model.Any())
+    {
+        <p id="no-comments">no comments yet</p>
+    }
+    else
+    {
+        int index = 0;
+        foreach (var comment in Model)
+        {
+            <div class="row">
+                <p id="comment-metadata">By @Html.ActionLink(
+                     comment.UserName,
+                     "UserProfile",
+                     "Users",
+                     new { userName = comment.UserName }, 
+                     null) on @comment.CommentCreatedOn. 
+                    @if (comment.Rating != null)
+                    {
+                        @Html.Partial("_ProductVote", comment.Rating, new ViewDataDictionary(this.ViewData) { { "index", index.ToString() } })
+                    }
+                </p>
+                <p id="comment-content">@comment.CommentContent</p>
+            </div>
+            index++;
+        }
+    }
+}
