@@ -12,27 +12,27 @@
 
     public class DescriptionsService : BaseDataService<Description, int, IIntPKDeletableRepository<Description>>, IDescriptionsService
     {
-        private readonly IIntPKDeletableRepository<Description> descriptions;
+        private readonly IIntPKDeletableRepository<Description> descriptionsRepository;
         private IIdentifierProvider idProvider;
 
         public DescriptionsService(IIntPKDeletableRepository<Description> descriptions, IIdentifierProvider idProvider)
             : base(descriptions, idProvider)
         {
-            this.descriptions = descriptions;
+            this.descriptionsRepository = descriptions;
             this.idProvider = idProvider;
         }
 
         public override Description GetByEncodedId(string id)
         {
             var idAsInt = this.idProvider.DecodeIdToInt(id);
-            var description = this.descriptions.GetById(idAsInt);
+            var description = this.descriptionsRepository.GetById(idAsInt);
             return description;
         }
 
         public override Description GetByEncodedIdFromNotDeleted(string id)
         {
             var idAsInt = this.idProvider.DecodeIdToInt(id);
-            var description = this.descriptions.GetByIdFromNotDeleted(idAsInt);
+            var description = this.descriptionsRepository.GetByIdFromNotDeleted(idAsInt);
             return description;
         }
     }

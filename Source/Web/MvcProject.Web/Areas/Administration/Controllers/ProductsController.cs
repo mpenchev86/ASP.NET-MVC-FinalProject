@@ -127,8 +127,8 @@
                 }
             }
 
-            // Votes should be populated first.
-            entity.AllTimeAverageRating = entity.Votes.Any() ? (int)entity.Votes.Average(v => v.VoteValue) : 0;
+            //// Votes should be populated first.
+            //entity.AllTimeAverageRating = entity.Votes.Any() ? (int)entity.Votes.Average(v => v.VoteValue) : 0;
 
             var tagIds = viewModel.Tags.Select(tag => tag.Id);
             this.ProcessProductTags(entity, viewModel.Id, tagIds);

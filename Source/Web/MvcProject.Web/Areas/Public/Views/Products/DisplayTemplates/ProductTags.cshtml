@@ -4,6 +4,5 @@
     foreach (var item in Model)
     {
         @Html.ActionLink(item, "AllProductsWithTag", "Products", new { tag = item }, new { @class = "btn btn-default" })
-        @*<a href="" class="btn btn-default">@item</a>*@
     }
 }

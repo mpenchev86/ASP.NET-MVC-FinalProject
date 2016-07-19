@@ -128,6 +128,10 @@
       <Project>{b14dfb67-88f5-4714-a592-ecab1f8f74a9}</Project>
       <Name>MvcProject.Web.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MvcProject.Services.Identity\MvcProject.Services.Identity.csproj">
+      <Project>{710D2E6C-DECC-4966-9584-E432E0250CD5}</Project>
+      <Name>MvcProject.Services.Identity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MvcProject.Services.Web\MvcProject.Services.Web.csproj">
       <Project>{bfbd7dc4-f46c-41e3-aa95-317230fe6558}</Project>
       <Name>MvcProject.Services.Web</Name>

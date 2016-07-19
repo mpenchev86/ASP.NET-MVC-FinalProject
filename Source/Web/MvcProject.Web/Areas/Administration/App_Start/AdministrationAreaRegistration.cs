@@ -2,6 +2,7 @@
 {
     using MvcProject.Common.GlobalConstants;
     using System.Web.Mvc;
+    using System.Web.Optimization;
 
     public class AdministrationAreaRegistration : AreaRegistration
     {
@@ -15,6 +16,8 @@
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
+
             context.MapRoute(
                 name: Areas.AdministrationAreaName + "_default",
                 url: Areas.AdministrationAreaName + "/{controller}/{action}/{id}",

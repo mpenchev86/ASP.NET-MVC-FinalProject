@@ -1,0 +1,17 @@
+﻿@(Html.Kendo().MultiSelect()
+    .Name((string)ViewData["name"])
+    .TagMode(TagMode.Multiple)
+    .Placeholder((string)ViewData["placeHolder"])
+    .DataTextField((string)ViewData["dataTextField"])
+    .DataValueField((string)ViewData["dataValueField"])
+    .Filter(FilterType.Contains)
+    .DataSource(data =>
+    {
+        data
+            .ServerFiltering(true)
+            .Read(read =>
+            {
+                read.Action((string)ViewData["action"], (string)ViewData["controller"], new { area = "Public" }); });
+    })
+    .HtmlAttributes(new { data_bind = (string)ViewData["data_bind"] })
+)

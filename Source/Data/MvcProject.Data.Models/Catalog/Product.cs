@@ -92,13 +92,16 @@
         public int AllTimeItemsSold { get; set; }
 
         /// <summary>
-        /// Gets or sets the overall rating of a product.
+        /// Gets the overall rating of a product.
         /// </summary>
         /// <value>
         /// The overall rating of a product.
         /// </value>
         [Range(ValidationConstants.ProductAllTimeAverageRatingMin, ValidationConstants.ProductAllTimeAverageRatingMax)]
-        public int AllTimeAverageRating { get; set; }
+        public double? AllTimeAverageRating
+        {
+            get { return this.Votes.Any() ? (double)this.Votes.Average(v => v.VoteValue) : default(double?); }
+        }
 
         /// <summary>
         /// Gets or sets the foreign key to a main image of a product.

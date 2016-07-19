@@ -8,12 +8,13 @@
 
     public class BundleConfig
     {
-        // Improve, if possible
+        // TODO: Improve, if possible
         private static string userCulture = CultureInfo.CurrentUICulture.ToString();
 
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            // JavaScript
             bundles.Add(new ScriptBundle(Bundles.ScriptsJQuery)
                 .Include("~/Scripts/jquery-2.2.1.min.js"));
 
@@ -38,37 +39,18 @@
                     "~/Scripts/jquery.signalR-2.2.0.min.js",
                     "~/signalr/hubs"));
 
-            // Custom*
-            bundles.Add(new ScriptBundle(Bundles.ScriptsCustom)
-                .Include(
-                    //"~/Scripts/Custom/datetime-handler.js",
-                    //"~/Scripts/Custom/error-handler.js",
-                    //"~/Scripts/Custom/grid-details-helpers.js"
-                    "~/Scripts/Custom/*.js"
-                    ));
-
-            bundles.Add(new StyleBundle(Bundles.StylesContentCss)
+            // CSS
+            bundles.Add(new StyleBundle(Bundles.StylesBootStrap)
                 .Include(
                     "~/Content/bootstrap.journal.css",
                     "~/Content/Site.css"));
 
-            bundles.Add(new StyleBundle(Bundles.StylesContentKendoCss)
+            bundles.Add(new StyleBundle(Bundles.StylesKendoCss)
                 .Include("~/Content/Kendo/kendo.common.min.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Kendo/kendo.common-bootstrap.min.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Kendo/kendo.bootstrap.min.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Kendo/kendo.default.min.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Kendo/kendo.silver.min.css", new CssRewriteUrlTransform()));
-
-            bundles.Add(new StyleBundle(Bundles.StylesContentCustomCss)
-                .Include(
-                    //"~/Content/Custom/Admin/custom-popup-editor.css",
-                    //"~/Content/Custom/Admin/details-grid.css",
-                    //"~/Content/Custom/Admin/domains-list.css",
-                    //"~/Content/Custom/Admin/main-grid.css",
-                    //"~/Content/Custom/Public/listView.css"
-                    "~/Content/Custom/Admin/*.css",
-                    "~/Content/Custom/Public/*.css"
-                    ));
 
             bundles.IgnoreList.Clear();
 

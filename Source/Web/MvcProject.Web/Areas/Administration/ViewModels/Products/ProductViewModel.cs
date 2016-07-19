@@ -84,7 +84,10 @@
 
         [UIHint("Number")]
         [Range(ValidationConstants.ProductAllTimeAverageRatingMin, ValidationConstants.ProductAllTimeAverageRatingMax)]
-        public int AllTimeAverageRating { get; set; }
+        public double? AllTimeAverageRating
+        {
+            get { return this.Votes.Any() ? (double)this.Votes.Average(v => v.VoteValue) : default(double?); }
+        }
 
         public ICollection<CommentDetailsForProductViewModel> Comments
         {

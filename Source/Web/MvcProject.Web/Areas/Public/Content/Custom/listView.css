@@ -1,8 +1,17 @@
-﻿.productsList .k-widget .k-listview {
+﻿/* ======= Kendo ListView table ======= */
+.productsList .k-listview {
     border-style: none;
 }
 
-table td {
+.productsList .k-listview:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.productsList td.listview-product-cell {
     position: relative;
     display: table-cell;
     width: 20%;
@@ -14,14 +23,18 @@ table td {
     width: 100%;
 }*/
 
-.product .img-div img {
+.listview-product-cell img {
+    vertical-align: inherit;
+}
+
+.listview-product-cell .img-div img {
     position: relative;
     margin: auto;
     width: 100%;
     /*height: 100%*/
 }
 
-.product a {
+.listview-product-cell a {
     display: inline;
     visibility: hidden;
     position: absolute;
@@ -36,7 +49,7 @@ table td {
     overflow: hidden;
 }
 
-.product:hover a {
+.listview-product-cell:hover a {
     text-decoration: none;
     visibility: visible;
     width: 100%;
@@ -53,33 +66,27 @@ table td {
     -o-transition: background .2s linear, color .2s linear;
 }
 
-/*#product-title {
-}*/
-
 #sneak-peak {
     margin-top: 25%;
     margin-bottom: 0;
     font-size: 1.2em;
 }
 
-.k-block, .k-draghandle, .k-inline-block, .k-widget {
+.homepage-listview > .k-block,
+.homepage-listview > .k-draghandle,
+.homepage-listview > .k-inline-block,
+.homepage-listview > .k-widget {
     /*padding-left: 40%;*/
     border-style: none;
 }
 
-k-pager-wrap k-widget k-floatwrap {
+/* ======= Kendo ListView pager ======= */
+.homepage-listview > .k-pager-wrap {
     text-align: center;
 }
 
-.k-pager-info {
-    float: none;
-    visibility: hidden;
-}
+    .homepage-listview > .k-pager-wrap > .k-pager-info {
+        float: right;
+        visibility: inherit;
+    }
 
-.k-listview:after {
-    content: ".";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
-}

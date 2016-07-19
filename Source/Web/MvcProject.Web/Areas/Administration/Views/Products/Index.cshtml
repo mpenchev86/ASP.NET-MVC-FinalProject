@@ -18,6 +18,7 @@
     {
         m.Id(p => p.Id);
         m.Field(p => p.Id).Editable(false);
+        m.Field(p => p.AllTimeAverageRating).Editable(false);
         m.Field(p => p.DescriptionId).Editable(true).DefaultValue(null);
         m.Field(p => p.MainImageId).Editable(true).DefaultValue(null);
         m.Field(p => p.ShippingPrice).Editable(true).DefaultValue(null);
@@ -74,7 +75,7 @@
     .AllowCopy(true)
     .Deferred())
 
-@section styles{
+@section Styles{
     <style>
         /*horizontal Grid scrollbar should appear if the browser window is shrinked too much*/
         #productsGrid table {
@@ -94,17 +95,17 @@
         }
     </style>
 
-    <link href="@Url.Content("~/Content/Custom/Admin/main-grid.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/Custom/Admin/details-grid.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/Custom/Admin/custom-popup-editor.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content(StaticResourcesUrls.MainGrid)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content(StaticResourcesUrls.DetailsGrid)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content(StaticResourcesUrls.CustomPopupEditor)" rel="stylesheet" type="text/css" />
 }
 
 @section Scripts{
     @(Html.Kendo().DeferredScripts())
 
-    <script src="@Url.Content("~/Scripts/Custom/error-handler.js")"></script>
-    <script src="@Url.Content("~/Scripts/Custom/datetime-handlers.js")"></script>
-    <script src="@Url.Content("~/Scripts/Custom/grid-details-helpers.js")"></script>
+    <script src="@Url.Content(StaticResourcesUrls.ErrorHandler)"></script>
+    <script src="@Url.Content(StaticResourcesUrls.DatetimeHandlers)"></script>
+    <script src="@Url.Content(StaticResourcesUrls.GridDetailsHelpers)"></script>
 
     <script id="product-details-template" type="text/kendo-tmpl">
         @(Html.Partial("_ProductDetailsTabStrip"))

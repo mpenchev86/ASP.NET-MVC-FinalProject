@@ -8,25 +8,30 @@
 
     using AutoMapper;
     using Comments;
+    using Votes;
     using Common.GlobalConstants;
     using Data.Models;
     using Descriptions;
+    using Images;
     using Infrastructure.Mapping;
     using Services.Web;
+
     public class ProductFullViewModel : BasePublicViewModel<int>, IMapFrom<Product>, IHaveCustomMappings
     {
         private ICollection<string> tags;
-        private ICollection<Image> images;
+        private ICollection<ImageForProductFullViewModel> images;
         private ICollection<CommentForProductFullViewModel> comments;
-        private ICollection<Vote> votes;
+        private ICollection<VoteForProductFullViewModel> votes;
+        private ICollection<ProductCommentWithRatingViewModel> commentsWithRatings;
         private IIdentifierProvider identifierProvider;
 
         public ProductFullViewModel()
         {
             this.tags = new HashSet<string>();
-            this.images = new HashSet<Image>();
+            this.images = new HashSet<ImageForProductFullViewModel>();
             this.comments = new HashSet<CommentForProductFullViewModel>();
-            this.votes = new HashSet<Vote>();
+            this.votes = new HashSet<VoteForProductFullViewModel>();
+            this.commentsWithRatings = new HashSet<ProductCommentWithRatingViewModel>();
             this.identifierProvider = new IdentifierProvider();
         }
 
@@ -56,8 +61,12 @@
         [Range(ValidationConstants.ProductAllTimeItemsSoldMin, ValidationConstants.ProductAllTimeItemsSoldMax)]
         public int AllTimeItemsSold { get; set; }
 
+        [UIHint("Rating")]
         [Range(ValidationConstants.ProductAllTimeAverageRatingMin, ValidationConstants.ProductAllTimeAverageRatingMax)]
-        public int AllTimeAverageRating { get; set; }
+        public double? AllTimeAverageRating { get; set; }
+        //{
+        //    get { return (int)this.Votes.Average(v => v.VoteValue); }
+        //}
 
         public int? MainImageId { get; set; }
 
@@ -85,7 +94,7 @@
             set { this.tags = value; }
         }
 
-        public ICollection<Image> Images
+        public ICollection<ImageForProductFullViewModel> Images
         {
             get { return this.images; }
             set { this.images = value; }
@@ -97,7 +106,13 @@
             set { this.comments = value; }
         }
 
-        public ICollection<Vote> Votes
+        public ICollection<ProductCommentWithRatingViewModel> CommentsWithRatings
+        {
+            get { return this.commentsWithRatings; }
+            set { this.commentsWithRatings = value; }
+        }
+
+        public ICollection<VoteForProductFullViewModel> Votes
         {
             get { return this.votes; }
             set { this.votes = value; }
@@ -107,7 +122,8 @@
         {
             configuration.CreateMap<Product, ProductFullViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags.Select(t => t.Name)));
+                .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags.Select(t => t.Name)))
+                ;
         }
     }
 }

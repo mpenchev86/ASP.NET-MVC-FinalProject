@@ -12,27 +12,27 @@
 
     public class VotesService : BaseDataService<Vote, int, IIntPKDeletableRepository<Vote>>, IVotesService
     {
-        private readonly IIntPKDeletableRepository<Vote> votes;
+        private readonly IIntPKDeletableRepository<Vote> votesRepository;
         private IIdentifierProvider idProvider;
 
         public VotesService(IIntPKDeletableRepository<Vote> votes, IIdentifierProvider idProvider)
             : base(votes, idProvider)
         {
-            this.votes = votes;
+            this.votesRepository = votes;
             this.idProvider = idProvider;
         }
 
         public override Vote GetByEncodedId(string id)
         {
             var idAsInt = this.idProvider.DecodeIdToInt(id);
-            var vote = this.votes.GetById(idAsInt);
+            var vote = this.votesRepository.GetById(idAsInt);
             return vote;
         }
 
         public override Vote GetByEncodedIdFromNotDeleted(string id)
         {
             var idAsInt = this.idProvider.DecodeIdToInt(id);
-            var vote = this.votes.GetByIdFromNotDeleted(idAsInt);
+            var vote = this.votesRepository.GetByIdFromNotDeleted(idAsInt);
             return vote;
         }
     }

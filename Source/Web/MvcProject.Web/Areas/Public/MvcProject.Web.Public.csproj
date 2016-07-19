@@ -49,6 +49,10 @@
       <HintPath>..\..\..\..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Infragistics.Web.Mvc, Version=6.451.161.2052, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\IgniteUI\Infragistics.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Kendo.Mvc, Version=2016.2.504.545, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Libraries\Kendo\Kendo.Mvc.dll</HintPath>
@@ -171,17 +175,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Controllers\BasePublicController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PublicAreaRegistration.cs" />
+    <Compile Include="App_Start\PublicAreaRegistration.cs" />
     <Compile Include="ViewModels\BasePublicViewModel.cs" />
     <Compile Include="ViewModels\Comments\CommentForProductFullViewModel.cs" />
     <Compile Include="ViewModels\Descriptions\DescriptionForProductFullViewModel.cs" />
     <Compile Include="ViewModels\Home\ProductDetailsForIndexListView.cs" />
+    <Compile Include="ViewModels\Images\ImageForProductFullViewModel.cs" />
     <Compile Include="ViewModels\Images\ImageForThumbnailProductViewModel.cs" />
+    <Compile Include="ViewModels\Products\ProductCommentWithRatingViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductFullViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductImagesPartialViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductInfoPartialViewModel.cs" />
@@ -191,6 +198,7 @@
     <Compile Include="ViewModels\Products\ProductWithTagViewModel.cs" />
     <Compile Include="ViewModels\Properties\PropertyForProductFullViewModel.cs" />
     <Compile Include="ViewModels\Users\UserProfileViewModel.cs" />
+    <Compile Include="ViewModels\Votes\VoteForProductFullViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Common\GlobalConstants\MvcProject.Common.GlobalConstants.csproj">
@@ -217,17 +225,52 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Custom\listView.css" />
     <Content Include="Content\Custom\product-full-viewmodel.css" />
+    <Content Include="Content\IgniteUI\jquery-ui.css" />
+    <Content Include="Content\IgniteUI\jquery-ui.min.css" />
+    <Content Include="Content\IgniteUI\Structure\Images\icon_sprite.png" />
+    <Content Include="Content\IgniteUI\Structure\Images\igBrowserLogos.png" />
+    <Content Include="Content\IgniteUI\Structure\Images\igLoadingSmall.gif" />
+    <Content Include="Content\IgniteUI\Structure\Images\igRating\ig-rating-touch.png" />
+    <Content Include="Content\IgniteUI\Structure\Images\igRating\ig-rating-touchx2.png" />
+    <Content Include="Content\IgniteUI\Structure\Images\trial.png" />
+    <Content Include="Content\IgniteUI\Structure\Images\ui-anim_basic_16x16.gif" />
+    <Content Include="Content\IgniteUI\Structure\infragistics.css" />
+    <Content Include="Content\IgniteUI\Structure\Modules\infragistics.ui.rating.css" />
+    <Content Include="Content\IgniteUI\Themes\infragistics\images\icon_sprite.png" />
+    <Content Include="Content\IgniteUI\Themes\infragistics\images\igRating\ig-rating.png" />
+    <Content Include="Content\IgniteUI\Themes\infragistics\images\igVideoPlayer\igVideoPlayerIcons.png" />
+    <Content Include="Content\IgniteUI\Themes\infragistics\images\igVideoPlayer\igVPBackground.png" />
+    <Content Include="Content\IgniteUI\Themes\infragistics\images\igVideoPlayer\igVPBookmarkSprite.png" />
+    <Content Include="Content\IgniteUI\Themes\infragistics\images\trial.png" />
+    <Content Include="Content\IgniteUI\Themes\infragistics\images\ui-anim_basic_16x16.gif" />
+    <Content Include="Content\IgniteUI\Themes\infragistics\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\IgniteUI\Themes\infragistics\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="Content\IgniteUI\Themes\infragistics\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\IgniteUI\Themes\infragistics\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\IgniteUI\Themes\infragistics\infragistics.theme.css" />
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\Custom\igniteui-rating-handler.js" />
+    <Content Include="Scripts\IgniteUI\infragistics.core.Unicode.js" />
+    <Content Include="Scripts\IgniteUI\infragistics.dv.js" />
+    <Content Include="Scripts\IgniteUI\infragistics.lob.js" />
+    <Content Include="Scripts\IgniteUI\infragistics.ui.rating.js" />
+    <Content Include="Scripts\IgniteUI\infragistics.util.Unicode.js" />
+    <Content Include="Scripts\IgniteUI\jquery-ui.js" />
+    <Content Include="Scripts\IgniteUI\jquery-ui.min.js" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\web.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Content\Images\" />
+    <Folder Include="Views\Votes\Partials\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
     <Content Include="Views\Products\Partials\_SneakPeak.cshtml" />
@@ -235,13 +278,31 @@
     <Content Include="Views\Products\Partials\_ProductImages.cshtml" />
     <Content Include="Views\Products\Partials\_ProductSideBar.cshtml" />
     <Content Include="Views\Products\Partials\_ProductInfo.cshtml" />
-    <Content Include="Views\Products\Partials\_ProductComments.cshtml" />
-    <Content Include="Views\Products\Partials\_ProductVotes.cshtml" />
+    <Content Include="Views\Products\Partials\_ProductCommentsWithRatings.cshtml" />
+    <Content Include="Views\Products\Partials\_ProductVote.cshtml" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Views\Products\DisplayTemplates\DescriptionProperties.cshtml" />
     <Content Include="Views\Products\DisplayTemplates\ProductTags.cshtml" />
     <Content Include="Views\Users\UserProfile.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Currency.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DropDown.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Email.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\EmailAddress.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\GridForeignKey.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Integer.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\MultiSelect.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Number.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Password.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
+    <Content Include="Views\Shared\Partials\_CarouselPartial.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Rating.cshtml" />
+    <Content Include="Views\Home\Partials\_ListViewProductCellTemplate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

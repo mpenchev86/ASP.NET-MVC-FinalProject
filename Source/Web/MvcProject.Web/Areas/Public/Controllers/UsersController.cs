@@ -20,10 +20,9 @@
             this.usersService = usersService;
         }
 
-        [DisplayName("Profile")]
-        public ActionResult UserProfile(string userId)
+        public ActionResult UserProfile(string userName)
         {
-            var user = this.usersService.GetById(userId);
+            var user = this.usersService.GetByUserName(userName);
             var result = this.Mapper.Map<ApplicationUser, UserProfileViewModel>(user);
             return this.View(result);
         }

@@ -35,7 +35,12 @@
         public int AllTimeItemsSold { get; set; }
 
         [Range(ValidationConstants.ProductAllTimeAverageRatingMin, ValidationConstants.ProductAllTimeAverageRatingMax)]
-        public int AllTimeAverageRating { get; set; }
+        public double? AllTimeAverageRating { get; set; }
+
+        [Required]
+        [Range(typeof(decimal), ValidationConstants.ProductUnitPriceMinString, ValidationConstants.ProductUnitPriceMaxString)]
+        [DataType(DataType.Currency)]
+        public decimal UnitPrice { get; set; }
 
         [LongDateTimeFormat]
         public DateTime CreatedOn { get; set; }

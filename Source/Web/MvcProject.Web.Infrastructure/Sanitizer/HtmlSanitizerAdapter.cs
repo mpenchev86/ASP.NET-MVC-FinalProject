@@ -9,6 +9,13 @@
 
     public class HtmlSanitizerAdapter : ISanitizer
     {
+        public static string StaticSanitize(string html)
+        {
+            var sanitizer = new HtmlSanitizer();
+            var result = sanitizer.Sanitize(html);
+            return result;
+        }
+
         public string Sanitize(string html)
         {
             var sanitizer = new HtmlSanitizer();

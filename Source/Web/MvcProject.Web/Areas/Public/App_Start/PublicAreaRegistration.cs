@@ -1,6 +1,7 @@
 ﻿namespace MvcProject.Web.Areas.Public
 {
     using System.Web.Mvc;
+    using System.Web.Optimization;
 
     public class PublicAreaRegistration : AreaRegistration
     {
@@ -14,6 +15,8 @@
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
+
             context.MapRoute(
                 name: "Public_default",
                 url: "Public/{controller}/{action}/{id}",

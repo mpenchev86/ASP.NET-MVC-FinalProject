@@ -28,8 +28,8 @@
         public const int ProductShortDescriptionMaxLength = 300;
         public const int ProductAllTimeItemsSoldMin = 0;
         public const int ProductAllTimeItemsSoldMax = int.MaxValue;
-        public const int ProductAllTimeAverageRatingMin = 0;
-        public const int ProductAllTimeAverageRatingMax = 10;
+        public const double ProductAllTimeAverageRatingMin = 0;
+        public const double ProductAllTimeAverageRatingMax = 5;
         public const int ProductQuantityInStockMin = 0;
         public const int ProductQuantityInStockMax = int.MaxValue;
         public const decimal ProductUnitPriceMin = decimal.Zero;
@@ -48,6 +48,6 @@
 
         // Vote entity
         public const int VoteValueMin = 1;
-        public const int VoteValueMax = 10;
+        public const int VoteValueMax = 5;
     }
 }

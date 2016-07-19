@@ -4,9 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Simple MVC E-Commerce Application</title>
-    @Styles.Render(Bundles.StylesContentKendoCss)
-    @Styles.Render(Bundles.StylesContentCss)
-    @RenderSection("styles", required: false)
+    @Styles.Render(Bundles.StylesKendoCss)
+    @Styles.Render(Bundles.StylesBootStrap)
+    @Styles.Render(Bundles.StylesCustomCss)
+    @RenderSection("Styles", required: false)
 </head>
 <body>
     @Html.Partial("_CarouselPartial")
@@ -127,7 +128,7 @@
     @Scripts.Render(Bundles.ScriptsJQueryValidate)
     @Scripts.Render(Bundles.ScriptsKendo)
     @Scripts.Render(Bundles.ScriptsBootstrap)
-    @Scripts.Render(Bundles.ScriptsSignalR)
+    @*@Scripts.Render(Bundles.ScriptsSignalR)*@
     @RenderSection("Scripts", required: false)
 </body>
 </html>

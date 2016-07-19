@@ -12,27 +12,27 @@
 
     public class CommentsService : BaseDataService<Comment, int, IIntPKDeletableRepository<Comment>>, ICommentsService
     {
-        private readonly IIntPKDeletableRepository<Comment> comments;
+        private readonly IIntPKDeletableRepository<Comment> commentsRepository;
         private IIdentifierProvider idProvider;
 
         public CommentsService(IIntPKDeletableRepository<Comment> comments, IIdentifierProvider idProvider)
             : base(comments, idProvider)
         {
-            this.comments = comments;
+            this.commentsRepository = comments;
             this.idProvider = idProvider;
         }
 
         public override Comment GetByEncodedId(string id)
         {
             var idAsInt = this.idProvider.DecodeIdToInt(id);
-            var comment = this.comments.GetById(idAsInt);
+            var comment = this.commentsRepository.GetById(idAsInt);
             return comment;
         }
 
         public override Comment GetByEncodedIdFromNotDeleted(string id)
         {
             var idAsInt = this.idProvider.DecodeIdToInt(id);
-            var comment = this.comments.GetByIdFromNotDeleted(idAsInt);
+            var comment = this.commentsRepository.GetByIdFromNotDeleted(idAsInt);
             return comment;
         }
     }

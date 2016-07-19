@@ -275,8 +275,6 @@
     <Compile Include="ViewModels\Manage\VerifyPhoneNumberViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Custom\Admin\details-grid.css" />
-    <Content Include="Content\Custom\Admin\main-grid.css" />
     <Content Include="Content\Images\Logos\just-orderit-com.png" />
     <Content Include="Content\Kendo\Bootstrap\editor.png" />
     <Content Include="Content\Kendo\Bootstrap\imagebrowser.png" />
@@ -292,9 +290,8 @@
     <Content Include="Content\Kendo\Bootstrap\sprite_2x.png" />
     <Content Include="Content\Kendo\Bootstrap\sprite_kpi.png" />
     <Content Include="Content\Kendo\Bootstrap\sprite_kpi_2x.png" />
-    <Content Include="Scripts\Custom\datetime-handlers.js" />
-    <Content Include="Scripts\Custom\grid-details-helpers.js" />
-    <Content Include="Scripts\Custom\error-handler.js" />
+    <Content Include="Libraries\IgniteUI\Infragistics.Web.Mvc.dll" />
+    <Content Include="Libraries\IgniteUI\Infragistics.Web.Mvc.xml" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.min.map" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
@@ -754,9 +751,6 @@
     <Content Include="Content\bootstrap.journal.css" />
     <Content Include="Content\bootstrap.journal.min.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Custom\Admin\domains-list.css" />
-    <Content Include="Content\Custom\Admin\custom-popup-editor.css" />
-    <Content Include="Content\Custom\Public\listView.css" />
     <Content Include="Content\Kendo\Default\editor.png" />
     <Content Include="Content\Kendo\Default\imagebrowser.png" />
     <Content Include="Content\Kendo\Default\indeterminate.gif" />
@@ -936,7 +930,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Custom\" />
     <Folder Include="Content\Images\Carousel\" />
+    <Folder Include="Scripts\Custom\" />
     <Folder Include="Views\Shared\Partials\" />
   </ItemGroup>
   <ItemGroup>

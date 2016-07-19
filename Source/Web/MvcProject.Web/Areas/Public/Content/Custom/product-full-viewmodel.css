@@ -1,23 +1,23 @@
 ﻿/* ========== Common ========== */
-label {
+.product-full-view label {
     font-size: 18px;
     font-weight: lighter;
     color: crimson;
 }
 
-a {
+.product-full-view a {
     text-decoration: none !important;
 }
 
 /* ========== Product Images ========== */
 #product-images {
-    margin: 30px;
+    margin: 30px 0;
     font-family: Arial, Helvetica, sans-serif;
 }
 
 /* ========== SideBar ========== */
 #product-sidebar {
-    margin: 30px;
+    margin: 30px 0;
     font-family: Arial, Helvetica, sans-serif;
     padding: 60px 0 0 0;
 }

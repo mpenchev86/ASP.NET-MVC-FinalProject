@@ -1,7 +1,7 @@
 ﻿var gridDetailsHelpers = (function () {
     function setDataSource(gridName, data, pageSize) {
         var detailGrid = $(gridName).data("kendoGrid");
-        // This function is in Scripts/Custom/datetime-handlers.js
+        // This function is in datetime-handlers.js
         //dataHandler(data);
         datetimeHandlers.normalizeDateProperties(data);
 

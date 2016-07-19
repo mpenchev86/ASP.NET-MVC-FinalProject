@@ -6,64 +6,64 @@
 
     public class UserRolesService : IUserRolesService<ApplicationUserRole>
     {
-        private readonly IIntPKRepository<ApplicationUserRole> repository;
+        private readonly IIntPKRepository<ApplicationUserRole> userRolesRepository;
 
         public UserRolesService(IIntPKRepository<ApplicationUserRole> repository)
         {
-            this.repository = repository;
+            this.userRolesRepository = repository;
         }
 
         public IQueryable<ApplicationUserRole> GetByRoleId(string roleId)
         {
-            return this.repository.All().Where(r => r.RoleId == roleId);
+            return this.userRolesRepository.All().Where(r => r.RoleId == roleId);
         }
 
         public IQueryable<ApplicationUserRole> GetByRoleName(string roleName)
         {
-            return this.repository.All().Where(r => r.RoleName == roleName);
+            return this.userRolesRepository.All().Where(r => r.RoleName == roleName);
         }
 
         public IQueryable<ApplicationUserRole> GetByUserId(string userId)
         {
-            return this.repository.All().Where(r => r.UserId == userId);
+            return this.userRolesRepository.All().Where(r => r.UserId == userId);
         }
 
         public IQueryable<ApplicationUserRole> GetByUserName(string userName)
         {
-            return this.repository.All().Where(r => r.UserName == userName);
+            return this.userRolesRepository.All().Where(r => r.UserName == userName);
         }
 
         public void CreateUserRole(ApplicationUserRole role)
         {
-            this.repository.Add(role);
-            this.repository.SaveChanges();
+            this.userRolesRepository.Add(role);
+            this.userRolesRepository.SaveChanges();
         }
 
         public void RemoveUserFromRole(string userName, string roleName)
         {
-            this.repository.DeletePermanent(this.GetByUserName(userName).FirstOrDefault(r => r.RoleName == roleName));
-            this.repository.SaveChanges();
+            this.userRolesRepository.DeletePermanent(this.GetByUserName(userName).FirstOrDefault(r => r.RoleName == roleName));
+            this.userRolesRepository.SaveChanges();
         }
 
         public void RemoveUserFromRoles(string userId, string[] roles)
         {
-            var userRoles = this.repository.All().Where(r => (r.UserId == userId) && roles.Contains(r.RoleName));
+            var userRoles = this.userRolesRepository.All().Where(r => (r.UserId == userId) && roles.Contains(r.RoleName));
             foreach (var userRole in userRoles)
             {
-                this.repository.DeletePermanent(userRole);
+                this.userRolesRepository.DeletePermanent(userRole);
             }
 
-            this.repository.SaveChanges();
+            this.userRolesRepository.SaveChanges();
         }
 
         public void RemoveUserFromAllRoles(string userName)
         {
             foreach (var userRole in this.GetByUserName(userName))
             {
-                this.repository.DeletePermanent(userRole);
+                this.userRolesRepository.DeletePermanent(userRole);
             }
 
-            this.repository.SaveChanges();
+            this.userRolesRepository.SaveChanges();
         }
     }
 }

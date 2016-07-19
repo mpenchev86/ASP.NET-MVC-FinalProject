@@ -12,27 +12,27 @@
 
     public class PropertiesService : BaseDataService<Property, int, IIntPKDeletableRepository<Property>>, IPropertiesService
     {
-        private readonly IIntPKDeletableRepository<Property> properties;
+        private readonly IIntPKDeletableRepository<Property> propertiesRepository;
         private IIdentifierProvider idProvider;
 
         public PropertiesService(IIntPKDeletableRepository<Property> properties, IIdentifierProvider idProvider)
             : base(properties, idProvider)
         {
-            this.properties = properties;
+            this.propertiesRepository = properties;
             this.idProvider = idProvider;
         }
 
         public override Property GetByEncodedId(string id)
         {
             var idAsInt = this.idProvider.DecodeIdToInt(id);
-            var property = this.properties.GetById(idAsInt);
+            var property = this.propertiesRepository.GetById(idAsInt);
             return property;
         }
 
         public override Property GetByEncodedIdFromNotDeleted(string id)
         {
             var idAsInt = this.idProvider.DecodeIdToInt(id);
-            var property = this.properties.GetByIdFromNotDeleted(idAsInt);
+            var property = this.propertiesRepository.GetByIdFromNotDeleted(idAsInt);
             return property;
         }
     }

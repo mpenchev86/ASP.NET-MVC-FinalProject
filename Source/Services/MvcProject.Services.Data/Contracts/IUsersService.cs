@@ -15,5 +15,6 @@
     /// </summary>
     public interface IUsersService : IDeletableEntitiesBaseService<ApplicationUser, string>
     {
+        ApplicationUser GetByUserName(string userName);
     }
 }

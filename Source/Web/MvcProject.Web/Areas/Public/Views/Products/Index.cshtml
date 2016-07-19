@@ -7,7 +7,7 @@
     ViewBag.Title = Model.Title;
 }
 
-<div class="row">
+<div class="row product-full-view">
     <div id="product-images" class="col-md-7">
         @Html.Partial("_ProductImages", new ProductImagesPartialViewModel { MainImageId = Model.MainImageId, Images = Model.Images }, null)
     </div>
@@ -23,12 +23,12 @@
                 QuantityInStock = Model.QuantityInStock,
                 IsInStock = Model.IsInStock,
                 RefNumber = Model.EncodedId,
-                Rating = Model.AllTimeAverageRating
+                Rating = Model.AllTimeAverageRating ?? 0
             },
             null)
     </div>
 </div>
-<div class="row" id="product-info">
+<div class="row product-full-view" id="product-info">
     @Html.Partial(
         "_ProductInfo",
         new ProductInfoPartialViewModel
@@ -39,13 +39,39 @@
         },
         null)
 </div>
-<div class="row" id="product-comments">
-    @Html.Partial("_ProductComments", Model.Comments, null)
+<div class="row product-full-view" id="product-comments">
+    @Html.Partial("_ProductCommentsWithRatings", Model.CommentsWithRatings, null)
 </div>
-@*<div class="row" id="product-votes">
-    @Html.Partial("_ProductVotes", Model.Votes, null)
-</div>*@
 
-@section styles{
+@section Styles{
     <link href="@Url.Content("~/Areas/Public/Content/Custom/product-full-viewmodel.css")" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts{
+    <script src="@Url.Content("~/Areas/Public/Scripts/Custom/igniteui-rating-handler.js")"></script>
+
+    <script>
+        $(document).ready(function InitializeRatings() {
+            ratingHandler.configureDisplayWidgets("#igRating");
+            //$("#igRating1").igRating("option", "value", 3.5);
+            var rating = $("#igRating0");
+            console.log(rating);
+        })
+
+        ////Bind after initialization
+        //$(document).delegate("#igRating5", "igratinghoverchange", function (evt, ui) {
+        //    //return the triggered event
+        //    evt;
+     
+        //    //the value before the igRating was hovered 
+        //    ui.oldValue;
+        //    //the current hover value
+        //    ui.value;
+        //});  
+ 
+        ////Initialize
+        //$(".selector").igRating({
+        //    hoverChange : function(evt, ui) {...}
+        //});
+    </script>
 }
