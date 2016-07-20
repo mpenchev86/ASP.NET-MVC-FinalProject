@@ -100,7 +100,7 @@
         [Range(ValidationConstants.ProductAllTimeAverageRatingMin, ValidationConstants.ProductAllTimeAverageRatingMax)]
         public double? AllTimeAverageRating
         {
-            get { return this.Votes.Any() ? (double)this.Votes.Average(v => v.VoteValue) : default(double?); }
+            get { return this.Votes.Any() ? this.Votes.Average(v => v.VoteValue) : default(double?); }
         }
 
         /// <summary>

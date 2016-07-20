@@ -11,14 +11,16 @@
     using Kendo.Mvc.UI;
     using Services.Data;
     using ViewModels.Home;
+    using Services.Web;
 
     public class HomeController : BasePublicController
     {
         private IProductsService productsService;
 
-        public HomeController(IProductsService productsService)
+        public HomeController(IProductsService productsService, ICacheService cache)
         {
             this.productsService = productsService;
+            this.Cache = cache;
         }
 
         // [OutputCache(Duration = 30 * 60, Location = OutputCacheLocation.Server, VaryByCustom = "SomeOtherIdentifier")]
@@ -41,7 +43,7 @@
                 ApplicationSpecificConstants.IndexListViewCacheDurationInSeconds)
                 ;
 
-            return this.Json(viewModel.ToDataSourceResult(request));
+            return this.Json(viewModel.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
         }
 
         // Cached
@@ -59,7 +61,7 @@
                 ApplicationSpecificConstants.IndexListViewCacheDurationInSeconds)
                 ;
 
-            return this.Json(viewModel.ToDataSourceResult(request));
+            return this.Json(viewModel.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
         }
 
         // Cached
@@ -76,7 +78,7 @@
                 ApplicationSpecificConstants.IndexListViewCacheDurationInSeconds)
                 ;
 
-            return this.Json(viewModel.ToDataSourceResult(request));
+            return this.Json(viewModel.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
         }
     }
 }

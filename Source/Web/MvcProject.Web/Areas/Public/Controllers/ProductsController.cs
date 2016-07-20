@@ -14,6 +14,7 @@
     using ViewModels.Comments;
     using ViewModels.Products;
     using ViewModels.Votes;
+
     public class ProductsController : BasePublicController
     {
         private IProductsService productsService;

@@ -12,6 +12,7 @@
     using Infrastructure.Mapping;
     using ViewModels;
     using Services.Web;
+
     public class ProductDetailsForIndexListView : BasePublicViewModel<int>, IMapFrom<Product>, IHaveCustomMappings
     {
         private IIdentifierProvider identifierProvider;
@@ -48,7 +49,10 @@
         public void CreateMappings(IMapperConfiguration configuration)
         {
             configuration.CreateMap<Product, ProductDetailsForIndexListView>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.AllTimeAverageRating, opt => opt.MapFrom(
+                            src => src.Votes.Any() ? src.Votes.Average(v => v.VoteValue) : default(double?)))
+                ;
         }
     }
 }

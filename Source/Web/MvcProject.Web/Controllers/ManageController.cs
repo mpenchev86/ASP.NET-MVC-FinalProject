@@ -6,6 +6,7 @@
     using System.Web;
     using System.Web.Mvc;
     using Data.Models;
+    using Infrastructure.ActionResults;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
@@ -331,7 +332,12 @@
         public ActionResult LinkLogin(string provider)
         {
             // Request a redirect to the external login provider to link a login for the current user
-            return new AccountController.ChallengeResult(provider, this.Url.Action("LinkLoginCallback", "Manage"), this.User.Identity.GetUserId());
+            return new ChallengeResult(
+                provider,
+                this.Url.Action("LinkLoginCallback", "Manage"),
+                this.User.Identity.GetUserId(),
+                this.HttpContext.GetOwinContext(),
+                AccountController.XsrfKey);
         }
 
         // GET: /Manage/LinkLoginCallback

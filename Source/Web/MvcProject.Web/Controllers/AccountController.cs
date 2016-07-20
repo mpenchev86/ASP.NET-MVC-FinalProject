@@ -9,6 +9,7 @@
     using System.Web.Mvc;
 
     using Data.Models;
+    using Infrastructure.ActionResults;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
@@ -20,7 +21,7 @@
     public class AccountController : Controller
     {
         // Used for XSRF protection when adding external logins
-        private const string XsrfKey = "XsrfId";
+        internal const string XsrfKey = "XsrfId";
 
         private /*ApplicationUserManager*/UserManager<ApplicationUser, string> userManager;
         private /*ApplicationRoleManager*/RoleManager<ApplicationRole, string> roleManager;
@@ -91,6 +92,11 @@
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            if (this.HttpContext.User.Identity.IsAuthenticated)
+            {
+                return this.RedirectToAction("Index", "Home", new { area = Areas.PublicAreaName });
+            }
+
             this.ViewBag.ReturnUrl = returnUrl;
             return this.View();
         }
@@ -314,7 +320,9 @@
             // Request a redirect to the external login provider
             return new ChallengeResult(
                 provider,
-                this.Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
+                this.Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }),
+                this.HttpContext.GetOwinContext(),
+                XsrfKey);
         }
 
         // GET: /Account/SendCode
@@ -481,38 +489,6 @@
             }
 
             return this.RedirectToAction("Index", "Home", new { area = Areas.PublicAreaName });
-        }
-
-        internal class ChallengeResult : HttpUnauthorizedResult
-        {
-            public ChallengeResult(string provider, string redirectUri)
-                : this(provider, redirectUri, null)
-            {
-            }
-
-            public ChallengeResult(string provider, string redirectUri, string userId)
-            {
-                this.LoginProvider = provider;
-                this.RedirectUri = redirectUri;
-                this.UserId = userId;
-            }
-
-            public string LoginProvider { get; set; }
-
-            public string RedirectUri { get; set; }
-
-            public string UserId { get; set; }
-
-            public override void ExecuteResult(ControllerContext context)
-            {
-                var properties = new AuthenticationProperties { RedirectUri = this.RedirectUri };
-                if (this.UserId != null)
-                {
-                    properties.Dictionary[AccountController.XsrfKey] = this.UserId;
-                }
-
-                context.HttpContext.GetOwinContext().Authentication.Challenge(properties, this.LoginProvider);
-            }
         }
         #endregion
     }

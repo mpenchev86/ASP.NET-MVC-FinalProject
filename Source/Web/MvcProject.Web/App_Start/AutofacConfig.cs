@@ -35,7 +35,6 @@
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             builder.RegisterControllers(typeof(BasePublicController).Assembly);
             builder.RegisterControllers(typeof(BaseAdminController).Assembly);
-            //builder.RegisterControllers(typeof(BaseCommonController).Assembly);
 
             // OPTIONAL: Register model binders that require DI.
             builder.RegisterModelBinders(Assembly.GetExecutingAssembly());
@@ -126,27 +125,16 @@
                 .AsImplementedInterfaces()
                 .InstancePerRequest();
 
-            // Controllers
             //builder
-            //    .RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
-            //    .AssignableTo<BaseCommonController>()
+            //    .RegisterAssemblyTypes(Assembly.GetAssembly(typeof(BasePublicController)))
+            //    .AssignableTo<BasePublicController>()
             //    .PropertiesAutowired();
 
-            //var testModuleAssembly = Assembly.Load(Assemblies.TestModuleAssemblyName);
-            //builder
-            //    .RegisterAssemblyTypes(testModuleAssembly)
-            //    .AssignableTo<BaseTestController>()
-            //    .PropertiesAutowired();
-
+            // View Engines
             builder
-                .RegisterAssemblyTypes(Assembly.GetAssembly(typeof(BasePublicController)))
-                .AssignableTo<BasePublicController>()
-                .PropertiesAutowired();
-
-            //builder
-            //    .RegisterType(typeof(TestModule.Controllers.HomeController))
-            //    .As(typeof(BaseController))
-            //    .InstancePerRequest();
+                .RegisterType(typeof(CustomViewLocationRazorViewEngine))
+                .As(typeof(IViewEngine))
+                .InstancePerRequest();
         }
     }
 }
