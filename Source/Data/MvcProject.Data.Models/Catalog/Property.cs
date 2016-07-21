@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using Common.GlobalConstants;
 
     using MvcProject.Data.Models.Contracts;
 
@@ -19,6 +20,7 @@
         /// </value>
         [Required]
         [DataType(DataType.MultilineText)]
+        [StringLength(maximumLength: ValidationConstants.PropertyNameMaxLength)]
         public string Name { get; set; }
 
         /// <summary>
@@ -28,6 +30,7 @@
         /// The value of a property.
         /// </value>
         [DataType(DataType.MultilineText)]
+        [StringLength(maximumLength: ValidationConstants.PropertyValueMaxLength)]
         public string Value { get; set; }
 
         /// <summary>

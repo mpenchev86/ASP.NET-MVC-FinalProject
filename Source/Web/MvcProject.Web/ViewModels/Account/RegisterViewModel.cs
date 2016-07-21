@@ -16,12 +16,12 @@
         public string Email { get; set; }
 
         [Required]
-        [StringLength(20, ErrorMessage = ValidationConstants.ErrorMessageUsernameLength, MinimumLength = 6)]
+        [StringLength(ValidationConstants.ApplicationUserNameMaxLength, ErrorMessage = ValidationConstants.ErrorMessageUsernameLength, MinimumLength = ValidationConstants.ApplicationUserNameMinLength)]
         [Display(Name = "UserName")]
         public string UserName { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = ValidationConstants.ErrorMessagePasswordMinLength, MinimumLength = 4)]
+        [StringLength(ValidationConstants.ApplicationUserPasswordMaxLength, ErrorMessage = ValidationConstants.ErrorMessagePasswordMinLength, MinimumLength = ValidationConstants.ApplicationUserPasswordMinLength)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }

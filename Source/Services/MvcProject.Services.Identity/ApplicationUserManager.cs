@@ -7,7 +7,7 @@
     using System.Security.Claims;
     using System.Threading.Tasks;
     using System.Web;
-
+    using Common.GlobalConstants;
     using Data.DbAccessConfig.Contexts;
     using Data.DbAccessConfig.IdentityStores;
     using Data.Models;
@@ -45,7 +45,7 @@
             // Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator
             {
-                RequiredLength = 4,
+                RequiredLength = ValidationConstants.ApplicationUserPasswordMinLength,
                 RequireNonLetterOrDigit = false,
                 RequireDigit = false,
                 RequireLowercase = false,

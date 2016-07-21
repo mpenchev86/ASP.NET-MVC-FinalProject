@@ -6,7 +6,9 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
     using System.Web;
+
     using AutoMapper;
+    using Common.GlobalConstants;
     using Data.Models;
     using Descriptions;
     using Infrastructure.DataAnnotations;
@@ -16,9 +18,11 @@
     {
         [Required]
         [DataType(DataType.MultilineText)]
+        [StringLength(maximumLength: ValidationConstants.PropertyNameMaxLength)]
         public string Name { get; set; }
 
         [DataType(DataType.MultilineText)]
+        [StringLength(maximumLength: ValidationConstants.PropertyValueMaxLength)]
         public string Value { get; set; }
 
         [UIHint("DropDown")]
