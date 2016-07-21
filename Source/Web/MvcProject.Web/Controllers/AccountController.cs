@@ -320,9 +320,10 @@
             // Request a redirect to the external login provider
             return new ChallengeResult(
                 provider,
-                this.Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }),
-                this.HttpContext.GetOwinContext(),
-                XsrfKey);
+                this.Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl })
+                //,this.HttpContext.GetOwinContext(),
+                //XsrfKey
+                );
         }
 
         // GET: /Account/SendCode

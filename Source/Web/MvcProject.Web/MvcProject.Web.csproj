@@ -855,7 +855,6 @@
     <Content Include="Content\Kendo\kendo.default.min.css.map" />
     <Content Include="Content\Kendo\kendo.silver.min.css.map" />
     <Content Include="MvcProject.Web.ruleset" />
-    <None Include="Properties\PublishProfiles\testWebDep.pubxml" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.dll" />
     <Content Include="Libraries\Kendo\Kendo.Mvc.xml" />
     <Content Include="Scripts\bootstrap.js" />
@@ -932,6 +931,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\Custom\" />
     <Folder Include="Content\Images\Carousel\" />
+    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Scripts\Custom\" />
     <Folder Include="Views\Shared\Partials\" />
   </ItemGroup>
