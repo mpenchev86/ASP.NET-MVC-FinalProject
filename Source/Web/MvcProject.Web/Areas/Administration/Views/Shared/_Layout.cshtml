@@ -4,10 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Simple MVC E-Commerce Application</title>
-    @*@Styles.Render(Bundles.StylesKendoCss)*@
+    @Styles.Render(Bundles.StylesKendoCss)
     @Styles.Render(Bundles.StylesBootStrap)
     @Styles.Render(Bundles.StylesCustomCss)
-    @RenderSection("Styles", required: false)
+    @RenderSection("styles", required: false)
 </head>
 <body>
     @Html.Partial("_CarouselPartial")
@@ -79,7 +79,7 @@
 
                 <div class="col-md-3">
                     <ul class="nav navbar-nav navbar-right collapse navbar-collapse">
-                        @if (this.Context.User.IsInRole(IdentityRoles.Admin))
+                        @if (this.Context.User.IsInRole(MvcProject.Common.GlobalConstants.IdentityRoles.Admin))
                         {
                             <li><a @*class="btn btn-default"*@ href="@Url.Action("Index", "Home", new { Area = Areas.AdministrationAreaName })">@Areas.AdministrationAreaName</a></li>
 	                    }
@@ -126,7 +126,7 @@
     <!-- SCRIPTS -->
     @Scripts.Render(Bundles.ScriptsJQuery)
     @Scripts.Render(Bundles.ScriptsJQueryValidate)
-    @*@Scripts.Render(Bundles.ScriptsKendo)*@
+    @Scripts.Render(Bundles.ScriptsKendo)
     @Scripts.Render(Bundles.ScriptsBootstrap)
     @*@Scripts.Render(Bundles.ScriptsSignalR)*@
     @RenderSection("Scripts", required: false)

@@ -44,31 +44,73 @@
 
             if (!context.Users.Any())
             {
+                var hasher = new PasswordHasher();
                 context.Users.AddOrUpdate(
                     u => u.Email,
                     new ApplicationUser
                     {
-                        CreatedOn = DateTime.Now,
+                        Email = "admin@mail.com",
+                        UserName = "admin",
+                        PasswordHash = hasher.HashPassword("123456"),
+                        SecurityStamp = Guid.NewGuid().ToString(),
                         IsDeleted = false,
-                        Email = "initial1@mail.com",
-                        EmailConfirmed = true,
+                        EmailConfirmed = false,
                         PhoneNumberConfirmed = false,
                         TwoFactorEnabled = false,
                         LockoutEnabled = false,
-                        AccessFailedCount = 50,
-                        UserName = "initial1@mail.com",
                     },
                     new ApplicationUser
                     {
-                        CreatedOn = DateTime.Now,
+                        Email = "sample1@mail.com",
+                        UserName = "sample1",
+                        PasswordHash = hasher.HashPassword("111111"),
+                        SecurityStamp = Guid.NewGuid().ToString(),
                         IsDeleted = false,
-                        Email = "initial2@mail.com",
+                        EmailConfirmed = false,
+                        PhoneNumberConfirmed = false,
+                        TwoFactorEnabled = false,
+                        LockoutEnabled = false,
+                    },
+                    new ApplicationUser
+                    {
+                        Email = "sample2@mail.com",
+                        UserName = "sample2",
+                        PasswordHash = hasher.HashPassword("222222"),
+                        SecurityStamp = Guid.NewGuid().ToString(),
+                        IsDeleted = false,
                         EmailConfirmed = true,
                         PhoneNumberConfirmed = false,
                         TwoFactorEnabled = false,
                         LockoutEnabled = false,
-                        AccessFailedCount = 50,
-                        UserName = "initial2@mail.com",
+                    });
+
+                context.SaveChanges();
+            }
+
+            if (!context.UserRoles.Any())
+            {
+                context.UserRoles.AddOrUpdate(
+                    r => new { r.UserName, r.RoleName },
+                    new ApplicationUserRole
+                    {
+                        UserId = context.Users.FirstOrDefault(u => u.UserName == "admin").Id,
+                        UserName = "admin",
+                        RoleId = context.Roles.FirstOrDefault(r => r.Name == IdentityRoles.Admin).Id,
+                        RoleName = IdentityRoles.Admin
+                    },
+                    new ApplicationUserRole
+                    {
+                        UserId = context.Users.FirstOrDefault(u => u.UserName == "sample1").Id,
+                        UserName = "sample1",
+                        RoleId = context.Roles.FirstOrDefault(r => r.Name == IdentityRoles.Customer).Id,
+                        RoleName = IdentityRoles.Customer
+                    },
+                    new ApplicationUserRole
+                    {
+                        UserId = context.Users.FirstOrDefault(u => u.UserName == "sample2").Id,
+                        UserName = "sample2",
+                        RoleId = context.Roles.FirstOrDefault(r => r.Name == IdentityRoles.Customer).Id,
+                        RoleName = IdentityRoles.Customer
                     });
 
                 context.SaveChanges();
@@ -214,7 +256,7 @@
                         Title = "vafla chudo",
                         ShortDescription = "Waffles you can't get enough of",
                         QuantityInStock = 14,
-                        UnitPrice = 366662717.0002M,
+                        UnitPrice = 3662717.0002M,
                         CategoryId = 7,
                     },
                     new Product
@@ -235,17 +277,23 @@
 
             if (!context.Comments.Any())
             {
+                var userIds = new string[]
+                {
+                    context.Users.FirstOrDefault(u => u.UserName == "admin").Id,
+                    context.Users.FirstOrDefault(u => u.UserName == "sample1").Id,
+                    context.Users.FirstOrDefault(u => u.UserName == "sample2").Id,
+                };
                 context.Comments.AddOrUpdate(
                     c => c.Id,
-                    new Comment { Content = "Oh, it's amazing! I'll buy it again tomorrow..", ProductId = 4, UserId = context.Users.OrderBy(u => u.Id).FirstOrDefault().Id },
-                    new Comment { Content = "blaaaaaahahahahhahahahahaha", ProductId = 1, UserId = context.Users.OrderBy(u => u.Id).Skip(1).FirstOrDefault().Id },
-                    new Comment { Content = "Dont waste your money for that crap!", ProductId = 2, UserId = context.Users.OrderBy(u => u.Id).FirstOrDefault().Id },
-                    new Comment { Content = "bokluk e.. naistina, mnogo sym dovolen.", ProductId = 2, UserId = context.Users.OrderBy(u => u.Id).Skip(1).FirstOrDefault().Id },
-                    new Comment { Content = "bokluk e.. naistina, mnogo sym dovolen.", ProductId = 2, UserId = context.Users.OrderBy(u => u.Id).Skip(1).FirstOrDefault().Id },
-                    new Comment { Content = "bokluk e.. naistina, mnogo sym dovolen.", ProductId = 2, UserId = context.Users.OrderBy(u => u.Id).Skip(1).FirstOrDefault().Id },
-                    new Comment { Content = "bokluk e.. naistina, mnogo sym dovolen.", ProductId = 2, UserId = context.Users.OrderBy(u => u.Id).Skip(1).FirstOrDefault().Id },
-                    new Comment { Content = "bokluk e.. naistina, mnogo sym dovolen.", ProductId = 2, UserId = context.Users.OrderBy(u => u.Id).Skip(1).FirstOrDefault().Id },
-                    new Comment { Content = "bokluk e.. naistina, mnogo sym dovolen.", ProductId = 2, UserId = context.Users.OrderBy(u => u.Id).Skip(1).FirstOrDefault().Id });
+                    new Comment { Content = "Oh, it's amazing! I'll buy it again tomorrow..", ProductId = 4, UserId = userIds[0] },
+                    new Comment { Content = "blaaaaaahahahahhahahahahaha", ProductId = 1, UserId = userIds[1] },
+                    new Comment { Content = "Dont waste your money for that crap!", ProductId = 2, UserId = userIds[2] },
+                    new Comment { Content = "bokluk e.. naistina, mnogo sym dovolen.", ProductId = 2, UserId = userIds[0] },
+                    new Comment { Content = "bokluk e.. naistina, mnogo sym dovolen.", ProductId = 2, UserId = userIds[1] },
+                    new Comment { Content = "bokluk e.. naistina, mnogo sym dovolen.", ProductId = 7, UserId = userIds[2] },
+                    new Comment { Content = "bokluk e.. naistina, mnogo sym dovolen.", ProductId = 3, UserId = userIds[0] },
+                    new Comment { Content = "bokluk e.. naistina, mnogo sym dovolen.", ProductId = 3, UserId = userIds[1] },
+                    new Comment { Content = "bokluk e.. naistina, mnogo sym dovolen.", ProductId = 5, UserId = userIds[0] });
 
                 context.SaveChanges();
             }

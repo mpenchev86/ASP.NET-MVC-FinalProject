@@ -38,6 +38,8 @@
 
         public IDbSet<Vote> Votes { get; set; }
 
+        public IDbSet<ApplicationUserRole> UserRoles { get; set; }
+
         public static MvcProjectDbContext Create()
         {
             return new MvcProjectDbContext();

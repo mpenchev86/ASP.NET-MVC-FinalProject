@@ -33,16 +33,17 @@
 
         public string UserId { get; set; }
 
-        public string XsrfKey { get; private set; }
-
         public IOwinContext OwinContext { get; set; }
 
         public override void ExecuteResult(ControllerContext context)
         {
+            // Suppresses FormsAuthentication on redirect. Used for external authentication.
+            context.RequestContext.HttpContext.Response.SuppressFormsAuthenticationRedirect = true;
+
             var properties = new AuthenticationProperties { RedirectUri = this.RedirectUri };
             if (this.UserId != null)
             {
-                properties.Dictionary[this.XsrfKey] = this.UserId;
+                properties.Dictionary[this.xsrfKey] = this.UserId;
             }
 
             this.OwinContext.Authentication.Challenge(properties, this.LoginProvider);

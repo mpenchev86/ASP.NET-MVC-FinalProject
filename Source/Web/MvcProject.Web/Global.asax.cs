@@ -4,12 +4,14 @@
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Globalization;
     using System.Linq;
     using System.Reflection;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
+
     using Areas.Administration.Controllers;
     using Areas.Public.Controllers;
     using Data.DbAccessConfig.Contexts;
@@ -25,7 +27,7 @@
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
+            BundleConfig.RegisterBundles(BundleTable.Bundles, CultureInfo.CurrentUICulture.ToString() ?? "en-US");
 
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<MvcProjectDbContext, Configuration>());
             ViewEnginesConfig.RegisterEngines(ViewEngines.Engines);

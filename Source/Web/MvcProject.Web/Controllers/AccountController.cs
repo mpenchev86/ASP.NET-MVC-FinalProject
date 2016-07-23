@@ -21,27 +21,23 @@
     public class AccountController : Controller
     {
         // Used for XSRF protection when adding external logins
-        internal const string XsrfKey = "XsrfId";
+        private const string XsrfKey = "XsrfId";
 
-        private /*ApplicationUserManager*/UserManager<ApplicationUser, string> userManager;
-        private /*ApplicationRoleManager*/RoleManager<ApplicationRole, string> roleManager;
-        private /*ApplicationSignInManager*/SignInManager<ApplicationUser, string> signInManager;
-
-        //public AccountController()
-        //{
-        //}
+        private UserManager<ApplicationUser, string> userManager;
+        private RoleManager<ApplicationRole, string> roleManager;
+        private SignInManager<ApplicationUser, string> signInManager;
 
         public AccountController(
-            /*ApplicationUserManager*/UserManager<ApplicationUser, string> userManager,
-            /*ApplicationRoleManager*/RoleManager<ApplicationRole, string> roleManager,
-            /*ApplicationSignInManager*/SignInManager<ApplicationUser, string> signInManager)
+            UserManager<ApplicationUser, string> userManager,
+            RoleManager<ApplicationRole, string> roleManager,
+            SignInManager<ApplicationUser, string> signInManager)
         {
             this.UserManager = userManager;
             this.RoleManager = roleManager;
             this.SignInManager = signInManager;
         }
 
-        public /*ApplicationUserManager*/UserManager<ApplicationUser, string> UserManager
+        public UserManager<ApplicationUser, string> UserManager
         {
             get
             {
@@ -54,7 +50,7 @@
             }
         }
 
-        public /*ApplicationRoleManager*/RoleManager<ApplicationRole, string> RoleManager
+        public RoleManager<ApplicationRole, string> RoleManager
         {
             get
             {
@@ -67,7 +63,7 @@
             }
         }
 
-        public /*ApplicationSignInManager*/SignInManager<ApplicationUser, string> SignInManager
+        public SignInManager<ApplicationUser, string> SignInManager
         {
             get
             {
@@ -317,13 +313,13 @@
         [ValidateAntiForgeryToken]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
-            // Request a redirect to the external login provider
+            // Request a redirect to the external login provider. XsrfKey should be the same as the one in AccountController.
             return new ChallengeResult(
                 provider,
-                this.Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl })
-                //,this.HttpContext.GetOwinContext(),
-                //XsrfKey
-                );
+                this.Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }),
+                null,
+                this.HttpContext.GetOwinContext(),
+                XsrfKey);
         }
 
         // GET: /Account/SendCode

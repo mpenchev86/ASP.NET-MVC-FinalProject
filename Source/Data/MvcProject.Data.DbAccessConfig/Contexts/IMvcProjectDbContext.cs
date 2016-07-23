@@ -27,6 +27,8 @@
 
         IDbSet<ApplicationRole> Roles { get; set; }
 
+        IDbSet<ApplicationUserRole> UserRoles { get; set; }
+
         DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity)
             where TEntity : class;
 

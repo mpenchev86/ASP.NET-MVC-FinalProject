@@ -19,10 +19,10 @@
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
-        private /*ApplicationSignInManager*/SignInManager<ApplicationUser, string> signInManager;
-        private /*ApplicationUserManager*/UserManager<ApplicationUser, string> userManager;
+        private SignInManager<ApplicationUser, string> signInManager;
+        private UserManager<ApplicationUser, string> userManager;
 
-        public ManageController(/*ApplicationUserManager*/UserManager<ApplicationUser, string> userManager, /*ApplicationSignInManager*/SignInManager<ApplicationUser, string> signInManager)
+        public ManageController(UserManager<ApplicationUser, string> userManager, SignInManager<ApplicationUser, string> signInManager)
         {
             this.UserManager = userManager;
             this.SignInManager = signInManager;
@@ -39,7 +39,7 @@
             Error
         }
 
-        public /*ApplicationSignInManager*/SignInManager<ApplicationUser, string> SignInManager
+        public SignInManager<ApplicationUser, string> SignInManager
         {
             get
             {
@@ -52,7 +52,7 @@
             }
         }
 
-        public /*ApplicationUserManager*/UserManager<ApplicationUser, string> UserManager
+        public UserManager<ApplicationUser, string> UserManager
         {
             get
             {
@@ -331,13 +331,14 @@
         [ValidateAntiForgeryToken]
         public ActionResult LinkLogin(string provider)
         {
-            // Request a redirect to the external login provider to link a login for the current user
+            // Request a redirect to the external login provider to link a login for the current user.
+            // The xsrfKey must be the one defined
             return new ChallengeResult(
                 provider,
                 this.Url.Action("LinkLoginCallback", "Manage"),
                 this.User.Identity.GetUserId(),
                 this.HttpContext.GetOwinContext(),
-                AccountController.XsrfKey);
+                XsrfKey);
         }
 
         // GET: /Manage/LinkLoginCallback

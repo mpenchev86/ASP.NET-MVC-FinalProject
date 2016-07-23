@@ -8,11 +8,8 @@
 
     public class BundleConfig
     {
-        // TODO: Improve, if possible
-        private static string userCulture = CultureInfo.CurrentUICulture.ToString();
-
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
-        public static void RegisterBundles(BundleCollection bundles)
+        public static void RegisterBundles(BundleCollection bundles, string userCulture)
         {
             // JavaScript
             bundles.Add(new ScriptBundle(Bundles.ScriptsJQuery)

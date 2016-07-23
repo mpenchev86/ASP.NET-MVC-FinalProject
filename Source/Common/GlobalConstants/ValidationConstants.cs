@@ -7,7 +7,7 @@
         public const string ErrorMessagePasswordConfirmNew = "The new password and confirmation password do not match.";
         public const string ErrorMessagePasswordMinLength = "The {0} must be at least {2} characters long.";
         public const string ErrorMessageUsernameLength = "The {0} must be between {2} and {1} characters long.";
-        public const int ApplicationUserNameMinLength = 6;
+        public const int ApplicationUserNameMinLength = 5;
         public const int ApplicationUserNameMaxLength = 20;
         public const int ApplicationUserPasswordMinLength = 6;
         public const int ApplicationUserPasswordMaxLength = 100;

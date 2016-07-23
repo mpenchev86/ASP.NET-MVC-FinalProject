@@ -13,26 +13,24 @@
     public class ImagesService : BaseDataService<Image, int, IIntPKDeletableRepository<Image>>, IImagesService
     {
         private readonly IIntPKDeletableRepository<Image> imagesRepository;
-        private IIdentifierProvider idProvider;
+        private IIdentifierProvider identifierProvider;
 
         public ImagesService(IIntPKDeletableRepository<Image> images, IIdentifierProvider idProvider)
             : base(images, idProvider)
         {
             this.imagesRepository = images;
-            this.idProvider = idProvider;
+            this.identifierProvider = idProvider;
         }
 
         public override Image GetByEncodedId(string id)
         {
-            var idAsInt = this.idProvider.DecodeIdToInt(id);
-            var image = this.imagesRepository.GetById(idAsInt);
+            var image = this.imagesRepository.GetById(this.identifierProvider.DecodeIdToInt(id));
             return image;
         }
 
         public override Image GetByEncodedIdFromNotDeleted(string id)
         {
-            var idAsInt = this.idProvider.DecodeIdToInt(id);
-            var image = this.imagesRepository.GetByIdFromNotDeleted(idAsInt);
+            var image = this.imagesRepository.GetByIdFromNotDeleted(this.identifierProvider.DecodeIdToInt(id));
             return image;
         }
     }

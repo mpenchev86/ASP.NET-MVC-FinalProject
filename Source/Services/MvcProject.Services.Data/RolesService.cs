@@ -15,7 +15,7 @@
     {
         private readonly IStringPKDeletableRepository<ApplicationRole> rolesRepository;
         private readonly RoleManager<ApplicationRole, string> roleManager;
-        private IIdentifierProvider idProvider;
+        private IIdentifierProvider identifierProvider;
 
         public RolesService(
             IStringPKDeletableRepository<ApplicationRole> roles,
@@ -25,7 +25,7 @@
         {
             this.rolesRepository = roles;
             this.roleManager = roleManager;
-            this.idProvider = idProvider;
+            this.identifierProvider = idProvider;
         }
 
         public ApplicationRole GetByName(string name)
@@ -35,14 +35,14 @@
 
         public override ApplicationRole GetByEncodedId(string id)
         {
-            var decodedId = this.idProvider.DecodeIdToString(id);
+            var decodedId = this.identifierProvider.DecodeIdToString(id);
             var role = this.rolesRepository.GetById(decodedId);
             return role;
         }
 
         public override ApplicationRole GetByEncodedIdFromNotDeleted(string id)
         {
-            var decodedId = this.idProvider.DecodeIdToString(id);
+            var decodedId = this.identifierProvider.DecodeIdToString(id);
             var role = this.rolesRepository.GetByIdFromNotDeleted(decodedId);
             return role;
         }

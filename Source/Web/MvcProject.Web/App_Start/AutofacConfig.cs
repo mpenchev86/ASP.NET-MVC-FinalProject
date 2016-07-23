@@ -59,30 +59,11 @@
 
         public static void RegisterServices(ContainerBuilder builder)
         {
-            // Application Context
+            // Application Db Context
             builder
                 .Register(x => new MvcProjectDbContext())
                 .As<DbContext>()
                 .InstancePerRequest();
-
-            // ASP.NET Identity
-            builder
-                .Register(x => HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationUserManager>())
-                .As<UserManager<ApplicationUser, string>>()
-                .InstancePerRequest()
-                ;
-
-            builder
-                .Register(x => HttpContext.Current.Request.GetOwinContext().Get<ApplicationRoleManager>())
-                .As<RoleManager<ApplicationRole, string>>()
-                .InstancePerRequest()
-                ;
-
-            builder
-                .Register(x => HttpContext.Current.Request.GetOwinContext().Get<ApplicationSignInManager>())
-                .As<SignInManager<ApplicationUser, string>>()
-                .InstancePerRequest()
-                ;
 
             // Repositories
             builder
@@ -118,6 +99,25 @@
                 .AsImplementedInterfaces()
                 .InstancePerRequest();
 
+            // ASP.NET Identity Managers
+            builder
+                .Register(x => HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationUserManager>())
+                .As<UserManager<ApplicationUser, string>>()
+                .InstancePerRequest()
+                ;
+
+            builder
+                .Register(x => HttpContext.Current.Request.GetOwinContext().Get<ApplicationRoleManager>())
+                .As<RoleManager<ApplicationRole, string>>()
+                .InstancePerRequest()
+                ;
+
+            builder
+                .Register(x => HttpContext.Current.Request.GetOwinContext().Get<ApplicationSignInManager>())
+                .As<SignInManager<ApplicationUser, string>>()
+                .InstancePerRequest()
+                ;
+
             // Infrastructure
             var infrastructureAssembly = Assembly.Load(Assemblies.InfrastructureAssemblyName);
             builder
@@ -125,16 +125,11 @@
                 .AsImplementedInterfaces()
                 .InstancePerRequest();
 
-            //builder
-            //    .RegisterAssemblyTypes(Assembly.GetAssembly(typeof(BasePublicController)))
-            //    .AssignableTo<BasePublicController>()
-            //    .PropertiesAutowired();
-
-            // View Engines
-            builder
-                .RegisterType(typeof(CustomViewLocationRazorViewEngine))
-                .As(typeof(IViewEngine))
-                .InstancePerRequest();
+            //// View Engines
+            // builder
+            //    .RegisterType(typeof(CustomViewLocationRazorViewEngine))
+            //    .As(typeof(IViewEngine))
+            //    .InstancePerRequest();
         }
     }
 }

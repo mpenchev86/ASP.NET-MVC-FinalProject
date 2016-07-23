@@ -14,12 +14,12 @@
         where TRepository : class, IRepository<TEntity, TKey>, IDeletableRepository<TEntity, TKey>
     {
         private readonly TRepository repository;
-        private IIdentifierProvider idProvider;
+        private IIdentifierProvider identifierProvider;
 
         public BaseDataService(TRepository repository, IIdentifierProvider idProvider)
         {
             this.repository = repository;
-            this.idProvider = idProvider;
+            this.identifierProvider = idProvider;
         }
 
         public virtual IQueryable<TEntity> GetAll()

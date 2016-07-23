@@ -269,6 +269,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Images\" />
+    <Folder Include="Views\Shared\Partials\" />
     <Folder Include="Views\Votes\Partials\" />
   </ItemGroup>
   <ItemGroup>
@@ -299,7 +300,6 @@
     <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
-    <Content Include="Views\Shared\Partials\_CarouselPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Rating.cshtml" />
     <Content Include="Views\Home\Partials\_ListViewProductCellTemplate.cshtml" />
@@ -328,7 +328,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>47277</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:47277/</IISUrl>
+          <IISUrl>http://localhost:47277</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
