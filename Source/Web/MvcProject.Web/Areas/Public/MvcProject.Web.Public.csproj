@@ -185,6 +185,7 @@
     <Compile Include="ViewModels\BasePublicViewModel.cs" />
     <Compile Include="ViewModels\Comments\CommentForProductFullViewModel.cs" />
     <Compile Include="ViewModels\Descriptions\DescriptionForProductFullViewModel.cs" />
+    <Compile Include="ViewModels\Home\CarouselData.cs" />
     <Compile Include="ViewModels\Home\ProductDetailsForIndexListView.cs" />
     <Compile Include="ViewModels\Images\ImageForProductFullViewModel.cs" />
     <Compile Include="ViewModels\Images\ImageForThumbnailProductViewModel.cs" />
@@ -225,6 +226,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Custom\homepage-carousel.css" />
     <Content Include="Content\Custom\listView.css" />
     <Content Include="Content\Custom\product-full-viewmodel.css" />
     <Content Include="Content\IgniteUI\jquery-ui.css" />
@@ -303,6 +305,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Rating.cshtml" />
     <Content Include="Views\Home\Partials\_ListViewProductCellTemplate.cshtml" />
+    <Content Include="Views\Shared\_Carousel.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

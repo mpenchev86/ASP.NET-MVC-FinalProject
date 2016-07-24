@@ -10,7 +10,7 @@
     @RenderSection("Styles", required: false)
 </head>
 <body>
-    @Html.Partial("_CarouselPartial")
+    @*@Html.Partial("_CarouselPartial")*@
     <!-- NAVBAR -->
     <nav class="navbar navbar-inverse ">
         <div class="container-fluid">
@@ -100,20 +100,20 @@
                 <ul id="footer-items" class="nav navbar-nav">
                     <li class="col-md-4">
                         <ul class="no-bullets">
-                            <li>@Html.ActionLink("Shipping Info", "Delivery", "Home")</li>
-                            <li>@Html.ActionLink("Return Policy", "ReturnPolicy", "Home")</li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
+                            <li>@Html.ActionLink("Delivery Info", "Delivery", "Home", new { area = Areas.PublicAreaName }, null)</li>
+                            <li>@Html.ActionLink("Return Policy", "ReturnPolicy", "Home", new { area = Areas.PublicAreaName }, null)</li>
+                            <li>@Html.ActionLink("About", "About", "Home", new { area = Areas.PublicAreaName }, null)</li>
                         </ul>
                     </li>
                     <li class="col-md-4">
                         <ul class="no-bullets">
-                            <li>@Html.ActionLink("Job Openings", "Jobs", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                            <li>@Html.ActionLink("Job Openings", "Jobs", "Home", new { area = Areas.PublicAreaName }, null)</li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = Areas.PublicAreaName }, null)</li>
                         </ul>
                     </li>
                     <li class="col-md-4">
                         <ul class="no-bullets">
-                            <li>@Html.ActionLink("Help", "Help", "Home")</li>
+                            <li>@Html.ActionLink("Help", "Help", "Home", new { area = Areas.PublicAreaName }, null)</li>
                         </ul>
                     </li>
                 </ul>

@@ -308,10 +308,7 @@
       <Name>MvcProject.Web.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Shared\DisplayTemplates\" />
-    <Folder Include="Views\Shared\Partials\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Web.config" />
     <Content Include="Views\Shared\EditorTemplates\Currency.cshtml" />

@@ -28,7 +28,7 @@ textarea {
     white-space: normal;
 }
 
-/* NAVBAR */
+/* ========= NAVBAR ========= */
 .navbar {
     border: none;
     border-radius: 0 0 0 0;
@@ -116,7 +116,7 @@ textarea {
     font-weight: bold;
 }
 
-/* BODY */
+/* ========= BODY ========= */
 /* Set padding to keep content from hitting the edges */
 #body-content {
     padding: 0 0 100px 0;
@@ -125,7 +125,7 @@ textarea {
     width: 95%;
 }
 
-/* FOOTER */
+/* ========= FOOTER ========= */
 .panel-footer {
     margin: 0 0 0 0;
     padding: 0 0;

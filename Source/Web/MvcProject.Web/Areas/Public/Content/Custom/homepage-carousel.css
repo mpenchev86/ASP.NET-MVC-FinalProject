@@ -1,0 +1,29 @@
+﻿/*#myCarousel {
+    
+}*/
+
+    /* ======== Carousel indicators ======== */
+    #myCarousel > .carousel-indicators {
+        bottom: 0;
+    }
+
+    #myCarousel > .carousel-indicators > li {
+        border-color:  indianred;
+    }
+
+    #myCarousel > .carousel-indicators > li.active {
+        border-width: 2px;
+    }
+
+    /* ======== Carousel items ======== */
+    /*#myCarousel > .carousel-inner {
+    }*/
+
+    #myCarousel > .carousel-inner > .item > span {
+        display: inline-block;
+    }
+
+    #myCarousel > .carousel-inner > .item > span > img {
+        height: 200px;
+        width: auto;
+    }

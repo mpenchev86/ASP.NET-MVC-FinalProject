@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationSpecificConstants.cs" />
+    <Compile Include="AppSpecificConstants.cs" />
     <Compile Include="Areas.cs" />
     <Compile Include="Assemblies.cs" />
     <Compile Include="Bundles.cs" />

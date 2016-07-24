@@ -29,43 +29,57 @@
             return this.View();
         }
 
+        public PartialViewResult Carousel()
+        {
+            //var viewModel = new List<CarouselData>();
+
+            var viewModel = this.Cache.Get(
+                "carouselProducts",
+                () => this.productsService
+                    .GetAll()
+                    .OrderByDescending(p => p.CreatedOn)
+                    .Take(5)
+                    .To<CarouselData>()
+                    .ToList(),
+                2 * 60);
+
+            return PartialView("_Carousel", viewModel);
+        }
+
         // Cached
-        public ActionResult ReadNewestProducts([DataSourceRequest]DataSourceRequest request)
+        public JsonResult ReadNewestProducts([DataSourceRequest]DataSourceRequest request)
         {
             var viewModel = this.Cache.Get(
                 "newestProducts",
                 () => this.productsService
                     .GetAll()
-                    .To<ProductDetailsForIndexListView>()
                     .OrderByDescending(p => p.CreatedOn)
-                    .Take(ApplicationSpecificConstants.IndexListViewNumberOfNewestProducts)
+                    .Take(AppSpecificConstants.IndexListViewNumberOfNewestProducts)
+                    .To<ProductDetailsForIndexListView>()
                     .ToList(),
-                ApplicationSpecificConstants.IndexListViewCacheDurationInSeconds)
-                ;
+                AppSpecificConstants.IndexListViewCacheDurationInSeconds);
 
             return this.Json(viewModel.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
         }
 
         // Cached
-        public ActionResult ReadBestSellingProducts([DataSourceRequest]DataSourceRequest request)
+        public JsonResult ReadBestSellingProducts([DataSourceRequest]DataSourceRequest request)
         {
             var viewModel = this.Cache.Get(
                 "bestSellingProducts",
                 () => this.productsService
                     .GetAll()
-                    .To<ProductDetailsForIndexListView>()
                     .OrderByDescending(p => p.AllTimeItemsSold)
-                    .Take(ApplicationSpecificConstants.IndexListViewNumberOfBestSellingProducts)
-                    .ToList()
-                    ,
-                ApplicationSpecificConstants.IndexListViewCacheDurationInSeconds)
-                ;
+                    .Take(AppSpecificConstants.IndexListViewNumberOfBestSellingProducts)
+                    .To<ProductDetailsForIndexListView>()
+                    .ToList(),
+                AppSpecificConstants.IndexListViewCacheDurationInSeconds);
 
             return this.Json(viewModel.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
         }
 
         // Cached
-        public ActionResult ReadHighestVotedProducts([DataSourceRequest]DataSourceRequest request)
+        public JsonResult ReadHighestVotedProducts([DataSourceRequest]DataSourceRequest request)
         {
             var viewModel = this.Cache.Get(
                 "highestVotedProducts",
@@ -73,12 +87,36 @@
                     .GetAll()
                     .To<ProductDetailsForIndexListView>()
                     .OrderByDescending(p => p.AllTimeAverageRating)
-                    .Take(ApplicationSpecificConstants.IndexListViewNumberOfhighestVotedProducts)
+                    .Take(AppSpecificConstants.IndexListViewNumberOfhighestVotedProducts)
                     .ToList(),
-                ApplicationSpecificConstants.IndexListViewCacheDurationInSeconds)
-                ;
+                AppSpecificConstants.IndexListViewCacheDurationInSeconds);
 
             return this.Json(viewModel.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult DeliveryInfo()
+        {
+            return this.PartialView("UnderConstruction", null);
+        }
+
+        public ActionResult ReturnPolicy()
+        {
+            return this.PartialView("UnderConstruction", null);
+        }
+
+        public ActionResult JobOpennings()
+        {
+            return this.PartialView("UnderConstruction", null);
+        }
+
+        public ActionResult Contacts()
+        {
+            return this.PartialView("UnderConstruction", null);
+        }
+
+        public ActionResult Help()
+        {
+            return this.PartialView("UnderConstruction", null);
         }
     }
 }

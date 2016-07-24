@@ -27,6 +27,11 @@
         font-size: 18px;
     }
 
+    /* ====== Rating ====== */
+    #product-sidebar .ui-icon-star {
+        opacity: 100;
+    }
+
     /* ====== Is In Stock ====== */
     #product-sidebar #is-in-stock #in {
         font-size: 18px;
@@ -133,14 +138,14 @@
 
     /* ====== Tags ====== */
     #product-info #tags{
-        margin: 0px 0 0 0;
-        padding: 0px 10px 0 10px;
+        margin: 0 0 0 0;
+        padding: 0 10px 0 10px;
         /*border-top: 2px solid;*/
         /*border-top-style: outset;*/
     }
 
         #product-info #tags .btn{
-            padding: 0px 7px;
+            padding: 0 7px;
             margin: 0 0 0 5px;
         }
 
@@ -171,9 +176,7 @@
         margin: 0 0 0 10px;
     }
 
-/* ========== Product Votes ========== */
-#product-votes {
-    margin: 30px;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
+    /* ====== Rating ====== */
+    #product-comments .ui-icon-star {
+        opacity: 100;
+    }
