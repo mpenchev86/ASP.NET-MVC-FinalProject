@@ -3,7 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
+    using System.Threading;
     using System.Web;
+    using System.Web.Hosting;
     using System.Web.Mvc;
 
     using Data.Models;
@@ -44,11 +47,23 @@
 
         // GET
         [HttpGet]
-        public PartialViewResult SneakPeak(string id)
+        public ActionResult SneakPeek(string id)
         {
+            if (!this.Request.IsAjaxRequest())
+            {
+                this.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                return this.Content("This action is accessible only through AJAX calls" + this.Request.AppRelativeCurrentExecutionFilePath);
+            }
+
             var product = this.productsService.GetById(this.identifierProvider.DecodeIdToInt(id));
-            var result = this.Mapper.Map<Product, ProductSneakPeakViewModel>(product);
-            return this.PartialView("_SneakPeak", result);
+            if (product == null)
+            {
+                this.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                return this.Content("Product not found");
+            }
+
+            var result = this.Mapper.Map<Product, ProductSneakPeekViewModel>(product);
+            return this.PartialView("_SneakPeek", result);
         }
 
         // GET

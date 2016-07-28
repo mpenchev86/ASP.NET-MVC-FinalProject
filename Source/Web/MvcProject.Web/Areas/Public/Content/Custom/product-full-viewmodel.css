@@ -1,4 +1,23 @@
-﻿/* ========== Common ========== */
+﻿/*** SECTIONS:
+  * Common
+  * Product Images
+  * SideBar
+    * Title
+    * Rating
+    * Is In Stock
+    * Category
+    * Ref Number
+    * Unit Price
+    * Shipping Price
+  * Product Info
+    * Properties
+    * Description
+    * Tags
+  * Product Comments
+    * Rating
+***/
+
+/* ========== Common ========== */
 .product-full-view label {
     font-size: 18px;
     font-weight: lighter;
@@ -20,6 +39,20 @@
     margin: 30px 0;
     font-family: Arial, Helvetica, sans-serif;
     padding: 60px 0 0 0;
+}
+
+#product-sidebar label{
+    height: 100%;
+    color: darkslategray;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: normal;
+}
+
+#product-sidebar .col-md-4 {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    height: 100%;
 }
 
     /* ====== Title ====== */
@@ -76,20 +109,6 @@
     #product-sidebar #shipping td{
         color: #e4c220;
     }
-
-#product-sidebar label{
-    height: 100%;
-    color: darkslategray;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 15px;
-    font-weight: normal;
-}
-
-#product-sidebar .col-md-4 {
-    margin: 0 0 0 0;
-    padding: 0 0 0 0;
-    height: 100%;
-}
 
 /* ========== Product Info ========== */
 #product-info {

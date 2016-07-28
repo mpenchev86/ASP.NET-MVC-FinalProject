@@ -52,31 +52,16 @@
 </div>
 
 <script type="text/kendo-tmpl" id="products-listView-template">
-    @*<td class="listview-product-cell">
-        <div class="img-div">
-            <img src="@Url.Content("~/Content/Images/Products/#=Id#/")main-image.jpg" alt="#:Title# image" />
-        </div>
-        
-        @Html.ActionLink("sneak peek", "SneakPeak", "Products", new { Area = Areas.PublicAreaName, id = "#:kendo.toString(EncodedId)#" }, new { @class = "btn btn-link" })
-        
-        <a href="/Public/Products/SneakPeak?Id=#=EncodedId#" class="btn btn-link">
-            <p id="sneak-peak">sneak peek</p>
-        </a>
-        
-        <p>#=kendo.toString(UnitPrice, "c")#</p>
-    </td>*@
-
-    @Html.Partial(
-        "_ListViewProductCellTemplate",
-        null,
-        new ViewDataDictionary(/*this.ViewData*/)
-        {
-            { "id" , "#=Id#" },
-            { "title", "#=Title#" },
-            { "encodedId", "#=EncodedId#" },
-            { "unitPrice", "UnitPrice" }
-        })
+    @Html.Partial("_ListViewProductCellTemplate")
 </script>
+
+ <!-- Modal -->
+<div id="sneakPeek-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <img id="spinner" src="Content/Kendo/Silver/loading_2x.gif" style="display: none; text-align: center;">
+        <div class="modal-content"></div>
+    </div>
+</div>
 
 @section Styles{
     <link href="@Url.Content(StaticResourcesUrls.ListView)" rel="stylesheet" type="text/css" />
@@ -84,7 +69,19 @@
 
 @section Scripts {
     @Html.Kendo().DeferredScripts()
+
+    <script src="@Url.Content(StaticResourcesUrls.BootstrapModalHelpers)"></script>
+    
     <script>
         kendo.culture('@userCulture');
+
+        bootstrapModalHelpers.hideOnLoad(wrapperSelector = '#sneakPeek-modal');
+        bootstrapModalHelpers.clearContent(event = 'hidden.bs.modal', contentSelector = '.modal-content');
+        bootstrapModalHelpers.attachToggle(wrapperSelector = '#sneakPeek-modal', triggerSelector = '.ajax-modal-link');
+
+        function OnGetModalDataSuccess(data) {
+            bootstrapModalHelpers.setContent(wrapperSelector = '#sneakPeek-modal', contentSelector = '.modal-content', data = data);
+            //$('#sneakPeek-modal').find('.modal-content').html(data);
+        }
     </script>
 }

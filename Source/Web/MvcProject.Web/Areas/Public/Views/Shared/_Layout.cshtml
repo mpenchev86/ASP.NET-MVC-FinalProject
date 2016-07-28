@@ -127,11 +127,12 @@
     </footer>
     <!-- SCRIPTS -->
     @Scripts.Render(Bundles.ScriptsJQueryUI)
+    @Scripts.Render(Bundles.ScriptsBootstrap)
+    @Scripts.Render(Bundles.ScriptsJQueryUnobtrusive)
     @Scripts.Render(Bundles.ScriptsJQueryValidate)
     @Scripts.Render(Bundles.ScriptsIgniteUI)
     @Scripts.Render(Bundles.ScriptsKendo)
-    @Scripts.Render(Bundles.ScriptsBootstrap)
-    @*@Scripts.Render(Bundles.ScriptsSignalR)*@
+    @Scripts.Render(Bundles.ScriptsSignalR)
     @RenderSection("Scripts", required: false)
 </body>
 </html>

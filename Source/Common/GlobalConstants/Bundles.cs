@@ -4,6 +4,7 @@
     {
         public const string ScriptsJQuery = "~/bundles/jquery";
         public const string ScriptsJQueryUI = "~/bundles/jqueryiu";
+        public const string ScriptsJQueryUnobtrusive = "~/bundles/jqueryunobtrusive";
         public const string ScriptsJQueryValidate = "~/bundles/jqueryval";
         public const string ScriptsBootstrap = "~/bundles/bootstrap";
         public const string ScriptsCustom = "~/Scripts/Custom/customjs";

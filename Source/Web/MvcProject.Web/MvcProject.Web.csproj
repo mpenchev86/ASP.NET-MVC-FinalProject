@@ -276,7 +276,17 @@
     <Compile Include="ViewModels\Manage\VerifyPhoneNumberViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\App\under-construction.jpg" />
     <Content Include="Content\Images\Logos\just-orderit-com.png" />
+    <Content Include="Content\Images\Products\1\carousel-image.jpg" />
+    <Content Include="Content\Images\Products\1\main-image.jpg" />
+    <Content Include="Content\Images\Products\2\carousel-image.jpg" />
+    <Content Include="Content\Images\Products\2\main-image.jpg" />
+    <Content Include="Content\Images\Products\3\carousel-image.jpg" />
+    <Content Include="Content\Images\Products\3\main-image.jpg" />
+    <Content Include="Content\Images\Products\4\carousel-image.jpg" />
+    <Content Include="Content\Images\Products\4\main-image.jpg" />
+    <Content Include="Content\Images\Products\7\main-image.jpg" />
     <Content Include="Content\Kendo\Bootstrap\editor.png" />
     <Content Include="Content\Kendo\Bootstrap\imagebrowser.png" />
     <Content Include="Content\Kendo\Bootstrap\indeterminate.gif" />

@@ -1,4 +1,21 @@
-﻿/* ======= Kendo ListView table ======= */
+﻿/*** SECTIONS:
+  * ListView row
+  * Kendo ListView widget table
+    * ListView table cell
+      * SneakPeek
+  * Kendo ListView pager
+***/
+
+/* ======= ListView row ======= */
+.homepage-listview > .k-block,
+.homepage-listview > .k-draghandle,
+.homepage-listview > .k-inline-block,
+.homepage-listview > .k-widget {
+    /*padding-left: 40%;*/
+    border-style: none;
+}
+
+/* ======= Kendo ListView widget table ======= */
 .productsList .k-listview {
     border-style: none;
 }
@@ -11,74 +28,72 @@
     visibility: hidden;
 }
 
-.productsList td.listview-product-cell {
-    position: relative;
-    display: table-cell;
-    width: 20%;
-}
+    /* ======= ListView table cell ======= */
+    .productsList td.listview-product-cell {
+        position: relative;
+        display: table-cell;
+        width: 20%;
+    }
 
-/*.product .img-div {
-    position: relative;
-    height: 100%;
-    width: 100%;
-}*/
+    .productsList td.listview-product-cell img {
+        vertical-align: inherit;
+    }
 
-.listview-product-cell img {
-    vertical-align: inherit;
-}
+    .productsList td.listview-product-cell .img-div img {
+        position: relative;
+        margin: auto;
+        width: 100%;
+        /*height: 100%*/
+    }
 
-.listview-product-cell .img-div img {
-    position: relative;
-    margin: auto;
-    width: 100%;
-    /*height: 100%*/
-}
+    .productsList td.listview-product-cell a {
+        display: inline;
+        visibility: hidden;
+        position: absolute;
+        /*width: 100%;*/
+        /*height: 100%;*/
+        /*margin: 0;*/
+        padding: 0;
+        top: 0;
+        /*width: 100%;*/
+        /*height: 100%;*/
+        border: none;
+        overflow: hidden;
+    }
 
-.listview-product-cell a {
-    display: inline;
-    visibility: hidden;
-    position: absolute;
-    /*width: 100%;*/
-    /*height: 100%;*/
-    /*margin: 0;*/
-    padding: 0;
-    top: 0;
-    /*width: 100%;*/
-    /*height: 100%;*/
-    border: none;
-    overflow: hidden;
-}
+    .productsList td.listview-product-cell:hover a {
+        text-decoration: none;
+        visibility: visible;
+        width: 100%;
+        height: 100%;
+        /*line-height: 210px;*/
+        vertical-align: middle;
+        text-align: center;
+        color: #fff;
+        background-color: rgba(255,200,0,0.55);
+        overflow: hidden;
+        transition: background .2s linear, color .2s linear;
+        -moz-transition: background .2s linear, color .2s linear;
+        -webkit-transition: background .2s linear, color .2s linear;
+        -o-transition: background .2s linear, color .2s linear;
+    }
 
-.listview-product-cell:hover a {
-    text-decoration: none;
-    visibility: visible;
-    width: 100%;
-    height: 100%;
-    /*line-height: 210px;*/
-    vertical-align: middle;
-    text-align: center;
-    color: #fff;
-    background-color: rgba(255,200,0,0.55);
-    overflow: hidden;
-    transition: background .2s linear, color .2s linear;
-    -moz-transition: background .2s linear, color .2s linear;
-    -webkit-transition: background .2s linear, color .2s linear;
-    -o-transition: background .2s linear, color .2s linear;
-}
+        /* ======= SneakPeek ======= */
+        #sneakPeek-modal.modal.fade .modal-dialog {
+            transform: none;
+            -webkit-transform: none;
+            transition: none;
+            -webkit-transition: none;
+            width: 65%;
+            text-align: center;
+        }
 
-#sneak-peak {
-    margin-top: 25%;
-    margin-bottom: 0;
-    font-size: 1.2em;
-}
+        #sneakPeek-modal.modal.fade .modal-dialog .modal-content {
+            text-align: initial;
+            border: none;
+            border-radius: 0;
+        }
 
-.homepage-listview > .k-block,
-.homepage-listview > .k-draghandle,
-.homepage-listview > .k-inline-block,
-.homepage-listview > .k-widget {
-    /*padding-left: 40%;*/
-    border-style: none;
-}
 
 /* ======= Kendo ListView pager ======= */
 .homepage-listview > .k-pager-wrap {

@@ -10,6 +10,11 @@
 
     public static class CustomRazorHelpers
     {
+        public static MvcHtmlString ToMvcHtmlString(this string helperString)
+        {
+            return new MvcHtmlString(helperString);
+        }
+
         // From http://stackoverflow.com/a/24772635/4491770
         public static MvcHtmlString UlListFor<TModel, TValue>(
             this HtmlHelper<TModel> helper,

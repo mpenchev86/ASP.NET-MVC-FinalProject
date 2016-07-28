@@ -15,15 +15,21 @@
             bundles.Add(new ScriptBundle(Bundles.ScriptsJQuery)
                 .Include("~/Scripts/jquery-2.2.1.min.js"));
 
+            bundles.Add(new ScriptBundle(Bundles.ScriptsJQueryUnobtrusive)
+                .Include(
+                    "~/Scripts/jquery.unobtrusive-ajax.js"));
+
             bundles.Add(new ScriptBundle(Bundles.ScriptsJQueryValidate)
                 .Include(
-                    "~/Scripts/jquery.validate*",
-                    "~/Scripts/jquery.unobtrusive*"));
+                    "~/Scripts/jquery.validate.min.js",
+                    "~/Scripts/jquery.validate.unobtrusive.min.js"
+                    ));
 
             bundles.Add(new ScriptBundle(Bundles.ScriptsBootstrap)
                 .Include(
-                    "~/Scripts/bootstrap.js",
-                    "~/Scripts/respond.js"));
+                    "~/Scripts/bootstrap.min.js"
+                    //,"~/Scripts/respond.js"
+                    ));
 
             bundles.Add(new ScriptBundle(Bundles.ScriptsKendo)
                 .Include(

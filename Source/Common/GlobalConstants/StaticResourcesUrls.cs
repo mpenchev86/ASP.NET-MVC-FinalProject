@@ -21,5 +21,6 @@
 
             // JavaScript
         public const string IgniteUiRatingHandler = "~/Areas/Public/Scripts/Custom/igniteui-rating-handler.js";
+        public const string BootstrapModalHelpers = "~/Areas/Public/Scripts/Custom/bootstrap-modal-helpers.js";
     }
 }

@@ -195,7 +195,7 @@
     <Compile Include="ViewModels\Products\ProductInfoPartialViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductOfCategoryViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductSideBarPartialViewModel.cs" />
-    <Compile Include="ViewModels\Products\ProductSneakPeakViewModel.cs" />
+    <Compile Include="ViewModels\Products\ProductSneakPeekViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductWithTagViewModel.cs" />
     <Compile Include="ViewModels\Properties\PropertyForProductFullViewModel.cs" />
     <Compile Include="ViewModels\Users\UserProfileViewModel.cs" />
@@ -255,6 +255,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\Custom\bootstrap-modal-helpers.js" />
     <Content Include="Scripts\Custom\igniteui-rating-handler.js" />
     <Content Include="Scripts\IgniteUI\infragistics.core.Unicode.js" />
     <Content Include="Scripts\IgniteUI\infragistics.dv.js" />
@@ -276,7 +277,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
-    <Content Include="Views\Products\Partials\_SneakPeak.cshtml" />
+    <Content Include="Views\Products\Partials\_SneakPeek.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Products\Partials\_ProductImages.cshtml" />
     <Content Include="Views\Products\Partials\_ProductSideBar.cshtml" />

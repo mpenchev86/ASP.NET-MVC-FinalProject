@@ -8,11 +8,13 @@
     using Data.Models;
     using Infrastructure.Mapping;
 
-    public class ProductSneakPeakViewModel : BasePublicViewModel<int>, IMapFrom<Product>, IHaveCustomMappings
+    public class ProductSneakPeekViewModel : BasePublicViewModel<int>, IMapFrom<Product>, IHaveCustomMappings
     {
+        public string Title { get; set; }
+
         public void CreateMappings(IMapperConfiguration configuration)
         {
-            configuration.CreateMap<Product, ProductSneakPeakViewModel>()
+            configuration.CreateMap<Product, ProductSneakPeekViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
         }
     }
