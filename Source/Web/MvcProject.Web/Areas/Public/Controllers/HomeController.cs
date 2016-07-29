@@ -10,7 +10,7 @@
     using Kendo.Mvc.Extensions;
     using Kendo.Mvc.UI;
     using Services.Data;
-    using ViewModels.Home;
+    using ViewModels.Products;
     using Services.Web;
 
     public class HomeController : BasePublicController

@@ -22,14 +22,11 @@
             bundles.Add(new ScriptBundle(Bundles.ScriptsJQueryValidate)
                 .Include(
                     "~/Scripts/jquery.validate.min.js",
-                    "~/Scripts/jquery.validate.unobtrusive.min.js"
-                    ));
+                    "~/Scripts/jquery.validate.unobtrusive.min.js"));
 
             bundles.Add(new ScriptBundle(Bundles.ScriptsBootstrap)
                 .Include(
-                    "~/Scripts/bootstrap.min.js"
-                    //,"~/Scripts/respond.js"
-                    ));
+                    "~/Scripts/bootstrap.min.js"));
 
             bundles.Add(new ScriptBundle(Bundles.ScriptsKendo)
                 .Include(

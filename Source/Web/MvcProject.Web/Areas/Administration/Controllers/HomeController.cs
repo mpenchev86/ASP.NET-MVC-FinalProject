@@ -1,5 +1,6 @@
 ﻿namespace MvcProject.Web.Areas.Administration.Controllers
 {
+    using System.Linq;
     using System.Reflection;
     using System.Web.Mvc;
 
@@ -15,7 +16,7 @@
         /// <returns>The view with all domains for administration</returns>
         public ActionResult Index()
         {
-            var data = typeof(IMvcProjectDbContext).GetRuntimeProperties();
+            var data = typeof(IMvcProjectDbContext).GetRuntimeProperties().Where(p => p.Name != "UserRoles");
             return this.View(data);
         }
 

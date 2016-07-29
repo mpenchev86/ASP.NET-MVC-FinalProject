@@ -219,6 +219,7 @@
     <Compile Include="ViewModels\Tags\TagDetailsForProductViewModel.cs" />
     <Compile Include="ViewModels\Tags\TagViewModel.cs" />
     <Compile Include="ViewModels\Users\UserDetailsForCommentViewModel.cs" />
+    <Compile Include="ViewModels\Users\UserDetailsForProductViewModel.cs" />
     <Compile Include="ViewModels\Users\UserDetailsForRoleViewModel.cs" />
     <Compile Include="ViewModels\Users\UserDetailsForVoteViewModel.cs" />
     <Compile Include="ViewModels\Users\UserViewModel.cs" />
@@ -326,6 +327,8 @@
     <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Products\Partials\_SellerTab.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DropDownTest.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

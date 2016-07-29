@@ -94,6 +94,18 @@
             border-radius: 0;
         }
 
+        #sneakPeek-modal .modal-dialog .modal-content a {
+            text-decoration: none;
+            color: initial;
+            font-size: initial;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #sneakPeek-modal .modal-dialog .modal-content .rating{
+            font-size: 12px;
+            font-style: italic;
+        }
+
 
 /* ======= Kendo ListView pager ======= */
 .homepage-listview > .k-pager-wrap {

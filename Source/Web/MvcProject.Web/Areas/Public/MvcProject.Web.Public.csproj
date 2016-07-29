@@ -186,8 +186,9 @@
     <Compile Include="ViewModels\Comments\CommentForProductFullViewModel.cs" />
     <Compile Include="ViewModels\Descriptions\DescriptionForProductFullViewModel.cs" />
     <Compile Include="ViewModels\Home\CarouselData.cs" />
-    <Compile Include="ViewModels\Home\ProductDetailsForIndexListView.cs" />
+    <Compile Include="ViewModels\Products\ProductDetailsForIndexListView.cs" />
     <Compile Include="ViewModels\Images\ImageForProductFullViewModel.cs" />
+    <Compile Include="ViewModels\Images\ImageForProductSneakPeekViewModel.cs" />
     <Compile Include="ViewModels\Images\ImageForThumbnailProductViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductCommentWithRatingViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductFullViewModel.cs" />

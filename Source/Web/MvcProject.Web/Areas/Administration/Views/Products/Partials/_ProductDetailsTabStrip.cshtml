@@ -8,6 +8,7 @@
         items.Add().Text("Comments").Content(@<text>@Html.Partial("_CommentsTab")</text>);
         items.Add().Text("Votes").Content(@<text>@Html.Partial("_VotesTab")</text>);
         items.Add().Text("Tags").Content(@<text>@Html.Partial("_TagsTab")</text>);
+        items.Add().Text("Seller").Content(@<text>@Html.Partial("_SellerTab")</text>);
     })
     .ToClientTemplate()
     .ToMvcClientTemplate())

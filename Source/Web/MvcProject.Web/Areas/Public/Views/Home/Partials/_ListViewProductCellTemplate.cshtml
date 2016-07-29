@@ -1,9 +1,5 @@
 ﻿@using MvcProject.Web.Infrastructure.HtmlHelpers
 
-@*@{ 
-    var htmlAttributes = new Dictionary<string, object>();
-}*@
-
 <td class="listview-product-cell">
     <div class="img-div">
         <img src="@Url.Content("~/Content/Images/Products/" + "#=Id#")/main-image.jpg" alt="main image of a product" />
@@ -18,25 +14,17 @@
         {
             HttpMethod = "GET",
             AllowCache = true,
-            //UpdateTargetId = "sneakPeek-modal",
             InsertionMode = InsertionMode.Replace,
             LoadingElementId = "spinner",
-            //OnBegin = "OnGetModalDataBegin",
             OnSuccess = "OnGetModalDataSuccess",
         },
         new
         {
             @class = "ajax-modal-link"
-            //data_toggle = "modal",
-            //data_target = "\\#sneakPeek-modal",
-            //data_ajax_mode = "replace",
-            //data_ajax_loading = "\\#spinner"
         })
         .ToHtmlString()
         .Replace("encodedId", "#=EncodedId#")
         .Replace("spinner", "#\\#spinner")
-        //.Replace("sneakPeek-modal", "#\\#sneakPeek-modal")
-        //.Replace("data-ajax-update", "data-target")
         .ToMvcHtmlString()
         )
 

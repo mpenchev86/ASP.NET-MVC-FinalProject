@@ -20,6 +20,7 @@
         m.Field(p => p.Id).Editable(false);
         m.Field(p => p.AllTimeAverageRating).Editable(false);
         m.Field(p => p.DescriptionId).Editable(true).DefaultValue(null);
+        m.Field(p => p.SellerId).Editable(true).DefaultValue(null);
         m.Field(p => p.MainImageId).Editable(true).DefaultValue(null);
         m.Field(p => p.ShippingPrice).Editable(true).DefaultValue(null);
     },
@@ -41,6 +42,8 @@
         c.Bound(m => m.QuantityInStock);
         c.Bound(m => m.AllTimeItemsSold);
         c.Bound(m => m.AllTimeAverageRating);
+        c.ForeignKey(m => m.SellerId, Model.Sellers, "Id", "Name").Title("Seller Name").Visible(false);
+        c.Bound(m => m.SellerId);
         c.Bound(m => m.CreatedOn);
         c.Bound(m => m.ModifiedOn);
         c.Bound(m => m.IsDeleted).Title("Marked As Deleted");
@@ -61,7 +64,15 @@
                     .Scrollable(false)
                     .Resizable();
             })
-            .TemplateName("ProductViewModelPopupEditor");
+            .TemplateName("ProductViewModelPopupEditor")
+            .AdditionalViewData(
+            new
+            {
+                Categories = Model.Categories,
+                Descriptions = Model.Descriptions,
+                Images = Model.Images,
+                Sellers = Model.Sellers
+            });
     },
     htmlAttributes: new { @class = "main-grid" },
     readHandler: "readHandler",
@@ -83,6 +94,12 @@
         }
 
         #description-details {
+            margin-left: 0;
+            margin-right: 0;
+            width: 100%;
+        }
+
+        #seller-details {
             margin-left: 0;
             margin-right: 0;
             width: 100%;
@@ -126,6 +143,7 @@
 
         function detailInit(e) {
             gridDetailsHelpers.populateProductDescription(e.data.Id, e.data.Description, 8);
+            gridDetailsHelpers.populateProductSeller(e.data.Id, e.data.Seller);
             gridDetailsHelpers.setDataSource("#images-grid_" + e.data.Id, e.data.Images, 10);
             gridDetailsHelpers.setDataSource("#comments-grid_" + e.data.Id, e.data.Comments, 10);
             gridDetailsHelpers.setDataSource("#votes-grid_" + e.data.Id, e.data.Votes, 10);

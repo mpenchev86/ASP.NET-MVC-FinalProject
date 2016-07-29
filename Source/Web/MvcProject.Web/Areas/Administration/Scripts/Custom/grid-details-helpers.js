@@ -45,6 +45,18 @@
         }
     }
 
+    function populateProductSeller(productId, seller) {
+        if (seller) {
+            if (seller.Id) {
+                $('#seller-id_' + productId).text(seller.Id);
+            }
+
+            if (seller.Name) {
+                $('div#seller-name_' + productId).text(seller.Name);
+            }
+        }
+    }
+
     function populateProductStatistics(productId, statistics) {
         if (statistics) {
             datetimeHandlers.normalizeDateProperties(statistics);
@@ -73,6 +85,7 @@
     return {
         setDataSource: setDataSource,
         populateProductDescription: populateProductDescription,
+        populateProductSeller: populateProductSeller,
         populateProductStatistics: populateProductStatistics
     };
 }());

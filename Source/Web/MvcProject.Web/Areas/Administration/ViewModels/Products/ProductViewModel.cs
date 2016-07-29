@@ -21,6 +21,7 @@
     using MvcProject.Common.GlobalConstants;
     using Properties;
     using Tags;
+    using Users;
     using Votes;
 
     public class ProductViewModel : BaseAdminViewModel<int>, IMapFrom<Product>, IHaveCustomMappings
@@ -89,6 +90,12 @@
             get { return this.Votes.Any() ? this.Votes.Average(v => v.VoteValue) : default(double?); }
         }
 
+        //[UIHint("GridForeignKey")]
+        [UIHint("DropDownTest")]
+        public string SellerId { get; set; }
+
+        public UserDetailsForProductViewModel Seller { get; set; }
+
         public ICollection<CommentDetailsForProductViewModel> Comments
         {
             get { return this.comments; }
@@ -139,6 +146,14 @@
                                 }).ToList(),
                                 CreatedOn = src.Description.CreatedOn,
                                 ModifiedOn = src.Description.ModifiedOn
+                            }))
+                .ForMember(dest => dest.Seller, opt => opt.MapFrom(
+                            src => src.Seller == null ? null : new UserDetailsForProductViewModel
+                            {
+                                Id = src.Seller.Id,
+                                Name = src.Seller.UserName,
+                                CreatedOn = src.Seller.CreatedOn,
+                                ModifiedOn = src.Seller.ModifiedOn
                             }))
                 .ForMember(dest => dest.Images, opt => opt.MapFrom(
                             src => src.Images.Select(i => new ImageDetailsForProductViewModel

@@ -37,5 +37,5 @@
         clearContent: clearContent,
         attachToggle: attachToggle,
         setContent: setContent
-    }
+    };
 }());

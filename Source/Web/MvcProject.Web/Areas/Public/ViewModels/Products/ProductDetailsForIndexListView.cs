@@ -1,4 +1,4 @@
-﻿namespace MvcProject.Web.Areas.Public.ViewModels.Home
+﻿namespace MvcProject.Web.Areas.Public.ViewModels.Products
 {
     using System;
     using System.Collections.Generic;

@@ -162,6 +162,22 @@
         public decimal? ShippingPrice { get; set; }
 
         /// <summary>
+        /// Gets or sets the Id of the product's seller entity.
+        /// </summary>
+        /// <value>
+        /// The Id of the product's seller.
+        /// </value>
+        public string SellerId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the product's seller entity.
+        /// </summary>
+        /// <value>
+        /// The product's seller entity.
+        /// </value>
+        public virtual ApplicationUser Seller { get; set; }
+
+        /// <summary>
         /// Gets or sets the tags of a product.
         /// </summary>
         /// <value>

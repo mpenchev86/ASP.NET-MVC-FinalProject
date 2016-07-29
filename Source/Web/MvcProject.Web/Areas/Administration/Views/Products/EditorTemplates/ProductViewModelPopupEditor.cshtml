@@ -2,6 +2,7 @@
 @using Kendo.Mvc.Extensions;
 @using MvcProject.Web.Areas.Administration.ViewModels.Properties
 @using MvcProject.Web.Areas.Administration.ViewModels.Categories
+@using MvcProject.Web.Areas.Administration.ViewModels.Users
 
 @model MvcProject.Web.Areas.Administration.ViewModels.Products.ProductViewModel
 
@@ -122,6 +123,46 @@
         <div class="editor-field">
             @Html.EditorFor(m => m.ShippingPrice)
             @Html.ValidationMessageFor(model => model.ShippingPrice)
+        </div>
+    </div>
+
+    @*<div class="row">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.SellerId, "Seller Id")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(
+                m => m.SellerId,
+                new
+                {
+                    OptionLabel = "Select Seller...",
+                    DropDownName = "SellerId",
+                    Text = "UserName",
+                    Value = "Id",
+                    Action = "GetDataAsJson",
+                    Controller = "Users"
+                })
+            @Html.ValidationMessageFor(m => m.SellerId)
+        </div>
+    </div>*@
+
+    <div class="row">
+        <div class="editor-label">
+            @Html.LabelFor(m => m.SellerId, "Seller Id")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(
+                m => m.SellerId
+                , new
+                {
+                    OptionLabel = "Select Seller...",
+                    //DropDownName = "SellerId",
+                    //Text = "Id",
+                    //Value = "Id",
+                    //Data = (UserDetailsForProductViewModel)ViewData["Sellers"]
+                }
+                )
+            @Html.ValidationMessageFor(m => m.SellerId)
         </div>
     </div>
 

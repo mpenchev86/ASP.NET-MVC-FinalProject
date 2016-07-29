@@ -21,7 +21,7 @@
     using ViewModels.Properties;
     using ViewModels.Tags;
     using ViewModels.Votes;
-
+    using ViewModels.Users;
     [Authorize(Roles = IdentityRoles.Admin)]
     public class ProductsController : BaseGridController<Product, ProductViewModel, IProductsService, int>
     {
@@ -31,6 +31,7 @@
         private readonly IImagesService imagesService;
         private readonly IDescriptionsService descriptionsService;
         private readonly ITagsService tagsService;
+        private readonly IUsersService usersService;
         private readonly IVotesService votesService;
 
         public ProductsController(
@@ -40,6 +41,7 @@
             IImagesService imagesService,
             IDescriptionsService descriptionsService,
             ITagsService tagsService,
+            IUsersService usersService,
             IVotesService votesService)
             : base(productsService)
         {
@@ -50,6 +52,7 @@
             this.descriptionsService = descriptionsService;
             this.tagsService = tagsService;
             this.votesService = votesService;
+            this.usersService = usersService;
         }
 
         public ActionResult Index()
@@ -60,6 +63,7 @@
                 Categories = this.categoriesService.GetAll().To<CategoryDetailsForProductViewModel>(),
                 Images = this.imagesService.GetAll().To<ImageDetailsForProductViewModel>(),
                 Descriptions = this.descriptionsService.GetAll().To<DescriptionDetailsForProductViewModel>(),
+                Sellers = this.usersService.GetAll().Where(u => u.Roles.Any(r => r.RoleName == IdentityRoles.Seller)).To<UserDetailsForProductViewModel>().ToList(),
             };
 
             return this.View(foreignKeys);
@@ -137,6 +141,7 @@
             entity.ShortDescription = viewModel.ShortDescription;
             entity.CategoryId = viewModel.CategoryId;
             entity.DescriptionId = viewModel.DescriptionId;
+            entity.SellerId = viewModel.SellerId;
             entity.MainImageId = viewModel.MainImageId;
             entity.QuantityInStock = viewModel.QuantityInStock;
             entity.UnitPrice = viewModel.UnitPrice;

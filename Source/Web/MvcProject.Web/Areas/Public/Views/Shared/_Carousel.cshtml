@@ -1,4 +1,4 @@
-﻿@using MvcProject.Web.Areas.Public.ViewModels.Home
+﻿@using MvcProject.Web.Areas.Public.ViewModels.Products
 
 @model List<CarouselData>
 
@@ -20,7 +20,7 @@
             {
                 <div class="item @if(i == 0){ <text>active</text> }">
                     <span>
-                        <img src="@Url.Content("~/Content/Images/Products/" + Model[i].Id)/main-image.jpg" alt="@i image" />
+                        <img src="@Url.Content("~/Content/Images/Products/" + Model[i].Id)/main-image.jpg" alt="main image of a product" />
                     </span>
                     <div class="container">
                         <div class="carousel-caption">

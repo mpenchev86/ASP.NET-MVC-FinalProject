@@ -33,8 +33,7 @@
             this.votesService = votesService;
             this.identifierProvider = identifierProvider;
         }
-
-        // GET
+        
         [HttpGet]
         public ActionResult Index(int Id)
         {
@@ -45,7 +44,6 @@
             return this.View(viewModel);
         }
 
-        // GET
         [HttpGet]
         public ActionResult SneakPeek(string id)
         {
@@ -66,7 +64,7 @@
             return this.PartialView("_SneakPeek", result);
         }
 
-        // GET
+        [HttpGet]
         public ActionResult AllProductsOfCategory(string category)
         {
             var products = this.productsService.GetAll().Where(p => p.Category.Name == category);
@@ -74,7 +72,7 @@
             return this.View(result);
         }
 
-        // GET
+        [HttpGet]
         public ActionResult AllProductsWithTag(string tag)
         {
             var products = this.productsService.GetAll().Where(p => p.Tags.Select(t => t.Name).Contains(tag));
