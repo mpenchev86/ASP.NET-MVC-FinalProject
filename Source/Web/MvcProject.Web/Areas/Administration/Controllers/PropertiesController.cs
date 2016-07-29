@@ -32,6 +32,7 @@
             this.descriptionsService = descriptionsService;
         }
 
+        [HttpGet]
         public ActionResult Index()
         {
             var foreignKeys = new PropertyViewModelForeignKeys
@@ -43,30 +44,34 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
             return base.Read(request);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Create([DataSourceRequest]DataSourceRequest request, PropertyViewModel viewModel)
         {
             return base.Create(request, viewModel);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Update([DataSourceRequest]DataSourceRequest request, PropertyViewModel viewModel)
         {
             return base.Update(request, viewModel);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Destroy([DataSourceRequest]DataSourceRequest request, PropertyViewModel viewModel)
         {
             return base.Destroy(request, viewModel);
         }
 
-#region DataProviders
+        #region DataProviders
         protected override void PopulateEntity(Property entity, PropertyViewModel viewModel)
         {
             entity.Name = viewModel.Name;
@@ -78,10 +83,11 @@
             entity.DeletedOn = viewModel.DeletedOn;
         }
 
+        [HttpGet]
         protected override IEnumerable<PropertyViewModel> GetDataAsEnumerable()
         {
             return this.propertiesService.GetAll().To<PropertyViewModel>().OrderBy(p => p.Name);
         }
-#endregion
+        #endregion
     }
 }

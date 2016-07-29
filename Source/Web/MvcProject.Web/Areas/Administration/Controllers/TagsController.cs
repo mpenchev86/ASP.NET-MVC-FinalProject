@@ -28,36 +28,41 @@
             this.productsService = productsService;
         }
 
+        [HttpGet]
         public ActionResult Index()
         {
             return this.View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
             return base.Read(request);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Create([DataSourceRequest]DataSourceRequest request, TagViewModel viewModel)
         {
             return base.Create(request, viewModel);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Update([DataSourceRequest]DataSourceRequest request, TagViewModel viewModel)
         {
             return base.Update(request, viewModel);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Destroy([DataSourceRequest]DataSourceRequest request, TagViewModel viewModel)
         {
             return base.Destroy(request, viewModel);
         }
 
-#region DataProviders
+        #region DataProviders
         protected override void PopulateEntity(Tag entity, TagViewModel viewModel)
         {
             if (viewModel.Products != null)
@@ -75,10 +80,11 @@
             entity.DeletedOn = viewModel.DeletedOn;
         }
 
+        [HttpGet]
         protected override IEnumerable<TagViewModel> GetDataAsEnumerable()
         {
             return this.tagsService.GetAll().To<TagViewModel>().OrderBy(t => t.Name);
         }
-#endregion
+        #endregion
     }
 }

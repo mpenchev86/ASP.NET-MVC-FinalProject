@@ -29,6 +29,7 @@
             this.productsService = productsService;
         }
 
+        [HttpGet]
         public ActionResult Index()
         {
             var foreignKeys = new ImageViewModelForeignKeys
@@ -40,30 +41,34 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
             return base.Read(request);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Create([DataSourceRequest]DataSourceRequest request, ImageViewModel viewModel)
         {
             return base.Create(request, viewModel);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Update([DataSourceRequest]DataSourceRequest request, ImageViewModel viewModel)
         {
             return base.Update(request, viewModel);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Destroy([DataSourceRequest]DataSourceRequest request, ImageViewModel viewModel)
         {
             return base.Destroy(request, viewModel);
         }
 
-#region DataProviders
+        #region DataProviders
         protected override void PopulateEntity(Image entity, ImageViewModel viewModel)
         {
             entity.OriginalFileName = viewModel.OriginalFileName;
@@ -75,6 +80,6 @@
             entity.IsDeleted = viewModel.IsDeleted;
             entity.DeletedOn = viewModel.DeletedOn;
         }
-#endregion
+        #endregion
     }
 }

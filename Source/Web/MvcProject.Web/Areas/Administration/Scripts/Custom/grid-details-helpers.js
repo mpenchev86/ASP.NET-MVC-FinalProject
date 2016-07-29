@@ -1,22 +1,17 @@
 ﻿var gridDetailsHelpers = (function () {
     function setDataSource(gridName, data, pageSize) {
-        var detailGrid = $(gridName).data("kendoGrid");
+        var detailGrid = $(gridName).data("kendoGrid"),
+            dataSource = new kendo.data.DataSource({ data: data, page: 1, pageSize: pageSize });
+
         // This function is in datetime-handlers.js
-        //dataHandler(data);
         datetimeHandlers.normalizeDateProperties(data);
 
-        var dataSource = new kendo.data.DataSource({
-            data: data,
-            page: 1,
-            pageSize: pageSize
-        });
-
         // Sets the dataSource to the selected grid
-        dataSource.fetch(function () {
+        dataSource.fetch(function fetchGridDataSource() {
             detailGrid.setDataSource(dataSource);
         });
 
-        // Refreshes the grid dataSource so that paging correct
+        // Refreshes the grid dataSource so that paging works correctly
         detailGrid.dataSource.read();
     }
 
@@ -57,35 +52,9 @@
         }
     }
 
-    function populateProductStatistics(productId, statistics) {
-        if (statistics) {
-            datetimeHandlers.normalizeDateProperties(statistics);
-            if (statistics.Id) {
-                $('#statistics-id_' + productId).text(statistics.Id);
-            }
-
-            if (statistics.AllTimeItemsSold || statistics.AllTimeItemsSold === 0) {
-                $('div#statistics-allTimeItemsSold_' + productId).text(statistics.AllTimeItemsSold);
-            }
-
-            if (statistics.OverAllRating || statistics.OverAllRating === 0) {
-                $('div#statistics-overAllRating_' + productId).text(statistics.OverAllRating);
-            }
-
-            if (statistics.CreatedOn) {
-                $('div#statistics-createdOn_' + productId).text(statistics.CreatedOn);
-            }
-
-            if (statistics.ModifiedOn) {
-                $('div#statistics-modifiedOn_' + productId).text(statistics.ModifiedOn);
-            }
-        }
-    }
-
     return {
         setDataSource: setDataSource,
         populateProductDescription: populateProductDescription,
         populateProductSeller: populateProductSeller,
-        populateProductStatistics: populateProductStatistics
     };
 }());

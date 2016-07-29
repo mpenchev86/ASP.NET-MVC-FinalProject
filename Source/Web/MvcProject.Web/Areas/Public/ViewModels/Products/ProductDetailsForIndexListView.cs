@@ -29,7 +29,7 @@
 
         [Required]
         [DataType(DataType.MultilineText)]
-        [MaxLength(ValidationConstants.ProductTitleMaxLength)]
+        [StringLength(ValidationConstants.ProductTitleMaxLength)]
         public string Title { get; set; }
 
         [Range(ValidationConstants.ProductAllTimeItemsSoldMin, ValidationConstants.ProductAllTimeItemsSoldMax)]

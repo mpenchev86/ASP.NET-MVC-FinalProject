@@ -24,7 +24,7 @@
 
         [Required]
         [DataType(DataType.Text)]
-        [MaxLength(ValidationConstants.TagNameMaxLength)]
+        [StringLength(ValidationConstants.TagNameMaxLength)]
         public string Name { get; set; }
 
         public ICollection<ProductDetailsForTagViewModel> Products

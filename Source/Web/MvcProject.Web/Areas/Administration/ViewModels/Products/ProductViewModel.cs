@@ -41,11 +41,11 @@
 
         [Required]
         [DataType(DataType.MultilineText)]
-        [MaxLength(ValidationConstants.ProductTitleMaxLength)]
+        [StringLength(ValidationConstants.ProductTitleMaxLength)]
         public string Title { get; set; }
 
         [DataType(DataType.MultilineText)]
-        [MaxLength(ValidationConstants.ProductShortDescriptionMaxLength)]
+        [StringLength(ValidationConstants.ProductShortDescriptionMaxLength)]
         public string ShortDescription { get; set; }
 
         [Required]
@@ -90,8 +90,7 @@
             get { return this.Votes.Any() ? this.Votes.Average(v => v.VoteValue) : default(double?); }
         }
 
-        //[UIHint("GridForeignKey")]
-        [UIHint("DropDownTest")]
+        [UIHint("DropDown")]
         public string SellerId { get; set; }
 
         public UserDetailsForProductViewModel Seller { get; set; }

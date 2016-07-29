@@ -328,7 +328,6 @@
     <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Products\Partials\_SellerTab.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\DropDownTest.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

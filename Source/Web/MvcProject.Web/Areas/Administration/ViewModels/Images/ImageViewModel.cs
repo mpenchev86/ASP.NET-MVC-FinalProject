@@ -17,17 +17,17 @@
     {
         [Required]
         [DataType(DataType.MultilineText)]
-        [MaxLength(ValidationConstants.ImageOriginalFileNameMaxLength)]
+        [StringLength(ValidationConstants.ImageOriginalFileNameMaxLength)]
         public string OriginalFileName { get; set; }
 
         [Required]
         [DataType(DataType.Text)]
-        [MaxLength(ValidationConstants.ImageFileExtensionMaxLength)]
+        [StringLength(ValidationConstants.ImageFileExtensionMaxLength)]
         public string FileExtension { get; set; }
 
         [Required]
         [DataType(DataType.ImageUrl)]
-        [MaxLength(ValidationConstants.ImageUrlPathMaxLength)]
+        [StringLength(ValidationConstants.ImageUrlPathMaxLength)]
         public string UrlPath { get; set; }
 
         [UIHint("DropDown")]

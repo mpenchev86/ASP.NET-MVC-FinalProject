@@ -10,6 +10,8 @@
     var userCulture = this.Request.UserLanguages.FirstOrDefault() ?? "en-US";
 }
 
+@Html.AntiForgeryToken()
+
 @(Html.FullFeaturedGrid<ProductViewModel>(
     gridName: "productsGrid",
     controllerName: "Products",
@@ -64,15 +66,7 @@
                     .Scrollable(false)
                     .Resizable();
             })
-            .TemplateName("ProductViewModelPopupEditor")
-            .AdditionalViewData(
-            new
-            {
-                Categories = Model.Categories,
-                Descriptions = Model.Descriptions,
-                Images = Model.Images,
-                Sellers = Model.Sellers
-            });
+            .TemplateName("ProductViewModelPopupEditor");
     },
     htmlAttributes: new { @class = "main-grid" },
     readHandler: "readHandler",
@@ -125,20 +119,29 @@
     <script>
         kendo.culture('@userCulture');
 
+        // Initialize the Kendo UI Validator on the form
+        $(function () {
+            $("form").kendoValidator();
+        });
+
         function readHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);
+            return { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() }
         }
 
         function createHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);
+            return { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() }
         }
 
         function updateHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);
+            return { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() }
         }
 
         function destroyHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);
+            return { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() }
         }
 
         function detailInit(e) {

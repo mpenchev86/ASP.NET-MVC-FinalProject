@@ -11,7 +11,10 @@
             .ServerFiltering(true)
             .Read(read =>
             {
-                read.Action((string)ViewData["action"], (string)ViewData["controller"], new { area = "Public" }); });
+                read.Action((string)ViewData["action"], (string)ViewData["controller"], new { area = "Public" });
+            });
     })
+    //.BindTo((SelectList)ViewData[ViewData.TemplateInfo.GetFullHtmlFieldName("") + "_Data"])
+    //.ValuePrimitive(true)
     .HtmlAttributes(new { data_bind = (string)ViewData["data_bind"] })
 )

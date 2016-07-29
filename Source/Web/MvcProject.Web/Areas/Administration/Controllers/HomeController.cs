@@ -14,6 +14,7 @@
         /// Lists all domains for administration
         /// </summary>
         /// <returns>The view with all domains for administration</returns>
+        [HttpGet]
         public ActionResult Index()
         {
             var data = typeof(IMvcProjectDbContext).GetRuntimeProperties().Where(p => p.Name != "UserRoles");
@@ -25,6 +26,7 @@
         /// </summary>
         /// <param name="domainModel">The domain model name</param>
         /// <returns>The view of the index page of the corresponding domain model controller</returns>
+        [HttpGet]
         public ActionResult DomainModelRedirect(string domainModel)
         {
             return this.RedirectToAction("Index", controllerName: domainModel);

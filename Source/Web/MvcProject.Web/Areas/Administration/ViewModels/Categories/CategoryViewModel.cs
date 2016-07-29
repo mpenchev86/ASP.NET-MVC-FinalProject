@@ -25,7 +25,7 @@
 
         [Required]
         [DataType(DataType.MultilineText)]
-        [MaxLength(ValidationConstants.CategoryNameMaxLenght)]
+        [StringLength(ValidationConstants.CategoryNameMaxLenght)]
         public string Name { get; set; }
 
         public ICollection<ProductDetailsForCategoryViewModel> Products
@@ -44,15 +44,16 @@
         {
             configuration.CreateMap<Category, CategoryViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Products, opt => opt.MapFrom(
-                            src => src.Products.Select(p => new ProductDetailsForCategoryViewModel
-                            {
-                                Id = p.Id,
-                                Title = p.Title,
-                                ShortDescription = p.ShortDescription,
-                                CreatedOn = p.CreatedOn,
-                                ModifiedOn = p.ModifiedOn
-                            })));
+                //.ForMember(dest => dest.Products, opt => opt.MapFrom(
+                //            src => src.Products.Select(p => new ProductDetailsForCategoryViewModel
+                //            {
+                //                Id = p.Id,
+                //                Title = p.Title,
+                //                ShortDescription = p.ShortDescription,
+                //                CreatedOn = p.CreatedOn,
+                //                ModifiedOn = p.ModifiedOn
+                //            })))
+                            ;
         }
     }
 }

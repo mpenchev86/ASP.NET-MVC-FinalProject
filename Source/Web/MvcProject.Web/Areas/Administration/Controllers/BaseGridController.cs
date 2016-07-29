@@ -32,6 +32,7 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public virtual ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
             var viewModel = this.GetDataAsEnumerable();
@@ -40,6 +41,7 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public virtual ActionResult Create([DataSourceRequest]DataSourceRequest request, TViewModel viewModel)
         {
             if (viewModel != null && this.ModelState.IsValid)
@@ -54,6 +56,7 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public virtual ActionResult Update([DataSourceRequest]DataSourceRequest request, TViewModel viewModel)
         {
             if (viewModel != null && this.ModelState.IsValid)
@@ -70,6 +73,7 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public virtual ActionResult Destroy([DataSourceRequest]DataSourceRequest request, TViewModel viewModel)
         {
             if (viewModel != null && this.ModelState.IsValid)
@@ -80,8 +84,8 @@
             return this.GetEntityAsDataSourceResult(request, viewModel, this.ModelState);
         }
 
-#region DataProviders
-        public virtual JsonResult GetDataAsJson()
+        #region DataProviders
+        protected virtual JsonResult GetDataAsJson()
         {
             return this.Json(this.GetDataAsEnumerable(), JsonRequestBehavior.AllowGet);
         }
@@ -111,6 +115,6 @@
             var data = this.GetDataAsEnumerable().Select(x => new SelectListItem { Text = text, Value = value });
             return this.Json(data, JsonRequestBehavior.AllowGet);
         }
-#endregion
+        #endregion
     }
 }

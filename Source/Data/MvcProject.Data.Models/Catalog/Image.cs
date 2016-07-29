@@ -17,7 +17,7 @@
         /// The original file name of the image. Does not include any path or extension.
         /// </value>
         [Required]
-        [MaxLength(ValidationConstants.ImageOriginalFileNameMaxLength)]
+        [StringLength(ValidationConstants.ImageOriginalFileNameMaxLength)]
         public string OriginalFileName { get; set; }
 
         /// <summary>
@@ -27,7 +27,7 @@
         /// The file extension of the image.
         /// </value>
         [Required]
-        [MaxLength(ValidationConstants.ImageFileExtensionMaxLength)]
+        [StringLength(ValidationConstants.ImageFileExtensionMaxLength)]
         public string FileExtension { get; set; }
 
         /// <summary>
@@ -38,7 +38,7 @@
         /// </value>
         [Required]
         [DataType(DataType.ImageUrl)]
-        [MaxLength(ValidationConstants.ImageUrlPathMaxLength)]
+        [StringLength(ValidationConstants.ImageUrlPathMaxLength)]
         public string UrlPath { get; set; }
 
         /// <summary>

@@ -13,16 +13,16 @@
     public class ImageDetailsForProductViewModel : BaseAdminViewModel<int>, IMapFrom<Image>, IHaveCustomMappings
     {
         [Required]
-        [MaxLength(ValidationConstants.ImageOriginalFileNameMaxLength)]
+        [StringLength(ValidationConstants.ImageOriginalFileNameMaxLength)]
         public string OriginalFileName { get; set; }
 
         [Required]
-        [MaxLength(ValidationConstants.ImageFileExtensionMaxLength)]
+        [StringLength(ValidationConstants.ImageFileExtensionMaxLength)]
         public string FileExtension { get; set; }
 
         [Required]
         [DataType(DataType.ImageUrl)]
-        [MaxLength(ValidationConstants.ImageUrlPathMaxLength)]
+        [StringLength(ValidationConstants.ImageUrlPathMaxLength)]
         public string UrlPath { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)

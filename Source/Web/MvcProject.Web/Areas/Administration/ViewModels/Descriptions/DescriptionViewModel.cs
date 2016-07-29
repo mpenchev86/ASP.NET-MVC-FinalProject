@@ -24,7 +24,7 @@
         }
 
         [Required]
-        [MaxLength(ValidationConstants.DescriptionContentMaxLength)]
+        [StringLength(ValidationConstants.DescriptionContentMaxLength)]
         [DataType(DataType.MultilineText)]
         public string Content { get; set; }
 

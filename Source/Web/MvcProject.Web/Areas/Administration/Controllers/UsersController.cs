@@ -46,7 +46,7 @@
             this.votesService = votesService;
         }
 
-        // GET: Administration/Users
+        [HttpGet]
         public ActionResult Index()
         {
             var foreignKeys = new UserViewModelForeignKeys
@@ -58,6 +58,7 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
             return base.Read(request);
@@ -66,12 +67,14 @@
         // Implemented through ASP.NET Identity user manager. Currently, users are created by the registration form
         // of the AccountController and the grid Create toolbar button in the view is disabled
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Create([DataSourceRequest]DataSourceRequest request, UserViewModel viewModel)
         {
             return base.Create(request, viewModel);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Update([DataSourceRequest]DataSourceRequest request, UserViewModel viewModel)
         {
             //return this.Json(new[] { viewModel }.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
@@ -79,12 +82,14 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Destroy([DataSourceRequest]DataSourceRequest request, UserViewModel viewModel)
         {
             return base.Destroy(request, viewModel);
         }
 
-#region DataProviders
+        #region DataProviders
+        [HttpGet]
         public JsonResult GetAllRoles()
         {
             var roles = this.rolesService.GetAll().To<RoleDetailsForUserViewModel>();
@@ -143,6 +148,6 @@
                 });
             }
         }
-#endregion
+        #endregion
     }
 }

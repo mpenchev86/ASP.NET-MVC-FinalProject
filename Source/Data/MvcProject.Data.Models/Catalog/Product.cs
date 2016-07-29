@@ -36,7 +36,7 @@
         /// </value>
         [Required]
         [DataType(DataType.MultilineText)]
-        [MaxLength(ValidationConstants.ProductTitleMaxLength)]
+        [StringLength(ValidationConstants.ProductTitleMaxLength)]
         public string Title { get; set; }
 
         /// <summary>
@@ -46,7 +46,7 @@
         /// A short description used in a quick view of a product.
         /// </value>
         [DataType(DataType.MultilineText)]
-        [MaxLength(ValidationConstants.ProductShortDescriptionMaxLength)]
+        [StringLength(ValidationConstants.ProductShortDescriptionMaxLength)]
         public string ShortDescription { get; set; }
 
         /// <summary>

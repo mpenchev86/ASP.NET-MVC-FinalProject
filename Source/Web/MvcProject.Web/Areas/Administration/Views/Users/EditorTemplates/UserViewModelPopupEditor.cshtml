@@ -2,49 +2,59 @@
 
 @model MvcProject.Web.Areas.Administration.ViewModels.Users.UserViewModel
 
-<div class="container-fluid">
-    <div class="row">
-        @Html.HiddenFor(m => m.Id)
-    </div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
 
-    <div class="row">
-        <div class="editor-label">
-            @Html.LabelFor(m => m.UserName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(m => m.UserName)
-            @Html.ValidationMessageFor(model => model.UserName)
-        </div>
-    </div>
+    <fieldset>
+        <legend></legend>
 
-    <div class="row">
-        <div class="editor-label">
-            @Html.LabelFor(m => m.Roles)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(
-                m => m.Roles,
-                new
-                {
-                    name = "rolesMultiSelect",
-                    placeHolder = "Select roles...",
-                    dataTextField = "Name",
-                    dataValueField = "Id",
-                    action = "GetAllRoles",
-                    controller = "Users",
-                    data_bind = "value: Roles"
-                })
-            @Html.ValidationMessageFor(model => model.Roles)
-        </div>
-    </div>
+        <div class="container-fluid">
+            <div class="row">
+                @Html.HiddenFor(m => m.Id)
+            </div>
 
-    <div class="row">
-        <div class="editor-label">
-            @Html.LabelFor(m => m.IsDeleted, "Mark as deleted")
+            <div class="row">
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.UserName)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(m => m.UserName)
+                    @Html.ValidationMessageFor(model => model.UserName)
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.Roles)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(
+                        m => m.Roles,
+                        new
+                        {
+                            name = "rolesMultiSelect",
+                            placeHolder = "Select roles...",
+                            dataTextField = "Name",
+                            dataValueField = "Id",
+                            action = "GetAllRoles",
+                            controller = "Users",
+                            data_bind = "value: Roles"
+                        })
+                    @Html.ValidationMessageFor(model => model.Roles)
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.IsDeleted, "Mark as deleted")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(m => m.IsDeleted)
+                    @Html.ValidationMessageFor(model => model.IsDeleted)
+                </div>
+            </div>
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(m => m.IsDeleted)
-            @Html.ValidationMessageFor(model => model.IsDeleted)
-        </div>
-    </div>
-</div>
+    </fieldset>
+}

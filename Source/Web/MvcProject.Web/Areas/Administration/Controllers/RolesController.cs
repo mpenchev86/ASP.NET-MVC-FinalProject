@@ -28,6 +28,7 @@
             this.usersService = usersService;
         }
 
+        [HttpGet]
         public ActionResult Index()
         {
             var foreignKeys = new RoleViewModelForeignKeys
@@ -39,31 +40,34 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
             return base.Read(request);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Create([DataSourceRequest]DataSourceRequest request, RoleViewModel viewModel)
         {
             return base.Create(request, viewModel);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Update([DataSourceRequest]DataSourceRequest request, RoleViewModel viewModel)
         {
-            //return this.Json(new[] { viewModel }.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
             return base.Update(request, viewModel);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Destroy([DataSourceRequest]DataSourceRequest request, RoleViewModel viewModel)
         {
             return base.Destroy(request, viewModel);
         }
 
-#region DataProviders
+        #region DataProviders
         protected override void PopulateEntity(ApplicationRole entity, RoleViewModel viewModel)
         {
             entity.Name = viewModel.Name;
@@ -72,6 +76,6 @@
             entity.IsDeleted = viewModel.IsDeleted;
             entity.DeletedOn = viewModel.DeletedOn;
         }
-#endregion
+        #endregion
     }
 }

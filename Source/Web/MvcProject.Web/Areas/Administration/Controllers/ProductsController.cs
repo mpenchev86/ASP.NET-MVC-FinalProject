@@ -22,6 +22,7 @@
     using ViewModels.Tags;
     using ViewModels.Votes;
     using ViewModels.Users;
+
     [Authorize(Roles = IdentityRoles.Admin)]
     public class ProductsController : BaseGridController<Product, ProductViewModel, IProductsService, int>
     {
@@ -55,50 +56,50 @@
             this.usersService = usersService;
         }
 
+        [HttpGet]
         public ActionResult Index()
         {
-            // Cache maybe
             var foreignKeys = new ProductViewModelForeignKeys
             {
                 Categories = this.categoriesService.GetAll().To<CategoryDetailsForProductViewModel>(),
                 Images = this.imagesService.GetAll().To<ImageDetailsForProductViewModel>(),
                 Descriptions = this.descriptionsService.GetAll().To<DescriptionDetailsForProductViewModel>(),
-                Sellers = this.usersService.GetAll().Where(u => u.Roles.Any(r => r.RoleName == IdentityRoles.Seller)).To<UserDetailsForProductViewModel>().ToList(),
+                Sellers = this.usersService.GetAll().Where(u => u.Roles.Any(r => r.RoleName == IdentityRoles.Seller)).To<UserDetailsForProductViewModel>(),
             };
 
             return this.View(foreignKeys);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
             return base.Read(request);
         }
 
-        // [ValidateAntiForgeryToken]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Create([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel)
         {
             return base.Create(request, viewModel);
         }
 
-        // [ValidateAntiForgeryToken]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Update([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel)
         {
             return base.Update(request, viewModel);
         }
 
-        // [ValidateAntiForgeryToken]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Destroy([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel)
         {
             return base.Destroy(request, viewModel);
         }
 
-#region DataProviders
-
-        // Cache maybe
+        #region DataProviders
+        [HttpGet]
         public JsonResult GetAllTags()
         {
             var tags = this.tagsService.GetAll().To<TagDetailsForProductViewModel>();
@@ -131,9 +132,6 @@
                 }
             }
 
-            //// Votes should be populated first.
-            //entity.AllTimeAverageRating = entity.Votes.Any() ? (int)entity.Votes.Average(v => v.VoteValue) : 0;
-
             var tagIds = viewModel.Tags.Select(tag => tag.Id);
             this.ProcessProductTags(entity, viewModel.Id, tagIds);
 
@@ -162,6 +160,6 @@
                 entity.Tags.Add(tag);
             }
         }
-#endregion
+        #endregion
     }
 }

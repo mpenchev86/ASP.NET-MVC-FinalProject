@@ -27,36 +27,41 @@
             this.productsService = productsService;
         }
 
+        [HttpGet]
         public ActionResult Index()
         {
             return this.View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
             return base.Read(request);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Create([DataSourceRequest]DataSourceRequest request, CategoryViewModel viewModel)
         {
             return base.Create(request, viewModel);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Update([DataSourceRequest]DataSourceRequest request, CategoryViewModel viewModel)
         {
             return base.Update(request, viewModel);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public override ActionResult Destroy([DataSourceRequest]DataSourceRequest request, CategoryViewModel viewModel)
         {
             return base.Destroy(request, viewModel);
         }
 
-#region DataProviders
+        #region DataProviders
         protected override void PopulateEntity(Category entity, CategoryViewModel viewModel)
         {
             if (viewModel.Products != null)
@@ -78,6 +83,6 @@
         {
             return this.categoriesService.GetAll().To<CategoryViewModel>().OrderBy(x => x.Name);
         }
-#endregion
+        #endregion
     }
 }

@@ -8,6 +8,8 @@
     var userCulture = this.Request.UserLanguages.FirstOrDefault() ?? "en-US";
 }
 
+@Html.AntiForgeryToken()
+
 @(Html.FullFeaturedGrid<ImageViewModel>(
     gridName: "imagesGrid",
     controllerName: "Images",
@@ -83,21 +85,29 @@
     <script>
         kendo.culture('@userCulture');
 
+        // Initialize the Kendo UI Validator on the form
+        $(function () {
+            $("form").kendoValidator();
+        });
+
         function readHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);
+            return { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() }
         }
 
         function createHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);
+            return { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() }
         }
 
         function updateHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);
-            console.log(data);
+            return { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() }
         }
 
         function destroyHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);
+            return { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() }
         }
     </script>
 }

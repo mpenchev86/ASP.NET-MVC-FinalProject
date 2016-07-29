@@ -16,7 +16,7 @@
     {
         [Required]
         [DataType(DataType.MultilineText)]
-        [MaxLength(ValidationConstants.CategoryNameMaxLenght)]
+        [StringLength(ValidationConstants.CategoryNameMaxLenght)]
         public string Name { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)

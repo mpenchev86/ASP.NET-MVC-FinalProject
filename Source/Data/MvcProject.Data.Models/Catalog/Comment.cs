@@ -17,8 +17,7 @@
         /// </value>
         [Required]
         [DataType(DataType.MultilineText)]
-        [MinLength(ValidationConstants.CommentContentMinLength)]
-        [MaxLength(ValidationConstants.CommentContentMaxLength)]
+        [StringLength(ValidationConstants.CommentContentMaxLength, MinimumLength = ValidationConstants.CommentContentMinLength)]
         public string Content { get; set; }
 
         /// <summary>
