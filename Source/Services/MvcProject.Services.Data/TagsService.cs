@@ -12,25 +12,20 @@
 
     public class TagsService : BaseDataService<Tag, int, IIntPKDeletableRepository<Tag>>, ITagsService
     {
-        private readonly IIntPKDeletableRepository<Tag> tagsRepository;
-        private IIdentifierProvider identifierProvider;
-
         public TagsService(IIntPKDeletableRepository<Tag> tags, IIdentifierProvider idProvider)
             : base(tags, idProvider)
         {
-            this.tagsRepository = tags;
-            this.identifierProvider = idProvider;
         }
 
         public override Tag GetByEncodedId(string id)
         {
-            var tag = this.tagsRepository.GetById(this.identifierProvider.DecodeIdToInt(id));
+            var tag = this.Repository.GetById(this.IdentifierProvider.DecodeIdToInt(id));
             return tag;
         }
 
         public override Tag GetByEncodedIdFromNotDeleted(string id)
         {
-            var tag = this.tagsRepository.GetByIdFromNotDeleted(this.identifierProvider.DecodeIdToInt(id));
+            var tag = this.Repository.GetByIdFromNotDeleted(this.IdentifierProvider.DecodeIdToInt(id));
             return tag;
         }
     }

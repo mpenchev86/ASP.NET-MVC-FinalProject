@@ -20,16 +20,12 @@
 
     public class UsersService : BaseDataService<ApplicationUser, string, IStringPKDeletableRepository<ApplicationUser>>, IUsersService
     {
-        private readonly IStringPKDeletableRepository<ApplicationUser> usersRepository;
-        private IIdentifierProvider identifierProvider;
         private UserManager<ApplicationUser, string> userManager;
 
         public UsersService(IStringPKDeletableRepository<ApplicationUser> users, IIdentifierProvider idProvider, UserManager<ApplicationUser, string> userManager)
             : base(users, idProvider)
         {
-            this.usersRepository = users;
             this.userManager = userManager;
-            this.identifierProvider = idProvider;
         }
 
         public ApplicationUser GetByUserName(string userName)
@@ -39,15 +35,15 @@
 
         public override ApplicationUser GetByEncodedId(string id)
         {
-            var decodedId = this.identifierProvider.DecodeIdToString(id);
-            var user = this.usersRepository.GetById(decodedId);
+            var decodedId = this.IdentifierProvider.DecodeIdToString(id);
+            var user = this.Repository.GetById(decodedId);
             return user;
         }
 
         public override ApplicationUser GetByEncodedIdFromNotDeleted(string id)
         {
-            var decodedId = this.identifierProvider.DecodeIdToString(id);
-            var user = this.usersRepository.GetByIdFromNotDeleted(decodedId);
+            var decodedId = this.IdentifierProvider.DecodeIdToString(id);
+            var user = this.Repository.GetByIdFromNotDeleted(decodedId);
             return user;
         }
     }

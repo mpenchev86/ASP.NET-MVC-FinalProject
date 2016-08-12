@@ -88,6 +88,8 @@
         [Range(0, double.MaxValue)]
         public decimal? ShippingPrice { get; set; }
 
+        public string SellerName { get; set; }
+
         public ICollection<string> Tags
         {
             get { return this.tags; }
@@ -122,6 +124,7 @@
         {
             configuration.CreateMap<Product, ProductFullViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.SellerName, opt => opt.MapFrom(src => src.Seller.UserName))
                 .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags.Select(t => t.Name)))
                 ;
         }

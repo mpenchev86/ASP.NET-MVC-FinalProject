@@ -60,6 +60,17 @@
         font-size: 18px;
     }
 
+    /* ====== Seller ====== */
+    #product-sidebar #seller a{
+        text-decoration: none;
+        color: midnightblue;
+    }
+
+    #product-sidebar #seller a:hover {
+        text-decoration: none;
+        color: dodgerblue;
+    }
+
     /* ====== Rating ====== */
     #product-sidebar .ui-icon-star {
         opacity: 100;
@@ -86,13 +97,13 @@
 
     /* ====== Category ====== */
     #product-sidebar #category a{
-        color: #27428e;
-        /*font-weight: bold;*/
+        text-decoration: none;
+        color: midnightblue;
     }
 
     #product-sidebar #category a:hover{
-        font-weight: bold;
-        color: #5f66f3;
+        text-decoration: none;
+        color: dodgerblue;
     }
 
     /* ====== Ref Number ====== */
@@ -187,12 +198,26 @@
     #product-comments #comment-metadata{
         margin: 0 0 0 0;
         font-size: 13px;
-        font-family: Georgia, sans-serif;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    #product-comments #comment-metadata a{
+        text-decoration: none;
+        color: midnightblue;
+    }
+
+    #product-comments #comment-metadata a:hover{
+        text-decoration: none;
+        color: dodgerblue;
     }
 
     #product-comments #comment-content{
         font-size: 14px;
         margin: 0 0 0 10px;
+    }
+
+    #product-comments .username a{
+
     }
 
     /* ====== Rating ====== */

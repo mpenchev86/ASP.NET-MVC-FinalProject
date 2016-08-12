@@ -14,11 +14,12 @@ namespace MvcProject.Web
     {
         public void Configuration(IAppBuilder app)
         {
-            // Used to prevent blocking all threads (signalR)
+            // Used to prevent CultureInfo leaking in other AppDomains(signalR)
+            // https://github.com/SignalR/SignalR/issues/3414
             app.SanitizeThreadCulture();
-            this.ConfigureAuth(app);
 
             // app.MapSignalR();
+            this.ConfigureAuth(app);
         }
     }
 }

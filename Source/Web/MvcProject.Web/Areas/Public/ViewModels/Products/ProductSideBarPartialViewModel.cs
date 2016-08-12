@@ -28,5 +28,7 @@
         public string RefNumber { get; set; }
 
         public double Rating { get; set; }
+
+        public string SellerName { get; set; }
     }
 }

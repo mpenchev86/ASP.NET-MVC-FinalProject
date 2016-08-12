@@ -20,25 +20,26 @@
         public MvcProjectDbContext()
             : base(DbAccess.DefaultConnectionString/*, throwIfV1Schema: false*/)
         {
+            this.Configuration.LazyLoadingEnabled = true;
         }
 
-        public IDbSet<Category> Categories { get; set; }
+        public virtual IDbSet<Category> Categories { get; set; }
 
-        public IDbSet<Comment> Comments { get; set; }
+        public virtual IDbSet<Comment> Comments { get; set; }
 
-        public IDbSet<Description> Descriptions { get; set; }
+        public virtual IDbSet<Description> Descriptions { get; set; }
 
-        public IDbSet<Image> Images { get; set; }
+        public virtual IDbSet<Image> Images { get; set; }
 
-        public IDbSet<Product> Products { get; set; }
+        public virtual IDbSet<Product> Products { get; set; }
 
-        public IDbSet<Property> Properties { get; set; }
+        public virtual IDbSet<Property> Properties { get; set; }
 
-        public IDbSet<Tag> Tags { get; set; }
+        public virtual IDbSet<Tag> Tags { get; set; }
 
-        public IDbSet<Vote> Votes { get; set; }
+        public virtual IDbSet<Vote> Votes { get; set; }
 
-        public IDbSet<ApplicationUserRole> UserRoles { get; set; }
+        public virtual IDbSet<ApplicationUserRole> UserRoles { get; set; }
 
         public static MvcProjectDbContext Create()
         {

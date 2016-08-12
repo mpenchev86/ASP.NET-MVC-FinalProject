@@ -30,13 +30,15 @@
         private readonly IUserRolesService<ApplicationUserRole> userRolesService;
         private readonly ICommentsService commentsService;
         private readonly IVotesService votesService;
+        private readonly IProductsService productsService;
 
         public UsersController(
             IUsersService usersService,
             IRolesService rolesService,
             IUserRolesService<ApplicationUserRole> userRolesService,
             ICommentsService commentsService,
-            IVotesService votesService)
+            IVotesService votesService,
+            IProductsService productsService)
             : base(usersService)
         {
             this.usersService = usersService;
@@ -44,6 +46,7 @@
             this.userRolesService = userRolesService;
             this.commentsService = commentsService;
             this.votesService = votesService;
+            this.productsService = productsService;
         }
 
         [HttpGet]
@@ -136,6 +139,20 @@
 
         private void ProcessUserRoles(ICollection<string> viewModelRoleNames, string userId, string userName)
         {
+            //// TODO: clear product seller from products when user is removed from seller role
+            //if (this.userRolesService.GetByUserId(userId).Select(x => x.RoleName).Contains(IdentityRoles.Seller) &&
+            //    !viewModelRoleNames.Contains(IdentityRoles.Seller))
+            //{
+            //    var products = this.productsService
+            //        .GetAll()
+            //        .Where(x => x.SellerId == userId);
+            //    foreach (var product in products)
+            //    {
+            //        product.SellerId = null;
+            //        this.productsService.Update(product);
+            //    }
+            //}
+
             this.userRolesService.RemoveUserFromAllRoles(userName);
             foreach (var role in viewModelRoleNames)
             {

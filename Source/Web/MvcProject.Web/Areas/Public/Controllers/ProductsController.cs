@@ -35,12 +35,11 @@
         }
         
         [HttpGet]
-        public ActionResult Index(int Id)
+        public ActionResult Index(int id)
         {
-            var product = this.productsService.GetById(Id);
+            var product = this.productsService.GetById(id);
             var viewModel = this.Mapper.Map<Product, ProductFullViewModel>(product);
             viewModel.CommentsWithRatings = this.PopulateCommentAndVote(viewModel.Comments, viewModel.Votes);
-
             return this.View(viewModel);
         }
 

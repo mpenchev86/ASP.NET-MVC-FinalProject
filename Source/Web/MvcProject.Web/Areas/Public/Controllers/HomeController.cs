@@ -24,11 +24,13 @@
         }
 
         // [OutputCache(Duration = 30 * 60, Location = OutputCacheLocation.Server, VaryByCustom = "SomeOtherIdentifier")]
+        //[OutputCache(Duration = 10 * 60)]
         public ActionResult Index()
         {
             return this.View();
         }
 
+        //[OutputCache(Duration = 10 * 60)]
         public PartialViewResult Carousel()
         {
             //var viewModel = new List<CarouselData>();
@@ -47,6 +49,7 @@
         }
 
         // Cached
+        //[OutputCache(Duration = 10 * 60)]
         public JsonResult ReadNewestProducts([DataSourceRequest]DataSourceRequest request)
         {
             var viewModel = this.Cache.Get(
@@ -63,6 +66,7 @@
         }
 
         // Cached
+        //[OutputCache(Duration = 10 * 60)]
         public JsonResult ReadBestSellingProducts([DataSourceRequest]DataSourceRequest request)
         {
             var viewModel = this.Cache.Get(
@@ -79,6 +83,7 @@
         }
 
         // Cached
+        //[OutputCache(Duration = 10 * 60)]
         public JsonResult ReadHighestVotedProducts([DataSourceRequest]DataSourceRequest request)
         {
             var viewModel = this.Cache.Get(

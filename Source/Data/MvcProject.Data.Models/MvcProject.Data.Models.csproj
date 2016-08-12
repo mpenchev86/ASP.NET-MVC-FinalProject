@@ -68,7 +68,8 @@
     <Compile Include="Contracts\IAuditInfo.cs" />
     <Compile Include="Contracts\IBaseEntityModel.cs" />
     <Compile Include="Contracts\IDeletableEntity.cs" />
-    <Compile Include="Catalog\Image.cs" />
+    <Compile Include="Media\FileInfo.cs" />
+    <Compile Include="Media\Image.cs" />
     <Compile Include="Catalog\Property.cs" />
     <Compile Include="Identity\ApplicationRole.cs" />
     <Compile Include="Catalog\Vote.cs" />

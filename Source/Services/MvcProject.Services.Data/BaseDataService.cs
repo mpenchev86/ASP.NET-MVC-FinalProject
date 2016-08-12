@@ -22,6 +22,16 @@
             this.identifierProvider = idProvider;
         }
 
+        public TRepository Repository
+        {
+            get { return this.repository; }
+        }
+
+        public IIdentifierProvider IdentifierProvider
+        {
+            get { return this.identifierProvider; }
+        }
+
         public virtual IQueryable<TEntity> GetAll()
         {
             var result = this.repository.All();

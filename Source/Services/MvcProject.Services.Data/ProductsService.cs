@@ -12,25 +12,20 @@
 
     public class ProductsService : BaseDataService<Product, int, IIntPKDeletableRepository<Product>>, IProductsService
     {
-        private readonly IIntPKDeletableRepository<Product> productsRepository;
-        private IIdentifierProvider identifierProvider;
-
         public ProductsService(IIntPKDeletableRepository<Product> products, IIdentifierProvider idProvider)
             : base(products, idProvider)
         {
-            this.productsRepository = products;
-            this.identifierProvider = idProvider;
         }
 
         public override Product GetByEncodedId(string id)
         {
-            var product = this.productsRepository.GetById(this.identifierProvider.DecodeIdToInt(id));
+            var product = this.Repository.GetById(this.IdentifierProvider.DecodeIdToInt(id));
             return product;
         }
 
         public override Product GetByEncodedIdFromNotDeleted(string id)
         {
-            var product = this.productsRepository.GetByIdFromNotDeleted(this.identifierProvider.DecodeIdToInt(id));
+            var product = this.Repository.GetByIdFromNotDeleted(this.IdentifierProvider.DecodeIdToInt(id));
             return product;
         }
     }

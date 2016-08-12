@@ -22,13 +22,11 @@
         {
             var sourceType = typeof(TSource);
             var destinationType = typeof(TDestination);
-            var sourceParentType = baseFor == WithBaseFor.Both || baseFor == WithBaseFor.Source
-                                       ? sourceType.BaseType
-                                       : sourceType;
+            var sourceParentType = baseFor == WithBaseFor.Both ||
+                                   baseFor == WithBaseFor.Source ? sourceType.BaseType : sourceType;
 
-            var destinationParentType = baseFor == WithBaseFor.Both || baseFor == WithBaseFor.Destination
-                                            ? destinationType.BaseType
-                                            : destinationType;
+            var destinationParentType = baseFor == WithBaseFor.Both ||
+                                        baseFor == WithBaseFor.Destination ? destinationType.BaseType : destinationType;
 
             mappingExpression
                 .BeforeMap((x, y) => Mapper.Map(x, y, sourceParentType, destinationParentType))

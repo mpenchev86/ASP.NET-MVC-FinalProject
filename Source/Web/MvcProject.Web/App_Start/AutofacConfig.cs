@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Reflection;
     using System.Web;
+    using System.Web.Compilation;
     using System.Web.Mvc;
     using Areas.Administration.Controllers;
     using Areas.Public.Controllers;
@@ -32,9 +33,12 @@
             var builder = new ContainerBuilder();
 
             // Register your MVC controllers.
-            builder.RegisterControllers(typeof(MvcApplication).Assembly);
-            builder.RegisterControllers(typeof(BasePublicController).Assembly);
-            builder.RegisterControllers(typeof(BaseAdminController).Assembly);
+            // If AutofacConfig's assembly doesn't reference the specific controllers assemblies, use these:
+            // builder.RegisterControllers(typeof(MvcApplication).Assembly);
+            // builder.RegisterControllers(typeof(BasePublicController).Assembly);
+            // builder.RegisterControllers(typeof(BaseAdminController).Assembly);
+            // ...
+            builder.RegisterControllers(BuildManager.GetReferencedAssemblies().Cast<Assembly>().ToArray());
 
             // OPTIONAL: Register model binders that require DI.
             builder.RegisterModelBinders(Assembly.GetExecutingAssembly());
@@ -63,59 +67,65 @@
             builder
                 .Register(x => new MvcProjectDbContext())
                 .As<DbContext>()
-                .InstancePerRequest();
+                .InstancePerLifetimeScope();
 
             // Repositories
             builder
                 .RegisterGeneric(typeof(EfIntPKDeletableRepository<>))
                 .As(typeof(IIntPKDeletableRepository<>))
-                .InstancePerRequest();
+                .InstancePerLifetimeScope();
 
             builder
                 .RegisterGeneric(typeof(EfStringPKDeletableRepository<>))
                 .As(typeof(IStringPKDeletableRepository<>))
-                .InstancePerRequest();
+                .InstancePerLifetimeScope();
 
             builder
                .RegisterGeneric(typeof(EfIntPKRepository<>))
                .As(typeof(IIntPKRepository<>))
-               .InstancePerRequest();
+               .InstancePerLifetimeScope();
 
             builder
                 .RegisterGeneric(typeof(EfStringPKRepository<>))
                 .As(typeof(IStringPKRepository<>))
-                .InstancePerRequest();
+                .InstancePerLifetimeScope();
 
             // Application Services
             var dataServicesAssembly = Assembly.Load(Assemblies.DataServicesAssemblyName);
             builder
                 .RegisterAssemblyTypes(dataServicesAssembly)
                 .AsImplementedInterfaces()
-                .InstancePerRequest();
+                .InstancePerLifetimeScope();
 
             var webServicesAssembly = Assembly.Load(Assemblies.WebServicesAssemblyName);
             builder
                 .RegisterAssemblyTypes(webServicesAssembly)
                 .AsImplementedInterfaces()
-                .InstancePerRequest();
+                .InstancePerLifetimeScope();
+
+            var logicServicesAssembly = Assembly.Load(Assemblies.LogicServicesAssemblyName);
+            builder
+                .RegisterAssemblyTypes(logicServicesAssembly)
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
 
             // ASP.NET Identity Managers
             builder
                 .Register(x => HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationUserManager>())
                 .As<UserManager<ApplicationUser, string>>()
-                .InstancePerRequest()
+                .InstancePerLifetimeScope()
                 ;
 
             builder
                 .Register(x => HttpContext.Current.Request.GetOwinContext().Get<ApplicationRoleManager>())
                 .As<RoleManager<ApplicationRole, string>>()
-                .InstancePerRequest()
+                .InstancePerLifetimeScope()
                 ;
 
             builder
                 .Register(x => HttpContext.Current.Request.GetOwinContext().Get<ApplicationSignInManager>())
                 .As<SignInManager<ApplicationUser, string>>()
-                .InstancePerRequest()
+                .InstancePerLifetimeScope()
                 ;
 
             // Infrastructure
@@ -123,7 +133,7 @@
             builder
                 .RegisterAssemblyTypes(infrastructureAssembly)
                 .AsImplementedInterfaces()
-                .InstancePerRequest();
+                .InstancePerLifetimeScope();
 
             //// View Engines
             // builder

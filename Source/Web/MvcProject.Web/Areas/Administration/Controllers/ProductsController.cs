@@ -22,7 +22,7 @@
     using ViewModels.Tags;
     using ViewModels.Votes;
     using ViewModels.Users;
-
+    using Services.Data.ServiceModels;
     [Authorize(Roles = IdentityRoles.Admin)]
     public class ProductsController : BaseGridController<Product, ProductViewModel, IProductsService, int>
     {
@@ -81,7 +81,22 @@
         [ValidateAntiForgeryToken]
         public override ActionResult Create([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel)
         {
-            return base.Create(request, viewModel);
+            if (viewModel != null && this.ModelState.IsValid)
+            {
+                var entity = new Product();
+                this.PopulateEntity(entity, viewModel);
+
+                var processedImages = this.imagesService.ProcessImages(viewModel.Images.AsQueryable().To<RawFile>());
+                this.imagesService.SaveImages(processedImages);
+                entity.Images = processedImages.Select(ProcessedImage.ToImage).ToList();
+
+                this.productsService.Insert(entity);
+                viewModel.Id = entity.Id;
+            }
+
+            return this.GetEntityAsDataSourceResult(request, viewModel, this.ModelState);
+
+            //return base.Create(request, viewModel);
         }
 
         [HttpPost]

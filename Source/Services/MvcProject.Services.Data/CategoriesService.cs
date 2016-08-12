@@ -12,25 +12,20 @@
 
     public class CategoriesService : BaseDataService<Category, int, IIntPKDeletableRepository<Category>>, ICategoriesService
     {
-        private readonly IIntPKDeletableRepository<Category> categoriesRepository;
-        private IIdentifierProvider identifierProvider;
-
         public CategoriesService(IIntPKDeletableRepository<Category> repository, IIdentifierProvider idProvider)
             : base(repository, idProvider)
         {
-            this.categoriesRepository = repository;
-            this.identifierProvider = idProvider;
         }
 
         public override Category GetByEncodedId(string id)
         {
-            var category = this.categoriesRepository.GetById(this.identifierProvider.DecodeIdToInt(id));
+            var category = this.Repository.GetById(this.IdentifierProvider.DecodeIdToInt(id));
             return category;
         }
 
         public override Category GetByEncodedIdFromNotDeleted(string id)
         {
-            var category = this.categoriesRepository.GetByIdFromNotDeleted(this.identifierProvider.DecodeIdToInt(id));
+            var category = this.Repository.GetByIdFromNotDeleted(this.IdentifierProvider.DecodeIdToInt(id));
             return category;
         }
     }

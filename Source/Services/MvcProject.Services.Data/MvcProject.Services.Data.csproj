@@ -95,6 +95,7 @@
     <Compile Include="Contracts\ICategoriesService.cs" />
     <Compile Include="Contracts\ICommentsService.cs" />
     <Compile Include="Contracts\IDescriptionsService.cs" />
+    <Compile Include="Contracts\IFileInfoService.cs" />
     <Compile Include="Contracts\IImagesService.cs" />
     <Compile Include="Contracts\IProductsService.cs" />
     <Compile Include="Contracts\IPropertiesService.cs" />
@@ -105,7 +106,10 @@
     <Compile Include="Contracts\IVotesService.cs" />
     <Compile Include="DescriptionsService.cs" />
     <Compile Include="BaseDataService.cs" />
+    <Compile Include="FileInfoService.cs" />
     <Compile Include="ImagesService.cs" />
+    <Compile Include="ServiceModels\ProcessedImage.cs" />
+    <Compile Include="ServiceModels\RawFile.cs" />
     <Compile Include="ProductsService.cs" />
     <Compile Include="PropertiesService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -116,6 +120,10 @@
     <Compile Include="VotesService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\GlobalConstants\MvcProject.Common.GlobalConstants.csproj">
+      <Project>{5f2803a7-770d-4509-8d69-cfbf4d6dc772}</Project>
+      <Name>MvcProject.Common.GlobalConstants</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Data\MvcProject.Data.DbAccessConfig\MvcProject.Data.DbAccessConfig.csproj">
       <Project>{37ead08e-a644-4438-b913-1329c8cb3899}</Project>
       <Name>MvcProject.Data.DbAccessConfig</Name>
@@ -131,6 +139,10 @@
     <ProjectReference Include="..\MvcProject.Services.Identity\MvcProject.Services.Identity.csproj">
       <Project>{710D2E6C-DECC-4966-9584-E432E0250CD5}</Project>
       <Name>MvcProject.Services.Identity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MvcProject.Services.Logic\MvcProject.Services.Logic.csproj">
+      <Project>{448433B3-4A16-4F53-9BA9-AC2B339B7C10}</Project>
+      <Name>MvcProject.Services.Logic</Name>
     </ProjectReference>
     <ProjectReference Include="..\MvcProject.Services.Web\MvcProject.Services.Web.csproj">
       <Project>{bfbd7dc4-f46c-41e3-aa95-317230fe6558}</Project>

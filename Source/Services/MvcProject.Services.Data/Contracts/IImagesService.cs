@@ -8,11 +8,17 @@
     using MvcProject.Data.Models;
     using MvcProject.Data.Models.Contracts;
     using MvcProject.Web.Infrastructure.Mapping;
+    using ServiceModels;
 
     /// <summary>
     /// Allows extension of the data service for Image entity
     /// </summary>
     public interface IImagesService : IDeletableEntitiesBaseService<Image, int>
     {
+        IEnumerable<ProcessedImage> ProcessImages(IEnumerable<RawFile> rawImages);
+
+        void SaveImages(IEnumerable<ProcessedImage> images);
+
+        IEnumerable<Image> ImagesByUrls(ICollection<string> imageUrls);
     }
 }

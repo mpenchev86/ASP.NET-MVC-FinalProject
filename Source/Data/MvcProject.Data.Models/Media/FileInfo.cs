@@ -1,20 +1,21 @@
 ﻿namespace MvcProject.Data.Models
 {
+    using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using MvcProject.Common.GlobalConstants;
-    using MvcProject.Data.Models.Contracts;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Common.GlobalConstants;
+    using Contracts;
 
-    /// <summary>
-    /// Represents the entity for an image of a product.
-    /// </summary>
-    public class Image : BaseEntityModel<int>, IAdministerable
+    public abstract class FileInfo : BaseEntityModel<int>, IAdministerable
     {
         /// <summary>
-        /// Gets or sets the original file name of the image. Does not include any path or extension.
+        /// Gets or sets the original file name. Does not include any path or extension.
         /// </summary>
         /// <value>
-        /// The original file name of the image. Does not include any path or extension.
+        /// The original file name. Does not include any path or extension.
         /// </value>
         [Required]
         [StringLength(ValidationConstants.ImageOriginalFileNameMaxLength)]
@@ -40,22 +41,5 @@
         [DataType(DataType.ImageUrl)]
         [StringLength(ValidationConstants.ImageUrlPathMaxLength)]
         public string UrlPath { get; set; }
-
-        /// <summary>
-        /// Gets or sets the foreign key pointing to the product.
-        /// </summary>
-        /// <value>
-        /// The foreign key pointing to the product.
-        /// </value>
-        public int? ProductId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the product to which the image belongs.
-        /// </summary>
-        /// <value>
-        /// The product to which the image belongs.
-        /// </value>
-        [InverseProperty("Images")]
-        public virtual Product Product { get; set; }
     }
 }
