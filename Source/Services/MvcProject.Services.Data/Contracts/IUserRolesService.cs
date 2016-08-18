@@ -10,7 +10,7 @@
     /// Exposes functionality for manipulation of data in the junction table for users and roles
     /// </summary>
     /// <typeparam name="T">The type representing the junction table.</typeparam>
-    public interface IUserRolesService<T>
+    public interface IUserRolesService<T> : IBaseDataService
     {
         IQueryable<T> GetByUserId(string userId);
 

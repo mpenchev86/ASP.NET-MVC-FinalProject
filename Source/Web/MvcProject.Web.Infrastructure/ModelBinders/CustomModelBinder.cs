@@ -36,8 +36,6 @@
             }
 
             return entity;
-
-            //return base.BindModel(controllerContext, bindingContext);
         }
     }
 }

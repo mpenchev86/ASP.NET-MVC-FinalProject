@@ -7,7 +7,7 @@
     using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
 
-    public class BaseAdminViewModel<TKey> : IMapFrom<BaseEntityModel<TKey>>
+    public class BaseAdminViewModel<TKey>/* : IMapFrom<BaseEntityModel<TKey>>*/
     {
         [Key]
         public TKey Id { get; set; }

@@ -6,7 +6,7 @@
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
-
+    using AutoMapper;
     using Data.Models;
     using Services.Data;
     using ViewModels.Users;
@@ -23,7 +23,7 @@
         public ActionResult UserProfile(string userName)
         {
             var user = this.usersService.GetByUserName(userName);
-            var result = this.Mapper.Map<ApplicationUser, UserProfileViewModel>(user);
+            var result = /*this.*/Mapper.Map<ApplicationUser, UserProfileViewModel>(user);
             return this.View(result);
         }
     }

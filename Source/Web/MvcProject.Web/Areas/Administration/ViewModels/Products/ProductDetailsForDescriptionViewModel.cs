@@ -10,7 +10,7 @@
 
     public class ProductDetailsForDescriptionViewModel : BaseAdminViewModel<int>, IMapFrom<Product>, IHaveCustomMappings
     {
-        public void CreateMappings(IMapperConfiguration configuration)
+        public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Product, ProductDetailsForDescriptionViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));

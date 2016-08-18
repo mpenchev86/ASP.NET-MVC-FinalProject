@@ -1,0 +1,28 @@
+﻿@*@model IEnumerable<HttpPostedFileBase>*@
+
+@(Html.Kendo().Upload()
+    .Name((string)ViewData["Name"])
+    .Enable(true)
+    .Multiple(false)
+    .Async(async => async
+        .AutoUpload(false)
+    //.Batch(true)
+    //.SaveField((string)ViewData["Name"])
+    //.SaveUrl("~/App_Data")
+    //.Save((string)ViewData["SaveAction"], (string)ViewData["SaveController"], null)
+    )
+//.Events(e => e.Success((string)ViewData["onUploadSuccess"]))
+//.Files(f =>
+//{
+//    if (Model != null && Model.Any())
+//    {
+//        foreach (var image in Model)
+//        {
+//            f.Add().Name(image.FileName).Extension(image.ContentType);
+//        }
+//    }
+//})
+//.Messages(msg => msg.Remove("re-move"))
+//.TemplateId("imagesTemplate")
+//.HtmlAttributes(new { data_bind = (string)ViewData["data_bind"] })
+)

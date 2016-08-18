@@ -22,6 +22,10 @@
             string controllerName,
             object routeValues,
             int pageSize,
+            string readAction = "Read",
+            string createAction = "Create",
+            string updateAction = "Update",
+            string destroyAction = "Destroy",
             bool scrollable = true,
             bool virtualScroll = false,
             int height = 500,
@@ -125,10 +129,10 @@
                     .Model(model)
                     .Sort(s => s.Add("Id").Ascending())
                     .Aggregates(aggregates)
-                    .Read(read => read.Action("Read", controllerName, routeValues).Data(readHandler))
-                    .Create(create => create.Action("Create", controllerName, routeValues).Data(createHandler))
-                    .Update(update => update.Action("Update", controllerName, routeValues).Data(updateHandler))
-                    .Destroy(destroy => destroy.Action("Destroy", controllerName, routeValues).Data(destroyHandler)));
+                    .Read(read => read.Action(readAction, controllerName, routeValues).Data(readHandler))
+                    .Create(create => create.Action(createAction, controllerName, routeValues).Data(createHandler))
+                    .Update(update => update.Action(updateAction, controllerName, routeValues).Data(updateHandler))
+                    .Destroy(destroy => destroy.Action(destroyAction, controllerName, routeValues).Data(destroyHandler)));
         }
 
         public static GridBuilder<T> ClientDetailsGrid<T>(

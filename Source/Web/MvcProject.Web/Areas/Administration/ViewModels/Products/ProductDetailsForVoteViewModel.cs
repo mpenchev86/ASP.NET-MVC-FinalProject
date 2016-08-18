@@ -15,7 +15,7 @@
 
     public class ProductDetailsForVoteViewModel : BaseAdminViewModel<int>, IMapFrom<Product>, IHaveCustomMappings
     {
-        public void CreateMappings(IMapperConfiguration configuration)
+        public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Product, ProductDetailsForVoteViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));

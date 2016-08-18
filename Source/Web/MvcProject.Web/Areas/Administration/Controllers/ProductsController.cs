@@ -23,6 +23,12 @@
     using ViewModels.Votes;
     using ViewModels.Users;
     using Services.Data.ServiceModels;
+    using System.Web;
+    using System.IO;
+    using System.Web.SessionState;
+    using Services.Logic;
+    using Services.Logic.ServiceModels;
+
     [Authorize(Roles = IdentityRoles.Admin)]
     public class ProductsController : BaseGridController<Product, ProductViewModel, IProductsService, int>
     {
@@ -30,6 +36,7 @@
         private readonly ICategoriesService categoriesService;
         private readonly ICommentsService commentsService;
         private readonly IImagesService imagesService;
+        private readonly IFileSystemService fileSystemService;
         private readonly IDescriptionsService descriptionsService;
         private readonly ITagsService tagsService;
         private readonly IUsersService usersService;
@@ -43,7 +50,8 @@
             IDescriptionsService descriptionsService,
             ITagsService tagsService,
             IUsersService usersService,
-            IVotesService votesService)
+            IVotesService votesService,
+            IFileSystemService fileSystemService)
             : base(productsService)
         {
             this.productsService = productsService;
@@ -54,6 +62,7 @@
             this.tagsService = tagsService;
             this.votesService = votesService;
             this.usersService = usersService;
+            this.fileSystemService = fileSystemService;
         }
 
         [HttpGet]
@@ -79,16 +88,20 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public override ActionResult Create([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel)
+        public ActionResult CreateProduct([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel, IEnumerable<string> fileNames, IEnumerable<int> productImagesIds)
         {
             if (viewModel != null && this.ModelState.IsValid)
             {
                 var entity = new Product();
                 this.PopulateEntity(entity, viewModel);
 
-                var processedImages = this.imagesService.ProcessImages(viewModel.Images.AsQueryable().To<RawFile>());
-                this.imagesService.SaveImages(processedImages);
-                entity.Images = processedImages.Select(ProcessedImage.ToImage).ToList();
+                //var rawFiles = viewModel.Images.AsQueryable().To<RawFile>().ToList();
+                //var processedImages = this.imagesService.ProcessImages(rawFiles/*viewModel.Images .Select(ImageDetailsForProductViewModel.ToRawFile) .AsQueryable().To<RawFile>()*/);
+                //this.imagesService.SaveImages(processedImages);
+
+                //entity.Images = processedImages.AsQueryable().To<Image>().ToList();
+
+                entity.Images = this.imagesService.GetAll().Where(img => productImagesIds.Contains(img.Id)).ToList();
 
                 this.productsService.Insert(entity);
                 viewModel.Id = entity.Id;
@@ -114,6 +127,74 @@
         }
 
         #region DataProviders
+        public ActionResult Save(IEnumerable<HttpPostedFileBase> productImages)
+        {
+            var fileNames = new List<string>();
+            var productImagesIds = new List<int>();
+            var rawFiles = new List<RawFile>();
+
+            //The Name of the Upload component is "productImages".
+            foreach (var file in productImages)
+            {
+                ////Some browsers send file names with a full path. You only care about the file name.
+                //var fileName = Path.GetFileName(file.FileName);
+                //var destinationPath = Path.Combine(Server.MapPath("~/App_Data"), fileName);
+                //file.SaveAs(destinationPath);
+
+
+                //// http://stackoverflow.com/a/7852256/4491770
+                //byte[] fileContent;
+                //using (Stream inputStream = file.InputStream)
+                //{
+                //    MemoryStream memoryStream = inputStream as MemoryStream;
+                //    if (memoryStream == null)
+                //    {
+                //        memoryStream = new MemoryStream();
+                //        inputStream.CopyTo(memoryStream);
+                //    }
+                //    fileContent = memoryStream.ToArray();
+                //}
+
+                //string fileName = string.Empty;
+                //string extension = string.Empty;
+                //if (Path.HasExtension(file.FileName))
+                //{
+                //    fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                //}
+
+                //if (Path.HasExtension(file.FileName))
+                //{
+                //    fileName = Path.GetExtension(file.FileName);
+                //}
+
+                //rawFiles.Add(new RawFile
+                //{
+                //    OriginalFileName = fileName,
+                //    FileExtension = extension,
+                //    Content = fileContent
+                //});
+
+                var rawFile = this.fileSystemService.ToRawFile(file);
+                if (rawFile == null)
+                {
+                    // skip invalid files
+                    continue;
+                }
+
+                rawFiles.Add(rawFile);
+                fileNames.Add(file.FileName);
+            }
+
+            var processedImages = this.imagesService.ProcessImages(rawFiles);
+            this.imagesService.SaveImages(processedImages);
+            productImagesIds = new List<int>(processedImages.Select(i => i.Id));
+
+            ////Return an empty string to signify success.
+            //return Content("");
+
+            return Json(new { fileNames = fileNames, productImagesIds = productImagesIds }, "text/plain");
+        }
+
         [HttpGet]
         public JsonResult GetAllTags()
         {

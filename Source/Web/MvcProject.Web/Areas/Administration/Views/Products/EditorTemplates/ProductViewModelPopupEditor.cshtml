@@ -6,7 +6,7 @@
 
 @model MvcProject.Web.Areas.Administration.ViewModels.Products.ProductViewModel
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Products", FormMethod.Post, new { id = "product-editor-form", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -68,6 +68,43 @@
                     @Html.ValidationMessageFor(m => m.MainImageId)
                 </div>
             </div>
+
+            @*===============================*@
+
+            <div class="row">
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.Images, "Images")
+                </div>
+                <div class="editor-field">
+                    @*@Html.EditorFor(
+                        m => m.ImageFiles,
+                        new
+                        {
+                            Name = "productImages",
+                            SaveAction = "Save",
+                            SaveController = "Products",
+                            onUploadSuccess = "onUploadSuccess",
+                            data_bind = "value: ImageFiles"
+                        })*@
+
+                    @(Html.Kendo().Upload()
+                        .Name("productImages")
+                        .Multiple(true)
+                        .Async(async => async
+                            .Batch(true)
+                            .AutoUpload(false)
+                        //.SaveField("ImageFiles")
+                        //.SaveUrl("~/App_Data")
+                        .Save("Save", "Products")
+                        )
+                        .Events(ev => ev.Success("onUploadSuccess"))
+                    )
+
+                    @Html.ValidationMessageFor(m => m.Images)
+                </div>
+            </div>
+
+            @*===============================*@
 
             <div class="row">
                 <div class="editor-label">

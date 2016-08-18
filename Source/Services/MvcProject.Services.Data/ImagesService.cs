@@ -7,8 +7,10 @@
     using System.Threading.Tasks;
 
     using Logic;
+    using Logic.ServiceModels;
     using MvcProject.Data.DbAccessConfig.Repositories;
     using MvcProject.Data.Models;
+    using MvcProject.Web.Infrastructure.Mapping;
     using ServiceModels;
     using Web;
 
@@ -17,28 +19,32 @@
         private const string ImagesServerPath = "~/Content/Images/{0}_{1}.{2}";
         private readonly IImageProcessorService imageProcessor;
         private IFileSystemService fileSystemService;
+        private IMappingService mappingService;
 
         public ImagesService(
             IIntPKDeletableRepository<Image> images,
             IIdentifierProvider idProvider,
             IFileSystemService fileSystemService,
-            IImageProcessorService imageProcessor)
+            IImageProcessorService imageProcessor,
+            IMappingService mappingService)
             : base(images, idProvider)
         {
             this.fileSystemService = fileSystemService;
             this.imageProcessor = imageProcessor;
+            this.mappingService = mappingService;
         }
 
         //// #########################################################################
 
         public IEnumerable<ProcessedImage> ProcessImages(IEnumerable<RawFile> rawImages)
         {
-            var processedImages = rawImages.Select(img =>
+            var processedImages = rawImages.Select(rawImage =>
             {
-                var image = this.SaveFileInfo(img);
-                var thumbnailContent = this.imageProcessor.Resize(img.Content, ProcessedImage.ThumbnailImageWidth);
-                var highContent = this.imageProcessor.Resize(img.Content, ProcessedImage.HighResolutionWidth);
-                return ProcessedImage.FromImage(image, thumbnailContent, highContent);
+                var image = this.SaveFileInfo(rawImage);
+                var thumbnailContent = this.imageProcessor.Resize(rawImage.Content, ProcessedImage.ThumbnailImageWidth);
+                var highContent = this.imageProcessor.Resize(rawImage.Content, ProcessedImage.HighResolutionWidth);
+                var processedImage = this.ToProcessedImage(image, thumbnailContent, highContent);
+                return processedImage;
             });
 
             return processedImages;
@@ -58,13 +64,21 @@
             }
         }
 
+        public ProcessedImage ToProcessedImage(Image image, byte[] thumbnailContent, byte[] highResolutionContent)
+        {
+            var result = this.mappingService.IMapper.Map<ProcessedImage>(image);
+            result.ThumbnailContent = thumbnailContent;
+            result.HighResolutionContent = highResolutionContent;
+            return result;
+        }
+
         // Rename to GetImagesByUrls
         public IEnumerable<Image> ImagesByUrls(ICollection<string> imageUrls)
         {
             return this.ImagesQueryByUrls(imageUrls).ToList();
         }
 
-        // Rename to QueryImagesByUrls
+        // Rename to GetImagesQueryByUrls
         private IQueryable<Image> ImagesQueryByUrls(ICollection<string> imageUrls)
         {
             return this.Repository

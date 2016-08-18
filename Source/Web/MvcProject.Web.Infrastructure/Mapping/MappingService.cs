@@ -9,6 +9,14 @@
 
     public class MappingService : IMappingService
     {
+        public IMapper IMapper
+        {
+            get
+            {
+                return AutoMapperConfig.Configuration.CreateMapper();
+            }
+        }
+
         public T Map<T>(object source)
         {
             return Mapper.Map<T>(source);

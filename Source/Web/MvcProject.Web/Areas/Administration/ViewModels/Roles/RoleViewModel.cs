@@ -37,7 +37,7 @@
             set { this.users = value; }
         }
 
-        public void CreateMappings(IMapperConfiguration configuration)
+        public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<ApplicationRole, RoleViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))

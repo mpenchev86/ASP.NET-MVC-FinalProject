@@ -5,9 +5,11 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using System.Web;
+    using Logic.ServiceModels;
     using ServiceModels;
 
-    public interface IFileInfoService<T>
+    public interface IFileInfoService<T> : IBaseDataService
     {
         T SaveFileInfo(RawFile file);
     }

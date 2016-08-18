@@ -16,7 +16,7 @@
         [Required]
         public string UserName { get; set; }
 
-        public void CreateMappings(IMapperConfiguration configuration)
+        public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<ApplicationUser, UserDetailsForRoleViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))

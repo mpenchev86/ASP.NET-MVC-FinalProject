@@ -18,7 +18,7 @@
 
         public ImageForThumbnailProductViewModel MainImage { get; set; }
 
-        public void CreateMappings(IMapperConfiguration configuration)
+        public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Product, ProductFullViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));

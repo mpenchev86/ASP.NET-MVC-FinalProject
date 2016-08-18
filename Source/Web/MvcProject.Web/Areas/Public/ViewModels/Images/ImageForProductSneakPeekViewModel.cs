@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
+    using AutoMapper;
     using MvcProject.Data.Models;
     using MvcProject.Web.Infrastructure.Mapping;
 

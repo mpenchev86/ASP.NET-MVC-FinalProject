@@ -30,6 +30,7 @@
         private ICollection<CommentDetailsForProductViewModel> comments;
         private ICollection<VoteDetailsForProductViewModel> votes;
         private ICollection<ImageDetailsForProductViewModel> images;
+        private ICollection<HttpPostedFileBase> files;
 
         public ProductViewModel()
         {
@@ -37,6 +38,7 @@
             this.comments = new HashSet<CommentDetailsForProductViewModel>();
             this.votes = new HashSet<VoteDetailsForProductViewModel>();
             this.images = new HashSet<ImageDetailsForProductViewModel>();
+            this.files = new HashSet<HttpPostedFileBase>();
         }
 
         [Required]
@@ -101,6 +103,8 @@
             set { this.comments = value; }
         }
 
+        [UIHint("FileUpload")]
+        //[UIHint("FileUploadVanilla")]
         public ICollection<ImageDetailsForProductViewModel> Images
         {
             get { return this.images; }
@@ -126,7 +130,7 @@
         [LongDateTimeFormat]
         public DateTime? DeletedOn { get; set; }
 
-        public void CreateMappings(IMapperConfiguration configuration)
+        public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Product, ProductViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
@@ -160,7 +164,7 @@
                                 Id = i.Id,
                                 OriginalFileName = i.OriginalFileName,
                                 FileExtension = i.FileExtension,
-                                UrlPath = i.UrlPath,
+                                //UrlPath = i.UrlPath,
                                 CreatedOn = i.CreatedOn,
                                 ModifiedOn = i.ModifiedOn
                             })))

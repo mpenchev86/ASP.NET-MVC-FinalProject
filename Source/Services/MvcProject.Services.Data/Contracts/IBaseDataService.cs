@@ -8,11 +8,18 @@
     using MvcProject.Data.Models.Contracts;
 
     /// <summary>
+    /// The interface implemented by all data services
+    /// </summary>
+    public interface IBaseDataService
+    {
+    }
+
+    /// <summary>
     /// Exposes base functionality for data manipulation services as an abstraction over the data access layer
     /// </summary>
     /// <typeparam name="T">The type of data entity which the service manipulates.</typeparam>
     /// <typeparam name="TKey">The type of the entity's primary key.</typeparam>
-    public interface IBaseService<T, TKey>
+    public interface IBaseDataService<T, TKey> : IBaseDataService
         where T : class, IBaseEntityModel<TKey>
     {
         IQueryable<T> GetAll();

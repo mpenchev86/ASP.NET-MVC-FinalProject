@@ -17,7 +17,7 @@
         [StringLength(ValidationConstants.ProductTitleMaxLength)]
         public string Title { get; set; }
 
-        public void CreateMappings(IMapperConfiguration configuration)
+        public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Product, ProductDetailsForStatisticsViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));

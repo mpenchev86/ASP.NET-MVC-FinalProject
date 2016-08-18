@@ -51,6 +51,7 @@
     <Compile Include="FileSystemService.cs" />
     <Compile Include="ImageProcessorService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceModels\RawFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

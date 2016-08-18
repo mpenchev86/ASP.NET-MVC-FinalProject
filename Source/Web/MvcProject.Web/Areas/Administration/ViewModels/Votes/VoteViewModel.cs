@@ -30,7 +30,7 @@
         [LongDateTimeFormat]
         public DateTime? DeletedOn { get; set; }
 
-        public void CreateMappings(IMapperConfiguration configuration)
+        public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Vote, VoteViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))

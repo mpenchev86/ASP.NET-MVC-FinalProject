@@ -16,7 +16,7 @@
         [Range(ValidationConstants.VoteValueMin, ValidationConstants.VoteValueMax)]
         public int VoteValue { get; set; }
 
-        public void CreateMappings(IMapperConfiguration configuration)
+        public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Vote, VoteDetailsForUserViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))

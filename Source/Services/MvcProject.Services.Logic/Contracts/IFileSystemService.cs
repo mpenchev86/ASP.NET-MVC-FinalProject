@@ -5,9 +5,13 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using System.Web;
+    using ServiceModels;
 
     public interface IFileSystemService
     {
         void SaveFile(byte[] content, string path);
+
+        RawFile ToRawFile(HttpPostedFileBase httpFile);
     }
 }

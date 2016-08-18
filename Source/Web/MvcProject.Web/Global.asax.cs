@@ -17,6 +17,7 @@
     using Data.DbAccessConfig.Contexts;
     using Data.DbAccessConfig.Migrations;
     using Infrastructure.Mapping;
+    using Services.Data;
 
 #pragma warning disable SA1649 // File name must match first type name
     public class MvcApplication : HttpApplication
@@ -33,7 +34,11 @@
             ViewEnginesConfig.RegisterEngines(ViewEngines.Engines);
             AutofacConfig.RegisterAutofac();
 
-            AutoMapperInit.Initialize(Assembly.GetExecutingAssembly(), Assembly.GetAssembly(typeof(BasePublicController)), Assembly.GetAssembly(typeof(BaseAdminController)));
+            AutoMapperInit.Initialize(
+                Assembly.GetExecutingAssembly(),
+                Assembly.GetAssembly(typeof(BasePublicController)),
+                Assembly.GetAssembly(typeof(BaseAdminController)),
+                Assembly.GetAssembly(typeof(IBaseDataService)));
         }
     }
 }

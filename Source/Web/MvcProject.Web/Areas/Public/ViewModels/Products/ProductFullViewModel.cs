@@ -120,13 +120,14 @@
             set { this.votes = value; }
         }
 
-        public void CreateMappings(IMapperConfiguration configuration)
+        public void CreateMappings(IMapperConfigurationExpression configuration)
         {
-            configuration.CreateMap<Product, ProductFullViewModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.SellerName, opt => opt.MapFrom(src => src.Seller.UserName))
-                .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags.Select(t => t.Name)))
-                ;
+            Mapper.Initialize(cfg =>
+                cfg.CreateMap<Product, ProductFullViewModel>()
+                    .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                    .ForMember(dest => dest.SellerName, opt => opt.MapFrom(src => src.Seller.UserName))
+                    .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags.Select(t => t.Name).ToList()))
+                );
         }
     }
 }

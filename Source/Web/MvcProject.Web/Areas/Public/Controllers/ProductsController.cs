@@ -8,10 +8,11 @@
     using System.Web;
     using System.Web.Hosting;
     using System.Web.Mvc;
-
+    using AutoMapper;
     using Data.Models;
     using Infragistics.Web.Mvc;
     using Infrastructure.Extensions;
+    using Infrastructure.Mapping;
     using Services.Data;
     using Services.Web;
     using ViewModels.Comments;
@@ -23,22 +24,25 @@
         private IProductsService productsService;
         private IVotesService votesService;
         private IIdentifierProvider identifierProvider;
+        private IMappingService mappingService;
 
         public ProductsController(
             IProductsService productsService,
             IIdentifierProvider identifierProvider,
-            IVotesService votesService)
+            IVotesService votesService,
+            IMappingService mappingService)
         {
             this.productsService = productsService;
             this.votesService = votesService;
             this.identifierProvider = identifierProvider;
+            this.mappingService = mappingService;
         }
         
         [HttpGet]
         public ActionResult Index(int id)
         {
             var product = this.productsService.GetById(id);
-            var viewModel = this.Mapper.Map<Product, ProductFullViewModel>(product);
+            var viewModel = this.mappingService.IMapper.Map<Product, ProductFullViewModel>(product);
             viewModel.CommentsWithRatings = this.PopulateCommentAndVote(viewModel.Comments, viewModel.Votes);
             return this.View(viewModel);
         }
@@ -59,7 +63,7 @@
                 return this.Content("Product not found");
             }
 
-            var result = this.Mapper.Map<Product, ProductSneakPeekViewModel>(product);
+            var result = this.mappingService.IMapper.Map<Product, ProductSneakPeekViewModel>(product);
             return this.PartialView("_SneakPeek", result);
         }
 

@@ -1,4 +1,4 @@
-﻿namespace MvcProject.Services.Data.ServiceModels
+﻿namespace MvcProject.Services.Logic.ServiceModels
 {
     using System;
     using System.Collections.Generic;

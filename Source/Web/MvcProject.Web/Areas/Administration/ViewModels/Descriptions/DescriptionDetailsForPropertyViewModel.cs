@@ -17,7 +17,7 @@
 
         public virtual Product Product { get; set; }
 
-        public void CreateMappings(IMapperConfiguration configuration)
+        public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Description, DescriptionDetailsForPropertyViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));

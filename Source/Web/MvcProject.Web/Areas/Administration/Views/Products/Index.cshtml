@@ -14,6 +14,7 @@
 
 @(Html.FullFeaturedGrid<ProductViewModel>(
     gridName: "productsGrid",
+    createAction: "CreateProduct",
     controllerName: "Products",
     routeValues: new { Area = Areas.AdministrationAreaName },
     model: m =>
@@ -74,7 +75,11 @@
     updateHandler: "updateHandler",
     destroyHandler: "destroyHandler"
     )
-    .Events(e => e.DetailInit("detailInit"))
+    .Events(e => e
+        .DetailInit("detailInit")
+    //.Save("onSave")
+    //.Edit("onEdit")
+    )
     .ClientDetailTemplateId("product-details-template")
     .Selectable()
     .AllowCopy(true)
@@ -117,13 +122,17 @@
     </script>
 
     <script>
+        // Setting the current culture to use with Kendo UI
         kendo.culture('@userCulture');
 
-        // Initialize the Kendo UI Validator on the form
+        // Initialize the Kendo UI Validator on the create/edit form
         $(function () {
             $("form").kendoValidator();
         });
 
+        // These functions handle sending additional information to the server with every CRUD operation of the grid.
+        // Currently, they parse all DateTime properties of the model in a format the server can understand and send
+        // an anti-forgery token to validate the editor form.
         function readHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);
             return { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() }
@@ -131,12 +140,20 @@
 
         function createHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);
-            return { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() }
+            return {
+                "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val(),
+                fileNames: uploadedFilesNames,
+                productImagesIds: uploadedFilesIds
+            }
         }
 
         function updateHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);
-            return { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() }
+            return {
+                "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val(),
+                fileNames: uploadedFilesNames,
+                productImagesIds: uploadedFilesIds
+            }
         }
 
         function destroyHandler(data) {
@@ -144,6 +161,7 @@
             return { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() }
         }
 
+        // Populate Kendo detail TabStrip
         function detailInit(e) {
             gridDetailsHelpers.populateProductDescription(e.data.Id, e.data.Description, 8);
             gridDetailsHelpers.populateProductSeller(e.data.Id, e.data.Seller);
@@ -152,5 +170,35 @@
             gridDetailsHelpers.setDataSource("#votes-grid_" + e.data.Id, e.data.Votes, 10);
             gridDetailsHelpers.setDataSource("#tags-grid_" + e.data.Id, e.data.Tags, 10);
         }
+
+        var uploadedFilesNames;
+        var uploadedFilesIds;
+        // Popup editor events for the Upload helper for the Images property
+        function onUploadSuccess(e) {
+            //// Force the rebinding of the Grid on successful upload
+            //$("#productsGrid").data("kendoGrid").dataSource.read();
+
+            uploadedFilesNames = e.response.fileNames;
+            uploadedFilesIds = e.response.productImagesIds;
+        }
+
+        //function onEdit(args) {
+        //    $("#ImageFiles").kendoUpload({
+        //        success: function (e) {
+        //            args.model.set("ImageUrl", e.response.ImageUrl);
+        //        },
+        //        error: function (e) {
+        //            console.log(args.model.ImageUrl);
+        //        },
+        //        files: [{
+        //            name: args.model.ImageUrl
+        //        }],
+        //        multiple: false,
+        //        async: {
+        //            saveUrl: "/Category/Save",
+        //            autoUpload: true
+        //        }
+        //    });
+        //}
     </script>
 }

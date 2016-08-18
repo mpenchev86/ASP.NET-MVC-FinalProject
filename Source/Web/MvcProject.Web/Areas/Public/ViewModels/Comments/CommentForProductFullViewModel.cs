@@ -18,7 +18,7 @@
 
         public DateTime CreatedOn { get; set; }
 
-        public void CreateMappings(IMapperConfiguration configuration)
+        public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Comment, CommentForProductFullViewModel>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName))

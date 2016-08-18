@@ -15,7 +15,7 @@
 
         //public string Email { get; set; }
 
-        public void CreateMappings(IMapperConfiguration configuration)
+        public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<ApplicationUser, UserProfileViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));

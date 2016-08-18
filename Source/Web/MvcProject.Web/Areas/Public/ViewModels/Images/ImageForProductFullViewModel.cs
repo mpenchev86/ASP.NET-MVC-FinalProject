@@ -17,7 +17,7 @@
 
         public string UrlPath { get; set; }
 
-        public void CreateMappings(IMapperConfiguration configuration)
+        public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Image, ImageForProductFullViewModel>()
                 //.ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName))

@@ -46,7 +46,7 @@
         [LongDateTimeFormat]
         public DateTime CreatedOn { get; set; }
 
-        public void CreateMappings(IMapperConfiguration configuration)
+        public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Product, ProductDetailsForIndexListView>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))

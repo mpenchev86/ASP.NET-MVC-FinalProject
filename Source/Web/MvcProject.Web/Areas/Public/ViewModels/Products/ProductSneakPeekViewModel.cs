@@ -23,7 +23,7 @@
         [UIHint("Rating")]
         public double? Rating { get; set; }
 
-        public void CreateMappings(IMapperConfiguration configuration)
+        public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Product, ProductSneakPeekViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))

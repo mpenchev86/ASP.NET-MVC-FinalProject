@@ -29,7 +29,7 @@
             set { this.properties = value; }
         }
 
-        public void CreateMappings(IMapperConfiguration configuration)
+        public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Description, DescriptionForProductFullViewModel>()
                 .ForMember(dest => dest.Properties, opt => opt.MapFrom(
