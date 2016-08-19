@@ -105,6 +105,14 @@
 
                 this.productsService.Insert(entity);
                 viewModel.Id = entity.Id;
+
+                //var productImages = this.imagesService.GetAll().Where(img => productImagesIds.Contains(img.Id));
+                //foreach (var image in productImages)
+                //{
+                //    image.ProductId = viewModel.Id;
+                //}
+
+                //this.imagesService.UpdateMany(productImages);
             }
 
             return this.GetEntityAsDataSourceResult(request, viewModel, this.ModelState);
@@ -123,11 +131,12 @@
         [ValidateAntiForgeryToken]
         public override ActionResult Destroy([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel)
         {
+            HandleDependingEntities(viewModel);
             return base.Destroy(request, viewModel);
         }
 
         #region DataProviders
-        public ActionResult Save(IEnumerable<HttpPostedFileBase> productImages)
+        public ActionResult SaveImages(IEnumerable<HttpPostedFileBase> productImages)
         {
             var fileNames = new List<string>();
             var productImagesIds = new List<int>();
@@ -140,39 +149,6 @@
                 //var fileName = Path.GetFileName(file.FileName);
                 //var destinationPath = Path.Combine(Server.MapPath("~/App_Data"), fileName);
                 //file.SaveAs(destinationPath);
-
-
-                //// http://stackoverflow.com/a/7852256/4491770
-                //byte[] fileContent;
-                //using (Stream inputStream = file.InputStream)
-                //{
-                //    MemoryStream memoryStream = inputStream as MemoryStream;
-                //    if (memoryStream == null)
-                //    {
-                //        memoryStream = new MemoryStream();
-                //        inputStream.CopyTo(memoryStream);
-                //    }
-                //    fileContent = memoryStream.ToArray();
-                //}
-
-                //string fileName = string.Empty;
-                //string extension = string.Empty;
-                //if (Path.HasExtension(file.FileName))
-                //{
-                //    fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                //}
-
-                //if (Path.HasExtension(file.FileName))
-                //{
-                //    fileName = Path.GetExtension(file.FileName);
-                //}
-
-                //rawFiles.Add(new RawFile
-                //{
-                //    OriginalFileName = fileName,
-                //    FileExtension = extension,
-                //    Content = fileContent
-                //});
 
                 var rawFile = this.fileSystemService.ToRawFile(file);
                 if (rawFile == null)
@@ -188,9 +164,6 @@
             var processedImages = this.imagesService.ProcessImages(rawFiles);
             this.imagesService.SaveImages(processedImages);
             productImagesIds = new List<int>(processedImages.Select(i => i.Id));
-
-            ////Return an empty string to signify success.
-            //return Content("");
 
             return Json(new { fileNames = fileNames, productImagesIds = productImagesIds }, "text/plain");
         }
@@ -255,6 +228,11 @@
                 var tag = this.tagsService.GetById(tagId);
                 entity.Tags.Add(tag);
             }
+        }
+
+        private void HandleDependingEntities(ProductViewModel viewModel)
+        {
+
         }
         #endregion
     }

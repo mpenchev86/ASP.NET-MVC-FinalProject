@@ -32,6 +32,8 @@
 
         void Update(T entity);
 
+        void UpdateMany(IEnumerable<T> entities);
+
         void DeletePermanent(TKey id);
 
         void DeletePermanent(T entity);

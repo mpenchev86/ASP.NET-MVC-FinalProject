@@ -1,5 +1,6 @@
 ﻿namespace MvcProject.Data.DbAccessConfig.Repositories
 {
+    using System.Collections.Generic;
     using System.Linq;
     using Models.Contracts;
 
@@ -18,6 +19,8 @@
         void Add(T entity);
 
         void Update(T entity);
+
+        void UpdateMany(IEnumerable<T> entities);
 
         void DeletePermanent(T entity);
 

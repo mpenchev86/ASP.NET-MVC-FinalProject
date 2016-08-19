@@ -37,7 +37,7 @@
         /// <value>
         /// The full path for accessing the image file on the server.
         /// </value>
-        [Required]
+        //[Required]
         [DataType(DataType.ImageUrl)]
         [StringLength(ValidationConstants.ImageUrlPathMaxLength)]
         public string UrlPath { get; set; }

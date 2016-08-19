@@ -16,7 +16,7 @@
 
     public class ImagesService : FileInfoService<Image>, /*BaseDataService<Image, int, IIntPKDeletableRepository<Image>>, */IImagesService
     {
-        private const string ImagesServerPath = "~/Content/Images/{0}_{1}.{2}";
+        private const string ImagesServerPath = "~/Content/Images/{0}_{1}{2}";
         private readonly IImageProcessorService imageProcessor;
         private IFileSystemService fileSystemService;
         private IMappingService mappingService;

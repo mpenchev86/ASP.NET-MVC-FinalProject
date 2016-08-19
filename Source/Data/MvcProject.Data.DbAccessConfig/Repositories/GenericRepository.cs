@@ -64,6 +64,14 @@
             entry.State = EntityState.Modified;
         }
 
+        public virtual void UpdateMany(IEnumerable<T> entities)
+        {
+            foreach (var entity in entities)
+            {
+                this.Update(entity);
+            }
+        }
+
         public virtual void DeletePermanent(TKey id)
         {
             var entity = this.GetById(id);

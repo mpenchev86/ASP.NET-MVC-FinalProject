@@ -40,10 +40,14 @@
         public T SaveFileInfo(RawFile file)
         {
             var processedFileName = string.Join(WhiteSpace.ToString(), file.OriginalFileName.Split(new[] { WhiteSpace }, StringSplitOptions.RemoveEmptyEntries));
-            var databaseFile = new T { OriginalFileName = processedFileName, FileExtension = file.FileExtension };
-            this.Repository.Add(databaseFile);
+            var databaseFile = new T
+            {
+                OriginalFileName = processedFileName,
+                FileExtension = file.FileExtension,
+            };
+            this.Insert(databaseFile);
             databaseFile.UrlPath = this.GetFilePath(databaseFile.Id);
-            this.Repository.Update(databaseFile);
+            this.Update(databaseFile);
 
             return databaseFile;
         }

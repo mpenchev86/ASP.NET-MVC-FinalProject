@@ -70,6 +70,12 @@
             this.repository.SaveChanges();
         }
 
+        public virtual void UpdateMany(IEnumerable<TEntity> entities)
+        {
+            this.repository.UpdateMany(entities);
+            this.repository.SaveChanges();
+        }
+
         public virtual void MarkAsDeleted(TKey id)
         {
             var entity = this.GetById(id);
