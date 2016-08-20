@@ -32,12 +32,11 @@
         public string FileExtension { get; set; }
 
         /// <summary>
-        /// Gets or sets the full path for accessing the image file on the server.
+        /// Gets or sets the path to the image file on the server.
         /// </summary>
         /// <value>
-        /// The full path for accessing the image file on the server.
+        /// The path to the image file on the server.
         /// </value>
-        //[Required]
         [DataType(DataType.ImageUrl)]
         [StringLength(ValidationConstants.ImageUrlPathMaxLength)]
         public string UrlPath { get; set; }

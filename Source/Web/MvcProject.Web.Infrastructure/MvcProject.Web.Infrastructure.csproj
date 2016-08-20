@@ -112,6 +112,9 @@
     <Compile Include="Mapping\Contracts\IMappingService.cs" />
     <Compile Include="Mapping\MappingExtensions.cs" />
     <Compile Include="Mapping\MappingService.cs" />
+    <Compile Include="Mapping\Profiles\CustomMappingsProfile.cs" />
+    <Compile Include="Mapping\Profiles\ReverseMappingsProfile.cs" />
+    <Compile Include="Mapping\Profiles\StandardMappingsProfile.cs" />
     <Compile Include="ModelBinders\CustomModelBinder.cs" />
     <Compile Include="ModelBinders\CustomModelBinderProvider.cs" />
     <Compile Include="Sanitizer\HtmlSanitizerAdapter.cs" />

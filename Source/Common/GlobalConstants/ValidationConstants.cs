@@ -23,9 +23,10 @@
         public const int DescriptionContentMaxLength = 2000;
 
         // Image entity
+        public const int ImageFullyQaulifiedFileNameMaxLength = 260;
         public const int ImageOriginalFileNameMaxLength = 255;
-        public const int ImageFileExtensionMaxLength = 4;
-        public const int ImageUrlPathMaxLength = 255;
+        public const int ImageFileExtensionMaxLength = 5;
+        public const int ImageUrlPathMaxLength = 248;
 
         // Product entity
         public const int ProductTitleMaxLength = 150;

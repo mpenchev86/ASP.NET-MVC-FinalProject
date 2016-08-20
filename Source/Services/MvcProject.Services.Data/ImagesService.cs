@@ -34,18 +34,21 @@
             this.mappingService = mappingService;
         }
 
-        //// #########################################################################
+        public IEnumerable<Image> GetByProductId(int productId)
+        {
+            return this.Repository.All().Where(img => img.ProductId == productId);
+        }
 
         public IEnumerable<ProcessedImage> ProcessImages(IEnumerable<RawFile> rawImages)
         {
             var processedImages = rawImages.Select(rawImage =>
             {
-                var image = this.SaveFileInfo(rawImage);
+                var image = this.PersistFileInfo(rawImage);
                 var thumbnailContent = this.imageProcessor.Resize(rawImage.Content, ProcessedImage.ThumbnailImageWidth);
                 var highContent = this.imageProcessor.Resize(rawImage.Content, ProcessedImage.HighResolutionWidth);
                 var processedImage = this.ToProcessedImage(image, thumbnailContent, highContent);
                 return processedImage;
-            });
+            }).ToList();
 
             return processedImages;
         }

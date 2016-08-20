@@ -69,7 +69,7 @@
         }
 
         #region DataProviders
-        protected override void PopulateEntity(Image entity, ImageViewModel viewModel)
+        protected override void PopulateEntity(Image entity, ImageViewModel viewModel, params object[] additionalParams)
         {
             entity.OriginalFileName = viewModel.OriginalFileName;
             entity.ProductId = viewModel.ProductId;

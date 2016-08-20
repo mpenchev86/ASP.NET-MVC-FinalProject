@@ -99,7 +99,7 @@
             return this.Json(roles, JsonRequestBehavior.AllowGet);
         }
 
-        protected override void PopulateEntity(ApplicationUser entity, UserViewModel viewModel)
+        protected override void PopulateEntity(ApplicationUser entity, UserViewModel viewModel, params object[] additionalParams)
         {
             if (viewModel.Comments != null)
             {

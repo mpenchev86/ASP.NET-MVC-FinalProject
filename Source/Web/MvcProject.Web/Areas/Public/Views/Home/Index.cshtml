@@ -51,11 +51,12 @@
         .Deferred())
 </div>
 
+<!-- ListView products template -->
 <script type="text/kendo-tmpl" id="products-listView-template">
     @Html.Partial("_ListViewProductCellTemplate")
 </script>
 
- <!-- Modal -->
+ <!-- Modal window template for ListView products -->
 <div id="sneakPeek-modal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <img id="spinner" src="~/Content/Kendo/Silver/loading_2x.gif" style="display: none; text-align: center;">
@@ -75,13 +76,14 @@
     <script>
         kendo.culture('@userCulture');
 
+        // Initialization of the modal window template for ListView products.
         bootstrapModalHelpers.hideOnLoad(wrapperSelector = '#sneakPeek-modal');
         bootstrapModalHelpers.clearContent(event = 'hidden.bs.modal', contentSelector = '.modal-content');
         bootstrapModalHelpers.attachToggle(wrapperSelector = '#sneakPeek-modal', triggerSelector = '.ajax-modal-link');
 
+        // Handles the Success event of a ListView product AjaxLink request by populating the SneakPeak modal window template.
         function OnGetModalDataSuccess(data) {
             bootstrapModalHelpers.setContent(wrapperSelector = '#sneakPeek-modal', contentSelector = '.modal-content', data = data);
-            //$('#sneakPeek-modal').find('.modal-content').html(data);
         }
     </script>
 }

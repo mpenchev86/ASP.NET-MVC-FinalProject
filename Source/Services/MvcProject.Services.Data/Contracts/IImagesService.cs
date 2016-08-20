@@ -23,5 +23,7 @@
         IEnumerable<Image> ImagesByUrls(ICollection<string> imageUrls);
 
         ProcessedImage ToProcessedImage(Image image, byte[] thumbnailContent, byte[] highResolutionContent);
+
+        IEnumerable<Image> GetByProductId(int productId);
     }
 }

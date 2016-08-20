@@ -75,7 +75,7 @@
         }
 
         #region DataProviders
-        protected override void PopulateEntity(Comment entity, CommentViewModel viewModel)
+        protected override void PopulateEntity(Comment entity, CommentViewModel viewModel, params object[] additionalParams)
         {
             entity.Content = viewModel.Content;
             entity.ProductId = viewModel.ProductId;

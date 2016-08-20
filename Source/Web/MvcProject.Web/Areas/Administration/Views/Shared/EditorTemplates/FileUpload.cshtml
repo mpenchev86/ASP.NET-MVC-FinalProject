@@ -1,28 +1,26 @@
-﻿@*@model IEnumerable<HttpPostedFileBase>*@
-
-@(Html.Kendo().Upload()
+﻿@(Html.Kendo().Upload()
     .Name((string)ViewData["Name"])
-    .Enable(true)
-    .Multiple(false)
+    .Enable((bool)ViewData["Enable"])
+    .Multiple((bool)ViewData["Multiple"])
     .Async(async => async
-        .AutoUpload(false)
-    //.Batch(true)
-    //.SaveField((string)ViewData["Name"])
-    //.SaveUrl("~/App_Data")
-    //.Save((string)ViewData["SaveAction"], (string)ViewData["SaveController"], null)
+        .AutoUpload((bool)ViewData["AutoUpload"])
+        .Batch((bool)ViewData["Batch"])
+        //.SaveField((string)ViewData["Name"])
+        .Save((string)ViewData["SaveAction"], (string)ViewData["SaveController"], ViewData["routeValues"])
+        .Remove((string)ViewData["SaveAction"], (string)ViewData["SaveController"], ViewData["routeValues"])
     )
-//.Events(e => e.Success((string)ViewData["onUploadSuccess"]))
-//.Files(f =>
-//{
-//    if (Model != null && Model.Any())
-//    {
-//        foreach (var image in Model)
-//        {
-//            f.Add().Name(image.FileName).Extension(image.ContentType);
-//        }
-//    }
-//})
-//.Messages(msg => msg.Remove("re-move"))
-//.TemplateId("imagesTemplate")
-//.HtmlAttributes(new { data_bind = (string)ViewData["data_bind"] })
+    .Events(e => e.Success((string)ViewData["SuccessEventHandler"]))
+    //.Files(f =>
+    //{
+    //    if (Model != null && Model.Any())
+    //    {
+    //        foreach (var image in Model)
+    //        {
+    //            f.Add().Name(image.FileName).Extension(image.ContentType);
+    //        }
+    //    }
+    //})
+    //.Messages(msg => msg.Remove("re-move"))
+    //.TemplateId("imagesTemplate")
+    //.HtmlAttributes(new { data_bind = (string)ViewData["data_bind"] })
 )

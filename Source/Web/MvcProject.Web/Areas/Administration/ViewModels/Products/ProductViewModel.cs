@@ -59,7 +59,7 @@
 
         public DescriptionDetailsForProductViewModel Description { get; set; }
 
-        [UIHint("DropDown")]
+        [UIHint("FileUpload")]
         public int? MainImageId { get; set; }
 
         public bool IsInStock
@@ -104,7 +104,6 @@
         }
 
         [UIHint("FileUpload")]
-        //[UIHint("FileUploadVanilla")]
         public ICollection<ImageDetailsForProductViewModel> Images
         {
             get { return this.images; }
@@ -164,7 +163,7 @@
                                 Id = i.Id,
                                 OriginalFileName = i.OriginalFileName,
                                 FileExtension = i.FileExtension,
-                                //UrlPath = i.UrlPath,
+                                UrlPath = i.UrlPath,
                                 CreatedOn = i.CreatedOn,
                                 ModifiedOn = i.ModifiedOn
                             })))
@@ -193,7 +192,8 @@
                                 Name = t.Name,
                                 CreatedOn = t.CreatedOn,
                                 ModifiedOn = t.ModifiedOn
-                            })));
+                            })))
+                            ;
         }
     }
 }

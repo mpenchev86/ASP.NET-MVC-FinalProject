@@ -16,8 +16,6 @@
     {
         public IEnumerable<DescriptionDetailsForProductViewModel> Descriptions { get; set; }
 
-        public IEnumerable<ImageDetailsForProductViewModel> Images { get; set; }
-
         public IEnumerable<CategoryDetailsForProductViewModel> Categories { get; set; }
 
         public IEnumerable<UserDetailsForProductViewModel> Sellers { get; set; }

@@ -78,6 +78,7 @@
         {
             if (viewModel != null && this.ModelState.IsValid)
             {
+                this.HandleDependingEntitiesBeforeDelete(viewModel);
                 this.dataService.DeletePermanent(viewModel.Id);
             }
 
@@ -106,7 +107,11 @@
             return this.Json(data.ToDataSourceResult(request, modelState), JsonRequestBehavior.AllowGet);
         }
 
-        protected virtual void PopulateEntity(TEntityModel entity, TViewModel viewModel)
+        protected virtual void PopulateEntity(TEntityModel entity, TViewModel viewModel, params object[] additionalParams)
+        {
+        }
+
+        protected virtual void HandleDependingEntitiesBeforeDelete(TViewModel viewModel)
         {
         }
 

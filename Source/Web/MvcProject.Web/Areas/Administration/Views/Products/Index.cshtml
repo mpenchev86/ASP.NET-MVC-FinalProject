@@ -38,7 +38,7 @@
         c.Bound(m => m.ShortDescription).Width("20%");
         c.ForeignKey(m => m.CategoryId, Model.Categories, "Id", "Name").Title("Category");
         c.ForeignKey(m => m.DescriptionId, Model.Descriptions, "Id", "Id").Title("Description Id").Visible(false);
-        c.ForeignKey(m => m.MainImageId, Model.Images, "Id", "Id").Title("Main Image Id").Visible(false);
+        //c.ForeignKey(m => m.MainImageId, Model.Images, "Id", "Id").Title("Main Image Id").Visible(false);
         c.Bound(m => m.UnitPrice);
         c.Bound(m => m.ShippingPrice);
         c.Bound(m => m.IsInStock);
@@ -77,8 +77,8 @@
     )
     .Events(e => e
         .DetailInit("detailInit")
-    //.Save("onSave")
-    //.Edit("onEdit")
+        //.Save("onSave")
+        //.Edit("onEdit")
     )
     .ClientDetailTemplateId("product-details-template")
     .Selectable()
@@ -142,7 +142,6 @@
             datetimeHandlers.normalizeDateProperties(data);
             return {
                 "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val(),
-                fileNames: uploadedFilesNames,
                 productImagesIds: uploadedFilesIds
             }
         }
@@ -151,7 +150,6 @@
             datetimeHandlers.normalizeDateProperties(data);
             return {
                 "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val(),
-                fileNames: uploadedFilesNames,
                 productImagesIds: uploadedFilesIds
             }
         }
@@ -171,14 +169,13 @@
             gridDetailsHelpers.setDataSource("#tags-grid_" + e.data.Id, e.data.Tags, 10);
         }
 
+        // Popup editor events for the Upload helper editor of the Images property
         var uploadedFilesNames;
         var uploadedFilesIds;
-        // Popup editor events for the Upload helper for the Images property
         function onUploadSuccess(e) {
             //// Force the rebinding of the Grid on successful upload
             //$("#productsGrid").data("kendoGrid").dataSource.read();
 
-            uploadedFilesNames = e.response.fileNames;
             uploadedFilesIds = e.response.productImagesIds;
         }
 

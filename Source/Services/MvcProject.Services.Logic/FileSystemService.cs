@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Security.AccessControl;
     using System.Text;
     using System.Threading.Tasks;
     using System.Web;
@@ -11,18 +12,24 @@
 
     using Common.GlobalConstants;
     using ServiceModels;
+
     public class FileSystemService : IFileSystemService
     {
         // From Showcase.Server.Infrastructure.FileSystem.FileSystemService - Non-async version
         public void SaveFile(byte[] content, string path)
         {
             var filePath = HostingEnvironment.MapPath(path);
-            //// TODO: filePath can be null
+            this.ValidateFilePath(filePath);
+
             var fileInfo = new FileInfo(filePath);
-            fileInfo.Directory.Create();
-            using (var fileWriter = new FileStream(filePath, FileMode.CreateNew))
+            if (!fileInfo.Directory.Exists)
             {
-                fileWriter.WriteAsync(content, 0, content.Length);
+                fileInfo.Directory.Create();
+            }
+
+            using (var fileWriter = new FileStream(filePath, FileMode.CreateNew, FileSystemRights.WriteData, FileShare.None, 1024, FileOptions.RandomAccess))
+            {
+                fileWriter.Write(content, 0, content.Length);
             }
         }
 
@@ -45,30 +52,19 @@
             string fileName = string.Empty;
             string fileExtension = string.Empty;
 
-            if (string.IsNullOrWhiteSpace(httpFile.FileName))
-            {
-                // return null for files without name and extension
-                return null;
-            }
+            this.ValidateFileName(httpFile.FileName);
 
-            if (httpFile.FileName.Length <= ValidationConstants.ImageUrlPathMaxLength &&
-                !httpFile.FileName.Any(Path.GetInvalidPathChars().Contains))
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(httpFile.FileName);
+            if (!string.IsNullOrWhiteSpace(fileNameWithoutExtension) && fileNameWithoutExtension.Length <= ValidationConstants.ImageOriginalFileNameMaxLength)
             {
-                var fname = Path.GetFileNameWithoutExtension(httpFile.FileName);
-                if (!string.IsNullOrWhiteSpace(fname) && fname.Length <= ValidationConstants.ImageOriginalFileNameMaxLength)
-                {
-                    fileName = fname;
-                }
+                fileName = fileNameWithoutExtension;
             }
 
             if (Path.HasExtension(httpFile.FileName))
             {
                 var extension = Path.GetExtension(httpFile.FileName);
-                if (!string.IsNullOrWhiteSpace(extension) &&
-                    extension.Length <= ValidationConstants.ImageFileExtensionMaxLength)
+                if (!string.IsNullOrWhiteSpace(extension) && extension.Length <= ValidationConstants.ImageFileExtensionMaxLength)
                 {
-                    //// remove the starting '.'
-                    //extension = extension.Substring(1);
                     fileExtension = extension;
                 }
             }
@@ -79,6 +75,42 @@
                 FileExtension = fileExtension,
                 Content = fileContent
             };
+        }
+
+        private void ValidateFileName(string fileName)
+        {
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                throw new ArgumentException(string.Format(ExceptionMessages.CustomExceptionMessage, ExceptionMessages.FileNameNullOrEmpty));
+            }
+
+            if (fileName.Length > ValidationConstants.ImageFullyQaulifiedFileNameMaxLength)
+            {
+                throw new ArgumentException(string.Format(ExceptionMessages.CustomExceptionMessage, ExceptionMessages.FileNameTooLong));
+            }
+
+            if (fileName.Any(Path.GetInvalidFileNameChars().Contains))
+            {
+                throw new ArgumentException(string.Format(ExceptionMessages.CustomExceptionMessage, ExceptionMessages.FileNameHasInvalidCharacters));
+            }
+        }
+
+        private void ValidateFilePath(string filePath)
+        {
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                throw new ArgumentException(string.Format(ExceptionMessages.CustomExceptionMessage, ExceptionMessages.FilePathNullOrEmpty));
+            }
+
+            if (filePath.Length >= ValidationConstants.ImageUrlPathMaxLength)
+            {
+                throw new PathTooLongException(string.Format(ExceptionMessages.CustomExceptionMessage, ExceptionMessages.FilePathTooLong));
+            }
+
+            if (filePath.Any(Path.GetInvalidPathChars().Contains))
+            {
+                throw new ArgumentException(string.Format(ExceptionMessages.CustomExceptionMessage, ExceptionMessages.FileNameHasInvalidCharacters));
+            }
         }
     }
 }

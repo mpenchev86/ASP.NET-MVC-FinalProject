@@ -35,10 +35,9 @@
         [StringLength(ValidationConstants.ImageFileExtensionMaxLength)]
         public string FileExtension { get; set; }
 
-        //[Required]
-        //[DataType(DataType.ImageUrl)]
-        //[StringLength(ValidationConstants.ImageUrlPathMaxLength)]
-        //public string UrlPath { get; set; }
+        [DataType(DataType.ImageUrl)]
+        [StringLength(ValidationConstants.ImageUrlPathMaxLength)]
+        public string UrlPath { get; set; }
 
         //[Required]
         //public string Base64Content { get; set; }

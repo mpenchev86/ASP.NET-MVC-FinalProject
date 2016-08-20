@@ -68,7 +68,7 @@
         }
 
         #region DataProviders
-        protected override void PopulateEntity(ApplicationRole entity, RoleViewModel viewModel)
+        protected override void PopulateEntity(ApplicationRole entity, RoleViewModel viewModel, params object[] additionalParams)
         {
             entity.Name = viewModel.Name;
             entity.CreatedOn = viewModel.CreatedOn;

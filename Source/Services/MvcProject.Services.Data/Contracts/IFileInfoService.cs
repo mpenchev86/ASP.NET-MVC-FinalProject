@@ -11,6 +11,6 @@
 
     public interface IFileInfoService<T> : IBaseDataService
     {
-        T SaveFileInfo(RawFile file);
+        T PersistFileInfo(RawFile file);
     }
 }

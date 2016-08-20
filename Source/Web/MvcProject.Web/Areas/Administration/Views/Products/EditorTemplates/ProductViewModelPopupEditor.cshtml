@@ -59,12 +59,26 @@
                 </div>
             </div>
 
+            @*===============================*@
+            
             <div class="row">
                 <div class="editor-label">
                     @Html.LabelFor(m => m.MainImageId, "MainImage Id")
                 </div>
                 <div class="editor-field">
-                    @Html.EditorFor(m => m.MainImageId, new { OptionLabel = "Select Main Image..." })
+                    @*@Html.EditorFor(
+                        m => m.MainImageId,
+                        new
+                        {
+                            Name = "productMainImage",
+                            Enable = true,
+                            Multiple = false,
+                            Batch = false,
+                            AutoUpload = false,
+                            SaveAction = "SaveImages",
+                            SaveController = "Products",
+                            SuccessEventHandler = "onUploadSuccess"
+                        })*@
                     @Html.ValidationMessageFor(m => m.MainImageId)
                 </div>
             </div>
@@ -76,35 +90,22 @@
                     @Html.LabelFor(m => m.Images, "Images")
                 </div>
                 <div class="editor-field">
-                    @*@Html.EditorFor(
-                        m => m.ImageFiles,
+                    @Html.EditorFor(
+                        m => m.Images,
                         new
                         {
                             Name = "productImages",
-                            SaveAction = "Save",
+                            Enable = true,
+                            Multiple = true,
+                            Batch = true,
+                            AutoUpload = false,
+                            SaveAction = "SaveImages",
                             SaveController = "Products",
-                            onUploadSuccess = "onUploadSuccess",
-                            data_bind = "value: ImageFiles"
-                        })*@
-
-                    @(Html.Kendo().Upload()
-                        .Name("productImages")
-                        .Multiple(true)
-                        .Async(async => async
-                            .Batch(true)
-                            .AutoUpload(false)
-                        //.SaveField("ImageFiles")
-                        //.SaveUrl("~/App_Data")
-                        .Save("SaveImages", "Products")
-                        )
-                        .Events(ev => ev.Success("onUploadSuccess"))
-                    )
-
+                            SuccessEventHandler = "onUploadSuccess"
+                        })
                     @Html.ValidationMessageFor(m => m.Images)
                 </div>
             </div>
-
-            @*===============================*@
 
             <div class="row">
                 <div class="editor-label">

@@ -63,7 +63,7 @@
         }
 
         #region DataProviders
-        protected override void PopulateEntity(Tag entity, TagViewModel viewModel)
+        protected override void PopulateEntity(Tag entity, TagViewModel viewModel, params object[] additionalParams)
         {
             if (viewModel.Products != null)
             {

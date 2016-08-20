@@ -72,7 +72,7 @@
         }
 
         #region DataProviders
-        protected override void PopulateEntity(Property entity, PropertyViewModel viewModel)
+        protected override void PopulateEntity(Property entity, PropertyViewModel viewModel, params object[] additionalParams)
         {
             entity.Name = viewModel.Name;
             entity.Value = viewModel.Value;

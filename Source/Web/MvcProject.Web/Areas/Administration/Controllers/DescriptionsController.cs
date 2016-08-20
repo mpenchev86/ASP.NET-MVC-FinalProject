@@ -69,7 +69,7 @@
         }
 
         #region DataProviders
-        protected override void PopulateEntity(Description entity, DescriptionViewModel viewModel)
+        protected override void PopulateEntity(Description entity, DescriptionViewModel viewModel, params object[] additionalParams)
         {
             if (viewModel.Properties != null)
             {

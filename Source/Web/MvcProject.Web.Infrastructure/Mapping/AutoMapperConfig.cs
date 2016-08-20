@@ -8,6 +8,7 @@
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
     using Crawlers;
+    using Profiles;
 
     public class AutoMapperConfig
     {
@@ -15,22 +16,24 @@
 
         public void Execute(params Assembly[] assemblies)
         {
-            Action<IMapperConfigurationExpression> configExpression =
-                cfg =>
+            var types = new List<Type>();
+            foreach (var assembly in assemblies)
+            {
+                if (assembly.IsFullyTrusted)
                 {
-                    var types = new List<Type>();
-                    foreach (var assembly in assemblies)
-                    {
-                        types.AddRange(assembly.GetExportedTypes());
-                    }
+                    types.AddRange(assembly.GetExportedTypes());
+                }
+            }
 
-                    LoadStandardMappings(types, cfg);
-                    LoadReverseMappings(types, cfg);
-                    LoadCustomMappings(types, cfg);
+            // As per v5., profiles are configured
+            Action<IMapperConfigurationExpression> configExpression = cfg =>
+                {
+                    cfg.AddProfile(new StandardMappingsProfile(types, cfg));
+                    cfg.AddProfile(new ReverseMappingsProfile(types, cfg));
+                    cfg.AddProfile(new CustomMappingsProfile(types, cfg));
                 };
 
             Configuration = new MapperConfiguration(configExpression);
-            //Mapper.Initialize(expr);
         }
 
         private static void LoadStandardMappings(IEnumerable<Type> types, IMapperConfigurationExpression mapperConfiguration)

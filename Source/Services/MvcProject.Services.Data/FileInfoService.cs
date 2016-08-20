@@ -37,14 +37,15 @@
             return image;
         }
 
-        public T SaveFileInfo(RawFile file)
+        public T PersistFileInfo(RawFile file)
         {
             var processedFileName = string.Join(WhiteSpace.ToString(), file.OriginalFileName.Split(new[] { WhiteSpace }, StringSplitOptions.RemoveEmptyEntries));
             var databaseFile = new T
             {
                 OriginalFileName = processedFileName,
-                FileExtension = file.FileExtension,
+                FileExtension = file.FileExtension
             };
+
             this.Insert(databaseFile);
             databaseFile.UrlPath = this.GetFilePath(databaseFile.Id);
             this.Update(databaseFile);

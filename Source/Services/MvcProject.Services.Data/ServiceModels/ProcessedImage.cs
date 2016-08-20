@@ -24,14 +24,14 @@
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             //// mappings for IMapFrom<>
-            //configuration.CreateMap<Image, ProcessedImage>()
+            // configuration.CreateMap<Image, ProcessedImage>()
             //    .ForMember(dest => dest.HighResolutionContent, opt => opt.Ignore())
             //    .ForMember(dest => dest.ThumbnailContent, opt => opt.Ignore())
             //    //.ForMember(dest => dest.Content, opt => opt.MapFrom(src => src.ByteArrayContent))
             //    ;
 
             //// mappings for IMapTo<>
-            //configuration.CreateMap<ProcessedImage, Image>()
+            // configuration.CreateMap<ProcessedImage, Image>()
             //    .ForMember(dest => dest.OriginalFileName, opt => opt.MapFrom(src => src.OriginalFileName))
             //    .ForMember(dest => dest.FileExtension, opt => opt.MapFrom(src => src.FileExtension))
             //    ;

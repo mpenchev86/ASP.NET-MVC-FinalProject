@@ -74,7 +74,7 @@
         }
 
         #region DataProviders
-        protected override void PopulateEntity(Vote entity, VoteViewModel viewModel)
+        protected override void PopulateEntity(Vote entity, VoteViewModel viewModel, params object[] additionalParams)
         {
             entity.VoteValue = viewModel.VoteValue;
             entity.ProductId = viewModel.ProductId;

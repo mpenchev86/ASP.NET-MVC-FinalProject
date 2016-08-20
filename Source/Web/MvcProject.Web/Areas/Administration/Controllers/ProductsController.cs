@@ -71,7 +71,6 @@
             var foreignKeys = new ProductViewModelForeignKeys
             {
                 Categories = this.categoriesService.GetAll().To<CategoryDetailsForProductViewModel>(),
-                Images = this.imagesService.GetAll().To<ImageDetailsForProductViewModel>(),
                 Descriptions = this.descriptionsService.GetAll().To<DescriptionDetailsForProductViewModel>(),
                 Sellers = this.usersService.GetAll().Where(u => u.Roles.Any(r => r.RoleName == IdentityRoles.Seller)).To<UserDetailsForProductViewModel>(),
             };
@@ -88,36 +87,18 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateProduct([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel, IEnumerable<string> fileNames, IEnumerable<int> productImagesIds)
+        public ActionResult CreateProduct([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel, IEnumerable<int> productImagesIds)
         {
             if (viewModel != null && this.ModelState.IsValid)
             {
                 var entity = new Product();
-                this.PopulateEntity(entity, viewModel);
-
-                //var rawFiles = viewModel.Images.AsQueryable().To<RawFile>().ToList();
-                //var processedImages = this.imagesService.ProcessImages(rawFiles/*viewModel.Images .Select(ImageDetailsForProductViewModel.ToRawFile) .AsQueryable().To<RawFile>()*/);
-                //this.imagesService.SaveImages(processedImages);
-
-                //entity.Images = processedImages.AsQueryable().To<Image>().ToList();
-
-                entity.Images = this.imagesService.GetAll().Where(img => productImagesIds.Contains(img.Id)).ToList();
-
+                // Prevent sending null param.
+                this.PopulateEntity(entity, viewModel, productImagesIds ?? new List<int>());
                 this.productsService.Insert(entity);
                 viewModel.Id = entity.Id;
-
-                //var productImages = this.imagesService.GetAll().Where(img => productImagesIds.Contains(img.Id));
-                //foreach (var image in productImages)
-                //{
-                //    image.ProductId = viewModel.Id;
-                //}
-
-                //this.imagesService.UpdateMany(productImages);
             }
 
             return this.GetEntityAsDataSourceResult(request, viewModel, this.ModelState);
-
-            //return base.Create(request, viewModel);
         }
 
         [HttpPost]
@@ -131,14 +112,13 @@
         [ValidateAntiForgeryToken]
         public override ActionResult Destroy([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel)
         {
-            HandleDependingEntities(viewModel);
+            this.HandleDependingEntitiesBeforeDelete(viewModel);
             return base.Destroy(request, viewModel);
         }
 
         #region DataProviders
         public ActionResult SaveImages(IEnumerable<HttpPostedFileBase> productImages)
         {
-            var fileNames = new List<string>();
             var productImagesIds = new List<int>();
             var rawFiles = new List<RawFile>();
 
@@ -158,14 +138,13 @@
                 }
 
                 rawFiles.Add(rawFile);
-                fileNames.Add(file.FileName);
             }
 
             var processedImages = this.imagesService.ProcessImages(rawFiles);
             this.imagesService.SaveImages(processedImages);
             productImagesIds = new List<int>(processedImages.Select(i => i.Id));
 
-            return Json(new { fileNames = fileNames, productImagesIds = productImagesIds }, "text/plain");
+            return Json(new { productImagesIds = productImagesIds }, "text/plain");
         }
 
         [HttpGet]
@@ -175,34 +154,19 @@
             return this.Json(tags, JsonRequestBehavior.AllowGet);
         }
 
-        protected override void PopulateEntity(Product entity, ProductViewModel viewModel)
+        protected override void PopulateEntity(Product entity, ProductViewModel viewModel, params object[] additionalParams /*IEnumerable<int> productImagesIds*/)
         {
-            if (viewModel.Comments != null)
-            {
-                foreach (var comment in viewModel.Comments)
-                {
-                    entity.Comments.Add(this.commentsService.GetById(comment.Id));
-                }
-            }
+            var productCommentsIds = viewModel.Comments.Select(c => c.Id);
+            entity.Comments = this.commentsService.GetAll().Where(c => productCommentsIds.Contains(c.Id)).ToList();
 
-            if (viewModel.Images != null)
-            {
-                foreach (var image in viewModel.Images)
-                {
-                    entity.Images.Add(this.imagesService.GetById(image.Id));
-                }
-            }
+            var productVotesIds = viewModel.Votes.Select(v => v.Id);
+            entity.Votes = this.votesService.GetAll().Where(v => productVotesIds.Contains(v.Id)).ToList();
 
-            if (viewModel.Votes != null)
-            {
-                foreach (var vote in viewModel.Votes)
-                {
-                    entity.Votes.Add(this.votesService.GetById(vote.Id));
-                }
-            }
+            var productTagsIds = viewModel.Tags.Select(t => t.Id);
+            entity.Tags = this.tagsService.GetAll().Where(t => productTagsIds.Contains(t.Id)).ToList();
 
-            var tagIds = viewModel.Tags.Select(tag => tag.Id);
-            this.ProcessProductTags(entity, viewModel.Id, tagIds);
+            var productImagesIds = (List<int>)(additionalParams[0]);
+            entity.Images = this.imagesService.GetAll().Where(img => productImagesIds.Contains(img.Id)).ToList();
 
             entity.Title = viewModel.Title;
             entity.ShortDescription = viewModel.ShortDescription;
@@ -220,19 +184,11 @@
             entity.DeletedOn = viewModel.DeletedOn;
         }
 
-        private void ProcessProductTags(Product entity, int productId, IEnumerable<int> tagIds)
+        protected override void HandleDependingEntitiesBeforeDelete(ProductViewModel viewModel)
         {
-            entity.Tags.Clear();
-            foreach (var tagId in tagIds)
-            {
-                var tag = this.tagsService.GetById(tagId);
-                entity.Tags.Add(tag);
-            }
-        }
-
-        private void HandleDependingEntities(ProductViewModel viewModel)
-        {
-
+            var imageEntities = this.imagesService.GetByProductId(viewModel.Id);
+            imageEntities.Each(img => img.ProductId = null);
+            this.imagesService.UpdateMany(imageEntities);
         }
         #endregion
     }

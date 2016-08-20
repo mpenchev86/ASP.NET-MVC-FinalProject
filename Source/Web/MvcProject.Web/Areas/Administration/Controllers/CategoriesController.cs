@@ -62,7 +62,7 @@
         }
 
         #region DataProviders
-        protected override void PopulateEntity(Category entity, CategoryViewModel viewModel)
+        protected override void PopulateEntity(Category entity, CategoryViewModel viewModel, params object[] additionalParams)
         {
             if (viewModel.Products != null)
             {
