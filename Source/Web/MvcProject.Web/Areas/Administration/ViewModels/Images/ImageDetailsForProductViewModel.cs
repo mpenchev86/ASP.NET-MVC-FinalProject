@@ -28,7 +28,7 @@
         //}
 
         [Required]
-        [StringLength(ValidationConstants.ImageOriginalFileNameMaxLength)]
+        [StringLength(ValidationConstants.ImageFullyQaulifiedFileNameMaxLength)]
         public string OriginalFileName { get; set; }
 
         [Required]
@@ -39,6 +39,8 @@
         [StringLength(ValidationConstants.ImageUrlPathMaxLength)]
         public string UrlPath { get; set; }
 
+        //public int FileSize { get; set; }
+        
         //[Required]
         //public string Base64Content { get; set; }
 

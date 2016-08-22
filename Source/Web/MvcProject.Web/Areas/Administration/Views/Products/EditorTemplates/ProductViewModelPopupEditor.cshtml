@@ -3,6 +3,8 @@
 @using MvcProject.Web.Areas.Administration.ViewModels.Properties
 @using MvcProject.Web.Areas.Administration.ViewModels.Categories
 @using MvcProject.Web.Areas.Administration.ViewModels.Users
+@using appExtensions = MvcProject.Web.Infrastructure.Extensions
+@using MvcProject.Web.Areas.Administration.ViewModels.Images
 
 @model MvcProject.Web.Areas.Administration.ViewModels.Products.ProductViewModel
 
@@ -90,7 +92,7 @@
                     @Html.LabelFor(m => m.Images, "Images")
                 </div>
                 <div class="editor-field">
-                    @Html.EditorFor(
+                    @*@Html.EditorFor(
                         m => m.Images,
                         new
                         {
@@ -101,8 +103,12 @@
                             AutoUpload = false,
                             SaveAction = "SaveImages",
                             SaveController = "Products",
-                            SuccessEventHandler = "onUploadSuccess"
-                        })
+                            RemoveAction = "RemoveImages",
+                            RemoveController = "Products",
+                            SuccessEventHandler = "onUploadSuccess",
+                            InitialFiles = Model.Images ?? new List<ImageDetailsForProductViewModel>() { new ImageDetailsForProductViewModel { Id = 756, OriginalFileName = "Pesho pak e tuk", FileExtension = ".jpg" } }
+                        })*@
+                    @Html.EditorFor(m => m.Images)
                     @Html.ValidationMessageFor(m => m.Images)
                 </div>
             </div>

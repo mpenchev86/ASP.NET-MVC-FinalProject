@@ -35,7 +35,7 @@
 
         public RawFile ToRawFile(HttpPostedFileBase httpFile)
         {
-            // http://stackoverflow.com/a/7852256/4491770
+            // Source: http://stackoverflow.com/a/7852256/4491770
             byte[] fileContent;
             using (Stream inputStream = httpFile.InputStream)
             {
@@ -50,16 +50,16 @@
             }
 
             string fileName = string.Empty;
-            string fileExtension = string.Empty;
-
             this.ValidateFileName(httpFile.FileName);
+            //var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(httpFile.FileName);
+            //if (!string.IsNullOrWhiteSpace(fileNameWithoutExtension) && fileNameWithoutExtension.Length <= ValidationConstants.ImageOriginalFileNameMaxLength)
+            //{
+            //    fileName = fileNameWithoutExtension;
+            //}
 
-            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(httpFile.FileName);
-            if (!string.IsNullOrWhiteSpace(fileNameWithoutExtension) && fileNameWithoutExtension.Length <= ValidationConstants.ImageOriginalFileNameMaxLength)
-            {
-                fileName = fileNameWithoutExtension;
-            }
+            fileName = httpFile.FileName;
 
+            string fileExtension = string.Empty;
             if (Path.HasExtension(httpFile.FileName))
             {
                 var extension = Path.GetExtension(httpFile.FileName);

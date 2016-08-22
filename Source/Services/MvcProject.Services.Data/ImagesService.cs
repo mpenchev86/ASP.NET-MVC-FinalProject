@@ -14,9 +14,9 @@
     using ServiceModels;
     using Web;
 
-    public class ImagesService : FileInfoService<Image>, /*BaseDataService<Image, int, IIntPKDeletableRepository<Image>>, */IImagesService
+    public class ImagesService : FileInfoService<Image>, IImagesService
     {
-        private const string ImagesServerPath = "~/Content/Images/{0}_{1}{2}";
+        private const string ImagesServerPath = "~/Content/Images/{0}_{1}";
         private readonly IImageProcessorService imageProcessor;
         private IFileSystemService fileSystemService;
         private IMappingService mappingService;
@@ -59,11 +59,11 @@
             {
                 this.fileSystemService.SaveFile(
                     image.ThumbnailContent,
-                    string.Format(ImagesServerPath, image.UrlPath, ProcessedImage.ThumbnailImage, image.FileExtension));
+                    string.Format(ImagesServerPath, image.UrlPath, ProcessedImage.ThumbnailImage/*, image.FileExtension*/));
 
                 this.fileSystemService.SaveFile(
                     image.HighResolutionContent,
-                    string.Format(ImagesServerPath, image.UrlPath, ProcessedImage.HighResolutionImage, image.FileExtension));
+                    string.Format(ImagesServerPath, image.UrlPath, ProcessedImage.HighResolutionImage/*, image.FileExtension*/));
             }
         }
 

@@ -15,6 +15,7 @@
 @(Html.FullFeaturedGrid<ProductViewModel>(
     gridName: "productsGrid",
     createAction: "CreateProduct",
+    updateAction: "UpdateProduct",
     controllerName: "Products",
     routeValues: new { Area = Areas.AdministrationAreaName },
     model: m =>
@@ -65,7 +66,9 @@
                     .Actions(a => { a.Minimize().Maximize().Close(); })
                     .Draggable(true)
                     .Scrollable(false)
-                    .Resizable();
+                    .Resizable()
+                    .Events(ev => { ev.Open("onPopupOpen"); })
+                    ;
             })
             .TemplateName("ProductViewModelPopupEditor");
     },
@@ -77,8 +80,9 @@
     )
     .Events(e => e
         .DetailInit("detailInit")
+        .DataBinding("dataBinding")
         //.Save("onSave")
-        //.Edit("onEdit")
+        .Edit("onEdit")
     )
     .ClientDetailTemplateId("product-details-template")
     .Selectable()
@@ -176,26 +180,73 @@
             //// Force the rebinding of the Grid on successful upload
             //$("#productsGrid").data("kendoGrid").dataSource.read();
 
+            //args.model.set("Images", e.response.ImageUrl);
+
             uploadedFilesIds = e.response.productImagesIds;
         }
 
-        //function onEdit(args) {
-        //    $("#ImageFiles").kendoUpload({
-        //        success: function (e) {
-        //            args.model.set("ImageUrl", e.response.ImageUrl);
-        //        },
-        //        error: function (e) {
-        //            console.log(args.model.ImageUrl);
-        //        },
-        //        files: [{
-        //            name: args.model.ImageUrl
-        //        }],
-        //        multiple: false,
-        //        async: {
-        //            saveUrl: "/Category/Save",
-        //            autoUpload: true
-        //        }
-        //    });
-        //}
+        function onEdit(args) {
+            var productImages = loadImagesFromModel(args);
+            //console.log(productImages);
+            console.log(args);
+
+            $("#productImages").kendoUpload({
+                //files: productImages
+
+                success: function (e) {
+                    onUploadSuccess(e);
+                    args.model.dirty = true;
+                    //args.model.set("ImageUrl", e.response.ImageUrl);
+                },
+                error: function (e) {
+                    //console.log(args.model.ImageUrl);
+                },
+                files: productImages,
+                //files: [{
+                //    name: args.model.ImageUrl
+                //}],
+                multiple: true,
+                async: {
+                    saveUrl: "/Administration/Products/SaveImages",
+                    saveField: "productImages",
+                    removeUrl: "/Administration/Products/RemoveImages",
+                    autoUpload: false,
+                    batch: true
+                }
+            });
+
+            console.log($("#productImages").data("kendoUpload"));
+            //var upload = $("#productImages").data("kendoUpload");
+            //upload.options.files = loadImagesFromModel(args);
+
+            //console.log(args.container);
+        }
+
+        function loadImagesFromModel(args) {
+            var files = [];
+            var images = args.model.Images
+            if (images) {
+                var len = images.length;
+                for (var i = 0; i < len; i++) {
+                    files.push({
+                        name: images[i].OriginalFileName,
+                        extension: images[i].FileExtension,
+                        //size: 3
+                    });
+                }
+            }
+
+            //console.log(files);
+            return files;
+        }
+
+        function onPopupOpen() {
+            //console.log(this);
+        }
+
+        function dataBinding(e) {
+            //console.log(e.items);
+            //console.log();
+        }
     </script>
 }

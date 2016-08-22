@@ -18,7 +18,7 @@
         /// The original file name. Does not include any path or extension.
         /// </value>
         [Required]
-        [StringLength(ValidationConstants.ImageOriginalFileNameMaxLength)]
+        [StringLength(ValidationConstants.ImageFullyQaulifiedFileNameMaxLength)]
         public string OriginalFileName { get; set; }
 
         /// <summary>
@@ -40,5 +40,14 @@
         [DataType(DataType.ImageUrl)]
         [StringLength(ValidationConstants.ImageUrlPathMaxLength)]
         public string UrlPath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the content of an image file as byte array.
+        /// </summary>
+        /// <value>
+        /// The content of an image file as byte array.
+        /// </value>
+        [DataType(DataType.Upload)]
+        public byte[] Content { get; set; }
     }
 }

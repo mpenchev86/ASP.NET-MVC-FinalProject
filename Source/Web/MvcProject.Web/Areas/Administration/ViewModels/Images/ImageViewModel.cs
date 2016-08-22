@@ -17,7 +17,7 @@
     {
         [Required]
         [DataType(DataType.MultilineText)]
-        [StringLength(ValidationConstants.ImageOriginalFileNameMaxLength)]
+        [StringLength(ValidationConstants.ImageFullyQaulifiedFileNameMaxLength)]
         public string OriginalFileName { get; set; }
 
         [Required]

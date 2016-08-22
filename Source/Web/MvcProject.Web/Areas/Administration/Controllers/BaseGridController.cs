@@ -78,7 +78,7 @@
         {
             if (viewModel != null && this.ModelState.IsValid)
             {
-                this.HandleDependingEntitiesBeforeDelete(viewModel);
+                this.HandleDependentEntitiesBeforeDelete(viewModel);
                 this.dataService.DeletePermanent(viewModel.Id);
             }
 
@@ -107,18 +107,29 @@
             return this.Json(data.ToDataSourceResult(request, modelState), JsonRequestBehavior.AllowGet);
         }
 
-        protected virtual void PopulateEntity(TEntityModel entity, TViewModel viewModel, params object[] additionalParams)
-        {
-        }
-
-        protected virtual void HandleDependingEntitiesBeforeDelete(TViewModel viewModel)
-        {
-        }
-
         protected virtual JsonResult GetAsSelectList(string text, string value)
         {
             var data = this.GetDataAsEnumerable().Select(x => new SelectListItem { Text = text, Value = value });
             return this.Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        // TODO: Separate create from edit logic?
+        /// <summary>
+        /// Used to populate data to a new entity or repopulate an existing one.
+        /// </summary>
+        /// <param name="entity">The domain model</param>
+        /// <param name="viewModel">The viewmodel</param>
+        /// <param name="additionalParams">additional parameters array</param>
+        protected virtual void PopulateEntity(TEntityModel entity, TViewModel viewModel, params object[] additionalParams)
+        {
+        }
+
+        /// <summary>
+        /// Prevents conflicts when deleting an entity which is being reffered to by other entities' navigation properties.
+        /// </summary>
+        /// <param name="viewModel">The entity's ViewModel used to manipulate data before persisting the changes.</param>
+        protected virtual void HandleDependentEntitiesBeforeDelete(TViewModel viewModel)
+        {
         }
         #endregion
     }

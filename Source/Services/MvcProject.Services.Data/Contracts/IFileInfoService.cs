@@ -11,6 +11,6 @@
 
     public interface IFileInfoService<T> : IBaseDataService
     {
-        T PersistFileInfo(RawFile file);
+        T PersistFileInfo(RawFile file, bool persistContent);
     }
 }

@@ -37,7 +37,7 @@
             return image;
         }
 
-        public T PersistFileInfo(RawFile file)
+        public T PersistFileInfo(RawFile file, bool persistContent = false)
         {
             var processedFileName = string.Join(WhiteSpace.ToString(), file.OriginalFileName.Split(new[] { WhiteSpace }, StringSplitOptions.RemoveEmptyEntries));
             var databaseFile = new T

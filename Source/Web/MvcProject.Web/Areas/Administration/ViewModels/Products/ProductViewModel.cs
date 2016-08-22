@@ -172,7 +172,7 @@
                             {
                                 Id = c.Id,
                                 Content = c.Content,
-                                UserId = c.UserId,
+                                UserName = c.User.UserName,
                                 CreatedOn = c.CreatedOn,
                                 ModifiedOn = c.ModifiedOn
                             })))
@@ -181,7 +181,7 @@
                             {
                                 Id = v.Id,
                                 VoteValue = v.VoteValue,
-                                UserId = v.UserId,
+                                UserName = v.User.UserName,
                                 CreatedOn = v.CreatedOn,
                                 ModifiedOn = v.ModifiedOn
                             })))

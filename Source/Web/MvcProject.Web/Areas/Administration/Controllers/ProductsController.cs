@@ -103,21 +103,33 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public override ActionResult Update([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel)
+        public /*override */ActionResult UpdateProduct([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel, IEnumerable<int> productImagesIds)
         {
-            return base.Update(request, viewModel);
+            if (viewModel != null && this.ModelState.IsValid)
+            {
+                var entity = this.productsService.GetById(viewModel.Id);
+                if (entity != null)
+                {
+                    this.PopulateEntity(entity, viewModel, productImagesIds);
+                    this.productsService.Update(entity);
+                }
+            }
+
+            return this.GetEntityAsDataSourceResult(request, viewModel, this.ModelState);
+            
+            //return base.Update(request, viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public override ActionResult Destroy([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel)
         {
-            this.HandleDependingEntitiesBeforeDelete(viewModel);
+            this.HandleDependentEntitiesBeforeDelete(viewModel);
             return base.Destroy(request, viewModel);
         }
 
         #region DataProviders
-        public ActionResult SaveImages(IEnumerable<HttpPostedFileBase> productImages)
+        public JsonResult SaveImages(IEnumerable<HttpPostedFileBase> productImages)
         {
             var productImagesIds = new List<int>();
             var rawFiles = new List<RawFile>();
@@ -144,7 +156,12 @@
             this.imagesService.SaveImages(processedImages);
             productImagesIds = new List<int>(processedImages.Select(i => i.Id));
 
-            return Json(new { productImagesIds = productImagesIds }, "text/plain");
+            return Json(new { productImagesIds = productImagesIds }, "text/plain", JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult RemoveImages(IEnumerable<string> fileNames)
+        {
+            return Json(new { }, "text/plain", JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -163,9 +180,12 @@
             entity.Votes = this.votesService.GetAll().Where(v => productVotesIds.Contains(v.Id)).ToList();
 
             var productTagsIds = viewModel.Tags.Select(t => t.Id);
+            // Resolves conflict caused by the one-to-one relationship.
+            entity.Tags.Clear();
             entity.Tags = this.tagsService.GetAll().Where(t => productTagsIds.Contains(t.Id)).ToList();
 
-            var productImagesIds = (List<int>)(additionalParams[0]);
+            // Checks for null references.
+            var productImagesIds = additionalParams != null ? (List<int>)(additionalParams.FirstOrDefault() ?? new List<int>()) : new List<int>();
             entity.Images = this.imagesService.GetAll().Where(img => productImagesIds.Contains(img.Id)).ToList();
 
             entity.Title = viewModel.Title;
@@ -184,7 +204,7 @@
             entity.DeletedOn = viewModel.DeletedOn;
         }
 
-        protected override void HandleDependingEntitiesBeforeDelete(ProductViewModel viewModel)
+        protected override void HandleDependentEntitiesBeforeDelete(ProductViewModel viewModel)
         {
             var imageEntities = this.imagesService.GetByProductId(viewModel.Id);
             imageEntities.Each(img => img.ProductId = null);

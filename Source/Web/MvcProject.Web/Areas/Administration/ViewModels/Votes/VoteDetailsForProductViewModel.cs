@@ -10,7 +10,7 @@
     public class VoteDetailsForProductViewModel : BaseAdminViewModel<int>, IMapFrom<Vote>, IHaveCustomMappings
     {
         [Required]
-        public string UserId { get; set; }
+        public string UserName { get; set; }
 
         [Required]
         [Range(ValidationConstants.VoteValueMin, ValidationConstants.VoteValueMax)]
@@ -20,7 +20,7 @@
         {
             configuration.CreateMap<Vote, VoteDetailsForProductViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId));
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName));
         }
     }
 }

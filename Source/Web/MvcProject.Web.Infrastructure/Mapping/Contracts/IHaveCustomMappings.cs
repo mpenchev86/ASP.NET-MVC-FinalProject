@@ -4,6 +4,6 @@
 
     public interface IHaveCustomMappings
     {
-        void CreateMappings(/*IMapperConfiguration*/IMapperConfigurationExpression configuration);
+        void CreateMappings(IMapperConfigurationExpression configuration);
     }
 }
