@@ -28,7 +28,7 @@
     using System.Web.SessionState;
     using Services.Logic;
     using Services.Logic.ServiceModels;
-
+    using Services.Web;
     [Authorize(Roles = IdentityRoles.Admin)]
     public class ProductsController : BaseGridController<Product, ProductViewModel, IProductsService, int>
     {
@@ -85,39 +85,39 @@
             return base.Read(request);
         }
 
+        /// <param name="productImagesIds">Encoded Ids of the product's images.</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateProduct([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel, IEnumerable<int> productImagesIds)
+        public ActionResult CreateProduct([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel, IEnumerable<string> productImagesIds)
         {
             if (viewModel != null && this.ModelState.IsValid)
             {
                 var entity = new Product();
-                // Prevent sending null param.
-                this.PopulateEntity(entity, viewModel, productImagesIds ?? new List<int>());
+                // Prevents sending null param.
+                this.PopulateEntity(entity, viewModel, productImagesIds ?? new List<string>());
                 this.productsService.Insert(entity);
                 viewModel.Id = entity.Id;
             }
 
             return this.GetEntityAsDataSourceResult(request, viewModel, this.ModelState);
         }
-
+        
+        /// <param name="productImagesIds">Encoded Ids of the product's images.</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public /*override */ActionResult UpdateProduct([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel, IEnumerable<int> productImagesIds)
+        public ActionResult UpdateProduct([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel, IEnumerable<string> productImagesIds)
         {
             if (viewModel != null && this.ModelState.IsValid)
             {
                 var entity = this.productsService.GetById(viewModel.Id);
                 if (entity != null)
                 {
-                    this.PopulateEntity(entity, viewModel, productImagesIds);
+                    this.PopulateEntity(entity, viewModel, productImagesIds ?? new List<string>());
                     this.productsService.Update(entity);
                 }
             }
 
             return this.GetEntityAsDataSourceResult(request, viewModel, this.ModelState);
-            
-            //return base.Update(request, viewModel);
         }
 
         [HttpPost]
@@ -129,23 +129,24 @@
         }
 
         #region DataProviders
+        /// <summary>
+        /// The 'Save' action of kendo Upload widget.
+        /// </summary>
+        /// <param name="productImages">The files sent by kendo Upload.</param>
+        /// <returns>Returns the Ids of the saved files.</returns>
+        [HttpPost]
         public JsonResult SaveImages(IEnumerable<HttpPostedFileBase> productImages)
         {
-            var productImagesIds = new List<int>();
+            var encodedImageIds = new List<string>();
             var rawFiles = new List<RawFile>();
 
             //The Name of the Upload component is "productImages".
             foreach (var file in productImages)
             {
-                ////Some browsers send file names with a full path. You only care about the file name.
-                //var fileName = Path.GetFileName(file.FileName);
-                //var destinationPath = Path.Combine(Server.MapPath("~/App_Data"), fileName);
-                //file.SaveAs(destinationPath);
-
                 var rawFile = this.fileSystemService.ToRawFile(file);
                 if (rawFile == null)
                 {
-                    // skip invalid files
+                    // skips invalid files
                     continue;
                 }
 
@@ -154,13 +155,29 @@
 
             var processedImages = this.imagesService.ProcessImages(rawFiles);
             this.imagesService.SaveImages(processedImages);
-            productImagesIds = new List<int>(processedImages.Select(i => i.Id));
+            encodedImageIds = new List<string>(processedImages.Select(i => IdentifierProvider.EncodeIntIdStatic(i.Id)));
 
-            return Json(new { productImagesIds = productImagesIds }, "text/plain", JsonRequestBehavior.AllowGet);
+            return Json(new { productImagesIds = encodedImageIds }, "text/plain", JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult RemoveImages(IEnumerable<string> fileNames)
+        /// <summary>
+        /// The 'Remove' action of kendo Upload widget.
+        /// </summary>
+        /// <param name="fileNames">By default, the 'Remove' action of kendo Upload sends the 'name' property
+        /// of the files to be removed to a form field named 'fileNames'. Can be changed through 'removeField'
+        /// property.</param>
+        /// <param name="data">Additional information set through the remove event of kendo Upload.</param>
+        /// <param name="imageIds">The encoded Ids of the images to be removed.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult RemoveImages(IEnumerable<string> fileNames, object data, IEnumerable<string> imageIds/*, int productId*/)
         {
+            if (imageIds != null && imageIds.Any())
+            {
+                this.imagesService.RemoveImages(imageIds);
+            }
+
+            //return Json(new { productImagesIds = productImagesIds }, "text/plain", JsonRequestBehavior.AllowGet);
             return Json(new { }, "text/plain", JsonRequestBehavior.AllowGet);
         }
 
@@ -170,8 +187,9 @@
             var tags = this.tagsService.GetAll().To<TagDetailsForProductViewModel>();
             return this.Json(tags, JsonRequestBehavior.AllowGet);
         }
-
-        protected override void PopulateEntity(Product entity, ProductViewModel viewModel, params object[] additionalParams /*IEnumerable<int> productImagesIds*/)
+        
+        /// <param name="additionalParams">The first element receives the list of product's images Ids</param>
+        protected override void PopulateEntity(Product entity, ProductViewModel viewModel, params object[] additionalParams)
         {
             var productCommentsIds = viewModel.Comments.Select(c => c.Id);
             entity.Comments = this.commentsService.GetAll().Where(c => productCommentsIds.Contains(c.Id)).ToList();
@@ -184,8 +202,8 @@
             entity.Tags.Clear();
             entity.Tags = this.tagsService.GetAll().Where(t => productTagsIds.Contains(t.Id)).ToList();
 
-            // Checks for null references.
-            var productImagesIds = additionalParams != null ? (List<int>)(additionalParams.FirstOrDefault() ?? new List<int>()) : new List<int>();
+            var encodedProductImagesIds = (List<string>)(additionalParams.FirstOrDefault());
+            var productImagesIds = encodedProductImagesIds.Select(id => IdentifierProvider.DecodeToIntStatic(id));
             entity.Images = this.imagesService.GetAll().Where(img => productImagesIds.Contains(img.Id)).ToList();
 
             entity.Title = viewModel.Title;

@@ -15,7 +15,6 @@
 
     public class FileSystemService : IFileSystemService
     {
-        // From Showcase.Server.Infrastructure.FileSystem.FileSystemService - Non-async version
         public void SaveFile(byte[] content, string path)
         {
             var filePath = HostingEnvironment.MapPath(path);
@@ -30,6 +29,17 @@
             using (var fileWriter = new FileStream(filePath, FileMode.CreateNew, FileSystemRights.WriteData, FileShare.None, 1024, FileOptions.RandomAccess))
             {
                 fileWriter.Write(content, 0, content.Length);
+            }
+        }
+
+        public void DeleteFile(string path)
+        {
+            var fileName = Path.GetFileName(path);
+            var physicalPath = Path.Combine(HostingEnvironment.MapPath("~/CategoryImage/"), fileName);
+
+            if (File.Exists(physicalPath))
+            {
+                File.Delete(physicalPath);
             }
         }
 
@@ -51,12 +61,6 @@
 
             string fileName = string.Empty;
             this.ValidateFileName(httpFile.FileName);
-            //var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(httpFile.FileName);
-            //if (!string.IsNullOrWhiteSpace(fileNameWithoutExtension) && fileNameWithoutExtension.Length <= ValidationConstants.ImageOriginalFileNameMaxLength)
-            //{
-            //    fileName = fileNameWithoutExtension;
-            //}
-
             fileName = httpFile.FileName;
 
             string fileExtension = string.Empty;

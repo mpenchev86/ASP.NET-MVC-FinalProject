@@ -12,6 +12,8 @@
     {
         void SaveFile(byte[] content, string path);
 
+        void DeleteFile(string path);
+
         RawFile ToRawFile(HttpPostedFileBase httpFile);
     }
 }

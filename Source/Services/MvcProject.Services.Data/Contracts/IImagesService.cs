@@ -20,6 +20,8 @@
 
         void SaveImages(IEnumerable<ProcessedImage> images);
 
+        void RemoveImages(IEnumerable<string> encodedIds);
+
         IEnumerable<Image> ImagesByUrls(ICollection<string> imageUrls);
 
         ProcessedImage ToProcessedImage(Image image, byte[] thumbnailContent, byte[] highResolutionContent);

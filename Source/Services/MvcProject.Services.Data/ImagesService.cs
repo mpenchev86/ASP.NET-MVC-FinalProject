@@ -16,7 +16,7 @@
 
     public class ImagesService : FileInfoService<Image>, IImagesService
     {
-        private const string ImagesServerPath = "~/Content/Images/{0}_{1}";
+        private const string ImagesServerPath = "~/Content/Images/{0}_{1}{2}";
         private readonly IImageProcessorService imageProcessor;
         private IFileSystemService fileSystemService;
         private IMappingService mappingService;
@@ -57,13 +57,37 @@
         {
             foreach (var image in images)
             {
-                this.fileSystemService.SaveFile(
-                    image.ThumbnailContent,
-                    string.Format(ImagesServerPath, image.UrlPath, ProcessedImage.ThumbnailImage/*, image.FileExtension*/));
+                if (image != null)
+                {
+                    this.fileSystemService.SaveFile(
+                        image.ThumbnailContent,
+                        string.Format(ImagesServerPath, image.UrlPath, ProcessedImage.ThumbnailImage, image.FileExtension));
 
-                this.fileSystemService.SaveFile(
-                    image.HighResolutionContent,
-                    string.Format(ImagesServerPath, image.UrlPath, ProcessedImage.HighResolutionImage/*, image.FileExtension*/));
+                    this.fileSystemService.SaveFile(
+                        image.HighResolutionContent,
+                        string.Format(ImagesServerPath, image.UrlPath, ProcessedImage.HighResolutionImage, image.FileExtension));
+                }
+            }
+        }
+
+        public void RemoveImages(IEnumerable<string> encodedIds)
+        {
+            foreach (var imageId in encodedIds)
+            {
+                if (!string.IsNullOrWhiteSpace(imageId))
+                {
+                    var image = this.GetByEncodedId(imageId);
+                    image.ProductId = null;
+                    this.Update(image);
+
+                    //// Different variants of removing an image from a product's images collection.
+                    // var decodedId = this.IdentifierProvider.DecodeIdToInt(imageId);
+                    // var image = this.GetById(decodedId);
+                    // this.DeletePermanent(decodedId);
+                    // this.MarkAsDeleted(decodedId);
+                    // this.fileSystemService.DeleteFile(string.Format(ImagesServerPath, image.UrlPath, ProcessedImage.ThumbnailImage, image.FileExtension));
+                    // this.fileSystemService.DeleteFile(string.Format(ImagesServerPath, image.UrlPath, ProcessedImage.HighResolutionImage, image.FileExtension));
+                }
             }
         }
 

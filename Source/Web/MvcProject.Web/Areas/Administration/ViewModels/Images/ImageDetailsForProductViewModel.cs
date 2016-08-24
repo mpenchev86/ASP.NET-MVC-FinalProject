@@ -7,11 +7,12 @@
     using System.Web;
     using AutoMapper;
     using Data.Models;
+    using Infrastructure.Extensions;
     using MvcProject.Common.GlobalConstants;
     using MvcProject.Web.Infrastructure.Mapping;
     using Services.Data.ServiceModels;
     using Services.Logic.ServiceModels;
-
+    using Services.Web;
     public class ImageDetailsForProductViewModel : BaseAdminViewModel<int>, IMapFrom<Image>/*, IMapTo<RawFile>*/, IHaveCustomMappings
     {
         //public static Func<ImageDetailsForProductViewModel, RawFile> ToRawFile
@@ -26,6 +27,11 @@
         //        };
         //    }
         //}
+
+        public string IdEncoded
+        {
+            get { return IdentifierProvider.EncodeIntIdStatic(this.Id); }
+        }
 
         [Required]
         [StringLength(ValidationConstants.ImageFullyQaulifiedFileNameMaxLength)]

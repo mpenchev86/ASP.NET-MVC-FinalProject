@@ -67,7 +67,6 @@
                     .Draggable(true)
                     .Scrollable(false)
                     .Resizable()
-                    .Events(ev => { ev.Open("onPopupOpen"); })
                     ;
             })
             .TemplateName("ProductViewModelPopupEditor");
@@ -80,8 +79,6 @@
     )
     .Events(e => e
         .DetailInit("detailInit")
-        .DataBinding("dataBinding")
-        //.Save("onSave")
         .Edit("onEdit")
     )
     .ClientDetailTemplateId("product-details-template")
@@ -146,7 +143,7 @@
             datetimeHandlers.normalizeDateProperties(data);
             return {
                 "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val(),
-                productImagesIds: uploadedFilesIds
+                productImagesIds: processedFilesIds
             }
         }
 
@@ -154,7 +151,7 @@
             datetimeHandlers.normalizeDateProperties(data);
             return {
                 "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val(),
-                productImagesIds: uploadedFilesIds
+                productImagesIds: processedFilesIds
             }
         }
 
@@ -173,53 +170,27 @@
             gridDetailsHelpers.setDataSource("#tags-grid_" + e.data.Id, e.data.Tags, 10);
         }
 
-        // Popup editor events for the Upload helper editor of the Images property
-        var uploadedFilesNames;
-        var uploadedFilesIds;
-        function onUploadSuccess(e) {
-            //// Force the rebinding of the Grid on successful upload
-            //$("#productsGrid").data("kendoGrid").dataSource.read();
-
-            //args.model.set("Images", e.response.ImageUrl);
-
-            uploadedFilesIds = e.response.productImagesIds;
-        }
-
         function onEdit(args) {
-            var productImages = loadImagesFromModel(args);
-            //console.log(productImages);
-            console.log(args);
-
             $("#productImages").kendoUpload({
-                //files: productImages
-
-                success: function (e) {
-                    onUploadSuccess(e);
-                    args.model.dirty = true;
-                    //args.model.set("ImageUrl", e.response.ImageUrl);
-                },
-                error: function (e) {
-                    //console.log(args.model.ImageUrl);
-                },
-                files: productImages,
-                //files: [{
-                //    name: args.model.ImageUrl
-                //}],
-                multiple: true,
                 async: {
                     saveUrl: "/Administration/Products/SaveImages",
                     saveField: "productImages",
                     removeUrl: "/Administration/Products/RemoveImages",
+                    removeField: "filePaths",
                     autoUpload: false,
                     batch: true
-                }
+                },
+                multiple: true,
+                files: loadImagesFromModel(args),
+                success: function (e) {
+                    onSuccess(e);
+                    // Notifies Update action of kendo Grid that data has changed. Since kendo Upload handlers differ from
+                    // those of the grid, uploads/removes don't change grid's form data.
+                    args.model.dirty = true;
+                },
+                remove: onRemove,
+                error: onError,
             });
-
-            console.log($("#productImages").data("kendoUpload"));
-            //var upload = $("#productImages").data("kendoUpload");
-            //upload.options.files = loadImagesFromModel(args);
-
-            //console.log(args.container);
         }
 
         function loadImagesFromModel(args) {
@@ -230,23 +201,51 @@
                 for (var i = 0; i < len; i++) {
                     files.push({
                         name: images[i].OriginalFileName,
+                        url: images[i].UrlPath,
                         extension: images[i].FileExtension,
-                        //size: 3
+                        imageId: images[i].IdEncoded
                     });
                 }
             }
 
-            //console.log(files);
             return files;
         }
 
-        function onPopupOpen() {
-            //console.log(this);
+        // Popup editor events for kendo Upload helper editor for Product Images property
+        var processedFilesIds;
+        function onSuccess(e) {
+            processedFilesIds = e.response.productImagesIds;
         }
 
-        function dataBinding(e) {
-            //console.log(e.items);
-            //console.log();
+        function onRemove(e) {
+            // Array with information about the removed files
+            var images = e.files;
+            //console.log(e.sender);
+            //$.each(files, function (key, value) {
+            //    //value.name = value.url + '/' + value.name;
+            //    value.name = value.imageId;
+            //});
+            var imageIds = [];
+            $.each(images, function getImageIds(key, val) {
+                imageIds.push(val.imageId);
+            });
+            //console.log(fileIds);
+            e.data = { imageIds: imageIds };
+            console.log(e.sender);
+            //console.log(e);
+
+            // Process the Remove event
+            // Optionally cancel the remove operation by calling
+            // e.preventDefault()
+        }
+
+        function onError(e) {
+            // Array with information about the uploaded files
+            var files = e.files;
+
+            if (e.operation == "upload") {
+                alert("Failed to upload " + files.length + " files");
+            }
         }
     </script>
 }
