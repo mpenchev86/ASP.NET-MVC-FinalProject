@@ -13,6 +13,7 @@
     using Services.Data.ServiceModels;
     using Services.Logic.ServiceModels;
     using Services.Web;
+
     public class ImageDetailsForProductViewModel : BaseAdminViewModel<int>, IMapFrom<Image>/*, IMapTo<RawFile>*/, IHaveCustomMappings
     {
         //public static Func<ImageDetailsForProductViewModel, RawFile> ToRawFile
@@ -45,8 +46,10 @@
         [StringLength(ValidationConstants.ImageUrlPathMaxLength)]
         public string UrlPath { get; set; }
 
+        public bool IsMainImage { get; set; }
+
         //public int FileSize { get; set; }
-        
+
         //[Required]
         //public string Base64Content { get; set; }
 
@@ -60,9 +63,9 @@
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
-            // for IMapFrom<>
-            configuration.CreateMap<Image, ImageDetailsForProductViewModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+            //// for IMapFrom<>
+            //configuration.CreateMap<Image, ImageDetailsForProductViewModel>()
+            //    .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
 
             //// for IMapTo<>
             //configuration.CreateMap<ImageDetailsForProductViewModel, RawFile>()

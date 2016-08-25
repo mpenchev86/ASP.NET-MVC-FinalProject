@@ -74,6 +74,20 @@
             entity.OriginalFileName = viewModel.OriginalFileName;
             entity.ProductId = viewModel.ProductId;
             entity.UrlPath = viewModel.UrlPath;
+
+            // If the current image is a product's main image, the rest should have their 'IsMainImage'
+            // property set to false because there can be only one main image.
+            if (viewModel.ProductId != null && viewModel.IsMainImage)
+            {
+                var productImages = this.imagesService.GetByProductId((int)entity.ProductId);
+                foreach (var image in productImages)
+                {
+                    image.IsMainImage = false;
+                }
+                this.imagesService.UpdateMany(productImages);
+            }
+
+            entity.IsMainImage = viewModel.IsMainImage;
             entity.FileExtension = viewModel.FileExtension;
             entity.CreatedOn = viewModel.CreatedOn;
             entity.ModifiedOn = viewModel.ModifiedOn;

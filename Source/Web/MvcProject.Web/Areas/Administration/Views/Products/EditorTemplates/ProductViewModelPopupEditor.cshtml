@@ -63,24 +63,34 @@
 
             @*===============================*@
             
-            <div class="row">
+            @*<div class="row">
                 <div class="editor-label">
-                    @Html.LabelFor(m => m.MainImageId, "MainImage Id")
+                    @Html.LabelFor(m => m.MainImage, "MainImage Id")
                 </div>
                 <div class="editor-field">
-                    @*@Html.EditorFor(
+                    @Html.EditorFor(m => m.MainImage, new { id = "mainImage", name = "mainImage" })
+                    @Html.ValidationMessageFor(m => m.MainImage)
+                </div>
+            </div>*@
+
+            <div class="row">
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.MainImageId, "Main Image")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(
                         m => m.MainImageId,
                         new
                         {
-                            Name = "productMainImage",
-                            Enable = true,
-                            Multiple = false,
-                            Batch = false,
-                            AutoUpload = false,
-                            SaveAction = "SaveImages",
-                            SaveController = "Products",
-                            SuccessEventHandler = "onUploadSuccess"
-                        })*@
+                            Name = "MainImageId",
+                            Text = "OriginalFileName",
+                            Value = "Id",
+                            OptionLabel = "Select Main Image...",
+                            //CascadeFromField = "Images",
+                            //BindTo = "Images",
+                            //htmlAttributes = new { data_bind = "value: MainImageId" }
+                        })
+                    @*@Html.EditorFor(m => m.MainImageId, new { id = "mainImage", name = "mainImage" })*@
                     @Html.ValidationMessageFor(m => m.MainImageId)
                 </div>
             </div>
@@ -92,23 +102,7 @@
                     @Html.LabelFor(m => m.Images, "Images")
                 </div>
                 <div class="editor-field">
-                    @*@Html.EditorFor(
-                        m => m.Images,
-                        new
-                        {
-                            Name = "productImages",
-                            Enable = true,
-                            Multiple = true,
-                            Batch = true,
-                            AutoUpload = false,
-                            SaveAction = "SaveImages",
-                            SaveController = "Products",
-                            RemoveAction = "RemoveImages",
-                            RemoveController = "Products",
-                            SuccessEventHandler = "onUploadSuccess",
-                            InitialFiles = Model.Images ?? new List<ImageDetailsForProductViewModel>() { new ImageDetailsForProductViewModel { Id = 756, OriginalFileName = "Pesho pak e tuk", FileExtension = ".jpg" } }
-                        })*@
-                    @Html.EditorFor(m => m.Images)
+                    @Html.EditorFor(m => m.Images, new { id = "productImages", name = "productImages[]" })
                     @Html.ValidationMessageFor(m => m.Images)
                 </div>
             </div>
@@ -168,7 +162,7 @@
                             dataValueField = "Id",
                             action = "GetAllTags",
                             controller = "Products",
-                            data_bind = "value: Tags"
+                            htmlAttributes = new { data_bind = "value: Tags" }
                         })
                     @Html.ValidationMessageFor(model => model.Tags)
                 </div>

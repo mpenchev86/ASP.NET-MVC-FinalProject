@@ -39,7 +39,8 @@
         c.Bound(m => m.ShortDescription).Width("20%");
         c.ForeignKey(m => m.CategoryId, Model.Categories, "Id", "Name").Title("Category");
         c.ForeignKey(m => m.DescriptionId, Model.Descriptions, "Id", "Id").Title("Description Id").Visible(false);
-        //c.ForeignKey(m => m.MainImageId, Model.Images, "Id", "Id").Title("Main Image Id").Visible(false);
+        //c.ForeignKey(m => m.MainImageId, Model.Images, "Id", "Id").Title("Main Image").Visible(false);
+        c.Bound(m => m.MainImageId).Visible(false);
         c.Bound(m => m.UnitPrice);
         c.Bound(m => m.ShippingPrice);
         c.Bound(m => m.IsInStock);
@@ -122,6 +123,10 @@
         @(Html.Partial("_ProductDetailsTabStrip"))
     </script>
 
+     <script id="main-image-template" type="text/kendo-tmpl">
+        @(Html.Partial("_MainImage"))
+    </script>
+
     <script>
         // Setting the current culture to use with Kendo UI
         kendo.culture('@userCulture');
@@ -143,7 +148,8 @@
             datetimeHandlers.normalizeDateProperties(data);
             return {
                 "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val(),
-                productImagesIds: processedFilesIds
+                //productMainImageId: processedMainImageId,
+                productImagesIds: processedImagesIds,
             }
         }
 
@@ -151,7 +157,8 @@
             datetimeHandlers.normalizeDateProperties(data);
             return {
                 "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val(),
-                productImagesIds: processedFilesIds
+                //productMainImageId: processedMainImageId,
+                productImagesIds: processedImagesIds,
             }
         }
 
@@ -171,19 +178,32 @@
         }
 
         function onEdit(args) {
+            // Set dataSource for MainImage dropDown
+            var allProductImages = args.model.Images;
+            var mainImageDataSource = new kendo.data.DataSource({
+                data: allProductImages,
+            });
+            var mainImageDropdown = $("#MainImageId").data("kendoDropDownList");
+            mainImageDropdown.setDataSource(mainImageDataSource);
+            //mainImageDropdown.valueTemplate(kendo.template($("#main-image-template").html()));
+            //mainImageDropdown.refresh();
+            mainImageDropdown.value(args.model.MainImageId);
+            mainImageDropdown.refresh();
+
+            // Kendo Upload for all product images except the main image.
             $("#productImages").kendoUpload({
                 async: {
                     saveUrl: "/Administration/Products/SaveImages",
                     saveField: "productImages",
                     removeUrl: "/Administration/Products/RemoveImages",
-                    removeField: "filePaths",
+                    //removeField: "fileNames",
                     autoUpload: false,
                     batch: true
                 },
                 multiple: true,
-                files: loadImagesFromModel(args),
+                files: loadImagesFromModel(allProductImages),
                 success: function (e) {
-                    onSuccess(e);
+                    onSuccess(e, false);
                     // Notifies Update action of kendo Grid that data has changed. Since kendo Upload handlers differ from
                     // those of the grid, uploads/removes don't change grid's form data.
                     args.model.dirty = true;
@@ -191,15 +211,37 @@
                 remove: onRemove,
                 error: onError,
             });
+
+            //// Kendo Upload for the main product image
+            //$("#mainImage").kendoUpload({
+            //    async: {
+            //        saveUrl: "/Administration/Products/SaveImages",
+            //        saveField: "productImages",
+            //        removeUrl: "/Administration/Products/RemoveImages",
+            //        //removeField: "fileNames",
+            //        autoUpload: false,
+            //        batch: false
+            //    },
+            //    multiple: false,
+            //    files: loadImagesFromModel(allProductImages),
+            //    success: function (e) {
+            //        onSuccess(e, true);
+            //        // Notifies Update action of kendo Grid that data has changed. Since kendo Upload handlers differ from
+            //        // those of the grid, uploads/removes don't change grid's form data.
+            //        args.model.dirty = true;
+            //    },
+            //    remove: onRemove,
+            //    error: onError,
+            //});
         }
 
-        function loadImagesFromModel(args) {
-            var files = [];
-            var images = args.model.Images
+        // Returns an array of initial files for Kendo Upload
+        function loadImagesFromModel(images) {
+            var initialFiles = [];
             if (images) {
                 var len = images.length;
                 for (var i = 0; i < len; i++) {
-                    files.push({
+                    initialFiles.push({
                         name: images[i].OriginalFileName,
                         url: images[i].UrlPath,
                         extension: images[i].FileExtension,
@@ -208,39 +250,39 @@
                 }
             }
 
-            return files;
+            return initialFiles;
         }
 
-        // Popup editor events for kendo Upload helper editor for Product Images property
-        var processedFilesIds;
-        function onSuccess(e) {
-            processedFilesIds = e.response.productImagesIds;
+        // Popup editor events for kendo Upload helper editor for product's images.
+        // 'isMainImage' determines whether the response from the server should be assigned to 'MainImage' or
+        // 'Images' property of a product.
+        var processedImagesIds;
+        //var processedMainImageId;
+        function onSuccess(e, isMainImage) {
+            //if (isMainImage) {
+            //    processedMainImageId = e.response.productImagesIds;
+            //}
+            //else {
+            //    processedImagesIds = e.response.productImagesIds;
+            //}
+            processedImagesIds = e.response.productImagesIds;
         }
 
         function onRemove(e) {
-            // Array with information about the removed files
+            // Array with information about the files being removed
             var images = e.files;
-            //console.log(e.sender);
-            //$.each(files, function (key, value) {
-            //    //value.name = value.url + '/' + value.name;
-            //    value.name = value.imageId;
-            //});
             var imageIds = [];
             $.each(images, function getImageIds(key, val) {
                 imageIds.push(val.imageId);
             });
-            //console.log(fileIds);
             e.data = { imageIds: imageIds };
-            console.log(e.sender);
-            //console.log(e);
-
             // Process the Remove event
             // Optionally cancel the remove operation by calling
             // e.preventDefault()
         }
 
         function onError(e) {
-            // Array with information about the uploaded files
+            // Array with information about the files being uploaded
             var files = e.files;
 
             if (e.operation == "upload") {

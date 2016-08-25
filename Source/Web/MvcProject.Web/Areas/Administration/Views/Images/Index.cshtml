@@ -30,6 +30,7 @@
         c.Bound(m => m.OriginalFileName).Width("15%");
         c.Bound(m => m.FileExtension).Width("5%");
         c.Bound(m => m.UrlPath).Width("15%");
+        c.Bound(m => m.IsMainImage);
         c.ForeignKey(m => m.ProductId, Model.Products, "Id", "Id").Title("Product Id").Width("20%");
         c.Bound(m => m.CreatedOn);
         c.Bound(m => m.ModifiedOn);

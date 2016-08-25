@@ -19,7 +19,5 @@
         public IEnumerable<CategoryDetailsForProductViewModel> Categories { get; set; }
 
         public IEnumerable<UserDetailsForProductViewModel> Sellers { get; set; }
-
-        public IEnumerable<TagDetailsForProductViewModel> Tags { get; set; }
     }
 }

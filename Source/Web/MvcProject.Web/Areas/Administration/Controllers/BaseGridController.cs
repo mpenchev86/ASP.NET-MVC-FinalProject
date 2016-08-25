@@ -35,7 +35,7 @@
         [ValidateAntiForgeryToken]
         public virtual ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
-            var viewModel = this.GetDataAsEnumerable();
+            var viewModel = this.GetDataAsEnumerable().ToList();
             var dataSourceResult = viewModel.ToDataSourceResult(request, this.ModelState);
             return this.Json(dataSourceResult, JsonRequestBehavior.AllowGet);
         }

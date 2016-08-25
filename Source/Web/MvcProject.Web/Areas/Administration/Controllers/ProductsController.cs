@@ -88,13 +88,13 @@
         /// <param name="productImagesIds">Encoded Ids of the product's images.</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateProduct([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel, IEnumerable<string> productImagesIds)
+        public ActionResult CreateProduct([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel, IEnumerable<string> productImagesIds/*, string productMainImageId*/)
         {
             if (viewModel != null && this.ModelState.IsValid)
             {
                 var entity = new Product();
                 // Prevents sending null param.
-                this.PopulateEntity(entity, viewModel, productImagesIds ?? new List<string>());
+                this.PopulateEntity(entity, viewModel/*, productMainImageId ?? string.Empty*/, productImagesIds ?? new List<string>());
                 this.productsService.Insert(entity);
                 viewModel.Id = entity.Id;
             }
@@ -105,14 +105,14 @@
         /// <param name="productImagesIds">Encoded Ids of the product's images.</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult UpdateProduct([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel, IEnumerable<string> productImagesIds)
+        public ActionResult UpdateProduct([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel, IEnumerable<string> productImagesIds/*, string productMainImageId*/)
         {
             if (viewModel != null && this.ModelState.IsValid)
             {
                 var entity = this.productsService.GetById(viewModel.Id);
                 if (entity != null)
                 {
-                    this.PopulateEntity(entity, viewModel, productImagesIds ?? new List<string>());
+                    this.PopulateEntity(entity, viewModel/*, productMainImageId ?? string.Empty*/, productImagesIds ?? new List<string>());
                     this.productsService.Update(entity);
                 }
             }
@@ -170,7 +170,7 @@
         /// <param name="imageIds">The encoded Ids of the images to be removed.</param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult RemoveImages(IEnumerable<string> fileNames, object data, IEnumerable<string> imageIds/*, int productId*/)
+        public JsonResult RemoveImages(IEnumerable<string> fileNames, object data, IEnumerable<string> imageIds)
         {
             if (imageIds != null && imageIds.Any())
             {
@@ -187,8 +187,9 @@
             var tags = this.tagsService.GetAll().To<TagDetailsForProductViewModel>();
             return this.Json(tags, JsonRequestBehavior.AllowGet);
         }
-        
-        /// <param name="additionalParams">The first element receives the list of product's images Ids</param>
+
+        /// <param name="additionalParams">The first element receives product's MainImage Id, if any. The second 
+        /// element receives the list of product's images Ids, if any.</param>
         protected override void PopulateEntity(Product entity, ProductViewModel viewModel, params object[] additionalParams)
         {
             var productCommentsIds = viewModel.Comments.Select(c => c.Id);
@@ -202,16 +203,37 @@
             entity.Tags.Clear();
             entity.Tags = this.tagsService.GetAll().Where(t => productTagsIds.Contains(t.Id)).ToList();
 
-            var encodedProductImagesIds = (List<string>)(additionalParams.FirstOrDefault());
+            //var encodedProductMainImageId = (string)(additionalParams.FirstOrDefault());
+            //var productMainImageId = IdentifierProvider.DecodeToIntStatic(encodedProductMainImageId);
+            //entity.MainImageId = productMainImageId;
+
+            entity.MainImageId = viewModel.MainImageId;
+
+            var encodedProductImagesIds = (List<string>)(additionalParams.Skip(0).FirstOrDefault());
             var productImagesIds = encodedProductImagesIds.Select(id => IdentifierProvider.DecodeToIntStatic(id));
             entity.Images = this.imagesService.GetAll().Where(img => productImagesIds.Contains(img.Id)).ToList();
+
+            if (viewModel.MainImageId != null)
+            {
+                foreach (var image in entity.Images)
+                {
+                    if (image.Id == viewModel.MainImageId)
+                    {
+                        image.IsMainImage = true;
+                    }
+                    else
+                    {
+                        image.IsMainImage = false;
+                    }
+                }
+                this.imagesService.UpdateMany(entity.Images);
+            }
 
             entity.Title = viewModel.Title;
             entity.ShortDescription = viewModel.ShortDescription;
             entity.CategoryId = viewModel.CategoryId;
             entity.DescriptionId = viewModel.DescriptionId;
             entity.SellerId = viewModel.SellerId;
-            entity.MainImageId = viewModel.MainImageId;
             entity.QuantityInStock = viewModel.QuantityInStock;
             entity.UnitPrice = viewModel.UnitPrice;
             entity.ShippingPrice = viewModel.ShippingPrice;

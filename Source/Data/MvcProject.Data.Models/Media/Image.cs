@@ -26,5 +26,13 @@
         /// </value>
         [InverseProperty("Images")]
         public virtual Product Product { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this is the main image of a product
+        /// </summary>
+        /// <value>
+        /// A value indicating whether this is the main image of a product
+        /// </value>
+        public bool IsMainImage { get; set; }
     }
 }

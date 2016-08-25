@@ -33,6 +33,8 @@
         [UIHint("DropDown")]
         public int? ProductId { get; set; }
 
+        public bool IsMainImage { get; set; }
+
         [Index]
         public bool IsDeleted { get; set; }
 
