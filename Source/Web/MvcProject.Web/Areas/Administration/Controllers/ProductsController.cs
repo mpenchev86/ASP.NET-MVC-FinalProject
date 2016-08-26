@@ -137,7 +137,6 @@
         [HttpPost]
         public JsonResult SaveImages(IEnumerable<HttpPostedFileBase> productImages)
         {
-            var encodedImageIds = new List<string>();
             var rawFiles = new List<RawFile>();
 
             //The Name of the Upload component is "productImages".
@@ -155,9 +154,9 @@
 
             var processedImages = this.imagesService.ProcessImages(rawFiles);
             this.imagesService.SaveImages(processedImages);
-            encodedImageIds = new List<string>(processedImages.Select(i => IdentifierProvider.EncodeIntIdStatic(i.Id)));
-
-            return Json(new { productImagesIds = encodedImageIds }, "text/plain", JsonRequestBehavior.AllowGet);
+            //var encodedImageIds = new List<string>(processedImages.Select(i => IdentifierProvider.EncodeIntIdStatic(i.Id)));
+            var pocoImages = processedImages.AsQueryable().To<Image>().To<ImageDetailsForProductViewModel>().ToArray();
+            return Json(new { productImages = pocoImages }, "text/plain", JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -177,7 +176,6 @@
                 this.imagesService.RemoveImages(imageIds);
             }
 
-            //return Json(new { productImagesIds = productImagesIds }, "text/plain", JsonRequestBehavior.AllowGet);
             return Json(new { }, "text/plain", JsonRequestBehavior.AllowGet);
         }
 
@@ -202,10 +200,6 @@
             // Resolves conflict caused by the one-to-one relationship.
             entity.Tags.Clear();
             entity.Tags = this.tagsService.GetAll().Where(t => productTagsIds.Contains(t.Id)).ToList();
-
-            //var encodedProductMainImageId = (string)(additionalParams.FirstOrDefault());
-            //var productMainImageId = IdentifierProvider.DecodeToIntStatic(encodedProductMainImageId);
-            //entity.MainImageId = productMainImageId;
 
             entity.MainImageId = viewModel.MainImageId;
 

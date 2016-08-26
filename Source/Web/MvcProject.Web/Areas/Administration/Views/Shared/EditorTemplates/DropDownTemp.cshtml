@@ -4,15 +4,6 @@
     .Name((string)ViewData["Name"])
     .DataTextField((string)ViewData["Text"])
     .DataValueField((string)ViewData["Value"])
-    //.DataSource(source =>
-    //{
-    //    source
-    //        //.Read(read => read.Action((string)ViewData["Action"], (string)ViewData["Controller"], new { area = Areas.AdministrationAreaName }))
-    //        //.Custom().Schema(cfg => cfg.Data())
-    //        .ServerFiltering(true)
-    //        ;
-    //})
-    // Updating nullable fields when their current value is null doesn't work without it.
     .ValuePrimitive(true)
     .OptionLabel((string)ViewData["OptionLabel"] ?? "Choose...")
     .HtmlAttributes(ViewData["htmlAttributes"] ?? new { })

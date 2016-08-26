@@ -40,7 +40,7 @@
                             dataValueField = "Id",
                             action = "GetAllRoles",
                             controller = "Users",
-                            data_bind = "value: Roles"
+                            htmlAttributes = new { data_bind = "value: Roles" }
                         })
                     @Html.ValidationMessageFor(model => model.Roles)
                 </div>

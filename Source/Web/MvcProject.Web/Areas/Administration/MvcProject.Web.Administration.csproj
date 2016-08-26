@@ -334,7 +334,7 @@
     <Content Include="Views\Products\Partials\_SellerTab.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\FileUpload.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DropDownTemp.cshtml" />
-    <Content Include="Views\Products\Partials\_MainImage.cshtml" />
+    <Content Include="Views\Products\Partials\_UploadedImage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

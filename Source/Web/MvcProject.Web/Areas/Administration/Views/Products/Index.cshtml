@@ -39,7 +39,6 @@
         c.Bound(m => m.ShortDescription).Width("20%");
         c.ForeignKey(m => m.CategoryId, Model.Categories, "Id", "Name").Title("Category");
         c.ForeignKey(m => m.DescriptionId, Model.Descriptions, "Id", "Id").Title("Description Id").Visible(false);
-        //c.ForeignKey(m => m.MainImageId, Model.Images, "Id", "Id").Title("Main Image").Visible(false);
         c.Bound(m => m.MainImageId).Visible(false);
         c.Bound(m => m.UnitPrice);
         c.Bound(m => m.ShippingPrice);
@@ -54,7 +53,7 @@
         c.Bound(m => m.IsDeleted).Title("Marked As Deleted");
         c.Bound(m => m.DeletedOn);
     },
-    dataSourceEvents: ev => { ev.Error("errorHandler.handler"); },
+    dataSourceEvents: ev => { ev.Error("errorHandler.handler").Sync("onDataSourceSync"); },
     isBatch: false,
     isServerOperation: true,
     editingSettings: editor =>
@@ -67,6 +66,9 @@
                     .Actions(a => { a.Minimize().Maximize().Close(); })
                     .Draggable(true)
                     .Scrollable(false)
+                    .Events(e => { e.Deactivate("onPopupDeactivate"); })
+                    // allows grid refresh on Close
+                    .Iframe(true)
                     .Resizable()
                     ;
             })
@@ -80,7 +82,7 @@
     )
     .Events(e => e
         .DetailInit("detailInit")
-        .Edit("onEdit")
+        .Edit("onGridEdit")
     )
     .ClientDetailTemplateId("product-details-template")
     .Selectable()
@@ -123,20 +125,20 @@
         @(Html.Partial("_ProductDetailsTabStrip"))
     </script>
 
-     <script id="main-image-template" type="text/kendo-tmpl">
-        @(Html.Partial("_MainImage"))
+    <script id="uploaded-image-template" type="text/kendo-tmpl">
+        @(Html.Partial("_UploadedImage"))
     </script>
 
     <script>
-        // Setting the current culture to use with Kendo UI
+        // Sets the current culture for Kendo UI
         kendo.culture('@userCulture');
 
-        // Initialize the Kendo UI Validator on the create/edit form
+        // Initialize Kendo UI Validator on the create/edit form
         $(function () {
             $("form").kendoValidator();
         });
 
-        // These functions handle sending additional information to the server with every CRUD operation of the grid.
+        // These functions send additional information to the server with every CRUD operation of the grid.
         // Currently, they parse all DateTime properties of the model in a format the server can understand and send
         // an anti-forgery token to validate the editor form.
         function readHandler(data) {
@@ -148,16 +150,15 @@
             datetimeHandlers.normalizeDateProperties(data);
             return {
                 "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val(),
-                //productMainImageId: processedMainImageId,
                 productImagesIds: processedImagesIds,
             }
         }
 
         function updateHandler(data) {
+            console.log(processedImagesIds);
             datetimeHandlers.normalizeDateProperties(data);
             return {
                 "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val(),
-                //productMainImageId: processedMainImageId,
                 productImagesIds: processedImagesIds,
             }
         }
@@ -177,62 +178,63 @@
             gridDetailsHelpers.setDataSource("#tags-grid_" + e.data.Id, e.data.Tags, 10);
         }
 
-        function onEdit(args) {
-            // Set dataSource for MainImage dropDown
+        // Disposing of Kendo Upload bindings to Images property
+        function onPopupDeactivate(e) {
+            $("#productImages").data("kendoUpload").destroy();
+            $("#productImages").closest(".k-upload").remove();
+        }
+
+        // Automatically 
+        function onDataSourceSync(e) {
+            this.read();
+        }
+
+        function onGridEdit(args) {
+            // MainImage dropdown settings
             var allProductImages = args.model.Images;
+            var initialFiles = loadImagesFromModel(allProductImages);
             var mainImageDataSource = new kendo.data.DataSource({
                 data: allProductImages,
             });
             var mainImageDropdown = $("#MainImageId").data("kendoDropDownList");
             mainImageDropdown.setDataSource(mainImageDataSource);
-            //mainImageDropdown.valueTemplate(kendo.template($("#main-image-template").html()));
-            //mainImageDropdown.refresh();
             mainImageDropdown.value(args.model.MainImageId);
             mainImageDropdown.refresh();
 
-            // Kendo Upload for all product images except the main image.
+            // Kendo Upload.
             $("#productImages").kendoUpload({
                 async: {
                     saveUrl: "/Administration/Products/SaveImages",
                     saveField: "productImages",
                     removeUrl: "/Administration/Products/RemoveImages",
-                    //removeField: "fileNames",
                     autoUpload: false,
                     batch: true
                 },
                 multiple: true,
-                files: loadImagesFromModel(allProductImages),
+                files: initialFiles,
                 success: function (e) {
-                    onSuccess(e, false);
+                    onUploadSuccess(e);
                     // Notifies Update action of kendo Grid that data has changed. Since kendo Upload handlers differ from
                     // those of the grid, uploads/removes don't change grid's form data.
+                    $.merge(allProductImages, e.response.productImages);
+                    //console.log("allProductImages: ");
+                    //console.log(allProductImages);
+                    mainImageDropdown.setDataSource(mainImageDataSource);
+
+                    prepareInitialFiles(loadImagesFromModel(allProductImages), uploadedImageTemplate);
                     args.model.dirty = true;
                 },
-                remove: onRemove,
-                error: onError,
+                complete: function (e) {
+                    //onUploadComplete(e);
+                },
+                remove: onUploadRemove,
+                error: onUploadError,
             });
 
-            //// Kendo Upload for the main product image
-            //$("#mainImage").kendoUpload({
-            //    async: {
-            //        saveUrl: "/Administration/Products/SaveImages",
-            //        saveField: "productImages",
-            //        removeUrl: "/Administration/Products/RemoveImages",
-            //        //removeField: "fileNames",
-            //        autoUpload: false,
-            //        batch: false
-            //    },
-            //    multiple: false,
-            //    files: loadImagesFromModel(allProductImages),
-            //    success: function (e) {
-            //        onSuccess(e, true);
-            //        // Notifies Update action of kendo Grid that data has changed. Since kendo Upload handlers differ from
-            //        // those of the grid, uploads/removes don't change grid's form data.
-            //        args.model.dirty = true;
-            //    },
-            //    remove: onRemove,
-            //    error: onError,
-            //});
+            var uploadedImageTemplate = kendo.template($('#uploaded-image-template').html());
+            prepareInitialFiles(initialFiles, uploadedImageTemplate);
+            // Append save tip to the upload widget.
+            $('.k-widget.k-upload').append('<div class="save-upload-tip"><span class="glyphicon glyphicon-exclamation-sign"></span><em> After you select files to upload, click the Upload button that will appear next to this text. When the upload is complete, click the Save button to save the entire form. Otherwise, the associations between product and files will be lost.<em><div>');
         }
 
         // Returns an array of initial files for Kendo Upload
@@ -253,38 +255,49 @@
             return initialFiles;
         }
 
-        // Popup editor events for kendo Upload helper editor for product's images.
-        // 'isMainImage' determines whether the response from the server should be assigned to 'MainImage' or
-        // 'Images' property of a product.
-        var processedImagesIds;
-        //var processedMainImageId;
-        function onSuccess(e, isMainImage) {
-            //if (isMainImage) {
-            //    processedMainImageId = e.response.productImagesIds;
-            //}
-            //else {
-            //    processedImagesIds = e.response.productImagesIds;
-            //}
-            processedImagesIds = e.response.productImagesIds;
+        function prepareInitialFiles(initialFiles, uploadedImageTemplate) {
+            $('.k-file>.k-filename').each(function replaceContent() {
+                var span = $(this);
+                var title = span.attr("title");
+                $.each(initialFiles, function findAndReplaceSpanContent(index, val) {
+                    if (val.name === title) {
+                        span.replaceWith(uploadedImageTemplate({ name: val.name, url: val.url + "_tmbl" + val.extension }));
+                    }
+                });
+            });
         }
 
-        function onRemove(e) {
+        // Popup editor events for kendo Upload helper editor for product's images.
+        var processedImagesIds = [];
+        function onUploadSuccess(e) {
+            //processedImagesIds = e.response.productImagesIds;
+
+            //$.merge(processedImagesIds, e.response.productImagesIds);
+            //console.log(processedImagesIds);
+            //console.log(e.response.productImagesIds);
+
+            $.each(e.response.productImages, function (index, val) {
+                processedImagesIds.push(val.IdEncoded);
+            });
+            //console.log("processedImagesIds: ");
+            //console.log(processedImagesIds);
+        }
+
+        function onUploadRemove(e) {
             // Array with information about the files being removed
             var images = e.files;
             var imageIds = [];
             $.each(images, function getImageIds(key, val) {
                 imageIds.push(val.imageId);
             });
+
+            // key-value pairs sent to the server as additional information
             e.data = { imageIds: imageIds };
-            // Process the Remove event
-            // Optionally cancel the remove operation by calling
-            // e.preventDefault()
         }
 
-        function onError(e) {
+        function onUploadError(e) {
             // Array with information about the files being uploaded
             var files = e.files;
-
             if (e.operation == "upload") {
                 alert("Failed to upload " + files.length + " files");
             }
