@@ -19,13 +19,13 @@
 
         public override Vote GetByEncodedId(string id)
         {
-            var vote = this.Repository.GetById(this.IdentifierProvider.DecodeIdToInt(id));
+            var vote = this.Repository.GetById((int)this.IdentifierProvider.DecodeIdToInt(id));
             return vote;
         }
 
         public override Vote GetByEncodedIdFromNotDeleted(string id)
         {
-            var vote = this.Repository.GetByIdFromNotDeleted(this.IdentifierProvider.DecodeIdToInt(id));
+            var vote = this.Repository.GetByIdFromNotDeleted((int)this.IdentifierProvider.DecodeIdToInt(id));
             return vote;
         }
     }

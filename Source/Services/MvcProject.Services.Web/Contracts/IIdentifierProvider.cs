@@ -8,7 +8,7 @@
 
     public interface IIdentifierProvider
     {
-        int DecodeIdToInt(string urlId);
+        int? DecodeIdToInt(string urlId);
 
         string DecodeIdToString(string urlId);
 

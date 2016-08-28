@@ -237,6 +237,8 @@
     <Content Include="Scripts\Custom\datetime-handlers.js" />
     <Content Include="Scripts\Custom\error-handler.js" />
     <Content Include="Scripts\Custom\grid-details-helpers.js" />
+    <Content Include="Scripts\Custom\product-images-upload.js" />
+    <Content Include="Scripts\Custom\product-main-image-dropdown.js" />
     <Content Include="Views\Categories\EditorTemplates\CategoryViewModelPopupEditor.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\Categories\Partials\_CategoryDetailsTabStrip.cshtml" />

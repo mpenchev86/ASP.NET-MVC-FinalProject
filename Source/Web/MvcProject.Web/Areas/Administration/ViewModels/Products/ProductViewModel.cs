@@ -20,6 +20,7 @@
     using Infrastructure.Validators;
     using MvcProject.Common.GlobalConstants;
     using Properties;
+    using Services.Web;
     using Tags;
     using Users;
     using Votes;
@@ -58,6 +59,14 @@
         public int? DescriptionId { get; set; }
 
         public DescriptionDetailsForProductViewModel Description { get; set; }
+
+        public string MainImageIdEncoded
+        {
+            get
+            {
+                return this.MainImageId != null ? IdentifierProvider.EncodeIntIdStatic((int)this.MainImageId) : null;
+            }
+        }
 
         [UIHint("DropDownTemp")]
         public int? MainImageId { get; set; }

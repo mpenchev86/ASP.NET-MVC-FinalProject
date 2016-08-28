@@ -13,6 +13,7 @@
         public const string DatetimeHandlers = "~/Areas/Administration/Scripts/Custom/datetime-handlers.js";
         public const string ErrorHandler = "~/Areas/Administration/Scripts/Custom/error-handler.js";
         public const string GridDetailsHelpers = "~/Areas/Administration/Scripts/Custom/grid-details-helpers.js";
+        public const string ProductImagesUpload = "~/Areas/Administration/Scripts/Custom/product-images-upload.js";
 
         // Public Area
             // CSS

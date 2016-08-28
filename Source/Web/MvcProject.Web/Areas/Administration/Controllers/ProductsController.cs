@@ -41,6 +41,7 @@
         private readonly ITagsService tagsService;
         private readonly IUsersService usersService;
         private readonly IVotesService votesService;
+        private readonly IIdentifierProvider identifierProvider;
 
         public ProductsController(
             IProductsService productsService,
@@ -51,7 +52,8 @@
             ITagsService tagsService,
             IUsersService usersService,
             IVotesService votesService,
-            IFileSystemService fileSystemService)
+            IFileSystemService fileSystemService,
+            IIdentifierProvider identifierProvider)
             : base(productsService)
         {
             this.productsService = productsService;
@@ -63,6 +65,7 @@
             this.votesService = votesService;
             this.usersService = usersService;
             this.fileSystemService = fileSystemService;
+            this.identifierProvider = identifierProvider;
         }
 
         [HttpGet]
@@ -88,13 +91,13 @@
         /// <param name="productImagesIds">Encoded Ids of the product's images.</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateProduct([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel, IEnumerable<string> productImagesIds/*, string productMainImageId*/)
+        public ActionResult CreateProduct([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel/*, IEnumerable<string> productImagesIds*/)
         {
             if (viewModel != null && this.ModelState.IsValid)
             {
                 var entity = new Product();
                 // Prevents sending null param.
-                this.PopulateEntity(entity, viewModel/*, productMainImageId ?? string.Empty*/, productImagesIds ?? new List<string>());
+                this.PopulateEntity(entity, viewModel/*, productImagesIds ?? new List<string>()*/);
                 this.productsService.Insert(entity);
                 viewModel.Id = entity.Id;
             }
@@ -105,14 +108,14 @@
         /// <param name="productImagesIds">Encoded Ids of the product's images.</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult UpdateProduct([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel, IEnumerable<string> productImagesIds/*, string productMainImageId*/)
+        public ActionResult UpdateProduct([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel/*, IEnumerable<string> productImagesIds*/)
         {
             if (viewModel != null && this.ModelState.IsValid)
             {
                 var entity = this.productsService.GetById(viewModel.Id);
                 if (entity != null)
                 {
-                    this.PopulateEntity(entity, viewModel/*, productMainImageId ?? string.Empty*/, productImagesIds ?? new List<string>());
+                    this.PopulateEntity(entity, viewModel/*, productImagesIds ?? new List<string>()*/);
                     this.productsService.Update(entity);
                 }
             }
@@ -129,6 +132,46 @@
         }
 
         #region DataProviders
+        /// <param name="additionalParams">The first element receives product's MainImage Id, if any. The second 
+        /// element receives the list of product's images Ids, if any.</param>
+        protected override void PopulateEntity(Product entity, ProductViewModel viewModel, params object[] additionalParams)
+        {
+            var productCommentsIds = viewModel.Comments.Select(c => c.Id);
+            entity.Comments = this.commentsService.GetAll().Where(c => productCommentsIds.Contains(c.Id)).ToList();
+
+            var productVotesIds = viewModel.Votes.Select(v => v.Id);
+            entity.Votes = this.votesService.GetAll().Where(v => productVotesIds.Contains(v.Id)).ToList();
+
+            var productTagsIds = viewModel.Tags.Select(t => t.Id);
+            // Resolves conflict caused by the one-to-one relationship.
+            entity.Tags.Clear();
+            entity.Tags = this.tagsService.GetAll().Where(t => productTagsIds.Contains(t.Id)).ToList();
+
+            //var encodedProductImagesIds = (List<string>)(additionalParams.Skip(0).FirstOrDefault());
+            //var productImagesIds = encodedProductImagesIds.Select(id => IdentifierProvider.DecodeToIntStatic(id));
+            //entity.Images = this.imagesService.GetAll().Where(img => productImagesIds.Contains(img.Id)).ToList();
+
+            // TODO: Check images validity
+            var productImagesIds = viewModel.Images.Select(img => img.Id);
+            entity.Images = this.imagesService.GetAll().Where(img => productImagesIds.Contains(img.Id)).ToList();
+
+            entity.MainImageId = HandleMainImage(entity.MainImageId, viewModel.MainImageId, productImagesIds);
+            
+            entity.Title = viewModel.Title;
+            entity.ShortDescription = viewModel.ShortDescription;
+            entity.CategoryId = viewModel.CategoryId;
+            entity.DescriptionId = viewModel.DescriptionId;
+            entity.SellerId = viewModel.SellerId;
+            entity.QuantityInStock = viewModel.QuantityInStock;
+            entity.UnitPrice = viewModel.UnitPrice;
+            entity.ShippingPrice = viewModel.ShippingPrice;
+            entity.AllTimeItemsSold = viewModel.AllTimeItemsSold;
+            entity.CreatedOn = viewModel.CreatedOn;
+            entity.ModifiedOn = viewModel.ModifiedOn;
+            entity.IsDeleted = viewModel.IsDeleted;
+            entity.DeletedOn = viewModel.DeletedOn;
+        }
+
         /// <summary>
         /// The 'Save' action of kendo Upload widget.
         /// </summary>
@@ -165,15 +208,17 @@
         /// <param name="fileNames">By default, the 'Remove' action of kendo Upload sends the 'name' property
         /// of the files to be removed to a form field named 'fileNames'. Can be changed through 'removeField'
         /// property.</param>
-        /// <param name="data">Additional information set through the remove event of kendo Upload.</param>
         /// <param name="imageIds">The encoded Ids of the images to be removed.</param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult RemoveImages(IEnumerable<string> fileNames, object data, IEnumerable<string> imageIds)
+        public JsonResult RemoveImages(IEnumerable<string> fileNames, IEnumerable<string> imageIds)
         {
             if (imageIds != null && imageIds.Any())
             {
-                this.imagesService.RemoveImages(imageIds);
+                var imageIdsDecoded = imageIds.Select(id => (int)this.identifierProvider.DecodeIdToInt(id));
+                this.imagesService.RemoveImages(imageIdsDecoded);
+                //var removedImages = this.imagesService.GetAll().Where(img => imageIdsDecoded.Any(id => id == img.Id)).To<ImageDetailsForProductViewModel>().ToList();
+                return Json(new { /*removedImages = removedImages,*/ removedImagesIds = imageIdsDecoded }, "text/plain", JsonRequestBehavior.AllowGet);
             }
 
             return Json(new { }, "text/plain", JsonRequestBehavior.AllowGet);
@@ -186,56 +231,46 @@
             return this.Json(tags, JsonRequestBehavior.AllowGet);
         }
 
-        /// <param name="additionalParams">The first element receives product's MainImage Id, if any. The second 
-        /// element receives the list of product's images Ids, if any.</param>
-        protected override void PopulateEntity(Product entity, ProductViewModel viewModel, params object[] additionalParams)
+        /// <summary>
+        /// Ensures proper handling of Product-Image dependency with respect to the main image Id property
+        /// </summary>
+        /// <param name="entityMainImageId">The main image Id of the newly created or updated product entity.</param>
+        /// <param name="viewModelMainImageId">The main image Id set in the viewmodel</param>
+        /// <param name="productImagesIds">Collection of the Id-s of the viewmodel's Images navigation property</param>
+        /// <returns>The value which is to be assigned to the newly created or updated product entity.</returns>
+        private int? HandleMainImage(int? entityMainImageId, int? viewModelMainImageId, IEnumerable<int> productImagesIds)
         {
-            var productCommentsIds = viewModel.Comments.Select(c => c.Id);
-            entity.Comments = this.commentsService.GetAll().Where(c => productCommentsIds.Contains(c.Id)).ToList();
-
-            var productVotesIds = viewModel.Votes.Select(v => v.Id);
-            entity.Votes = this.votesService.GetAll().Where(v => productVotesIds.Contains(v.Id)).ToList();
-
-            var productTagsIds = viewModel.Tags.Select(t => t.Id);
-            // Resolves conflict caused by the one-to-one relationship.
-            entity.Tags.Clear();
-            entity.Tags = this.tagsService.GetAll().Where(t => productTagsIds.Contains(t.Id)).ToList();
-
-            entity.MainImageId = viewModel.MainImageId;
-
-            var encodedProductImagesIds = (List<string>)(additionalParams.Skip(0).FirstOrDefault());
-            var productImagesIds = encodedProductImagesIds.Select(id => IdentifierProvider.DecodeToIntStatic(id));
-            entity.Images = this.imagesService.GetAll().Where(img => productImagesIds.Contains(img.Id)).ToList();
-
-            if (viewModel.MainImageId != null)
+            if (productImagesIds == null || !productImagesIds.Any(id => id == viewModelMainImageId))
             {
-                foreach (var image in entity.Images)
-                {
-                    if (image.Id == viewModel.MainImageId)
-                    {
-                        image.IsMainImage = true;
-                    }
-                    else
-                    {
-                        image.IsMainImage = false;
-                    }
-                }
-                this.imagesService.UpdateMany(entity.Images);
+                return null;
             }
 
-            entity.Title = viewModel.Title;
-            entity.ShortDescription = viewModel.ShortDescription;
-            entity.CategoryId = viewModel.CategoryId;
-            entity.DescriptionId = viewModel.DescriptionId;
-            entity.SellerId = viewModel.SellerId;
-            entity.QuantityInStock = viewModel.QuantityInStock;
-            entity.UnitPrice = viewModel.UnitPrice;
-            entity.ShippingPrice = viewModel.ShippingPrice;
-            entity.AllTimeItemsSold = viewModel.AllTimeItemsSold;
-            entity.CreatedOn = viewModel.CreatedOn;
-            entity.ModifiedOn = viewModel.ModifiedOn;
-            entity.IsDeleted = viewModel.IsDeleted;
-            entity.DeletedOn = viewModel.DeletedOn;
+            if (entityMainImageId == viewModelMainImageId)
+            {
+                return viewModelMainImageId;
+            }
+
+            if (entityMainImageId != null)
+            {
+                var oldMainImage = this.imagesService.GetById((int)entityMainImageId);
+                if (oldMainImage != null)
+                {
+                    oldMainImage.IsMainImage = false;
+                    this.imagesService.Update(oldMainImage);
+                }
+            }
+
+            if (viewModelMainImageId != null)
+            {
+                var newMainImage = this.imagesService.GetById((int)viewModelMainImageId);
+                if (newMainImage != null)
+                {
+                    newMainImage.IsMainImage = true;
+                    this.imagesService.Update(newMainImage);
+                }
+            }
+
+            return viewModelMainImageId;
         }
 
         protected override void HandleDependentEntitiesBeforeDelete(ProductViewModel viewModel)

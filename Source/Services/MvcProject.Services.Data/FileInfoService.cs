@@ -27,13 +27,13 @@
 
         public override T GetByEncodedId(string id)
         {
-            var image = this.Repository.GetById(this.IdentifierProvider.DecodeIdToInt(id));
+            var image = this.Repository.GetById((int)this.IdentifierProvider.DecodeIdToInt(id));
             return image;
         }
 
         public override T GetByEncodedIdFromNotDeleted(string id)
         {
-            var image = this.Repository.GetByIdFromNotDeleted(this.IdentifierProvider.DecodeIdToInt(id));
+            var image = this.Repository.GetByIdFromNotDeleted((int)this.IdentifierProvider.DecodeIdToInt(id));
             return image;
         }
 

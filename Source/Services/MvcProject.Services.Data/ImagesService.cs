@@ -70,24 +70,22 @@
             }
         }
 
-        public void RemoveImages(IEnumerable<string> encodedIds)
+        public void RemoveImages(IEnumerable<int> imageIds)
         {
-            foreach (var imageId in encodedIds)
+            foreach (var imageId in imageIds)
             {
-                if (!string.IsNullOrWhiteSpace(imageId))
-                {
-                    var image = this.GetByEncodedId(imageId);
-                    image.ProductId = null;
-                    this.Update(image);
+                var image = this.GetById(imageId);
+                image.ProductId = null;
+                image.IsMainImage = false;
+                this.Update(image);
 
-                    //// Different variants of removing an image from a product's images collection.
-                    // var decodedId = this.IdentifierProvider.DecodeIdToInt(imageId);
-                    // var image = this.GetById(decodedId);
-                    // this.DeletePermanent(decodedId);
-                    // this.MarkAsDeleted(decodedId);
-                    // this.fileSystemService.DeleteFile(string.Format(ImagesServerPath, image.UrlPath, ProcessedImage.ThumbnailImage, image.FileExtension));
-                    // this.fileSystemService.DeleteFile(string.Format(ImagesServerPath, image.UrlPath, ProcessedImage.HighResolutionImage, image.FileExtension));
-                }
+                //// Different variants of removing an image from a product's images collection.
+                // var decodedId = this.IdentifierProvider.DecodeIdToInt(imageId);
+                // var image = this.GetById(decodedId);
+                // this.DeletePermanent(decodedId);
+                // this.MarkAsDeleted(decodedId);
+                // this.fileSystemService.DeleteFile(string.Format(ImagesServerPath, image.UrlPath, ProcessedImage.ThumbnailImage, image.FileExtension));
+                // this.fileSystemService.DeleteFile(string.Format(ImagesServerPath, image.UrlPath, ProcessedImage.HighResolutionImage, image.FileExtension));
             }
         }
 

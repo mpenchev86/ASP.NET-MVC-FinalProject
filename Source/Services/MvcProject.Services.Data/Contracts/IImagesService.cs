@@ -14,13 +14,13 @@
     /// <summary>
     /// Allows extension of the data service for Image entity
     /// </summary>
-    public interface IImagesService : IDeletableEntitiesBaseService<Image, int>, IBaseDataService
+    public interface IImagesService : IDeletableEntitiesBaseService<Image, int>, IBaseDataService, IFileInfoService<Image>
     {
         IEnumerable<ProcessedImage> ProcessImages(IEnumerable<RawFile> rawImages);
 
         void SaveImages(IEnumerable<ProcessedImage> images);
 
-        void RemoveImages(IEnumerable<string> encodedIds);
+        void RemoveImages(IEnumerable<int> imageIds);
 
         IEnumerable<Image> ImagesByUrls(ICollection<string> imageUrls);
 

@@ -10,8 +10,13 @@
     {
         private const string Salt = "khhdw6WDmn-sk!kj8m";
 
-        public static int DecodeToIntStatic(string encodedId)
+        public static int? DecodeToIntStatic(string encodedId)
         {
+            if (string.IsNullOrWhiteSpace(encodedId))
+            {
+                return null;
+            }
+
             var base64EncodedBytes = Convert.FromBase64String(encodedId);
             var baseAsString = Encoding.UTF8
                 .GetString(base64EncodedBytes)
@@ -21,6 +26,11 @@
 
         public static string DecodeIdToStringStatic(string encodedId)
         {
+            if (string.IsNullOrWhiteSpace(encodedId))
+            {
+                return null;
+            }
+
             var base64EncodedBytes = Convert.FromBase64String(encodedId);
             var baseAsString = Encoding.UTF8
                 .GetString(base64EncodedBytes)
@@ -36,11 +46,16 @@
 
         public static string EncodeStringIdStatic(string id)
         {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return null;
+            }
+
             var plainTextBytes = Encoding.UTF8.GetBytes(id + Salt);
             return Convert.ToBase64String(plainTextBytes);
         }
 
-        public int DecodeIdToInt(string encodedId)
+        public int? DecodeIdToInt(string encodedId)
         {
             return DecodeToIntStatic(encodedId);
         }

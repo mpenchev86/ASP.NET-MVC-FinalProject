@@ -56,7 +56,7 @@
                 return this.Content("This action is accessible only through AJAX calls" + this.Request.AppRelativeCurrentExecutionFilePath);
             }
 
-            var product = this.productsService.GetById(this.identifierProvider.DecodeIdToInt(id));
+            var product = this.productsService.GetById((int)this.identifierProvider.DecodeIdToInt(id));
             if (product == null)
             {
                 this.Response.StatusCode = (int)HttpStatusCode.NotFound;

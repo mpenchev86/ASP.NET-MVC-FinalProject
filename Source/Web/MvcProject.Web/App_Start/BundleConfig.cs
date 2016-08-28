@@ -46,11 +46,12 @@
                     "~/Content/Site.css"));
 
             bundles.Add(new StyleBundle(Bundles.StylesKendoCss)
-                .Include("~/Content/Kendo/kendo.common.min.css", new CssRewriteUrlTransform())
+                //.Include("~/Content/Kendo/kendo.common.min.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Kendo/kendo.common-bootstrap.min.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Kendo/kendo.bootstrap.min.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Kendo/kendo.default.min.css", new CssRewriteUrlTransform())
-                .Include("~/Content/Kendo/kendo.silver.min.css", new CssRewriteUrlTransform()));
+                //.Include("~/Content/Kendo/kendo.default.min.css", new CssRewriteUrlTransform())
+                //.Include("~/Content/Kendo/kendo.silver.min.css", new CssRewriteUrlTransform())
+                );
 
             bundles.IgnoreList.Clear();
 

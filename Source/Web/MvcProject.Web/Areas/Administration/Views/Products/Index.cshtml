@@ -40,6 +40,8 @@
         c.ForeignKey(m => m.CategoryId, Model.Categories, "Id", "Name").Title("Category");
         c.ForeignKey(m => m.DescriptionId, Model.Descriptions, "Id", "Id").Title("Description Id").Visible(false);
         c.Bound(m => m.MainImageId).Visible(false);
+        c.Bound(m => m.MainImageIdEncoded).Visible(false);
+        c.Bound(m => m.Images).Visible(false);
         c.Bound(m => m.UnitPrice);
         c.Bound(m => m.ShippingPrice);
         c.Bound(m => m.IsInStock);
@@ -53,7 +55,7 @@
         c.Bound(m => m.IsDeleted).Title("Marked As Deleted");
         c.Bound(m => m.DeletedOn);
     },
-    dataSourceEvents: ev => { ev.Error("errorHandler.handler").Sync("onDataSourceSync"); },
+    dataSourceEvents: events => { events.Error("errorHandler.handler"); },
     isBatch: false,
     isServerOperation: true,
     editingSettings: editor =>
@@ -66,10 +68,10 @@
                     .Actions(a => { a.Minimize().Maximize().Close(); })
                     .Draggable(true)
                     .Scrollable(false)
-                    .Events(e => { e.Deactivate("onPopupDeactivate"); })
-                    // allows grid refresh on Close
+                    .Events(e => { e.Deactivate("onGridPopupDeactivate"); })
                     .Iframe(true)
                     .Resizable()
+                    .AutoFocus(false)
                     ;
             })
             .TemplateName("ProductViewModelPopupEditor");
@@ -83,6 +85,7 @@
     .Events(e => e
         .DetailInit("detailInit")
         .Edit("onGridEdit")
+    //.Save("onGridSave")
     )
     .ClientDetailTemplateId("product-details-template")
     .Selectable()
@@ -120,6 +123,7 @@
     <script src="@Url.Content(StaticResourcesUrls.ErrorHandler)"></script>
     <script src="@Url.Content(StaticResourcesUrls.DatetimeHandlers)"></script>
     <script src="@Url.Content(StaticResourcesUrls.GridDetailsHelpers)"></script>
+    <script src="@Url.Content(StaticResourcesUrls.ProductImagesUpload)"></script>
 
     <script id="product-details-template" type="text/kendo-tmpl">
         @(Html.Partial("_ProductDetailsTabStrip"))
@@ -148,19 +152,12 @@
 
         function createHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);
-            return {
-                "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val(),
-                productImagesIds: processedImagesIds,
-            }
+            return { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() }
         }
 
         function updateHandler(data) {
-            console.log(processedImagesIds);
             datetimeHandlers.normalizeDateProperties(data);
-            return {
-                "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val(),
-                productImagesIds: processedImagesIds,
-            }
+            return { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() }
         }
 
         function destroyHandler(data) {
@@ -168,7 +165,7 @@
             return { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() }
         }
 
-        // Populate Kendo detail TabStrip
+        // Populate Kendo Detail TabStrip
         function detailInit(e) {
             gridDetailsHelpers.populateProductDescription(e.data.Id, e.data.Description, 8);
             gridDetailsHelpers.populateProductSeller(e.data.Id, e.data.Seller);
@@ -178,129 +175,58 @@
             gridDetailsHelpers.setDataSource("#tags-grid_" + e.data.Id, e.data.Tags, 10);
         }
 
-        // Disposing of Kendo Upload bindings to Images property
-        function onPopupDeactivate(e) {
-            $("#productImages").data("kendoUpload").destroy();
-            $("#productImages").closest(".k-upload").remove();
-        }
-
-        // Automatically 
-        function onDataSourceSync(e) {
-            this.read();
+        // Grid Event Handlers
+        function onGridPopupDeactivate(e) {
+            // Automatically refresh grid content on popup close
+            $("#productsGrid").data("kendoGrid").dataSource.read();
         }
 
         function onGridEdit(args) {
-            // MainImage dropdown settings
             var allProductImages = args.model.Images;
-            var initialFiles = loadImagesFromModel(allProductImages);
-            var mainImageDataSource = new kendo.data.DataSource({
-                data: allProductImages,
-            });
+            var initialFiles = productImagesUpload.convertToKendoUploadFiles(allProductImages);
+
             var mainImageDropdown = $("#MainImageId").data("kendoDropDownList");
-            mainImageDropdown.setDataSource(mainImageDataSource);
+            setDropDownData(mainImageDropdown, allProductImages);
             mainImageDropdown.value(args.model.MainImageId);
             mainImageDropdown.refresh();
 
-            // Kendo Upload.
             $("#productImages").kendoUpload({
                 async: {
                     saveUrl: "/Administration/Products/SaveImages",
                     saveField: "productImages",
                     removeUrl: "/Administration/Products/RemoveImages",
                     autoUpload: false,
-                    batch: true
+                    batch: false
                 },
                 multiple: true,
                 files: initialFiles,
                 success: function (e) {
-                    onUploadSuccess(e);
-                    // Notifies Update action of kendo Grid that data has changed. Since kendo Upload handlers differ from
-                    // those of the grid, uploads/removes don't change grid's form data.
-                    $.merge(allProductImages, e.response.productImages);
-                    //console.log("allProductImages: ");
-                    //console.log(allProductImages);
-                    mainImageDropdown.setDataSource(mainImageDataSource);
-
-                    prepareInitialFiles(loadImagesFromModel(allProductImages), uploadedImageTemplate);
+                    productImagesUpload.kendoUpload_onSuccess(e, args.model);
+                    productImagesUpload.prepareInitialFiles(productImagesUpload.convertToKendoUploadFiles(args.model.Images), uploadedImageTemplate);
+                    setDropDownData(mainImageDropdown, args.model.Images);
                     args.model.dirty = true;
                 },
-                complete: function (e) {
-                    //onUploadComplete(e);
+                upload: function (e) {
+                    productImagesUpload.kendoUpload_onUpload(e);
                 },
-                remove: onUploadRemove,
-                error: onUploadError,
+                remove: function (e) {
+                    productImagesUpload.kendoUpload_onRemove(e);
+                },
+                error: function (e) {
+                    productImagesUpload.kendoUpload_onError(e);
+                },
             });
 
             var uploadedImageTemplate = kendo.template($('#uploaded-image-template').html());
-            prepareInitialFiles(initialFiles, uploadedImageTemplate);
-            // Append save tip to the upload widget.
-            $('.k-widget.k-upload').append('<div class="save-upload-tip"><span class="glyphicon glyphicon-exclamation-sign"></span><em> After you select files to upload, click the Upload button that will appear next to this text. When the upload is complete, click the Save button to save the entire form. Otherwise, the associations between product and files will be lost.<em><div>');
+            productImagesUpload.prepareInitialFiles(initialFiles, uploadedImageTemplate);
+            productImagesUpload.insertSaveTip();
         }
 
-        // Returns an array of initial files for Kendo Upload
-        function loadImagesFromModel(images) {
-            var initialFiles = [];
-            if (images) {
-                var len = images.length;
-                for (var i = 0; i < len; i++) {
-                    initialFiles.push({
-                        name: images[i].OriginalFileName,
-                        url: images[i].UrlPath,
-                        extension: images[i].FileExtension,
-                        imageId: images[i].IdEncoded
-                    });
-                }
-            }
-
-            return initialFiles;
-        }
-
-        function prepareInitialFiles(initialFiles, uploadedImageTemplate) {
-            $('.k-file>.k-filename').each(function replaceContent() {
-                var span = $(this);
-                var title = span.attr("title");
-                $.each(initialFiles, function findAndReplaceSpanContent(index, val) {
-                    if (val.name === title) {
-                        span.replaceWith(uploadedImageTemplate({ name: val.name, url: val.url + "_tmbl" + val.extension }));
-                    }
-                });
+        function setDropDownData(dropdown, data) {
+            var dataSource = new kendo.data.DataSource({
+                data: data,
             });
-        }
-
-        // Popup editor events for kendo Upload helper editor for product's images.
-        var processedImagesIds = [];
-        function onUploadSuccess(e) {
-            //processedImagesIds = e.response.productImagesIds;
-
-            //$.merge(processedImagesIds, e.response.productImagesIds);
-            //console.log(processedImagesIds);
-            //console.log(e.response.productImagesIds);
-
-            $.each(e.response.productImages, function (index, val) {
-                processedImagesIds.push(val.IdEncoded);
-            });
-            //console.log("processedImagesIds: ");
-            //console.log(processedImagesIds);
-        }
-
-        function onUploadRemove(e) {
-            // Array with information about the files being removed
-            var images = e.files;
-            var imageIds = [];
-            $.each(images, function getImageIds(key, val) {
-                imageIds.push(val.imageId);
-            });
-
-            // key-value pairs sent to the server as additional information
-            e.data = { imageIds: imageIds };
-        }
-
-        function onUploadError(e) {
-            // Array with information about the files being uploaded
-            var files = e.files;
-            if (e.operation == "upload") {
-                alert("Failed to upload " + files.length + " files");
-            }
+            dropdown.setDataSource(dataSource);
         }
     </script>
 }
