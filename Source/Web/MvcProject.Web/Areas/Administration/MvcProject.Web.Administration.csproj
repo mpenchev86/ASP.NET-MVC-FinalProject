@@ -201,6 +201,7 @@
     <Compile Include="ViewModels\Images\ImageDetailsForProductViewModel.cs" />
     <Compile Include="ViewModels\Images\ImageViewModel.cs" />
     <Compile Include="ViewModels\Images\ImageViewModelForeignKeys.cs" />
+    <Compile Include="ViewModels\Images\RemovedImageModel.cs" />
     <Compile Include="ViewModels\Products\ProductDetailsForCategoryViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductDetailsForCommentViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductDetailsForDescriptionViewModel.cs" />
@@ -337,6 +338,7 @@
     <Content Include="Views\Shared\EditorTemplates\FileUpload.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DropDownTemp.cshtml" />
     <Content Include="Views\Products\Partials\_UploadedImage.cshtml" />
+    <Content Include="Views\Products\Partials\_SaveTip.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

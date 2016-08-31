@@ -10,7 +10,9 @@
 
     public class CarouselData : BasePublicViewModel<int>, IMapFrom<Product>, IHaveCustomMappings
     {
-        public string Image { get; set; }
+        public string ImageUrlPath { get; set; }
+
+        public string ImageFileExtension { get; set; }
 
         public string Title { get; set; }
 
@@ -18,11 +20,10 @@
         {
             configuration.CreateMap<Product, CarouselData>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Image, opt => opt
-                    .MapFrom(src => 
-                        src.MainImage.UrlPath + 
-                        src.MainImage.OriginalFileName + 
-                        src.MainImage.FileExtension))
+                .ForMember(dest => dest.ImageUrlPath, opt => opt.MapFrom(
+                            src => src.MainImage != null ? src.MainImage.UrlPath : string.Empty))
+                .ForMember(dest => dest.ImageFileExtension, opt => opt.MapFrom(
+                            src => src.MainImage != null ? src.MainImage.FileExtension : string.Empty))
                 ;
         }
     }

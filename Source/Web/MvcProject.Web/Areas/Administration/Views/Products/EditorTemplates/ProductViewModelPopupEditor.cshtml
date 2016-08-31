@@ -1,10 +1,5 @@
 ﻿@using Kendo.Mvc.UI;
 @using Kendo.Mvc.Extensions;
-@using MvcProject.Web.Areas.Administration.ViewModels.Properties
-@using MvcProject.Web.Areas.Administration.ViewModels.Categories
-@using MvcProject.Web.Areas.Administration.ViewModels.Users
-@using appExtensions = MvcProject.Web.Infrastructure.Extensions
-@using MvcProject.Web.Areas.Administration.ViewModels.Images
 
 @model MvcProject.Web.Areas.Administration.ViewModels.Products.ProductViewModel
 
@@ -61,18 +56,6 @@
                 </div>
             </div>
 
-            @*===============================*@
-            
-            @*<div class="row">
-                <div class="editor-label">
-                    @Html.LabelFor(m => m.MainImage, "MainImage Id")
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(m => m.MainImage, new { id = "mainImage", name = "mainImage" })
-                    @Html.ValidationMessageFor(m => m.MainImage)
-                </div>
-            </div>*@
-
             <div class="row">
                 <div class="editor-label">
                     @Html.LabelFor(m => m.MainImageId, "Main Image")
@@ -85,17 +68,11 @@
                             Name = "MainImageId",
                             Text = "OriginalFileName",
                             Value = "Id",
-                            OptionLabel = "Select Main Image...",
-                            //CascadeFromField = "Images",
-                            //BindTo = "Images",
-                            //htmlAttributes = new { data_bind = "value: MainImageId" }
+                            OptionLabel = "Select Main Image..."
                         })
-                    @*@Html.EditorFor(m => m.MainImageId, new { id = "mainImage", name = "mainImage" })*@
                     @Html.ValidationMessageFor(m => m.MainImageId)
                 </div>
             </div>
-
-            @*===============================*@
 
             <div class="row">
                 <div class="editor-label">

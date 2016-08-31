@@ -91,6 +91,9 @@
             $("form").kendoValidator();
         });
 
+        // These functions send additional information to the server with every CRUD operation of the grid.
+        // Currently, they parse all DateTime properties of the model in a format the server can understand and send
+        // an anti-forgery token to validate the editor form.
         function readHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);
             return { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() }

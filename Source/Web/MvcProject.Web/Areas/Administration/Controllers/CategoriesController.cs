@@ -61,8 +61,8 @@
             return base.Destroy(request, viewModel);
         }
 
-        #region DataProviders
-        protected override void PopulateEntity(Category entity, CategoryViewModel viewModel, params object[] additionalParams)
+        #region Data Workers
+        protected override void PopulateEntity(Category entity, CategoryViewModel viewModel)
         {
             if (viewModel.Products != null)
             {

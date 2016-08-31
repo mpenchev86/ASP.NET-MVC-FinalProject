@@ -17,16 +17,16 @@
     {
         public void SaveFile(byte[] content, string path)
         {
-            var filePath = HostingEnvironment.MapPath(path);
-            this.ValidateFilePath(filePath);
+            var physicalPath = HostingEnvironment.MapPath(path);
+            this.ValidateFilePath(physicalPath);
 
-            var fileInfo = new FileInfo(filePath);
+            var fileInfo = new FileInfo(physicalPath);
             if (!fileInfo.Directory.Exists)
             {
                 fileInfo.Directory.Create();
             }
 
-            using (var fileWriter = new FileStream(filePath, FileMode.CreateNew, FileSystemRights.WriteData, FileShare.None, 1024, FileOptions.RandomAccess))
+            using (var fileWriter = new FileStream(physicalPath, FileMode.CreateNew, FileSystemRights.WriteData, FileShare.None, 1024, FileOptions.RandomAccess))
             {
                 fileWriter.Write(content, 0, content.Length);
             }
@@ -34,8 +34,10 @@
 
         public void DeleteFile(string path)
         {
-            var fileName = Path.GetFileName(path);
-            var physicalPath = Path.Combine(HostingEnvironment.MapPath("~/CategoryImage/"), fileName);
+            //var fileName = Path.GetFileName(path);
+            //var physicalPath = Path.Combine(HostingEnvironment.MapPath("~/CategoryImage/"), fileName);
+            //var physicalPath = Path.Combine(HostingEnvironment.MapPath(path));
+            var physicalPath = HostingEnvironment.MapPath(path);
 
             if (File.Exists(physicalPath))
             {

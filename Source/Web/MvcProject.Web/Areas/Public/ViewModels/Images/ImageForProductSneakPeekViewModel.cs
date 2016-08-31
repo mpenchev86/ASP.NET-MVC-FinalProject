@@ -15,5 +15,7 @@
         public string FileExtension { get; set; }
 
         public string UrlPath { get; set; }
+
+        public bool IsMainImage { get; set; }
     }
 }

@@ -73,8 +73,8 @@
             return base.Destroy(request, viewModel);
         }
 
-        #region DataProviders
-        protected override void PopulateEntity(Vote entity, VoteViewModel viewModel, params object[] additionalParams)
+        #region Data Workers
+        protected override void PopulateEntity(Vote entity, VoteViewModel viewModel)
         {
             entity.VoteValue = viewModel.VoteValue;
             entity.ProductId = viewModel.ProductId;

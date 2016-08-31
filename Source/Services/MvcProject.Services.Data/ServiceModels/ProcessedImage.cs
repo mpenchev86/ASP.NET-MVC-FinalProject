@@ -12,10 +12,8 @@
     public class ProcessedImage : IMapTo<Image>, IMapFrom<Image>, IHaveCustomMappings
     {
         public const int ThumbnailImageWidth = 260;
-        public const string ThumbnailImage = "tmbl";
 
         public const int HighResolutionWidth = 1360;
-        public const string HighResolutionImage = "hi-res";
 
         public int Id { get; set; }
 

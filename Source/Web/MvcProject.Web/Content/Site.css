@@ -62,6 +62,19 @@ textarea {
     color: #fadcb4;
 }
 
+    /* ========= NavBar DropDowns ========= */
+    @media (min-width: 979px) {
+        .navbar-nav > li.dropdown:hover > ul.dropdown-menu{
+            display: block;
+        }
+    }
+
+    @media (min-width: 979px) {
+        #navbar-search-options:hover ~ ul.dropdown-menu{
+            display: block;
+        }
+    }
+
 .navbar-inverse .navbar-nav > .open > a {
     background-color: transparent;
     color: #fadcb4;

@@ -273,7 +273,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Images\" />
-    <Folder Include="Views\Shared\Partials\" />
     <Folder Include="Views\Votes\Partials\" />
   </ItemGroup>
   <ItemGroup>

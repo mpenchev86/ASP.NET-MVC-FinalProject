@@ -31,7 +31,6 @@
         private ICollection<CommentDetailsForProductViewModel> comments;
         private ICollection<VoteDetailsForProductViewModel> votes;
         private ICollection<ImageDetailsForProductViewModel> images;
-        private ICollection<HttpPostedFileBase> files;
 
         public ProductViewModel()
         {
@@ -39,7 +38,6 @@
             this.comments = new HashSet<CommentDetailsForProductViewModel>();
             this.votes = new HashSet<VoteDetailsForProductViewModel>();
             this.images = new HashSet<ImageDetailsForProductViewModel>();
-            this.files = new HashSet<HttpPostedFileBase>();
         }
 
         [Required]
@@ -70,8 +68,7 @@
 
         [UIHint("DropDownTemp")]
         public int? MainImageId { get; set; }
-
-        //[UIHint("FileUpload")]
+        
         public ImageDetailsForProductViewModel MainImage { get; set; }
 
         public bool IsInStock
@@ -144,7 +141,8 @@
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Product, ProductViewModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                //.ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                //.ForMember(dest => dest.images, opt => opt.MapFrom(src => src.Images))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(
                             src => src.Description == null ? null : new DescriptionDetailsForProductViewModel
                             {
@@ -160,14 +158,6 @@
                                 }).ToList(),
                                 CreatedOn = src.Description.CreatedOn,
                                 ModifiedOn = src.Description.ModifiedOn
-                            }))
-                .ForMember(dest => dest.Seller, opt => opt.MapFrom(
-                            src => src.Seller == null ? null : new UserDetailsForProductViewModel
-                            {
-                                Id = src.Seller.Id,
-                                Name = src.Seller.UserName,
-                                CreatedOn = src.Seller.CreatedOn,
-                                ModifiedOn = src.Seller.ModifiedOn
                             }))
                 .ForMember(dest => dest.MainImage, opt => opt.MapFrom(
                             src => src.MainImage == null ? null : new ImageDetailsForProductViewModel
@@ -190,32 +180,6 @@
                                 IsMainImage = i.IsMainImage,
                                 CreatedOn = i.CreatedOn,
                                 ModifiedOn = i.ModifiedOn
-                            })))
-                .ForMember(dest => dest.Comments, opt => opt.MapFrom(
-                            src => src.Comments.Select(c => new CommentDetailsForProductViewModel
-                            {
-                                Id = c.Id,
-                                Content = c.Content,
-                                UserName = c.User.UserName,
-                                CreatedOn = c.CreatedOn,
-                                ModifiedOn = c.ModifiedOn
-                            })))
-                .ForMember(dest => dest.Votes, opt => opt.MapFrom(
-                            src => src.Votes.Select(v => new VoteDetailsForProductViewModel
-                            {
-                                Id = v.Id,
-                                VoteValue = v.VoteValue,
-                                UserName = v.User.UserName,
-                                CreatedOn = v.CreatedOn,
-                                ModifiedOn = v.ModifiedOn
-                            })))
-                .ForMember(dest => dest.Tags, opt => opt.MapFrom(
-                            src => src.Tags.Select(t => new TagDetailsForProductViewModel
-                            {
-                                Id = t.Id,
-                                Name = t.Name,
-                                CreatedOn = t.CreatedOn,
-                                ModifiedOn = t.ModifiedOn
                             })))
                             ;
         }

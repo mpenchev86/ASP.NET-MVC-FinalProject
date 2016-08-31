@@ -12,6 +12,7 @@
     using Infrastructure.Filters.ActionMethodSelectors;
     using Kendo.Mvc.Extensions;
     using Kendo.Mvc.UI;
+    using Newtonsoft.Json;
     using Services.Data;
     using ViewModels.Categories;
     using ViewModels.Comments;
@@ -29,6 +30,7 @@
     using Services.Logic;
     using Services.Logic.ServiceModels;
     using Services.Web;
+    using System.Web.Script.Serialization;
     [Authorize(Roles = IdentityRoles.Admin)]
     public class ProductsController : BaseGridController<Product, ProductViewModel, IProductsService, int>
     {
@@ -88,16 +90,14 @@
             return base.Read(request);
         }
 
-        /// <param name="productImagesIds">Encoded Ids of the product's images.</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateProduct([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel/*, IEnumerable<string> productImagesIds*/)
+        public override ActionResult Create([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel)
         {
             if (viewModel != null && this.ModelState.IsValid)
             {
                 var entity = new Product();
-                // Prevents sending null param.
-                this.PopulateEntity(entity, viewModel/*, productImagesIds ?? new List<string>()*/);
+                this.PopulateEntity(entity, viewModel);
                 this.productsService.Insert(entity);
                 viewModel.Id = entity.Id;
             }
@@ -105,17 +105,16 @@
             return this.GetEntityAsDataSourceResult(request, viewModel, this.ModelState);
         }
         
-        /// <param name="productImagesIds">Encoded Ids of the product's images.</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult UpdateProduct([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel/*, IEnumerable<string> productImagesIds*/)
+        public override ActionResult Update([DataSourceRequest]DataSourceRequest request, ProductViewModel viewModel)
         {
             if (viewModel != null && this.ModelState.IsValid)
             {
                 var entity = this.productsService.GetById(viewModel.Id);
                 if (entity != null)
                 {
-                    this.PopulateEntity(entity, viewModel/*, productImagesIds ?? new List<string>()*/);
+                    this.PopulateEntity(entity, viewModel);
                     this.productsService.Update(entity);
                 }
             }
@@ -131,10 +130,8 @@
             return base.Destroy(request, viewModel);
         }
 
-        #region DataProviders
-        /// <param name="additionalParams">The first element receives product's MainImage Id, if any. The second 
-        /// element receives the list of product's images Ids, if any.</param>
-        protected override void PopulateEntity(Product entity, ProductViewModel viewModel, params object[] additionalParams)
+        #region Data Workers
+        protected override void PopulateEntity(Product entity, ProductViewModel viewModel)
         {
             var productCommentsIds = viewModel.Comments.Select(c => c.Id);
             entity.Comments = this.commentsService.GetAll().Where(c => productCommentsIds.Contains(c.Id)).ToList();
@@ -146,12 +143,8 @@
             // Resolves conflict caused by the one-to-one relationship.
             entity.Tags.Clear();
             entity.Tags = this.tagsService.GetAll().Where(t => productTagsIds.Contains(t.Id)).ToList();
-
-            //var encodedProductImagesIds = (List<string>)(additionalParams.Skip(0).FirstOrDefault());
-            //var productImagesIds = encodedProductImagesIds.Select(id => IdentifierProvider.DecodeToIntStatic(id));
-            //entity.Images = this.imagesService.GetAll().Where(img => productImagesIds.Contains(img.Id)).ToList();
-
-            // TODO: Check images validity
+            
+            // TODO: Check images properties validity
             var productImagesIds = viewModel.Images.Select(img => img.Id);
             entity.Images = this.imagesService.GetAll().Where(img => productImagesIds.Contains(img.Id)).ToList();
 
@@ -176,7 +169,7 @@
         /// The 'Save' action of kendo Upload widget.
         /// </summary>
         /// <param name="productImages">The files sent by kendo Upload.</param>
-        /// <returns>Returns the Ids of the saved files.</returns>
+        /// <returns>Returns the saved files.</returns>
         [HttpPost]
         public JsonResult SaveImages(IEnumerable<HttpPostedFileBase> productImages)
         {
@@ -197,9 +190,8 @@
 
             var processedImages = this.imagesService.ProcessImages(rawFiles);
             this.imagesService.SaveImages(processedImages);
-            //var encodedImageIds = new List<string>(processedImages.Select(i => IdentifierProvider.EncodeIntIdStatic(i.Id)));
-            var pocoImages = processedImages.AsQueryable().To<Image>().To<ImageDetailsForProductViewModel>().ToArray();
-            return Json(new { productImages = pocoImages }, "text/plain", JsonRequestBehavior.AllowGet);
+            var productViewModelImages = processedImages.AsQueryable()/*.To<Image>()*/.To<ImageDetailsForProductViewModel>().ToArray();
+            return Json(new { productImages = productViewModelImages }, "text/plain", JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -208,17 +200,27 @@
         /// <param name="fileNames">By default, the 'Remove' action of kendo Upload sends the 'name' property
         /// of the files to be removed to a form field named 'fileNames'. Can be changed through 'removeField'
         /// property.</param>
-        /// <param name="imageIds">The encoded Ids of the images to be removed.</param>
-        /// <returns></returns>
+        /// <param name="images">The collection of images that will be removed, sent by the Kendo Upload widget in json format.</param>
+        /// <returns>The Ids of the images removed from a product.</returns>
         [HttpPost]
-        public JsonResult RemoveImages(IEnumerable<string> fileNames, IEnumerable<string> imageIds)
-        {
-            if (imageIds != null && imageIds.Any())
+        public JsonResult RemoveImages(IEnumerable<string> fileNames, string images)
+        {   
+            var deserializedImages = JsonConvert.DeserializeObject<List<RemovedImageModel>>(images);
+            if (deserializedImages != null && deserializedImages.Any())
             {
-                var imageIdsDecoded = imageIds.Select(id => (int)this.identifierProvider.DecodeIdToInt(id));
+                // Prevents REFERENCE constraint conflict with dbo.Products 'MainImageId' column when we remove the main image
+                foreach (var image in deserializedImages)
+                {
+                    if (image.IsMainImage)
+                    {
+                        var product = this.productsService.GetById((int)image.ProductId);
+                        product.MainImageId = null;
+                        this.productsService.Update(product);
+                    }
+                }
+                var imageIdsDecoded = deserializedImages.Select(img => (int)this.identifierProvider.DecodeIdToInt(img.ImageId));
                 this.imagesService.RemoveImages(imageIdsDecoded);
-                //var removedImages = this.imagesService.GetAll().Where(img => imageIdsDecoded.Any(id => id == img.Id)).To<ImageDetailsForProductViewModel>().ToList();
-                return Json(new { /*removedImages = removedImages,*/ removedImagesIds = imageIdsDecoded }, "text/plain", JsonRequestBehavior.AllowGet);
+                return Json(new { removedImagesIds = imageIdsDecoded }, "text/plain", JsonRequestBehavior.AllowGet);
             }
 
             return Json(new { }, "text/plain", JsonRequestBehavior.AllowGet);
@@ -232,7 +234,7 @@
         }
 
         /// <summary>
-        /// Ensures proper handling of Product-Image dependency with respect to the main image Id property
+        /// Ensures that there will be only one main image for each product at any given time.
         /// </summary>
         /// <param name="entityMainImageId">The main image Id of the newly created or updated product entity.</param>
         /// <param name="viewModelMainImageId">The main image Id set in the viewmodel</param>

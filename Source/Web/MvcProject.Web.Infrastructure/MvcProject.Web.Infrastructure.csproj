@@ -106,8 +106,9 @@
     <Compile Include="Extensions\AppBuilderExtensions.cs" />
     <Compile Include="Extensions\EncryptionExtensions.cs" />
     <Compile Include="Filters\ActionMethodSelectors\AdminDestroySelectorAttribute.cs" />
-    <Compile Include="HtmlHelpers\CustomRazorHelpers.cs" />
+    <Compile Include="HtmlHelpers\HtmlExtensions.cs" />
     <Compile Include="HtmlHelpers\KendoHelpers.cs" />
+    <Compile Include="HtmlHelpers\UrlExtensions.cs" />
     <Compile Include="Mapping\AutoMapperConfig.cs" />
     <Compile Include="Mapping\Contracts\IMappingService.cs" />
     <Compile Include="Mapping\MappingExtensions.cs" />
@@ -141,6 +142,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\GlobalConstants\MvcProject.Common.GlobalConstants.csproj">
+      <Project>{5f2803a7-770d-4509-8d69-cfbf4d6dc772}</Project>
+      <Name>MvcProject.Common.GlobalConstants</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Data\MvcProject.Data.DbAccessConfig\MvcProject.Data.DbAccessConfig.csproj">
       <Project>{37EAD08E-A644-4438-B913-1329C8CB3899}</Project>
       <Name>MvcProject.Data.DbAccessConfig</Name>

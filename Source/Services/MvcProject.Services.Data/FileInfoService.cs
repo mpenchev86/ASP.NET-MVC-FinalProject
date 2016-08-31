@@ -55,7 +55,10 @@
 
         public string GetFilePath(int id)
         {
-            return string.Format("{0}/{1}", id % AppSpecificConstants.SavedFilesSubfoldersCount, string.Format("{0}{1}", id.ToMd5Hash().Substring(0, AppSpecificConstants.FileHashLength), id));
+            return string.Format(
+                "{0}/{1}",
+                id % FileSystemConstants.SavedFilesSubfoldersCount,
+                string.Format("{0}{1}", id.ToMd5Hash().Substring(0, FileSystemConstants.FileHashLength), id));
         }
     }
 }

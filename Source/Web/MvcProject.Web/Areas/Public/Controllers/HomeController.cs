@@ -12,7 +12,7 @@
     using Services.Data;
     using ViewModels.Products;
     using Services.Web;
-
+    using Data.Models;
     public class HomeController : BasePublicController
     {
         private IProductsService productsService;
@@ -57,10 +57,10 @@
                 () => this.productsService
                     .GetAll()
                     .OrderByDescending(p => p.CreatedOn)
-                    .Take(AppSpecificConstants.IndexListViewNumberOfNewestProducts)
+                    .Take(UiSpecificConstants.IndexListViewNumberOfNewestProducts)
                     .To<ProductDetailsForIndexListView>()
                     .ToList(),
-                AppSpecificConstants.IndexListViewCacheDurationInSeconds);
+                CacheConstants.IndexListViewCacheDurationInSeconds);
 
             return this.Json(viewModel.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
         }
@@ -74,10 +74,10 @@
                 () => this.productsService
                     .GetAll()
                     .OrderByDescending(p => p.AllTimeItemsSold)
-                    .Take(AppSpecificConstants.IndexListViewNumberOfBestSellingProducts)
+                    .Take(UiSpecificConstants.IndexListViewNumberOfBestSellingProducts)
                     .To<ProductDetailsForIndexListView>()
                     .ToList(),
-                AppSpecificConstants.IndexListViewCacheDurationInSeconds);
+                CacheConstants.IndexListViewCacheDurationInSeconds);
 
             return this.Json(viewModel.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
         }
@@ -90,13 +90,18 @@
                 "highestVotedProducts",
                 () => this.productsService
                     .GetAll()
+                    .OrderByDescending(Product.GetAverageRating)
+                    .Take(UiSpecificConstants.IndexListViewNumberOfhighestVotedProducts)
                     .To<ProductDetailsForIndexListView>()
-                    .OrderByDescending(p => p.AllTimeAverageRating)
-                    .Take(AppSpecificConstants.IndexListViewNumberOfhighestVotedProducts)
                     .ToList(),
-                AppSpecificConstants.IndexListViewCacheDurationInSeconds);
+                CacheConstants.IndexListViewCacheDurationInSeconds);
 
             return this.Json(viewModel.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult About()
+        {
+            return this.PartialView("UnderConstruction", null);
         }
 
         public ActionResult DeliveryInfo()

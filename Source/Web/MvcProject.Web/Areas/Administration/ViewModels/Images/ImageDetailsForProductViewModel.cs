@@ -14,21 +14,8 @@
     using Services.Logic.ServiceModels;
     using Services.Web;
 
-    public class ImageDetailsForProductViewModel : BaseAdminViewModel<int>, IMapFrom<Image>/*, IMapTo<RawFile>*/, IHaveCustomMappings
+    public class ImageDetailsForProductViewModel : BaseAdminViewModel<int>, IMapFrom<Image>, IMapFrom<ProcessedImage>, IHaveCustomMappings
     {
-        //public static Func<ImageDetailsForProductViewModel, RawFile> ToRawFile
-        //{
-        //    get
-        //    {
-        //        return file => new RawFile
-        //        {
-        //            OriginalFileName = file.OriginalFileName,
-        //            FileExtension = file.FileExtension,
-        //            Content = file.ByteArrayContent
-        //        };
-        //    }
-        //}
-
         public string IdEncoded
         {
             get { return IdentifierProvider.EncodeIntIdStatic(this.Id); }

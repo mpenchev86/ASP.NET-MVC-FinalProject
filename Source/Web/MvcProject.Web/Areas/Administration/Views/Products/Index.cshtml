@@ -1,5 +1,6 @@
 ﻿@using MvcProject.Web.Infrastructure.HtmlHelpers
 @using MvcProject.Web.Areas.Administration.ViewModels.Products
+@using MvcProject.Web.Areas.Administration.ViewModels.Images
 @using System.Globalization
 @using System.Web.Mvc
 
@@ -14,8 +15,6 @@
 
 @(Html.FullFeaturedGrid<ProductViewModel>(
     gridName: "productsGrid",
-    createAction: "CreateProduct",
-    updateAction: "UpdateProduct",
     controllerName: "Products",
     routeValues: new { Area = Areas.AdministrationAreaName },
     model: m =>
@@ -27,6 +26,7 @@
         m.Field(p => p.SellerId).Editable(true).DefaultValue(null);
         m.Field(p => p.MainImageId).Editable(true).DefaultValue(null);
         m.Field(p => p.ShippingPrice).Editable(true).DefaultValue(null);
+        m.Field(p => p.Images).DefaultValue(new HashSet<ImageDetailsForProductViewModel>());
     },
     pageSize: 20,
     virtualScroll: false,
@@ -124,6 +124,7 @@
     <script src="@Url.Content(StaticResourcesUrls.DatetimeHandlers)"></script>
     <script src="@Url.Content(StaticResourcesUrls.GridDetailsHelpers)"></script>
     <script src="@Url.Content(StaticResourcesUrls.ProductImagesUpload)"></script>
+    <script src="@Url.Content(StaticResourcesUrls.ProductMainImageDropDown)"></script>
 
     <script id="product-details-template" type="text/kendo-tmpl">
         @(Html.Partial("_ProductDetailsTabStrip"))
@@ -178,55 +179,23 @@
         // Grid Event Handlers
         function onGridPopupDeactivate(e) {
             // Automatically refresh grid content on popup close
-            $("#productsGrid").data("kendoGrid").dataSource.read();
+            if (productImagesUpload.isGridModelIsDirty()) {
+                $("#productsGrid").data("kendoGrid").dataSource.read();
+            }
+
+            // Detaches all event handlers and removes jQuery.data attributes to avoid memory leaks.
+            $("#MainImageId").data("kendoDropDownList").destroy();
+            $("#productImages").data("kendoUpload").destroy();
         }
 
         function onGridEdit(args) {
-            var allProductImages = args.model.Images;
-            var initialFiles = productImagesUpload.convertToKendoUploadFiles(allProductImages);
-
             var mainImageDropdown = $("#MainImageId").data("kendoDropDownList");
-            setDropDownData(mainImageDropdown, allProductImages);
-            mainImageDropdown.value(args.model.MainImageId);
-            mainImageDropdown.refresh();
-
-            $("#productImages").kendoUpload({
-                async: {
-                    saveUrl: "/Administration/Products/SaveImages",
-                    saveField: "productImages",
-                    removeUrl: "/Administration/Products/RemoveImages",
-                    autoUpload: false,
-                    batch: false
-                },
-                multiple: true,
-                files: initialFiles,
-                success: function (e) {
-                    productImagesUpload.kendoUpload_onSuccess(e, args.model);
-                    productImagesUpload.prepareInitialFiles(productImagesUpload.convertToKendoUploadFiles(args.model.Images), uploadedImageTemplate);
-                    setDropDownData(mainImageDropdown, args.model.Images);
-                    args.model.dirty = true;
-                },
-                upload: function (e) {
-                    productImagesUpload.kendoUpload_onUpload(e);
-                },
-                remove: function (e) {
-                    productImagesUpload.kendoUpload_onRemove(e);
-                },
-                error: function (e) {
-                    productImagesUpload.kendoUpload_onError(e);
-                },
-            });
-
-            var uploadedImageTemplate = kendo.template($('#uploaded-image-template').html());
-            productImagesUpload.prepareInitialFiles(initialFiles, uploadedImageTemplate);
-            productImagesUpload.insertSaveTip();
-        }
-
-        function setDropDownData(dropdown, data) {
-            var dataSource = new kendo.data.DataSource({
-                data: data,
-            });
-            dropdown.setDataSource(dataSource);
+            productMainImageDropDown.initialize(args.model, mainImageDropdown);
+            productImagesUpload.initialize(
+                args,
+                mainImageDropdown,
+                @Html.Raw(Json.Encode(Html.Partial("_SaveTip").ToString())),
+                @Html.Raw(Json.Encode(StaticResourcesUrls.ImageThumbnailSuffix)));
         }
     </script>
 }

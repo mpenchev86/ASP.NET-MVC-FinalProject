@@ -22,7 +22,7 @@
 </div>
 <hr />
 <div class="row homepage-listview">
-    <h3>Top @AppSpecificConstants.IndexListViewNumberOfBestSellingProducts Best Selling</h3>
+    <h3>Top @UiSpecificConstants.IndexListViewNumberOfBestSellingProducts Best Selling</h3>
     @(Html.GenericListViewHelper<ProductDetailsForIndexListView>(
         name: "bestSellingProducts",
         wrapperTagName: "table",
@@ -37,7 +37,7 @@
 </div>
 <hr />
 <div class="row homepage-listview">
-    <h3>Stars We Got! The @AppSpecificConstants.IndexListViewNumberOfhighestVotedProducts highest rated items</h3>
+    <h3>Stars We Got! The @UiSpecificConstants.IndexListViewNumberOfhighestVotedProducts highest rated items</h3>
     @(Html.GenericListViewHelper<ProductDetailsForIndexListView>(
         name: "highestVotedProducts",
         wrapperTagName: "table",
@@ -85,5 +85,15 @@
         function OnGetModalDataSuccess(data) {
             bootstrapModalHelpers.setContent(wrapperSelector = '#sneakPeek-modal', contentSelector = '.modal-content', data = data);
         }
+
+        //$("#sneakPeek-modal").draggable({
+        //    handle: ".modal-header"
+        //});
+
+        $(document).ready(function () {
+            $('img.fallback').on('error', function () {
+                this.attr('src', "@(Url.Content(StaticResourcesUrls.ServerPathAppManagementImages + StaticResourcesUrls.ImageNotFoundFileName))");
+            });
+        })
     </script>
 }

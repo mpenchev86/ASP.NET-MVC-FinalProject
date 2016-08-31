@@ -8,7 +8,7 @@
     .DataSource(data =>
     {
         data
-            //.ServerFiltering(true)
+            .ServerFiltering(true)
             .Read(read =>
             {
                 read.Action((string)ViewData["action"], (string)ViewData["controller"], new { area = Areas.AdministrationAreaName });

@@ -101,8 +101,7 @@
                 this.ChangeTracker.Entries()
                     .Where(e =>
                         (e.Entity is IAuditInfo || e.Entity is IDeletableEntity) &&
-                        ((e.State == EntityState.Added) ||
-                        (e.State == EntityState.Modified))))
+                        (e.State == EntityState.Added || e.State == EntityState.Modified)))
             {
                 if (entry.Entity is IAuditInfo)
                 {

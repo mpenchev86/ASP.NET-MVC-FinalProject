@@ -91,7 +91,7 @@
             return base.Destroy(request, viewModel);
         }
 
-        #region DataProviders
+        #region Data Workers
         [HttpGet]
         public JsonResult GetAllRoles()
         {
@@ -99,7 +99,7 @@
             return this.Json(roles, JsonRequestBehavior.AllowGet);
         }
 
-        protected override void PopulateEntity(ApplicationUser entity, UserViewModel viewModel, params object[] additionalParams)
+        protected override void PopulateEntity(ApplicationUser entity, UserViewModel viewModel)
         {
             if (viewModel.Comments != null)
             {

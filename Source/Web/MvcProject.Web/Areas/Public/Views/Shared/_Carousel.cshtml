@@ -20,7 +20,7 @@
             {
                 <div class="item @if(i == 0){ <text>active</text> }">
                     <span>
-                        <img src="@Url.Content("~/Content/Images/Products/" + Model[i].Id)/main-image.jpg" alt="main image of a product" />
+                        <img src="@Url.ProductTmblPicture(Model[i].ImageUrlPath, Model[i].ImageFileExtension)" alt="@Model[i].Title" />
                     </span>
                     <div class="container">
                         <div class="carousel-caption">

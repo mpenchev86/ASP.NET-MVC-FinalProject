@@ -12,36 +12,38 @@
     using Infrastructure.Mapping;
     using ViewModels;
     using Services.Web;
+    using Images;
 
     public class ProductDetailsForIndexListView : BasePublicViewModel<int>, IMapFrom<Product>, IHaveCustomMappings
     {
-        private IIdentifierProvider identifierProvider;
-
-        public ProductDetailsForIndexListView()
-        {
-            this.identifierProvider = new IdentifierProvider();
-        }
-
         public string EncodedId
         {
-            get { return this.identifierProvider.EncodeIntId(this.Id); }
+            get { return IdentifierProvider.EncodeIntIdStatic(this.Id); }
         }
 
         [Required]
         [DataType(DataType.MultilineText)]
         [StringLength(ValidationConstants.ProductTitleMaxLength)]
         public string Title { get; set; }
-
-        [Range(ValidationConstants.ProductAllTimeItemsSoldMin, ValidationConstants.ProductAllTimeItemsSoldMax)]
-        public int AllTimeItemsSold { get; set; }
-
-        [Range(ValidationConstants.ProductAllTimeAverageRatingMin, ValidationConstants.ProductAllTimeAverageRatingMax)]
-        public double? AllTimeAverageRating { get; set; }
-
+        
         [Required]
         [Range(typeof(decimal), ValidationConstants.ProductUnitPriceMinString, ValidationConstants.ProductUnitPriceMaxString)]
         [DataType(DataType.Currency)]
         public decimal UnitPrice { get; set; }
+
+        //public int? MainImageId { get; set; }
+
+        //public virtual ImageForThumbnailProductViewModel MainImage { get; set; }
+
+        /// <summary>
+        /// Product's Main Image url path
+        /// </summary>
+        public string ImageUrlPath { get; set; }
+
+        /// <summary>
+        /// Product's Main Image file extension
+        /// </summary>
+        public string ImageFileExtension { get; set; }
 
         [LongDateTimeFormat]
         public DateTime CreatedOn { get; set; }
@@ -50,8 +52,22 @@
         {
             configuration.CreateMap<Product, ProductDetailsForIndexListView>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.AllTimeAverageRating, opt => opt.MapFrom(
-                            src => src.Votes.Any() ? src.Votes.Average(v => v.VoteValue) : default(double?)))
+                //.ForMember(dest => dest.AllTimeAverageRating, opt => opt.MapFrom(
+                //            src => src.Votes.Any() ? src.Votes.Average(v => v.VoteValue) : default(double?)))
+                //.ForMember(dest => dest.MainImageId, opt => opt.MapFrom(src => src.MainImageId))
+                //.ForMember(dest => dest.MainImage, opt => opt.MapFrom(
+                //            src => new ImageForThumbnailProductViewModel
+                //            {
+                //                OriginalFileName = src.MainImage != null ? src.MainImage.OriginalFileName : string.Empty,
+                //                FileExtension = src.MainImage != null ? src.MainImage.FileExtension : string.Empty,
+                //                UrlPath = src.MainImage != null ? src.MainImage.UrlPath : string.Empty
+                //            }))
+                .ForMember(dest => dest.ImageUrlPath, opt => opt.MapFrom(
+                            //src => (src.Images != null && src.Images.Any()) ? (src.Images.FirstOrDefault(img => img.IsMainImage) ?? src.Images.FirstOrDefault()).UrlPath : ""))
+                            src => src.MainImage != null ? src.MainImage.UrlPath : ""))
+                .ForMember(dest => dest.ImageFileExtension, opt => opt.MapFrom(
+                            //src => (src.Images != null && src.Images.Any()) ? (src.Images.FirstOrDefault(img => img.IsMainImage) ?? src.Images.FirstOrDefault()).FileExtension : ""))
+                            src => src.MainImage != null ? src.MainImage.FileExtension : ""))
                 ;
         }
     }

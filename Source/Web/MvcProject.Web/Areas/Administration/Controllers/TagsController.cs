@@ -62,8 +62,8 @@
             return base.Destroy(request, viewModel);
         }
 
-        #region DataProviders
-        protected override void PopulateEntity(Tag entity, TagViewModel viewModel, params object[] additionalParams)
+        #region Data Workers
+        protected override void PopulateEntity(Tag entity, TagViewModel viewModel)
         {
             if (viewModel.Products != null)
             {

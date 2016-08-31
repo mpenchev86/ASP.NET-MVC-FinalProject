@@ -86,7 +86,7 @@
                         {
                             <li><a @*class="btn btn-default"*@ href="@Url.Action("Index", "Home", new { Area = Areas.AdministrationAreaName })">@Areas.AdministrationAreaName</a></li>
 	                    }
-                        <li><a href="#">Link</a></li>
+                        <li><a href="#">Cart</a></li>
                     </ul>
                 </div>
             </div><!-- /.container-fluid -->
@@ -103,15 +103,15 @@
                 <ul id="footer-items" class="nav navbar-nav">
                     <li class="col-md-4">
                         <ul class="no-bullets">
-                            <li>@Html.ActionLink("Delivery Info", "Delivery", "Home")</li>
+                            <li>@Html.ActionLink("Delivery Info", "DeliveryInfo", "Home")</li>
                             <li>@Html.ActionLink("Return Policy", "ReturnPolicy", "Home")</li>
                             <li>@Html.ActionLink("About", "About", "Home")</li>
                         </ul>
                     </li>
                     <li class="col-md-4">
                         <ul class="no-bullets">
-                            <li>@Html.ActionLink("Job Openings", "Jobs", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                            <li>@Html.ActionLink("Job Openings", "JobOpennings", "Home")</li>
+                            <li>@Html.ActionLink("Contact", "Contacts", "Home")</li>
                         </ul>
                     </li>
                     <li class="col-md-4">

@@ -1,16 +1,13 @@
-﻿@using MvcProject.Web.Infrastructure.HtmlHelpers
-
-<td class="listview-product-cell">
+﻿<td class="listview-product-cell">
     <div class="img-div">
-        <img src="@Url.Content("~/Content/Images/Products/" + "#=Id#")/main-image.jpg" alt="main image of a product" />
+        <img src="@Url.Content(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, "#=ImageUrlPath#", StaticResourcesUrls.ImageThumbnailSuffix, "#=ImageFileExtension#"))" alt="#=Title#" class="fallback"/>
     </div>
-
     @(Ajax.ActionLink(
-        "sneak peek",
-        "SneakPeek",
-        "Products",
-        new { id = "encodedId"},
-        new AjaxOptions
+        linkText: "sneak peek",
+        actionName: "SneakPeek",
+        controllerName: "Products",
+        routeValues: new { id = "encodedId"},
+        ajaxOptions: new AjaxOptions
         {
             HttpMethod = "GET",
             AllowCache = true,
@@ -18,7 +15,7 @@
             LoadingElementId = "spinner",
             OnSuccess = "OnGetModalDataSuccess",
         },
-        new
+        htmlAttributes: new
         {
             @class = "ajax-modal-link"
         })

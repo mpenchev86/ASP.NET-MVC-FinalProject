@@ -67,8 +67,8 @@
             return base.Destroy(request, viewModel);
         }
 
-        #region DataProviders
-        protected override void PopulateEntity(ApplicationRole entity, RoleViewModel viewModel, params object[] additionalParams)
+        #region Data Workers
+        protected override void PopulateEntity(ApplicationRole entity, RoleViewModel viewModel)
         {
             entity.Name = viewModel.Name;
             entity.CreatedOn = viewModel.CreatedOn;

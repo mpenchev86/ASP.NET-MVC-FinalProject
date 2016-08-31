@@ -10,8 +10,8 @@
 
     public class ProductInfoPartialViewModel
     {
-        private IEnumerable<PropertyForProductFullViewModel> descriptionProperties;
-        private IEnumerable<string> tags;
+        private ICollection<PropertyForProductFullViewModel> descriptionProperties;
+        private ICollection<string> tags;
 
         public ProductInfoPartialViewModel()
         {
@@ -23,14 +23,14 @@
         public string DescriptionContent { get; set; }
 
         [UIHint("DescriptionProperties")]
-        public IEnumerable<PropertyForProductFullViewModel> DescriptionProperties
+        public ICollection<PropertyForProductFullViewModel> DescriptionProperties
         {
             get { return this.descriptionProperties; }
             set { this.descriptionProperties = value; }
         }
 
         [UIHint("ProductTags")]
-        public IEnumerable<string> Tags
+        public ICollection<string> Tags
         {
             get { return this.tags; }
             set { this.tags = value; }

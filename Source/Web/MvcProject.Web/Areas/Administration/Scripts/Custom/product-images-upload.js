@@ -1,41 +1,96 @@
 ﻿var productImagesUpload = (function () {
+    function initialize(args, mainImageDropdown, saveTip, imageSizeSuffix) {
+        isModelDirty = args.model.dirty;
+        var initialFiles = convertToKendoUploadFiles(args.model.Images);
+        
+        $("#productImages").kendoUpload({
+            async: {
+                saveUrl: "/Administration/Products/SaveImages",
+                saveField: "productImages",
+                removeUrl: "/Administration/Products/RemoveImages",
+                autoUpload: false,
+                batch: false
+            },
+            multiple: true,
+            files: initialFiles,
+            success: function (e) {
+                console.log(e);
+                console.log('----------------------------------------------');
+                console.log(args.model);
+                onSuccess(e, args.model);
+                // Reattaches the image DOM elements when the viewmodel's images collection has changed.
+                attachImagesToDom(convertToKendoUploadFiles(args.model.Images), imageSizeSuffix, uploadedImageTemplate);
+
+                // Depends on product-main-image-dropdown.js
+                productMainImageDropDown.setDropDownData(mainImageDropdown, args.model.Images);
+
+                // Forces the state of the grid model to dirty, so that an update request will occur.
+                args.model.dirty = true;
+
+                // It signals the grid's popup window Deactivate event to refresh the grid, because data has been changed.
+                isModelDirty = true;
+            },
+            remove: function (e) {
+                onRemove(e, args.model.Id);
+            },
+            error: function (e) {
+                onError(e);
+            }
+        });
+
+        var uploadedImageTemplate = kendo.template($('#uploaded-image-template').html());
+
+        // Executed when the grid popup window activates.
+        attachImagesToDom(initialFiles, imageSizeSuffix, uploadedImageTemplate);
+        insertSaveTip(saveTip);
+    }
+
     // Event handlers.
-    function kendoUpload_onSuccess(e, productViewModel) {
-        if (e.operation === 'upload') {
-            $.merge(productViewModel.Images, e.response.productImages);
+    function onSuccess(e, viewModel) {
+        //console.log(e);
+        //console.log('----------------------------------------------');
+        //console.log(viewModel);
+        if (e.operation == 'upload') {
+            $.merge(viewModel.Images, e.response.productImages);
         }
-        if (e.operation === 'remove') {
+        if (e.operation == 'remove') {
             var removedImagesIds = e.response.removedImagesIds;
-            var viewModelImageIds = $.map(productViewModel.Images, function (val, i) {
-                return val.Id;
-            });
+            if (removedImagesIds.length !== 0) {
+                var viewModelImageIds = $.map(viewModel.Images, function (val, i) {
+                    return val.Id;
+                });
 
-            $.each(removedImagesIds, function (index, val) {
-                var ind = viewModelImageIds.indexOf(val);
-                viewModelImageIds.splice(ind, 1)
-                productViewModel.Images.splice(ind, 1);
-            });
+                // Clears the product's viewmodel of the images that had been deleted.
+                $.each(removedImagesIds, function (index, val) {
+                    var ind = viewModelImageIds.indexOf(val);
+                    viewModelImageIds.splice(ind, 1);
+                    viewModel.Images.splice(ind, 1);
+                });
+            }
         }
     }
 
-    function kendoUpload_onUpload(e) {
-    }
-
-    function kendoUpload_onRemove(e) {
-        imageIds = $.map(e.files, function getImagesIds(val, index) {
-            return val.imageId;
+    function onRemove(e, productId) {
+        images = $.map(e.files, function getImagesIds(val, index) {
+            return {
+                ImageId: val.imageId,
+                IsMainImage: val.isMainImage,
+                ProductId: productId
+            };
         });
         // key-value pairs sent to the server as additional information
-        e.data = { imageIds: imageIds };
+        //e.data = {};
+        //e.data["images"] = JSON.stringify(images);
+        e.data = { images: JSON.stringify(images) };
     }
 
-    function kendoUpload_onError(e) {
+    function onError(e) {
         // Array with information about the files being uploaded
         var files = e.files;
-        if (e.operation == "upload") {
+        if (e.operation === "upload") {
             alert("Failed to upload " + files.length + " files");
         }
-        if (e.operation == "remove") {
+        if (e.operation === "remove") {
             alert("Failed to remove " + files.length + " files");
         }
     }
@@ -50,7 +105,8 @@
                     name: images[i].OriginalFileName,
                     url: images[i].UrlPath,
                     extension: images[i].FileExtension,
-                    imageId: images[i].IdEncoded
+                    imageId: images[i].IdEncoded,
+                    isMainImage: images[i].IsMainImage
                 });
             }
         }
@@ -58,37 +114,28 @@
         return initialFiles;
     }
 
-    // 
-    function prepareInitialFiles(initialFiles, uploadedImageTemplate) {
+    function attachImagesToDom(initialFiles, imageSizeSuffix, uploadedImageTemplate) {
         $('.k-file.k-file-success>.k-filename').each(function replaceContent() {
             var span = $(this);
             var title = span.attr("title");
             $.each(initialFiles, function (index, val) {
                 if (val.name === title) {
-                    span.replaceWith(uploadedImageTemplate({ name: val.name, url: val.url + "_tmbl" + val.extension }));
+                    span.replaceWith(uploadedImageTemplate({ name: val.name, url: val.url + imageSizeSuffix + val.extension }));
                 }
             });
         });
     }
 
-    function insertSaveTip() {
-        // Append save tip to the upload widget.
-        var saveTip =
-            '<div class="save-upload-tip">' +
-                '<span class="glyphicon glyphicon-exclamation-sign"></span>' +
-                '<em> After you select images for upload, click the Upload button that will appear. When the upload is complete, click \'Save\' to save the entire form. Otherwise, the associations between product and files will be lost.' +
-                '<em>' +
-            '<div>';
+    function insertSaveTip(saveTip) {
         $('.k-widget.k-upload').after(saveTip);
     }
 
-    return {
-        kendoUpload_onSuccess,
-        kendoUpload_onUpload,
-        kendoUpload_onRemove,
-        kendoUpload_onError,
-        convertToKendoUploadFiles,
-        prepareInitialFiles,
-        insertSaveTip
+    function isGridModelIsDirty() {
+        return isModelDirty;
     }
+
+    return {
+        initialize: initialize,
+        isGridModelIsDirty: isGridModelIsDirty
+    };
 }());

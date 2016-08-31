@@ -68,8 +68,8 @@
             return base.Destroy(request, viewModel);
         }
 
-        #region DataProviders
-        protected override void PopulateEntity(Image entity, ImageViewModel viewModel, params object[] additionalParams)
+        #region Data Workers
+        protected override void PopulateEntity(Image entity, ImageViewModel viewModel)
         {
             entity.OriginalFileName = viewModel.OriginalFileName;
             entity.ProductId = viewModel.ProductId;

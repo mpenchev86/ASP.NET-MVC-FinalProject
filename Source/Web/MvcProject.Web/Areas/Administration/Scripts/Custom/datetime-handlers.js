@@ -21,5 +21,5 @@
 
     return {
         normalizeDateProperties: normalizeDateProperties
-    }
+    };
 }());

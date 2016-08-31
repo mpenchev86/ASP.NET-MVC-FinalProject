@@ -41,7 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppSpecificConstants.cs" />
+    <Compile Include="CacheConstants.cs" />
+    <Compile Include="FileSystemConstants.cs" />
+    <Compile Include="UiSpecificConstants.cs" />
     <Compile Include="Areas.cs" />
     <Compile Include="Assemblies.cs" />
     <Compile Include="Bundles.cs" />

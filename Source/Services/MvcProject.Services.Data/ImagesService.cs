@@ -6,6 +6,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
+    using Common.GlobalConstants;
     using Logic;
     using Logic.ServiceModels;
     using MvcProject.Data.DbAccessConfig.Repositories;
@@ -16,7 +17,6 @@
 
     public class ImagesService : FileInfoService<Image>, IImagesService
     {
-        private const string ImagesServerPath = "~/Content/Images/{0}_{1}{2}";
         private readonly IImageProcessorService imageProcessor;
         private IFileSystemService fileSystemService;
         private IMappingService mappingService;
@@ -61,11 +61,11 @@
                 {
                     this.fileSystemService.SaveFile(
                         image.ThumbnailContent,
-                        string.Format(ImagesServerPath, image.UrlPath, ProcessedImage.ThumbnailImage, image.FileExtension));
+                        string.Format(StaticResourcesUrls.ServerPathDataItemsImages, image.UrlPath, StaticResourcesUrls.ImageThumbnailSuffix, image.FileExtension));
 
                     this.fileSystemService.SaveFile(
                         image.HighResolutionContent,
-                        string.Format(ImagesServerPath, image.UrlPath, ProcessedImage.HighResolutionImage, image.FileExtension));
+                        string.Format(StaticResourcesUrls.ServerPathDataItemsImages, image.UrlPath, StaticResourcesUrls.HighResolutionImageSuffix, image.FileExtension));
                 }
             }
         }
@@ -78,14 +78,10 @@
                 image.ProductId = null;
                 image.IsMainImage = false;
                 this.Update(image);
-
-                //// Different variants of removing an image from a product's images collection.
-                // var decodedId = this.IdentifierProvider.DecodeIdToInt(imageId);
-                // var image = this.GetById(decodedId);
-                // this.DeletePermanent(decodedId);
+                this.DeletePermanent(imageId);
                 // this.MarkAsDeleted(decodedId);
-                // this.fileSystemService.DeleteFile(string.Format(ImagesServerPath, image.UrlPath, ProcessedImage.ThumbnailImage, image.FileExtension));
-                // this.fileSystemService.DeleteFile(string.Format(ImagesServerPath, image.UrlPath, ProcessedImage.HighResolutionImage, image.FileExtension));
+                this.fileSystemService.DeleteFile(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, image.UrlPath, StaticResourcesUrls.ImageThumbnailSuffix, image.FileExtension));
+                this.fileSystemService.DeleteFile(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, image.UrlPath, StaticResourcesUrls.HighResolutionImageSuffix, image.FileExtension));
             }
         }
 

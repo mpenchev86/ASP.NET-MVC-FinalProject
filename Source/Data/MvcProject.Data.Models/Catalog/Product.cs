@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+    using System.Linq.Expressions;
     using System.Text;
     using System.Threading.Tasks;
     using Contracts;
@@ -100,7 +101,16 @@
         [Range(ValidationConstants.ProductAllTimeAverageRatingMin, ValidationConstants.ProductAllTimeAverageRatingMax)]
         public double? AllTimeAverageRating
         {
-            get { return this.Votes.Any() ? this.Votes.Average(v => v.VoteValue) : default(double?); }
+            //get { return this.Votes.Any() ? this.Votes.Average(v => v.VoteValue) : default(double); }
+            get { return Product.GetAverageRating.Compile().Invoke(this); }
+        }
+
+        public static Expression<Func<Product, double?>> GetAverageRating
+        {
+            get
+            {
+                return p => p.Votes.Any() ? (double?)p.Votes.Average(v => v.VoteValue) : null /*default(double)*/;
+            }
         }
 
         /// <summary>

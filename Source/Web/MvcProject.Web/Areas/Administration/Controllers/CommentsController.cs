@@ -74,8 +74,8 @@
             return base.Destroy(request, viewModel);
         }
 
-        #region DataProviders
-        protected override void PopulateEntity(Comment entity, CommentViewModel viewModel, params object[] additionalParams)
+        #region Data Workers
+        protected override void PopulateEntity(Comment entity, CommentViewModel viewModel)
         {
             entity.Content = viewModel.Content;
             entity.ProductId = viewModel.ProductId;

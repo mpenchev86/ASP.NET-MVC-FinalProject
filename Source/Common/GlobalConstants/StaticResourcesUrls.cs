@@ -14,6 +14,7 @@
         public const string ErrorHandler = "~/Areas/Administration/Scripts/Custom/error-handler.js";
         public const string GridDetailsHelpers = "~/Areas/Administration/Scripts/Custom/grid-details-helpers.js";
         public const string ProductImagesUpload = "~/Areas/Administration/Scripts/Custom/product-images-upload.js";
+        public const string ProductMainImageDropDown = "~/Areas/Administration/Scripts/Custom/product-main-image-dropdown.js";
 
         // Public Area
             // CSS
@@ -23,5 +24,13 @@
             // JavaScript
         public const string IgniteUiRatingHandler = "~/Areas/Public/Scripts/Custom/igniteui-rating-handler.js";
         public const string BootstrapModalHelpers = "~/Areas/Public/Scripts/Custom/bootstrap-modal-helpers.js";
+
+        // Images
+        public const string ServerPathDataItemsImages = "~/Content/Images/{0}{1}{2}";
+        public const string ServerPathAppManagementImages = "~/Content/Images/AppManagement/";
+        public const string ImageNotFoundFileName = "image-not-available.jpg";
+        public const string UnderConstruction = "under-construction.jpg";
+        public const string ImageThumbnailSuffix = "_tmbl";
+        public const string HighResolutionImageSuffix = "_hi-res";
     }
 }

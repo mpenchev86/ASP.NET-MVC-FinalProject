@@ -12,9 +12,18 @@
 
     public class ProductSneakPeekViewModel : BasePublicViewModel<int>, IMapFrom<Product>, IHaveCustomMappings
     {
+        public ProductSneakPeekViewModel()
+        {
+            this.Images = new HashSet<ImageForProductSneakPeekViewModel>();
+        }
+
         public string Title { get; set; }
 
+        public string ShortDescription { get; set; }
+
         public ImageForProductSneakPeekViewModel MainImage { get; set; }
+
+        public ICollection<ImageForProductSneakPeekViewModel> Images { get; set; }
 
         public string SellerName { get; set; }
 
@@ -30,6 +39,15 @@
                 .ForMember(dest => dest.SellerName, opt => opt.MapFrom(src => src.Seller.UserName))
                 .ForMember(dest => dest.Rating, opt => opt.MapFrom(src => src.AllTimeAverageRating))
                 .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.UnitPrice))
+                .ForMember(dest => dest.MainImage, opt => opt.MapFrom(
+                            src => src.MainImage ?? src.Images.FirstOrDefault()))
+                .ForMember(dest => dest.Images, opt => opt.MapFrom(
+                            src => src.Images.Select(img => new ImageForProductSneakPeekViewModel
+                            {
+                                OriginalFileName = img.OriginalFileName,
+                                UrlPath = img.UrlPath,
+                                FileExtension = img.FileExtension
+                            })))
                 ;
         }
     }

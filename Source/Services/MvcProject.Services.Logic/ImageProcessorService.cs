@@ -33,7 +33,7 @@
                         }
 
                         createdImage
-                            .Format(new JpegFormat { Quality = AppSpecificConstants.ImageQuality })
+                            .Format(new JpegFormat { Quality = FileSystemConstants.ImageQuality })
                             .Save(resultImage);
                     }
 

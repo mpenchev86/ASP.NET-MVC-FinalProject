@@ -55,6 +55,6 @@
     return {
         setDataSource: setDataSource,
         populateProductDescription: populateProductDescription,
-        populateProductSeller: populateProductSeller,
+        populateProductSeller: populateProductSeller
     };
 }());

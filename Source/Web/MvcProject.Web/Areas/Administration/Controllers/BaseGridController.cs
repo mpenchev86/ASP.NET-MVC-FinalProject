@@ -85,7 +85,7 @@
             return this.GetEntityAsDataSourceResult(request, viewModel, this.ModelState);
         }
 
-        #region DataProviders
+        #region Data Workers
         protected virtual JsonResult GetDataAsJson()
         {
             return this.Json(this.GetDataAsEnumerable(), JsonRequestBehavior.AllowGet);
@@ -119,8 +119,7 @@
         /// </summary>
         /// <param name="entity">The domain model</param>
         /// <param name="viewModel">The viewmodel</param>
-        /// <param name="additionalParams">additional parameters array</param>
-        protected virtual void PopulateEntity(TEntityModel entity, TViewModel viewModel, params object[] additionalParams)
+        protected virtual void PopulateEntity(TEntityModel entity, TViewModel viewModel)
         {
         }
 
