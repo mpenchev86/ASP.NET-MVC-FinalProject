@@ -171,7 +171,7 @@
         /// <param name="productImages">The files sent by kendo Upload.</param>
         /// <returns>Returns the saved files.</returns>
         [HttpPost]
-        public JsonResult SaveImages(IEnumerable<HttpPostedFileBase> productImages)
+        public ActionResult SaveImages(IEnumerable<HttpPostedFileBase>/*HttpPostedFileBase*/ productImages, string imageUid)
         {
             var rawFiles = new List<RawFile>();
 
@@ -188,10 +188,13 @@
                 rawFiles.Add(rawFile);
             }
 
+            //var rawFile = this.fileSystemService.ToRawFile(productImages);
+
             var processedImages = this.imagesService.ProcessImages(rawFiles);
+            //var processedImages = this.imagesService.ProcessImages(new List<RawFile> { rawFile });
             this.imagesService.SaveImages(processedImages);
-            var productViewModelImages = processedImages.AsQueryable()/*.To<Image>()*/.To<ImageDetailsForProductViewModel>().ToArray();
-            return Json(new { productImages = productViewModelImages }, "text/plain", JsonRequestBehavior.AllowGet);
+            var productViewModelImages = processedImages.AsQueryable().To<ImageDetailsForProductViewModel>().ToArray();
+            return Json(new { savedProductImages = productViewModelImages, imgUid = imageUid }, "text/plain", JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -215,10 +218,12 @@
                     {
                         var product = this.productsService.GetById((int)image.ProductId);
                         product.MainImageId = null;
+                        product.MainImage = null;
                         this.productsService.Update(product);
                     }
                 }
-                var imageIdsDecoded = deserializedImages.Select(img => (int)this.identifierProvider.DecodeIdToInt(img.ImageId));
+
+                var imageIdsDecoded = deserializedImages.Select(img => (int)this.identifierProvider.DecodeIdToInt(img.ImageId)).ToList();
                 this.imagesService.RemoveImages(imageIdsDecoded);
                 return Json(new { removedImagesIds = imageIdsDecoded }, "text/plain", JsonRequestBehavior.AllowGet);
             }

@@ -159,28 +159,28 @@
                                 CreatedOn = src.Description.CreatedOn,
                                 ModifiedOn = src.Description.ModifiedOn
                             }))
-                .ForMember(dest => dest.MainImage, opt => opt.MapFrom(
-                            src => src.MainImage == null ? null : new ImageDetailsForProductViewModel
-                            {
-                                Id = src.MainImage.Id,
-                                OriginalFileName = src.MainImage.OriginalFileName,
-                                FileExtension = src.MainImage.FileExtension,
-                                UrlPath = src.MainImage.UrlPath,
-                                IsMainImage = src.MainImage.IsMainImage,
-                                CreatedOn = src.MainImage.CreatedOn,
-                                ModifiedOn = src.MainImage.ModifiedOn
-                            }))
-                .ForMember(dest => dest.Images, opt => opt.MapFrom(
-                            src => src.Images.Select(i => new ImageDetailsForProductViewModel
-                            {
-                                Id = i.Id,
-                                OriginalFileName = i.OriginalFileName,
-                                FileExtension = i.FileExtension,
-                                UrlPath = i.UrlPath,
-                                IsMainImage = i.IsMainImage,
-                                CreatedOn = i.CreatedOn,
-                                ModifiedOn = i.ModifiedOn
-                            })))
+                //.ForMember(dest => dest.MainImage, opt => opt.MapFrom(
+                //            src => src.MainImage == null ? null : new ImageDetailsForProductViewModel
+                //            {
+                //                Id = src.MainImage.Id,
+                //                OriginalFileName = src.MainImage.OriginalFileName,
+                //                FileExtension = src.MainImage.FileExtension,
+                //                UrlPath = src.MainImage.UrlPath,
+                //                IsMainImage = src.MainImage.IsMainImage,
+                //                CreatedOn = src.MainImage.CreatedOn,
+                //                ModifiedOn = src.MainImage.ModifiedOn
+                //            }))
+                //.ForMember(dest => dest.Images, opt => opt.MapFrom(
+                //            src => src.Images.Select(i => new ImageDetailsForProductViewModel
+                //            {
+                //                Id = i.Id,
+                //                OriginalFileName = i.OriginalFileName,
+                //                FileExtension = i.FileExtension,
+                //                UrlPath = i.UrlPath,
+                //                IsMainImage = i.IsMainImage,
+                //                CreatedOn = i.CreatedOn,
+                //                ModifiedOn = i.ModifiedOn
+                //            })))
                             ;
         }
     }

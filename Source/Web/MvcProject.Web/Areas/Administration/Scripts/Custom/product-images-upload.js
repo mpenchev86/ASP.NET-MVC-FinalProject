@@ -1,8 +1,10 @@
 ﻿var productImagesUpload = (function () {
+    var isModelDirty = false;
+
     function initialize(args, mainImageDropdown, saveTip, imageSizeSuffix) {
         isModelDirty = args.model.dirty;
-        var initialFiles = convertToKendoUploadFiles(args.model.Images);
-        
+        var initialFiles = GetInitialFilesFromModel(args.model.Images);
+
         $("#productImages").kendoUpload({
             async: {
                 saveUrl: "/Administration/Products/SaveImages",
@@ -11,15 +13,16 @@
                 autoUpload: false,
                 batch: false
             },
+            localization: {
+                retry: "probvai pak, ti mojesh"
+            },
             multiple: true,
             files: initialFiles,
             success: function (e) {
-                console.log(e);
-                console.log('----------------------------------------------');
-                console.log(args.model);
                 onSuccess(e, args.model);
+
                 // Reattaches the image DOM elements when the viewmodel's images collection has changed.
-                attachImagesToDom(convertToKendoUploadFiles(args.model.Images), imageSizeSuffix, uploadedImageTemplate);
+                attachImagesToDom(e.sender.options.files, imageSizeSuffix, uploadedImageTemplate);
 
                 // Depends on product-main-image-dropdown.js
                 productMainImageDropDown.setDropDownData(mainImageDropdown, args.model.Images);
@@ -28,7 +31,10 @@
                 args.model.dirty = true;
 
                 // It signals the grid's popup window Deactivate event to refresh the grid, because data has been changed.
-                isModelDirty = true;
+                isModelDirty = args.model.dirty;
+            },
+            upload: function (e) {
+                onUpload(e);
             },
             remove: function (e) {
                 onRemove(e, args.model.Id);
@@ -47,56 +53,98 @@
 
     // Event handlers.
     function onSuccess(e, viewModel) {
-        //console.log(e);
-        //console.log('----------------------------------------------');
-        //console.log(viewModel);
-        if (e.operation == 'upload') {
-            $.merge(viewModel.Images, e.response.productImages);
-        }
-        if (e.operation == 'remove') {
-            var removedImagesIds = e.response.removedImagesIds;
-            if (removedImagesIds.length !== 0) {
-                var viewModelImageIds = $.map(viewModel.Images, function (val, i) {
-                    return val.Id;
-                });
+        if (e.operation === 'upload') {
+            var tempViewModelFile = e.response.savedProductImages[0];
+            viewModel.Images.push(tempViewModelFile);
 
-                // Clears the product's viewmodel of the images that had been deleted.
-                $.each(removedImagesIds, function (index, val) {
-                    var ind = viewModelImageIds.indexOf(val);
-                    viewModelImageIds.splice(ind, 1);
-                    viewModel.Images.splice(ind, 1);
-                });
-            }
+            var tempKendoFile = convertResponseFile(e.response.savedProductImages[0], e.files[0].uid);
+            e.sender.options.files.push(tempKendoFile);
+        }
+
+        if (e.operation === 'remove') {
+            //// --------For Multiple Files--------
+            //var removedImagesIds = e.response.removedImagesIds;
+            //if (removedImagesIds.length !== 0) {
+            //    var viewModelImageIds = $.map(viewModel.Images, function (val, i) {
+            //        return val.Id;
+            //    });
+
+            //    // Clears the product's viewmodel of the images that had been deleted.
+            //    $.each(removedImagesIds, function (index, val) {
+            //        var ind = viewModelImageIds.indexOf(val);
+            //        viewModelImageIds.splice(ind, 1);
+            //        viewModel.Images.splice(ind, 1);
+            //    });
+            //}
+
+            // ----For Single File----
+            var removedImageId = e.response.removedImagesIds[0];
+
+            var viewModelImageIds = $.map(viewModel.Images, function (val, i) {
+                return val.Id;
+            });
+
+            var index = viewModelImageIds.indexOf(removedImageId);
+            viewModelImageIds.splice(index, 1);
+            viewModel.Images.splice(index, 1);
         }
     }
 
+    function onUpload(e) {
+    }
+
     function onRemove(e, productId) {
-        images = $.map(e.files, function getImagesIds(val, index) {
+        // -------For Multiple File-------
+        var images = $.map(e.files, function getImagesIds(val, index) {
             return {
-                ImageId: val.imageId,
                 IsMainImage: val.isMainImage,
-                ProductId: productId
+                ProductId: productId,
+                ImageUid: val.uid,
+                ImageId: val.imageId
             };
         });
-        // key-value pairs sent to the server as additional information
-        //e.data = {};
-        //e.data["images"] = JSON.stringify(images);
+
+        $.each(images, function findFilesWithSameUid(index, value) {
+            $.each(e.sender.options.files, function (i, val) {
+                if (value.ImageUid == val.uid) {
+                    value.ImageId = val.imageId;
+                }
+            });
+        });
+
         e.data = { images: JSON.stringify(images) };
+
+        //// -------For single file-------
+        //var image = {
+        //    ProductId: productId,
+        //    ImageUid: e.files[0].uid,
+        //    ImageId: e.files[0].imageId
+        //}
+
+        //$.each(e.sender.options.files, function (i, val) {
+        //    if (image.ImageUid == val.uid) {
+        //        image.ImageId = val.imageId;
+        //    }
+        //});
+
+        //e.data = { images: JSON.stringify(image) };
     }
 
     function onError(e) {
         // Array with information about the files being uploaded
         var files = e.files;
+
         if (e.operation === "upload") {
             alert("Failed to upload " + files.length + " files");
         }
+
         if (e.operation === "remove") {
             alert("Failed to remove " + files.length + " files");
         }
     }
 
     // Data Workers
-    function convertToKendoUploadFiles(images) {
+    function GetInitialFilesFromModel(images) {
         var initialFiles = [];
         if (images) {
             var len = images.length;
@@ -106,12 +154,25 @@
                     url: images[i].UrlPath,
                     extension: images[i].FileExtension,
                     imageId: images[i].IdEncoded,
-                    isMainImage: images[i].IsMainImage
+                    isMainImage: images[i].IsMainImage,
+                    uid: images[i].ImageUid
                 });
             }
         }
 
         return initialFiles;
+    }
+
+    // Convert single Model.Image to kendo image
+    function convertResponseFile(image, uid) {
+        return {
+            name: image.OriginalFileName,
+            url: image.UrlPath,
+            extension: image.FileExtension,
+            imageId: image.IdEncoded,
+            isMainImage: image.IsMainImage,
+            uid: uid
+        }
     }
 
     function attachImagesToDom(initialFiles, imageSizeSuffix, uploadedImageTemplate) {
