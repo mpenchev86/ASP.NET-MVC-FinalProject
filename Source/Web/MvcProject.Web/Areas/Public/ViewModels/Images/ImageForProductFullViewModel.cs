@@ -9,13 +9,15 @@
     using Data.Models;
     using Infrastructure.Mapping;
 
-    public class ImageForProductFullViewModel : IMapFrom<Image>, IHaveCustomMappings
+    public class ImageForProductFullViewModel : BasePublicViewModel<int>, IMapFrom<Image>, IHaveCustomMappings
     {
         public string OriginalFileName { get; set; }
 
         public string FileExtension { get; set; }
 
         public string UrlPath { get; set; }
+
+        public bool IsMainImage { get; set; }
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {

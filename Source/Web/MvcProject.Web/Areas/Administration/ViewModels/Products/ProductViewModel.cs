@@ -140,48 +140,6 @@
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
-            configuration.CreateMap<Product, ProductViewModel>()
-                //.ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                //.ForMember(dest => dest.images, opt => opt.MapFrom(src => src.Images))
-                .ForMember(dest => dest.Description, opt => opt.MapFrom(
-                            src => src.Description == null ? null : new DescriptionDetailsForProductViewModel
-                            {
-                                Id = src.Description.Id,
-                                Content = src.Description.Content,
-                                Properties = src.Description.Properties.Select(p => new PropertyDetailsForDescriptionViewModel
-                                {
-                                    Id = p.Id,
-                                    Name = p.Name,
-                                    Value = p.Value,
-                                    CreatedOn = p.CreatedOn,
-                                    ModifiedOn = p.ModifiedOn
-                                }).ToList(),
-                                CreatedOn = src.Description.CreatedOn,
-                                ModifiedOn = src.Description.ModifiedOn
-                            }))
-                //.ForMember(dest => dest.MainImage, opt => opt.MapFrom(
-                //            src => src.MainImage == null ? null : new ImageDetailsForProductViewModel
-                //            {
-                //                Id = src.MainImage.Id,
-                //                OriginalFileName = src.MainImage.OriginalFileName,
-                //                FileExtension = src.MainImage.FileExtension,
-                //                UrlPath = src.MainImage.UrlPath,
-                //                IsMainImage = src.MainImage.IsMainImage,
-                //                CreatedOn = src.MainImage.CreatedOn,
-                //                ModifiedOn = src.MainImage.ModifiedOn
-                //            }))
-                //.ForMember(dest => dest.Images, opt => opt.MapFrom(
-                //            src => src.Images.Select(i => new ImageDetailsForProductViewModel
-                //            {
-                //                Id = i.Id,
-                //                OriginalFileName = i.OriginalFileName,
-                //                FileExtension = i.FileExtension,
-                //                UrlPath = i.UrlPath,
-                //                IsMainImage = i.IsMainImage,
-                //                CreatedOn = i.CreatedOn,
-                //                ModifiedOn = i.ModifiedOn
-                //            })))
-                            ;
         }
     }
 }

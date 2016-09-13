@@ -1,5 +1,61 @@
-﻿@using MvcProject.Web.Areas.Public.ViewModels.Products
+﻿@using MvcProject.Web.Areas.Public.ViewModels.Images
+@using MvcProject.Web.Areas.Public.ViewModels.Products
 @model ProductImagesPartialViewModel
 
-<h2>_ProductImages</h2>
+@*<div class="container">*@
+    <div class="row image-in-focus">
+        <img src="@Url.ProductTmblPicture(Model.MainImage.UrlPath, Model.MainImage.FileExtension)"/>
+    </div>
+    <div class="row all-images">
+        @*@(Html.SimpleListViewHelper<ImageForProductFullViewModel>(
+            name: "smallProductImages",
+            wrapperTagName: "div",
+            templateId: "product-images-template",
+            readAction: "ReadHighestVotedProducts",
+            controllerName: "Home",
+            modelIdExpression: m => m.Id,
+            pageSize: 5,
+            isServerOps: true)
+            .HtmlAttributes(new { @class = "productsList" })
+            .Deferred())*@
+
+        @foreach (var image in Model.Images)
+        {     
+            <div class="small-image">
+                <img src="@Url.ProductSmallPicture(image.UrlPath, image.FileExtension)"/>
+                @(Ajax.ActionLink(
+                    linkText: "",
+                    actionName: "GetImageInFocus",
+                    controllerName: "Products",
+                    routeValues: new { id = "encodedId" },
+                    ajaxOptions: new AjaxOptions
+                    {
+                        HttpMethod = "GET",
+                        AllowCache = true,
+                        InsertionMode = InsertionMode.Replace,
+                        LoadingElementId = "spinner",
+                        OnSuccess = "OnGetModalDataSuccess",
+                    },
+                    htmlAttributes: new
+                    {
+                        @class = "ajax-modal-link"
+                    })
+                    .ToHtmlString()
+                    .Replace("encodedId", "#=EncodedId#")
+                    .Replace("spinner", "#\\#spinner")
+                    .ToMvcHtmlString()
+                )
+            </div>   
+        }    
+    </div>
+@*</div>*@
+
+<!-- ListView product images template -->
+<script type="text/kendo-tmpl" id="product-images-template">
+    <img src=""/>
+    @*@Html.Partial("_ListViewProductCellTemplate")*@
+</script>
+
+
+@*<h2>_ProductImages</h2>*@
 

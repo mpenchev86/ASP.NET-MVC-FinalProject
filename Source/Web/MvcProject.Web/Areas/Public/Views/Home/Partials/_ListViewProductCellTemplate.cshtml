@@ -1,29 +1,32 @@
-﻿<td class="listview-product-cell">
-    <div class="img-div">
+﻿<li class="product-li">
+    <div class="row image">
         <img src="@Url.Content(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, "#=ImageUrlPath#", StaticResourcesUrls.ImageThumbnailSuffix, "#=ImageFileExtension#"))" alt="#=Title#" class="fallback"/>
     </div>
-    @(Ajax.ActionLink(
-        linkText: "sneak peek",
-        actionName: "SneakPeek",
-        controllerName: "Products",
-        routeValues: new { id = "encodedId"},
-        ajaxOptions: new AjaxOptions
-        {
-            HttpMethod = "GET",
-            AllowCache = true,
-            InsertionMode = InsertionMode.Replace,
-            LoadingElementId = "spinner",
-            OnSuccess = "OnGetModalDataSuccess",
-        },
-        htmlAttributes: new
-        {
-            @class = "ajax-modal-link"
-        })
-        .ToHtmlString()
-        .Replace("encodedId", "#=EncodedId#")
-        .Replace("spinner", "#\\#spinner")
-        .ToMvcHtmlString()
-        )
+    <div class="row price">
+        <p>#=kendo.toString(UnitPrice, "c")#</p>
+    </div>
+    
+        @(Ajax.ActionLink(
+            linkText: "sneak peek",
+            actionName: "SneakPeek",
+            controllerName: "Products",
+            routeValues: new { id = "encodedId"},
+            ajaxOptions: new AjaxOptions
+            {
+                HttpMethod = "GET",
+                AllowCache = true,
+                InsertionMode = InsertionMode.Replace,
+                LoadingElementId = "spinner",
+                OnSuccess = "OnGetModalDataSuccess",
+            },
+            htmlAttributes: new
+            {
+                @class = "ajax-modal-link"
+            })
+            .ToHtmlString()
+            .Replace("encodedId", "#=EncodedId#")
+            .Replace("spinner", "#\\#spinner")
+            .ToMvcHtmlString()
+            )
 
-    <p>#=kendo.toString(UnitPrice, "c")#</p>
-</td>
+</li>

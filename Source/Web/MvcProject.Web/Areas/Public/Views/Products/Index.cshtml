@@ -1,4 +1,5 @@
-﻿@using MvcProject.Web.Areas.Public.ViewModels.Products
+﻿@using MvcProject.Web.Areas.Public.ViewModels.Images
+@using MvcProject.Web.Areas.Public.ViewModels.Products
 @using MvcProject.Web.Areas.Public.ViewModels.Properties
 
 @model ProductFullViewModel
@@ -13,9 +14,9 @@
             "_ProductImages",
             new ProductImagesPartialViewModel
             {
-                MainImageId = Model.MainImageId,
-                Images = Model.Images
-            }, 
+                //MainImageId = Model.MainImageId,
+                Images = Model.Images ?? new List<ImageForProductFullViewModel>()
+            },
             null)
     </div>
     <div id="product-sidebar" class="col-md-5">
@@ -39,7 +40,7 @@
 <div class="row product-full-view" id="product-info">
     @Html.Partial(
         "_ProductInfo",
-        new ProductInfoPartialViewModel
+        new ProductInfoPartialViewModel()
         {
             DescriptionContent = Model.Description != null ? Model.Description.Content : string.Empty,
             DescriptionProperties = Model.Description != null ? Model.Description.Properties : new List<PropertyForProductFullViewModel>(),
@@ -51,9 +52,9 @@
     @Html.Partial("_ProductCommentsWithRatings", Model.CommentsWithRatings, null)
 </div>
 
-@section Styles{
+@*@section Styles{
     <link href="@Url.Content(StaticResourcesUrls.ProductFullViewmodel)" rel="stylesheet" type="text/css" />
-}
+}*@
 
 @section Scripts{
     <script src="@Url.Content(StaticResourcesUrls.IgniteUiRatingHandler)"></script>

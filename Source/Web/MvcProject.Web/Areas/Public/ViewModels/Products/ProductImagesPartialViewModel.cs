@@ -18,8 +18,14 @@
         {
             this.images = new HashSet<ImageForProductFullViewModel>();
         }
-
-        public int? MainImageId { get; set; }
+        
+        public ImageForProductFullViewModel MainImage
+        {
+            get
+            {
+                return (this.Images != null ? this.images.FirstOrDefault(img => img.IsMainImage) : null);
+            }
+        }
 
         public ICollection<ImageForProductFullViewModel> Images
         {

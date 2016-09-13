@@ -166,16 +166,15 @@
         }
 
         /// <summary>
-        /// The 'Save' action of kendo Upload widget.
+        /// Saves product images to the file system and/or the database.
         /// </summary>
-        /// <param name="productImages">The files sent by kendo Upload.</param>
+        /// <param name="productImages">The files sent by the client.</param>
         /// <returns>Returns the saved files.</returns>
         [HttpPost]
-        public ActionResult SaveImages(IEnumerable<HttpPostedFileBase>/*HttpPostedFileBase*/ productImages, string imageUid)
+        public ActionResult SaveImages(IEnumerable<HttpPostedFileBase> productImages)
         {
             var rawFiles = new List<RawFile>();
 
-            //The Name of the Upload component is "productImages".
             foreach (var file in productImages)
             {
                 var rawFile = this.fileSystemService.ToRawFile(file);
@@ -188,13 +187,10 @@
                 rawFiles.Add(rawFile);
             }
 
-            //var rawFile = this.fileSystemService.ToRawFile(productImages);
-
             var processedImages = this.imagesService.ProcessImages(rawFiles);
-            //var processedImages = this.imagesService.ProcessImages(new List<RawFile> { rawFile });
             this.imagesService.SaveImages(processedImages);
             var productViewModelImages = processedImages.AsQueryable().To<ImageDetailsForProductViewModel>().ToArray();
-            return Json(new { savedProductImages = productViewModelImages, imgUid = imageUid }, "text/plain", JsonRequestBehavior.AllowGet);
+            return Json(new { savedProductImages = productViewModelImages }, "text/plain", JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

@@ -172,7 +172,7 @@
             imageId: image.IdEncoded,
             isMainImage: image.IsMainImage,
             uid: uid
-        }
+        };
     }
 
     function attachImagesToDom(initialFiles, imageSizeSuffix, uploadedImageTemplate) {

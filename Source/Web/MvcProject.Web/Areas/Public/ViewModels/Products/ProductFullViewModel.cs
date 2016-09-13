@@ -23,7 +23,6 @@
         private ICollection<CommentForProductFullViewModel> comments;
         private ICollection<VoteForProductFullViewModel> votes;
         private ICollection<ProductCommentWithRatingViewModel> commentsWithRatings;
-        private IIdentifierProvider identifierProvider;
 
         public ProductFullViewModel()
         {
@@ -32,12 +31,11 @@
             this.comments = new HashSet<CommentForProductFullViewModel>();
             this.votes = new HashSet<VoteForProductFullViewModel>();
             this.commentsWithRatings = new HashSet<ProductCommentWithRatingViewModel>();
-            this.identifierProvider = new IdentifierProvider();
         }
 
         public string EncodedId
         {
-            get { return this.identifierProvider.EncodeIntId(this.Id); }
+            get { return IdentifierProvider.EncodeIntIdStatic(this.Id); }
         }
 
         [Required]
@@ -64,9 +62,6 @@
         [UIHint("Rating")]
         [Range(ValidationConstants.ProductAllTimeAverageRatingMin, ValidationConstants.ProductAllTimeAverageRatingMax)]
         public double? AllTimeAverageRating { get; set; }
-        //{
-        //    get { return (int)this.Votes.Average(v => v.VoteValue); }
-        //}
 
         public int? MainImageId { get; set; }
 
@@ -126,7 +121,6 @@
                 cfg.CreateMap<Product, ProductFullViewModel>()
                     .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                     .ForMember(dest => dest.SellerName, opt => opt.MapFrom(src => src.Seller.UserName))
-                    .ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags.Select(t => t.Name).ToList()))
                 );
         }
     }

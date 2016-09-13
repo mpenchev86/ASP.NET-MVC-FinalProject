@@ -44,6 +44,8 @@
             var product = this.productsService.GetById(id);
             var viewModel = this.mappingService.IMapper.Map<Product, ProductFullViewModel>(product);
             viewModel.CommentsWithRatings = this.PopulateCommentAndVote(viewModel.Comments, viewModel.Votes);
+            // Prevents populating tags with system.data.entity.dynamicproxies...(eager loading)
+            viewModel.Tags = product.Tags.Select(t => t.Name).ToList();
             return this.View(viewModel);
         }
 

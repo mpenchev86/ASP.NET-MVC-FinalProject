@@ -13,6 +13,11 @@
 
     public static class UrlExtensions
     {
+        public static string ProductSmallPicture(this UrlHelper helper, string urlPath, string imageExtension)
+        {
+            return helper.Content(GetImageIfExists(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, urlPath, StaticResourcesUrls.ImageSmallSizeSuffix, imageExtension)));
+        }
+
         public static string ProductTmblPicture(this UrlHelper helper, string urlPath, string imageExtension)
         {
             return helper.Content(GetImageIfExists(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, urlPath, StaticResourcesUrls.ImageThumbnailSuffix, imageExtension)));
@@ -20,7 +25,7 @@
 
         public static string ProductHiRezPicture(this UrlHelper helper, string urlPath, string imageExtension)
         {
-            return helper.Content(GetImageIfExists(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, urlPath, StaticResourcesUrls.HighResolutionImageSuffix, imageExtension)));
+            return helper.Content(GetImageIfExists(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, urlPath, StaticResourcesUrls.ImageHighResolutionSuffix, imageExtension)));
         }
 
         /// <summary>

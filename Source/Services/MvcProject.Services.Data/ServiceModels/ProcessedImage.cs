@@ -11,6 +11,8 @@
 
     public class ProcessedImage : IMapTo<Image>, IMapFrom<Image>, IHaveCustomMappings
     {
+        public const int SmallSizeImageWidth = 50;
+
         public const int ThumbnailImageWidth = 260;
 
         public const int HighResolutionWidth = 1360;
@@ -26,6 +28,8 @@
         public int? ProductId { get; set; }
 
         public virtual Product Product { get; set; }
+
+        public byte[] SmallSizeContent { get; set; }
 
         public byte[] ThumbnailContent { get; set; }
 

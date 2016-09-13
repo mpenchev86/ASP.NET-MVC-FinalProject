@@ -65,6 +65,7 @@
         [ValidateAntiForgeryToken]
         public override ActionResult Destroy([DataSourceRequest]DataSourceRequest request, ImageViewModel viewModel)
         {
+            this.HandleDependentEntitiesBeforeDelete(viewModel);
             return base.Destroy(request, viewModel);
         }
 
@@ -87,12 +88,24 @@
                 this.imagesService.UpdateMany(productImages);
             }
 
+            // TODO: If entity.IsMainImage && !viewModel.IsMainImage -> clear product's main image.
             entity.IsMainImage = viewModel.IsMainImage;
             entity.FileExtension = viewModel.FileExtension;
             entity.CreatedOn = viewModel.CreatedOn;
             entity.ModifiedOn = viewModel.ModifiedOn;
             entity.IsDeleted = viewModel.IsDeleted;
             entity.DeletedOn = viewModel.DeletedOn;
+        }
+
+        protected override void HandleDependentEntitiesBeforeDelete(ImageViewModel viewModel)
+        {
+            if (viewModel.IsMainImage)
+            {
+                var product = this.productsService.GetById((int)viewModel.ProductId);
+                product.MainImageId = null;
+                product.MainImage = null;
+                this.productsService.Update(product);
+            }
         }
         #endregion
     }

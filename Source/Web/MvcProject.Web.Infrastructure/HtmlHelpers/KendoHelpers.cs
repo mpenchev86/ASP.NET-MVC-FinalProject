@@ -246,6 +246,53 @@
                     .AutoSync(false));
         }
 
+        public static ListViewBuilder<T> SimpleListViewHelper<T>(
+            this HtmlHelper helper,
+            string name,
+            string wrapperTagName,
+            string templateId,
+            string controllerName,
+            Expression<Func<T, object>> modelIdExpression,
+            int pageSize,
+            string readAction = "Read",
+            string createAction = "Create",
+            string updateAction = "Update",
+            string destroyAction = "Destroy",
+            Action<DataSourceFilterDescriptorFactory<T>> filterSettings = null,
+            Action<DataSourceSortDescriptorFactory<T>> sortSettings = null,
+            bool isServerOps = true)
+            where T : class
+        {
+            if (filterSettings == null)
+            {
+                filterSettings = f => { };
+            }
+
+            if (sortSettings == null)
+            {
+                sortSettings = s => { };
+            }
+
+            return helper.Kendo()
+                .ListView<T>()
+                .Name(name)
+                .TagName(wrapperTagName)
+                .ClientTemplateId(templateId)
+                .Editable()
+                //.Pageable()
+                .DataSource(source => source
+                    .ServerOperation(isServerOps)
+                    .Model(m => m.Id(modelIdExpression))
+                    .Read(read => read.Action(readAction, controllerName))
+                    .Create(create => create.Action(createAction, controllerName))
+                    .Update(update => update.Action(updateAction, controllerName))
+                    .Destroy(destroy => destroy.Action(destroyAction, controllerName))
+                    //.PageSize(pageSize)
+                    .Filter(filterSettings)
+                    .Sort(sortSettings)
+                    .AutoSync(false));
+        }
+
         public static TabStripBuilder TabStripHelper(
             this HtmlHelper helper,
             string name,

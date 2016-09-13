@@ -29,8 +29,9 @@
         public const string ServerPathDataItemsImages = "~/Content/Images/{0}{1}{2}";
         public const string ServerPathAppManagementImages = "~/Content/Images/AppManagement/";
         public const string ImageNotFoundFileName = "image-not-available.jpg";
-        public const string UnderConstruction = "under-construction.jpg";
+        public const string UnderConstructionImage = "under-construction.jpg";
+        public const string ImageSmallSizeSuffix = "_small";
         public const string ImageThumbnailSuffix = "_tmbl";
-        public const string HighResolutionImageSuffix = "_hi-res";
+        public const string ImageHighResolutionSuffix = "_hi-res";
     }
 }

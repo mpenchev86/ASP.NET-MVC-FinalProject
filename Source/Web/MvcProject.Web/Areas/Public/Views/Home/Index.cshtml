@@ -10,7 +10,7 @@
     <h3>New Arrivals</h3>
     @(Html.GenericListViewHelper<ProductDetailsForIndexListView>(
         name: "newestProducts",
-        wrapperTagName: "table",
+        wrapperTagName: "ul",
         templateId: "products-listView-template",
         readAction: "ReadNewestProducts",
         controllerName: "Home",
@@ -25,7 +25,7 @@
     <h3>Top @UiSpecificConstants.IndexListViewNumberOfBestSellingProducts Best Selling</h3>
     @(Html.GenericListViewHelper<ProductDetailsForIndexListView>(
         name: "bestSellingProducts",
-        wrapperTagName: "table",
+        wrapperTagName: "ul",
         templateId: "products-listView-template",
         readAction: "ReadBestSellingProducts",
         controllerName: "Home",
@@ -40,7 +40,7 @@
     <h3>Stars We Got! The @UiSpecificConstants.IndexListViewNumberOfhighestVotedProducts highest rated items</h3>
     @(Html.GenericListViewHelper<ProductDetailsForIndexListView>(
         name: "highestVotedProducts",
-        wrapperTagName: "table",
+        wrapperTagName: "ul",
         templateId: "products-listView-template",
         readAction: "ReadHighestVotedProducts",
         controllerName: "Home",
@@ -64,9 +64,9 @@
     </div>
 </div>
 
-@section Styles{
+@*@section Styles{
     <link href="@Url.Content(StaticResourcesUrls.ListView)" rel="stylesheet" type="text/css" />
-}
+}*@
 
 @section Scripts {
     @Html.Kendo().DeferredScripts()

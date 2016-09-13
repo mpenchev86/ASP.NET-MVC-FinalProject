@@ -44,9 +44,10 @@
             var processedImages = rawImages.Select(rawImage =>
             {
                 var image = this.PersistFileInfo(rawImage);
+                var smallSizeContent = this.imageProcessor.Resize(rawImage.Content, ProcessedImage.SmallSizeImageWidth);
                 var thumbnailContent = this.imageProcessor.Resize(rawImage.Content, ProcessedImage.ThumbnailImageWidth);
-                var highContent = this.imageProcessor.Resize(rawImage.Content, ProcessedImage.HighResolutionWidth);
-                var processedImage = this.ToProcessedImage(image, thumbnailContent, highContent);
+                var highResContent = this.imageProcessor.Resize(rawImage.Content, ProcessedImage.HighResolutionWidth);
+                var processedImage = this.ToProcessedImage(image, smallSizeContent, thumbnailContent, highResContent);
                 return processedImage;
             }).ToList();
 
@@ -60,12 +61,16 @@
                 if (image != null)
                 {
                     this.fileSystemService.SaveFile(
+                        image.SmallSizeContent,
+                        string.Format(StaticResourcesUrls.ServerPathDataItemsImages, image.UrlPath, StaticResourcesUrls.ImageSmallSizeSuffix, image.FileExtension));
+
+                    this.fileSystemService.SaveFile(
                         image.ThumbnailContent,
                         string.Format(StaticResourcesUrls.ServerPathDataItemsImages, image.UrlPath, StaticResourcesUrls.ImageThumbnailSuffix, image.FileExtension));
 
                     this.fileSystemService.SaveFile(
                         image.HighResolutionContent,
-                        string.Format(StaticResourcesUrls.ServerPathDataItemsImages, image.UrlPath, StaticResourcesUrls.HighResolutionImageSuffix, image.FileExtension));
+                        string.Format(StaticResourcesUrls.ServerPathDataItemsImages, image.UrlPath, StaticResourcesUrls.ImageHighResolutionSuffix, image.FileExtension));
                 }
             }
         }
@@ -80,14 +85,16 @@
                 this.Update(image);
                 this.DeletePermanent(imageId);
                 // this.MarkAsDeleted(decodedId);
+                this.fileSystemService.DeleteFile(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, image.UrlPath, StaticResourcesUrls.ImageSmallSizeSuffix, image.FileExtension));
                 this.fileSystemService.DeleteFile(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, image.UrlPath, StaticResourcesUrls.ImageThumbnailSuffix, image.FileExtension));
-                this.fileSystemService.DeleteFile(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, image.UrlPath, StaticResourcesUrls.HighResolutionImageSuffix, image.FileExtension));
+                this.fileSystemService.DeleteFile(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, image.UrlPath, StaticResourcesUrls.ImageHighResolutionSuffix, image.FileExtension));
             }
         }
 
-        public ProcessedImage ToProcessedImage(Image image, byte[] thumbnailContent, byte[] highResolutionContent)
+        public ProcessedImage ToProcessedImage(Image image, byte[] smallSizeContent, byte[] thumbnailContent, byte[] highResolutionContent)
         {
             var result = this.mappingService.IMapper.Map<ProcessedImage>(image);
+            result.SmallSizeContent = smallSizeContent;
             result.ThumbnailContent = thumbnailContent;
             result.HighResolutionContent = highResolutionContent;
             return result;
