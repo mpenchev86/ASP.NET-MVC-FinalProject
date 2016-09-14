@@ -82,5 +82,29 @@
         //$(".selector").igRating({
         //    hoverChange : function(evt, ui) {...}
         //});
+
+        $('a.small-image').on('click', function onSmallImageClick(e) {
+            e.preventDefault();
+        });
+
+        $('a.small-image').on('mouseenter', function onSmallImageMouseEnter(e) {
+            e.preventDefault();
+
+            var link = $(this),
+                newSrc = link.attr('href'),
+                image = $('#mainImage'),
+                dateSuffix = new Date();
+
+            //image.onload = function () {
+            //    console.log('pesho');
+            //    image.hide("fast", function () {
+            //        image.attr("src", newSrc + "?" + dateSuffix.getTime()).show();
+            //    });
+            //}
+
+            image.attr("src", newSrc + "?" + dateSuffix.getTime());
+
+            //console.log(image);
+        });
     </script>
 }

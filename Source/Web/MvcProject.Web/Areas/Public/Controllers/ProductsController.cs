@@ -70,6 +70,12 @@
         }
 
         [HttpGet]
+        public ActionResult GetImageInFocus()
+        {
+            return null;
+        }
+
+        [HttpGet]
         public ActionResult AllProductsOfCategory(string category)
         {
             var products = this.productsService.GetAll().Where(p => p.Category.Name == category);
