@@ -6,10 +6,6 @@
   * Kendo ListView pager
 ***/
 
-.homepage-listview {
-    /*height: 20%;*/
-}
-
 /* ======= ListView row ======= */
 .homepage-listview > .k-block,
 .homepage-listview > .k-draghandle,
@@ -58,10 +54,6 @@
     height: 15%;
 }
 
-.product-li .price p {
-    /*margin-top: 5px;*/
-}
-
 .product-li img {
     max-width: 100%;
     max-height: 100%;
@@ -107,7 +99,7 @@
     }*/
 
     .product-li a {
-        display: inline;
+        /*display: inline;*/
         height: 100%;
         visibility: hidden;
         position: absolute;

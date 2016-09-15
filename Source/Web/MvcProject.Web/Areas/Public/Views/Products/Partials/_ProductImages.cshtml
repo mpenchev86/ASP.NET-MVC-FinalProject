@@ -1,18 +1,24 @@
-﻿@using MvcProject.Web.Areas.Public.ViewModels.Images
-@using MvcProject.Web.Areas.Public.ViewModels.Products
+﻿@using MvcProject.Web.Areas.Public.ViewModels.Products
 @model ProductImagesPartialViewModel
 
 <div class="row image-in-focus">
-    <img id="mainImage" src="@Url.ProductTmblPicture(Model.MainImage.UrlPath, Model.MainImage.FileExtension)"/>
+    <img id="image-in-focus" src="@Url.ProductTmblPicture(Model.MainImage.UrlPath, Model.MainImage.FileExtension)"/>
+    <a id="modal-link" href="@Url.ProductHiRezPicture(Model.MainImage.UrlPath, Model.MainImage.FileExtension)" style="display:none"></a>
+
+    <!-- The Modal -->
+    <div id="large-image-modal" class="modal">
+        <!-- The Close Button -->
+        <span class="close-modal" onclick="document.getElementById('large-image-modal').style.display = 'none'">&times;</span>
+        <!-- Modal Content (The Image) -->
+        <img class="modal-content" id="large-image">
+    </div>
 </div>
 <div class="row all-images">
     @foreach (var image in Model.Images)
     {     
-        @*<div class="small-image">*@
-            <a href="@Url.ProductTmblPicture(image.UrlPath, image.FileExtension)" class="thumbnail small-image">
-                <img src="@Url.ProductSmallPicture(image.UrlPath, image.FileExtension)"/>
-            </a>
-        @*</div>*@   
+        <a href="@Url.ProductTmblPicture(image.UrlPath, image.FileExtension)" class="thumbnail small-image">
+            <img src="@Url.ProductSmallPicture(image.UrlPath, image.FileExtension)"/>
+        </a>
+        <a href="@Url.ProductHiRezPicture(image.UrlPath, image.FileExtension)" class="large-image-link" style="display:none"></a>
     }    
 </div>
-

@@ -58,31 +58,9 @@
 
 @section Scripts{
     <script src="@Url.Content(StaticResourcesUrls.IgniteUiRatingHandler)"></script>
+    <script src="@Url.Content(StaticResourcesUrls.BootstrapModalHelpers)"></script>
 
     <script>
-        //$(document).ready(function InitializeRatings() {
-        //    ratingHandler.configureDisplayWidgets("#igRating");
-        //    //$("#igRating1").igRating("option", "value", 3.5);
-        //    var rating = $("#igRating0");
-        //    console.log(rating);
-        //})
-
-        ////Bind after initialization
-        //$(document).delegate("#igRating5", "igratinghoverchange", function (evt, ui) {
-        //    //return the triggered event
-        //    evt;
-     
-        //    //the value before the igRating was hovered 
-        //    ui.oldValue;
-        //    //the current hover value
-        //    ui.value;
-        //});  
- 
-        ////Initialize
-        //$(".selector").igRating({
-        //    hoverChange : function(evt, ui) {...}
-        //});
-
         $('a.small-image').on('click', function onSmallImageClick(e) {
             e.preventDefault();
         });
@@ -92,19 +70,36 @@
 
             var link = $(this),
                 newSrc = link.attr('href'),
-                image = $('#mainImage'),
+                image = $('#image-in-focus'),
+                largeImgLink = link.next('.large-image-link'),
+                largeHref = largeImgLink.attr('href'),
                 dateSuffix = new Date();
 
-            //image.onload = function () {
-            //    console.log('pesho');
-            //    image.hide("fast", function () {
-            //        image.attr("src", newSrc + "?" + dateSuffix.getTime()).show();
-            //    });
-            //}
-
             image.attr("src", newSrc + "?" + dateSuffix.getTime());
-
-            //console.log(image);
+            $('#modal-link').attr('href', largeHref + "?" + dateSuffix.getTime());
         });
+
+        // Get the modal
+        var modal = document.getElementById('large-image-modal');
+
+        // Get the image and insert it inside the modal - use its "alt" text as a caption
+        var img = document.getElementById('image-in-focus');
+        var modalImg = document.getElementById("large-image");
+        img.onclick = function () {
+            // Disables browser scrolling while jQuery UI modal dialog is open
+            $('body').css('overflow', 'hidden');
+            modal.style.display = "block";
+            modalImg.src = $('#modal-link').attr('href');
+        }
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close-modal")[0];
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+            // Enables browser scrolling when modal dialog is closed
+            $('body').css('overflow', 'scroll');
+        }
     </script>
 }

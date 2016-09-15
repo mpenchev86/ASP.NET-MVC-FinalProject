@@ -13,6 +13,7 @@
     using Infragistics.Web.Mvc;
     using Infrastructure.Extensions;
     using Infrastructure.Mapping;
+    using Infrastructure.Validators;
     using Services.Data;
     using Services.Web;
     using ViewModels.Comments;
@@ -50,6 +51,7 @@
         }
 
         [HttpGet]
+        [AjaxOnly]
         public ActionResult SneakPeek(string id)
         {
             if (!this.Request.IsAjaxRequest())
@@ -67,12 +69,6 @@
 
             var result = this.mappingService.IMapper.Map<Product, ProductSneakPeekViewModel>(product);
             return this.PartialView("_SneakPeek", result);
-        }
-
-        [HttpGet]
-        public ActionResult GetImageInFocus()
-        {
-            return null;
         }
 
         [HttpGet]

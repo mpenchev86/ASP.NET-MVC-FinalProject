@@ -1,4 +1,14 @@
-﻿body {
+﻿/*** SECTIONS:
+  * Common
+  * Navbar
+    * NavBar DropDowns
+    * NavBar Search
+  * Body
+  * Footer
+***/
+
+/* ========= Common ========= */
+body {
     margin: 0 0 0 0;
     padding: 0 0 0 0;
     /*min-width: 460px;*/
@@ -28,7 +38,7 @@ textarea {
     white-space: normal;
 }
 
-/* ========= NAVBAR ========= */
+/* ========= Navbar ========= */
 .navbar {
     border: none;
     border-radius: 0 0 0 0;
@@ -89,39 +99,46 @@ textarea {
     margin: 0 0 0 0;
 }
 
-.navbar-form .input-group {
-    width: 100%;
-}
-
-#navbar-search {
-    overflow-y: visible;
-}
-
-#navbar-search-input
-{
-    float: none;
-    max-width: none;
-    width: 70%;
-    vertical-align: middle;
-}
-
-#navbar-search-options {
-    border-radius: 4px 0 0 4px;
-}
-
-    #navbar-search-options > div {
-        min-width: 30px;
+    /* ========= NavBar Search ========= */
+    .navbar-form .input-group {
+        width: 100%;
     }
 
-@media (max-width: 527px) {
-    #navbar-search-options > text {
-        display: none;
+    #navbar-search {
+        overflow-y: visible;
     }
-}
 
-#navbar-search-btn {
-    border-radius: 0 4px 4px 0;
-}
+    #navbar-search-input
+    {
+        float: none;
+        /*Prevents popping in front of a modal window*/
+        z-index: 0;
+        max-width: none;
+        width: 70%;
+        vertical-align: middle;
+    }
+
+    #navbar-search-options {
+        /*Prevents popping in front of a modal window*/
+        z-index: 0;
+        border-radius: 4px 0 0 4px;
+    }
+
+        #navbar-search-options > div {
+            min-width: 30px;
+        }
+
+    @media (max-width: 527px) {
+        #navbar-search-options > text {
+            display: none;
+        }
+    }
+
+    #navbar-search-btn {
+        /*Prevents popping in front of a modal window*/
+        z-index: 0;
+        border-radius: 0 4px 4px 0;
+    }
 
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
     background-color: transparent;
@@ -129,16 +146,15 @@ textarea {
     font-weight: bold;
 }
 
-/* ========= BODY ========= */
+/* ========= Body ========= */
 /* Set padding to keep content from hitting the edges */
 #body-content {
     padding: 0 0 100px 0;
-    /*min-height: 190%;*/
     min-height: 600px;
     width: 95%;
 }
 
-/* ========= FOOTER ========= */
+/* ========= Footer ========= */
 .panel-footer {
     margin: 0 0 0 0;
     padding: 0 0;

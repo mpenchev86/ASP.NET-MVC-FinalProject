@@ -178,6 +178,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Controllers\BasePublicController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -273,6 +274,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Images\" />
+    <Folder Include="Views\Images\Partials\" />
     <Folder Include="Views\Votes\Partials\" />
   </ItemGroup>
   <ItemGroup>
