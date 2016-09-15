@@ -120,6 +120,7 @@
             position: fixed; /* Stay in place */
             z-index: 1; /* Sit on top */
             padding-top: 100px; /* Location of the box */
+            padding-bottom: 60px; /* Location of the box */
             left: 0;
             top: 0;
             width: 100%; /* Full width */
@@ -131,11 +132,11 @@
 
         /* Modal Content (Image) */
         #large-image {
-            margin: auto;
-            display: block;
+            /*margin: auto;
+            display: block;*/
             border-radius: 0;
             /*width: 80%;*/
-            /*max-width: 700px;*/
+            /*max-width: 95%;*/
         }
 
         /* Add Animation - Zoom in the Modal */

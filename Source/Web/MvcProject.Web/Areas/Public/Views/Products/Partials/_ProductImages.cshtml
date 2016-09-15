@@ -6,11 +6,11 @@
     <a id="modal-link" href="@Url.ProductHiRezPicture(Model.MainImage.UrlPath, Model.MainImage.FileExtension)" style="display:none"></a>
 
     <!-- The Modal -->
-    <div id="large-image-modal" class="modal">
+    <div id="large-image-modal" class="modal" role="dialog" @*tabindex="-1"*@>
         <!-- The Close Button -->
-        <span class="close-modal" onclick="document.getElementById('large-image-modal').style.display = 'none'">&times;</span>
+        @*<span class="close-modal" onclick="document.getElementById('large-image-modal').style.display = 'none'">&times;</span>*@
         <!-- Modal Content (The Image) -->
-        <img class="modal-content" id="large-image">
+        <img class="modal-content" id="large-image" />
     </div>
 </div>
 <div class="row all-images">
