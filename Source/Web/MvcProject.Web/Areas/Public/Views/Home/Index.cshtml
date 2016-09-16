@@ -86,10 +86,6 @@
             bootstrapModalHelpers.setContent(wrapperSelector = '#sneakPeek-modal', contentSelector = '.modal-content', data = data);
         }
 
-        //$("#sneakPeek-modal").draggable({
-        //    handle: ".modal-header"
-        //});
-
         $(document).ready(function () {
             $('img.fallback').on('error', function () {
                 this.attr('src', "@(Url.Content(StaticResourcesUrls.ServerPathAppManagementImages + StaticResourcesUrls.ImageNotFoundFileName))");

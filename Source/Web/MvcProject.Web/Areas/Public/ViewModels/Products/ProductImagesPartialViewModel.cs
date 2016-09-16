@@ -23,7 +23,12 @@
         {
             get
             {
-                return (this.Images != null ? this.images.FirstOrDefault(img => img.IsMainImage) : null);
+                if (this.Images.Any())
+                {
+                    return this.images.FirstOrDefault(img => img.IsMainImage) ?? this.images.FirstOrDefault();
+                }
+
+                return new ImageForProductFullViewModel();
             }
         }
 

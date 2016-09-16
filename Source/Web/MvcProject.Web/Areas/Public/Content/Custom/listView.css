@@ -1,7 +1,7 @@
 ﻿/*** SECTIONS:
   * ListView row
-  * Kendo ListView widget table
-    * ListView table cell
+  * ListView ul
+    * ListView li
       * SneakPeek
   * Kendo ListView pager
 ***/
@@ -15,91 +15,45 @@
     padding: 0 0 0 0;
 }
 
-
-
-/*************************************************/
-
 .homepage-listview > .k-widget.productsList.k-listview {
-    /*width: 100%;*/
     display: flex;
-    /*height: 25%;*/
-    /*overflow: hidden;*/
 }
 
+/* ======= ListView ul ======= */
 .productsList .k-listview:after {
     content: ".";
     clear: both;
     visibility: hidden;
 }
 
-.product-li {
-    float: left;
-    position: relative;
-    width: 20%;
-    /*height: 270px;*/
-    list-style: none;
-}
-
-.product-li .image {
-    position: relative;
-    height: 85%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px 5px 5px 5px;
-}
-
-.product-li .price {
-    text-align: center;
-    height: 15%;
-}
-
-.product-li img {
-    max-width: 100%;
-    max-height: 100%;
-}
-
-/*************************************************/
-
-
-
-/* ======= Kendo ListView widget table ======= */
-/*.productsList .k-listview {
-    border-style: none;
-
-    table-layout: fixed;
-    width: 300px;
-}*/
-
-/*.productsList .k-listview:after {
-    content: ".";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
-}*/
-
-    /* ======= ListView table cell ======= */
-
-
-    /*.productsList td.listview-product-cell {
+    /* ======= ListView li ======= */
+    .product-li {
+        float: left;
         position: relative;
-        display: table-cell;
         width: 20%;
-    }*/
+        list-style: none;
+    }
 
-    /*.productsList td.listview-product-cell img {
-        vertical-align: inherit;
-    }*/
-
-    /*.productsList td.listview-product-cell .img-div img {
+    .product-li .image {
         position: relative;
-        margin: auto;
-        width: 100%;
-    }*/
+        height: 85%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px 5px 5px 5px;
+    }
+
+    .product-li .price {
+        text-align: center;
+        height: 15%;
+    }
+
+    .product-li img {
+        max-width: 100%;
+        max-height: 100%;
+    }
 
     .product-li a {
-        /*display: inline;*/
         height: 100%;
         visibility: hidden;
         position: absolute;
@@ -113,7 +67,6 @@
         visibility: visible;
         width: 100%;
         height: 100%;
-        /*vertical-align: middle;*/
         text-align: center;
         color: #fff;
         background-color: rgba(255,200,0,0.55);
@@ -151,7 +104,6 @@
             font-size: 12px;
             font-style: italic;
         }
-
 
 /* ======= Kendo ListView pager ======= */
 .homepage-listview > .k-pager-wrap {
