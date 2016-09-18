@@ -14,6 +14,6 @@
         public const string StylesBootStrap = "~/Content/css";
         public const string StylesCustomCss = "~/Content/Custom/css";
         public const string StylesKendoCss = "~/Content/Kendo/css";
-        public const string StylesIgniteUI = "~/Content/IgniteUI/css";
+        public const string StylesIgniteUI = "~/Areas/Public/Content/IgniteUI/css";
     }
 }
