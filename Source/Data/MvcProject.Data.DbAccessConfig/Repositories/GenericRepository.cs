@@ -22,7 +22,7 @@
         {
             if (context == null)
             {
-                throw new ArgumentException(ExceptionMessages.DbContextArgumentException, nameof(context));
+                throw new ArgumentException(ExceptionMessages.DbContextArgumentException, DbAccess.DbContext);
             }
 
             this.Context = context;
