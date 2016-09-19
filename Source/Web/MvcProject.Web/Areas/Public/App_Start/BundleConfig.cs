@@ -27,7 +27,7 @@
             bundles.Add(new StyleBundle(Bundles.PublicAreaStylesIgniteUI)
                 .Include(
                     "~/Areas/Public/Content/IgniteUI/Structure/*.css",
-                    "~/Areas/Public/Content/IgniteUI/Structure/modules/*.css",
+                    "~/Areas/Public/Content/IgniteUI/Structure/Modules/*.css",
                     "~/Areas/Public/Content/IgniteUI/Themes/infragistics/*.css"
                     ));
 
