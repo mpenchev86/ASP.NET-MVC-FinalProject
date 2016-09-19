@@ -40,9 +40,9 @@
                     "~/signalr/hubs"));
 
             // CSS
-            bundles.Add(new StyleBundle(Bundles.StylesBootStrap)
-                .Include(
-                    "~/Content/Custom/*.css"));
+            //bundles.Add(new StyleBundle(Bundles.StylesBootStrap)
+            //    .Include(
+            //        "~/Content/Custom/*.css"));
 
             bundles.Add(new StyleBundle(Bundles.StylesBootStrap)
                 .Include(
