@@ -34,13 +34,16 @@
 
             bundles.Add(new ScriptBundle(Bundles.ScriptsCustom)
                 .Include(
-                    "~/Areas/Public/Scripts/Custom/*.js"
+                    "~/Areas/Public/Scripts/Custom/bootstrap-modal-helpers.js",
+                    "~/Areas/Public/Scripts/Custom/igniteui-rating-handler.js"
                     ));
 
             // CSS
             bundles.Add(new StyleBundle(Bundles.StylesCustomCss)
                 .Include(
-                    "~/Areas/Public/Content/Custom/*.css"
+                    "~/Areas/Public/Content/Custom/homepage-carousel.css",
+                    "~/Areas/Public/Content/Custom/listview.css",
+                    "~/Areas/Public/Content/Custom/product-full-viewmodel.css"
                     ));
         }
     }
