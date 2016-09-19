@@ -16,13 +16,13 @@
         public const string StylesKendoCss = "~/Content/Kendo/css";
 
         // Public Area
-        public const string PublicAreaStylesCustomCss = "~/Areas/Public/Content/Custom/customCss";
-        public const string PublicAreaStylesIgniteUI = "~/Areas/Public/Content/IgniteUI/css";
+        public const string PublicAreaStylesCustomCss = "~/Areas/Public/Content/Custom/customcss";
+        public const string PublicAreaStylesIgniteUI = "~/Areas/Public/Content/IgniteUI/igniteuicss";
         public const string PublicAreaScriptsCustom = "~/Areas/Public/Scripts/Custom/customjs";
-        public const string PublicAreaScriptsIgniteUI = "~/Areas/Public/Scripts/IgniteUI/igniteui";
+        public const string PublicAreaScriptsIgniteUI = "~/Areas/Public/Scripts/IgniteUI/igniteuijs";
 
         // Admin Area
-        public const string AdminAreaStylesCustomCss = "~/Areas/Administration/Content/Custom/customCss";
+        public const string AdminAreaStylesCustomCss = "~/Areas/Administration/Content/Custom/customcss";
         public const string AdminAreaScriptsCustom = "~/Areas/Administration/Scripts/Custom/customjs";
     }
 }
