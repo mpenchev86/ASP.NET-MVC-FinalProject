@@ -26,9 +26,9 @@
 
             bundles.Add(new StyleBundle(Bundles.PublicAreaStylesIgniteUI)
                 .Include(
-                    "~/Areas/Public/Content/IgniteUI/Structure/*.css",
-                    "~/Areas/Public/Content/IgniteUI/Structure/Modules/*.css",
-                    "~/Areas/Public/Content/IgniteUI/Themes/infragistics/*.css"
+                    "~/Areas/Public/Content/IgniteUI/Structure/infragistics.css",
+                    "~/Areas/Public/Content/IgniteUI/Structure/Modules/infragistics.ui.rating.css",
+                    "~/Areas/Public/Content/IgniteUI/Themes/infragistics/infragistics.theme.css"
                     ));
 
             bundles.Add(new ScriptBundle(Bundles.PublicAreaScriptsCustom)
