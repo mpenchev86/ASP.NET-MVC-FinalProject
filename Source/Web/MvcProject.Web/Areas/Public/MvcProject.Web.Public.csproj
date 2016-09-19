@@ -229,7 +229,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Custom\homepage-carousel.css" />
-    <Content Include="Content\Custom\listView.css" />
+    <Content Include="Content\Custom\listview.css" />
     <Content Include="Content\Custom\product-full-viewmodel.css" />
     <Content Include="Content\IgniteUI\jquery-ui.css" />
     <Content Include="Content\IgniteUI\jquery-ui.min.css" />
