@@ -14,20 +14,20 @@
             // JavaScript
             bundles.Add(new ScriptBundle(Bundles.AdminAreaScriptsCustom)
                 .Include(
-                    //"~/Scripts/Custom/datetime-handler.js",
-                    //"~/Scripts/Custom/error-handler.js",
-                    //"~/Scripts/Custom/grid-details-helpers.js"
-                    "~/Areas/Administration/Scripts/Custom/*.js"
+                    "~/Areas/Administration/Scripts/Custom/datetime-handlers.js",
+                    "~/Areas/Administration/Scripts/Custom/error-handler.js",
+                    "~/Areas/Administration/Scripts/Custom/grid-details-helpers.js",
+                    "~/Areas/Administration/Scripts/Custom/product-images-upload.js",
+                    "~/Areas/Administration/Scripts/Custom/product-main-image-dropdown.js"
                     ));
 
             // CSS
             bundles.Add(new StyleBundle(Bundles.AdminAreaStylesCustomCss)
                 .Include(
-                    //"~/Content/Custom/Admin/custom-popup-editor.css",
-                    //"~/Content/Custom/Admin/details-grid.css",
-                    //"~/Content/Custom/Admin/domains-list.css",
-                    //"~/Content/Custom/Admin/main-grid.css",
-                    "~/Areas/Administration/Content/Custom/*.css"
+                    "~/Areas/Administration/Content/Custom/custom-popup-editor.css",
+                    "~/Areas/Administration/Content/Custom/details-grid.css",
+                    "~/Areas/Administration/Content/Custom/domains-list.css",
+                    "~/Areas/Administration/Content/Custom/main-grid.css"
                     ));
         }
     }
