@@ -24,13 +24,13 @@
                     "~/Areas/Public/Scripts/IgniteUI/infragistics.lob.js"
                     ));
 
-            bundles.Add(new StyleBundle(Bundles.StylesIgniteUI)
-                .Include("~/Areas/Public/Content/IgniteUI/Structure/*.css")
-                .Include("~/Areas/Public/Content/IgniteUI/Structure/modules/*.css")
-                .Include(
+            //bundles.Add(new StyleBundle(Bundles.StylesIgniteUI)
+            //    .Include("~/Areas/Public/Content/IgniteUI/Structure/*.css")
+            //    .Include("~/Areas/Public/Content/IgniteUI/Structure/modules/*.css")
+            //    .Include(
                     
-                    "~/Areas/Public/Content/IgniteUI/Themes/infragistics/*.css"
-                    ));
+            //        "~/Areas/Public/Content/IgniteUI/Themes/infragistics/*.css"
+            //        ));
 
             bundles.Add(new ScriptBundle(Bundles.ScriptsCustom)
                 .Include(
@@ -40,7 +40,6 @@
             // CSS
             bundles.Add(new StyleBundle(Bundles.StylesCustomCss)
                 .Include(
-                    //"~/Content/Custom/Public/listView.css"
                     "~/Areas/Public/Content/Custom/*.css"
                     ));
         }
