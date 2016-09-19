@@ -17,29 +17,28 @@
                     "~/Areas/Public/Scripts/IgniteUI/jquery-ui.min.js"
                     ));
 
-            bundles.Add(new ScriptBundle(Bundles.ScriptsIgniteUI)
+            bundles.Add(new ScriptBundle(Bundles.PublicAreaScriptsIgniteUI)
                 .Include(
                     "~/Areas/Public/Scripts/IgniteUI/infragistics.core.Unicode.js",
                     "~/Areas/Public/Scripts/IgniteUI/infragistics.ui.rating.js",
                     "~/Areas/Public/Scripts/IgniteUI/infragistics.lob.js"
                     ));
 
-            //bundles.Add(new StyleBundle(Bundles.StylesIgniteUI)
-            //    .Include("~/Areas/Public/Content/IgniteUI/Structure/*.css")
-            //    .Include("~/Areas/Public/Content/IgniteUI/Structure/modules/*.css")
-            //    .Include(
-                    
-            //        "~/Areas/Public/Content/IgniteUI/Themes/infragistics/*.css"
-            //        ));
+            bundles.Add(new StyleBundle(Bundles.PublicAreaStylesIgniteUI)
+                .Include(
+                    "~/Areas/Public/Content/IgniteUI/Structure/*.css",
+                    "~/Areas/Public/Content/IgniteUI/Structure/modules/*.css",
+                    "~/Areas/Public/Content/IgniteUI/Themes/infragistics/*.css"
+                    ));
 
-            bundles.Add(new ScriptBundle(Bundles.ScriptsCustom)
+            bundles.Add(new ScriptBundle(Bundles.PublicAreaScriptsCustom)
                 .Include(
                     "~/Areas/Public/Scripts/Custom/bootstrap-modal-helpers.js",
                     "~/Areas/Public/Scripts/Custom/igniteui-rating-handler.js"
                     ));
 
             // CSS
-            bundles.Add(new StyleBundle(Bundles.StylesCustomCss)
+            bundles.Add(new StyleBundle(Bundles.PublicAreaStylesCustomCss)
                 .Include(
                     "~/Areas/Public/Content/Custom/homepage-carousel.css",
                     "~/Areas/Public/Content/Custom/listview.css",

@@ -12,7 +12,7 @@
         internal static void RegisterBundles(BundleCollection bundles)
         {
             // JavaScript
-            bundles.Add(new ScriptBundle(Bundles.ScriptsCustom)
+            bundles.Add(new ScriptBundle(Bundles.AdminAreaScriptsCustom)
                 .Include(
                     //"~/Scripts/Custom/datetime-handler.js",
                     //"~/Scripts/Custom/error-handler.js",
@@ -21,7 +21,7 @@
                     ));
 
             // CSS
-            bundles.Add(new StyleBundle(Bundles.StylesCustomCss)
+            bundles.Add(new StyleBundle(Bundles.AdminAreaStylesCustomCss)
                 .Include(
                     //"~/Content/Custom/Admin/custom-popup-editor.css",
                     //"~/Content/Custom/Admin/details-grid.css",
