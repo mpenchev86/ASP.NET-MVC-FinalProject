@@ -266,7 +266,9 @@
     <Content Include="Scripts\IgniteUI\infragistics.util.Unicode.js" />
     <Content Include="Scripts\IgniteUI\jquery-ui.js" />
     <Content Include="Scripts\IgniteUI\jquery-ui.min.js" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml">
+      <BrowseToURL>~/Public/Home/Index</BrowseToURL>
+    </Content>
     <Content Include="Views\web.config">
       <SubType>Designer</SubType>
     </Content>
