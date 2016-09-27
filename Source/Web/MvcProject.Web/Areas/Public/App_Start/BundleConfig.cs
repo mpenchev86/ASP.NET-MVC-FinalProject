@@ -25,11 +25,9 @@
                     ));
 
             bundles.Add(new StyleBundle(Bundles.StylesIgniteUI)
-                .Include(
-                    "~/Areas/Public/Content/IgniteUI/structure/*.css",
-                    "~/Areas/Public/Content/IgniteUI/structure/modules/*.css",
-                    "~/Areas/Public/Content/IgniteUI/themes/infragistics/*.css"
-                    ));
+                .Include("~/Areas/Public/Content/IgniteUI/structure/*.css", new CssRewriteUrlTransform())
+                .Include("~/Areas/Public/Content/IgniteUI/structure/modules/*.css", new CssRewriteUrlTransform())
+                .Include("~/Areas/Public/Content/IgniteUI/themes/infragistics/*.css", new CssRewriteUrlTransform()));
 
             bundles.Add(new ScriptBundle(Bundles.ScriptsCustom)
                 .Include(
@@ -40,7 +38,7 @@
             bundles.Add(new StyleBundle(Bundles.StylesCustomCss)
                 .Include(
                     //"~/Content/Custom/Public/listView.css"
-                    "~/Areas/Public/Content/Custom/*.css"
+                    "~/Areas/Public/Content/Custom/*.css", new CssRewriteUrlTransform()
                     ));
         }
     }

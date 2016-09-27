@@ -41,9 +41,8 @@
 
             // CSS
             bundles.Add(new StyleBundle(Bundles.StylesBootStrap)
-                .Include(
-                    "~/Content/bootstrap.journal.css",
-                    "~/Content/Site.css"));
+                .Include("~/Content/bootstrap.journal.css", new CssRewriteUrlTransform())
+                .Include("~/Content/Site.css", new CssRewriteUrlTransform()));
 
             bundles.Add(new StyleBundle(Bundles.StylesKendoCss)
                 .Include("~/Content/Kendo/kendo.common-bootstrap.min.css", new CssRewriteUrlTransform())

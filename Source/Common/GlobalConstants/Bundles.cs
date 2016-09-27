@@ -9,7 +9,7 @@
         public const string ScriptsBootstrap = "~/bundles/bootstrap";
         public const string ScriptsCustom = "~/Scripts/Custom/customjs";
         public const string ScriptsKendo = "~/Scripts/Kendo/kendojs";
-        public const string ScriptsIgniteUI = "~/Areas/Public/Scripts/IgniteUI/igniteui";
+        public const string ScriptsIgniteUI = "~/Scripts/IgniteUI/igniteuijs";
         public const string ScriptsSignalR = "~/bundles/signalR";
         public const string StylesBootStrap = "~/Content/css";
         public const string StylesCustomCss = "~/Content/Custom/css";

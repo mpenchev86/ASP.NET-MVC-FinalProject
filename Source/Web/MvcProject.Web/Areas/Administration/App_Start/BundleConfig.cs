@@ -22,13 +22,12 @@
 
             // CSS
             bundles.Add(new StyleBundle(Bundles.StylesCustomCss)
-                .Include(
-                    //"~/Content/Custom/Admin/custom-popup-editor.css",
-                    //"~/Content/Custom/Admin/details-grid.css",
-                    //"~/Content/Custom/Admin/domains-list.css",
-                    //"~/Content/Custom/Admin/main-grid.css",
-                    "~/Areas/Administration/Content/Custom/*.css"
-                    ));
+                //.Include("~/Content/Custom/Admin/custom-popup-editor.css", new CssRewriteUrlTransform())
+                //.Include("~/Content/Custom/Admin/details-grid.css", new CssRewriteUrlTransform())
+                //.Include("~/Content/Custom/Admin/domains-list.css", new CssRewriteUrlTransform())
+                //.Include("~/Content/Custom/Admin/main-grid.css", new CssRewriteUrlTransform())
+                .Include("~/Areas/Administration/Content/Custom/*.css", new CssRewriteUrlTransform())
+                );
         }
     }
 }
