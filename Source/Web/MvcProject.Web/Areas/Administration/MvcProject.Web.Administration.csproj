@@ -44,6 +44,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>..\..\..\..\Rules.ruleset</CodeAnalysisRuleSet>
+    <IncludeIisSettings>true</IncludeIisSettings>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper, Version=5.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
@@ -340,6 +341,7 @@
     <Content Include="Views\Shared\EditorTemplates\DropDownTemp.cshtml" />
     <Content Include="Views\Products\Partials\_UploadedImage.cshtml" />
     <Content Include="Views\Products\Partials\_SaveTip.cshtml" />
+    <None Include="Properties\PublishProfiles\test-admin.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
