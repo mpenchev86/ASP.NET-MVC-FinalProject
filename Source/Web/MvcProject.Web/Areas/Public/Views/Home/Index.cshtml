@@ -85,11 +85,5 @@
         function OnGetModalDataSuccess(data) {
             bootstrapModalHelpers.setContent(wrapperSelector = '#sneakPeek-modal', contentSelector = '.modal-content', data = data);
         }
-
-        $(document).ready(function () {
-            $('img.fallback').on('error', function () {
-                this.attr('src', "@(Url.Content(StaticResourcesUrls.ServerPathAppManagementImages + StaticResourcesUrls.ImageNotFoundFileName))");
-            });
-        })
     </script>
 }
