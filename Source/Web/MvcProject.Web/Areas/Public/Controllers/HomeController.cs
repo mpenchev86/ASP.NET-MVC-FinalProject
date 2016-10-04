@@ -13,6 +13,7 @@
     using ViewModels.Products;
     using Services.Web;
     using Data.Models;
+
     public class HomeController : BasePublicController
     {
         private IProductsService productsService;
