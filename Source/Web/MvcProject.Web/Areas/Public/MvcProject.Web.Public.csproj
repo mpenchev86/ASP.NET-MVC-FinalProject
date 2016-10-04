@@ -318,7 +318,7 @@
     <Content Include="Views\Shared\DisplayTemplates\Rating.cshtml" />
     <Content Include="Views\Home\Partials\_ListViewProductCellTemplate.cshtml" />
     <Content Include="Views\Shared\_Carousel.cshtml" />
-    <None Include="Properties\PublishProfiles\test-public.pubxml" />
+    <None Include="Properties\PublishProfiles\file-system-public.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

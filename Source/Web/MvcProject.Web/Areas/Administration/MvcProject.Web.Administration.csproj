@@ -341,7 +341,7 @@
     <Content Include="Views\Shared\EditorTemplates\DropDownTemp.cshtml" />
     <Content Include="Views\Products\Partials\_UploadedImage.cshtml" />
     <Content Include="Views\Products\Partials\_SaveTip.cshtml" />
-    <None Include="Properties\PublishProfiles\test-admin.pubxml" />
+    <None Include="Properties\PublishProfiles\file-system-admin.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
