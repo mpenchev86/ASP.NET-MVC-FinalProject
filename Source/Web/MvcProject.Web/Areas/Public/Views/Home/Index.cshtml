@@ -91,5 +91,10 @@
                 this.attr('src', "@(Url.Content(StaticResourcesUrls.ServerPathAppManagementImages + StaticResourcesUrls.ImageNotFoundFileName))");
             });
         })
+
+        function imgFallback() {
+            console.log(this);
+            @*e.sender.attr('src', "@(Url.Content(StaticResourcesUrls.ServerPathAppManagementImages + StaticResourcesUrls.ImageNotFoundFileName))");*@
+        }
     </script>
 }
