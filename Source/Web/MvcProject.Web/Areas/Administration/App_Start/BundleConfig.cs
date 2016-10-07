@@ -13,20 +13,21 @@
         {
             // JavaScript
             bundles.Add(new ScriptBundle(Bundles.ScriptsCustom)
-                .Include(
-                    //"~/Scripts/Custom/datetime-handler.js",
-                    //"~/Scripts/Custom/error-handler.js",
-                    //"~/Scripts/Custom/grid-details-helpers.js"
-                    "~/Areas/Administration/Scripts/Custom/*.js"
-                    ));
+                .Include("~/Areas/Administration/Scripts/Custom/datetime-handlers.js")
+                .Include("~/Areas/Administration/Scripts/Custom/error-handler.js")
+                .Include("~/Areas/Administration/Scripts/Custom/grid-details-helpers.js")
+                .Include("~/Areas/Administration/Scripts/Custom/product-images-upload.js")
+                .Include("~/Areas/Administration/Scripts/Custom/product-main-image-dropdown.js")
+                //.Include("~/Areas/Administration/Scripts/Custom/*.js")
+                );
 
             // CSS
             bundles.Add(new StyleBundle(Bundles.StylesCustomCss)
-                //.Include("~/Content/Custom/Admin/custom-popup-editor.css", new CssRewriteUrlTransform())
-                //.Include("~/Content/Custom/Admin/details-grid.css", new CssRewriteUrlTransform())
-                //.Include("~/Content/Custom/Admin/domains-list.css", new CssRewriteUrlTransform())
-                //.Include("~/Content/Custom/Admin/main-grid.css", new CssRewriteUrlTransform())
-                .Include("~/Areas/Administration/Content/Custom/*.css", new CssRewriteUrlTransform())
+                .Include("~/Areas/Administration/Content/Custom/custom-popup-editor.css", new CssRewriteUrlTransform())
+                .Include("~/Areas/Administration/Content/Custom/details-grid.css", new CssRewriteUrlTransform())
+                .Include("~/Areas/Administration/Content/Custom/domains-list.css", new CssRewriteUrlTransform())
+                .Include("~/Areas/Administration/Content/Custom/main-grid.css", new CssRewriteUrlTransform())
+                //.Include("~/Areas/Administration/Content/Custom/*.css", new CssRewriteUrlTransform())
                 );
         }
     }

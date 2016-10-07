@@ -36,8 +36,10 @@
 
             bundles.Add(new ScriptBundle(Bundles.ScriptsSignalR)
                 .Include(
-                    "~/Scripts/jquery.signalR-2.2.0.min.js",
-                    "~/signalr/hubs"));
+                    "~/Scripts/jquery.signalR-2.2.0.min.js"
+                    ,
+                    "~/signalr/hubs"
+                    ));
 
             // CSS
             bundles.Add(new StyleBundle(Bundles.StylesBootStrap)
