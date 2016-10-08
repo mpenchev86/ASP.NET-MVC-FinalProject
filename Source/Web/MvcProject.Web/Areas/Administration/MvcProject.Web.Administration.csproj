@@ -341,7 +341,10 @@
     <Content Include="Views\Shared\EditorTemplates\DropDownTemp.cshtml" />
     <Content Include="Views\Products\Partials\_UploadedImage.cshtml" />
     <Content Include="Views\Products\Partials\_SaveTip.cshtml" />
+    <None Include="Properties\PublishProfiles\Admin Azure sub-app.pubxml" />
     <None Include="Properties\PublishProfiles\file-system-admin.pubxml" />
+    <None Include="Properties\PublishProfiles\JustOrderIt - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\JustOrderIt - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
