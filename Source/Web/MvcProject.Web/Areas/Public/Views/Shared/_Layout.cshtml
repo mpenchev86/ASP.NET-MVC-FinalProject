@@ -8,7 +8,7 @@
     @Styles.Render(Bundles.StylesKendoCss)
     @Styles.Render(Bundles.StylesIgniteUI)
     @Styles.Render(Bundles.StylesBootStrap)
-    @Styles.Render(Bundles.StylesCustomCss)
+    @Styles.Render(Bundles.PublicStylesCustomCss)
     @RenderSection("Styles", required: false)
     @Scripts.Render(Bundles.ScriptsJQuery)
 </head>
@@ -127,13 +127,14 @@
         </div>
     </footer>
     <!-- SCRIPTS -->
-    @Scripts.Render(Bundles.ScriptsJQueryUI)
+    @Scripts.Render(Bundles.PublicScriptsJQueryUI)
     @Scripts.Render(Bundles.ScriptsBootstrap)
     @Scripts.Render(Bundles.ScriptsJQueryUnobtrusive)
     @Scripts.Render(Bundles.ScriptsJQueryValidate)
     @Scripts.Render(Bundles.ScriptsIgniteUI)
     @Scripts.Render(Bundles.ScriptsKendo)
     @Scripts.Render(Bundles.ScriptsSignalR)
+    @Scripts.Render(Bundles.PublicScriptsCustom)
     @RenderSection("Scripts", required: false)
 </body>
 </html>

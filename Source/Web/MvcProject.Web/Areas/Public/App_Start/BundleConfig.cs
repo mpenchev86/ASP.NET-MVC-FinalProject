@@ -7,12 +7,12 @@
     using System.Web.Optimization;
     using Common.GlobalConstants;
 
-    internal class BundleConfig
+    public class BundleConfig
     {
-        internal static void RegisterBundles(BundleCollection bundles)
+        public static void RegisterBundles(BundleCollection bundles)
         {
             // JavaScript
-            bundles.Add(new ScriptBundle(Bundles.ScriptsJQueryUI)
+            bundles.Add(new ScriptBundle(Bundles.PublicScriptsJQueryUI)
                 .Include("~/Areas/Public/Scripts/IgniteUI/jquery-ui.min.js")
                 );
 
@@ -22,7 +22,7 @@
                 .Include("~/Areas/Public/Scripts/IgniteUI/infragistics.lob.js")
                 );
 
-            bundles.Add(new ScriptBundle(Bundles.ScriptsCustom)
+            bundles.Add(new ScriptBundle(Bundles.PublicScriptsCustom)
                 //.Include("~/Areas/Public/Scripts/Custom/*.js")
                 .Include("~/Areas/Public/Scripts/Custom/bootstrap-modal-helpers.js")
                 .Include("~/Areas/Public/Scripts/Custom/igniteui-rating-handler.js")
@@ -35,7 +35,7 @@
                 .Include("~/Areas/Public/Content/IgniteUI/themes/infragistics/infragistics.theme.css", new CssRewriteUrlTransform())
                 );
 
-            bundles.Add(new StyleBundle(Bundles.StylesCustomCss)
+            bundles.Add(new StyleBundle(Bundles.PublicStylesCustomCss)
                 //.Include("~/Areas/Public/Content/Custom/*.css", new CssRewriteUrlTransform())
                 .Include("~/Areas/Public/Content/Custom/homepage-carousel.css", new CssRewriteUrlTransform())
                 .Include("~/Areas/Public/Content/Custom/listView.css", new CssRewriteUrlTransform())

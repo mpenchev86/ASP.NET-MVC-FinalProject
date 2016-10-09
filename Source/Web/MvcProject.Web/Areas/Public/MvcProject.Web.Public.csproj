@@ -319,8 +319,8 @@
     <Content Include="Views\Home\Partials\_ListViewProductCellTemplate.cshtml" />
     <Content Include="Views\Shared\_Carousel.cshtml" />
     <None Include="Properties\PublishProfiles\file-system-public.pubxml" />
-    <None Include="Properties\PublishProfiles\JustOrderIt - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\JustOrderIt - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\justorderit - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\justorderit - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="~/Content/Images/Icons/favicon.ico" />
     @Styles.Render(Bundles.StylesKendoCss)
     @Styles.Render(Bundles.StylesBootStrap)
-    @Styles.Render(Bundles.StylesCustomCss)
+    @Styles.Render(Bundles.AdminStylesCustomCss)
     @RenderSection("styles", required: false)
 </head>
 <body>
@@ -129,6 +129,7 @@
     @Scripts.Render(Bundles.ScriptsJQueryValidate)
     @Scripts.Render(Bundles.ScriptsKendo)
     @Scripts.Render(Bundles.ScriptsBootstrap)
+    @Scripts.Render(Bundles.AdminScriptsCustom)
     @*@Scripts.Render(Bundles.ScriptsSignalR)*@
     @RenderSection("Scripts", required: false)
 </body>
