@@ -16,30 +16,27 @@
                 .Include("~/Scripts/jquery-2.2.1.min.js"));
 
             bundles.Add(new ScriptBundle(Bundles.ScriptsJQueryUnobtrusive)
-                .Include(
-                    "~/Scripts/jquery.unobtrusive-ajax.js"));
+                .Include("~/Scripts/jquery.unobtrusive-ajax.js"));
 
             bundles.Add(new ScriptBundle(Bundles.ScriptsJQueryValidate)
-                .Include(
-                    "~/Scripts/jquery.validate.min.js",
-                    "~/Scripts/jquery.validate.unobtrusive.min.js"));
+                .Include("~/Scripts/jquery.validate.min.js")
+                .Include("~/Scripts/jquery.validate.unobtrusive.min.js"));
 
             bundles.Add(new ScriptBundle(Bundles.ScriptsBootstrap)
-                .Include(
-                    "~/Scripts/bootstrap.min.js"));
+                .Include("~/Scripts/bootstrap.min.js"));
 
             bundles.Add(new ScriptBundle(Bundles.ScriptsKendo)
-                .Include(
-                    "~/Scripts/Kendo/kendo.all.min.js",
-                    "~/Scripts/Kendo/kendo.aspnetmvc.min.js",
-                    "~/Scripts/Kendo/cultures/kendo.culture." + userCulture + ".min.js"));
+                .Include("~/Scripts/Kendo/kendo.all.min.js")
+                .Include("~/Scripts/Kendo/kendo.aspnetmvc.min.js")
+                .Include("~/Scripts/Kendo/cultures/kendo.culture." + userCulture + ".min.js"));
 
             bundles.Add(new ScriptBundle(Bundles.ScriptsSignalR)
-                .Include(
-                    "~/Scripts/jquery.signalR-2.2.0.min.js"
-                    ,
-                    "~/signalr/hubs"
-                    ));
+                .Include("~/Scripts/jquery.signalR-2.2.0.min.js")
+                .Include("~/signalr/hubs"));
+
+            //bundles.Add(new ScriptBundle(Bundles.ScriptsCustom)
+            //    .Include("")
+            //    );
 
             // CSS
             bundles.Add(new StyleBundle(Bundles.StylesBootStrap)
@@ -49,6 +46,9 @@
             bundles.Add(new StyleBundle(Bundles.StylesKendoCss)
                 .Include("~/Content/Kendo/kendo.common-bootstrap.min.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Kendo/kendo.bootstrap.min.css", new CssRewriteUrlTransform()));
+
+            //bundles.Add(new StyleBundle(Bundles.StylesCustomCss)
+            //    .Include("", new CssRewriteUrlTransform()));
 
             bundles.IgnoreList.Clear();
 

@@ -12,7 +12,7 @@
         public static void RegisterBundles(BundleCollection bundles)
         {
             // JavaScript
-            bundles.Add(new ScriptBundle(Bundles.ScriptsCustom)
+            bundles.Add(new ScriptBundle(Bundles.AdminScriptsCustom)
                 .Include("~/Areas/Administration/Scripts/Custom/datetime-handlers.js")
                 .Include("~/Areas/Administration/Scripts/Custom/error-handler.js")
                 .Include("~/Areas/Administration/Scripts/Custom/grid-details-helpers.js")
@@ -22,7 +22,7 @@
                 );
 
             // CSS
-            bundles.Add(new StyleBundle(Bundles.StylesCustomCss)
+            bundles.Add(new StyleBundle(Bundles.AdminStylesCustomCss)
                 .Include("~/Areas/Administration/Content/Custom/custom-popup-editor.css", new CssRewriteUrlTransform())
                 .Include("~/Areas/Administration/Content/Custom/details-grid.css", new CssRewriteUrlTransform())
                 .Include("~/Areas/Administration/Content/Custom/domains-list.css", new CssRewriteUrlTransform())

@@ -16,7 +16,7 @@
                 .Include("~/Areas/Public/Scripts/IgniteUI/jquery-ui.min.js")
                 );
 
-            bundles.Add(new ScriptBundle(Bundles.ScriptsIgniteUI)
+            bundles.Add(new ScriptBundle(Bundles.PublicScriptsIgniteUI)
                 .Include("~/Areas/Public/Scripts/IgniteUI/infragistics.core.Unicode.js")
                 .Include("~/Areas/Public/Scripts/IgniteUI/infragistics.ui.rating.js")
                 .Include("~/Areas/Public/Scripts/IgniteUI/infragistics.lob.js")
@@ -29,7 +29,7 @@
                 );
 
             // CSS
-            bundles.Add(new StyleBundle(Bundles.StylesIgniteUI)
+            bundles.Add(new StyleBundle(Bundles.PublicStylesIgniteUI)
                 .Include("~/Areas/Public/Content/IgniteUI/structure/infragistics.css", new CssRewriteUrlTransform())
                 .Include("~/Areas/Public/Content/IgniteUI/structure/modules/infragistics.ui.rating.css", new CssRewriteUrlTransform())
                 .Include("~/Areas/Public/Content/IgniteUI/themes/infragistics/infragistics.theme.css", new CssRewriteUrlTransform())
