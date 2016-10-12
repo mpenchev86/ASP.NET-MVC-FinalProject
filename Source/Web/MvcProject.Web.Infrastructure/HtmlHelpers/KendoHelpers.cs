@@ -279,7 +279,6 @@
                 .TagName(wrapperTagName)
                 .ClientTemplateId(templateId)
                 .Editable()
-                //.Pageable()
                 .DataSource(source => source
                     .ServerOperation(isServerOps)
                     .Model(m => m.Id(modelIdExpression))
@@ -287,7 +286,6 @@
                     .Create(create => create.Action(createAction, controllerName))
                     .Update(update => update.Action(updateAction, controllerName))
                     .Destroy(destroy => destroy.Action(destroyAction, controllerName))
-                    //.PageSize(pageSize)
                     .Filter(filterSettings)
                     .Sort(sortSettings)
                     .AutoSync(false));
