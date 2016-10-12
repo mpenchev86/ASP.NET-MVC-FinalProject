@@ -304,6 +304,7 @@
     <Content Include="Content\Kendo\Bootstrap\sprite_2x.png" />
     <Content Include="Content\Kendo\Bootstrap\sprite_kpi.png" />
     <Content Include="Content\Kendo\Bootstrap\sprite_kpi_2x.png" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Libraries\IgniteUI\Infragistics.Web.Mvc.dll" />
     <Content Include="Libraries\IgniteUI\Infragistics.Web.Mvc.xml" />
     <Content Include="Scripts\jquery.min.js" />
@@ -833,13 +834,8 @@
     <Content Include="Content\Kendo\textures\stripe6.png" />
     <Content Include="Content\Kendo\textures\transparency.png" />
     <Content Include="Content\Kendo\textures\transtexture.png" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
@@ -861,6 +857,10 @@
     <Content Include="Scripts\jquery-2.2.1.js" />
     <Content Include="Scripts\jquery-2.2.1.min.js" />
     <Content Include="Scripts\jquery-2.2.1.min.map" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Properties\PublishProfiles\file-system.pubxml" />
     <None Include="Properties\PublishProfiles\justorderit - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\justorderit - Web Deploy.pubxml" />
