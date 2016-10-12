@@ -263,6 +263,7 @@
     <Content Include="Content\IgniteUI\Themes\infragistics\images\ui-icons_888888_256x240.png" />
     <Content Include="Content\IgniteUI\Themes\infragistics\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\IgniteUI\Themes\infragistics\infragistics.theme.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -318,6 +319,10 @@
     <Content Include="Views\Shared\DisplayTemplates\Rating.cshtml" />
     <Content Include="Views\Home\Partials\_ListViewProductCellTemplate.cshtml" />
     <Content Include="Views\Shared\_Carousel.cshtml" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Properties\PublishProfiles\file-system-public.pubxml" />
     <None Include="Properties\PublishProfiles\justorderit - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\justorderit - Web Deploy.pubxml" />

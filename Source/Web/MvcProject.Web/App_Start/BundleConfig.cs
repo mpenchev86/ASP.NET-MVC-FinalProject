@@ -35,11 +35,11 @@
                 .Include("~/signalr/hubs"));
 
             //bundles.Add(new ScriptBundle(Bundles.ScriptsCustom)
-            //    .Include("")
-            //    );
+            //    .Include(""));
 
             // CSS
             bundles.Add(new StyleBundle(Bundles.StylesBootStrap)
+                .Include("~/Content/bootstrap.min.css", new CssRewriteUrlTransform())
                 .Include("~/Content/bootstrap.journal.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Site.css", new CssRewriteUrlTransform()));
 
