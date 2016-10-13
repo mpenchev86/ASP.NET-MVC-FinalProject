@@ -186,6 +186,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Controllers\BasePublicController.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -194,6 +195,7 @@
     <Compile Include="App_Start\PublicAreaRegistration.cs" />
     <Compile Include="ViewModels\BasePublicViewModel.cs" />
     <Compile Include="ViewModels\Comments\CommentForProductFullViewModel.cs" />
+    <Compile Include="ViewModels\Comments\CommentViewModel.cs" />
     <Compile Include="ViewModels\Descriptions\DescriptionForProductFullViewModel.cs" />
     <Compile Include="ViewModels\Home\CarouselData.cs" />
     <Compile Include="ViewModels\Products\ProductDetailsForIndexListView.cs" />
@@ -319,6 +321,7 @@
     <Content Include="Views\Shared\DisplayTemplates\Rating.cshtml" />
     <Content Include="Views\Home\Partials\_ListViewProductCellTemplate.cshtml" />
     <Content Include="Views\Shared\_Carousel.cshtml" />
+<<<<<<< HEAD
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -326,6 +329,11 @@
     <None Include="Properties\PublishProfiles\file-system-public.pubxml" />
     <None Include="Properties\PublishProfiles\justorderit - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\justorderit - Web Deploy.pubxml" />
+=======
+    <None Include="Properties\PublishProfiles\test-public.pubxml" />
+    <Content Include="Views\Products\Partials\_LeaveComment.cshtml" />
+    <Content Include="Views\Comments\EditorTemplates\CommentViewModel.cshtml" />
+>>>>>>> master
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -83,7 +83,7 @@
                         @if (this.Context.User.IsInRole(MvcProject.Common.GlobalConstants.IdentityRoles.Admin))
                         {
                             <li><a @*class="btn btn-default"*@ href="@Url.Action("Index", "Home", new { Area = Areas.AdministrationAreaName })">@Areas.AdministrationAreaName</a></li>
-	                    }
+                        }
                         <li><a href="#">Link</a></li>
                     </ul>
                 </div>

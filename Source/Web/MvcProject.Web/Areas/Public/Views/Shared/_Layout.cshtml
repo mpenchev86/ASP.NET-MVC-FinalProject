@@ -85,7 +85,7 @@
                         @if (this.Context.User.IsInRole(IdentityRoles.Admin))
                         {
                             <li><a @*class="btn btn-default"*@ href="@Url.Action("Index", "Home", new { Area = Areas.AdministrationAreaName })">@Areas.AdministrationAreaName</a></li>
-	                    }
+                        }
                         <li><a href="#">Cart</a></li>
                     </ul>
                 </div>

@@ -34,7 +34,11 @@
                 .Include("~/Scripts/jquery.signalR-2.2.0.min.js")
                 .Include("~/signalr/hubs"));
 
+<<<<<<< HEAD
             //bundles.Add(new ScriptBundle(Bundles.ScriptsCustom)
+=======
+            // bundles.Add(new ScriptBundle(Bundles.ScriptsCustom)
+>>>>>>> master
             //    .Include(""));
 
             // CSS
@@ -57,12 +61,15 @@
             bundles.IgnoreList.Ignore("*.debug.js", OptimizationMode.WhenEnabled);
             bundles.IgnoreList.Ignore("*.unobtrusive-ajax.min.js", OptimizationMode.WhenDisabled);
 
+            // bundles.Add(new StyleBundle(Bundles.StylesCustomCss)
+            //    .Include("", new CssRewriteUrlTransform()));
+
             // Optimization in both debug and release
-#if DEBUG
-            BundleTable.EnableOptimizations = false;
-#else
-            BundleTable.EnableOptimizations = true;
-#endif
+//#if DEBUG
+//            BundleTable.EnableOptimizations = false;
+//#else
+//            BundleTable.EnableOptimizations = true;
+//#endif
         }
     }
 }
