@@ -7,9 +7,9 @@
     using System.Web.Optimization;
     using Common.GlobalConstants;
 
-    public class BundleConfig
+    internal class BundleConfig
     {
-        public static void RegisterBundles(BundleCollection bundles)
+        internal static void RegisterBundles(BundleCollection bundles)
         {
             // JavaScript
             bundles.Add(new ScriptBundle(Bundles.PublicScriptsJQueryUI)

@@ -47,7 +47,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>..\..\..\..\Rules.ruleset</CodeAnalysisRuleSet>
-    <IncludeIisSettings>false</IncludeIisSettings>
+    <IncludeIisSettings>true</IncludeIisSettings>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper, Version=5.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
@@ -265,7 +265,6 @@
     <Content Include="Content\IgniteUI\Themes\infragistics\images\ui-icons_888888_256x240.png" />
     <Content Include="Content\IgniteUI\Themes\infragistics\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\IgniteUI\Themes\infragistics\infragistics.theme.css" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -321,19 +320,9 @@
     <Content Include="Views\Shared\DisplayTemplates\Rating.cshtml" />
     <Content Include="Views\Home\Partials\_ListViewProductCellTemplate.cshtml" />
     <Content Include="Views\Shared\_Carousel.cshtml" />
-<<<<<<< HEAD
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <None Include="Properties\PublishProfiles\file-system-public.pubxml" />
-    <None Include="Properties\PublishProfiles\justorderit - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\justorderit - Web Deploy.pubxml" />
-=======
     <None Include="Properties\PublishProfiles\test-public.pubxml" />
     <Content Include="Views\Products\Partials\_LeaveComment.cshtml" />
     <Content Include="Views\Comments\EditorTemplates\CommentViewModel.cshtml" />
->>>>>>> master
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

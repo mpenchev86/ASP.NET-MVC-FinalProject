@@ -1,24 +1,12 @@
-<<<<<<< HEAD
-﻿@{
-    var fallbackImgSrc = Url.Content(StaticResourcesUrls.ServerPathAppManagementImages + StaticResourcesUrls.ImageNotFoundFileName);
-=======
 ﻿@{ 
     var fallbackImgUrl = Url.Content(StaticResourcesUrls.ServerPathAppManagementImages + StaticResourcesUrls.ImageNotFoundFileName);
->>>>>>> master
 }
 
 <li class="product-li">
     <div class="row image">
-<<<<<<< HEAD
-        <img src="@Url.Content(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, "#=ImageUrlPath#", StaticResourcesUrls.ImageThumbnailSuffix, "#=ImageFileExtension#"))" 
-             alt="#=Title#" 
-             class="fallback" 
-             onerror="if(this.src !='@fallbackImgSrc') { this.src = '@fallbackImgSrc'; }"/>
-=======
         <img src="@Url.Content(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, "#=ImageUrlPath#", StaticResourcesUrls.ImageThumbnailSuffix, "#=ImageFileExtension#"))"
              alt="#=Title#"
              onerror="if(this.src != '@fallbackImgUrl') { this.src = '@fallbackImgUrl'; }"/>
->>>>>>> master
     </div>
     <div class="row price">
         <p>#=kendo.toString(UnitPrice, "c")#</p>

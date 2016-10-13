@@ -34,11 +34,7 @@
                 .Include("~/Scripts/jquery.signalR-2.2.0.min.js")
                 .Include("~/signalr/hubs"));
 
-<<<<<<< HEAD
-            //bundles.Add(new ScriptBundle(Bundles.ScriptsCustom)
-=======
             // bundles.Add(new ScriptBundle(Bundles.ScriptsCustom)
->>>>>>> master
             //    .Include(""));
 
             // CSS
@@ -51,9 +47,6 @@
                 .Include("~/Content/Kendo/kendo.common-bootstrap.min.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Kendo/kendo.bootstrap.min.css", new CssRewriteUrlTransform()));
 
-            //bundles.Add(new StyleBundle(Bundles.StylesCustomCss)
-            //    .Include("", new CssRewriteUrlTransform()));
-
             bundles.IgnoreList.Clear();
 
             bundles.IgnoreList.Ignore("*.intellisense.js");
@@ -65,11 +58,11 @@
             //    .Include("", new CssRewriteUrlTransform()));
 
             // Optimization in both debug and release
-//#if DEBUG
+// #if DEBUG
 //            BundleTable.EnableOptimizations = false;
-//#else
+// #else
 //            BundleTable.EnableOptimizations = true;
-//#endif
+// #endif
         }
     }
 }
