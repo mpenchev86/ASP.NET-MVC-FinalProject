@@ -58,11 +58,11 @@
             //    .Include("", new CssRewriteUrlTransform()));
 
             // Optimization in both debug and release
-#if DEBUG
-            BundleTable.EnableOptimizations = false;
-#else
-            BundleTable.EnableOptimizations = true;
-#endif
+//#if DEBUG
+//            BundleTable.EnableOptimizations = false;
+//#else
+//            BundleTable.EnableOptimizations = true;
+//#endif
         }
     }
 }

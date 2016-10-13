@@ -283,23 +283,23 @@
         font-size: 13px;
     }
 
-    #product-comments #comment-metadata{
+    #product-comments .comment-metadata{
         margin: 0 0 0 0;
         font-size: 13px;
         font-family: Arial, Helvetica, sans-serif;
     }
 
-    #product-comments #comment-metadata a{
+    #product-comments .comment-metadata a{
         text-decoration: none;
         color: midnightblue;
     }
 
-    #product-comments #comment-metadata a:hover{
+    #product-comments .comment-metadata a:hover{
         text-decoration: none;
         color: dodgerblue;
     }
 
-    #product-comments #comment-content{
+    #product-comments .comment-content{
         font-size: 14px;
         margin: 0 0 0 10px;
     }
