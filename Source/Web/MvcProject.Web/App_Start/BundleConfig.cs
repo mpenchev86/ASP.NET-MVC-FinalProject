@@ -23,16 +23,16 @@
                 .Include("~/Scripts/jquery.validate.unobtrusive.min.js"));
 
             bundles.Add(new ScriptBundle(Bundles.ScriptsBootstrap)
-                .Include("~/Scripts/bootstrap.min.js"));
+                .Include("~/Scripts/bootstrap.js"));
 
             bundles.Add(new ScriptBundle(Bundles.ScriptsKendo)
                 .Include("~/Scripts/Kendo/kendo.all.min.js")
                 .Include("~/Scripts/Kendo/kendo.aspnetmvc.min.js")
                 .Include("~/Scripts/Kendo/cultures/kendo.culture." + userCulture + ".min.js"));
 
-            bundles.Add(new ScriptBundle(Bundles.ScriptsSignalR)
-                .Include("~/Scripts/jquery.signalR-2.2.0.min.js")
-                .Include("~/signalr/hubs"));
+            //bundles.Add(new ScriptBundle(Bundles.ScriptsSignalR)
+            //    .Include("~/Scripts/jquery.signalR-2.2.0.min.js")
+            //    .Include("~/signalr/hubs"));
 
             // bundles.Add(new ScriptBundle(Bundles.ScriptsCustom)
             //    .Include(""));
@@ -54,15 +54,23 @@
             bundles.IgnoreList.Ignore("*.debug.js", OptimizationMode.WhenEnabled);
             bundles.IgnoreList.Ignore("*.unobtrusive-ajax.min.js", OptimizationMode.WhenDisabled);
 
+            //bundles.IgnoreList.Ignore("*.woff");
+            //bundles.IgnoreList.Ignore("*.woff2");
+            //bundles.IgnoreList.Ignore("*.eot");
+            //bundles.IgnoreList.Ignore("*.otf");
+            //bundles.IgnoreList.Ignore("*.ttf");
+
+            //BundleTable.EnableOptimizations = false;
+
             // bundles.Add(new StyleBundle(Bundles.StylesCustomCss)
             //    .Include("", new CssRewriteUrlTransform()));
 
             // Optimization in both debug and release
-// #if DEBUG
-//            BundleTable.EnableOptimizations = false;
-// #else
-//            BundleTable.EnableOptimizations = true;
-// #endif
+#if DEBUG
+            BundleTable.EnableOptimizations = false;
+#else
+            BundleTable.EnableOptimizations = true;
+#endif
         }
     }
 }
