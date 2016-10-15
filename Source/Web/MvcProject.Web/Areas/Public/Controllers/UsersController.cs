@@ -14,6 +14,7 @@
     public class UsersController : BasePublicController
     {
         private IUsersService usersService;
+        //private IMappingService
 
         public UsersController(IUsersService usersService)
         {
@@ -23,7 +24,7 @@
         public ActionResult UserProfile(string userName)
         {
             var user = this.usersService.GetByUserName(userName);
-            var result = /*this.*/Mapper.Map<ApplicationUser, UserProfileViewModel>(user);
+            var result = this.Mapper.Map<ApplicationUser, UserProfileViewModel>(user);
             return this.View(result);
         }
     }

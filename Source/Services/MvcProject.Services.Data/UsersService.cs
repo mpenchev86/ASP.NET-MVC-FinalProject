@@ -30,7 +30,8 @@
 
         public ApplicationUser GetByUserName(string userName)
         {
-            return this.userManager.FindByName(userName);
+            var user = this.userManager.FindByName(userName);
+            return user;
         }
 
         public override ApplicationUser GetByEncodedId(string id)

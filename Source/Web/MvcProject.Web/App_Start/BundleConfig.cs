@@ -30,10 +30,6 @@
                 .Include("~/Scripts/Kendo/kendo.aspnetmvc.min.js")
                 .Include("~/Scripts/Kendo/cultures/kendo.culture." + userCulture + ".min.js"));
 
-            bundles.Add(new ScriptBundle(Bundles.ScriptsSignalR)
-                .Include("~/Scripts/jquery.signalR-2.2.0.min.js")
-                .Include("~/signalr/hubs"));
-
             // bundles.Add(new ScriptBundle(Bundles.ScriptsCustom)
             //    .Include(""));
 
@@ -58,11 +54,11 @@
             //    .Include("", new CssRewriteUrlTransform()));
 
             // Optimization in both debug and release
-//#if DEBUG
-//            BundleTable.EnableOptimizations = false;
-//#else
-//            BundleTable.EnableOptimizations = true;
-//#endif
+#if DEBUG
+            BundleTable.EnableOptimizations = false;
+#else
+            BundleTable.EnableOptimizations = true;
+#endif
         }
     }
 }
