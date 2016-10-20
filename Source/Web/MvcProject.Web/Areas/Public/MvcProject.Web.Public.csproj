@@ -194,8 +194,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="App_Start\PublicAreaRegistration.cs" />
     <Compile Include="ViewModels\BasePublicViewModel.cs" />
-    <Compile Include="ViewModels\Comments\CommentForProductFullViewModel.cs" />
-    <Compile Include="ViewModels\Comments\CommentViewModel.cs" />
+    <Compile Include="ViewModels\Comments\CommentPostViewModel.cs" />
     <Compile Include="ViewModels\Descriptions\DescriptionForProductFullViewModel.cs" />
     <Compile Include="ViewModels\Home\CarouselData.cs" />
     <Compile Include="ViewModels\Products\ProductDetailsForIndexListView.cs" />
@@ -212,7 +211,6 @@
     <Compile Include="ViewModels\Products\ProductWithTagViewModel.cs" />
     <Compile Include="ViewModels\Properties\PropertyForProductFullViewModel.cs" />
     <Compile Include="ViewModels\Users\UserProfileViewModel.cs" />
-    <Compile Include="ViewModels\Votes\VoteForProductFullViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Common\GlobalConstants\MvcProject.Common.GlobalConstants.csproj">
@@ -277,6 +275,7 @@
     <Content Include="Scripts\IgniteUI\infragistics.util.Unicode.js" />
     <Content Include="Scripts\IgniteUI\jquery-ui.js" />
     <Content Include="Scripts\IgniteUI\jquery-ui.min.js" />
+    <Content Include="Views\Comments\Partials\_CreateNewComment.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\web.config">
       <SubType>Designer</SubType>
@@ -285,6 +284,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Images\" />
+    <Folder Include="ViewModels\Votes\" />
     <Folder Include="Views\Images\Partials\" />
     <Folder Include="Views\Votes\Partials\" />
   </ItemGroup>
@@ -296,7 +296,7 @@
     <Content Include="Views\Products\Partials\_ProductSideBar.cshtml" />
     <Content Include="Views\Products\Partials\_ProductInfo.cshtml" />
     <Content Include="Views\Products\Partials\_ProductCommentsWithRatings.cshtml" />
-    <Content Include="Views\Products\Partials\_ProductVote.cshtml" />
+    <Content Include="Views\Shared\_ProductVote.cshtml" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Views\Products\DisplayTemplates\DescriptionProperties.cshtml" />
@@ -322,7 +322,7 @@
     <Content Include="Views\Shared\_Carousel.cshtml" />
     <None Include="Properties\PublishProfiles\test-public.pubxml" />
     <Content Include="Views\Products\Partials\_LeaveComment.cshtml" />
-    <Content Include="Views\Comments\EditorTemplates\CommentViewModel.cshtml" />
+    <Content Include="Views\Shared\_ProductCommentWithRating.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -155,24 +155,7 @@
                                 Id = c.RoleId,
                                 Name = c.RoleName
                             })))
-                .ForMember(dest => dest.Comments, opt => opt.MapFrom(
-                            src => src.Comments.Select(c => new CommentDetailsForUserViewModel
-                            {
-                                Id = c.Id,
-                                Content = c.Content,
-                                ProductId = c.ProductId,
-                                CreatedOn = c.CreatedOn,
-                                ModifiedOn = c.ModifiedOn
-                            })))
-                .ForMember(dest => dest.Votes, opt => opt.MapFrom(
-                            src => src.Votes.Select(c => new VoteDetailsForUserViewModel
-                            {
-                                Id = c.Id,
-                                VoteValue = c.VoteValue,
-                                ProductId = c.ProductId,
-                                CreatedOn = c.CreatedOn,
-                                ModifiedOn = c.ModifiedOn
-                            })));
+                ;
         }
     }
 }

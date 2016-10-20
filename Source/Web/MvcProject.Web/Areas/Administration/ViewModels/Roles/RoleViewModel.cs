@@ -47,7 +47,8 @@
                             {
                                 Id = user.UserId,
                                 UserName = user.UserName
-                            })));
+                            })))
+                ;
         }
     }
 }

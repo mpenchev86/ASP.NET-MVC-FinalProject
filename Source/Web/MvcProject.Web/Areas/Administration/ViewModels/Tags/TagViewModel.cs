@@ -43,14 +43,7 @@
         {
             configuration.CreateMap<Tag, TagViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Products, opt => opt.MapFrom(
-                            src => src.Products.Select(p => new ProductDetailsForTagViewModel
-                            {
-                                Id = p.Id,
-                                Title = p.Title,
-                                CreatedOn = p.CreatedOn,
-                                ModifiedOn = p.ModifiedOn
-                            })));
+                ;
         }
     }
 }

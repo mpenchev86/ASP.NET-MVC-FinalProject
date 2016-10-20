@@ -1,19 +1,18 @@
 ﻿@using MvcProject.Web.Areas.Public.ViewModels.Products
-@using MvcProject.Web.Infrastructure.Sanitizer
+@using MvcProject.Web.Areas.Public.ViewModels.Comments
+
 @model IEnumerable<ProductCommentWithRatingViewModel>
 
-@Html.Label("Comments")
+@Html.Label("Reviews")
 @{
+    bool currentUserHasCommented = false;
+
     if (!Model.Any())
     {
         <p id="no-comments">no comments yet</p>
     }
     else
     {
-        // TODO: Remove logic from view if possible.
-        int index = 0;
-        bool currentUserHasCommented = false;
-
         foreach (var comment in Model)
         {
             if (comment.UserName == this.User.Identity.Name)
@@ -21,27 +20,22 @@
                 currentUserHasCommented = true;
             }
 
-            <div class="row" id="@(string.Join("-", "product-comment", index.ToString()))">
-                <p class="comment-metadata">By @Html.ActionLink(
-                     comment.UserName,
-                     "UserProfile",
-                     "Users",
-                     new { userName = comment.UserName }, 
-                     null) on @comment.CommentCreatedOn. 
-                    @if (comment.Rating != null)
-                    {
-                        @Html.Partial("_ProductVote", comment.Rating, new ViewDataDictionary(this.ViewData) { { "index", index.ToString() } })
-                    }
-                </p>
-                <p class="comment-content">@comment.CommentContent</p>
-            </div>
-            index++;
+            Html.RenderPartial(
+                "_ProductCommentWithRating"
+                ,comment
+                , new ViewDataDictionary(this.ViewData) { { "rating-id", comment.Id } }
+                );
         }
+    }
 
-        if (!currentUserHasCommented)
-        {
-            <div class="row" id="@(string.Join("-", "product-comment", index.ToString()))"></div>
-            Html.RenderAction("Create", "Comments", new { currentCommentId = string.Join("-", "product-comment", index.ToString()), index = index });
-        }
+    if (this.User.Identity.IsAuthenticated && !currentUserHasCommented)
+    {
+        <div class="row" id="leave-comment">
+            @(Html.Partial(
+                "_LeaveComment",
+                new CommentPostViewModel((int)ViewData["productId"], this.User.Identity.Name)
+                , new ViewDataDictionary(this.ViewData) { { "UpdateTargetId", "leave-comment" } }
+                ))
+        </div>
     }
 }

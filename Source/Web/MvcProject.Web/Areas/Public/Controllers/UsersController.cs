@@ -8,23 +8,25 @@
     using System.Web.Mvc;
     using AutoMapper;
     using Data.Models;
+    using Infrastructure.Mapping;
     using Services.Data;
     using ViewModels.Users;
 
     public class UsersController : BasePublicController
     {
         private IUsersService usersService;
-        //private IMappingService
+        private IMappingService mappingService;
 
-        public UsersController(IUsersService usersService)
+        public UsersController(IUsersService usersService, IMappingService mappingService)
         {
             this.usersService = usersService;
+            this.mappingService = mappingService;
         }
 
         public ActionResult UserProfile(string userName)
         {
             var user = this.usersService.GetByUserName(userName);
-            var result = this.Mapper.Map<ApplicationUser, UserProfileViewModel>(user);
+            var result = this.mappingService.IMapper.Map<ApplicationUser, UserProfileViewModel>(user);
             return this.View(result);
         }
     }

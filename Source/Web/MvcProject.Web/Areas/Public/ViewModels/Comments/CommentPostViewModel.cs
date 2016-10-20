@@ -11,24 +11,33 @@
     using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
 
-    public class CommentViewModel : IMapFrom<Comment>, IHaveCustomMappings
+    public class CommentPostViewModel : IMapFrom<Comment>, IHaveCustomMappings
     {
+        public CommentPostViewModel()
+        {
+        }
+
+        public CommentPostViewModel(int productId, string userName)
+        {
+            this.ProductId = productId;
+            this.UserName = userName;
+        }
+
         [Key]
         public int Id { get; set; }
 
         [Required]
         [DataType(DataType.MultilineText)]
         [StringLength(ValidationConstants.CommentContentMaxLength, MinimumLength = ValidationConstants.CommentContentMinLength)]
+        [UIHint("MultiLineText")]
         public string Content { get; set; }
 
         [Required]
-        //[UIHint("DropDown")]
-        public string UserId { get; set; }
-
-        [Required]
-        //[UIHint("DropDown")]
         public int ProductId { get; set; }
         
+        [Required]
+        public string UserName { get; set; }
+
         [LongDateTimeFormat]
         public DateTime CreatedOn { get; set; }
 
@@ -37,6 +46,8 @@
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<Comment, CommentPostViewModel>()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName));
         }
     }
 }

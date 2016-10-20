@@ -38,15 +38,7 @@
         {
             configuration.CreateMap<Description, DescriptionDetailsForProductViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Properties, opt => opt.MapFrom(
-                            src => src.Properties.Select(p => new PropertyDetailsForDescriptionViewModel
-                            {
-                                Id = p.Id,
-                                Name = p.Name,
-                                Value = p.Value,
-                                CreatedOn = p.CreatedOn,
-                                ModifiedOn = p.ModifiedOn
-                            })));
+                ;
         }
     }
 }

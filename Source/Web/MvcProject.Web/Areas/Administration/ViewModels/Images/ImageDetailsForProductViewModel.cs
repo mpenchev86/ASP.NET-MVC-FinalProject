@@ -35,30 +35,9 @@
 
         public bool IsMainImage { get; set; }
 
-        //public int FileSize { get; set; }
-
-        //[Required]
-        //public string Base64Content { get; set; }
-
-        //public byte[] ByteArrayContent
-        //{
-        //    get
-        //    {
-        //        return Convert.FromBase64String(this.Base64Content);
-        //    }
-        //}
-
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
-            //// for IMapFrom<>
-            //configuration.CreateMap<Image, ImageDetailsForProductViewModel>()
-            //    .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
-
-            //// for IMapTo<>
-            //configuration.CreateMap<ImageDetailsForProductViewModel, RawFile>()
-            //    .ForMember(dest => dest.OriginalFileName, opt => opt.MapFrom(src => src.OriginalFileName))
-            //    .ForMember(dest => dest.FileExtension, opt => opt.MapFrom(src => src.FileExtension))
-            //    .ForMember(dest => dest.Content, opt => opt.MapFrom(src => src.ByteArrayContent));
+            configuration.CreateMap<Image, ImageDetailsForProductViewModel>();
         }
     }
 }

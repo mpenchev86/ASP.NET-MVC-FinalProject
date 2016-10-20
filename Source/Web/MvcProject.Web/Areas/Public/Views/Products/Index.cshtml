@@ -1,6 +1,7 @@
 ﻿@using MvcProject.Web.Areas.Public.ViewModels.Images
 @using MvcProject.Web.Areas.Public.ViewModels.Products
 @using MvcProject.Web.Areas.Public.ViewModels.Properties
+@using MvcProject.Web.Areas.Public.ViewModels.Comments
 
 @model ProductFullViewModel
 
@@ -49,7 +50,7 @@
         null)
 </div>
 <div class="row product-full-view" id="product-comments">
-    @Html.Partial("_ProductCommentsWithRatings", Model.CommentsWithRatings, null)
+    @Html.Partial("_ProductCommentsWithRatings", Model.CommentsWithRatings, new ViewDataDictionary(this.ViewData) { { "productId", Model.Id } })
 </div>
 
 @*@section Styles{

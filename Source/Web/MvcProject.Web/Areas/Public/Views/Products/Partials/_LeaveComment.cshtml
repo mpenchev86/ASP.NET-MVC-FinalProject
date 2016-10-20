@@ -1,40 +1,35 @@
-﻿=============================
-<p>Leave a comment:</p>
+﻿@model MvcProject.Web.Areas.Public.ViewModels.Comments.CommentPostViewModel
 
-@using (Html.BeginForm(
-    "Create",
+@using (Ajax.BeginForm(
+    "CreateComment",
     "Comments",
-    new { Area = "" },
-    FormMethod.Post
-    //new AjaxOptions
-    //{
-    //    InsertionMode = InsertionMode.Replace,
-    //    UpdateTargetId = (string)ViewData["currentCommentId"],
-    //    HttpMethod = "Post",
-    //    LoadingElementId = "loading-spinner"
-    //}
+    new { Area = "Public"},
+    new AjaxOptions
+    {
+        InsertionMode = InsertionMode.ReplaceWith,
+        UpdateTargetId = (string)ViewData["UpdateTargetId"],
+        HttpMethod = "POST",
+        LoadingElementId = "loading-spinner"
+    },
+    new { id = "new-comment-form" }
     ))
 {
     @Html.AntiForgeryToken()
-        @Html.ValidationSummary()
-        @Html.TextBox("commentContent", value: "DEFAULT")
-        
-        @*<div class="row" id="@(string.Join("-", "product-comment", (int)ViewData["index"]))">
-            <p class="comment-metadata"> By @Html.ActionLink(
-                comment.UserName,
-                "UserProfile",
-                "Users",
-                new { userName = comment.UserName },
-                null) on @comment.CommentCreatedOn.
-                @if (comment.Rating != null)
-                {
-                    @Html.Partial("_ProductVote", comment.Rating, new ViewDataDictionary(this.ViewData) { { "index", index.ToString() } })
-                }
-            </p>
-            <p class="comment-content">@comment.CommentContent</p>
-        </div>*@
+    @Html.ValidationSummary()
+    
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.ProductId)
+    @Html.HiddenFor(m => m.UserName)
+    @Html.HiddenFor(m => m.CreatedOn)
+    @Html.HiddenFor(m => m.ModifiedOn)
+    
+    <div class="row">
+        @Html.EditorFor(m => m.Content)
+    </div>
+    <div class="row">
+        <input type="submit" value="post comment" class="btn btn-default" />
+    </div>
 }
 
 <img id="loading-spinner" src="~/Content/Kendo/Silver/loading_2x.gif" style="display: none; text-align: center;">
 <br />
-=============================
