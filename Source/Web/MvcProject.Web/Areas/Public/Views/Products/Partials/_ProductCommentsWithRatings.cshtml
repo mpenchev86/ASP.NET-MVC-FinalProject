@@ -6,14 +6,8 @@
 @Html.Label("Reviews")
 @{
     bool currentUserHasCommented = false;
-
-    if (!Model.Any())
-    {
-        <p id="no-comments">no comments yet</p>
-    }
-    else
-    {
-        foreach (var comment in Model)
+    <div id="all-comments">
+        @foreach (var comment in Model)
         {
             if (comment.UserName == this.User.Identity.Name)
             {
@@ -26,16 +20,19 @@
                 , new ViewDataDictionary(this.ViewData) { { "rating-id", comment.Id } }
                 );
         }
-    }
+        <span id="new-comment-placeholder"></span>
+    </div>
 
     if (this.User.Identity.IsAuthenticated && !currentUserHasCommented)
     {
         <div class="row" id="leave-comment">
             @(Html.Partial(
                 "_LeaveComment",
-                new CommentPostViewModel((int)ViewData["productId"], this.User.Identity.Name)
-                , new ViewDataDictionary(this.ViewData) { { "UpdateTargetId", "leave-comment" } }
-                ))
+                new CommentPostViewModel((int)ViewData["productId"], this.User.Identity.Name),
+                new ViewDataDictionary(this.ViewData)
+                {
+                    { "UpdateTargetId", "new-comment-placeholder" }
+                }))
         </div>
     }
 }

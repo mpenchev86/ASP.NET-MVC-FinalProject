@@ -30,12 +30,13 @@
         <td>
             @if (Model.IsInStock)
             {
-                <p id="in">In Stock</p>
+                <span id="in-stock">In Stock</span>
                 <p id="quantity">@Model.QuantityInStock items available</p>
             }
             else
             {
-                <p id="out">Out of Stock</p>
+                <span id="out-of-stock">Out of Stock</span>
+                <br />
                 <br />
             }
         </td>

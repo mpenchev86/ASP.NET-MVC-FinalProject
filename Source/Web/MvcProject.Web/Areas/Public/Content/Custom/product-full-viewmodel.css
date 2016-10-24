@@ -14,7 +14,8 @@
     * Properties
     * Description
     * Tags
-  * Product Comments
+  * Product Reviews
+    * Comments
     * Rating
 ***/
 
@@ -169,22 +170,32 @@
     }
 
     /* ====== Is In Stock ====== */
-    #product-sidebar #is-in-stock #in {
-        font-size: 18px;
-        color: green;
-        font-weight: normal;
+    #product-sidebar #is-in-stock #in-stock {
+        text-transform: uppercase;
+        font-size: 13px;
+        color: white;
         margin: 0;
+        padding: 2px;
+        border: solid 1px;
+        border-color: #37d518;
+        border-radius: 4px;
+        background-color: #37d518;
     }
 
     #product-sidebar #is-in-stock #quantity {
         font-size: 12px;
     }
 
-    #product-sidebar #is-in-stock #out {
-        font-size: 18px;
-        color: darkred;
-        font-weight: normal;
+    #product-sidebar #is-in-stock #out-of-stock {
+        text-transform: uppercase;
+        font-size: 13px;
+        color: white;
         margin: 0;
+        padding: 2px;
+        border: solid 1px;
+        border-color: #f23232;
+        border-radius: 4px;
+        background-color: #f23232;
     }
 
     /* ====== Category ====== */
@@ -302,6 +313,17 @@
     #product-comments .comment-content{
         font-size: 14px;
         margin: 0 0 0 10px;
+    }
+
+    /* ====== Comments ====== */
+    #new-comment-form textarea{
+        max-width: none;
+        min-width: 30%;
+        min-height: 100px;
+    }
+
+    #new-comment-form input{
+        font-size: 12px;
     }
 
     /* ====== Rating ====== */
