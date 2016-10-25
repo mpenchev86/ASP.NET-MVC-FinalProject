@@ -28,8 +28,16 @@
         // Images
         public const string ServerPathDataItemsImages = "~/Content/Images/{0}{1}{2}";
         public const string ServerPathAppManagementImages = "~/Content/Images/AppManagement/";
+        public const string ServerPathLogos = "~/Content/Images/Logos/";
+        public const string ServerPathIcons = "~/Content/Images/Icons/";
+
+        // Static File Names
         public const string ImageNotFoundFileName = "image-not-available.jpg";
         public const string UnderConstructionImage = "under-construction.jpg";
+        public const string MainLogo = "just-orderit-com.png";
+        public const string Favicon = "favicon.ico";
+
+        // Suffixes
         public const string ImageSmallSizeSuffix = "_small";
         public const string ImageThumbnailSuffix = "_tmbl";
         public const string ImageHighResolutionSuffix = "_hi-res";

@@ -323,6 +323,11 @@
     <None Include="Properties\PublishProfiles\test-public.pubxml" />
     <Content Include="Views\Products\Partials\_LeaveComment.cshtml" />
     <Content Include="Views\Shared\_ProductCommentWithRating.cshtml" />
+    <Content Include="Views\Shared\_NavLogo.cshtml" />
+    <Content Include="Views\Shared\_NavLowerLeft.cshtml" />
+    <Content Include="Views\Shared\_NavLowerRight.cshtml" />
+    <Content Include="Views\Shared\_NavLowerMiddle.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

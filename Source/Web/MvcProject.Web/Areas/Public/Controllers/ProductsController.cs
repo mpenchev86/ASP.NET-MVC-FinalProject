@@ -4,11 +4,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
-    using System.Threading;
-    using System.Web;
-    using System.Web.Hosting;
     using System.Web.Mvc;
-    using AutoMapper;
+
     using Data.Models;
     using Infragistics.Web.Mvc;
     using Infrastructure.Extensions;
@@ -16,9 +13,7 @@
     using Infrastructure.Validators;
     using Services.Data;
     using Services.Web;
-    using ViewModels.Comments;
     using ViewModels.Products;
-    //using ViewModels.Votes;
 
     public class ProductsController : BasePublicController
     {

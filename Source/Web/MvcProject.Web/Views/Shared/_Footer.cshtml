@@ -1,0 +1,27 @@
+﻿<div id="footer-content" class="container-fluid">
+    <div class="row">
+        <ul id="footer-items" class="nav navbar-nav">
+            <li class="col-md-4">
+                <ul class="no-bullets">
+                    <li>@Html.ActionLink("Delivery Info", "DeliveryInfo", "Home")</li>
+                    <li>@Html.ActionLink("Return Policy", "ReturnPolicy", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                </ul>
+            </li>
+            <li class="col-md-4">
+                <ul class="no-bullets">
+                    <li>@Html.ActionLink("Job Openings", "JobOpennings", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contacts", "Home")</li>
+                </ul>
+            </li>
+            <li class="col-md-4">
+                <ul class="no-bullets">
+                    <li>@Html.ActionLink("Help", "Help", "Home")</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="copyright">
+    <p>&copy; @DateTime.Now.Year, forcodesake's ASP.NET MVC Application</p>
+</div>

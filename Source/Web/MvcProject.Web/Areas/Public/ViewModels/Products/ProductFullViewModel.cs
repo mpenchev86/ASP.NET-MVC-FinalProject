@@ -7,8 +7,6 @@
     using System.Web;
 
     using AutoMapper;
-    using Comments;
-    //using Votes;
     using Common.GlobalConstants;
     using Data.Models;
     using Descriptions;
@@ -20,16 +18,12 @@
     {
         private ICollection<string> tags;
         private ICollection<ImageForProductFullViewModel> images;
-        //private ICollection<CommentForProductFullViewModel> comments;
-        //private ICollection<VoteForProductFullViewModel> votes;
         private ICollection<ProductCommentWithRatingViewModel> commentsWithRatings;
 
         public ProductFullViewModel()
         {
             this.tags = new HashSet<string>();
             this.images = new HashSet<ImageForProductFullViewModel>();
-            //this.comments = new HashSet<CommentForProductFullViewModel>();
-            //this.votes = new HashSet<VoteForProductFullViewModel>();
             this.commentsWithRatings = new HashSet<ProductCommentWithRatingViewModel>();
         }
 
@@ -97,28 +91,15 @@
             set { this.images = value; }
         }
 
-        //public ICollection<CommentForProductFullViewModel> Comments
-        //{
-        //    get { return this.comments; }
-        //    set { this.comments = value; }
-        //}
-
         public ICollection<ProductCommentWithRatingViewModel> CommentsWithRatings
         {
             get { return this.commentsWithRatings; }
             set { this.commentsWithRatings = value; }
         }
 
-        //public ICollection<VoteForProductFullViewModel> Votes
-        //{
-        //    get { return this.votes; }
-        //    set { this.votes = value; }
-        //}
-
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Product, ProductFullViewModel>()
-            //Mapper.Initialize(cfg => cfg.CreateMap<Product, ProductFullViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.SellerName, opt => opt.MapFrom(src => src.Seller.UserName))
             ;
