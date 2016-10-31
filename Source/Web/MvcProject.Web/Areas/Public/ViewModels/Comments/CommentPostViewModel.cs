@@ -11,7 +11,7 @@
     using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
 
-    public class CommentPostViewModel : IMapFrom<Comment>, IHaveCustomMappings
+    public class CommentPostViewModel : BasePublicViewModel<int>, IMapFrom<Comment>, IHaveCustomMappings
     {
         public CommentPostViewModel()
         {
@@ -22,9 +22,6 @@
             this.ProductId = productId;
             this.UserName = userName;
         }
-
-        [Key]
-        public int Id { get; set; }
 
         [Required]
         [DataType(DataType.MultilineText)]

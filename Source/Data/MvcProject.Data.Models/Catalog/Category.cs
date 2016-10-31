@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
-
     using Contracts;
     using MvcProject.Common.GlobalConstants;
 
@@ -14,10 +14,12 @@
     public class Category : BaseEntityModel<int>, IAdministerable
     {
         private ICollection<Product> products;
+        private ICollection<SearchFilter> searchFilters;
 
         public Category()
         {
             this.products = new HashSet<Product>();
+            this.searchFilters = new HashSet<SearchFilter>();
         }
 
         /// <summary>
@@ -41,6 +43,18 @@
         {
             get { return this.products; }
             set { this.products = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the search filters used to filter products of this category.
+        /// </summary>
+        /// <value>
+        /// The search filters used to filter products of this category.
+        /// </value>
+        public virtual ICollection<SearchFilter> SearchFilters
+        {
+            get { return this.searchFilters; }
+            set { this.searchFilters = value; }
         }
     }
 }

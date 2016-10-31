@@ -119,6 +119,7 @@
         // Populate Kendo Detail TabStrip
         function detailInit(e) {
             gridDetailsHelpers.setDataSource("#products-grid_" + e.data.Id, e.data.Products, 10);
+            gridDetailsHelpers.setDataSource("#search-filters-grid_" + e.data.Id, e.data.SearchFilters, 10);
         }
     </script>
 }

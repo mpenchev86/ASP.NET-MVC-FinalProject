@@ -4,6 +4,7 @@
     items =>
     {
         items.Add().Text("Products").Content(@<text>@Html.Partial("_ProductsTab")</text>);
+        items.Add().Text("SearchFilters").Content(@<text>@Html.Partial("_SearchFiltersTab")</text>);
     })
     .ToClientTemplate()
     .ToMvcClientTemplate())

@@ -7,6 +7,7 @@
 
     using AutoMapper;
     using Data.Models;
+    using Descriptions;
     using Images;
     using Infrastructure.Mapping;
 
@@ -16,7 +17,13 @@
 
         public decimal UnitPrice { get; set; }
 
+        public int? MainImageId { get; set; }
+
         public ImageForThumbnailProductViewModel MainImage { get; set; }
+
+        public int? DescriptionId { get; set; }
+
+        public DescriptionForProductOfCategoryViewModel Description { get; set; }
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {

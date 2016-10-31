@@ -9,6 +9,8 @@
     {
         IDbSet<Category> Categories { get; set; }
 
+        IDbSet<SearchFilter> SearchFilters { get; set; }
+
         IDbSet<Comment> Comments { get; set; }
 
         IDbSet<Description> Descriptions { get; set; }

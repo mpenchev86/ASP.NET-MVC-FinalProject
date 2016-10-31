@@ -24,6 +24,7 @@
 
         protected override void Seed(MvcProjectDbContext context)
         {
+            #region Roles
             if (!context.Roles.Any())
             {
                 context.Roles.AddOrUpdate(
@@ -41,7 +42,9 @@
 
                 context.SaveChanges();
             }
+            #endregion
 
+            #region Users
             if (!context.Users.Any())
             {
                 var hasher = new PasswordHasher();
@@ -86,7 +89,9 @@
 
                 context.SaveChanges();
             }
+            #endregion
 
+            #region UserRoles
             if (!context.UserRoles.Any())
             {
                 context.UserRoles.AddOrUpdate(
@@ -115,7 +120,9 @@
 
                 context.SaveChanges();
             }
+            #endregion
 
+            #region Categories
             if (!context.Categories.Any())
             {
                 context.Categories.AddOrUpdate(
@@ -130,7 +137,275 @@
 
                 context.SaveChanges();
             }
+            #endregion
 
+            #region SearchFilters
+            if (!context.SearchFilters.Any())
+            {
+                context.SearchFilters.AddOrUpdate(
+                    c => c.Id,
+                #region Appliances
+                    new SearchFilter
+                    {
+                        Name = "Motor Power",
+                        CategoryId = 1,
+                        Options = "200, 300, 400, 600, 800, 1000",
+                        MeasureUnit = "Watts",
+                        Type = SearchFilterOptionsType.Range,
+                    },
+                    new SearchFilter
+                    {
+                        Name = "Average Customer Review",
+                        CategoryId = 1,
+                        Options = "5, 4, 3, 2, 1",
+                        Type = SearchFilterOptionsType.RadioButton
+                    },
+                    new SearchFilter
+                    {
+                        Name = "Price",
+                        CategoryId = 1,
+                        Options = "25, 50, 100, 200",
+                        MeasureUnit = "$",
+                        Type = SearchFilterOptionsType.Range
+                    },
+                    new SearchFilter
+                    {
+                        Name = "Condition",
+                        CategoryId = 1,
+                        Options = "New, Used, Refurbished",
+                        Type = SearchFilterOptionsType.RadioButton
+                    },
+                #endregion
+                #region Books
+                    new SearchFilter
+                    {
+                        Name = "Format",
+                        CategoryId = 2,
+                        Options = "Paperback, Handcover, Kindle Edition, Large Print, Audible Audio Edition, Audio CD",
+                        Type = SearchFilterOptionsType.RadioButton
+                    },
+                    new SearchFilter
+                    {
+                        Name = "Language",
+                        CategoryId = 2,
+                        Options = "English, German, French, Spanish, Italian",
+                        Type = SearchFilterOptionsType.MultiSelect
+                    },
+                    new SearchFilter
+                    {
+                        Name = "Average Customer Review",
+                        CategoryId = 2,
+                        Options = "5, 4, 3, 2, 1",
+                        Type = SearchFilterOptionsType.RadioButton
+                    },
+                    new SearchFilter
+                    {
+                        Name = "Condition",
+                        CategoryId = 2,
+                        Options = "New, Used, Collectible",
+                        Type = SearchFilterOptionsType.RadioButton
+                    },
+                #endregion
+                #region Cameras
+                    new SearchFilter
+                    {
+                        Name = "Resolution",
+                        CategoryId = 3,
+                        Options = "12, 24, 36",
+                        MeasureUnit = "MP",
+                        Type = SearchFilterOptionsType.Range,
+                    },
+                    new SearchFilter
+                    {
+                        Name = "Optical Zoom",
+                        CategoryId = 3,
+                        Options = "4, 10, 20, 50",
+                        MeasureUnit = "x",
+                        Type = SearchFilterOptionsType.Range,
+                    },
+                    new SearchFilter
+                    {
+                        Name = "Maximum ISO",
+                        CategoryId = 3,
+                        Options = "800, 1600, 3200, 6400, 12800, 25600, 51200, 102400, 204800",
+                        Type = SearchFilterOptionsType.MultiSelect
+                    },
+                    new SearchFilter
+                    {
+                        Name = "Average Customer Review",
+                        CategoryId = 3,
+                        Options = "5, 4, 3, 2, 1",
+                        Type = SearchFilterOptionsType.RadioButton
+                    },
+                    new SearchFilter
+                    {
+                        Name = "Price",
+                        CategoryId = 3,
+                        Options = "25, 50, 100, 200",
+                        MeasureUnit = "$",
+                        Type = SearchFilterOptionsType.Range
+                    },
+                    new SearchFilter
+                    {
+                        Name = "Condition",
+                        CategoryId = 3,
+                        Options = "New, Used, Refurbished",
+                        Type = SearchFilterOptionsType.RadioButton
+                    },
+                #endregion
+                #region Furniture
+                    new SearchFilter
+                    {
+                        Name = "Average Customer Review",
+                        CategoryId = 4,
+                        Options = "5, 4, 3, 2, 1",
+                        Type = SearchFilterOptionsType.RadioButton
+                    },
+                    new SearchFilter
+                    {
+                        Name = "Material",
+                        CategoryId = 4,
+                        Options = "Wood, Fabric, Leather, Metal, Rattan, Glass, Plastic",
+                        Type = SearchFilterOptionsType.RadioButton
+                    },
+                    new SearchFilter
+                    {
+                        Name = "Color",
+                        CategoryId = 4,
+                        Options = "black, grey, white, brown, red, pink, orange, yellow, green, blue, purple, multi",
+                        Type = SearchFilterOptionsType.MultiSelect
+                    },
+                    new SearchFilter
+                    {
+                        Name = "Price",
+                        CategoryId = 4,
+                        Options = "25, 50, 100, 200",
+                        MeasureUnit = "$",
+                        Type = SearchFilterOptionsType.Range
+                    },
+                    new SearchFilter
+                    {
+                        Name = "Condition",
+                        CategoryId = 4,
+                        Options = "New, Used, Refurbished",
+                        Type = SearchFilterOptionsType.RadioButton
+                    },
+                #endregion
+                #region Health & Beauty
+                    new SearchFilter
+                    {
+                        Name = "Sex/Gender",
+                        CategoryId = 5,
+                        Options = "For Her, For Him",
+                        Type = SearchFilterOptionsType.RadioButton
+                    },
+                    new SearchFilter
+                    {
+                        Name = "Average Customer Review",
+                        CategoryId = 5,
+                        Options = "5, 4, 3, 2, 1",
+                        Type = SearchFilterOptionsType.RadioButton
+                    },
+                    new SearchFilter
+                    {
+                        Name = "Price",
+                        CategoryId = 5,
+                        Options = "25, 50, 100, 200",
+                        MeasureUnit = "$",
+                        Type = SearchFilterOptionsType.Range
+                    },
+                #endregion
+                #region Notebooks
+                    new SearchFilter
+                    {
+                        Name = "Display Size",
+                        CategoryId = 6,
+                        Options = "11, 12, 13, 14, 15, 16, 17",
+                        MeasureUnit = "inches",
+                        Type = SearchFilterOptionsType.Range,
+                    },
+                    new SearchFilter
+                    {
+                        Name = "RAM",
+                        CategoryId = 6,
+                        Options = "2, 3, 4, 6, 8, 12, 16, 24, 32, 64",
+                        MeasureUnit = "GB",
+                        Type = SearchFilterOptionsType.MultiSelect,
+                    },
+                    new SearchFilter
+                    {
+                        Name = "Processor",
+                        CategoryId = 6,
+                        Options =
+                            "Intel Core i7, " +
+                            "Intel Core i5, " +
+                            "Intel Core i3, " +
+                            "Intel Core 2, " +
+                            "AMD A-Series, " +
+                            "AMD E-Series",
+                        Type = SearchFilterOptionsType.MultiSelect
+                    },
+                    new SearchFilter
+                    {
+                        Name = "Average Customer Review",
+                        CategoryId = 6,
+                        Options = "5, 4, 3, 2, 1",
+                        Type = SearchFilterOptionsType.RadioButton
+                    },
+                    new SearchFilter
+                    {
+                        Name = "Price",
+                        CategoryId = 6,
+                        Options = "500, 600, 700, 800, 1000",
+                        MeasureUnit = "$",
+                        Type = SearchFilterOptionsType.Range,
+                    },
+                    new SearchFilter
+                    {
+                        Name = "Condition",
+                        CategoryId = 6,
+                        Options = "New, Used, Refurbished",
+                        Type = SearchFilterOptionsType.RadioButton
+                    },
+                #endregion
+                #region Sports Equipment
+                    new SearchFilter
+                    {
+                        Name = "Size",
+                        CategoryId = 7,
+                        Options = "XS, S, M, L, XL, 2XL, 3XL, 4XL, 5XL",
+                        Type = SearchFilterOptionsType.MultiSelect
+                    },
+                    new SearchFilter
+                    {
+                        Name = "Color",
+                        CategoryId = 7,
+                        Options = "black, grey, white, brown, red, pink, orange, yellow, green, blue, purple, multi",
+                        Type = SearchFilterOptionsType.MultiSelect
+                    },
+                    new SearchFilter
+                    {
+                        Name = "Average Customer Review",
+                        CategoryId = 7,
+                        Options = "5, 4, 3, 2, 1",
+                        Type = SearchFilterOptionsType.RadioButton
+                    },
+                    new SearchFilter
+                    {
+                        Name = "Price",
+                        CategoryId = 7,
+                        Options = "25, 50, 100, 200",
+                        MeasureUnit = "$",
+                        Type = SearchFilterOptionsType.Range
+                    }
+                    #endregion
+                );
+
+                context.SaveChanges();
+            }
+            #endregion
+
+            #region Tags
             if (!context.Tags.Any())
             {
                 context.Tags.AddOrUpdate(
@@ -148,7 +423,9 @@
 
                 context.SaveChanges();
             }
+            #endregion
 
+            #region Descriptions
             if (!context.Descriptions.Any())
             {
                 context.Descriptions.AddOrUpdate(
@@ -161,7 +438,9 @@
 
                 context.SaveChanges();
             }
+            #endregion
 
+            #region Products
             if (!context.Products.Any())
             {
                 context.Products.AddOrUpdate(
@@ -274,7 +553,9 @@
 
                 context.SaveChanges();
             }
+            #endregion
 
+            #region Comments
             if (!context.Comments.Any())
             {
                 var userIds = new string[]
@@ -297,7 +578,9 @@
 
                 context.SaveChanges();
             }
+            #endregion
 
+            #region Properties
             if (!context.Properties.Any())
             {
                 context.Properties.AddOrUpdate(
@@ -309,7 +592,8 @@
                     new Property { Name = "Battery Average Life", Value = "950 Photos", DescriptionId = 1 },
                     new Property { Name = "Color", Value = "Black", DescriptionId = 2 },
                     new Property { Name = "Maximum Aperture Range", Value = "F3.5 - F5.6", DescriptionId = 2 },
-                    new Property { Name = "ISO Range", Value = "Auto, 100-1600", DescriptionId = 2 },
+                    new Property { Name = "ISO Minimum", Value = "100", DescriptionId = 2 },
+                    new Property { Name = "ISO Maximum", Value = "1600", DescriptionId = 2 },
                     new Property { Name = "Digital Zoom", Value = "4x", DescriptionId = 2 },
                     new Property { Name = "Battery Average Life", Value = "185 Photos", DescriptionId = 2 },
                     new Property { Name = "Color", Value = "Black", DescriptionId = 3 },
@@ -319,7 +603,8 @@
                     new Property { Name = "Image Stabilization", Value = "None", DescriptionId = 3 },
                     new Property { Name = "Display", Value = "TFT LCD", DescriptionId = 4 },
                     new Property { Name = "Expanded ISO Maximum", Value = "25,600", DescriptionId = 4 },
-                    new Property { Name = "ISO Range", Value = "ISO 100 - 6400, Lo-1 (ISO 50), Hi-1 (ISO 12,800), Hi-2 (ISO 25,600)", DescriptionId = 4 },
+                    new Property { Name = "ISO Minimum", Value = "50", DescriptionId = 4 },
+                    new Property { Name = "ISO Maximum", Value = "25,600", DescriptionId = 4 },
                     new Property { Name = "Lens Type", Value = "Fisheye", DescriptionId = 4 },
                     new Property { Name = "Model Year", Value = "2014", DescriptionId = 4 },
                     new Property { Name = "Optical Sensor Resolution", Value = "24 MP", DescriptionId = 5 },
@@ -330,6 +615,7 @@
 
                 context.SaveChanges();
             }
+            #endregion
         }
     }
 }

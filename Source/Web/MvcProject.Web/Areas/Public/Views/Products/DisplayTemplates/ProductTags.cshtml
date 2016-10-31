@@ -3,6 +3,6 @@
 @{ 
     foreach (var item in Model)
     {
-        @Html.ActionLink(item, "AllProductsWithTag", "Products", new { tag = item }, new { @class = "btn btn-default" })
+        @Html.ActionLink(item, "AllProductsWithTag", "Search", new { tag = item }, new { @class = "btn btn-default" })
     }
 }

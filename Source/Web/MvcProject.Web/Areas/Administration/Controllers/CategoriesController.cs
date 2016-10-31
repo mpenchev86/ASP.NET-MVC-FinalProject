@@ -19,12 +19,17 @@
     {
         private readonly ICategoriesService categoriesService;
         private readonly IProductsService productsService;
+        private readonly ISearchFiltersService searchFiltersService;
 
-        public CategoriesController(ICategoriesService categoriesService, IProductsService productsService)
+        public CategoriesController(
+            ICategoriesService categoriesService,
+            IProductsService productsService,
+            ISearchFiltersService searchFiltersService)
             : base(categoriesService)
         {
             this.categoriesService = categoriesService;
             this.productsService = productsService;
+            this.searchFiltersService = searchFiltersService;
         }
 
         [HttpGet]
@@ -69,6 +74,14 @@
                 foreach (var product in viewModel.Products)
                 {
                     entity.Products.Add(this.productsService.GetById(product.Id));
+                }
+            }
+
+            if (viewModel.SearchFilters != null)
+            {
+                foreach (var searchFilter in viewModel.SearchFilters)
+                {
+                    entity.SearchFilters.Add(this.searchFiltersService.GetById(searchFilter.Id));
                 }
             }
 

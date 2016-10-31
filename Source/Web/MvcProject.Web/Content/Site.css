@@ -1,8 +1,13 @@
 ﻿/*** SECTIONS:
   * Common
   * Navbar
-    * NavBar DropDowns
-    * NavBar Search
+    * NavBar Upper
+      * Logo
+      * Login
+    * NavBar Lower
+      * NavBar Lower Left
+      * NavBar Lower Middle
+      * NavBar Lower Right
   * Body
   * Footer
 ***/
@@ -25,9 +30,7 @@ h3 {
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
+input, select, textarea {
     max-width: 280px;
 }
 
@@ -39,7 +42,7 @@ textarea {
 }
 
 /* ========= Navbar ========= */
-.navbar {
+#navbar {
     border: none;
     border-radius: 0 0 0 0;
     background-color: #046969;
@@ -47,104 +50,128 @@ textarea {
     font-weight: normal;
 }
 
-.navbar-nav {
+/*#navbar .navbar-nav {
+    margin: 0 0 0 0;
+}*/
+
+#navbar .navbar-nav {
     margin: 0 0 0 0;
 }
 
-#main-logo {
-    margin: 0 0 0 0;
-    padding: 10px 0 0 0;
-    background-color: transparent;
-}
+/*#navbar .navbar-nav > li > a {
+    font-size: smaller;
+}*/
 
-.navbar-brand {
-    margin: 0 0 0 0;
-    padding: 0 0 0 0;
-    width: 100%;
-}
-
-.navbar-inverse .navbar-nav > li > a {
+#navbar .navbar-nav > li > a {
     font-size: smaller;
 }
 
-.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+/*#navbar .navbar-nav > li > a:hover, #navbar .navbar-nav > li > a:focus {
+    background-color: transparent;
+    color: #fadcb4;
+}*/
+
+#navbar .navbar-nav > li > a:hover, #navbar .navbar-nav > li > a:focus {
     background-color: transparent;
     color: #fadcb4;
 }
 
-    /* ========= NavBar DropDowns ========= */
-    @media (min-width: 979px) {
-        .navbar-nav > li.dropdown:hover > ul.dropdown-menu{
-            display: block;
-        }
-    }
+/*#navbar .navbar-nav > .open > a {
+    background-color: transparent;
+    color: #fadcb4;
+}*/
 
-    @media (min-width: 979px) {
-        #navbar-search-options:hover ~ ul.dropdown-menu{
-            display: block;
-        }
-    }
-
-.navbar-inverse .navbar-nav > .open > a {
+#navbar .navbar-nav > .open > a {
     background-color: transparent;
     color: #fadcb4;
 }
 
-    .navbar-inverse .navbar-nav > .open > a:focus {
-        background-color: transparent;
-        color: #fadcb4;
-    }
+/*#navbar .navbar-nav > .open > a:focus {
+    background-color: transparent;
+    color: #fadcb4;
+}*/
 
-.navbar-right {
-    margin: 0 0 0 0;
+#navbar .navbar-nav > .open > a:focus {
+    background-color: transparent;
+    color: #fadcb4;
 }
-
-    /* ========= NavBar Search ========= */
-    .navbar-form .input-group {
-        width: 100%;
-    }
-
-    #navbar-search {
-        overflow-y: visible;
-    }
-
-    #navbar-search-input
-    {
-        float: none;
-        /*Prevents popping in front of a modal window*/
-        z-index: 0;
-        max-width: none;
-        width: 70%;
-        vertical-align: middle;
-    }
-
-    #navbar-search-options {
-        /*Prevents popping in front of a modal window*/
-        z-index: 0;
-        border-radius: 4px 0 0 4px;
-    }
-
-        #navbar-search-options > div {
-            min-width: 30px;
-        }
-
-    @media (max-width: 527px) {
-        #navbar-search-options > text {
-            display: none;
-        }
-    }
-
-    #navbar-search-btn {
-        /*Prevents popping in front of a modal window*/
-        z-index: 0;
-        border-radius: 0 4px 4px 0;
-    }
 
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
     background-color: transparent;
     color: #ca3131;
     font-weight: bold;
 }
+
+    /* ========= NavBar Upper ========= */
+        /* ========= Logo ========= */
+        #main-logo {
+            margin: 0 0 0 0;
+            padding: 10px 0 0 0;
+            background-color: transparent;
+            width: 100%;
+        }
+
+        /* ========= Login ========= */
+
+    /* ========= NavBar Lower ========= */
+        /* ========= NavBar Lower Left ========= */
+        @media (min-width: 979px) {
+        .navbar-nav > li.dropdown:hover > ul.dropdown-menu{
+                display: block;
+            }
+        }
+
+        /* ========= NavBar Lower Middle ========= */
+        #navbar-search {
+            overflow-y: visible;
+        }
+
+        #navbar-search .input-group {
+            width: 100%;
+        }
+
+        #navbar-search-input
+        {
+            float: none;
+            /*Prevents popping in front of a modal window*/
+            z-index: 0;
+            max-width: none;
+            width: 70%;
+            vertical-align: middle;
+        }
+
+        #navbar-search-options {
+            /*Prevents popping in front of a modal window*/
+            z-index: 0;
+            border-radius: 4px 0 0 4px;
+        }
+
+            #navbar-search-options > div {
+                min-width: 30px;
+            }
+
+        #navbar-search-btn {
+            /*Prevents popping in front of a modal window*/
+            z-index: 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /*@media (min-width: 979px) {
+        #navbar-search-options:hover ~ ul.dropdown-menu{
+                display: block;
+            }
+        }*/
+
+        @media (max-width: 527px) {
+            #navbar-search-options > text {
+                display: none;
+            }
+        }
+
+        /* ========= NavBar Lower Right ========= */
+        .navbar-right {
+            margin: 0 0 0 0;
+        }
 
 /* ========= Body ========= */
 /* Set padding to keep content from hitting the edges */
@@ -163,6 +190,9 @@ textarea {
     text-align: center;
 }
 
+#footer .navbar-nav {
+    margin: 0 0 0 0;
+}
     .panel-footer > #footer-content {
         text-align: center;
     }

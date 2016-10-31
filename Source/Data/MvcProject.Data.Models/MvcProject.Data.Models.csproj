@@ -59,6 +59,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Search\SearchFilter.cs" />
+    <Compile Include="Search\SearchFilterOptionsType.cs" />
     <Compile Include="Identity\ApplicationUserRole.cs" />
     <Compile Include="Catalog\Category.cs" />
     <Compile Include="Catalog\Comment.cs" />

@@ -185,12 +185,14 @@
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\PropertiesController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\SearchFiltersController.cs" />
     <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\VotesController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BaseAdminViewModel.cs" />
     <Compile Include="ViewModels\Categories\CategoryDetailsForProductViewModel.cs" />
+    <Compile Include="ViewModels\Categories\CategoryDetailsForSearchFilterViewModel.cs" />
     <Compile Include="ViewModels\Categories\CategoryViewModel.cs" />
     <Compile Include="ViewModels\Comments\CommentDetailsForProductViewModel.cs" />
     <Compile Include="ViewModels\Comments\CommentDetailsForUserViewModel.cs" />
@@ -219,6 +221,10 @@
     <Compile Include="ViewModels\Roles\RoleDetailsForUserViewModel.cs" />
     <Compile Include="ViewModels\Roles\RoleViewModel.cs" />
     <Compile Include="ViewModels\Roles\RoleViewModelForeignKeys.cs" />
+    <Compile Include="ViewModels\SearchFilters\SearchFilterDetailsForCategoryViewModel.cs" />
+    <Compile Include="ViewModels\SearchFilters\SearchFilterDetailsForPropertyViewModel.cs" />
+    <Compile Include="ViewModels\SearchFilters\SearchFilterViewModel.cs" />
+    <Compile Include="ViewModels\SearchFilters\SearchFilterViewModelForeignKeys.cs" />
     <Compile Include="ViewModels\Tags\TagDetailsForProductViewModel.cs" />
     <Compile Include="ViewModels\Tags\TagViewModel.cs" />
     <Compile Include="ViewModels\Users\UserDetailsForCommentViewModel.cs" />
@@ -318,7 +324,9 @@
       <Name>MvcProject.Web.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\SearchFilters\Partials\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
     <Content Include="Views\Shared\EditorTemplates\Currency.cshtml" />
@@ -347,6 +355,9 @@
     <Content Include="Views\Shared\_NavLowerLeft.cshtml" />
     <Content Include="Views\Shared\_NavLowerMiddle.cshtml" />
     <Content Include="Views\Shared\_NavLowerRight.cshtml" />
+    <Content Include="Views\SearchFilters\Index.cshtml" />
+    <Content Include="Views\SearchFilters\EditorTemplates\SearchFilterViewModelPopupEditor.cshtml" />
+    <Content Include="Views\Categories\Partials\_SearchFiltersTab.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

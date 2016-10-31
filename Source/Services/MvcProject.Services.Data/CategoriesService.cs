@@ -28,5 +28,11 @@
             var category = this.Repository.GetByIdFromNotDeleted((int)this.IdentifierProvider.DecodeIdToInt(id));
             return category;
         }
+
+        //public Category GetByName(string categoryName)
+        //{
+        //    var category = this.Repository.All().Where(c => c.Name == categoryName).FirstOrDefault();
+        //    return category;
+        //}
     }
 }

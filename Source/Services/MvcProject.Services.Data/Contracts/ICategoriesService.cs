@@ -14,5 +14,6 @@
     /// </summary>
     public interface ICategoriesService : IDeletableEntitiesBaseService<Category, int>
     {
+        //Category GetByName(string categoryName);
     }
 }

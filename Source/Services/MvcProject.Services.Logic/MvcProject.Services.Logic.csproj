@@ -50,9 +50,11 @@
   <ItemGroup>
     <Compile Include="Contracts\IFileSystemService.cs" />
     <Compile Include="Contracts\IImageProcessorService.cs" />
+    <Compile Include="Contracts\IProductSearchAlgorithms.cs" />
     <Compile Include="FileSystemService.cs" />
     <Compile Include="ImageProcessorService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProductSearchAlgorithms.cs" />
     <Compile Include="ServiceModels\RawFile.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -11,7 +11,7 @@
     using AutoMapper;
     using System.ComponentModel.DataAnnotations;
 
-    public class DescriptionForProductFullViewModel : IMapFrom<Description>, IHaveCustomMappings
+    public class DescriptionForProductFullViewModel : BasePublicViewModel<int>, IMapFrom<Description>, IHaveCustomMappings
     {
         private ICollection<PropertyForProductFullViewModel> properties;
 

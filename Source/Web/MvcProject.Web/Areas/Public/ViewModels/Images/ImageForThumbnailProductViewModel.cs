@@ -7,7 +7,7 @@
     using Data.Models;
     using Infrastructure.Mapping;
 
-    public class ImageForThumbnailProductViewModel : IMapFrom<Image>
+    public class ImageForThumbnailProductViewModel : BasePublicViewModel<int>, IMapFrom<Image>
     {
         public string OriginalFileName { get; set; }
 

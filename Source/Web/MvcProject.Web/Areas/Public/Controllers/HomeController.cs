@@ -13,15 +13,21 @@
     using ViewModels.Products;
     using Services.Web;
     using Data.Models;
+    using ViewModels.Categories;
 
     public class HomeController : BasePublicController
     {
         private IProductsService productsService;
+        private ICategoriesService categoriesService;
 
-        public HomeController(IProductsService productsService, ICacheService cache)
+        public HomeController(
+            IProductsService productsService, 
+            ICacheService cacheService,
+            ICategoriesService categoriesService)
         {
             this.productsService = productsService;
-            this.Cache = cache;
+            this.categoriesService = categoriesService;
+            this.Cache = cacheService;
         }
 
         // [OutputCache(Duration = 30 * 60, Location = OutputCacheLocation.Server, VaryByCustom = "SomeOtherIdentifier")]

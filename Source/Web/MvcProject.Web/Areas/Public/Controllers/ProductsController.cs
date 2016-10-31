@@ -66,22 +66,6 @@
             return this.PartialView("_SneakPeek", result);
         }
 
-        [HttpGet]
-        public ActionResult AllProductsOfCategory(string category)
-        {
-            var products = this.productsService.GetAll().Where(p => p.Category.Name == category);
-            var result = products.To<ProductOfCategoryViewModel>();
-            return this.View(result);
-        }
-
-        [HttpGet]
-        public ActionResult AllProductsWithTag(string tag)
-        {
-            var products = this.productsService.GetAll().Where(p => p.Tags.Select(t => t.Name).Contains(tag));
-            var result = products.To<ProductWithTagViewModel>();
-            return this.View(result);
-        }
-
 #region Workers
         private ICollection<ProductCommentWithRatingViewModel> PopulateCommentAndVote(
             ICollection<Comment> comments,

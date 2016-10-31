@@ -45,6 +45,16 @@
 
             <div class="row">
                 <div class="editor-label">
+                    @Html.LabelFor(m => m.SearchFilterId, "Search Filter Id")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(m => m.SearchFilterId, new { OptionLabel = "Select Search Filter..." })
+                    @Html.ValidationMessageFor(m => m.SearchFilterId)
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="editor-label">
                     @Html.LabelFor(m => m.IsDeleted, "Mark as deleted")
                 </div>
                 <div class="editor-field">

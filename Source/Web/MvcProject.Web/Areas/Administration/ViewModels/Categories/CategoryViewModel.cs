@@ -13,14 +13,17 @@
     using MvcProject.Common.GlobalConstants;
     using MvcProject.Web.Infrastructure.Mapping;
     using Products;
+    using SearchFilters;
 
     public class CategoryViewModel : BaseAdminViewModel<int>, IMapFrom<Category>, IHaveCustomMappings
     {
         private ICollection<ProductDetailsForCategoryViewModel> products;
+        private ICollection<SearchFilterDetailsForCategoryViewModel> searchFilters;
 
         public CategoryViewModel()
         {
             this.products = new HashSet<ProductDetailsForCategoryViewModel>();
+            this.searchFilters = new HashSet<SearchFilterDetailsForCategoryViewModel>();
         }
 
         [Required]
@@ -32,6 +35,12 @@
         {
             get { return this.products; }
             set { this.products = value; }
+        }
+
+        public ICollection<SearchFilterDetailsForCategoryViewModel> SearchFilters
+        {
+            get { return this.searchFilters; }
+            set { this.searchFilters = value; }
         }
 
         [Index]

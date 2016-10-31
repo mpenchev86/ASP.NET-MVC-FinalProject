@@ -108,6 +108,7 @@
     <Compile Include="Contracts\IProductsService.cs" />
     <Compile Include="Contracts\IPropertiesService.cs" />
     <Compile Include="Contracts\IRolesService.cs" />
+    <Compile Include="Contracts\ISearchFiltersService.cs" />
     <Compile Include="Contracts\ITagsService.cs" />
     <Compile Include="Contracts\IUserRolesService.cs" />
     <Compile Include="Contracts\IUsersService.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="BaseDataService.cs" />
     <Compile Include="FileInfoService.cs" />
     <Compile Include="ImagesService.cs" />
+    <Compile Include="SearchFiltersService.cs" />
     <Compile Include="ServiceModels\ProcessedImage.cs" />
     <Compile Include="ProductsService.cs" />
     <Compile Include="PropertiesService.cs" />

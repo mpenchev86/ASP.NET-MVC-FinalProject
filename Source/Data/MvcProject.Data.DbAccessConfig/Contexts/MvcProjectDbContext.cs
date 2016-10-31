@@ -25,6 +25,8 @@
 
         public virtual IDbSet<Category> Categories { get; set; }
 
+        public virtual IDbSet<SearchFilter> SearchFilters { get; set; }
+
         public virtual IDbSet<Comment> Comments { get; set; }
 
         public virtual IDbSet<Description> Descriptions { get; set; }
@@ -90,6 +92,19 @@
                     pt.MapRightKey("TagId");
                     pt.ToTable("ProductsTags");
                 });
+
+            // modelBuilder.Entity<SearchFilter>()
+            //    .HasEntitySetName("SearchFilterStringOptions");
+
+            // modelBuilder.Entity<SearchIntFilter>()
+            //    .HasEntitySetName("SearchFilterIntOptions");
+
+            // modelBuilder.Entity<SearchDoubleFilter>()
+            //    .HasEntitySetName("SearchFilterDoubleOptions");
+
+            // modelBuilder.Entity<SearchFilter>()
+            //    .HasOptional(s => s.Category)
+            //    .WithRequired(c => c.SearchFilters);
 
             base.OnModelCreating(modelBuilder);
         }

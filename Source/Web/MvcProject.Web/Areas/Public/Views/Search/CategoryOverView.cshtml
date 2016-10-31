@@ -1,0 +1,15 @@
+﻿@using MvcProject.Web.Areas.Public.ViewModels.Categories
+
+@model CategorySearchViewModel
+
+<div class="row">
+    @Html.Partial("_TopSearchPanel")
+</div>
+<div class="row">
+    <div class="col-md-3">
+        @Html.Partial("_RefineSearchBar", Model.SearchFilters)
+    </div>
+    <div class="col-md-9">
+        @Html.Partial("_SearchResults", Model.Products)
+    </div>
+</div>

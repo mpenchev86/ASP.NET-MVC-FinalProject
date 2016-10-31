@@ -12,7 +12,7 @@
     {
         private static readonly object LockObject = new object();
 
-        public T Get<T>(string itemName, Func<T> getDataFunc, int durationInSeconds)
+        public T Get<T>(string itemName, Func<T> getDataFunc, int durationInSeconds = 0)
         {
             if (HttpRuntime.Cache[itemName] == null)
             {

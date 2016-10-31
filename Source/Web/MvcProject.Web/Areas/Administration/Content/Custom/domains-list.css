@@ -20,6 +20,8 @@ h4 {
 #domains-container > li {
     background-color: #fef88e;
     padding: 0;
+    margin-right: 5px;
+    margin-bottom: 15px;
     /*display: block;*/
 }
 

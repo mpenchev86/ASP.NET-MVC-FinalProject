@@ -13,7 +13,7 @@
 <body>
     @*@Html.Partial("_CarouselPartial")*@
     <!-- NAVBAR -->
-    <nav class="navbar navbar-inverse ">
+    <nav class="navbar navbar-inverse" id="navbar">
         <div class="container-fluid">
             <!-- Brand, Login -->
             <div class="row">
@@ -29,11 +29,9 @@
                 <div class="col-md-2" id="nav-lower-left">
                     @Html.Partial("_NavLowerLeft")
                 </div>
-
                 <div class="col-md-7" id="nav-lower-middle">
                     @Html.Partial("_NavLowerMiddle")
                 </div>
-
                 <div class="col-md-3" id="nav-lower-right">
                     @Html.Partial("_NavLowerRight")
                 </div>
@@ -45,7 +43,7 @@
         @RenderBody()
     </div>
     <!-- FOOTER -->
-    <footer class="panel-footer">
+    <footer class="panel-footer" id="footer">
         @Html.Partial("_Footer")
     </footer>
     <!-- SCRIPTS -->

@@ -49,5 +49,21 @@
         /// </value>
         [InverseProperty("Properties")]
         public virtual Description Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the search filter Id applied to the property.
+        /// </summary>
+        /// <value>
+        /// The search filter Id applied to the property.
+        /// </value>
+        public int? SearchFilterId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the search filter applied to the property.
+        /// </summary>
+        /// <value>
+        /// The search filter applied to the property.
+        /// </value>
+        public virtual SearchFilter SearchFilter { get; set; }
     }
 }

@@ -1,0 +1,17 @@
+﻿@using MvcProject.Data.Models
+@using MvcProject.Web.Areas.Public.ViewModels.Search
+
+@model IEnumerable<SearchFiltersForCategoryViewModel>
+
+<div id="search-filters">
+    @foreach (var searchFilter in Model)
+    {
+        switch (searchFilter.Type)
+        {
+            case SearchFilterOptionsType.RadioButton: Html.Partial("_SearchFilterRadioButton", searchFilter); break;
+            case SearchFilterOptionsType.MultiSelect: Html.Partial("_SearchFilterMultiSelect", searchFilter); break;
+            case SearchFilterOptionsType.Range: Html.Partial("_SearchFilterRange", searchFilter); break;
+            default: break;
+        }
+    }
+</div>

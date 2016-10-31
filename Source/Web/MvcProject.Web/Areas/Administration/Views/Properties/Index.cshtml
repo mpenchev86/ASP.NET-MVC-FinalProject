@@ -19,6 +19,7 @@
         m.Id(p => p.Id);
         m.Field(p => p.Id).Editable(false);
         m.Field(p => p.DescriptionId).Editable(true).DefaultValue(0);
+        m.Field(p => p.SearchFilterId).Editable(true).DefaultValue(0);
     },
     pageSize: 50,
     virtualScroll: false,
@@ -30,6 +31,7 @@
         c.Bound(m => m.Name).Width("20%");
         c.Bound(m => m.Value).Width("20%");
         c.ForeignKey(m => m.DescriptionId, Model.Descriptions, "Id", "Id").Title("Description Id");
+        c.ForeignKey(m => m.SearchFilterId, Model.SearchFilters, "Id", "KendoGridFieldText").Title("Search Filter Id");
         c.Bound(m => m.CreatedOn);
         c.Bound(m => m.ModifiedOn);
         c.Bound(m => m.IsDeleted).Title("Marked As Deleted");

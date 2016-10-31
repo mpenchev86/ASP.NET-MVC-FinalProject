@@ -27,6 +27,11 @@
 
         [UIHint("DropDown")]
         public int DescriptionId { get; set; }
+        
+        [UIHint("DropDown")]
+        public int? SearchFilterId { get; set; }
+
+        //public virtual SearchFilterDetailsForPropertyViewModel SearchFilter { get; set; }
 
         [Index]
         public bool IsDeleted { get; set; }

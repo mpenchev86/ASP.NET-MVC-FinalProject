@@ -13,7 +13,7 @@
 <body>
     @*@Html.Partial("_CarouselPartial")*@
     <!-- NAVBAR -->
-    <nav class="navbar navbar-inverse ">
+    <nav class="navbar navbar-inverse" id="navbar">
         <div class="container-fluid">
             <!-- Brand, Login -->
             <div class="row">
@@ -43,7 +43,7 @@
         @RenderBody()
     </div>
     <!-- FOOTER -->
-    <footer class="panel-footer">
+    <footer class="panel-footer" id="footer">
         @Html.Partial("_Footer")
     </footer>
     <!-- SCRIPTS -->

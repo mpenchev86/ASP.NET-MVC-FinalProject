@@ -8,7 +8,7 @@
     using MvcProject.Data.Models;
     using MvcProject.Web.Infrastructure.Mapping;
 
-    public class ImageForProductSneakPeekViewModel : IMapFrom<Image>
+    public class ImageForProductSneakPeekViewModel : BasePublicViewModel<int>, IMapFrom<Image>
     {
         public string OriginalFileName { get; set; }
 

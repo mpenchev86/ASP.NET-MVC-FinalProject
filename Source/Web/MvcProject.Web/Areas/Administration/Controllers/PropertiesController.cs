@@ -16,20 +16,24 @@
     using Services.Data;
     using ViewModels.Descriptions;
     using ViewModels.Properties;
+    using ViewModels.SearchFilters;
 
     [Authorize(Roles = IdentityRoles.Admin)]
     public class PropertiesController : BaseGridController<Property, PropertyViewModel, IPropertiesService, int>
     {
         private readonly IPropertiesService propertiesService;
         private readonly IDescriptionsService descriptionsService;
+        private readonly ISearchFiltersService searchFiltersService;
 
         public PropertiesController(
             IPropertiesService propertiesService,
-            IDescriptionsService descriptionsService)
+            IDescriptionsService descriptionsService,
+            ISearchFiltersService searchFiltersService)
             : base(propertiesService)
         {
             this.propertiesService = propertiesService;
             this.descriptionsService = descriptionsService;
+            this.searchFiltersService = searchFiltersService;
         }
 
         [HttpGet]
@@ -37,7 +41,8 @@
         {
             var foreignKeys = new PropertyViewModelForeignKeys
             {
-                Descriptions = this.descriptionsService.GetAll().To<DescriptionDetailsForPropertyViewModel>()
+                Descriptions = this.descriptionsService.GetAll().To<DescriptionDetailsForPropertyViewModel>().ToList(),
+                SearchFilters = this.searchFiltersService.GetAll().To<SearchFilterDetailsForPropertyViewModel>().OrderBy(s => s.Name).ToList()
             };
 
             return this.View(foreignKeys);
@@ -77,6 +82,7 @@
             entity.Name = viewModel.Name;
             entity.Value = viewModel.Value;
             entity.DescriptionId = viewModel.DescriptionId;
+            entity.SearchFilterId = viewModel.SearchFilterId;
             entity.CreatedOn = viewModel.CreatedOn;
             entity.ModifiedOn = viewModel.ModifiedOn;
             entity.IsDeleted = viewModel.IsDeleted;

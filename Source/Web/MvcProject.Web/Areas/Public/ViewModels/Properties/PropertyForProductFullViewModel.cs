@@ -7,10 +7,12 @@
     using Data.Models;
     using Infrastructure.Mapping;
 
-    public class PropertyForProductFullViewModel : IMapFrom<Property>
+    public class PropertyForProductFullViewModel : BasePublicViewModel<int>, IMapFrom<Property>
     {
         public string Name { get; set; }
 
         public string Value { get; set; }
+
+        public int? SearchFilterId { get; set; }
     }
 }
