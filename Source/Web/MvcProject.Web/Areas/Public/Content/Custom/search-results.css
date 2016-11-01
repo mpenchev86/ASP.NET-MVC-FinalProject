@@ -1,0 +1,14 @@
+﻿/*** SECTIONS:
+  * TopSearchPanel
+  * RefineSearchBar
+  * SearchResults
+***/
+
+/* ========== TopSearchPanel ========== */
+/* ========== RefineSearchBar ========== */
+
+/* ========== SearchResults ========== */
+#SearchResultListView {
+    padding-left: 0;
+    padding-right: 0;
+}

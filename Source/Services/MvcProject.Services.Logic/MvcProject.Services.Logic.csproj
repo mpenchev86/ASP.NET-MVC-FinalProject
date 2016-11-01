@@ -65,6 +65,10 @@
       <Project>{5f2803a7-770d-4509-8d69-cfbf4d6dc772}</Project>
       <Name>MvcProject.Common.GlobalConstants</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Data\MvcProject.Data.Models\MvcProject.Data.Models.csproj">
+      <Project>{F3DFDA1D-99D1-46AD-9CFA-A0B9AA7A750C}</Project>
+      <Name>MvcProject.Data.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

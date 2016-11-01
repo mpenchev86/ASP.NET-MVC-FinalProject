@@ -1,7 +1,25 @@
-﻿
-@{
-    ViewBag.Title = "_SearchResults";
-}
+﻿@using MvcProject.Web.Areas.Public.ViewModels.Products
 
-<h2>_SearchResults</h2>
+@*@model ICollection<ProductOfCategoryViewModel>*@
 
+@(Html.Kendo()
+    .ListView<ProductOfCategoryViewModel>()
+    .Name("SearchResultListView")
+    //.BindTo(Model)
+    .TagName("ul")
+    .Pageable(p => p.Refresh(true))
+    //.Pageable(p => p.PageSizes(new int[] { 20, 100, 300 }))
+    .ClientTemplateId("search-result-listView-template")
+    .DataSource(data => data
+        .Model(model => model.Id(p => p.Id))
+        .Read(read => read
+            .Action("ReadSearchResult", "Search", new { categoryId = (int)this.ViewData["categoryId"] })
+            .Data("readHandler"))
+        .PageSize(7)
+        )
+    )
+
+<!-- ListView products template -->
+<script type="text/kendo-tmpl" id="search-result-listView-template">
+    @Html.Partial("_ListViewProductCellTemplate")
+</script>

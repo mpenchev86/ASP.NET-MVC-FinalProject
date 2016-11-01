@@ -43,16 +43,16 @@
             return this.PartialView("_CategoriesDropDown", categories);
         }
 
-        [HttpGet]
-        public ActionResult CategoryOverView(int categoryId)
-        {
-            var category = this.categoriesService.GetById(categoryId);
-            var products = category.Products.AsQueryable().To<ProductOfCategoryViewModel>().ToList();
-            var searchFilters = category.SearchFilters.AsQueryable().To<SearchFiltersForCategoryViewModel>().ToList();
-            var viewModel = new CategorySearchViewModel() { Products = products, SearchFilters = searchFilters };
-            this.TempData.Add("CategorySearchData", viewModel);
+        //[HttpGet]
+        //public ActionResult CategoryOverView(int categoryId)
+        //{
+        //    var category = this.categoriesService.GetById(categoryId);
+        //    var products = category.Products.AsQueryable().To<ProductOfCategoryViewModel>().ToList();
+        //    var searchFilters = category.SearchFilters.AsQueryable().To<SearchFiltersForCategoryViewModel>().ToList();
+        //    var viewModel = new CategorySearchViewModel() { Products = products, SearchFilters = searchFilters };
+        //    this.TempData.Add("CategorySearchData", viewModel);
 
-            return this.RedirectToAction("AllProductsOfCategory", "Search");
-        }
+        //    return this.RedirectToAction("AllProductsOfCategory", "Search");
+        //}
     }
 }

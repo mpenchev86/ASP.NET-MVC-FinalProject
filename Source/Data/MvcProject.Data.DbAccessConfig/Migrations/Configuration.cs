@@ -549,7 +549,1244 @@
                         {
                             context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
                         }
-                    });
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MnM",
+                        ShortDescription = "Eating the rainbow",
+                        QuantityInStock = 26,
+                        UnitPrice = 7.88773M,
+                        CategoryId = 3,
+                        Tags = new List<Tag>
+                        {
+                            context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
+                        }
+                    }
+                    );
 
                 context.SaveChanges();
             }

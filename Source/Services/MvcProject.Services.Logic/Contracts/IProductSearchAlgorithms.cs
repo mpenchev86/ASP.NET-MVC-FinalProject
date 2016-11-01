@@ -5,9 +5,14 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Data.Models;
 
     public interface IProductSearchAlgorithms
     {
-        List<string> ProcessSearchOptions(string options);
+        List<string> SplitOptionsString(string optionsString);
+
+        List<string> GetSearchOptionsLabels(string options, SearchFilterOptionsType type, string measureUnit);
+
+        List<string> GetOptionsWithMeasureUnit(List<string> options, string measureUnit);
     }
 }

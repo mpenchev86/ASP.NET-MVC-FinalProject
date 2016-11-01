@@ -36,12 +36,12 @@
         //public virtual ImageForThumbnailProductViewModel MainImage { get; set; }
 
         /// <summary>
-        /// Product's Main Image url path
+        /// Gets or sets the product's Main Image url path. If none is found, the first found image is used.
         /// </summary>
         public string ImageUrlPath { get; set; }
 
         /// <summary>
-        /// Product's Main Image file extension
+        /// Gets or sets the product's Main Image (or the first image found) file extension.
         /// </summary>
         public string ImageFileExtension { get; set; }
 

@@ -216,7 +216,7 @@
     <Compile Include="ViewModels\Properties\PropertyForProductFullViewModel.cs" />
     <Compile Include="ViewModels\Categories\CategorySearchViewModel.cs" />
     <Compile Include="ViewModels\Properties\PropertyForProductOfCategoryViewModel.cs" />
-    <Compile Include="ViewModels\Search\SearchFiltersForCategoryViewModel.cs" />
+    <Compile Include="ViewModels\Search\SearchFilterForCategoryViewModel.cs" />
     <Compile Include="ViewModels\Users\UserProfileViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -251,6 +251,7 @@
     <Content Include="Content\Custom\homepage-carousel.css" />
     <Content Include="Content\Custom\listView.css" />
     <Content Include="Content\Custom\product-full-viewmodel.css" />
+    <Content Include="Content\Custom\search-results.css" />
     <Content Include="Content\IgniteUI\jquery-ui.css" />
     <Content Include="Content\IgniteUI\jquery-ui.min.css" />
     <Content Include="Content\IgniteUI\Structure\Images\icon_sprite.png" />
@@ -349,6 +350,7 @@
     <Content Include="Views\Search\Partials\_SearchFilterMultiSelect.cshtml" />
     <Content Include="Views\Search\Partials\_SearchFilterRadioButton.cshtml" />
     <Content Include="Views\Search\Partials\_SearchFilterRange.cshtml" />
+    <Content Include="Views\Search\Partials\_ListViewProductCellTemplate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -6,10 +6,21 @@
     @Html.Partial("_TopSearchPanel")
 </div>
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-2">
         @Html.Partial("_RefineSearchBar", Model.SearchFilters)
     </div>
-    <div class="col-md-9">
-        @Html.Partial("_SearchResults", Model.Products)
+    <div class="col-md-10">
+        @Html.Partial("_SearchResults", null, new ViewDataDictionary(this.ViewData) { { "categoryId", Model.Id} })
+        <img id="loading-spinner" src="~/Content/Kendo/Silver/loading_2x.gif" style="display: none; text-align: center;">
     </div>
 </div>
+
+
+@section Scripts{
+    <script>
+        function readHandler(data) {
+            //datetimeHandlers.normalizeDateProperties(data);
+            return { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() }
+        }
+    </script>    
+}

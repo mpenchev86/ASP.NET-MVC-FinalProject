@@ -10,15 +10,16 @@
     using Infrastructure.Mapping;
     using Services.Logic;
 
-    public class SearchFiltersForCategoryViewModel : BasePublicViewModel<int>, IMapFrom<SearchFilter>, IHaveCustomMappings
+    public class SearchFilterForCategoryViewModel : BasePublicViewModel<int>, IMapFrom<SearchFilter>, IHaveCustomMappings
     {
         private IProductSearchAlgorithms productSearchAlgorithms;
 
-        public SearchFiltersForCategoryViewModel()
+        public SearchFilterForCategoryViewModel()
+            : this(new ProductSearchAlgorithms())
         {
         }
 
-        public SearchFiltersForCategoryViewModel(IProductSearchAlgorithms productSearchAlgorithms)
+        public SearchFilterForCategoryViewModel(IProductSearchAlgorithms productSearchAlgorithms)
         {
             this.productSearchAlgorithms = productSearchAlgorithms;
         }
@@ -34,11 +35,12 @@
         [DataType(DataType.MultilineText)]
         public string Options { get; set; }
 
-        public List<string> OptionsProcessed
+        public List<string> OptionsLabels
         {
             get
             {
-                return this.productSearchAlgorithms.ProcessSearchOptions(this.Options);
+                var result = this.productSearchAlgorithms.GetSearchOptionsLabels(this.Options, this.Type, this.MeasureUnit);
+                return result;
             }
         }
 
@@ -47,6 +49,9 @@
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<SearchFilter, SearchFilterForCategoryViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+            ;
         }
     }
 }

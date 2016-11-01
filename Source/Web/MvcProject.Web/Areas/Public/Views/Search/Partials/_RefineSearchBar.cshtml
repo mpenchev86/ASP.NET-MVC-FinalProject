@@ -1,17 +1,42 @@
 ﻿@using MvcProject.Data.Models
 @using MvcProject.Web.Areas.Public.ViewModels.Search
 
-@model IEnumerable<SearchFiltersForCategoryViewModel>
+@model IEnumerable<SearchFilterForCategoryViewModel>
 
 <div id="search-filters">
     @foreach (var searchFilter in Model)
     {
-        switch (searchFilter.Type)
-        {
-            case SearchFilterOptionsType.RadioButton: Html.Partial("_SearchFilterRadioButton", searchFilter); break;
-            case SearchFilterOptionsType.MultiSelect: Html.Partial("_SearchFilterMultiSelect", searchFilter); break;
-            case SearchFilterOptionsType.Range: Html.Partial("_SearchFilterRange", searchFilter); break;
-            default: break;
-        }
+        //switch (searchFilter.Type)
+        //{
+        //    case SearchFilterOptionsType.RadioButton: Html.RenderPartial("_SearchFilterRadioButton", searchFilter); break;
+        //    case SearchFilterOptionsType.MultiSelect: Html.RenderPartial("_SearchFilterMultiSelect", searchFilter); break;
+        //    case SearchFilterOptionsType.Range: Html.RenderPartial("_SearchFilterRange", searchFilter); break;
+        //    default: break;
+        //}
+
+        <div class="row">
+            @Html.LabelFor(m => m, searchFilter.Name)
+            <ul class="multiselect-filter" id="@(searchFilter.Name + searchFilter.Id.ToString())">
+                @{
+                    var options = searchFilter.OptionsLabels;
+                    for (int i = 0; i < options.Count(); i++)
+                    {
+                        <li>
+                            @Ajax.ActionLink(options[i],
+                                "ProcessFilterSelection",
+                                "Search",
+                                new { area = Areas.PublicAreaName, filterId = searchFilter.Id, optionsType = searchFilter.Type, selectedOption = options[i] },
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "POST",
+                                    InsertionMode = InsertionMode.ReplaceWith,
+                                    UpdateTargetId = "",
+                                    LoadingElementId = "loading-spinner",
+                                })
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
     }
 </div>

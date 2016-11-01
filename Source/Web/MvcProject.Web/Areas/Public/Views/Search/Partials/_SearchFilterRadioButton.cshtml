@@ -1,8 +1,27 @@
-﻿@model MvcProject.Web.Areas.Public.ViewModels.Search.SearchFiltersForCategoryViewModel
+﻿@model MvcProject.Web.Areas.Public.ViewModels.Search.SearchFilterForCategoryViewModel
 
-@{
-    ViewBag.Title = "_SearchFilterRadioButton";
+@{ 
+    var options = Model.OptionsLabels;
 }
 
-<h2>_SearchFilterRadioButton</h2>
-
+<div class="row">
+    @Html.LabelFor(m => m, Model.Name)
+    <ul class="radio-button-filter" id="@(Model.Name + Model.Id.ToString())">
+        @for (int i = 0; i < options.Count(); i++)
+        {
+            <li>
+                @Ajax.ActionLink(options[i],
+                    "ProcessFilterSelection",
+                    "Search",
+                    new { area = Areas.PublicAreaName, filterId = Model.Id, optionsType = Model.Type, selectedOption = options[i] },
+                    new AjaxOptions
+                    {
+                        HttpMethod = "POST",
+                        InsertionMode = InsertionMode.ReplaceWith,
+                        UpdateTargetId = "",
+                        LoadingElementId = "loading-spinner",
+                    })
+            </li>
+        }
+    </ul>
+</div>
