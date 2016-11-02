@@ -28,7 +28,8 @@
         c.Bound(m => m.Id).Width(150);
         c.Bound(m => m.Name);
         c.ForeignKey(m => m.CategoryId, Model.Categories, "Id", "Name").Title("Category");
-        c.Bound(m => m.Type);
+        c.Bound(m => m.OptionsType);
+        c.Bound(m => m.SelectionType);
         c.Bound(m => m.Options);
         c.Bound(m => m.MeasureUnit);
         c.Bound(m => m.CreatedOn);

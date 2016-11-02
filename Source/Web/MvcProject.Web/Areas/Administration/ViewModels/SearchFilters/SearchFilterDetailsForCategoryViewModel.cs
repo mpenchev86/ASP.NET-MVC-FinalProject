@@ -24,9 +24,14 @@
         public string MeasureUnit { get; set; }
 
         [Required]
-        [Range(1, 3)]
+        [Range(1, 2)]
         [UIHint("DropDown")]
-        public SearchFilterOptionsType Type { get; set; }
+        public SearchFilterOptionsType OptionsType { get; set; }
+
+        [Required]
+        [Range(1, 2)]
+        [UIHint("DropDown")]
+        public SearchFilterSelectionType SelectionType { get; set; }
 
         [Index]
         public bool IsDeleted { get; set; }

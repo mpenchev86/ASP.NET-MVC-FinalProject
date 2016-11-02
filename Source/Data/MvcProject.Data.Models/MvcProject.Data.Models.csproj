@@ -79,6 +79,7 @@
     <Compile Include="Identity\ApplicationUser.cs" />
     <Compile Include="Catalog\Product.cs" />
     <Compile Include="Catalog\Tag.cs" />
+    <Compile Include="Search\SearchFilterSelectionType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -4,39 +4,71 @@
 @model IEnumerable<SearchFilterForCategoryViewModel>
 
 <div id="search-filters">
-    @foreach (var searchFilter in Model)
+    @using (Ajax.BeginForm(
+        "RefineSearch",
+        "Search",
+        new { area = Areas.PublicAreaName },
+        new AjaxOptions
+        {
+            HttpMethod = "POST",
+            InsertionMode = InsertionMode.ReplaceWith,
+            LoadingElementId = "search-refine-loading-spinner",
+            UpdateTargetId = "SearchResultListView",
+        },
+        new { }
+        ))
     {
-        //switch (searchFilter.Type)
-        //{
-        //    case SearchFilterOptionsType.RadioButton: Html.RenderPartial("_SearchFilterRadioButton", searchFilter); break;
-        //    case SearchFilterOptionsType.MultiSelect: Html.RenderPartial("_SearchFilterMultiSelect", searchFilter); break;
-        //    case SearchFilterOptionsType.Range: Html.RenderPartial("_SearchFilterRange", searchFilter); break;
-        //    default: break;
-        //}
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
 
-        <div class="row">
-            @Html.LabelFor(m => m, searchFilter.Name)
-            <ul class="multiselect-filter" id="@(searchFilter.Name + searchFilter.Id.ToString())">
-                @{
-                    var options = searchFilter.OptionsLabels;
-                    for (int i = 0; i < options.Count(); i++)
-                    {
-                        <li>
-                            @Ajax.ActionLink(options[i],
-                                "ProcessFilterSelection",
-                                "Search",
-                                new { area = Areas.PublicAreaName, filterId = searchFilter.Id, optionsType = searchFilter.Type, selectedOption = options[i] },
-                                new AjaxOptions
+        <button type="submit" value="OK" id="search-form-submit" style="visibility:hidden"></button>
+
+        foreach (var searchFilter in Model)
+        {
+            <div class="row">
+                @Html.LabelFor(m => m, searchFilter.Name)
+                <ul class="search-filter @(searchFilter.SelectionTypeString)-selection-filter" data-filter-name="@(searchFilter.Name)" id="@(searchFilter.Name.Replace(' ', '-') + "-" + searchFilter.Id.ToString())">
+                    @{
+                        var options = searchFilter.OptionsSplit;
+                        for (int i = 0; i < options.Count(); i++)
+                        {
+                            <li>
+                                @if (searchFilter.SelectionType == SearchFilterSelectionType.Multiple)
                                 {
-                                    HttpMethod = "POST",
-                                    InsertionMode = InsertionMode.ReplaceWith,
-                                    UpdateTargetId = "",
-                                    LoadingElementId = "loading-spinner",
-                                })
-                        </li>
+                                    <label class="options-label">
+                                        <input type="checkbox" name="checkbox" onchange="submitForm(this)" value="@options[i].Value">
+                                        @options[i].Value
+                                    </label>
+                                }
+                                else
+                                {
+                                    <label class="options-label">
+                                        <input type="checkbox" name="checkbox" onchange="submitForm(this)" value="@options[i].Value" style="visibility:hidden;width:0">
+                                        @options[i].Value
+                                    </label>
+                                }
+
+                                @*@Ajax.ActionLink(options[i],
+                                    "ProcessFilterSelection",
+                                    "Search",
+                                    new { area = Areas.PublicAreaName, filterId = searchFilter.Id, optionsType = searchFilter.OptionsType, selectedOption = options[i] },
+                                    new AjaxOptions
+                                    {
+                                        HttpMethod = "POST",
+                                        InsertionMode = InsertionMode.ReplaceWith,
+                                        UpdateTargetId = "",
+                                        LoadingElementId = "loading-spinner",
+                                    },
+                                    new { id = searchFilter.Name + "-" + searchFilter.Id.ToString() }
+                                    )*@
+                            </li>
+                        }
                     }
-                }
-            </ul>
-        </div>
+                </ul>
+            </div>
+        }
     }
+
+    <img id="search-refine-loading-spinner" src="~/Content/Kendo/Silver/loading_2x.gif" style="display: none; text-align: center;">
+
 </div>

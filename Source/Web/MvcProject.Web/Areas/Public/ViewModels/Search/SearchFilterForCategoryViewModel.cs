@@ -12,14 +12,14 @@
 
     public class SearchFilterForCategoryViewModel : BasePublicViewModel<int>, IMapFrom<SearchFilter>, IHaveCustomMappings
     {
-        private IProductSearchAlgorithms productSearchAlgorithms;
+        private ISearchFilterHelpers productSearchAlgorithms;
 
         public SearchFilterForCategoryViewModel()
-            : this(new ProductSearchAlgorithms())
+            : this(new SearchFilterHelpers())
         {
         }
 
-        public SearchFilterForCategoryViewModel(IProductSearchAlgorithms productSearchAlgorithms)
+        public SearchFilterForCategoryViewModel(ISearchFilterHelpers productSearchAlgorithms)
         {
             this.productSearchAlgorithms = productSearchAlgorithms;
         }
@@ -28,18 +28,44 @@
         public string Name { get; set; }
 
         [Required]
-        [Range(1, 3)]
-        public SearchFilterOptionsType Type { get; set; }
+        [Range(1, 2)]
+        public SearchFilterOptionsType OptionsType { get; set; }
+
+        public string OptionsTypeString
+        {
+            get
+            {
+                return this.OptionsType == SearchFilterOptionsType.ConcreteValue ? SearchFilterOptionsType.ConcreteValue.ToString().ToLower() : SearchFilterOptionsType.ValueRange.ToString().ToLower();
+            }
+        }
+
+        [Required]
+        [Range(1, 2)]
+        public SearchFilterSelectionType SelectionType { get; set; }
+
+        public string SelectionTypeString
+        {
+            get
+            {
+                return this.SelectionType == SearchFilterSelectionType.Single ? SearchFilterSelectionType.Single.ToString().ToLower() : SearchFilterSelectionType.Multiple.ToString().ToLower();
+            }
+        }
 
         [Required]
         [DataType(DataType.MultilineText)]
         public string Options { get; set; }
 
-        public List<string> OptionsLabels
+        public List<SearchFilterOptionViewModel> OptionsSplit
         {
             get
             {
-                var result = this.productSearchAlgorithms.GetSearchOptionsLabels(this.Options, this.Type, this.MeasureUnit);
+                var values = this.productSearchAlgorithms.GetSearchOptionsLabels(this.Options, this.OptionsType, this.MeasureUnit);
+                var result = new List<SearchFilterOptionViewModel>();
+                foreach (var value in values)
+                {
+                    result.Add(new SearchFilterOptionViewModel() { Value = value });
+                }
+
                 return result;
             }
         }

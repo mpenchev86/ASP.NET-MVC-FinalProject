@@ -50,11 +50,12 @@
   <ItemGroup>
     <Compile Include="Contracts\IFileSystemService.cs" />
     <Compile Include="Contracts\IImageProcessorService.cs" />
-    <Compile Include="Contracts\IProductSearchAlgorithms.cs" />
+    <Compile Include="Contracts\ISearchFilterHelpers.cs" />
     <Compile Include="FileSystemService.cs" />
     <Compile Include="ImageProcessorService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProductSearchAlgorithms.cs" />
+    <Compile Include="SearchFilterHelpers.cs" />
+    <Compile Include="SearchRefinementHelpers.cs" />
     <Compile Include="ServiceModels\RawFile.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +69,10 @@
     <ProjectReference Include="..\..\Data\MvcProject.Data.Models\MvcProject.Data.Models.csproj">
       <Project>{F3DFDA1D-99D1-46AD-9CFA-A0B9AA7A750C}</Project>
       <Name>MvcProject.Data.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Web\MvcProject.Web.Infrastructure\MvcProject.Web.Infrastructure.csproj">
+      <Project>{B14DFB67-88F5-4714-A592-ECAB1F8F74A9}</Project>
+      <Name>MvcProject.Web.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

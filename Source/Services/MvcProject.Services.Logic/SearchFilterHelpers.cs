@@ -6,8 +6,9 @@
     using System.Text;
     using System.Threading.Tasks;
     using Data.Models;
+    using Web.Infrastructure.Mapping;
 
-    public class ProductSearchAlgorithms : IProductSearchAlgorithms
+    public class SearchFilterHelpers : ISearchFilterHelpers
     {
         public List<string> SplitOptionsString(string optionsString)
         {
@@ -15,31 +16,12 @@
             return optionsSplit;
         }
 
-        public List<string> GetSearchOptionsLabels(string options, SearchFilterOptionsType type, string measureUnit)
+        public List<string> GetSearchOptionsLabels(string options, SearchFilterOptionsType optionsType, string measureUnit)
         {
             var splitOptions = this.SplitOptionsString(options);
             var splitOptionsWithLabels = this.GetOptionsWithMeasureUnit(splitOptions, measureUnit);
 
-            //switch (type)
-            //{
-            //    case SearchFilterOptionsType.RadioButton:
-            //    case SearchFilterOptionsType.MultiSelect:
-            //        return splitOptionsWithLabels;
-            //    case SearchFilterOptionsType.Range:
-            //        var optionLabels = new List<string>();
-            //        optionLabels.Add("Under " + splitOptionsWithLabels.FirstOrDefault());
-            //        for (int i = 0; i < splitOptionsWithLabels.Count() - 1; i++ )
-            //        {
-            //            optionLabels.Add(splitOptionsWithLabels[i] + " to "+ splitOptionsWithLabels[i + 1]);
-            //        }
-
-            //        optionLabels.Add(splitOptionsWithLabels.LastOrDefault() + " & Above");
-            //        return optionLabels;
-            //    default:
-            //        break;
-            //}
-
-            if (type == SearchFilterOptionsType.Range)
+            if (optionsType == SearchFilterOptionsType.ValueRange)
             {
                 var optionLabels = new List<string>();
                 optionLabels.Add("Under " + splitOptionsWithLabels.FirstOrDefault());
@@ -76,11 +58,18 @@
                 var result = new List<string>();
                 for (int i = 0; i < options.Count(); i++)
                 {
-                    result.Add(options[i] + " " + measureUnit);
+                    result.Add(options[i] /*+ " "*/ + measureUnit);
                 }
 
                 return result;
             }
+        }
+
+        public IQueryable<TProduct> FilterProducts<TProduct, TFilter>(IQueryable<TProduct> products, IEnumerable<TFilter> filters)
+            where TProduct : class, IMapFrom<Product>
+            where TFilter : class, IMapFrom<SearchFilter>
+        {
+            return products;
         }
     }
 }

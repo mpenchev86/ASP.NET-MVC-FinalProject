@@ -25,11 +25,21 @@
 
             <div class="row">
                 <div class="editor-label">
-                    @Html.LabelFor(m => m.Type)
+                    @Html.LabelFor(m => m.OptionsType)
                 </div>
                 <div class="editor-field">
-                    @Html.EnumDropDownListFor(m => m.Type)
-                    @Html.ValidationMessageFor(model => model.Type)
+                    @Html.EnumDropDownListFor(m => m.OptionsType)
+                    @Html.ValidationMessageFor(model => model.OptionsType)
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.SelectionType)
+                </div>
+                <div class="editor-field">
+                    @Html.EnumDropDownListFor(m => m.SelectionType)
+                    @Html.ValidationMessageFor(model => model.SelectionType)
                 </div>
             </div>
 

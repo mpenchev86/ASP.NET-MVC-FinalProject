@@ -6,6 +6,19 @@
 
 /* ========== TopSearchPanel ========== */
 /* ========== RefineSearchBar ========== */
+.multiple-selection-filter {
+    list-style: none;
+    padding-left: 0;
+}
+
+.single-selection-filter {
+    list-style: none;
+    padding-left: 0;
+}
+
+.options-label{
+    font-weight: normal;
+}
 
 /* ========== SearchResults ========== */
 #SearchResultListView {

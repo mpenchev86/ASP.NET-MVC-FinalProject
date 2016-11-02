@@ -6,7 +6,7 @@
 @using (Ajax.BeginForm(
     "CreateComment",
     "Comments",
-    new { Area = "Public" },
+    new { Area = Areas.PublicAreaName },
     //FormMethod.Post,
     new AjaxOptions
     {

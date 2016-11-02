@@ -73,7 +73,8 @@
             entity.Name = viewModel.Name;
             entity.Options = viewModel.Options;
             entity.MeasureUnit = viewModel.MeasureUnit;
-            entity.Type = viewModel.Type;
+            entity.OptionsType = viewModel.OptionsType;
+            entity.SelectionType = viewModel.SelectionType;
             entity.CategoryId = viewModel.CategoryId;
             entity.CreatedOn = viewModel.CreatedOn;
             entity.ModifiedOn = viewModel.ModifiedOn;

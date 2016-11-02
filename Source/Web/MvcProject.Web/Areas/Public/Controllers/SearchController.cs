@@ -12,6 +12,7 @@
     using Kendo.Mvc.UI;
     using Services.Data;
     using Services.Logic;
+    using Services.Logic.ServiceModels;
     using ViewModels.Categories;
     using ViewModels.Products;
     using ViewModels.Search;
@@ -21,18 +22,22 @@
         private IProductsService productsService;
         private ISearchFiltersService searchFiltersService;
         private ICategoriesService categoriesService;
-        private IProductSearchAlgorithms searchAlgorithms;
+        private ISearchFilterHelpers filterStringHelpers;
+        //private ISearchRefinementHelpers<ProductOfCategoryViewModel, SearchFilterForCategoryViewModel> searchAlgorithms;
 
         public SearchController(
             IProductsService productsService,
             ISearchFiltersService searchFiltersService,
             ICategoriesService categoriesService,
-            IProductSearchAlgorithms searchAlgorithms)
+            ISearchFilterHelpers filterStringHelpers
+            //ISearchRefinementHelpers<ProductOfCategoryViewModel, SearchFilterForCategoryViewModel> searchAlgorithms
+            )
         {
             this.productsService = productsService;
             this.searchFiltersService = searchFiltersService;
             this.categoriesService = categoriesService;
-            this.searchAlgorithms = searchAlgorithms;
+            this.filterStringHelpers = filterStringHelpers;
+            //this.searchAlgorithms = searchAlgorithms;
         }
 
         public ActionResult Index()
@@ -53,13 +58,25 @@
 
         [HttpPost]
         [AjaxOnly]
-        [ValidateAntiForgeryToken]
-        public JsonResult ReadSearchResult([DataSourceRequest]DataSourceRequest request, int categoryId)
+        //[ValidateAntiForgeryToken]
+        public JsonResult ReadSearchResult([DataSourceRequest]DataSourceRequest request, int categoryId, IEnumerable<RefinementFilter> searchFilters)
         {
             var category = this.categoriesService.GetById(categoryId);
-            var products = category.Products.AsQueryable().To<ProductOfCategoryViewModel>().ToList();
+            var products = category.Products
+                .AsQueryable()
+                //.FilterProducts(searchFilters)
+                .To<ProductOfCategoryViewModel>()
+                //.Where(p => p.DescriptionId != null && p.Description.Properties)
+                .ToList();
 
             return this.Json(products.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet); ;
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RefineSearch(IEnumerable<SearchFilterForCategoryViewModel> viewModel)
+        {
+            return null;
         }
 
         //[HttpPost]

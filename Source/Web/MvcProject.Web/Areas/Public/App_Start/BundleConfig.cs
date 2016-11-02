@@ -26,6 +26,7 @@
                 //.Include("~/Areas/Public/Scripts/Custom/*.js")
                 .Include("~/Areas/Public/Scripts/Custom/bootstrap-modal-helpers.js")
                 .Include("~/Areas/Public/Scripts/Custom/igniteui-rating-handler.js")
+                .Include("~/Areas/Public/Scripts/Custom/search-results.js")
                 );
 
             // CSS

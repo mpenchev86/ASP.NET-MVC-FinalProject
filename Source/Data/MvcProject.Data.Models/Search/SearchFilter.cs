@@ -20,14 +20,24 @@
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the search filter type specifiying the refinement procedure.
+        /// Gets or sets the search filter options type.
         /// </summary>
         /// <value>
-        /// The search filter type specifiying the refinement procedure.
+        /// The search filter options type.
         /// </value>
         [Required]
-        [Range(1, 3)]
-        public SearchFilterOptionsType Type { get; set; }
+        [Range(1, 2)]
+        public SearchFilterOptionsType OptionsType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the search filter selection type specifiying whether users select single or multiple options.
+        /// </summary>
+        /// <value>
+        /// The search filter selection type specifiying whether users select single or multiple options.
+        /// </value>
+        [Required]
+        [Range(1, 2)]
+        public SearchFilterSelectionType SelectionType { get; set; }
 
         /// <summary>
         /// Gets or sets the search filter category entity Id.
@@ -56,6 +66,8 @@
         [Required]
         [DataType(DataType.MultilineText)]
         public string Options { get; set; }
+
+        public virtual ICollection<SearchFilterOption> SearchFilterOptions { get; set; }
 
         /// <summary>
         /// Gets or sets the measure unit for the options values, if any.

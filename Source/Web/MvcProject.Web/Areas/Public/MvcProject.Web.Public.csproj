@@ -217,6 +217,7 @@
     <Compile Include="ViewModels\Categories\CategorySearchViewModel.cs" />
     <Compile Include="ViewModels\Properties\PropertyForProductOfCategoryViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchFilterForCategoryViewModel.cs" />
+    <Compile Include="ViewModels\Search\SearchFilterOptionViewModel.cs" />
     <Compile Include="ViewModels\Users\UserProfileViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -280,6 +281,7 @@
   <ItemGroup>
     <Content Include="Scripts\Custom\bootstrap-modal-helpers.js" />
     <Content Include="Scripts\Custom\igniteui-rating-handler.js" />
+    <Content Include="Scripts\Custom\search-results.js" />
     <Content Include="Scripts\IgniteUI\infragistics.core.Unicode.js" />
     <Content Include="Scripts\IgniteUI\infragistics.dv.js" />
     <Content Include="Scripts\IgniteUI\infragistics.lob.js" />
@@ -347,9 +349,6 @@
     <Content Include="Views\Search\Partials\_TopSearchPanel.cshtml" />
     <Content Include="Views\Search\Partials\_RefineSearchBar.cshtml" />
     <Content Include="Views\Search\Partials\_SearchResults.cshtml" />
-    <Content Include="Views\Search\Partials\_SearchFilterMultiSelect.cshtml" />
-    <Content Include="Views\Search\Partials\_SearchFilterRadioButton.cshtml" />
-    <Content Include="Views\Search\Partials\_SearchFilterRange.cshtml" />
     <Content Include="Views\Search\Partials\_ListViewProductCellTemplate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

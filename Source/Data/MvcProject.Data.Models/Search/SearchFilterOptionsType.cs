@@ -2,8 +2,7 @@
 {
     public enum SearchFilterOptionsType
     {
-        RadioButton = 1,
-        MultiSelect = 2,
-        Range = 3,
+        ConcreteValue = 1,
+        ValueRange = 2,
     }
 }

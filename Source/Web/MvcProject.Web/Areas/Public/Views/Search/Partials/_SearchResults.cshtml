@@ -7,14 +7,15 @@
     .Name("SearchResultListView")
     //.BindTo(Model)
     .TagName("ul")
-    .Pageable(p => p.Refresh(true))
+    .Pageable()
     //.Pageable(p => p.PageSizes(new int[] { 20, 100, 300 }))
     .ClientTemplateId("search-result-listView-template")
     .DataSource(data => data
         .Model(model => model.Id(p => p.Id))
         .Read(read => read
             .Action("ReadSearchResult", "Search", new { categoryId = (int)this.ViewData["categoryId"] })
-            .Data("readHandler"))
+            .Data("readHandler")
+            )
         .PageSize(7)
         )
     )
