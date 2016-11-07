@@ -17,6 +17,7 @@
         public const string PublicScriptsJQueryUI = "~/Areas/Public/Scripts/jqueryiu";
         public const string PublicScriptsIgniteUI = "~/Areas/Public/Scripts/IgniteUI/igniteuijs";
         public const string PublicScriptsCustom = "~/Areas/Public/Scripts/Custom/customjs";
+        public const string PublicStylesKendoCss = "~/Areas/Public/Content/Kendo/kendocss";
         public const string PublicStylesCustomCss = "~/Areas/Public/Content/Custom/customcss";
         public const string PublicStylesIgniteUI = "~/Areas/Public/Content/IgniteUI/igniteuicss";
 

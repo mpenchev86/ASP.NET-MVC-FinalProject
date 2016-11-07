@@ -55,18 +55,20 @@
         [DataType(DataType.MultilineText)]
         public string Options { get; set; }
 
-        public List<SearchFilterOptionViewModel> OptionsSplit
+        public List</*SearchFilterOptionViewModel*/string> OptionsSplit
         {
             get
             {
                 var values = this.productSearchAlgorithms.GetSearchOptionsLabels(this.Options, this.OptionsType, this.MeasureUnit);
-                var result = new List<SearchFilterOptionViewModel>();
-                foreach (var value in values)
-                {
-                    result.Add(new SearchFilterOptionViewModel() { Value = value });
-                }
+                //var result = new List<SearchFilterOptionViewModel>();
+                //foreach (var value in values)
+                //{
+                //    result.Add(new SearchFilterOptionViewModel() { Value = value });
+                //}
 
-                return result;
+                //return result;
+
+                return values;
             }
         }
 

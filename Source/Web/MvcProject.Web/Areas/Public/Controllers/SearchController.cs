@@ -13,6 +13,7 @@
     using Services.Data;
     using Services.Logic;
     using Services.Logic.ServiceModels;
+    using Services.Web;
     using ViewModels.Categories;
     using ViewModels.Products;
     using ViewModels.Search;
@@ -26,6 +27,7 @@
         //private ISearchRefinementHelpers<ProductOfCategoryViewModel, SearchFilterForCategoryViewModel> searchAlgorithms;
 
         public SearchController(
+            ICacheService cacheService,
             IProductsService productsService,
             ISearchFiltersService searchFiltersService,
             ICategoriesService categoriesService,
@@ -33,6 +35,7 @@
             //ISearchRefinementHelpers<ProductOfCategoryViewModel, SearchFilterForCategoryViewModel> searchAlgorithms
             )
         {
+            this.Cache = cacheService;
             this.productsService = productsService;
             this.searchFiltersService = searchFiltersService;
             this.categoriesService = categoriesService;
@@ -56,33 +59,37 @@
             return this.View("CategoryOverView", viewModel);
         }
 
-        [HttpPost]
-        [AjaxOnly]
-        //[ValidateAntiForgeryToken]
-        public JsonResult ReadSearchResult([DataSourceRequest]DataSourceRequest request, int categoryId, IEnumerable<RefinementFilter> searchFilters)
+        //[HttpPost]
+        //[AjaxOnly]
+        public JsonResult ReadSearchResult(
+            [DataSourceRequest]DataSourceRequest request,
+            int categoryId
+            //, IEnumerable<SearchFilterForCategoryViewModel> searchFilters
+            //, RefinementOption searchFilter
+            )
         {
             var category = this.categoriesService.GetById(categoryId);
-            var products = category.Products
-                .AsQueryable()
-                //.FilterProducts(searchFilters)
-                .To<ProductOfCategoryViewModel>()
-                //.Where(p => p.DescriptionId != null && p.Description.Properties)
-                .ToList();
+            var products = this.Cache.Get(
+                "category" + categoryId.ToString() + "products",
+                () => category.Products
+                    //.Take(200)
+                    .AsQueryable()
+                    //.FilterProducts(searchFilter)
+                    .To<ProductOfCategoryViewModel>()
+                    .ToList(),
+                30 * 60,
+                true,
+                21 * 60);
 
             return this.Json(products.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet); ;
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult RefineSearch(IEnumerable<SearchFilterForCategoryViewModel> viewModel)
+        [OutputCache(Duration = 15 * 60, VaryByParam = "viewModel;categoryId")]
+        [ChildActionOnly]
+        public PartialViewResult RefineSearchBar(IEnumerable<SearchFilterForCategoryViewModel> viewModel, int categoryId)
         {
-            return null;
-        }
-
-        //[HttpPost]
-        public ActionResult ProcessFilterSelection(int filterId, SearchFilterOptionsType optionsType, string selectedOption)
-        {
-            return null;
+            this.ViewData["categoryId"] = categoryId;
+            return this.PartialView("_RefineSearchBar", viewModel);
         }
 
         [HttpGet]
@@ -93,5 +100,36 @@
             return this.View(result);
         }
 
+        //public ActionResult SessionTest()
+        //{
+        //    if (Session["datetime"] == null)
+        //    {
+        //        this.Session.Add("datetime", DateTime.Now.ToString());
+        //    }
+
+        //    return this.View("SessionTest");
+        //}
+
+        //public ActionResult TempDataTest()
+        //{
+        //    if (this.TempData["datetime"] == null)
+        //    {
+        //        this.TempData["datetime"] = DateTime.Now.ToString();
+        //    }
+
+        //    return this.View("TempDataTest");
+        //}
+
+        #region Helpers
+        private bool ValidateSearchFilter(RefinementOption searchFilter)
+        {
+            if (string.IsNullOrWhiteSpace(searchFilter.SelectedValue))
+            {
+                return false;
+            }
+
+            return true;
+        }
+        #endregion
     }
 }

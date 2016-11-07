@@ -1,10 +1,14 @@
 ﻿@model int?
 
+@{ 
+    var maxVote = 5;
+}
+
 @(Html.Infragistics()
     .RatingFor(m => m)
     //.Rating()
     .ID("igRating" + ViewData["rating-id"].ToString())
-    .VoteCount(5)
+    .VoteCount(maxVote)
     .PrecisionZeroVote(0.5)
     //.Value(Model.Value)
     //.Focusable(false)
@@ -12,5 +16,6 @@
     .ValueAsPercent(false)
     .Precision(RatingPrecision.Half)
     //.ValidatorOptions(v => v.)
+    .HtmlAttributes(new Dictionary<string, object> { { "title", Model.ToString() + " stars out of " + maxVote.ToString() } })
     .Render()
 )

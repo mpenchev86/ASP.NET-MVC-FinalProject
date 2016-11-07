@@ -7,63 +7,76 @@
 </div>
 <div class="row">
     <div class="col-md-2">
-        @Html.Partial("_RefineSearchBar", Model.SearchFilters, new ViewDataDictionary(this.ViewData) { { "categoryId", Model.Id } })
+        @Html.Action("RefineSearchBar", "Search", new { areas = Areas.PublicAreaName, viewModel = Model.SearchFilters, categoryId = Model.Id })
+        @*@Html.Partial("_RefineSearchBar", Model.SearchFilters, new ViewDataDictionary(this.ViewData) { { "categoryId", Model.Id } })*@
+        <img id="search-refine-loading-spinner" src="~/Content/Kendo/Silver/loading_2x.gif" style="display: none; text-align: center;" />
     </div>
     <div class="col-md-10">
         @Html.Partial("_SearchResults", null, new ViewDataDictionary(this.ViewData) { { "categoryId", Model.Id} })
-        @*<img id="loading-spinner" src="~/Content/Kendo/Silver/loading_2x.gif" style="display: none; text-align: center;">*@
     </div>
 </div>
 
 
 @section Scripts{
     <script>
-        //$(document).ready(function () {
-        //    var searchFilters = [];
-        //    $('.search-filter').each(function getSearchFilters(index, searchFilter) {
-        //        var filterInfo = {};
-        //        filterInfo.Name = searchFilter.
-        //        searchFilters.push();
-        //    });
-        //    //$('.options-label input').each(function (index, inputElem) {
-        //    //    searchFilters.push(inputElem.value);
-        //    //});
-
-        //    console.log(searchFilters);
-
-        //    //set initial state.
-        //    //$('input.options-label').val($(this).is(':checked'));
-
-        //    $('.options-label input').change(function () {
-        //        //console.log($(this).val());
-        //        $("#SearchResultListView").data("kendoListView").dataSource.read();
-        //        //if ($(this).is(":checked")) {
-        //        //    var returnVal = confirm("Are you sure?");
-        //        //    $(this).attr("checked", returnVal);
-        //        //}
-        //        //$('.options-label input').val($(this).is(':checked'));
-        //    });
-        //});
-
         var searchFilters = [];
-        $('.search-filter').each(function getFilterNames(index, filter) {
-            searchFilters.push({ Name: $(filter).data('filter-name') });
-            //var options = $(this);
+        var searchFilter = {};
+
+        $(document).ready(function () {
+            $('.search-filter').each(function getFilterNames(index, filter) {
+                searchFilters.push({ Name: $(filter).data('filter-name') });
+                //var options = $(this);
+            });
         });
 
         function submitForm(e) {
+            // Refinement options CSS
+            $('.search-filter input').attr({ disabled: 'disabled'});
+            //$('.search-filter input[type="checkbox"]').attr({ disabled: 'disabled'});
+            
+            // Get selected filter option data
+            searchFilter.SelectedValue = $(e).val();
+            searchFilter.SearchFilterId = $(e).data('filter-id');
+            searchFilter.SelectionType = $(e).data('filter-selection-type');
+            searchFilter.OptionsType = $(e).data('filter-options-type');
+            searchFilter.Checked = $(e).prop('checked');
+
+            //console.log($(e).data('filter-id'));
+            console.log($(e).val());
+            console.log($(e).prop('checked'));
+            console.log($(e).data('filter-id'));
+            console.log($(e).data('filter-selection-type'));
+            console.log($(e).data('filter-options-type'));
+            
+            // Reload ListView
             $("#SearchResultListView").data("kendoListView").dataSource.read();
-            //console.log($(e));
+
             //$(this).parents('form:first').find('#search-form-submit').click();
             //$(e).parents('form:first').submit();
         }
 
+        //function onListViewDataBinding(e) {
+        //    console.log(e.sender.element);
+        //    //kendo.ui.progress(e.sender.element, true);
+        //}
+
+        //function onListViewChange(e) {
+        //    kendo.ui.progress(e.sender.element, true);
+        //}
+
+        function onListViewDataBound(e) {
+            // Refinement options CSS
+            $('.search-filter input').removeAttr('disabled');
+            //$('.search-filter .options-label span').attr({ opacity: '100%', cursor: 'auto' });
+
+            // Activate Spinner on ListView
+            //kendo.ui.progress(e.sender.element, false);
+        }
 
         function readHandler(data) {
-            //datetimeHandlers.normalizeDateProperties(data);
-            //return { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() }
             return {
-                searchFilters : searchFilters
+                searchFilters : searchFilters,
+                searchFilter : searchFilter
             }
         }
     </script>    

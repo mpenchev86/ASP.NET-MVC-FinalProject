@@ -6,8 +6,8 @@
     <title>@ViewBag.Title - Simple MVC E-Commerce Application</title>
     <link rel="shortcut icon" href="@Url.Content(StaticResourcesUrls.ServerPathIcons + StaticResourcesUrls.Favicon)" />
     @Styles.Render(Bundles.StylesKendoCss)
-    @Styles.Render(Bundles.PublicStylesIgniteUI)
     @Styles.Render(Bundles.StylesBootStrap)
+    @Styles.Render(Bundles.PublicStylesIgniteUI)
     @Styles.Render(Bundles.PublicStylesCustomCss)
     @RenderSection("Styles", required: false)
     @Scripts.Render(Bundles.ScriptsJQuery)
@@ -49,10 +49,10 @@
         @Html.Partial("~/Areas/Public/Views/Shared/_Footer.cshtml")
     </footer>
     <!-- SCRIPTS -->
-    @Scripts.Render(Bundles.PublicScriptsJQueryUI)
-    @Scripts.Render(Bundles.ScriptsBootstrap)
     @Scripts.Render(Bundles.ScriptsJQueryUnobtrusive)
     @Scripts.Render(Bundles.ScriptsJQueryValidate)
+    @Scripts.Render(Bundles.ScriptsBootstrap)
+    @Scripts.Render(Bundles.PublicScriptsJQueryUI)
     @Scripts.Render(Bundles.PublicScriptsIgniteUI)
     @Scripts.Render(Bundles.ScriptsKendo)
     @*@Scripts.Render(Bundles.ScriptsSignalR)*@

@@ -6,15 +6,20 @@
 
 /* ========== TopSearchPanel ========== */
 /* ========== RefineSearchBar ========== */
-.multiple-selection-filter {
+.search-filter {
     list-style: none;
     padding-left: 0;
 }
 
-.single-selection-filter {
+/*.multiple-selection-filter {
     list-style: none;
     padding-left: 0;
-}
+}*/
+
+/*.single-selection-filter {
+    list-style: none;
+    padding-left: 0;
+}*/
 
 .options-label{
     font-weight: normal;
@@ -22,6 +27,69 @@
 
 /* ========== SearchResults ========== */
 #SearchResultListView {
+    border: none;
     padding-left: 0;
     padding-right: 0;
 }
+
+    /* ======= ListView li ======= */
+    .search-product-li {
+        float: left;
+        position: relative;
+        width: 33%;
+        list-style: none;
+    }
+
+    .search-product-li .rows-container {
+        height: 320px;
+    }
+
+    @media only screen and (max-width: 700px){
+        .search-product-li .rows-container {
+            height: 100%;
+        }
+    }
+
+    .search-product-li .image {
+        position: relative;
+        height: 65%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /*padding: 5px 5px 5px 5px;*/
+    }
+
+    .search-product-li .price {
+        text-align: center;
+        height: 35%;
+    }
+
+    .search-product-li img {
+        max-width: 90%;
+        max-height: 100%;
+    }
+
+    .search-product-li a {
+        width: 100%;
+        height: 100%;
+        visibility: hidden;
+        position: absolute;
+        top: 0;
+        border: none;
+        overflow: hidden;
+    }
+
+    .search-product-li:hover a {
+        text-decoration: none;
+        visibility: visible;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        color: #fff;
+        background-color: rgba(255,200,0,0.55);
+        overflow: hidden;
+        transition: background .2s linear, color .2s linear;
+        -moz-transition: background .2s linear, color .2s linear;
+        -webkit-transition: background .2s linear, color .2s linear;
+        -o-transition: background .2s linear, color .2s linear;
+    }

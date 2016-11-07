@@ -101,6 +101,7 @@
   <ItemGroup>
     <Compile Include="ActionResults\ChallengeResult.cs" />
     <Compile Include="Caching\NoCacheAttribute.cs" />
+    <Compile Include="Caching\CacheConcurrentDictionary.cs" />
     <Compile Include="Crawlers\Contracts\ITypesCrawler.cs" />
     <Compile Include="Crawlers\TypesCrawler.cs" />
     <Compile Include="DataAnnotations\LongDateTimeFormatAttribute.cs" />

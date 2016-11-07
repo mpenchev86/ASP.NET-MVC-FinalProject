@@ -2,15 +2,16 @@
     var fallbackImgUrl = Url.Content(StaticResourcesUrls.ServerPathAppManagementImages + StaticResourcesUrls.ImageNotFoundFileName);
 }
 
-<li class="product-li">
-    <div class="row image">
-        <img src="@Url.Content(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, "#=ImageUrlPath#", StaticResourcesUrls.ImageThumbnailSuffix, "#=ImageFileExtension#"))"
-             alt="#=Title#"
-             onerror="if(this.src != '@fallbackImgUrl') { this.src = '@fallbackImgUrl'; }"/>
-    </div>
-    <div class="row price">
-        <p>#=kendo.toString(UnitPrice, "c")#</p>
-    </div>
+<li class="homepage-product-li">
+    <div class="rows-container">
+        <div class="row image">
+            <img src="@Url.Content(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, "#=ImageUrlPath#", StaticResourcesUrls.ImageThumbnailSuffix, "#=ImageFileExtension#"))"
+                 alt="#=Title#"
+                 onerror="if(this.src != '@fallbackImgUrl') { this.src = '@fallbackImgUrl'; }"/>
+        </div>
+        <div class="row price">
+            <span>#=kendo.toString(UnitPrice, "c")#</span>
+        </div>
     
         @(Ajax.ActionLink(
             linkText: "sneak peek",
@@ -34,5 +35,5 @@
             .Replace("spinner", "#\\#spinner")
             .ToMvcHtmlString()
             )
-
+    </div>
 </li>

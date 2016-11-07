@@ -350,6 +350,8 @@
     <Content Include="Views\Search\Partials\_RefineSearchBar.cshtml" />
     <Content Include="Views\Search\Partials\_SearchResults.cshtml" />
     <Content Include="Views\Search\Partials\_ListViewProductCellTemplate.cshtml" />
+    <Content Include="Views\Search\SessionTest.cshtml" />
+    <Content Include="Views\Search\TempDataTest.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -7,20 +7,26 @@
 @{
     bool currentUserHasCommented = false;
     <div id="all-comments">
-        @foreach (var comment in Model)
-        {
-            if (comment.UserName == this.User.Identity.Name)
-            {
-                currentUserHasCommented = true;
-            }
+        <ul>
+            <li>
+                @foreach (var comment in Model)
+                {
+                    if (comment.UserName == this.User.Identity.Name)
+                    {
+                        currentUserHasCommented = true;
+                    }
 
-            Html.RenderPartial(
-                "_ProductCommentWithRating"
-                ,comment
-                , new ViewDataDictionary(this.ViewData) { { "rating-id", comment.Id } }
-                );
-        }
-        <span id="new-comment-placeholder"></span>
+                    Html.RenderPartial(
+                        "_ProductCommentWithRating"
+                        ,comment
+                        , new ViewDataDictionary(this.ViewData) { { "rating-id", comment.Id } }
+                        );
+                }
+            </li>
+            <li>
+                <span id="new-comment-placeholder"></span>
+            </li>
+        </ul>
     </div>
 
     if (this.User.Identity.IsAuthenticated && !currentUserHasCommented)

@@ -1,11 +1,16 @@
 ﻿@model MvcProject.Web.Areas.Public.ViewModels.Products.ProductCommentWithRatingViewModel
 
 <div class="row product-comment">
-    <p class="comment-metadata">By @Html.ActionLink(Model.UserName, "UserProfile", "Users", new { userName = Model.UserName }, null) on @Model.CommentCreatedOn.
-        @if (Model.Rating != null)
-        {
-            Html.RenderPartial("_ProductVote", Model.Rating);
-        }
-    </p>
-    <p class="comment-content">@Model.CommentContent</p>
+    <div class="comment-metadata">
+        <span>
+            By @Html.ActionLink(Model.UserName, "UserProfile", "Users", new { userName = Model.UserName }, null) on @Model.CommentCreatedOn.
+            @if (Model.Rating != null)
+            {
+                Html.RenderPartial("_ProductVote", Model.Rating);
+            }
+        </span> 
+    </div>
+    <div class="comment-content">
+        <p>@Model.CommentContent</p>
+    </div>
 </div>

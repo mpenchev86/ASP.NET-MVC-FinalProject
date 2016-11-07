@@ -11,9 +11,9 @@
 
     public static class SearchRefinementHelpers/* : ISearchRefinementHelpers<TProduct, TFilter>*/
     {
-        public static IQueryable<Product> FilterProducts<TProduct, TFilter>(this IQueryable<Product> products, IEnumerable<RefinementFilter> filters)
-            where TProduct : class, IMapFrom<Product>
-            where TFilter : class, IMapFrom<SearchFilter>
+        public static IQueryable<Product> FilterProducts/*<TProduct, TFilter>*/(this IQueryable<Product> products, RefinementOption filter)
+            //where TProduct : class, IMapFrom<Product>
+            //where TFilter : class, IMapFrom<SearchFilter>
         {
             foreach (var product in products)
             {

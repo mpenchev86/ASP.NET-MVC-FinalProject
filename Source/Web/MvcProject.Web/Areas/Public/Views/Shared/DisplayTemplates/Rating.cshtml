@@ -1,17 +1,22 @@
 ﻿@model double?
 
+@{
+    var maxVote = 5;
+}
+
 @(Html.Infragistics()
     .RatingFor(m => m)
     //.Rating()
     .Disabled(false)
     .ID("igRating" + ViewData["index"].ToString())
-    .VoteCount(5)
+    .VoteCount(maxVote)
     .PrecisionZeroVote(0.1)
     //.Value(Model.Value)
     //.Focusable(false)
     .Disabled(true)
     .ValueAsPercent(false)
     .Precision(RatingPrecision.Exact)
+    .HtmlAttributes(new Dictionary<string, object> { { "title", Model.ToString() + " stars out of " + maxVote.ToString() } })
     //.ValidatorOptions(v => v.)
     .Render()
 )

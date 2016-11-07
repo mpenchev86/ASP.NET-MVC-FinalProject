@@ -16,8 +16,14 @@
             .Action("ReadSearchResult", "Search", new { categoryId = (int)this.ViewData["categoryId"] })
             .Data("readHandler")
             )
-        .PageSize(7)
+        .PageSize(60)
+        //.Events(ev => ev.)
         )
+        .Events(e => e
+            //.DataBinding("onListViewDataBinding")
+            //.Change("onListViewChange")
+            .DataBound("onListViewDataBound")
+            )
     )
 
 <!-- ListView products template -->

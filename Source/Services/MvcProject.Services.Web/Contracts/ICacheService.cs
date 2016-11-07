@@ -8,7 +8,7 @@
 
     public interface ICacheService
     {
-        T Get<T>(string itemName, Func<T> getDataFunc, int durationInSeconds = 0);
+        T Get<T>(string itemName, Func<T> dataFunc, int absoluteExpiration = 0, bool hasUpdateCallback = false, int updateAbsoluteExp = 0);
 
         void Remove(string itemName);
     }

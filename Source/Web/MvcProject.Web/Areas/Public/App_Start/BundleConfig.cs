@@ -30,6 +30,7 @@
                 );
 
             // CSS
+
             bundles.Add(new StyleBundle(Bundles.PublicStylesIgniteUI)
                 .Include("~/Areas/Public/Content/IgniteUI/structure/infragistics.css", new CssRewriteUrlTransform())
                 .Include("~/Areas/Public/Content/IgniteUI/structure/modules/infragistics.ui.rating.css", new CssRewriteUrlTransform())

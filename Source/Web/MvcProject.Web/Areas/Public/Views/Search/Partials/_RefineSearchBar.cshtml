@@ -36,15 +36,28 @@
                                 @if (searchFilter.SelectionType == SearchFilterSelectionType.Multiple)
                                 {
                                     <label class="options-label">
-                                        <input type="checkbox" name="checkbox" onchange="submitForm(this)" value="@options[i].Value">
-                                        @options[i].Value
+                                        <input type="checkbox" 
+                                               name="@searchFilter.Name" 
+                                               onchange="submitForm(this)" 
+                                               value="@options[i]"
+                                               data-filter-id="@searchFilter.Id"
+                                               data-filter-options-type="@searchFilter.OptionsType@*.GetHashCode()*@"
+                                               data-filter-selection-type="@searchFilter.SelectionType@*.GetHashCode()*@" />
+                                        <span>@options[i]</span>
                                     </label>
                                 }
                                 else
                                 {
                                     <label class="options-label">
-                                        <input type="checkbox" name="checkbox" onchange="submitForm(this)" value="@options[i].Value" style="visibility:hidden;width:0">
-                                        @options[i].Value
+                                        <input type="radio"
+                                               name="@searchFilter.Name"
+                                               onchange="submitForm(this)"
+                                               value="@options[i]"
+                                               data-filter-id="@searchFilter.Id"
+                                               data-filter-options-type="@searchFilter.OptionsType@*.GetHashCode()*@"
+                                               data-filter-selection-type="@searchFilter.SelectionType@*.GetHashCode()*@"
+                                               style="visibility:hidden;width:0" />
+                                        <span>@options[i]</span>
                                     </label>
                                 }
 
@@ -68,7 +81,4 @@
             </div>
         }
     }
-
-    <img id="search-refine-loading-spinner" src="~/Content/Kendo/Silver/loading_2x.gif" style="display: none; text-align: center;">
-
 </div>

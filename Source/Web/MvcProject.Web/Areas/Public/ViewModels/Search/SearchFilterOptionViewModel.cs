@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Web;
 
-    public class SearchFilterOptionViewModel
+    public class SearchFilterOptionViewModel    
     {
         public string Value { get; set; }
 

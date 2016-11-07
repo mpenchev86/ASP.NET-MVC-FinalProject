@@ -3,19 +3,15 @@
 
 <table>
     <tr id="title">
-        @*<th>@Html.LabelFor(m => m.Title)</th>*@
         <td colspan="2">@Html.DisplayFor(m => m.Title)</td>
     </tr>
     <tr id="seller">
-        @*<th>@Html.LabelFor(m => m.Title)</th>*@
         <td colspan="2">
             offered by  <a href="/Public/Users/UserProfile?userName=@Model.SellerName">@Model.SellerName</a>
         </td>
     </tr>
     <tr id="rating">
-        @*<th>@Html.LabelFor(m => m.Title)</th>*@
         <td colspan="2">@Html.DisplayFor(m => m.Rating, "Rating", new { index = "Id" })<br /></td>
-        @*<td colspan="2">@Model.Rating</td>*@
     </tr>
     <tr id="unit-price">
         <th>@Html.LabelFor(m => m.UnitPrice, "Price")</th>
@@ -26,7 +22,6 @@
         <td>@Html.DisplayFor(m => m.ShippingPrice)</td>
     </tr>
     <tr id="is-in-stock">
-        @*<th>@Html.LabelFor(m => m.IsInStock, "Availability")</th>*@
         <td>
             @if (Model.IsInStock)
             {

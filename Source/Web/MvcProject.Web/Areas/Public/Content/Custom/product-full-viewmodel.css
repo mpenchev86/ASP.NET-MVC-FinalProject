@@ -270,52 +270,60 @@
         }
 
     /* ====== Tags ====== */
-    #product-info #tags{
+    #tags {
         margin: 0 0 0 0;
         padding: 0 10px 0 10px;
     }
+        #tags label{
+            text-transform: lowercase;
+        }
 
-        #product-info #tags .btn{
+        #tags .btn{
             padding: 0 7px;
             margin: 0 0 0 5px;
         }
 
 /* ========== Product Comments ========== */
-#product-comments {
+#product-reviews {
     margin: 50px 0 0 0;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-    #product-comments .row {
+    #product-reviews .row {
         margin: 25px 0 0 0;
     }
 
-    #product-comments #no-comments{
+    #product-reviews #no-comments{
         font-size: 13px;
     }
 
-    #product-comments .comment-metadata{
+    #product-reviews .comment-metadata{
         margin: 0 0 0 0;
         font-size: 13px;
         font-family: Arial, Helvetica, sans-serif;
     }
 
-    #product-comments .comment-metadata a{
+    #product-reviews .comment-metadata a{
         text-decoration: none;
         color: midnightblue;
     }
 
-    #product-comments .comment-metadata a:hover{
+    #product-reviews .comment-metadata a:hover{
         text-decoration: none;
         color: dodgerblue;
     }
 
-    #product-comments .comment-content{
+    #product-reviews .comment-content{
         font-size: 14px;
         margin: 0 0 0 10px;
     }
 
     /* ====== Comments ====== */
+    #all-comments ul{
+        list-style: none;
+        padding-left: 20px;
+    }
+
     #new-comment-form textarea{
         max-width: none;
         min-width: 30%;
@@ -326,7 +334,14 @@
         font-size: 12px;
     }
 
+    .comment-content p{
+        width: 50%;
+        /*text-overflow: ellipsis;*/
+        /*word-break: break-word;*/
+        /*text-align: justify;*/
+    }
+
     /* ====== Rating ====== */
-    #product-comments .ui-icon-star {
+    #product-reviews .ui-icon-star {
         opacity: 100;
     }

@@ -48,9 +48,10 @@
     </footer>
     <!-- SCRIPTS -->
     @Scripts.Render(Bundles.ScriptsJQuery)
+    @Scripts.Render(Bundles.ScriptsJQueryUnobtrusive)
     @Scripts.Render(Bundles.ScriptsJQueryValidate)
-    @Scripts.Render(Bundles.ScriptsKendo)
     @Scripts.Render(Bundles.ScriptsBootstrap)
+    @Scripts.Render(Bundles.ScriptsKendo)
     @Scripts.Render(Bundles.AdminScriptsCustom)
     @*@Scripts.Render(Bundles.ScriptsSignalR)*@
     @RenderSection("Scripts", required: false)

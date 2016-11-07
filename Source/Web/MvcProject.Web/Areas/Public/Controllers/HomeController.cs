@@ -37,26 +37,20 @@
             return this.View();
         }
 
-        //[OutputCache(Duration = 10 * 60)]
+        [OutputCache(Duration = 30 * 60)]
+        [ChildActionOnly]
         public PartialViewResult Carousel()
         {
-            //var viewModel = new List<CarouselData>();
-
-            var viewModel = this.Cache.Get(
-                "carouselProducts",
-                () => this.productsService
+            var viewModel = this.productsService
                     .GetAll()
                     .OrderByDescending(p => p.CreatedOn)
                     .Take(5)
                     .To<CarouselData>()
-                    .ToList(),
-                2 * 60);
+                    .ToList();
 
             return PartialView("_Carousel", viewModel);
         }
 
-        // Cached
-        //[OutputCache(Duration = 10 * 60)]
         public JsonResult ReadNewestProducts([DataSourceRequest]DataSourceRequest request)
         {
             var viewModel = this.Cache.Get(
@@ -67,13 +61,13 @@
                     .Take(UiSpecificConstants.IndexListViewNumberOfNewestProducts)
                     .To<ProductDetailsForIndexListView>()
                     .ToList(),
-                CacheConstants.IndexListViewCacheDurationInSeconds);
+                CacheConstants.IndexListViewCacheExpirationInSeconds,
+                true,
+                25 * 60);
 
             return this.Json(viewModel.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
         }
 
-        // Cached
-        //[OutputCache(Duration = 10 * 60)]
         public JsonResult ReadBestSellingProducts([DataSourceRequest]DataSourceRequest request)
         {
             var viewModel = this.Cache.Get(
@@ -84,13 +78,13 @@
                     .Take(UiSpecificConstants.IndexListViewNumberOfBestSellingProducts)
                     .To<ProductDetailsForIndexListView>()
                     .ToList(),
-                CacheConstants.IndexListViewCacheDurationInSeconds);
+                CacheConstants.IndexListViewCacheExpirationInSeconds,
+                true,
+                25 * 60);
 
             return this.Json(viewModel.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
         }
 
-        // Cached
-        //[OutputCache(Duration = 10 * 60)]
         public JsonResult ReadHighestVotedProducts([DataSourceRequest]DataSourceRequest request)
         {
             var viewModel = this.Cache.Get(
@@ -101,7 +95,9 @@
                     .Take(UiSpecificConstants.IndexListViewNumberOfhighestVotedProducts)
                     .To<ProductDetailsForIndexListView>()
                     .ToList(),
-                CacheConstants.IndexListViewCacheDurationInSeconds);
+                CacheConstants.IndexListViewCacheExpirationInSeconds,
+                true,
+                25 * 60);
 
             return this.Json(viewModel.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
         }
