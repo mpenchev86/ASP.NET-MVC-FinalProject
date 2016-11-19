@@ -26,7 +26,7 @@
         public ActionResult UserProfile(string userName)
         {
             var user = this.usersService.GetByUserName(userName);
-            var result = this.mappingService.IMapper.Map<ApplicationUser, UserProfileViewModel>(user);
+            var result = this.mappingService/*.IMapper*/.Map<ApplicationUser, UserProfileViewModel>(user);
             return this.View(result);
         }
     }

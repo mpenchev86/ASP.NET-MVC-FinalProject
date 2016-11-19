@@ -14,6 +14,7 @@
     using Services.Web;
     using Data.Models;
     using ViewModels.Categories;
+    using System.Web.Caching;
 
     public class HomeController : BasePublicController
     {
@@ -61,9 +62,9 @@
                     .Take(UiSpecificConstants.IndexListViewNumberOfNewestProducts)
                     .To<ProductDetailsForIndexListView>()
                     .ToList(),
-                CacheConstants.IndexListViewCacheExpirationInSeconds,
-                true,
-                25 * 60);
+                CacheConstants.IndexListViewCacheExpiration,
+                CacheConstants.IndexListViewUpdateCallbackExpiration
+                );
 
             return this.Json(viewModel.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
         }
@@ -78,9 +79,9 @@
                     .Take(UiSpecificConstants.IndexListViewNumberOfBestSellingProducts)
                     .To<ProductDetailsForIndexListView>()
                     .ToList(),
-                CacheConstants.IndexListViewCacheExpirationInSeconds,
-                true,
-                25 * 60);
+                CacheConstants.IndexListViewCacheExpiration,
+                CacheConstants.IndexListViewUpdateCallbackExpiration
+                );
 
             return this.Json(viewModel.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
         }
@@ -95,9 +96,9 @@
                     .Take(UiSpecificConstants.IndexListViewNumberOfhighestVotedProducts)
                     .To<ProductDetailsForIndexListView>()
                     .ToList(),
-                CacheConstants.IndexListViewCacheExpirationInSeconds,
-                true,
-                25 * 60);
+                CacheConstants.IndexListViewCacheExpiration,
+                CacheConstants.IndexListViewUpdateCallbackExpiration
+                );
 
             return this.Json(viewModel.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
         }

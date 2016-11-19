@@ -51,7 +51,6 @@
     <Compile Include="DbAccess.cs" />
     <Compile Include="ExceptionMessages.cs" />
     <Compile Include="IdentityRoles.cs" />
-    <Compile Include="Partials.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaticResourcesUrls.cs" />
     <Compile Include="Templates.cs" />

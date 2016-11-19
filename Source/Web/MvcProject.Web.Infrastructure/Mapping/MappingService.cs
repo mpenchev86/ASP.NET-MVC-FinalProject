@@ -22,6 +22,11 @@
             return Mapper.Map<T>(source);
         }
 
+        public TDestination Map<TSource, TDestination>(TSource source)
+        {
+            return Mapper.Map<TSource, TDestination>(source);
+        }
+
         public TDestination Map<TSource, TDestination>(TSource source, TDestination destination)
         {
             return Mapper.Map(source, destination);

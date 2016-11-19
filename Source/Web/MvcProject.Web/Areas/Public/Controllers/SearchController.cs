@@ -68,20 +68,32 @@
             //, RefinementOption searchFilter
             )
         {
-            var category = this.categoriesService.GetById(categoryId);
+            //var category = this.categoriesService.GetById(categoryId);
             var products = this.Cache.Get(
                 "category" + categoryId.ToString() + "products",
-                () => category.Products
-                    //.Take(200)
-                    .AsQueryable()
-                    //.FilterProducts(searchFilter)
-                    .To<ProductOfCategoryViewModel>()
-                    .ToList(),
-                30 * 60,
-                true,
-                21 * 60);
+                () => GetCachedData(categoryId),
+                //() => /*category.Products*/this.categoriesService.GetById(categoryId).Products
+                //    .Take(1000)
+                //    .AsQueryable()
+                //    //.FilterProducts(searchFilter)
+                //    .To<ProductOfCategoryViewModel>()
+                //    .ToList(),
+                5 * 60,
+                3 * 60
+                );
 
             return this.Json(products.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet); ;
+        }
+
+        public List<ProductOfCategoryViewModel> GetCachedData(int categoryId)
+        {
+            var p = this.categoriesService.GetById(categoryId).Products
+                    .Take(1000)
+                    .AsQueryable()
+                    .To<ProductOfCategoryViewModel>()
+                    .ToList();
+
+            return p;
         }
 
         [OutputCache(Duration = 15 * 60, VaryByParam = "viewModel;categoryId")]

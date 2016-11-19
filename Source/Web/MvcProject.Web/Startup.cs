@@ -8,6 +8,8 @@ namespace MvcProject.Web
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+    using Common.GlobalConstants;
+    using Hangfire;
     using Infrastructure.Extensions;
 
     public partial class Startup
@@ -20,6 +22,9 @@ namespace MvcProject.Web
 
             // app.MapSignalR();
             this.ConfigureAuth(app);
+
+            //// Hangfire configuration
+            HangFireConfig.Initialize(app);
         }
     }
 }

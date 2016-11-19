@@ -41,8 +41,8 @@
                                                onchange="submitForm(this)" 
                                                value="@options[i]"
                                                data-filter-id="@searchFilter.Id"
-                                               data-filter-options-type="@searchFilter.OptionsType@*.GetHashCode()*@"
-                                               data-filter-selection-type="@searchFilter.SelectionType@*.GetHashCode()*@" />
+                                               data-filter-options-type="@searchFilter.OptionsType"
+                                               data-filter-selection-type="@searchFilter.SelectionType" />
                                         <span>@options[i]</span>
                                     </label>
                                 }
@@ -54,8 +54,8 @@
                                                onchange="submitForm(this)"
                                                value="@options[i]"
                                                data-filter-id="@searchFilter.Id"
-                                               data-filter-options-type="@searchFilter.OptionsType@*.GetHashCode()*@"
-                                               data-filter-selection-type="@searchFilter.SelectionType@*.GetHashCode()*@"
+                                               data-filter-options-type="@searchFilter.OptionsType"
+                                               data-filter-selection-type="@searchFilter.SelectionType"
                                                style="visibility:hidden;width:0" />
                                         <span>@options[i]</span>
                                     </label>

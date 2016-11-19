@@ -16,6 +16,7 @@
     using Areas.Public.Controllers;
     using Data.DbAccessConfig.Contexts;
     using Data.DbAccessConfig.Migrations;
+    using Infrastructure.BackgroundWorkers;
     using Infrastructure.Mapping;
     using Services.Data;
 
@@ -23,7 +24,7 @@
     public class MvcApplication : HttpApplication
 #pragma warning restore SA1649 // File name must match first type name
     {
-        protected void Application_Start()
+        protected void Application_Start(object sender, EventArgs e)
         {
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -39,6 +40,13 @@
                 Assembly.GetAssembly(typeof(BasePublicController)),
                 Assembly.GetAssembly(typeof(BaseAdminController)),
                 Assembly.GetAssembly(typeof(IBaseDataService)));
+
+            //HangfireBootstrapper.Instance.Start();
         }
+
+        //protected void Application_End(object sender, EventArgs e)
+        //{
+        //    HangfireBootstrapper.Instance.Stop();
+        //}
     }
 }

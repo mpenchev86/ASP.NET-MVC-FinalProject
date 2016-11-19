@@ -11,19 +11,20 @@
     using Services.Data;
     using ViewModels.Comments;
     using ViewModels.Products;
+
     public class CommentsController : BasePublicController
     {
         private ICommentsService commentsService;
-        private IMappingService mappingService;
+        //private IMappingService mappingService;
         private IUsersService usersService;
 
         public CommentsController(
             ICommentsService commentsService,
-            IMappingService mappingService,
+            //IMappingService mappingService,
             IUsersService usersService)
         {
             this.commentsService = commentsService;
-            this.mappingService = mappingService;
+            //this.mappingService = mappingService;
             this.usersService = usersService;
         }
 

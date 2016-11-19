@@ -93,7 +93,7 @@
 
         public ProcessedImage ToProcessedImage(Image image, byte[] smallSizeContent, byte[] thumbnailContent, byte[] highResolutionContent)
         {
-            var result = this.mappingService.IMapper.Map<ProcessedImage>(image);
+            var result = this.mappingService/*.IMapper*/.Map<ProcessedImage>(image);
             result.SmallSizeContent = smallSizeContent;
             result.ThumbnailContent = thumbnailContent;
             result.HighResolutionContent = highResolutionContent;

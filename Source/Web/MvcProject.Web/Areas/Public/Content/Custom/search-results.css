@@ -61,7 +61,12 @@
 
     .search-product-li .price {
         text-align: center;
-        height: 35%;
+        height: 20%;
+    }
+
+    .search-product-li .id {
+        text-align: center;
+        height: 15%;
     }
 
     .search-product-li img {

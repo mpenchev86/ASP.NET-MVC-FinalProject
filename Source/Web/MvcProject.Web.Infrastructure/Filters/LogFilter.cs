@@ -10,7 +10,6 @@
     using System.Web;
     using System.Web.Mvc;
 
-    // TEST - action filter
     public class LogFilter : ActionFilterAttribute
     {
         private string filePath = HttpContext.Current.Server.MapPath("~/App_Data/log.txt");

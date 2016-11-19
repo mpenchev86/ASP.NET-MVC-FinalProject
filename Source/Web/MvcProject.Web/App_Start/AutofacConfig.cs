@@ -16,6 +16,7 @@
     using Data.DbAccessConfig.IdentityStores;
     using Data.DbAccessConfig.Repositories;
     using Data.Models;
+    using Hangfire;
     using Infrastructure.Sanitizer;
     using Infrastructure.ViewEngines;
     using Microsoft.AspNet.Identity;
@@ -59,6 +60,9 @@
             // Set the dependency resolver to be Autofac.
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+
+            // Integration with Hangfire
+            GlobalConfiguration.Configuration.UseAutofacActivator(container);
         }
 
         public static void RegisterServices(ContainerBuilder builder)
@@ -67,7 +71,9 @@
             builder
                 .Register(x => new MvcProjectDbContext())
                 .As<DbContext>()
-                .InstancePerLifetimeScope();
+                .InstancePerLifetimeScope()
+                //.InstancePerBackgroundJob()
+                ;
 
             // Repositories
             builder
