@@ -6,26 +6,31 @@
     using System.Web;
     using Common.GlobalConstants;
     using Hangfire;
+    using Hangfire.SqlServer;
     using Owin;
 
     public class HangFireConfig
     {
         public static void Initialize(IAppBuilder app)
         {
-            GlobalConfiguration.Configuration.UseSqlServerStorage(DbAccess.ConnectionStringName);
+            //var sqlOptions = new SqlServerStorageOptions()
+            //{
+            //};
+
+            GlobalConfiguration.Configuration.UseSqlServerStorage(DbAccess.ConnectionStringName/*, sqlOptions*/);
 
             // var dashboard = new DashboardOptions()
             // {
             //    AppPath = VirtualPathUtility.ToAbsolute("~/Public")
             // };
 
-            // var server = new BackgroundJobServerOptions()
+            // var serverOptions = new BackgroundJobServerOptions()
             // {
             //    Queues = new string[] { "critical", "default", "..." }
             // };
 
             app.UseHangfireDashboard("/hangfire"/*, dashboard*/);
-            app.UseHangfireServer(/*server*/);
+            app.UseHangfireServer(/*serverOptions*/);
         }
     }
 }

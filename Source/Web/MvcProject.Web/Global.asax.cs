@@ -41,12 +41,12 @@
                 Assembly.GetAssembly(typeof(BaseAdminController)),
                 Assembly.GetAssembly(typeof(IBaseDataService)));
 
-            //HangfireBootstrapper.Instance.Start();
+            HangfireBootstrapper.Instance.Start();
         }
 
-        //protected void Application_End(object sender, EventArgs e)
-        //{
-        //    HangfireBootstrapper.Instance.Stop();
-        //}
+        protected void Application_End(object sender, EventArgs e)
+        {
+            HangfireBootstrapper.Instance.Stop();
+        }
     }
 }

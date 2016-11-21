@@ -56,14 +56,16 @@
         {
             var viewModel = this.Cache.Get(
                 "newestProducts",
+                //this.GetType().Name,
                 () => this.productsService
                     .GetAll()
                     .OrderByDescending(p => p.CreatedOn)
                     .Take(UiSpecificConstants.IndexListViewNumberOfNewestProducts)
                     .To<ProductDetailsForIndexListView>()
                     .ToList(),
-                CacheConstants.IndexListViewCacheExpiration,
-                CacheConstants.IndexListViewUpdateCallbackExpiration
+                CacheConstants.IndexListViewCacheExpiration
+                //,
+                //CacheConstants.IndexListViewUpdateCallbackExpiration
                 );
 
             return this.Json(viewModel.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
@@ -79,8 +81,9 @@
                     .Take(UiSpecificConstants.IndexListViewNumberOfBestSellingProducts)
                     .To<ProductDetailsForIndexListView>()
                     .ToList(),
-                CacheConstants.IndexListViewCacheExpiration,
-                CacheConstants.IndexListViewUpdateCallbackExpiration
+                CacheConstants.IndexListViewCacheExpiration
+                //,
+                //CacheConstants.IndexListViewUpdateCallbackExpiration
                 );
 
             return this.Json(viewModel.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
@@ -96,8 +99,9 @@
                     .Take(UiSpecificConstants.IndexListViewNumberOfhighestVotedProducts)
                     .To<ProductDetailsForIndexListView>()
                     .ToList(),
-                CacheConstants.IndexListViewCacheExpiration,
-                CacheConstants.IndexListViewUpdateCallbackExpiration
+                CacheConstants.IndexListViewCacheExpiration
+                //,
+                //CacheConstants.IndexListViewUpdateCallbackExpiration
                 );
 
             return this.Json(viewModel.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);

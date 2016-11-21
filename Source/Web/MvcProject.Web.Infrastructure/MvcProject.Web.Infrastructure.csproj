@@ -116,6 +116,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionResults\ChallengeResult.cs" />
+    <Compile Include="BackgroundWorkers\BackgroundJobsService.cs" />
+    <Compile Include="BackgroundWorkers\ContainerJobActivator.cs" />
+    <Compile Include="BackgroundWorkers\Contracts\IBackgroundJobsService.cs" />
+    <Compile Include="BackgroundWorkers\Contracts\IBackgroundJobSubscriber.cs" />
     <Compile Include="BackgroundWorkers\HangfireBootstrapper.cs" />
     <Compile Include="Caching\NoCacheAttribute.cs" />
     <Compile Include="Caching\PreWarmCache.cs" />

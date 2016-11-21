@@ -11,32 +11,45 @@
     using System.Web.Caching;
     using System.Web.Hosting;
     using Hangfire;
+    using MvcProject.Web.Infrastructure.BackgroundWorkers;
     using ServiceModels;
 
     public class HttpCacheService : ICacheService
     {
         private static readonly object LockObject = new object();
 
-        private static ConcurrentDictionary<string, CacheSettings> cacheSettingsCollection =
-             new ConcurrentDictionary<string, CacheSettings>();
+        private static ConcurrentDictionary<string, CacheProfile> cacheProfiles =
+             new ConcurrentDictionary<string, CacheProfile>();
 
-        //private static ConcurrentDictionary<string, object> updatedCacheValues =
-        //     new ConcurrentDictionary<string, object>();
-
-        //private static ConcurrentDictionary<string, bool> updatedValueFlags =
-        //     new ConcurrentDictionary<string, bool>();
-
-        //private static ConcurrentDictionary<string, Delegate> expensiveOperations =
-        //     new ConcurrentDictionary<string, Delegate>();
-
-        //private static ConcurrentDictionary<string, CacheItemUpdateCallback> onUpdateCallbacks =
-        //     new ConcurrentDictionary<string, CacheItemUpdateCallback>();
-
-        public T Get<T>(string key, Func<T>/*Delegate*/ dataFunc/*, Type delegType*/, int absoluteExpiration, int updateAbsoluteExp, CacheItemPriority priority = CacheItemPriority.Default)
+        public static ConcurrentDictionary<string, CacheProfile> CacheProfiles
         {
-            return this.InsertInCache(key, dataFunc/*, delegType*/, absoluteExpiration, updateAbsoluteExp, priority);
+            get { return cacheProfiles; }
+        }
 
-            //return (T)HttpRuntime.Cache[itemName];
+        //public bool HasBackgroundJobAssigned(string key)
+        //{
+        //    if (!cacheProfiles.Keys.Any(k => k == key))
+        //    {
+        //        throw new ArgumentException("The provided cache profile key is invalid.", "key");
+        //    }
+
+        //    if (cacheProfiles[key].HasBackgroundJobAssigned)
+        //    {
+        //        return true;
+        //    }
+
+        //    return false;
+        //}
+
+        //public void AddOrUpdateCacheProfile(string key, CacheProfile cacheProfile)
+        //{
+        //    cacheProfiles.AddOrUpdate(key, cacheProfile, (k, i) => i);
+        //}
+
+        public T Get<T, TClass>(object[] methodArguments, string key, Func<T> dataFunc, int absoluteExpiration, int updateAbsoluteExp, CacheItemPriority priority = CacheItemPriority.Default)
+            where TClass : class, IBackgroundJobSubscriber
+        {
+            return this.InsertInCache<T, TClass>(methodArguments, key, dataFunc, absoluteExpiration, updateAbsoluteExp, priority);
         }
 
         public T Get<T>(string key, Func<T> dataFunc, int absoluteExpiration)
@@ -47,7 +60,8 @@
                 {
                     if (HttpRuntime.Cache[key] == null)
                     {
-                        HttpRuntime.Cache.Insert(key, dataFunc(), null, DateTime.UtcNow.AddSeconds(absoluteExpiration), Cache.NoSlidingExpiration);
+                        var data = dataFunc();
+                        HttpRuntime.Cache.Insert(key, data, null, DateTime.UtcNow.AddSeconds(absoluteExpiration), Cache.NoSlidingExpiration);
                     }
                 }
             }
@@ -60,7 +74,8 @@
             HttpRuntime.Cache.Remove(key);
         }
 
-        private T InsertInCache<T>(string key, Func<T>/*Delegate*/ dataFunc/*, Type delegType*/, int absoluteExpiration, int updateAbsoluteExp, CacheItemPriority priority)
+        private T InsertInCache<T, TClass>(object[] methodArguments, string key, Func<T> dataFunc, int absoluteExpiration, int updateAbsoluteExp, CacheItemPriority priority)
+            where TClass : class, IBackgroundJobSubscriber
         {
             if (HttpRuntime.Cache[key] == null)
             {
@@ -69,58 +84,38 @@
                     if (HttpRuntime.Cache[key] == null)
                     {
                         T data;
-                        //if (updatedValueFlags.Keys.Any(k => k == key) && updatedValueFlags[key] == true)
-                        //{
-                        //    data = (T)updatedCacheValues[key];
-                        //    updatedValueFlags[key] = false;
-                        //}
-                        //else
-                        //{
-                        //    data = dataFunc();
-                        //}
-
-                        if (cacheSettingsCollection.Keys.Any(k => k == key) && cacheSettingsCollection[key].UpdatedValueFlag == true)
+                        if (cacheProfiles.Keys.Any(k => k == key) && cacheProfiles[key].UpdatedValueFlag == true)
                         {
-                            data = (T)cacheSettingsCollection[key].UpdatedCacheValue;
-                            cacheSettingsCollection[key].UpdatedValueFlag = false;
+                            data = (T)cacheProfiles[key].UpdatedCacheValue;
                         }
                         else
                         {
                             data = dataFunc();
                         }
 
-                        var cacheSettings = cacheSettingsCollection.AddOrUpdate(
+                        var cacheSettings = cacheProfiles.AddOrUpdate(
                             key,
-                            new CacheSettings()
+                            new CacheProfile()
                             {
-                                ExpensiveOperation = dataFunc,
-                                OnUpdateCallback = new CacheItemUpdateCallback(OnUpdate<T>),
                                 UpdatedCacheValue = data,
+                                MethodArguments = methodArguments,
                                 AbsoluteExpiration = absoluteExpiration,
                                 UpdateDelay = updateAbsoluteExp,
+                                //HasBackgroundJobAssigned = false,
                                 UpdatedValueFlag = false
                             },
                             (k, d) => d);
 
-                        HttpRuntime.Cache.Insert(key, data, null, DateTime.UtcNow.AddSeconds(absoluteExpiration), Cache.NoSlidingExpiration, cacheSettings.OnUpdateCallback);
-
-                        //expensiveOperations.AddOrUpdate(key, dataFunc, (k, d) => d);
-                        //var updateDeleg = onUpdateCallbacks.GetOrAdd(key, new CacheItemUpdateCallback(OnUpdate<T>));
-
-                        //HttpRuntime.Cache.Insert(key, data, null, DateTime.UtcNow.AddSeconds(absoluteExpiration), Cache.NoSlidingExpiration, updateDeleg);
-
-                        //var removeDeleg = onRemoveCallbacks.GetOrAdd(itemName, new CacheItemRemovedCallback(this.OnRemove<T>));
-                        //HttpRuntime.Cache.Insert(itemName, data, null, DateTime.UtcNow.AddSeconds(absoluteExpiration), Cache.NoSlidingExpiration, priority, removeDeleg);
-
-                        //HttpRuntime.Cache.Insert(key, data, null, DateTime.UtcNow.AddSeconds(absoluteExpiration), Cache.NoSlidingExpiration);
-
-                        var jobId = BackgroundJob.Schedule(
-                            () => GetExpensiveData<T>(
-                                JobCancellationToken.Null,
-                                data,
-                                key),
-                            TimeSpan.FromSeconds(cacheSettings.UpdateDelay)
+                        HttpRuntime.Cache.Insert(
+                            key,
+                            data,
+                            null,
+                            DateTime.UtcNow.AddSeconds(absoluteExpiration),
+                            Cache.NoSlidingExpiration,
+                            new CacheItemUpdateCallback(OnUpdate<T, TClass>)
                             );
+
+                        BackgroundJob.Schedule<TClass>(x => x.BackgroundOperation(methodArguments), TimeSpan.FromSeconds(updateAbsoluteExp));
                     }
                 }
             }
@@ -128,45 +123,23 @@
             return (T)HttpRuntime.Cache[key];
         }
 
-        public static void OnUpdate<T>(
+        private static void OnUpdate<T, TClass>(
             string key,
             CacheItemUpdateReason reason,
             out object expensiveObject,
             out CacheDependency dependency,
             out DateTime absoluteExpiration,
             out TimeSpan slidingExpiration)
+            where TClass : class, IBackgroundJobSubscriber
         {
-            expensiveObject = (T)cacheSettingsCollection[key].UpdatedCacheValue;
+            expensiveObject = (T)cacheProfiles[key].UpdatedCacheValue;
             dependency = null;
-            absoluteExpiration = DateTime.UtcNow.AddSeconds(cacheSettingsCollection[key].AbsoluteExpiration);
+            absoluteExpiration = DateTime.UtcNow.AddSeconds(cacheProfiles[key].AbsoluteExpiration);
             slidingExpiration = Cache.NoSlidingExpiration;
 
-            //HostingEnvironment.QueueBackgroundWorkItem(ct => GetExpensiveData<T>((T)cacheSettingsCollection[key].UpdatedCacheValue, key));
+            //cacheProfiles[key].HasBackgroundJobAssigned = false;
 
-            var jobId = BackgroundJob.Schedule(
-                () => GetExpensiveData<T>(
-                    JobCancellationToken.Null,
-                    (T)cacheSettingsCollection[key].UpdatedCacheValue,
-                    key),
-                TimeSpan.FromSeconds(cacheSettingsCollection[key].UpdateDelay)
-                );
-        }
-
-        //[AutomaticRetry(Attempts = 0)]
-        public static void GetExpensiveData<T>(IJobCancellationToken cancellationToken, T data, string key)
-        {
-            if (!cacheSettingsCollection.Keys.Any(k => k == key))
-            {
-                return;
-            }
-
-            cacheSettingsCollection[key].UpdatedCacheValue = ((Func<T>)cacheSettingsCollection[key].ExpensiveOperation)();
-            cacheSettingsCollection[key].UpdatedValueFlag = true;
-
-            //updatedCacheValues.AddOrUpdate(key, ((Func<T>)expensiveOperations[key])(), (k, d) => d);
-            //updatedValueFlags[key] = true;
-
-            //cancellationToken.ThrowIfCancellationRequested();
+            BackgroundJob.Schedule<TClass>(x => x.BackgroundOperation(cacheProfiles[key].MethodArguments), TimeSpan.FromSeconds(cacheProfiles[key].UpdateDelay));
         }
     }
 }

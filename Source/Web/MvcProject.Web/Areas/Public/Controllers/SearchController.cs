@@ -3,9 +3,13 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
+    using Common.GlobalConstants;
     using Data.Models;
+    using Hangfire;
+    using Infrastructure.BackgroundWorkers;
     using Infrastructure.Extensions;
     using Infrastructure.Validators;
     using Kendo.Mvc.Extensions;
@@ -14,16 +18,20 @@
     using Services.Logic;
     using Services.Logic.ServiceModels;
     using Services.Web;
+    using Services.Web.ServiceModels;
     using ViewModels.Categories;
     using ViewModels.Products;
     using ViewModels.Search;
 
-    public class SearchController : BasePublicController
+    public class SearchController : BasePublicController, IBackgroundJobSubscriber
     {
+        //private static readonly object lockObject = new object();
+
         private IProductsService productsService;
         private ISearchFiltersService searchFiltersService;
         private ICategoriesService categoriesService;
         private ISearchFilterHelpers filterStringHelpers;
+        private IBackgroundJobsService backgroundJobService;
         //private ISearchRefinementHelpers<ProductOfCategoryViewModel, SearchFilterForCategoryViewModel> searchAlgorithms;
 
         public SearchController(
@@ -31,7 +39,8 @@
             IProductsService productsService,
             ISearchFiltersService searchFiltersService,
             ICategoriesService categoriesService,
-            ISearchFilterHelpers filterStringHelpers
+            ISearchFilterHelpers filterStringHelpers,
+            IBackgroundJobsService backgroundJobService
             //ISearchRefinementHelpers<ProductOfCategoryViewModel, SearchFilterForCategoryViewModel> searchAlgorithms
             )
         {
@@ -40,6 +49,7 @@
             this.searchFiltersService = searchFiltersService;
             this.categoriesService = categoriesService;
             this.filterStringHelpers = filterStringHelpers;
+            this.backgroundJobService = backgroundJobService;
             //this.searchAlgorithms = searchAlgorithms;
         }
 
@@ -68,32 +78,44 @@
             //, RefinementOption searchFilter
             )
         {
-            //var category = this.categoriesService.GetById(categoryId);
-            var products = this.Cache.Get(
-                "category" + categoryId.ToString() + "products",
-                () => GetCachedData(categoryId),
-                //() => /*category.Products*/this.categoriesService.GetById(categoryId).Products
-                //    .Take(1000)
-                //    .AsQueryable()
-                //    //.FilterProducts(searchFilter)
-                //    .To<ProductOfCategoryViewModel>()
-                //    .ToList(),
-                5 * 60,
-                3 * 60
+            var cacheKey = "category" + categoryId.ToString() + "products";
+            var products = this.Cache.Get<List<ProductOfCategoryViewModel>, SearchController>(
+                new object[] { categoryId, cacheKey },
+                cacheKey,
+                () => this.GetProductsOfCategory(categoryId),
+                CacheConstants.AllProductsInCategoryCacheExpiration,
+                CacheConstants.AllProductsInCategoryUpdateBackgroundJobDelay
                 );
+
+            //if (!HttpCacheService.CacheProfiles[cacheKey].HasBackgroundJobAssigned)
+            //{
+            //    lock (lockObject)
+            //    {
+            //        if (!HttpCacheService.CacheProfiles[cacheKey].HasBackgroundJobAssigned)
+            //        {
+            //            this.backgroundJobService
+            //                .JobClient
+            //                .Schedule(() => this.BackgroundOperation(categoryId, cacheKey/*, 5 * 60*/), TimeSpan.FromSeconds(3 * 60));
+
+            //            HttpCacheService.CacheProfiles[cacheKey].HasBackgroundJobAssigned = true;
+            //        }
+            //    }
+            //}
 
             return this.Json(products.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet); ;
         }
 
-        public List<ProductOfCategoryViewModel> GetCachedData(int categoryId)
+        [AutomaticRetry(Attempts = 0)]
+        [NonAction]
+        public void BackgroundOperation(/*int categoryId, string updateCacheKey*/params object[] args)
         {
-            var p = this.categoriesService.GetById(categoryId).Products
-                    .Take(1000)
-                    .AsQueryable()
-                    .To<ProductOfCategoryViewModel>()
-                    .ToList();
+            int categoryId = Convert.ToInt32(args[0]);
+            string updateCacheKey = Convert.ToString(args[1]);
 
-            return p;
+            var updatedData = this.GetProductsOfCategory(categoryId);
+
+            HttpCacheService.CacheProfiles[updateCacheKey].UpdatedCacheValue = updatedData;
+            HttpCacheService.CacheProfiles[updateCacheKey].UpdatedValueFlag = true;
         }
 
         [OutputCache(Duration = 15 * 60, VaryByParam = "viewModel;categoryId")]
@@ -133,6 +155,19 @@
         //}
 
         #region Helpers
+        [NonAction]
+        private List<ProductOfCategoryViewModel> GetProductsOfCategory(int categoryId)
+        {
+            var result = this.categoriesService.GetById(categoryId).Products
+                .Take(1000)
+                .AsQueryable()
+                .To<ProductOfCategoryViewModel>()
+                .ToList();
+
+            return result;
+        }
+
+        [NonAction]
         private bool ValidateSearchFilter(RefinementOption searchFilter)
         {
             if (string.IsNullOrWhiteSpace(searchFilter.SelectedValue))

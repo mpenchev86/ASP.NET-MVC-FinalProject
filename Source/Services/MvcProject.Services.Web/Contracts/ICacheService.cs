@@ -6,6 +6,8 @@
     using System.Text;
     using System.Threading.Tasks;
     using System.Web.Caching;
+    using MvcProject.Web.Infrastructure.BackgroundWorkers;
+    using ServiceModels;
 
     public interface ICacheService
     {
@@ -20,7 +22,8 @@
         /// <param name="updateAbsoluteExp">Expiration time for the update callback data object (in seconds).</param>
         /// <param name="priority">////</param>
         /// <returns>The original data retrieved from the cached data object.</returns>
-        T Get<T>(string itemName, Func<T>/*Delegate*/ dataFunc/*, Type delegType*/, int absoluteExpiration, int updateAbsoluteExp, CacheItemPriority priority = CacheItemPriority.Default);
+        T Get<T, TClass>(object[] methodArguments, string itemName, Func<T> dataFunc, int absoluteExpiration, int updateAbsoluteExp, CacheItemPriority priority = CacheItemPriority.Default)
+            where TClass : class, IBackgroundJobSubscriber;
 
         /// <summary>
         /// Gets the cached item with the specified key. If none is found, a new one is inserted into the cache using
@@ -38,5 +41,9 @@
         /// </summary>
         /// <param name="itemName">The key used to identify the cached item.</param>
         void Remove(string itemName);
+
+        //void AddOrUpdateCacheProfile(string key, CacheProfile cacheProfile);
+
+        //bool HasBackgroundJobAssigned(string key);
     }
 }
