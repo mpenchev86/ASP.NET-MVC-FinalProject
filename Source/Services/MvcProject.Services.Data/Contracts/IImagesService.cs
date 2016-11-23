@@ -22,10 +22,10 @@
 
         void RemoveImages(IEnumerable<int> imageIds);
 
-        IEnumerable<Image> ImagesByUrls(ICollection<string> imageUrls);
-
         ProcessedImage ToProcessedImage(Image image, byte[] smallSizeContent, byte[] thumbnailContent, byte[] highResolutionContent);
 
         IEnumerable<Image> GetByProductId(int productId);
+
+        IEnumerable<Image> GetImagesByUrls(ICollection<string> imageUrls);
     }
 }

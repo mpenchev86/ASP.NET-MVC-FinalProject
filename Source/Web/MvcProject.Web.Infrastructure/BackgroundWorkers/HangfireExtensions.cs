@@ -15,6 +15,10 @@
 
     public static class HangfireExtensions
     {
+        /// <summary>
+        /// Executes sql command which deletes jobs that were interrupted on previous server shutdown.
+        /// </summary>
+        /// <param name="monitor">The Job Storage monitoring API.</param>
         public static void PurgeJobs(this IMonitoringApi monitor)
         {
             using (var db = new MvcProjectDbContext())
@@ -35,26 +39,13 @@
                             SELECT Id
                             FROM [HangFire].[Job]
                             ORDER BY Id DESC
-                            OFFSET 10 ROWS
+                            OFFSET {2} ROWS
                         ) foo
                     );
-                    "
-                    , "Processing"
-                    , "Scheduled"
-                    //, 1
-                    //, 10
-                    ));
-
-                //// Source for deleting last N entries: http://stackoverflow.com/a/8303440/4491770
-                // WHERE Id <= (
-                //    SELECT Id
-                //    FROM(
-                //        SELECT Id
-                //        FROM[HangFire].[Job]
-                //        ORDER BY Id DESC
-                //        LIMIT 1 OFFSET 10
-                //    ) foo
-                //    )
+                    ",
+                    "Processing",
+                    "Scheduled",
+                    1000));
             }
         }
     }

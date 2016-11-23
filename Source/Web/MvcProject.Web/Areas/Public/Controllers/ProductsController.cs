@@ -38,7 +38,7 @@
         public ActionResult Index(int id)
         {
             var product = this.productsService.GetById(id);
-            var viewModel = this.mappingService/*.IMapper*/.Map<Product, ProductFullViewModel>(product);
+            var viewModel = this.mappingService.Map<Product, ProductFullViewModel>(product);
             viewModel.CommentsWithRatings = this.PopulateCommentAndVote(product.Comments, product.Votes);
             // Prevents populating tags with system.data.entity.dynamicproxies...(eager loading)
             viewModel.Tags = product.Tags.Select(t => t.Name).ToList();
@@ -62,7 +62,7 @@
                 return this.Content("Product not found");
             }
 
-            var result = this.mappingService/*.IMapper*/.Map<Product, ProductSneakPeekViewModel>(product);
+            var result = this.mappingService.Map<Product, ProductSneakPeekViewModel>(product);
             return this.PartialView("_SneakPeek", result);
         }
 

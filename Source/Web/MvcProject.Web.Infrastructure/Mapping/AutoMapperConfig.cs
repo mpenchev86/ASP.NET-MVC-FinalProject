@@ -25,7 +25,7 @@
                 }
             }
 
-            // As per v5., profiles are configured
+            // As per v5., separate mapping profiles are configured
             Action<IMapperConfigurationExpression> configExpression = cfg =>
                 {
                     cfg.AddProfile(new StandardMappingsProfile(types, cfg));

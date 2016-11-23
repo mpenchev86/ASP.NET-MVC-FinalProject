@@ -1,14 +1,11 @@
 ﻿namespace MvcProject.Web.Infrastructure.BackgroundWorkers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Hangfire;
-
+    /// <summary>
+    /// Defines methods that will be processed in the background. The types implementing this interface consume background processing
+    /// services that handle the execution of these methods in a separate thread pool.
+    /// </summary>
     public interface IBackgroundJobSubscriber
     {
-        void BackgroundOperation(IJobCancellationToken token, params object[] args);
+        void BackgroundOperation(/*IJobCancellationToken token, */params object[] args);
     }
 }

@@ -93,21 +93,19 @@
 
         public ProcessedImage ToProcessedImage(Image image, byte[] smallSizeContent, byte[] thumbnailContent, byte[] highResolutionContent)
         {
-            var result = this.mappingService/*.IMapper*/.Map<ProcessedImage>(image);
+            var result = this.mappingService.Map<ProcessedImage>(image);
             result.SmallSizeContent = smallSizeContent;
             result.ThumbnailContent = thumbnailContent;
             result.HighResolutionContent = highResolutionContent;
             return result;
         }
 
-        // Rename to GetImagesByUrls
-        public IEnumerable<Image> ImagesByUrls(ICollection<string> imageUrls)
+        public IEnumerable<Image> GetImagesByUrls(ICollection<string> imageUrls)
         {
-            return this.ImagesQueryByUrls(imageUrls).ToList();
+            return this.GetQueryImagesByUrls(imageUrls).ToList();
         }
 
-        // Rename to GetImagesQueryByUrls
-        private IQueryable<Image> ImagesQueryByUrls(ICollection<string> imageUrls)
+        private IQueryable<Image> GetQueryImagesByUrls(ICollection<string> imageUrls)
         {
             return this.Repository
                 .All()

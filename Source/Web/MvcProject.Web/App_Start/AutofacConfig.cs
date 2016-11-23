@@ -34,7 +34,7 @@
             var builder = new ContainerBuilder();
 
             // Register your MVC controllers.
-            // If AutofacConfig's assembly doesn't reference the specific controllers assemblies, use these:
+            //// If AutofacConfig's assembly doesn't reference the specific controllers assemblies, use these:
             // builder.RegisterControllers(typeof(MvcApplication).Assembly);
             // builder.RegisterControllers(typeof(BasePublicController).Assembly);
             // builder.RegisterControllers(typeof(BaseAdminController).Assembly);
@@ -71,9 +71,7 @@
             builder
                 .Register(x => new MvcProjectDbContext())
                 .As<DbContext>()
-                .InstancePerLifetimeScope()
-                //.InstancePerBackgroundJob()
-                ;
+                .InstancePerLifetimeScope();
 
             // Repositories
             builder

@@ -10,7 +10,7 @@
 
     public class MappingService : IMappingService
     {
-        public IMapper IMapper
+        private IMapper IMapper
         {
             get
             {
@@ -18,19 +18,19 @@
             }
         }
 
-        public T Map<T>(object source)
+        public TDestination Map<TDestination>(object source)
         {
-            return Mapper.Map<T>(source);
+            return this.IMapper.Map<TDestination>(source);
         }
 
         public TDestination Map<TSource, TDestination>(TSource source)
         {
-            return Mapper.Map<TSource, TDestination>(source);
+            return this.IMapper.Map<TSource, TDestination>(source);
         }
 
         public TDestination Map<TSource, TDestination>(TSource source, TDestination destination)
         {
-            return Mapper.Map(source, destination);
+            return this.IMapper.Map(source, destination);
         }
     }
 }

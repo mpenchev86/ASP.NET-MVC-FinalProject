@@ -41,7 +41,7 @@
 
                 GlobalJobFilters.Filters.Add(new AutomaticRetryAttribute { Attempts = 0 });
 
-                // On application start, removes previously queued jobs.
+                // On application start, removes previously queued jobs, if any.
                 JobStorage.Current?.GetMonitoringApi()?.PurgeJobs();
 
                 this.backgroundJobServer = new BackgroundJobServer();

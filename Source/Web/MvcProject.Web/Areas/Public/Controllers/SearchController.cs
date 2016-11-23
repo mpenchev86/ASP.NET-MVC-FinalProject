@@ -25,13 +25,13 @@
 
     public class SearchController : BasePublicController, IBackgroundJobSubscriber
     {
-        private IAutoUpdateCacheService autoUpdateCacheService;
-        private IProductsService productsService;
-        private ISearchFiltersService searchFiltersService;
-        private ICategoriesService categoriesService;
-        private ISearchFilterHelpers filterStringHelpers;
-        //private IBackgroundJobsService backgroundJobService;
-        //private ISearchRefinementHelpers<ProductOfCategoryViewModel, SearchFilterForCategoryViewModel> searchAlgorithms;
+        private readonly IAutoUpdateCacheService autoUpdateCacheService;
+        private readonly IProductsService productsService;
+        private readonly ISearchFiltersService searchFiltersService;
+        private readonly ICategoriesService categoriesService;
+        private readonly ISearchFilterHelpers filterStringHelpers;
+        //private readonly IBackgroundJobsService backgroundJobService;
+        //private readonly ISearchRefinementHelpers<ProductOfCategoryViewModel, SearchFilterForCategoryViewModel> searchAlgorithms;
 
         public SearchController(
             IAutoUpdateCacheService autoUpdateCacheService,
@@ -77,7 +77,6 @@
             //, RefinementOption searchFilter
             )
         {
-            //JobStorage.Current.GetMonitoringApi().Queues().Select(x => x.);
             var cacheKey = "category" + categoryId.ToString() + "products";
             var products = this.autoUpdateCacheService.Get<List<ProductOfCategoryViewModel>, SearchController>(
                 new object[] { categoryId, cacheKey },
@@ -92,14 +91,12 @@
 
         [AutomaticRetry(Attempts = 0)]
         [NonAction]
-        public void BackgroundOperation(IJobCancellationToken token, params object[] args)
+        public void BackgroundOperation(/*IJobCancellationToken token, */params object[] args)
         {
-            token.ThrowIfCancellationRequested();
+            //token.ThrowIfCancellationRequested();
             int categoryId = Convert.ToInt32(args[0]);
             string updateCacheKey = Convert.ToString(args[1]);
-
             var updatedData = this.GetProductsOfCategory(categoryId);
-
             this.autoUpdateCacheService.UpdateAuxiliaryCacheValue(updateCacheKey, updatedData);
         }
 
@@ -144,7 +141,7 @@
         private List<ProductOfCategoryViewModel> GetProductsOfCategory(int categoryId)
         {
             var result = this.categoriesService.GetById(categoryId).Products
-                .Take(1000)
+                .Take(500)
                 .AsQueryable()
                 .To<ProductOfCategoryViewModel>()
                 .ToList();

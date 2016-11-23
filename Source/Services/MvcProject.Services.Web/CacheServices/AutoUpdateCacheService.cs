@@ -16,23 +16,19 @@
         private static ConcurrentDictionary<string, CacheProfile> auxiliaryCacheProfiles =
              new ConcurrentDictionary<string, CacheProfile>();
 
+        private readonly IBackgroundJobsService backgroundService;
+
+        public AutoUpdateCacheService(IBackgroundJobsService backgroundService)
+        {
+            this.backgroundService = backgroundService;
+        }
+
         public void UpdateAuxiliaryCacheValue(string key, object updatedData)
         {
             if (!auxiliaryCacheProfiles.Keys.Any(k => k == key))
             {
                 throw new ArgumentException("There is no CacheProfile in the dictionary corresponding to the provided key.", "key");
             }
-
-            //var profile = new CacheProfile()
-            //{
-            //    UpdatedCacheValue = updatedData,
-            //    MethodArguments = auxiliaryCacheProfiles[key].MethodArguments,
-            //    AbsoluteExpiration = auxiliaryCacheProfiles[key].AbsoluteExpiration,
-            //    UpdateDelay = auxiliaryCacheProfiles[key].UpdateDelay,
-            //    UpdatedValueFlag = true,
-            //};
-
-            //auxiliaryCacheProfiles.AddOrUpdate(key, profile, (k, p) => profile);
 
             this.AddOrUpdateCacheProfile(
                 key,
@@ -62,20 +58,11 @@
                             data = dataFunc();
                         }
 
-                        //var cacheProfile = new CacheProfile()
-                        //{
-                        //    UpdatedCacheValue = data,
-                        //    MethodArguments = methodArguments,
-                        //    AbsoluteExpiration = absoluteExpiration,
-                        //    UpdateDelay = updateAbsoluteExp,
-                        //    UpdatedValueFlag = false
-                        //};
-
-                        //auxiliaryCacheProfiles.AddOrUpdate(key, cacheProfile, (k, d) => cacheProfile);
-
                         this.AddOrUpdateCacheProfile(key, data, methodArguments, absoluteExpiration, updateJobDelay, false);
                         HttpRuntime.Cache.Insert(key, data, null, DateTime.UtcNow.AddSeconds(absoluteExpiration), Cache.NoSlidingExpiration, new CacheItemUpdateCallback(OnUpdate<T, TClass>));
-                        BackgroundJob.Schedule<TClass>(x => x.BackgroundOperation(JobCancellationToken.Null, methodArguments), TimeSpan.FromSeconds(updateJobDelay));
+
+                        this.backgroundService.JobClient.Schedule<TClass>(x => x.BackgroundOperation(methodArguments), TimeSpan.FromSeconds(updateJobDelay));
+                        //BackgroundJob.Schedule<TClass>(x => x.BackgroundOperation(/*JobCancellationToken.Null, */methodArguments), TimeSpan.FromSeconds(updateJobDelay));
                     }
                 }
             }
@@ -83,7 +70,7 @@
             return (T)HttpRuntime.Cache[key];
         }
 
-        private static void OnUpdate<T, TClass>(
+        private /*static*/ void OnUpdate<T, TClass>(
             string key,
             CacheItemUpdateReason reason,
             out object expensiveObject,
@@ -97,7 +84,8 @@
             absoluteExpiration = DateTime.UtcNow.AddSeconds(auxiliaryCacheProfiles[key].AbsoluteExpiration);
             slidingExpiration = Cache.NoSlidingExpiration;
 
-            BackgroundJob.Schedule<TClass>(x => x.BackgroundOperation(JobCancellationToken.Null, auxiliaryCacheProfiles[key].MethodArguments), TimeSpan.FromSeconds(auxiliaryCacheProfiles[key].UpdateJobDelay));
+            this.backgroundService.JobClient.Schedule<TClass>(x => x.BackgroundOperation(auxiliaryCacheProfiles[key].MethodArguments), TimeSpan.FromSeconds(auxiliaryCacheProfiles[key].UpdateJobDelay));
+            //BackgroundJob.Schedule<TClass>(x => x.BackgroundOperation(/*JobCancellationToken.Null, */auxiliaryCacheProfiles[key].MethodArguments), TimeSpan.FromSeconds(auxiliaryCacheProfiles[key].UpdateJobDelay));
         }
 
         private void AddOrUpdateCacheProfile(string key, object updatedCacheValue, object[] methodArguments, int absoluteExpiration, int updateJobDelay, bool updatedValueFlag)

@@ -15,10 +15,5 @@
         {
             get { return new BackgroundJobClient(); }
         }
-
-        public void MethodName()
-        {
-            RecurringJob.AddOrUpdate(() => Console.WriteLine(), "* 5 * * *");
-        }
     }
 }
