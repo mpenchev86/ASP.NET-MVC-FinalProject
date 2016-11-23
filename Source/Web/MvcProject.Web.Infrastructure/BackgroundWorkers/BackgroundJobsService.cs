@@ -11,10 +11,6 @@
 
     public class BackgroundJobsService : IBackgroundJobsService
     {
-        //private static ConcurrentDictionary<string, bool> jobsList = new ConcurrentDictionary<string, bool>();
-
-        //public ConcurrentDictionary<string, bool> JobsList { get; set; }
-
         public BackgroundJobClient JobClient
         {
             get { return new BackgroundJobClient(); }

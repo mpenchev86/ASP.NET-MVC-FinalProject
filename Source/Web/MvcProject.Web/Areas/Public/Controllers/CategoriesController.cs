@@ -7,13 +7,14 @@
     using System.Web.Mvc;
     using Infrastructure.Extensions;
     using Services.Data;
-    using Services.Web;
+    using Services.Web.CacheServices;
     using ViewModels.Categories;
     using ViewModels.Products;
     using ViewModels.Search;
 
     public class CategoriesController : BasePublicController
     {
+        private readonly ICacheService cacheService;
         private readonly ICategoriesService categoriesService;
 
         public CategoriesController(
@@ -21,13 +22,13 @@
             ICategoriesService categoriesService)
         {
             this.categoriesService = categoriesService;
-            this.Cache = cacheService;
+            this.cacheService = cacheService;
         }
 
         [HttpGet]
         public ActionResult GetCategoriesForDropDown()
         {
-            var categories = this.Cache.Get(
+            var categories = this.cacheService.Get(
                 "categoriesForLayoutDropDown",
                 () => this.categoriesService
                     .GetAll()

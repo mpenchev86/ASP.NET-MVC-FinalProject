@@ -12,7 +12,7 @@
     {
         public void Preload(string[] parameters)
         {
-            HangfireBootstrapper.Instance.Start();
+            //HangfireBootstrapper.Instance.Start();
         }
     }
 }

@@ -37,18 +37,12 @@
                 HostingEnvironment.RegisterObject(this);
 
                 GlobalConfiguration.Configuration.UseSqlServerStorage(
-                    DbAccess.ConnectionStringName
-                    //,new SqlServerStorageOptions()
-                    //{
-                    //}
-                    );
-                // Specify other options here
+                    DbAccess.ConnectionStringName);
 
                 GlobalJobFilters.Filters.Add(new AutomaticRetryAttribute { Attempts = 0 });
 
-                //var server = new BackgroundJobServerOptions()
-                //{
-                //};
+                // On application start, removes previously queued jobs.
+                JobStorage.Current?.GetMonitoringApi()?.PurgeJobs();
 
                 this.backgroundJobServer = new BackgroundJobServer();
             }

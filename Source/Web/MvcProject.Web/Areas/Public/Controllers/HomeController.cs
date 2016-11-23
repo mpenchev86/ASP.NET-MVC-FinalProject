@@ -11,15 +11,16 @@
     using Kendo.Mvc.UI;
     using Services.Data;
     using ViewModels.Products;
-    using Services.Web;
+    using Services.Web.CacheServices;
     using Data.Models;
     using ViewModels.Categories;
     using System.Web.Caching;
 
     public class HomeController : BasePublicController
     {
-        private IProductsService productsService;
-        private ICategoriesService categoriesService;
+        private readonly ICacheService cacheService;
+        private readonly IProductsService productsService;
+        private readonly ICategoriesService categoriesService;
 
         public HomeController(
             IProductsService productsService, 
@@ -28,7 +29,7 @@
         {
             this.productsService = productsService;
             this.categoriesService = categoriesService;
-            this.Cache = cacheService;
+            this.cacheService = cacheService;
         }
 
         // [OutputCache(Duration = 30 * 60, Location = OutputCacheLocation.Server, VaryByCustom = "SomeOtherIdentifier")]
@@ -54,26 +55,22 @@
 
         public JsonResult ReadNewestProducts([DataSourceRequest]DataSourceRequest request)
         {
-            var viewModel = this.Cache.Get(
+            var viewModel = this.cacheService.Get(
                 "newestProducts",
-                //this.GetType().Name,
                 () => this.productsService
                     .GetAll()
                     .OrderByDescending(p => p.CreatedOn)
                     .Take(UiSpecificConstants.IndexListViewNumberOfNewestProducts)
                     .To<ProductDetailsForIndexListView>()
                     .ToList(),
-                CacheConstants.IndexListViewCacheExpiration
-                //,
-                //CacheConstants.IndexListViewUpdateCallbackExpiration
-                );
+                CacheConstants.IndexListViewCacheExpiration);
 
             return this.Json(viewModel.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult ReadBestSellingProducts([DataSourceRequest]DataSourceRequest request)
         {
-            var viewModel = this.Cache.Get(
+            var viewModel = this.cacheService.Get(
                 "bestSellingProducts",
                 () => this.productsService
                     .GetAll()
@@ -81,17 +78,14 @@
                     .Take(UiSpecificConstants.IndexListViewNumberOfBestSellingProducts)
                     .To<ProductDetailsForIndexListView>()
                     .ToList(),
-                CacheConstants.IndexListViewCacheExpiration
-                //,
-                //CacheConstants.IndexListViewUpdateCallbackExpiration
-                );
+                CacheConstants.IndexListViewCacheExpiration);
 
             return this.Json(viewModel.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult ReadHighestVotedProducts([DataSourceRequest]DataSourceRequest request)
         {
-            var viewModel = this.Cache.Get(
+            var viewModel = this.cacheService.Get(
                 "highestVotedProducts",
                 () => this.productsService
                     .GetAll()
@@ -99,10 +93,7 @@
                     .Take(UiSpecificConstants.IndexListViewNumberOfhighestVotedProducts)
                     .To<ProductDetailsForIndexListView>()
                     .ToList(),
-                CacheConstants.IndexListViewCacheExpiration
-                //,
-                //CacheConstants.IndexListViewUpdateCallbackExpiration
-                );
+                CacheConstants.IndexListViewCacheExpiration);
 
             return this.Json(viewModel.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
         }

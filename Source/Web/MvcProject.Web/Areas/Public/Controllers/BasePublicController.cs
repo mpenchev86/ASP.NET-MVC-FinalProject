@@ -7,11 +7,11 @@
     using System.Web.Mvc;
     using AutoMapper;
     using Infrastructure.Mapping;
-    using Services.Web;
+    using Services.Web.CacheServices;
 
     public class BasePublicController : Controller
     {
-        public ICacheService Cache { get; set; }
+        //public ICacheService Cache { get; set; }
 
         //protected IMapper Mapper
         //{

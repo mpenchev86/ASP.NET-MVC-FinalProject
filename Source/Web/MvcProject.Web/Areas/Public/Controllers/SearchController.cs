@@ -18,38 +18,37 @@
     using Services.Logic;
     using Services.Logic.ServiceModels;
     using Services.Web;
-    using Services.Web.ServiceModels;
+    using Services.Web.CacheServices;
     using ViewModels.Categories;
     using ViewModels.Products;
     using ViewModels.Search;
 
     public class SearchController : BasePublicController, IBackgroundJobSubscriber
     {
-        //private static readonly object lockObject = new object();
-
+        private IAutoUpdateCacheService autoUpdateCacheService;
         private IProductsService productsService;
         private ISearchFiltersService searchFiltersService;
         private ICategoriesService categoriesService;
         private ISearchFilterHelpers filterStringHelpers;
-        private IBackgroundJobsService backgroundJobService;
+        //private IBackgroundJobsService backgroundJobService;
         //private ISearchRefinementHelpers<ProductOfCategoryViewModel, SearchFilterForCategoryViewModel> searchAlgorithms;
 
         public SearchController(
-            ICacheService cacheService,
+            IAutoUpdateCacheService autoUpdateCacheService,
             IProductsService productsService,
             ISearchFiltersService searchFiltersService,
             ICategoriesService categoriesService,
-            ISearchFilterHelpers filterStringHelpers,
-            IBackgroundJobsService backgroundJobService
+            ISearchFilterHelpers filterStringHelpers
+            //IBackgroundJobsService backgroundJobService
             //ISearchRefinementHelpers<ProductOfCategoryViewModel, SearchFilterForCategoryViewModel> searchAlgorithms
             )
         {
-            this.Cache = cacheService;
+            this.autoUpdateCacheService = autoUpdateCacheService;
             this.productsService = productsService;
             this.searchFiltersService = searchFiltersService;
             this.categoriesService = categoriesService;
             this.filterStringHelpers = filterStringHelpers;
-            this.backgroundJobService = backgroundJobService;
+            //this.backgroundJobService = backgroundJobService;
             //this.searchAlgorithms = searchAlgorithms;
         }
 
@@ -78,8 +77,9 @@
             //, RefinementOption searchFilter
             )
         {
+            //JobStorage.Current.GetMonitoringApi().Queues().Select(x => x.);
             var cacheKey = "category" + categoryId.ToString() + "products";
-            var products = this.Cache.Get<List<ProductOfCategoryViewModel>, SearchController>(
+            var products = this.autoUpdateCacheService.Get<List<ProductOfCategoryViewModel>, SearchController>(
                 new object[] { categoryId, cacheKey },
                 cacheKey,
                 () => this.GetProductsOfCategory(categoryId),
@@ -87,35 +87,20 @@
                 CacheConstants.AllProductsInCategoryUpdateBackgroundJobDelay
                 );
 
-            //if (!HttpCacheService.CacheProfiles[cacheKey].HasBackgroundJobAssigned)
-            //{
-            //    lock (lockObject)
-            //    {
-            //        if (!HttpCacheService.CacheProfiles[cacheKey].HasBackgroundJobAssigned)
-            //        {
-            //            this.backgroundJobService
-            //                .JobClient
-            //                .Schedule(() => this.BackgroundOperation(categoryId, cacheKey/*, 5 * 60*/), TimeSpan.FromSeconds(3 * 60));
-
-            //            HttpCacheService.CacheProfiles[cacheKey].HasBackgroundJobAssigned = true;
-            //        }
-            //    }
-            //}
-
             return this.Json(products.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet); ;
         }
 
         [AutomaticRetry(Attempts = 0)]
         [NonAction]
-        public void BackgroundOperation(/*int categoryId, string updateCacheKey*/params object[] args)
+        public void BackgroundOperation(IJobCancellationToken token, params object[] args)
         {
+            token.ThrowIfCancellationRequested();
             int categoryId = Convert.ToInt32(args[0]);
             string updateCacheKey = Convert.ToString(args[1]);
 
             var updatedData = this.GetProductsOfCategory(categoryId);
 
-            HttpCacheService.CacheProfiles[updateCacheKey].UpdatedCacheValue = updatedData;
-            HttpCacheService.CacheProfiles[updateCacheKey].UpdatedValueFlag = true;
+            this.autoUpdateCacheService.UpdateAuxiliaryCacheValue(updateCacheKey, updatedData);
         }
 
         [OutputCache(Duration = 15 * 60, VaryByParam = "viewModel;categoryId")]

@@ -5,9 +5,10 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Hangfire;
 
     public interface IBackgroundJobSubscriber
     {
-        void BackgroundOperation(params object[] args);
+        void BackgroundOperation(IJobCancellationToken token, params object[] args);
     }
 }

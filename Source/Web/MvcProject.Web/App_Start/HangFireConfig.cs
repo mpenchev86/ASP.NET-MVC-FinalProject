@@ -13,24 +13,9 @@
     {
         public static void Initialize(IAppBuilder app)
         {
-            //var sqlOptions = new SqlServerStorageOptions()
-            //{
-            //};
-
-            GlobalConfiguration.Configuration.UseSqlServerStorage(DbAccess.ConnectionStringName/*, sqlOptions*/);
-
-            // var dashboard = new DashboardOptions()
-            // {
-            //    AppPath = VirtualPathUtility.ToAbsolute("~/Public")
-            // };
-
-            // var serverOptions = new BackgroundJobServerOptions()
-            // {
-            //    Queues = new string[] { "critical", "default", "..." }
-            // };
-
-            app.UseHangfireDashboard("/hangfire"/*, dashboard*/);
-            app.UseHangfireServer(/*serverOptions*/);
+            //GlobalConfiguration.Configuration.UseSqlServerStorage(DbAccess.ConnectionStringName);
+            app.UseHangfireDashboard("/hangfire");
+            //app.UseHangfireServer();
         }
     }
 }
