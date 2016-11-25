@@ -14,6 +14,7 @@
 
         // Category entity
         public const int CategoryNameMaxLenght = 50;
+        public const int CategoryKeyWordsMaxLenght = 1000;
 
         // Comment entity
         public const int CommentContentMinLength = 20;

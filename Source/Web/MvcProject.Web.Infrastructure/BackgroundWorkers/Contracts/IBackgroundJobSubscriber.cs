@@ -6,6 +6,6 @@
     /// </summary>
     public interface IBackgroundJobSubscriber
     {
-        void BackgroundOperation(/*IJobCancellationToken token, */params object[] args);
+        void BackgroundOperation(object[] args);
     }
 }

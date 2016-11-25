@@ -7,12 +7,12 @@
 </div>
 <div class="row">
     <div class="col-md-2">
-        @Html.Action("RefineSearchBar", "Search", new { areas = Areas.PublicAreaName, viewModel = Model.SearchFilters, categoryId = Model.Id })
+        @Html.Action("RefineSearchBar", "Search", new { areas = Areas.PublicAreaName, viewModel = Model.SearchFilters@*, categoryId = Model.Id*@ })
         @*@Html.Partial("_RefineSearchBar", Model.SearchFilters, new ViewDataDictionary(this.ViewData) { { "categoryId", Model.Id } })*@
         <img id="search-refine-loading-spinner" src="~/Content/Kendo/Silver/loading_2x.gif" style="display: none; text-align: center;" />
     </div>
     <div class="col-md-10">
-        @Html.Partial("_SearchResults", null, new ViewDataDictionary(this.ViewData) { { "categoryId", Model.Id} })
+        @Html.Partial("_SearchResults", null, new ViewDataDictionary(this.ViewData) { { "categoryId", Model.Id } })
     </div>
 </div>
 

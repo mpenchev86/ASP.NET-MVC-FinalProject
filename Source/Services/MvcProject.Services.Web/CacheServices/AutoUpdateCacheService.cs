@@ -59,10 +59,9 @@
                         }
 
                         this.AddOrUpdateCacheProfile(key, data, methodArguments, absoluteExpiration, updateJobDelay, false);
-                        HttpRuntime.Cache.Insert(key, data, null, DateTime.UtcNow.AddSeconds(absoluteExpiration), Cache.NoSlidingExpiration, new CacheItemUpdateCallback(OnUpdate<T, TClass>));
+                        HttpRuntime.Cache.Insert(key, data, null, DateTime.UtcNow.AddSeconds(absoluteExpiration), Cache.NoSlidingExpiration, new CacheItemUpdateCallback(this.OnUpdate<T, TClass>));
 
                         this.backgroundService.JobClient.Schedule<TClass>(x => x.BackgroundOperation(methodArguments), TimeSpan.FromSeconds(updateJobDelay));
-                        //BackgroundJob.Schedule<TClass>(x => x.BackgroundOperation(/*JobCancellationToken.Null, */methodArguments), TimeSpan.FromSeconds(updateJobDelay));
                     }
                 }
             }
@@ -70,7 +69,7 @@
             return (T)HttpRuntime.Cache[key];
         }
 
-        private /*static*/ void OnUpdate<T, TClass>(
+        private void OnUpdate<T, TClass>(
             string key,
             CacheItemUpdateReason reason,
             out object expensiveObject,
@@ -85,7 +84,6 @@
             slidingExpiration = Cache.NoSlidingExpiration;
 
             this.backgroundService.JobClient.Schedule<TClass>(x => x.BackgroundOperation(auxiliaryCacheProfiles[key].MethodArguments), TimeSpan.FromSeconds(auxiliaryCacheProfiles[key].UpdateJobDelay));
-            //BackgroundJob.Schedule<TClass>(x => x.BackgroundOperation(/*JobCancellationToken.Null, */auxiliaryCacheProfiles[key].MethodArguments), TimeSpan.FromSeconds(auxiliaryCacheProfiles[key].UpdateJobDelay));
         }
 
         private void AddOrUpdateCacheProfile(string key, object updatedCacheValue, object[] methodArguments, int absoluteExpiration, int updateJobDelay, bool updatedValueFlag)

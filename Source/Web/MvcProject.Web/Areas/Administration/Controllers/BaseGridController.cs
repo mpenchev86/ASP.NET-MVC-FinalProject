@@ -37,7 +37,11 @@
         {
             var viewModel = this.GetDataAsEnumerable().ToList();
             var dataSourceResult = viewModel.ToDataSourceResult(request, this.ModelState);
-            return this.Json(dataSourceResult, JsonRequestBehavior.AllowGet);
+
+            // Allows for large number of records to be serialized. Prevents the error: "Error during serialization or 
+            // deserialization using the JSON JavaScriptSerializer. The length of the string exceeds the value set on 
+            // the maxJsonLength property.
+            return new JsonResult() { Data = dataSourceResult, ContentType = "application/json", MaxJsonLength = Int32.MaxValue, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
         [HttpPost]

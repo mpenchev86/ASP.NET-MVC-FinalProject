@@ -50,7 +50,7 @@
                     .To<CarouselData>()
                     .ToList();
 
-            return PartialView("_Carousel", viewModel);
+            return PartialView(/*"_Carousel", */viewModel);
         }
 
         public JsonResult ReadNewestProducts([DataSourceRequest]DataSourceRequest request)

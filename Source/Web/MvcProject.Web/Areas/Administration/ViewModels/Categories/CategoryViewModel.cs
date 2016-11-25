@@ -49,6 +49,10 @@
         [LongDateTimeFormat]
         public DateTime? DeletedOn { get; set; }
 
+        [DataType(DataType.MultilineText)]
+        [StringLength(ValidationConstants.CategoryKeyWordsMaxLenght)]
+        public string Keywords { get; set; }
+
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Category, CategoryViewModel>()

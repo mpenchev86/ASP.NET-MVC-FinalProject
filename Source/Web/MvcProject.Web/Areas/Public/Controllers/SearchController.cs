@@ -57,15 +57,33 @@
             return this.View();
         }
 
+        public ActionResult Search(string query, int categoryId, IEnumerable<SearchFilterForCategoryViewModel> searchFilters)
+        {
+            return null;
+        }
+
         [HttpGet]
-        public ActionResult AllProductsOfCategory(int categoryId)
+        [ChildActionOnly]
+        public ActionResult SearchQuery()
+        {
+            return null;
+        }
+
+        [HttpPost]
+        [ChildActionOnly]
+        public ActionResult SearchQuery(SearchQueryViewModel searchQuery)
+        {
+            return null;
+        }
+
+        [HttpGet]
+        public ActionResult SearchByCategory(int categoryId)
         {
             var category = this.categoriesService.GetById(categoryId);
-            //var products = category.Products.AsQueryable().To<ProductOfCategoryViewModel>().ToList();
             var searchFilters = category.SearchFilters.AsQueryable().To<SearchFilterForCategoryViewModel>().ToList();
-            var viewModel = new CategorySearchViewModel() { Id = categoryId, /*Products = products,*/ SearchFilters = searchFilters };
+            var viewModel = new CategorySearchViewModel() { Id = categoryId, SearchFilters = searchFilters };
 
-            return this.View("CategoryOverView", viewModel);
+            return this.View("CategorySearchView", viewModel);
         }
 
         //[HttpPost]
@@ -78,7 +96,7 @@
             )
         {
             var cacheKey = "category" + categoryId.ToString() + "products";
-            var products = this.autoUpdateCacheService.Get<List<ProductOfCategoryViewModel>, SearchController>(
+            var allProductsInCategory = this.autoUpdateCacheService.Get<List<ProductOfCategoryViewModel>, SearchController>(
                 new object[] { categoryId, cacheKey },
                 cacheKey,
                 () => this.GetProductsOfCategory(categoryId),
@@ -86,14 +104,15 @@
                 CacheConstants.AllProductsInCategoryUpdateBackgroundJobDelay
                 );
 
-            return this.Json(products.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet); ;
+            var filteredProducts = allProductsInCategory;
+
+            return this.Json(allProductsInCategory.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet); ;
         }
 
         [AutomaticRetry(Attempts = 0)]
         [NonAction]
-        public void BackgroundOperation(/*IJobCancellationToken token, */params object[] args)
+        public void BackgroundOperation(object[] args)
         {
-            //token.ThrowIfCancellationRequested();
             int categoryId = Convert.ToInt32(args[0]);
             string updateCacheKey = Convert.ToString(args[1]);
             var updatedData = this.GetProductsOfCategory(categoryId);
@@ -102,9 +121,9 @@
 
         [OutputCache(Duration = 15 * 60, VaryByParam = "viewModel;categoryId")]
         [ChildActionOnly]
-        public PartialViewResult RefineSearchBar(IEnumerable<SearchFilterForCategoryViewModel> viewModel, int categoryId)
+        public PartialViewResult RefineSearchBar(IEnumerable<SearchFilterForCategoryViewModel> viewModel/*, int categoryId*/)
         {
-            this.ViewData["categoryId"] = categoryId;
+            //this.ViewData["categoryId"] = categoryId;
             return this.PartialView("_RefineSearchBar", viewModel);
         }
 
@@ -116,15 +135,15 @@
             return this.View(result);
         }
 
-        //public ActionResult SessionTest()
-        //{
-        //    if (Session["datetime"] == null)
-        //    {
-        //        this.Session.Add("datetime", DateTime.Now.ToString());
-        //    }
+        public ActionResult SessionTest()
+        {
+            if (Session["datetime"] == null)
+            {
+                this.Session.Add("datetime", DateTime.Now.ToString());
+            }
 
-        //    return this.View("SessionTest");
-        //}
+            return this.View("SessionTest");
+        }
 
         //public ActionResult TempDataTest()
         //{

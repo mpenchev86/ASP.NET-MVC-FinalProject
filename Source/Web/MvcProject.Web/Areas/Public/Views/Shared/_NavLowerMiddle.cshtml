@@ -1,4 +1,6 @@
-﻿@using (Html.BeginForm(
+﻿@*@model MvcProject.Web.Areas.Public.ViewModels.Search.SearchQueryViewModel*@
+
+@using (Html.BeginForm(
     "SearchQuery",
     "Search",
     new { areas = Areas.PublicAreaName },
@@ -15,6 +17,14 @@
                 <span class="glyphicon glyphicon-menu-down"></span>
                 <text>Everywhere</text>
             </button>
+
+            @*<ul class="dropdown-menu">
+                @for (int i = 0; i < Model.Count(); i++)
+                {
+                    <li>@Html.ActionLink(Model[i].Name, "SearchInCategory", "Search", new { categoryId = Model[i].Id }, null)</li>
+                }
+            </ul>*@
+
             <ul class="dropdown-menu" role="menu">
                 <li><a href="#">Action</a></li>
                 <li><a href="#">Another action</a></li>
@@ -24,6 +34,7 @@
                 <li role="separator" class="divider"></li>
                 <li><a href="#">One more separated link</a></li>
             </ul>
+
             @Html.TextBox("searchQuery", null, new { id = "navbar-search-input", type = "text", @class = "form-control", placeholder = "Search" })
             @*<input id="navbar-search-input" type="text" class="form-control" placeholder="Search">*@
             <button id="navbar-search-btn" type="submit" class="btn btn-default"><content class="glyphicon glyphicon-search"></content></button>

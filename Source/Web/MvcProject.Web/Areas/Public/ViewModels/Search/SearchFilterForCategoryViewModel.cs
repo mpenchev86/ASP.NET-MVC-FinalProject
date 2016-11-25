@@ -51,7 +51,7 @@
             }
         }
 
-        [Required]
+        //[Required]
         [DataType(DataType.MultilineText)]
         public string Options { get; set; }
 

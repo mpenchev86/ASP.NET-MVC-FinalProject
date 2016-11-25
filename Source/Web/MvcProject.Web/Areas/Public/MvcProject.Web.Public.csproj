@@ -226,6 +226,7 @@
     <Compile Include="ViewModels\Properties\PropertyForProductOfCategoryViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchFilterForCategoryViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchFilterOptionViewModel.cs" />
+    <Compile Include="ViewModels\Search\SearchQueryViewModel.cs" />
     <Compile Include="ViewModels\Users\UserProfileViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -307,13 +308,12 @@
   <ItemGroup>
     <Folder Include="Content\Images\" />
     <Folder Include="ViewModels\Votes\" />
-    <Folder Include="Views\Categories\" />
     <Folder Include="Views\Images\Partials\" />
     <Folder Include="Views\Votes\Partials\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
-    <Content Include="Views\Products\Partials\_SneakPeek.cshtml" />
+    <Content Include="Views\Products\Partials\SneakPeek.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Products\Partials\_ProductImages.cshtml" />
     <Content Include="Views\Products\Partials\_ProductSideBar.cshtml" />
@@ -342,7 +342,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Rating.cshtml" />
     <Content Include="Views\Home\Partials\_ListViewProductCellTemplate.cshtml" />
-    <Content Include="Views\Shared\_Carousel.cshtml" />
+    <Content Include="Views\Shared\Carousel.cshtml" />
     <None Include="Properties\PublishProfiles\test-public.pubxml" />
     <Content Include="Views\Products\Partials\_LeaveComment.cshtml" />
     <Content Include="Views\Shared\_ProductCommentWithRating.cshtml" />
@@ -351,8 +351,8 @@
     <Content Include="Views\Shared\_NavLowerRight.cshtml" />
     <Content Include="Views\Shared\_NavLowerMiddle.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
-    <Content Include="Views\Shared\_CategoriesDropDown.cshtml" />
-    <Content Include="Views\Search\CategoryOverView.cshtml" />
+    <Content Include="Views\Categories\Partials\GetCategoriesForDepartmentSearch.cshtml" />
+    <Content Include="Views\Search\CategorySearchView.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Search\Partials\_TopSearchPanel.cshtml" />
     <Content Include="Views\Search\Partials\_RefineSearchBar.cshtml" />

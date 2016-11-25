@@ -26,7 +26,7 @@
         }
 
         [HttpGet]
-        public ActionResult GetCategoriesForDropDown()
+        public ActionResult GetCategoriesForDepartmentSearch()
         {
             var categories = this.cacheService.Get(
                 "categoriesForLayoutDropDown",
@@ -38,7 +38,7 @@
                 , 30 * 60
                 );
 
-            return this.PartialView("_CategoriesDropDown", categories);
+            return this.PartialView(/*"_CategoriesDropDown", */categories);
         }
     }
 }

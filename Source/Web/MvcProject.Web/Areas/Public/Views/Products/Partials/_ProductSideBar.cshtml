@@ -38,7 +38,7 @@
     </tr>
     <tr id="category">
         <th>@Html.LabelFor(m => m.Category)</th>
-        <td>@Html.ActionLink(Model.Category, "AllProductsOfCategory", "Search", new { category = Model.Category }, null)</td>
+        <td>@Html.ActionLink(Model.Category, "SearchInCategory", "Search", new { category = Model.Category }, null)</td>
     </tr>
     <tr id="ref-number">
         <th>@Html.LabelFor(m => m.RefNumber)</th>

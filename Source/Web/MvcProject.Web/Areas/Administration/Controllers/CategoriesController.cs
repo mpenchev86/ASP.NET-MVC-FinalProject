@@ -86,6 +86,7 @@
             }
 
             entity.Name = viewModel.Name;
+            entity.Keywords = viewModel.Keywords;
             entity.CreatedOn = viewModel.CreatedOn;
             entity.ModifiedOn = viewModel.ModifiedOn;
             entity.IsDeleted = viewModel.IsDeleted;

@@ -63,7 +63,7 @@
             }
 
             var result = this.mappingService.Map<Product, ProductSneakPeekViewModel>(product);
-            return this.PartialView("_SneakPeek", result);
+            return this.PartialView(/*"_SneakPeek", */result);
         }
 
 #region Workers

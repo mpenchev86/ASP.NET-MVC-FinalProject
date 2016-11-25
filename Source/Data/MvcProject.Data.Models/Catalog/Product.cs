@@ -71,6 +71,7 @@
         /// The foreign key to the category of a product.
         /// </value>
         [Required]
+        [Index]
         public int CategoryId { get; set; }
 
         /// <summary>

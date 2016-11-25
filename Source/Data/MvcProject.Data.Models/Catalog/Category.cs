@@ -56,5 +56,15 @@
             get { return this.searchFilters; }
             set { this.searchFilters = value; }
         }
+
+        /// <summary>
+        /// Gets or sets the search keywords associated with a category.
+        /// </summary>
+        /// <value>
+        /// The search keywords associated with a category.
+        /// </value>
+        [DataType(DataType.MultilineText)]
+        [StringLength(ValidationConstants.CategoryKeyWordsMaxLenght)]
+        public string Keywords { get; set; }
     }
 }

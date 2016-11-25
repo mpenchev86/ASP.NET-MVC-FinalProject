@@ -25,6 +25,7 @@
         c.Command(cm => cm.Destroy().Text("Delete")).Width(120);
         c.Bound(m => m.Id).Width(150);
         c.Bound(m => m.Name);
+        c.Bound(m => m.Keywords);
         c.Bound(m => m.CreatedOn);
         c.Bound(m => m.ModifiedOn);
         c.Bound(m => m.IsDeleted).Width("120px").Title("Marked As Deleted");
