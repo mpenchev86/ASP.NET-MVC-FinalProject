@@ -29,6 +29,7 @@
             bool scrollable = true,
             bool virtualScroll = false,
             int height = 500,
+            //Expression<Func<T, IComparable>> initialSort = null,
             Action<DataSourceModelDescriptorFactory<T>> model = null,
             Action<GridColumnFactory<T>> columns = null,
             Action<GridToolBarCommandFactory<T>> toolbar = null,
@@ -127,7 +128,7 @@
                     .Events(dataSourceEvents)
                     .PageSize(pageSize)
                     .Model(model)
-                    .Sort(s => s.Add("Id").Ascending())
+                    //.Sort(s => (initialSort != null ? s.Add(initialSort) : s.Add("Id")).Ascending())
                     .Aggregates(aggregates)
                     .Read(read => read.Action(readAction, controllerName, routeValues).Data(readHandler))
                     .Create(create => create.Action(createAction, controllerName, routeValues).Data(createHandler))

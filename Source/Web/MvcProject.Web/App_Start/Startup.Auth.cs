@@ -3,6 +3,7 @@
     using System;
     using Data.DbAccessConfig.Contexts;
     using Data.Models;
+    using Hangfire;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin;
@@ -67,6 +68,8 @@
             //     ClientId = "",
             //     ClientSecret = ""
             // });
+
+            app.UseHangfireDashboard("/hangfire");
         }
     }
 }

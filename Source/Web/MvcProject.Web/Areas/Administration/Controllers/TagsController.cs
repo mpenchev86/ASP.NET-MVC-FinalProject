@@ -65,13 +65,10 @@
         #region Data Workers
         protected override void PopulateEntity(Tag entity, TagViewModel viewModel)
         {
-            if (viewModel.Products != null)
-            {
-                foreach (var product in viewModel.Products)
-                {
-                    entity.Products.Add(this.productsService.GetById(product.Id));
-                }
-            }
+            var tagProductsIds = viewModel.Products.Select(t => t.Id);
+            // Resolves conflict caused by the one-to-one relationship.
+            entity.Products.Clear();
+            entity.Products = this.productsService.GetAll().Where(p => tagProductsIds.Contains(p.Id)).ToList();
 
             entity.Name = viewModel.Name;
             entity.CreatedOn = viewModel.CreatedOn;
@@ -81,7 +78,7 @@
         }
 
         [HttpGet]
-        protected override IEnumerable<TagViewModel> GetDataAsEnumerable()
+        protected override IQueryable<TagViewModel> GetQueryableData()
         {
             return this.tagsService.GetAll().To<TagViewModel>().OrderBy(t => t.Name);
         }

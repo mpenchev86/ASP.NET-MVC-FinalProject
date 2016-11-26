@@ -82,7 +82,7 @@
             entity.DeletedOn = viewModel.DeletedOn;
         }
 
-        protected override IEnumerable<SearchFilterViewModel> GetDataAsEnumerable()
+        protected override IQueryable<SearchFilterViewModel> GetQueryableData()
         {
             return this.searchFiltersService.GetAll().To<SearchFilterViewModel>().OrderBy(x => x.Name);
         }

@@ -17,6 +17,8 @@
 
         IDbSet<Image> Images { get; set; }
 
+        IDbSet<Keyword> Keywords { get; set; }
+
         IDbSet<Product> Products { get; set; }
 
         IDbSet<Property> Properties { get; set; }

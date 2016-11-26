@@ -182,6 +182,7 @@
     <Compile Include="Controllers\DescriptionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImagesController.cs" />
+    <Compile Include="Controllers\KeywordsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\PropertiesController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
@@ -191,6 +192,7 @@
     <Compile Include="Controllers\VotesController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BaseAdminViewModel.cs" />
+    <Compile Include="ViewModels\Categories\CategoryDetailsForKeywordViewModel.cs" />
     <Compile Include="ViewModels\Categories\CategoryDetailsForProductViewModel.cs" />
     <Compile Include="ViewModels\Categories\CategoryDetailsForSearchFilterViewModel.cs" />
     <Compile Include="ViewModels\Categories\CategoryViewModel.cs" />
@@ -206,6 +208,8 @@
     <Compile Include="ViewModels\Images\ImageViewModel.cs" />
     <Compile Include="ViewModels\Images\ImageViewModelForeignKeys.cs" />
     <Compile Include="ViewModels\Images\RemovedImageModel.cs" />
+    <Compile Include="ViewModels\Keywords\KeywordDetailsForCategoryViewModel.cs" />
+    <Compile Include="ViewModels\Keywords\KeywordViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductDetailsForCategoryViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductDetailsForCommentViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductDetailsForDescriptionViewModel.cs" />
@@ -358,6 +362,11 @@
     <Content Include="Views\SearchFilters\Index.cshtml" />
     <Content Include="Views\SearchFilters\EditorTemplates\SearchFilterViewModelPopupEditor.cshtml" />
     <Content Include="Views\Categories\Partials\_SearchFiltersTab.cshtml" />
+    <Content Include="Views\Categories\Partials\_KeywordsTab.cshtml" />
+    <Content Include="Views\Keywords\Index.cshtml" />
+    <Content Include="Views\Keywords\EditorTemplates\KeywordViewModelPopupEditor.cshtml" />
+    <Content Include="Views\Keywords\Partials\_KeywordDetailsTabStrip.cshtml" />
+    <Content Include="Views\Keywords\Partials\_CategoriesTab.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

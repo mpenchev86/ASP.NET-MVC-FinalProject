@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -36,15 +37,21 @@
 
                 HostingEnvironment.RegisterObject(this);
 
-                GlobalConfiguration.Configuration.UseSqlServerStorage(
-                    DbAccess.ConnectionStringName);
+                var db = new HangfireDbContext();
+
+                GlobalConfiguration.Configuration.UseSqlServerStorage(DbAccess.HangfireConnectionStringName);
 
                 GlobalJobFilters.Filters.Add(new AutomaticRetryAttribute { Attempts = 0 });
 
-                // On application start, removes previously queued jobs, if any.
+                // On application start, removes previously queued and unfinished/interrupted jobs with "Processing" or "Scheduled" status, if any.
                 JobStorage.Current?.GetMonitoringApi()?.PurgeJobs();
 
-                this.backgroundJobServer = new BackgroundJobServer();
+                var serverOptions = new BackgroundJobServerOptions()
+                {
+                    ServerName = ConfigurationManager.AppSettings["HangfireServerName"]
+                };
+
+                this.backgroundJobServer = new BackgroundJobServer(serverOptions);
             }
         }
 

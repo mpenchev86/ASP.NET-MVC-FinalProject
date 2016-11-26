@@ -32,6 +32,7 @@
             BundleConfig.RegisterBundles(BundleTable.Bundles, CultureInfo.CurrentUICulture.ToString() ?? "en-US");
 
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<MvcProjectDbContext, Configuration>());
+            Database.SetInitializer<HangfireDbContext>(null);
             ViewEnginesConfig.RegisterEngines(ViewEngines.Engines);
             AutofacConfig.RegisterAutofac();
 

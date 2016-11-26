@@ -18,7 +18,7 @@
     public class MvcProjectDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string, IdentityUserLogin, ApplicationUserRole, IdentityUserClaim>, IMvcProjectDbContext
     {
         public MvcProjectDbContext()
-            : base(DbAccess.ConnectionStringName/*, throwIfV1Schema: false*/)
+            : base(DbAccess.ApplicationConnectionStringName/*, throwIfV1Schema: false*/)
         {
             this.Configuration.LazyLoadingEnabled = true;
         }
@@ -32,6 +32,8 @@
         public virtual IDbSet<Description> Descriptions { get; set; }
 
         public virtual IDbSet<Image> Images { get; set; }
+
+        public virtual IDbSet<Keyword> Keywords { get; set; }
 
         public virtual IDbSet<Product> Products { get; set; }
 
@@ -91,6 +93,16 @@
                     pt.MapLeftKey("ProductId");
                     pt.MapRightKey("TagId");
                     pt.ToTable("ProductsTags");
+                });
+
+            modelBuilder.Entity<Category>()
+                .HasMany<Keyword>(c => c.Keywords)
+                .WithMany(k => k.Categories)
+                .Map(pt =>
+                {
+                    pt.MapLeftKey("CategoryId");
+                    pt.MapRightKey("KeywordId");
+                    pt.ToTable("CategoriesKeywords");
                 });
 
             // modelBuilder.Entity<SearchFilter>()

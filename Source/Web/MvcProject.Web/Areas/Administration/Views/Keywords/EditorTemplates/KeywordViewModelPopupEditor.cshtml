@@ -1,4 +1,4 @@
-﻿@model MvcProject.Web.Areas.Administration.ViewModels.Categories.CategoryViewModel
+﻿@model MvcProject.Web.Areas.Administration.ViewModels.Keywords.KeywordViewModel
 
 @using (Html.BeginForm())
 {
@@ -15,32 +15,32 @@
 
             <div class="row">
                 <div class="editor-label">
-                    @Html.LabelFor(m => m.Name)
+                    @Html.LabelFor(m => m.SearchTerm)
                 </div>
                 <div class="editor-field">
-                    @Html.EditorFor(m => m.Name)
-                    @Html.ValidationMessageFor(model => model.Name)
+                    @Html.EditorFor(m => m.SearchTerm)
+                    @Html.ValidationMessageFor(model => model.SearchTerm)
                 </div>
             </div>
 
             <div class="row">
                 <div class="editor-label">
-                    @Html.LabelFor(m => m.Keywords)
+                    @Html.LabelFor(m => m.Categories)
                 </div>
                 <div class="editor-field">
                     @Html.EditorFor(
-                        m => m.Keywords,
+                        m => m.Categories,
                         new
                         {
-                            name = "keywordsMultiSelect",
-                            placeHolder = "Select keywords...",
-                            dataTextField = "SearchTerm",
+                            name = "categoriesMultiSelect",
+                            placeHolder = "Select categories...",
+                            dataTextField = "Name",
                             dataValueField = "Id",
-                            action = "GetAllKeywords",
-                            controller = "Categories",
-                            htmlAttributes = new { data_bind = "value: Keywords" }
+                            action = "GetAllCategories",
+                            controller = "Keywords",
+                            htmlAttributes = new { data_bind = "value: Categories" }
                         })
-                    @Html.ValidationMessageFor(model => model.Keywords)
+                    @Html.ValidationMessageFor(model => model.Categories)
                 </div>
             </div>
 

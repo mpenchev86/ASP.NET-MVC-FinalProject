@@ -90,7 +90,7 @@
         }
 
         [HttpGet]
-        protected override IEnumerable<PropertyViewModel> GetDataAsEnumerable()
+        protected override IQueryable<PropertyViewModel> GetQueryableData()
         {
             return this.propertiesService.GetAll().To<PropertyViewModel>().OrderBy(p => p.Name);
         }

@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using AutoMapper;
-using MvcProject.Common.GlobalConstants;
-using MvcProject.Data.Models;
-using MvcProject.Web.Infrastructure.Mapping;
-
-namespace MvcProject.Web.Areas.Administration.ViewModels.Categories
+﻿namespace MvcProject.Web.Areas.Administration.ViewModels.Categories
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Web;
+    using AutoMapper;
+    using MvcProject.Common.GlobalConstants;
+    using MvcProject.Data.Models;
+    using MvcProject.Web.Infrastructure.Mapping;
+
     public class CategoryDetailsForSearchFilterViewModel : BaseAdminViewModel<int>, IMapFrom<Category>, IHaveCustomMappings
     {
         [Required]

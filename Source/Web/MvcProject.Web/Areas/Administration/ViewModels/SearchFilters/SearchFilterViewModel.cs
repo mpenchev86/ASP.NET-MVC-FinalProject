@@ -26,12 +26,12 @@
 
         [Required]
         [Range(1, 2)]
-        [UIHint("DropDown")]
+        //[UIHint("DropDown")]
         public SearchFilterOptionsType OptionsType { get; set; }
 
         [Required]
         [Range(1, 2)]
-        [UIHint("DropDown")]
+        //[UIHint("DropDown")]
         public SearchFilterSelectionType SelectionType { get; set; }
 
         [Required]

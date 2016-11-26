@@ -28,7 +28,7 @@
                     @Html.LabelFor(m => m.OptionsType)
                 </div>
                 <div class="editor-field">
-                    @Html.EnumDropDownListFor(m => m.OptionsType)
+                    @Html.EnumDropDownListFor(m => m.OptionsType, "Choose options type...")
                     @Html.ValidationMessageFor(model => model.OptionsType)
                 </div>
             </div>
@@ -38,7 +38,7 @@
                     @Html.LabelFor(m => m.SelectionType)
                 </div>
                 <div class="editor-field">
-                    @Html.EnumDropDownListFor(m => m.SelectionType)
+                    @Html.EnumDropDownListFor(m => m.SelectionType, "Choose selection type...")
                     @Html.ValidationMessageFor(model => model.SelectionType)
                 </div>
             </div>

@@ -122,12 +122,59 @@
             }
             #endregion
 
+            #region Keywords
+            if (!context.Keywords.Any())
+            {
+                context.Keywords.AddOrUpdate(
+                    k => k.Id,
+                #region Appliances
+                    new Keyword { SearchTerm = "appliance" },
+                    new Keyword { SearchTerm = "air conditioner" },
+                    new Keyword { SearchTerm = "refrigerator" },
+                    new Keyword { SearchTerm = "fridge" },
+                    new Keyword { SearchTerm = "dishwasher" },
+                    new Keyword { SearchTerm = "fan" },
+                    new Keyword { SearchTerm = "freezer" },
+                    new Keyword { SearchTerm = "iron" },
+                    new Keyword { SearchTerm = "heater" },
+                    new Keyword { SearchTerm = "dryer" },
+                    new Keyword { SearchTerm = "vacuum cleaner" },
+                    new Keyword { SearchTerm = "mixer" },
+                    new Keyword { SearchTerm = "toaster" },
+                    new Keyword { SearchTerm = "oven" },
+                    new Keyword { SearchTerm = "microwave" },
+                    new Keyword { SearchTerm = "food processor" },
+                    new Keyword { SearchTerm = "blender" },
+                    new Keyword { SearchTerm = "coffee machine" },
+                    new Keyword { SearchTerm = "juicer" },
+                    new Keyword { SearchTerm = "pan" },
+                    new Keyword { SearchTerm = "knife" },
+                    new Keyword { SearchTerm = "cup" },
+                    new Keyword { SearchTerm = "mug" },
+                    new Keyword { SearchTerm = "pot" },
+                    new Keyword { SearchTerm = "kettle" }
+                #endregion
+                    );
+
+                context.SaveChanges();
+            }
+            #endregion
+
             #region Categories
             if (!context.Categories.Any())
             {
                 context.Categories.AddOrUpdate(
                     c => c.Name,
-                    new Category { Name = "Appliances" },
+                    new Category
+                    {
+                        Name = "Appliances",
+                        Keywords = new List<Keyword>()
+                        {
+                            context.Keywords.OrderBy(t => t.Id).Skip(1).FirstOrDefault(),
+                            context.Keywords.OrderBy(t => t.Id).Skip(2).FirstOrDefault(),
+                            context.Keywords.OrderBy(t => t.Id).Skip(3).FirstOrDefault()
+                        }
+                    },
                     new Category { Name = "Books" },
                     new Category { Name = "Cameras" },
                     new Category { Name = "Furniture" },
@@ -583,7 +630,7 @@
                         }
                     });
 
-                for (int i = 0; i < (20 * 1000); i++)
+                for (int i = 0; i < (/*20 * */1000); i++)
                 {
                     context.Products.AddOrUpdate(
                         p => p.Id,

@@ -26,7 +26,7 @@
                 // Source for deleting last N entries: http://stackoverflow.com/a/8303440/4491770
                 db.Database.ExecuteSqlCommand(string.Format(
                     @"
-                    USE [Final-Project]
+                    USE [Hangfire]
                     DELETE FROM [HangFire].[List];
                     DELETE FROM [HangFire].[Set];
                     DELETE FROM [HangFire].[JobQueue];

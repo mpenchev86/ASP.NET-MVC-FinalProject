@@ -24,7 +24,7 @@ namespace MvcProject.Web
             this.ConfigureAuth(app);
 
             //// Hangfire configuration
-            HangFireConfig.Initialize(app);
+            //HangFireConfig.Initialize(app);
         }
     }
 }

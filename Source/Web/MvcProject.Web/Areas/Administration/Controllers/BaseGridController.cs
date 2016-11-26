@@ -35,12 +35,12 @@
         [ValidateAntiForgeryToken]
         public virtual ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
-            var viewModel = this.GetDataAsEnumerable().ToList();
+            var viewModel = this.GetQueryableData().ToList();
             var dataSourceResult = viewModel.ToDataSourceResult(request, this.ModelState);
 
-            // Allows for large number of records to be serialized. Prevents the error: "Error during serialization or 
+            // Allows for large number of records to be serialized. Prevents the error "Error during serialization or 
             // deserialization using the JSON JavaScriptSerializer. The length of the string exceeds the value set on 
-            // the maxJsonLength property.
+            // the maxJsonLength property." on .Read() of kendo grid.
             return new JsonResult() { Data = dataSourceResult, ContentType = "application/json", MaxJsonLength = Int32.MaxValue, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
@@ -92,13 +92,16 @@
         #region Data Workers
         protected virtual JsonResult GetDataAsJson()
         {
-            return this.Json(this.GetDataAsEnumerable(), JsonRequestBehavior.AllowGet);
+            return this.Json(this.GetQueryableData(), JsonRequestBehavior.AllowGet);
         }
 
-        protected virtual IEnumerable<TViewModel> GetDataAsEnumerable()
+        /// <summary>
+        /// Gets database entries and maps them to the desired model. Some derived types sort the data here before passing it to the grid.
+        /// </summary>
+        /// <returns>The database entries.</returns>
+        protected virtual IQueryable<TViewModel> GetQueryableData()
         {
-            var result = this.dataService.GetAll().To<TViewModel>().OrderBy(vm => vm.Id);
-            return result;
+            return this.dataService.GetAll().To<TViewModel>().OrderBy(vm => vm.Id);
         }
 
         protected virtual JsonResult GetEntityAsDataSourceResult<T>([DataSourceRequest]DataSourceRequest request, T data, ModelStateDictionary modelState)
@@ -113,7 +116,7 @@
 
         protected virtual JsonResult GetAsSelectList(string text, string value)
         {
-            var data = this.GetDataAsEnumerable().Select(x => new SelectListItem { Text = text, Value = value });
+            var data = this.GetQueryableData().Select(x => new SelectListItem { Text = text, Value = value });
             return this.Json(data, JsonRequestBehavior.AllowGet);
         }
 

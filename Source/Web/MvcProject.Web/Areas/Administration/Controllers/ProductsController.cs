@@ -31,6 +31,7 @@
     using Services.Logic.ServiceModels;
     using Services.Web;
     using System.Web.Script.Serialization;
+
     [Authorize(Roles = IdentityRoles.Admin)]
     public class ProductsController : BaseGridController<Product, ProductViewModel, IProductsService, int>
     {
@@ -140,7 +141,7 @@
             entity.Votes = this.votesService.GetAll().Where(v => productVotesIds.Contains(v.Id)).ToList();
 
             var productTagsIds = viewModel.Tags.Select(t => t.Id);
-            // Resolves conflict caused by the one-to-one relationship.
+            // Resolves conflict caused by the many-to-many relationship.
             entity.Tags.Clear();
             entity.Tags = this.tagsService.GetAll().Where(t => productTagsIds.Contains(t.Id)).ToList();
             

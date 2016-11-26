@@ -21,17 +21,14 @@
     {
         private readonly IDescriptionsService descriptionsService;
         private readonly IPropertiesService propertiesService;
-        private readonly IProductsService productsService;
 
         public DescriptionsController(
             IDescriptionsService descriptionsService,
-            IPropertiesService propertiesService,
-            IProductsService productsService)
+            IPropertiesService propertiesService)
             : base(descriptionsService)
         {
             this.descriptionsService = descriptionsService;
             this.propertiesService = propertiesService;
-            this.productsService = productsService;
         }
 
         [HttpGet]
@@ -71,13 +68,8 @@
         #region Data Workers
         protected override void PopulateEntity(Description entity, DescriptionViewModel viewModel)
         {
-            if (viewModel.Properties != null)
-            {
-                foreach (var property in viewModel.Properties)
-                {
-                    entity.Properties.Add(this.propertiesService.GetById(property.Id));
-                }
-            }
+            var descriptionPropertiesIds = viewModel.Properties.Select(c => c.Id);
+            entity.Properties = this.propertiesService.GetAll().Where(pr => descriptionPropertiesIds.Contains(pr.Id)).ToList();
 
             entity.Content = viewModel.Content;
             entity.CreatedOn = viewModel.CreatedOn;

@@ -15,11 +15,13 @@
     {
         private ICollection<Product> products;
         private ICollection<SearchFilter> searchFilters;
+        private ICollection<Keyword> keywords;
 
         public Category()
         {
             this.products = new HashSet<Product>();
             this.searchFilters = new HashSet<SearchFilter>();
+            this.keywords = new HashSet<Keyword>();
         }
 
         /// <summary>
@@ -63,8 +65,10 @@
         /// <value>
         /// The search keywords associated with a category.
         /// </value>
-        [DataType(DataType.MultilineText)]
-        [StringLength(ValidationConstants.CategoryKeyWordsMaxLenght)]
-        public string Keywords { get; set; }
+        public virtual ICollection<Keyword> Keywords
+        {
+            get { return this.keywords; }
+            set { this.keywords = value; }
+        }
     }
 }

@@ -26,10 +26,10 @@
         }
 
         [HttpGet]
-        public ActionResult GetCategoriesForDepartmentSearch()
+        public ActionResult GetCategoriesForCategorySearch()
         {
             var categories = this.cacheService.Get(
-                "categoriesForLayoutDropDown",
+                "categoriesForCategorySearch",
                 () => this.categoriesService
                     .GetAll()
                     .To<CategoryForLayoutDropDown>()

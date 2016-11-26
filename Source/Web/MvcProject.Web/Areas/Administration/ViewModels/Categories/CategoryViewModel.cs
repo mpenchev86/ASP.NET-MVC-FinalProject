@@ -14,16 +14,19 @@
     using MvcProject.Web.Infrastructure.Mapping;
     using Products;
     using SearchFilters;
-
+    using Keywords;
     public class CategoryViewModel : BaseAdminViewModel<int>, IMapFrom<Category>, IHaveCustomMappings
     {
         private ICollection<ProductDetailsForCategoryViewModel> products;
         private ICollection<SearchFilterDetailsForCategoryViewModel> searchFilters;
+        private ICollection<KeywordDetailsForCategoryViewModel> keywords;
+
 
         public CategoryViewModel()
         {
             this.products = new HashSet<ProductDetailsForCategoryViewModel>();
             this.searchFilters = new HashSet<SearchFilterDetailsForCategoryViewModel>();
+            this.keywords = new HashSet<KeywordDetailsForCategoryViewModel>();
         }
 
         [Required]
@@ -43,15 +46,22 @@
             set { this.searchFilters = value; }
         }
 
+        //[DataType(DataType.MultilineText)]
+        //[StringLength(ValidationConstants.CategoryKeyWordsMaxLenght)]
+        //public string Keywords { get; set; }
+
+        [UIHint("MultiSelect")]
+        public virtual ICollection<KeywordDetailsForCategoryViewModel> Keywords
+        {
+            get { return this.keywords; }
+            set { this.keywords = value; }
+        }
+
         [Index]
         public bool IsDeleted { get; set; }
 
         [LongDateTimeFormat]
         public DateTime? DeletedOn { get; set; }
-
-        [DataType(DataType.MultilineText)]
-        [StringLength(ValidationConstants.CategoryKeyWordsMaxLenght)]
-        public string Keywords { get; set; }
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {

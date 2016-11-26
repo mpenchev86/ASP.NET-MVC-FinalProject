@@ -351,7 +351,7 @@
     <Content Include="Views\Shared\_NavLowerRight.cshtml" />
     <Content Include="Views\Shared\_NavLowerMiddle.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
-    <Content Include="Views\Categories\Partials\GetCategoriesForDepartmentSearch.cshtml" />
+    <Content Include="Views\Categories\Partials\GetCategoriesForCategorySearch.cshtml" />
     <Content Include="Views\Search\CategorySearchView.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Search\Partials\_TopSearchPanel.cshtml" />
