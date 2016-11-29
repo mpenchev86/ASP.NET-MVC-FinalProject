@@ -16,5 +16,9 @@
         // Public/SearchController/ReadSearchResult
         public const int AllProductsInCategoryCacheExpiration = 5 * 60;
         public const int AllProductsInCategoryUpdateBackgroundJobDelay = 3 * 60;
+
+        // Public/SearchController/SearchAutoComplete
+        public const int KeywordsForAutoCompleteCacheExpiration = 5 * 60;
+        public const int KeywordsForAutoCompleteUpdateBackgroundJobDelay = 3 * 60;
     }
 }

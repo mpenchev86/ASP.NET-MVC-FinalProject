@@ -3,12 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
     using System.Text;
     using System.Threading.Tasks;
     using System.Web.Caching;
     using MvcProject.Web.Infrastructure.BackgroundWorkers;
 
-    public interface IAutoUpdateCacheService : ICacheService
+    public interface IAutoUpdateCacheService/*<TClass>*/ : ICacheService
+        //where TClass : class, IBackgroundJobSubscriber
     {
         /// <summary>
         /// Gets the cached item with the specified key. If none is found, a new one is inserted into the cache using
@@ -17,16 +19,17 @@
         /// </summary>
         /// <typeparam name="T">The type of the data item being cached.</typeparam>
         /// <typeparam name="TClass">The type of the class, implementing a background job operation.</typeparam>
-        /// <param name="methodArguments">An object array containing the method arguments for a background operation.</param>
         /// <param name="itemName">The key of the cached data item.</param>
         /// <param name="dataFunc">The delegate providing the logic for retrieving the data object.</param>
         /// <param name="absoluteExpiration">Expiration time for the cached data item (in seconds).</param>
+        /// <param name="methodArguments">An object array containing the method arguments for a background operation.</param>
         /// <param name="updateJobDelay">The delay for the scheduled update background job (in seconds).</param>
         /// <param name="priority">Specifies the priority of the cached item. The garbage collector cleans lower priority
         /// cache items first.</param>
         /// <returns>The original data retrieved from the cached data object.</returns>
-        T Get<T, TClass>(object[] methodArguments, string itemName, Func<T> dataFunc, int absoluteExpiration, int updateJobDelay, CacheItemPriority priority = CacheItemPriority.Default)
-            where TClass : class, IBackgroundJobSubscriber;
+        T Get<T, TClass>(string itemName, Func<T> dataFunc, int absoluteExpiration, string methodName /*Action<object[]>*//*Expression<Func<TClass, Task>> worker*/, object[]/* Expression<Func<TClass, Task>>*/ methodArguments, int updateJobDelay, CacheItemPriority priority = CacheItemPriority.Default)
+            where TClass : class, IBackgroundJobSubscriber
+            ;
 
         /// <summary>
         /// Supplies an updated cache value to a cache profile item in the auxiliary dictionary.

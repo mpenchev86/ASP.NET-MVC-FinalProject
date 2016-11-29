@@ -146,10 +146,10 @@
             entity.Tags = this.tagsService.GetAll().Where(t => productTagsIds.Contains(t.Id)).ToList();
             
             // TODO: Check images properties validity
-            var productImagesIds = viewModel.Images.Select(img => img.Id);
-            entity.Images = this.imagesService.GetAll().Where(img => productImagesIds.Contains(img.Id)).ToList();
+            var viewModelImagesIds = viewModel.Images.Select(img => img.Id);
+            entity.Images = this.imagesService.GetAll().Where(img => viewModelImagesIds.Contains(img.Id)).ToList();
 
-            entity.MainImageId = HandleMainImage(entity.MainImageId, viewModel.MainImageId, productImagesIds);
+            entity.MainImageId = HandleMainImage(entity.MainImageId, viewModel.MainImageId, viewModelImagesIds);
             
             entity.Title = viewModel.Title;
             entity.ShortDescription = viewModel.ShortDescription;
@@ -217,6 +217,7 @@
                         product.MainImageId = null;
                         product.MainImage = null;
                         this.productsService.Update(product);
+                        break;
                     }
                 }
 
@@ -240,11 +241,11 @@
         /// </summary>
         /// <param name="entityMainImageId">The main image Id of the newly created or updated product entity.</param>
         /// <param name="viewModelMainImageId">The main image Id set in the viewmodel</param>
-        /// <param name="productImagesIds">Collection of the Id-s of the viewmodel's Images navigation property</param>
+        /// <param name="viewModelImagesIds">Collection of the Id-s of the viewmodel's Images navigation property</param>
         /// <returns>The value which is to be assigned to the newly created or updated product entity.</returns>
-        private int? HandleMainImage(int? entityMainImageId, int? viewModelMainImageId, IEnumerable<int> productImagesIds)
+        private int? HandleMainImage(int? entityMainImageId, int? viewModelMainImageId, IEnumerable<int> viewModelImagesIds)
         {
-            if (productImagesIds == null || !productImagesIds.Any(id => id == viewModelMainImageId))
+            if (viewModelImagesIds == null || !viewModelImagesIds.Any(id => id == viewModelMainImageId))
             {
                 return null;
             }

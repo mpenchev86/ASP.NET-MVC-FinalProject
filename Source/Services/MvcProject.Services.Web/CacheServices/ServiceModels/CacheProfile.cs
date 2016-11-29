@@ -1,5 +1,10 @@
 ﻿namespace MvcProject.Services.Web.CacheServices
 {
+    using System;
+    using System.Linq.Expressions;
+    using System.Threading.Tasks;
+    using MvcProject.Web.Infrastructure.BackgroundWorkers;
+
     /// <summary>
     /// A data store class used to keep information necessary for performing seamless cache updates via a background processing service.
     /// </summary>
@@ -14,10 +19,18 @@
         public object UpdatedCacheValue { get; set; }
 
         /// <summary>
-        /// Gets or sets the arguments array passed to the background operation method.
+        /// Gets or sets the background job worker method's name.
         /// </summary>
         /// <value>
-        /// The arguments array passed to the background operation method.
+        /// The background job worker method's name.
+        /// </value>
+        public string MethodName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the arguments array passed to the background job worker method.
+        /// </summary>
+        /// <value>
+        /// The arguments array passed to the background job worker method.
         /// </value>
         public object[] MethodArguments { get; set; }
 

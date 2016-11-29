@@ -78,17 +78,30 @@
 
             // If the current image is a product's main image, the rest should have their 'IsMainImage'
             // property set to false because there can be only one main image.
-            if (viewModel.ProductId != null && viewModel.IsMainImage)
+            // Else if it was main image before, the product entity's MainImage property should be cleared.
+            if (viewModel.ProductId != null)
             {
-                var productImages = this.imagesService.GetByProductId((int)entity.ProductId);
-                foreach (var image in productImages)
+                if (viewModel.IsMainImage)
                 {
-                    image.IsMainImage = false;
+                    var productImages = this.imagesService.GetByProductId((int)entity.ProductId);
+                    foreach (var image in productImages)
+                    {
+                        image.IsMainImage = false;
+                    }
+                    this.imagesService.UpdateMany(productImages);
                 }
-                this.imagesService.UpdateMany(productImages);
+                else
+                {
+                    if (entity.IsMainImage)
+                    {
+                        var product = this.productsService.GetById((int)viewModel.ProductId);
+                        product.MainImageId = null;
+                        product.MainImage = null;
+                        this.productsService.Update(product);
+                    }
+                }
             }
 
-            // TODO: If entity.IsMainImage && !viewModel.IsMainImage -> clear product's main image.
             entity.IsMainImage = viewModel.IsMainImage;
             entity.FileExtension = viewModel.FileExtension;
             entity.CreatedOn = viewModel.CreatedOn;

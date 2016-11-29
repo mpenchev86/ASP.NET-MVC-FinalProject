@@ -2,7 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
+    using System.Linq.Expressions;
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
@@ -29,6 +31,7 @@
         private readonly IProductsService productsService;
         private readonly ISearchFiltersService searchFiltersService;
         private readonly ICategoriesService categoriesService;
+        private readonly IKeywordsService keywordsService;
         private readonly ISearchFilterHelpers filterStringHelpers;
         //private readonly IBackgroundJobsService backgroundJobService;
         //private readonly ISearchRefinementHelpers<ProductOfCategoryViewModel, SearchFilterForCategoryViewModel> searchAlgorithms;
@@ -38,6 +41,7 @@
             IProductsService productsService,
             ISearchFiltersService searchFiltersService,
             ICategoriesService categoriesService,
+            IKeywordsService keywordsService,
             ISearchFilterHelpers filterStringHelpers
             //IBackgroundJobsService backgroundJobService
             //ISearchRefinementHelpers<ProductOfCategoryViewModel, SearchFilterForCategoryViewModel> searchAlgorithms
@@ -47,6 +51,7 @@
             this.productsService = productsService;
             this.searchFiltersService = searchFiltersService;
             this.categoriesService = categoriesService;
+            this.keywordsService = keywordsService;
             this.filterStringHelpers = filterStringHelpers;
             //this.backgroundJobService = backgroundJobService;
             //this.searchAlgorithms = searchAlgorithms;
@@ -57,9 +62,19 @@
             return this.View();
         }
 
-        public ActionResult Search(string query, int categoryId, IEnumerable<SearchFilterForCategoryViewModel> searchFilters)
+        public ActionResult Search(string query, int? categoryId, IEnumerable<SearchFilterForCategoryViewModel> searchFilters)
         {
-            return null;
+            if (categoryId != null)
+            {
+                return this.RedirectToAction("Index", "Home", new { area = Areas.PublicAreaName });
+            }
+
+            if (query != null)
+            {
+                return this.RedirectToAction("Index", "Home", new { area = Areas.PublicAreaName });
+            }
+
+            return this.RedirectToAction("Index", "Home", new { area = Areas.PublicAreaName });
         }
 
         [HttpGet]
@@ -74,6 +89,18 @@
         public ActionResult SearchQuery(SearchQueryViewModel searchQuery)
         {
             return null;
+        }
+
+        public JsonResult SearchAutoComplete()
+        {
+            var keywords = this.autoUpdateCacheService.Get(
+                "searchQueryKeywords",
+                () => this.keywordsService.GetAll().Select(k => k.SearchTerm),
+                CacheConstants.KeywordsForAutoCompleteCacheExpiration
+
+                );
+
+            return this.Json(keywords, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -97,10 +124,11 @@
         {
             var cacheKey = "category" + categoryId.ToString() + "products";
             var allProductsInCategory = this.autoUpdateCacheService.Get<List<ProductOfCategoryViewModel>, SearchController>(
-                new object[] { categoryId, cacheKey },
                 cacheKey,
                 () => this.GetProductsOfCategory(categoryId),
                 CacheConstants.AllProductsInCategoryCacheExpiration,
+                "GetAndCacheProductsOfCategory",
+                new object[] { cacheKey, categoryId },
                 CacheConstants.AllProductsInCategoryUpdateBackgroundJobDelay
                 );
 
@@ -109,14 +137,10 @@
             return this.Json(allProductsInCategory.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet); ;
         }
 
-        [AutomaticRetry(Attempts = 0)]
-        [NonAction]
-        public void BackgroundOperation(object[] args)
+        public void BackgroundOperation(string methodName, object[] args)
         {
-            int categoryId = Convert.ToInt32(args[0]);
-            string updateCacheKey = Convert.ToString(args[1]);
-            var updatedData = this.GetProductsOfCategory(categoryId);
-            this.autoUpdateCacheService.UpdateAuxiliaryCacheValue(updateCacheKey, updatedData);
+            var methodInfo = this.GetType().GetMethod(methodName);
+            methodInfo.Invoke(this, args);
         }
 
         [OutputCache(Duration = 15 * 60, VaryByParam = "viewModel;categoryId")]
@@ -135,15 +159,15 @@
             return this.View(result);
         }
 
-        public ActionResult SessionTest()
-        {
-            if (Session["datetime"] == null)
-            {
-                this.Session.Add("datetime", DateTime.Now.ToString());
-            }
+        //public ActionResult SessionTest()
+        //{
+        //    if (Session["datetime"] == null)
+        //    {
+        //        this.Session.Add("datetime", DateTime.Now.ToString());
+        //    }
 
-            return this.View("SessionTest");
-        }
+        //    return this.View("SessionTest");
+        //}
 
         //public ActionResult TempDataTest()
         //{
@@ -156,6 +180,25 @@
         //}
 
         #region Helpers
+        /// <summary>
+        /// A Backgroung job worker fetching updated data to be subsequently cached. The parameters are of types Json.NET parses to, and then are
+        /// being converted to the desired types. Otherwise the deserialization process triggered by Hangfire will fail. For example, if we expect Int32 parameter
+        /// and supply an Int32 volue, Json.NET would parse it to Int64 and the following exception is thrown:
+        /// "Object of type 'System.Int64' cannot be converted to type 'System.Int32'..."
+        /// </summary>
+        /// <param name="cacheKey">The key of the cache object in HttpRuntime.Cache</param>
+        /// <param name="categoryId">The Id of the category for which we gather data.</param>
+        [AutomaticRetry(Attempts = 0)]
+        [NonAction]
+        public void GetAndCacheProductsOfCategory(string cacheKey, [Range(1, int.MaxValue, ErrorMessage = "Invalid category Id passed to the background worker.")]long categoryId)
+        {
+            //string cacheKey = Convert.ToString(args[0]);
+            //int categoryId = Convert.ToInt32(args[1]);
+
+            var updatedData = this.GetProductsOfCategory((int)categoryId);
+            this.autoUpdateCacheService.UpdateAuxiliaryCacheValue(cacheKey, updatedData);
+        }
+
         [NonAction]
         private List<ProductOfCategoryViewModel> GetProductsOfCategory(int categoryId)
         {

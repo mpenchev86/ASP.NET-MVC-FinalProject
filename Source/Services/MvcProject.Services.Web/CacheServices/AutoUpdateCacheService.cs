@@ -4,6 +4,7 @@
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
     using System.Text;
     using System.Threading.Tasks;
     using System.Web;
@@ -11,10 +12,11 @@
     using Hangfire;
     using MvcProject.Web.Infrastructure.BackgroundWorkers;
 
-    public class AutoUpdateCacheService : BaseHttpCacheService, IAutoUpdateCacheService
+    public class AutoUpdateCacheService/*<TClass>*/ : BaseHttpCacheService, IAutoUpdateCacheService/*<TClass>*/
+        //where TClass : class, IBackgroundJobSubscriber
     {
-        private static ConcurrentDictionary<string, CacheProfile> auxiliaryCacheProfiles =
-             new ConcurrentDictionary<string, CacheProfile>();
+        private static ConcurrentDictionary<string, CacheProfile/*<TClass>*/> auxiliaryCacheProfiles =
+             new ConcurrentDictionary<string, CacheProfile/*<TClass>*/>();
 
         private readonly IBackgroundJobsService backgroundService;
 
@@ -33,13 +35,14 @@
             this.AddOrUpdateCacheProfile(
                 key,
                 updatedData,
+                auxiliaryCacheProfiles[key].MethodName,
                 auxiliaryCacheProfiles[key].MethodArguments,
                 auxiliaryCacheProfiles[key].AbsoluteExpiration,
                 auxiliaryCacheProfiles[key].UpdateJobDelay,
                 true);
         }
 
-        public T Get<T, TClass>(object[] methodArguments, string key, Func<T> dataFunc, int absoluteExpiration, int updateJobDelay, CacheItemPriority priority = CacheItemPriority.Default)
+        public T Get<T, TClass>(string key, Func<T> dataFunc, int absoluteExpiration, string methodName /*Expression<Func<TClass, Task>>*//*Action<object[]>*/ /*worker*/, object[]/*Expression<Func<TClass, Task>>*/ methodArguments, int updateJobDelay, CacheItemPriority priority = CacheItemPriority.Default)
             where TClass : class, IBackgroundJobSubscriber
         {
             if (HttpRuntime.Cache[key] == null)
@@ -58,10 +61,11 @@
                             data = dataFunc();
                         }
 
-                        this.AddOrUpdateCacheProfile(key, data, methodArguments, absoluteExpiration, updateJobDelay, false);
+                        this.AddOrUpdateCacheProfile(key, data, methodName /*worker*/, methodArguments, absoluteExpiration, updateJobDelay, false);
                         HttpRuntime.Cache.Insert(key, data, null, DateTime.UtcNow.AddSeconds(absoluteExpiration), Cache.NoSlidingExpiration, new CacheItemUpdateCallback(this.OnUpdate<T, TClass>));
 
-                        this.backgroundService.JobClient.Schedule<TClass>(x => x.BackgroundOperation(methodArguments), TimeSpan.FromSeconds(updateJobDelay));
+                        //BackgroundJobServer
+                        this.backgroundService.JobClient.Schedule<TClass>(x => x.BackgroundOperation(methodName, methodArguments) /*methodArguments*//*worker*/, TimeSpan.FromSeconds(updateJobDelay));
                     }
                 }
             }
@@ -83,14 +87,17 @@
             absoluteExpiration = DateTime.UtcNow.AddSeconds(auxiliaryCacheProfiles[key].AbsoluteExpiration);
             slidingExpiration = Cache.NoSlidingExpiration;
 
-            this.backgroundService.JobClient.Schedule<TClass>(x => x.BackgroundOperation(auxiliaryCacheProfiles[key].MethodArguments), TimeSpan.FromSeconds(auxiliaryCacheProfiles[key].UpdateJobDelay));
+            this.backgroundService.JobClient.Schedule<TClass>(x => x.BackgroundOperation(auxiliaryCacheProfiles[key].MethodName, auxiliaryCacheProfiles[key].MethodArguments), TimeSpan.FromSeconds(auxiliaryCacheProfiles[key].UpdateJobDelay));
         }
 
-        private void AddOrUpdateCacheProfile(string key, object updatedCacheValue, object[] methodArguments, int absoluteExpiration, int updateJobDelay, bool updatedValueFlag)
+        private void AddOrUpdateCacheProfile/*<TClass>*/(string key, object updatedCacheValue, string methodName /*Expression<Func<TClass, Task>>*/ /*Action<object[]>*/ /*worker*/, object[]/* Expression<Func<TClass, Task>>*/ methodArguments, int absoluteExpiration, int updateJobDelay, bool updatedValueFlag)
+            //where TClass : class, IBackgroundJobSubscriber
         {
-            var cacheProfile = new CacheProfile()
+            var cacheProfile = new CacheProfile/*<TClass>*/()
             {
                 UpdatedCacheValue = updatedCacheValue,
+                MethodName = methodName,
+                //Method = worker,
                 MethodArguments = methodArguments,
                 AbsoluteExpiration = absoluteExpiration,
                 UpdateJobDelay = updateJobDelay,

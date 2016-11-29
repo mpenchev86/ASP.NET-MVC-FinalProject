@@ -54,12 +54,12 @@
       <HintPath>..\..\..\..\packages\AutoMapper.5.1.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Hangfire.Core, Version=1.6.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\Hangfire.Core.1.6.6\lib\net45\Hangfire.Core.dll</HintPath>
+    <Reference Include="Hangfire.Core, Version=1.6.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Hangfire.Core.1.6.7\lib\net45\Hangfire.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Hangfire.SqlServer, Version=1.6.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\Hangfire.SqlServer.1.6.6\lib\net45\Hangfire.SqlServer.dll</HintPath>
+    <Reference Include="Hangfire.SqlServer, Version=1.6.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Hangfire.SqlServer.1.6.7\lib\net45\Hangfire.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Infragistics.Web.Mvc, Version=6.451.161.2052, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
@@ -233,6 +233,10 @@
     <ProjectReference Include="..\..\..\..\Common\GlobalConstants\MvcProject.Common.GlobalConstants.csproj">
       <Project>{5f2803a7-770d-4509-8d69-cfbf4d6dc772}</Project>
       <Name>MvcProject.Common.GlobalConstants</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Data\MvcProject.Data.DbAccessConfig\MvcProject.Data.DbAccessConfig.csproj">
+      <Project>{37EAD08E-A644-4438-B913-1329C8CB3899}</Project>
+      <Name>MvcProject.Data.DbAccessConfig</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Data\MvcProject.Data.Models\MvcProject.Data.Models.csproj">
       <Project>{f3dfda1d-99d1-46ad-9cfa-a0b9aa7a750c}</Project>
