@@ -18,6 +18,7 @@
 
 
 @section Scripts{
+    @Html.Kendo().DeferredScripts()
     <script>
         var searchFilters = [];
         var searchFilter = {};
@@ -27,6 +28,10 @@
                 searchFilters.push({ Name: $(filter).data('filter-name') });
                 //var options = $(this);
             });
+
+            $('#SearchResultListView_pager').hide();
+            //$('#SearchResultListView').hide();
+
         });
 
         function submitForm(e) {
@@ -55,10 +60,12 @@
             //$(e).parents('form:first').submit();
         }
 
-        //function onListViewDataBinding(e) {
-        //    console.log(e.sender.element);
-        //    //kendo.ui.progress(e.sender.element, true);
-        //}
+        function onListViewDataBinding(e) {
+            //console.log(e.sender.element);
+            //kendo.ui.progress(e.sender.element, true);
+
+            //$('#SearchResultListView_pager').hide();
+        }
 
         //function onListViewChange(e) {
         //    kendo.ui.progress(e.sender.element, true);
@@ -68,6 +75,8 @@
             // Refinement options CSS
             $('.search-filter input').removeAttr('disabled');
             //$('.search-filter .options-label span').attr({ opacity: '100%', cursor: 'auto' });
+
+            $('#SearchResultListView_pager').show();
 
             // Activate Spinner on ListView
             //kendo.ui.progress(e.sender.element, false);

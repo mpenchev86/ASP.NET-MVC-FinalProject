@@ -39,18 +39,36 @@
             return this.View();
         }
 
-        [OutputCache(Duration = 30 * 60)]
+        //[OutputCache(Duration = 30 * 60)]
         [ChildActionOnly]
         public PartialViewResult Carousel()
         {
-            var viewModel = this.productsService
+            var viewModel = this.cacheService.Get(
+                "layoutCarouselData",
+                () => productsService
                     .GetAll()
                     .OrderByDescending(p => p.CreatedOn)
                     .Take(5)
                     .To<CarouselData>()
-                    .ToList();
+                    .ToList(),
+                CacheConstants.CarouselDataCacheExpiration);
 
             return PartialView(/*"_Carousel", */viewModel);
+        }
+
+        public PartialViewResult NavLowerMiddle()
+        {
+            this.ViewData["categories"] = this.cacheService.Get(
+                "categoriesForQuerySearch",
+                () => this.categoriesService
+                    .GetAll()
+                    .To<CategoryForLayoutDropDown>()
+                    .OrderBy(i => i.Name)
+                    .ToList()
+                , 30 * 60
+                ).Select(c => new SelectListItem() { Text = c.Name, Value = c.Id.ToString() });
+
+            return this.PartialView();
         }
 
         public JsonResult ReadNewestProducts([DataSourceRequest]DataSourceRequest request)

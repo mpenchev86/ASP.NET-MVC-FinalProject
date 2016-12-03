@@ -17,6 +17,7 @@
         modelIdExpression: m => m.Id,
         pageSize: 5,
         isServerOps: true)
+        .Events(ev => ev.DataBound("onListViewDataBound"))
         .HtmlAttributes(new { @class = "productsList" })
         .Deferred())
 </div>
@@ -32,6 +33,7 @@
         modelIdExpression: m => m.Id,
         pageSize: 5,
         isServerOps: true)
+        .Events(ev => ev.DataBound("onListViewDataBound"))
         .HtmlAttributes(new { @class = "productsList" })
         .Deferred())
 </div>
@@ -47,6 +49,7 @@
         modelIdExpression: m => m.Id,
         pageSize: 5,
         isServerOps: true)
+        .Events(ev => ev.DataBound("onListViewDataBound"))
         .HtmlAttributes(new { @class = "productsList" })
         .Deferred())
 </div>
@@ -71,15 +74,23 @@
 @section Scripts {
     @Html.Kendo().DeferredScripts()
 
-    <script src="@Url.Content(StaticResourcesUrls.BootstrapModalHelpers)"></script>
+    @*<script src="@Url.Content(StaticResourcesUrls.BootstrapModalHelpers)"></script>*@
     
     <script>
         kendo.culture('@userCulture');
+
+        $(document).ready(function () {
+            //$('.k-pager-wrap').hide();
+        });
 
         // Initialization of the modal window template for ListView products.
         bootstrapModalHelpers.hideOnLoad(wrapperSelector = '#sneakPeek-modal');
         bootstrapModalHelpers.clearContent(event = 'hidden.bs.modal', contentSelector = '.modal-content');
         bootstrapModalHelpers.attachToggle(wrapperSelector = '#sneakPeek-modal', triggerSelector = '.ajax-modal-link');
+
+        function onListViewDataBound(e) {
+            //$('.k-pager-wrap').show();
+        }
 
         // Handles the Success event of a ListView product AjaxLink request by populating the SneakPeak modal window template.
         function OnGetModalDataSuccess(data) {

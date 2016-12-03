@@ -143,24 +143,25 @@ input, select, textarea {
         #navbar-search-options {
             /*Prevents popping in front of a modal window*/
             z-index: 0;
-            border-radius: 4px 0 0 4px;
+            color: #ffffff;
+            background-color: #999999;
+            border: none;
+            /*border-radius: 4px 0 0 4px;*/
+            /*border-color: #999999;*/
         }
 
-            #navbar-search-options > div {
+            /*#navbar-search-options > .categoryId {*/
+            #navbar-search-options > option {
+                color: #777777;
+                background-color: #ffffff;
                 min-width: 30px;
             }
 
         #navbar-search-btn {
-            /*Prevents popping in front of a modal window*/
+            Prevents popping in front of a modal window
             z-index: 0;
             border-radius: 0 4px 4px 0;
         }
-
-        /*@media (min-width: 979px) {
-        #navbar-search-options:hover ~ ul.dropdown-menu{
-                display: block;
-            }
-        }*/
 
         @media (max-width: 527px) {
             #navbar-search-options > text {

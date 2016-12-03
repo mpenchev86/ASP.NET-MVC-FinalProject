@@ -9,7 +9,10 @@
     using System.Web.Hosting;
     using Common.GlobalConstants;
     using Hangfire;
+    using Hangfire.Common;
     using Hangfire.SqlServer;
+    using Newtonsoft.Json;
+    using Serializers.HangfireJsonConverters;
 
     public class HangfireBootstrapper : IRegisteredObject
     {
@@ -40,6 +43,13 @@
                 var db = new HangfireDbContext();
 
                 GlobalConfiguration.Configuration.UseSqlServerStorage(DbAccess.HangfireConnectionStringName);
+
+                //JsonSerializerSettings settings = new JsonSerializerSettings
+                //{
+                //    Converters = new List<JsonConverter> { new IntConverter() }
+                //};
+
+                //JobHelper.SetSerializerSettings(settings);
 
                 GlobalJobFilters.Filters.Add(new AutomaticRetryAttribute { Attempts = 0 });
 

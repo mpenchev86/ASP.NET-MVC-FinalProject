@@ -7,13 +7,14 @@
     <link rel="shortcut icon" href="@Url.Content(StaticResourcesUrls.ServerPathIcons + StaticResourcesUrls.Favicon)" />
     @Styles.Render(Bundles.StylesKendoCss)
     @Styles.Render(Bundles.StylesBootStrap)
+    @Styles.Render(Bundles.PublicStylesJQueryUi)
     @Styles.Render(Bundles.PublicStylesIgniteUI)
     @Styles.Render(Bundles.PublicStylesCustomCss)
     @RenderSection("Styles", required: false)
     @Scripts.Render(Bundles.ScriptsJQuery)
 </head>
 <body>
-    @(Html.Action("Carousel", "Home", new { Area = Areas.PublicAreaName }))
+    @(Html.Action("Carousel", "Home", new { area = Areas.PublicAreaName }))
     <!-- NAVBAR -->
     <nav class="navbar navbar-inverse" id="navbar">
         <div class="container-fluid">
@@ -32,7 +33,12 @@
                     @Html.Partial("~/Areas/Public/Views/Shared/_NavLowerLeft.cshtml")
                 </div>
                 <div class="col-md-7" id="nav-lower-middle">
-                    @Html.Partial("~/Areas/Public/Views/Shared/_NavLowerMiddle.cshtml")
+                    @*@Html.Partial(
+                        "~/Areas/Public/Views/Shared/_NavLowerMiddle.cshtml",
+                        new MvcProject.Web.Areas.Public.ViewModels.Search.SearchQueryViewModel() { Query = string.Empty },
+                        new ViewDataDictionary(this.ViewData) { })*@
+
+                    @Html.Action("NavLowerMiddle", "Home", new { area = Areas.PublicAreaName })
                 </div>
                 <div class="col-md-3" id="nav-lower-right">
                     @Html.Partial("~/Areas/Public/Views/Shared/_NavLowerRight.cshtml")
@@ -52,7 +58,7 @@
     @Scripts.Render(Bundles.ScriptsJQueryUnobtrusive)
     @Scripts.Render(Bundles.ScriptsJQueryValidate)
     @Scripts.Render(Bundles.ScriptsBootstrap)
-    @Scripts.Render(Bundles.PublicScriptsJQueryUI)
+    @Scripts.Render(Bundles.PublicScriptsJQueryUi)
     @Scripts.Render(Bundles.PublicScriptsIgniteUI)
     @Scripts.Render(Bundles.ScriptsKendo)
     @*@Scripts.Render(Bundles.ScriptsSignalR)*@

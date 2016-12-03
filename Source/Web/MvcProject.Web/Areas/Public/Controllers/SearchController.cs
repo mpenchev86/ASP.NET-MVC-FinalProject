@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Linq.Expressions;
+    using System.Reflection;
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
@@ -77,30 +78,35 @@
             return this.RedirectToAction("Index", "Home", new { area = Areas.PublicAreaName });
         }
 
-        [HttpGet]
-        [ChildActionOnly]
-        public ActionResult SearchQuery()
-        {
-            return null;
-        }
+        //[HttpGet]
+        //[ChildActionOnly]
+        //public ActionResult SearchQuery()
+        //{
+        //    return null;
+        //}
 
         [HttpPost]
-        [ChildActionOnly]
+        //[ChildActionOnly]
         public ActionResult SearchQuery(SearchQueryViewModel searchQuery)
         {
             return null;
         }
 
-        public JsonResult SearchAutoComplete()
+        public JsonResult SearchAutoComplete(string prefix)
         {
-            var keywords = this.autoUpdateCacheService.Get(
-                "searchQueryKeywords",
-                () => this.keywordsService.GetAll().Select(k => k.SearchTerm),
-                CacheConstants.KeywordsForAutoCompleteCacheExpiration
-
+            var cacheKey = "allCategoriesKeywords";
+            var keywords = this.autoUpdateCacheService.Get<List<string>, SearchController>(
+                cacheKey,
+                () => this.GetKeywords(),
+                CacheConstants.KeywordsForAutoCompleteCacheExpiration,
+                "GetAndCacheKeywords",
+                new object[] { cacheKey },
+                CacheConstants.KeywordsForAutoCompleteUpdateBackgroundJobDelay
                 );
 
-            return this.Json(keywords, JsonRequestBehavior.AllowGet);
+            var results = keywords.Where(kw => kw.StartsWith(prefix.ToLower()));
+
+            return this.Json(results, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -139,7 +145,7 @@
 
         public void BackgroundOperation(string methodName, object[] args)
         {
-            var methodInfo = this.GetType().GetMethod(methodName);
+            var methodInfo = this.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
             methodInfo.Invoke(this, args);
         }
 
@@ -180,6 +186,7 @@
         //}
 
         #region Helpers
+            #region Background jobs workers
         /// <summary>
         /// A Backgroung job worker fetching updated data to be subsequently cached. The parameters are of types Json.NET parses to, and then are
         /// being converted to the desired types. Otherwise the deserialization process triggered by Hangfire will fail. For example, if we expect Int32 parameter
@@ -190,7 +197,7 @@
         /// <param name="categoryId">The Id of the category for which we gather data.</param>
         [AutomaticRetry(Attempts = 0)]
         [NonAction]
-        public void GetAndCacheProductsOfCategory(string cacheKey, [Range(1, int.MaxValue, ErrorMessage = "Invalid category Id passed to the background worker.")]long categoryId)
+        private void GetAndCacheProductsOfCategory(string cacheKey, [Range(1, int.MaxValue, ErrorMessage = "Invalid category Id passed to the background worker.")]long categoryId)
         {
             //string cacheKey = Convert.ToString(args[0]);
             //int categoryId = Convert.ToInt32(args[1]);
@@ -210,6 +217,21 @@
 
             return result;
         }
+
+        [AutomaticRetry(Attempts = 0)]
+        [NonAction]
+        private void GetAndCacheKeywords(string cacheKey)
+        {
+            var updatedData = this.GetKeywords();
+            this.autoUpdateCacheService.UpdateAuxiliaryCacheValue(cacheKey, updatedData);
+        }
+
+        [NonAction]
+        private List<string> GetKeywords()
+        {
+            return this.keywordsService.GetAll().Select(k => k.SearchTerm/*.ToLower()*/).ToList();
+        }
+            #endregion
 
         [NonAction]
         private bool ValidateSearchFilter(RefinementOption searchFilter)

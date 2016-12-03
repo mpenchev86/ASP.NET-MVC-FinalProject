@@ -1,0 +1,44 @@
+﻿@using MvcProject.Web.Areas.Public.ViewModels.Categories
+
+@model MvcProject.Web.Areas.Public.ViewModels.Search.SearchQueryViewModel
+
+@{ 
+    //var categories = (List<CategoryForLayoutDropDown>)this.ViewData["categories"];
+    var categories = (IEnumerable<SelectListItem>)this.ViewData["categories"];
+}
+
+@using (Html.BeginForm(
+    "SearchQuery",
+    "Search",
+    new { areas = Areas.PublicAreaName },
+    FormMethod.Post,
+    new { id = "navbar-search", @class = "navbar-form collapse navbar-collapse", role = "search" }
+    ))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <div class="input-group">
+        <div class="input-group-btn">
+            @Html.DropDownListFor(m => m.CategoryId, categories, "Everywhere", new { name = "CategoryId", id = "navbar-search-options", @class = "form-control"})
+
+            @*<select name="CategoryId" id="navbar-search-options" class="form-control">
+                <option class="categoryId" value="0">Everywhere</option>
+                @for (int i = 0; i < categories.Count(); i++)
+                {
+                    <option class="categoryId" value="@categories[i].Id">@categories[i].Name</option>
+                }
+
+                @foreach (var category in categories)
+                {
+                    <option class="categoryId" value="@category.Id">@category.Name</option>
+                }
+            </select>*@
+
+            @Html.TextBoxFor(m => m.Query, null, new { id = "navbar-search-input", type = "text", @class = "form-control", placeholder = "Search" })
+            @*@Html.TextBox("Query", null, new { id = "navbar-search-input", type = "text", @class = "form-control", placeholder = "Search" })*@
+            
+            <button id="navbar-search-btn" type="submit" class="btn btn-default"><content class="glyphicon glyphicon-search"></content></button>
+        </div>
+    </div>
+}

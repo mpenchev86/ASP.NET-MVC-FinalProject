@@ -9,21 +9,23 @@
     .TagName("ul")
     .Pageable()
     //.Pageable(p => p.PageSizes(new int[] { 20, 100, 300 }))
+    //.AutoBind(false)
     .ClientTemplateId("search-result-listView-template")
     .DataSource(data => data
         .Model(model => model.Id(p => p.Id))
         .Read(read => read
             .Action("ReadSearchResult", "Search", new { categoryId = (int)this.ViewData["categoryId"] })
             .Data("readHandler")
-            )
-        .PageSize(60)
-        //.Events(ev => ev.)
         )
-        .Events(e => e
-            //.DataBinding("onListViewDataBinding")
-            //.Change("onListViewChange")
-            .DataBound("onListViewDataBound")
-            )
+        .PageSize(60)
+    //.Events(ev => ev.)
+    )
+    .Events(e => e
+        .DataBinding("onListViewDataBinding")
+        //.Change("onListViewChange")
+        .DataBound("onListViewDataBound")
+    )
+    .Deferred()
     )
 
 <!-- ListView products template -->

@@ -14,9 +14,10 @@
         public const string StylesCustomCss = "~/Content/Custom/customcss";
 
         // Public Area
-        public const string PublicScriptsJQueryUI = Areas.PublicAreaVirtualPath + "/Scripts/jqueryiu";
+        public const string PublicScriptsJQueryUi = Areas.PublicAreaVirtualPath + "/Scripts/jqueryiujs";
         public const string PublicScriptsIgniteUI = Areas.PublicAreaVirtualPath + "/Scripts/IgniteUI/igniteuijs";
         public const string PublicScriptsCustom = Areas.PublicAreaVirtualPath + "/Scripts/Custom/customjs";
+        public const string PublicStylesJQueryUi = Areas.PublicAreaVirtualPath + "/Scripts/jqueryiucss";
         public const string PublicStylesKendoCss = Areas.PublicAreaVirtualPath + "/Content/Kendo/kendocss";
         public const string PublicStylesCustomCss = Areas.PublicAreaVirtualPath + "/Content/Custom/customcss";
         public const string PublicStylesIgniteUI = Areas.PublicAreaVirtualPath + "/Content/IgniteUI/igniteuicss";

@@ -12,8 +12,8 @@
         internal static void RegisterBundles(BundleCollection bundles)
         {
             // JavaScript
-            bundles.Add(new ScriptBundle(Bundles.PublicScriptsJQueryUI)
-                .Include("~/Areas/Public/Scripts/IgniteUI/jquery-ui.min.js")
+            bundles.Add(new ScriptBundle(Bundles.PublicScriptsJQueryUi)
+                .Include("~/Areas/Public/Scripts/IgniteUI/jquery-ui.js")
                 );
 
             bundles.Add(new ScriptBundle(Bundles.PublicScriptsIgniteUI)
@@ -26,10 +26,13 @@
                 //.Include("~/Areas/Public/Scripts/Custom/*.js")
                 .Include("~/Areas/Public/Scripts/Custom/bootstrap-modal-helpers.js")
                 .Include("~/Areas/Public/Scripts/Custom/igniteui-rating-handler.js")
-                .Include("~/Areas/Public/Scripts/Custom/search-results.js")
+                .Include("~/Areas/Public/Scripts/Custom/navbar-search.js")
                 );
 
             // CSS
+            bundles.Add(new StyleBundle(Bundles.PublicStylesJQueryUi)
+                .Include("~/Areas/Public/Content/themes/base/jquery-ui.css", new CssRewriteUrlTransform())
+                );
 
             bundles.Add(new StyleBundle(Bundles.PublicStylesIgniteUI)
                 .Include("~/Areas/Public/Content/IgniteUI/structure/infragistics.css", new CssRewriteUrlTransform())

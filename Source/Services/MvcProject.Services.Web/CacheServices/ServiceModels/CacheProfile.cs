@@ -19,10 +19,10 @@
         public object UpdatedCacheValue { get; set; }
 
         /// <summary>
-        /// Gets or sets the background job worker method's name.
+        /// Gets or sets the name of a worker method for a background job.
         /// </summary>
         /// <value>
-        /// The background job worker method's name.
+        /// The name of a worker method for a background job.
         /// </value>
         public string MethodName { get; set; }
 

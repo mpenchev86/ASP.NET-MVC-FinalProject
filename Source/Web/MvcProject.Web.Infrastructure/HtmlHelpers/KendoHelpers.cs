@@ -118,6 +118,7 @@
                 .Resizable(resizable => resizable.Columns(true))
                 .Filterable(filterSettings)
                 .Editable(editingSettings)
+                //.AutoBind(false)
                 .Events(gridEvents)
                 .ToolBar(toolbar)
                 .DataSource(data => data

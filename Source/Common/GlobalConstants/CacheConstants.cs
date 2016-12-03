@@ -8,8 +8,10 @@
 
     public class CacheConstants
     {
+        // Public/HomeController/Index Carousel
+        public const int CarouselDataCacheExpiration = 30 * 60;
+
         // Public/HomeController/Index ListView
-        public const int IndexCarouselCacheExpiration = 30 * 60;
         public const int IndexListViewCacheExpiration = 3 * 60;
         //public const int IndexListViewUpdateCallbackExpiration = 5 * 60;
 

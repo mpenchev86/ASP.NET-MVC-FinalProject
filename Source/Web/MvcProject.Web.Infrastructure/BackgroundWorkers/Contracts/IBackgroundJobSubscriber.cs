@@ -10,7 +10,7 @@
     public interface IBackgroundJobSubscriber
     {
         /// <summary>
-        /// Used as an adapter providing information of the worker method which is to be invoked in a background job.
+        /// Used as an proxy for a worker method invoked in a background job.
         /// </summary>
         /// <param name="methodName">The name of the background worker method.</param>
         /// <param name="args">Object array containing the arguments which will be passed to the worker method at the time of the background

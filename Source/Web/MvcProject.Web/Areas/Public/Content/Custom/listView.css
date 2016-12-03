@@ -132,9 +132,11 @@
 
 /* ======= Kendo ListView pager ======= */
 .homepage-listview > .k-pager-wrap {
+    padding-top: 0;
+    padding-bottom: 0;
     text-align: center;
+    border: none;
 }
-
     .homepage-listview > .k-pager-wrap > .k-pager-info {
         float: right;
         visibility: inherit;
