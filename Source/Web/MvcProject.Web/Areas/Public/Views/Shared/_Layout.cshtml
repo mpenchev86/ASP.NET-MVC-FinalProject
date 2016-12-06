@@ -30,14 +30,13 @@
             <!-- Search, Links, Dropdowns -->
             <div class="row container-fluid" id="nav-lower">
                 <div class="col-md-2" id="nav-lower-left">
-                    @Html.Partial("~/Areas/Public/Views/Shared/_NavLowerLeft.cshtml")
+                    <ul class="nav navbar-nav collapse navbar-collapse">
+                        <li class="dropdown">
+                            @Html.Action("NavLowerLeft", "Home", new { area = Areas.PublicAreaName })
+                        </li>
+                    </ul>
                 </div>
                 <div class="col-md-7" id="nav-lower-middle">
-                    @*@Html.Partial(
-                        "~/Areas/Public/Views/Shared/_NavLowerMiddle.cshtml",
-                        new MvcProject.Web.Areas.Public.ViewModels.Search.SearchQueryViewModel() { Query = string.Empty },
-                        new ViewDataDictionary(this.ViewData) { })*@
-
                     @Html.Action("NavLowerMiddle", "Home", new { area = Areas.PublicAreaName })
                 </div>
                 <div class="col-md-3" id="nav-lower-right">

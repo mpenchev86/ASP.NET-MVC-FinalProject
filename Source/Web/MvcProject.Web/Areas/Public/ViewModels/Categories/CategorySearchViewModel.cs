@@ -12,14 +12,13 @@
 
     public class CategorySearchViewModel : BasePublicViewModel<int>, IMapFrom<Category>
     {
-        //[Key]
-        //public int Id { get; set; }
-
         public CategorySearchViewModel()
         {
             //this.Products = new HashSet<ProductOfCategoryViewModel>();
             this.SearchFilters = new HashSet<SearchFilterForCategoryViewModel>();
         }
+
+        public string Query { get; set; }
 
         //public ICollection<ProductOfCategoryViewModel> Products { get; set; }
 

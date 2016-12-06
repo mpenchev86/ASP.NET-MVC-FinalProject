@@ -34,7 +34,6 @@
         private readonly ICategoriesService categoriesService;
         private readonly IKeywordsService keywordsService;
         private readonly ISearchFilterHelpers filterStringHelpers;
-        //private readonly IBackgroundJobsService backgroundJobService;
         //private readonly ISearchRefinementHelpers<ProductOfCategoryViewModel, SearchFilterForCategoryViewModel> searchAlgorithms;
 
         public SearchController(
@@ -44,7 +43,6 @@
             ICategoriesService categoriesService,
             IKeywordsService keywordsService,
             ISearchFilterHelpers filterStringHelpers
-            //IBackgroundJobsService backgroundJobService
             //ISearchRefinementHelpers<ProductOfCategoryViewModel, SearchFilterForCategoryViewModel> searchAlgorithms
             )
         {
@@ -54,42 +52,34 @@
             this.categoriesService = categoriesService;
             this.keywordsService = keywordsService;
             this.filterStringHelpers = filterStringHelpers;
-            //this.backgroundJobService = backgroundJobService;
             //this.searchAlgorithms = searchAlgorithms;
         }
 
-        public ActionResult Index()
+        public ActionResult SearchByQuery(SearchViewModel searchViewModel)
         {
-            return this.View();
-        }
-
-        public ActionResult Search(string query, int? categoryId, IEnumerable<SearchFilterForCategoryViewModel> searchFilters)
-        {
-            if (categoryId != null)
+            if (searchViewModel.CategoryId != null && searchViewModel.CategoryId > 0)
             {
-                return this.RedirectToAction("Index", "Home", new { area = Areas.PublicAreaName });
+                return this.RedirectToAction("SearchByCategory", "Search", new { categoryId = searchViewModel.CategoryId, query = searchViewModel.Query, area = Areas.PublicAreaName });
             }
-
-            if (query != null)
+            else
             {
-                return this.RedirectToAction("Index", "Home", new { area = Areas.PublicAreaName });
+                if (string.IsNullOrWhiteSpace(searchViewModel.Query))
+                {
+                    return this.RedirectToAction("Index", "Home", new { area = Areas.PublicAreaName });
+                }
+
+                var viewModel = this.productsService
+                    .GetAll()
+                    .Take(10)
+                    .AsQueryable()
+                    .FilterProductsBySearchTerm(searchViewModel.Query)
+                    .To<ProductForQuerySearchViewModel>()
+                    .ToList()
+                    ;
+
+                //return this.PartialView(viewModel);
+                return this.View(viewModel);
             }
-
-            return this.RedirectToAction("Index", "Home", new { area = Areas.PublicAreaName });
-        }
-
-        //[HttpGet]
-        //[ChildActionOnly]
-        //public ActionResult SearchQuery()
-        //{
-        //    return null;
-        //}
-
-        [HttpPost]
-        //[ChildActionOnly]
-        public ActionResult SearchQuery(SearchQueryViewModel searchQuery)
-        {
-            return null;
         }
 
         public JsonResult SearchAutoComplete(string prefix)
@@ -110,33 +100,39 @@
         }
 
         [HttpGet]
-        public ActionResult SearchByCategory(int categoryId)
+        public ActionResult SearchByCategory(int categoryId, string query)
         {
             var category = this.categoriesService.GetById(categoryId);
             var searchFilters = category.SearchFilters.AsQueryable().To<SearchFilterForCategoryViewModel>().ToList();
-            var viewModel = new CategorySearchViewModel() { Id = categoryId, SearchFilters = searchFilters };
+            var categorySearchViewModel = new CategorySearchViewModel() { Id = categoryId, SearchFilters = searchFilters, Query = query };
 
-            return this.View("CategorySearchView", viewModel);
+            return this.View(categorySearchViewModel);
         }
 
         //[HttpPost]
         //[AjaxOnly]
         public JsonResult ReadSearchResult(
             [DataSourceRequest]DataSourceRequest request,
-            int categoryId
+            int categoryId,
+            string query,
+            IEnumerable<RefinementOption> refinementOptions
             //, IEnumerable<SearchFilterForCategoryViewModel> searchFilters
             //, RefinementOption searchFilter
             )
         {
             var cacheKey = "category" + categoryId.ToString() + "products";
-            var allProductsInCategory = this.autoUpdateCacheService.Get<List<ProductOfCategoryViewModel>, SearchController>(
+            var allProductsInCategory = this.autoUpdateCacheService.Get<List<ProductOfCategoryViewModel/*Product*/>, SearchController>(
                 cacheKey,
                 () => this.GetProductsOfCategory(categoryId),
                 CacheConstants.AllProductsInCategoryCacheExpiration,
                 "GetAndCacheProductsOfCategory",
                 new object[] { cacheKey, categoryId },
                 CacheConstants.AllProductsInCategoryUpdateBackgroundJobDelay
-                );
+                )
+                //.AsQueryable()
+                //.To<ProductOfCategoryViewModel>()
+                //.ToList()
+                ;
 
             var filteredProducts = allProductsInCategory;
 
@@ -147,14 +143,6 @@
         {
             var methodInfo = this.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
             methodInfo.Invoke(this, args);
-        }
-
-        [OutputCache(Duration = 15 * 60, VaryByParam = "viewModel;categoryId")]
-        [ChildActionOnly]
-        public PartialViewResult RefineSearchBar(IEnumerable<SearchFilterForCategoryViewModel> viewModel/*, int categoryId*/)
-        {
-            //this.ViewData["categoryId"] = categoryId;
-            return this.PartialView("_RefineSearchBar", viewModel);
         }
 
         [HttpGet]
@@ -207,13 +195,14 @@
         }
 
         [NonAction]
-        private List<ProductOfCategoryViewModel> GetProductsOfCategory(int categoryId)
+        private List<ProductOfCategoryViewModel/*Product*/> GetProductsOfCategory(int categoryId)
         {
             var result = this.categoriesService.GetById(categoryId).Products
-                .Take(500)
+                //.Take(500)
                 .AsQueryable()
                 .To<ProductOfCategoryViewModel>()
-                .ToList();
+                .ToList()
+                ;
 
             return result;
         }
@@ -236,7 +225,7 @@
         [NonAction]
         private bool ValidateSearchFilter(RefinementOption searchFilter)
         {
-            if (string.IsNullOrWhiteSpace(searchFilter.SelectedValue))
+            if (string.IsNullOrWhiteSpace(searchFilter.Value))
             {
                 return false;
             }

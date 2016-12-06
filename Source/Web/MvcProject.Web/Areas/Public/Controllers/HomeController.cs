@@ -15,6 +15,7 @@
     using Data.Models;
     using ViewModels.Categories;
     using System.Web.Caching;
+    using ViewModels.Search;
 
     public class HomeController : BasePublicController
     {
@@ -56,19 +57,19 @@
             return PartialView(/*"_Carousel", */viewModel);
         }
 
+        public PartialViewResult NavLowerLeft()
+        {
+            //this.ViewData["categories"] = this.GetCategories().Select(c => new SelectListItem() { Text = c.Name, Value = c.Id.ToString() });
+            var categories = this.GetCategories()/*.Select(c => new SelectListItem() { Text = c.Name, Value = c.Id.ToString() })*/;
+
+            return this.PartialView(categories);
+        }
+
         public PartialViewResult NavLowerMiddle()
         {
-            this.ViewData["categories"] = this.cacheService.Get(
-                "categoriesForQuerySearch",
-                () => this.categoriesService
-                    .GetAll()
-                    .To<CategoryForLayoutDropDown>()
-                    .OrderBy(i => i.Name)
-                    .ToList()
-                , 30 * 60
-                ).Select(c => new SelectListItem() { Text = c.Name, Value = c.Id.ToString() });
+            this.ViewData["categories"] = this.GetCategories().Select(c => new SelectListItem() { Text = c.Name, Value = c.Id.ToString() });
 
-            return this.PartialView();
+            return this.PartialView(new SearchViewModel());
         }
 
         public JsonResult ReadNewestProducts([DataSourceRequest]DataSourceRequest request)
@@ -145,5 +146,21 @@
         {
             return this.PartialView("UnderConstruction", null);
         }
+
+        #region Helpers
+        private List<CategoryForLayoutDropDown> GetCategories()
+        {
+            var categories = this.cacheService.Get(
+                "categoriesForQuerySearch",
+                () => this.categoriesService
+                    .GetAll()
+                    .To<CategoryForLayoutDropDown>()
+                    .OrderBy(i => i.Name)
+                    .ToList(),
+                30 * 60);
+
+            return categories;
+        }
+        #endregion
     }
 }

@@ -6,10 +6,25 @@
 
 /* ========== TopSearchPanel ========== */
 /* ========== RefineSearchBar ========== */
+.search-filter-label {
+    color: #1f2353;
+}
+
 .search-filter {
     list-style: none;
     padding-left: 0;
 }
+
+    .search-filter label:hover {
+        cursor: pointer;
+        color: #f2ac1b;
+    }
+
+    .search-filter input:checked + span {
+        font-weight: bold;
+        /*color: #666666;*/
+        color: #f2ac1b;
+    }
 
 /*.multiple-selection-filter {
     list-style: none;

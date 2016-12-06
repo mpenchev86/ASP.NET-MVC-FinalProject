@@ -1,0 +1,16 @@
+﻿@using MvcProject.Web.Areas.Public.ViewModels.Products
+
+@model List<ProductForQuerySearchViewModel>
+
+@{
+    ViewBag.Title = "QuerySearchView";
+}
+
+<h2>QuerySearchView</h2>
+
+@foreach (var product in Model)
+{
+    <h4>@product.Title</h4>
+    <br />
+}
+

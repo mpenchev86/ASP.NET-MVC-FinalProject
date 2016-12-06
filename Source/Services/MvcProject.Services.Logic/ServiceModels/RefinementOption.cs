@@ -11,7 +11,7 @@
     public class RefinementOption
     {
         [Required]
-        public string SelectedValue { get; set; }
+        public string Value { get; set; }
 
         [Required]
         public bool Checked { get; set; }

@@ -1,5 +1,5 @@
 ﻿$(document).ready(function onDocumentReady() {
-    $('#navbar-search-input').autocomplete({
+    $('#navbar-search-query').autocomplete({
         minLength: 3,
         source: function autocompleteSource(request, response) {
             $.ajax({
@@ -49,7 +49,7 @@
         }
     });
 
-    $('#navbar-search-input').keypress(function searchInputKeypress(event) {
+    $('#navbar-search-query').keypress(function searchInputKeypress(event) {
         if (event.which == 13) {
             event.preventDefault();
             //console.log(this);

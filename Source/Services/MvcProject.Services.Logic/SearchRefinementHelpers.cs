@@ -11,7 +11,7 @@
 
     public static class SearchRefinementHelpers/* : ISearchRefinementHelpers<TProduct, TFilter>*/
     {
-        public static IQueryable<Product> FilterProducts/*<TProduct, TFilter>*/(this IQueryable<Product> products, RefinementOption filter)
+        public static IQueryable<Product> FilterProductsByRefinementOptions/*<TProduct, TFilter>*/(this IQueryable<Product> products, IEnumerable<RefinementOption> refinementOptions)
             //where TProduct : class, IMapFrom<Product>
             //where TFilter : class, IMapFrom<SearchFilter>
         {
@@ -28,5 +28,15 @@
 
             return products;
         }
+
+        public static IQueryable<Product> FilterProductsBySearchTerm/*<TProduct, TFilter>*/(this IQueryable<Product> products, string searchTerm)
+        {
+            return products;
+        }
+
+        //public static IEnumerable<Product> FilterProductsBySearchTerm/*<TProduct, TFilter>*/(this List<Product> products, string searchTerm)
+        //{
+        //    return products;
+        //}
     }
 }

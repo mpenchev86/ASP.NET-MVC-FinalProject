@@ -1,18 +1,19 @@
 ﻿@using MvcProject.Web.Areas.Public.ViewModels.Categories
+@using MvcProject.Web.Areas.Public.ViewModels.Search
 
 @model CategorySearchViewModel
 
+@Html.HiddenFor(m => m.Id, new { id = "searchCategoryId" })
+@Html.HiddenFor(m => m.Query, new { id = "searchQuery" })
 <div class="row">
     @Html.Partial("_TopSearchPanel")
 </div>
 <div class="row">
     <div class="col-md-2">
-        @Html.Action("RefineSearchBar", "Search", new { areas = Areas.PublicAreaName, viewModel = Model.SearchFilters@*, categoryId = Model.Id*@ })
-        @*@Html.Partial("_RefineSearchBar", Model.SearchFilters, new ViewDataDictionary(this.ViewData) { { "categoryId", Model.Id } })*@
-        <img id="search-refine-loading-spinner" src="~/Content/Kendo/Silver/loading_2x.gif" style="display: none; text-align: center;" />
+        @Html.Partial("_RefineSearchBar", Model.SearchFilters)
     </div>
     <div class="col-md-10">
-        @Html.Partial("_SearchResults", null, new ViewDataDictionary(this.ViewData) { { "categoryId", Model.Id } })
+        @Html.Partial("_SearchResults", new SearchViewModel {  CategoryId = Model.Id, Query = Model.Query })
     </div>
 </div>
 
@@ -22,8 +23,20 @@
     <script>
         var searchFilters = [];
         var searchFilter = {};
+        var refinementOptions = [];
+        var query = "";
 
         $(document).ready(function () {
+            var searchCategoryId = $('#searchCategoryId').val()
+            $('#navbar-search-options option').each(function preselectCategory(index) {
+                if ($(this).val() === searchCategoryId) {
+                    $(this).attr('selected', 'selected');
+                }
+            });
+
+            var searchQuery = $('#searchQuery').val();
+            $('#navbar-search-query').val(searchQuery);
+
             $('.search-filter').each(function getFilterNames(index, filter) {
                 searchFilters.push({ Name: $(filter).data('filter-name') });
                 //var options = $(this);
@@ -32,19 +45,40 @@
             $('#SearchResultListView_pager').hide();
             //$('#SearchResultListView').hide();
 
+            //console.log($('#searchCategoryId').val());
+
+            //$('.search-filter li').attr('cursor', 'pointer');
         });
 
         function submitForm(e) {
             // Refinement options CSS
-            $('.search-filter input').attr({ disabled: 'disabled'});
-            //$('.search-filter input[type="checkbox"]').attr({ disabled: 'disabled'});
+            var options = $('.search-filter input');
+            //$('.search-filter input').attr({ disabled: 'disabled' });
+            options.attr({ disabled: 'disabled' });
             
+            options.each(function getRefinementOptions(index) {
+                var refinementOption = {};
+
+                refinementOption.Value = $(this).val();
+                refinementOption.SearchFilterId = $(this).data('filter-id');
+                refinementOption.SelectionType = $(this).data('filter-selection-type');
+                refinementOption.OptionsType = $(this).data('filter-options-type');
+                refinementOption.Checked = $(this).prop('checked');
+                
+                //console.log(refinementOption);
+
+                refinementOptions.push(refinementOption);
+            });
+
+            //console.log($('#navbar-search-query').val());
             // Get selected filter option data
-            searchFilter.SelectedValue = $(e).val();
+            searchFilter.Value = $(e).val();
             searchFilter.SearchFilterId = $(e).data('filter-id');
             searchFilter.SelectionType = $(e).data('filter-selection-type');
             searchFilter.OptionsType = $(e).data('filter-options-type');
             searchFilter.Checked = $(e).prop('checked');
+
+            query = $('#navbar-search-query').val();
 
             //console.log($(e).data('filter-id'));
             //console.log($(e).val());
@@ -52,7 +86,9 @@
             //console.log($(e).data('filter-id'));
             //console.log($(e).data('filter-selection-type'));
             //console.log($(e).data('filter-options-type'));
-            
+
+            //console.log(refinementOptions);
+
             // Reload ListView
             $("#SearchResultListView").data("kendoListView").dataSource.read();
 
@@ -76,6 +112,8 @@
             $('.search-filter input').removeAttr('disabled');
             //$('.search-filter .options-label span').attr({ opacity: '100%', cursor: 'auto' });
 
+            refinementOptions = [];
+
             $('#SearchResultListView_pager').show();
 
             // Activate Spinner on ListView
@@ -85,7 +123,9 @@
         function readHandler(data) {
             return {
                 searchFilters : searchFilters,
-                searchFilter : searchFilter
+                searchFilter: searchFilter,
+                refinementOptions: refinementOptions,
+                //query: query
             }
         }
     </script>    

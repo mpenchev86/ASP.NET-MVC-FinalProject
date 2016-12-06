@@ -25,20 +25,20 @@
             this.cacheService = cacheService;
         }
 
-        [HttpGet]
-        public ActionResult GetCategoriesForCategorySearch()
-        {
-            var categories = this.cacheService.Get(
-                "categoriesForCategorySearch",
-                () => this.categoriesService
-                    .GetAll()
-                    .To<CategoryForLayoutDropDown>()
-                    .OrderBy(i => i.Name)
-                    .ToList()
-                , 30 * 60
-                );
+        //[HttpGet]
+        //public ActionResult GetCategoriesForCategorySearch()
+        //{
+        //    var categories = this.cacheService.Get(
+        //        "categoriesForCategorySearch",
+        //        () => this.categoriesService
+        //            .GetAll()
+        //            .To<CategoryForLayoutDropDown>()
+        //            .OrderBy(i => i.Name)
+        //            .ToList()
+        //        , 30 * 60
+        //        );
 
-            return this.PartialView(/*"_CategoriesDropDown", */categories);
-        }
+        //    return this.PartialView(/*"_CategoriesDropDown", */categories);
+        //}
     }
 }

@@ -1,24 +1,24 @@
 ﻿@using MvcProject.Web.Areas.Public.ViewModels.Products
+@using MvcProject.Web.Areas.Public.ViewModels.Search
+@using MvcProject.Services.Logic.ServiceModels
 
 @*@model ICollection<ProductOfCategoryViewModel>*@
+
+@model SearchViewModel
 
 @(Html.Kendo()
     .ListView<ProductOfCategoryViewModel>()
     .Name("SearchResultListView")
-    //.BindTo(Model)
     .TagName("ul")
     .Pageable()
-    //.Pageable(p => p.PageSizes(new int[] { 20, 100, 300 }))
-    //.AutoBind(false)
     .ClientTemplateId("search-result-listView-template")
     .DataSource(data => data
         .Model(model => model.Id(p => p.Id))
         .Read(read => read
-            .Action("ReadSearchResult", "Search", new { categoryId = (int)this.ViewData["categoryId"] })
+            .Action("ReadSearchResult", "Search", new { categoryId = Model.CategoryId, query = Model.Query })
             .Data("readHandler")
         )
         .PageSize(60)
-    //.Events(ev => ev.)
     )
     .Events(e => e
         .DataBinding("onListViewDataBinding")
