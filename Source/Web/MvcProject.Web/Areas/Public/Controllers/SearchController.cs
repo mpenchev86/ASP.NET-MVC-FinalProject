@@ -68,6 +68,8 @@
                     return this.RedirectToAction("Index", "Home", new { area = Areas.PublicAreaName });
                 }
 
+                IDictionary<int, List<ProductForQuerySearchViewModel>> resultsByCategory = this.FilterByQuery(searchViewModel.Query);
+
                 var viewModel = this.productsService
                     .GetAll()
                     .Take(10)
@@ -80,6 +82,18 @@
                 //return this.PartialView(viewModel);
                 return this.View(viewModel);
             }
+        }
+
+        private IDictionary<int, List<ProductForQuerySearchViewModel>> FilterByQuery(string query)
+        {
+            var results = new Dictionary<int, List<ProductForQuerySearchViewModel>>();
+
+            var separateQueryTerms = query.Split(new char[' '], StringSplitOptions.RemoveEmptyEntries);
+            var termsCount = separateQueryTerms.Count();
+
+            var categoriesRelevance = new SortedDictionary<int, int>();
+
+            return null;
         }
 
         public JsonResult SearchAutoComplete(string prefix)
@@ -120,8 +134,32 @@
             //, RefinementOption searchFilter
             )
         {
+            //var cacheKey = "category" + categoryId.ToString() + "products";
+            //var allProductsInCategory = this.autoUpdateCacheService.Get<List</*ProductForCategorySearchViewModel*/ProductCacheViewModel>, SearchController>(
+            //    cacheKey,
+            //    () => this.GetProductsOfCategory(categoryId),
+            //    CacheConstants.AllProductsInCategoryCacheExpiration,
+            //    "GetAndCacheProductsOfCategory",
+            //    new object[] { cacheKey, categoryId },
+            //    CacheConstants.AllProductsInCategoryUpdateBackgroundJobDelay
+            //    )
+            //    .AsQueryable()
+            //    .To<ProductForCategorySearchViewModel>()
+            //    .ToList()
+            //    ;
+
+            var allProductsInCategory = this.FilterCategoryProducts(categoryId, query, refinementOptions);
+
+            return this.Json(allProductsInCategory.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet); ;
+        }
+
+        private List<ProductForCategorySearchViewModel> FilterCategoryProducts(
+            int categoryId,
+            string query,
+            IEnumerable<RefinementOption> refinementOptions)
+        {
             var cacheKey = "category" + categoryId.ToString() + "products";
-            var allProductsInCategory = this.autoUpdateCacheService.Get<List<ProductOfCategoryViewModel/*Product*/>, SearchController>(
+            var allProductsInCategory = this.autoUpdateCacheService.Get<List</*ProductForCategorySearchViewModel*/ProductCacheViewModel>, SearchController>(
                 cacheKey,
                 () => this.GetProductsOfCategory(categoryId),
                 CacheConstants.AllProductsInCategoryCacheExpiration,
@@ -129,14 +167,12 @@
                 new object[] { cacheKey, categoryId },
                 CacheConstants.AllProductsInCategoryUpdateBackgroundJobDelay
                 )
-                //.AsQueryable()
-                //.To<ProductOfCategoryViewModel>()
-                //.ToList()
+                .AsQueryable()
+                .To<ProductForCategorySearchViewModel>()
+                .ToList()
                 ;
 
-            var filteredProducts = allProductsInCategory;
-
-            return this.Json(allProductsInCategory.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet); ;
+            return allProductsInCategory;
         }
 
         public void BackgroundOperation(string methodName, object[] args)
@@ -195,12 +231,12 @@
         }
 
         [NonAction]
-        private List<ProductOfCategoryViewModel/*Product*/> GetProductsOfCategory(int categoryId)
+        private List</*ProductForCategorySearchViewModel*/ProductCacheViewModel> GetProductsOfCategory(int categoryId)
         {
             var result = this.categoriesService.GetById(categoryId).Products
                 //.Take(500)
                 .AsQueryable()
-                .To<ProductOfCategoryViewModel>()
+                .To<ProductCacheViewModel>()
                 .ToList()
                 ;
 

@@ -25,7 +25,7 @@
                 }
             }
 
-            // As per v5., separate mapping profiles are configured
+            // As per v5. recommendations, separate mapping profiles are configured
             Action<IMapperConfigurationExpression> configExpression = cfg =>
                 {
                     cfg.AddProfile(new StandardMappingsProfile(types, cfg));
@@ -36,57 +36,57 @@
             Configuration = new MapperConfiguration(configExpression);
         }
 
-        private static void LoadStandardMappings(IEnumerable<Type> types, IMapperConfigurationExpression mapperConfiguration)
-        {
-            var maps = from t in types
-                       from i in t.GetInterfaces()
-                       where i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMapFrom<>) &&
-                             !t.IsAbstract &&
-                             !t.IsInterface
-                       select new
-                       {
-                           Source = i.GetGenericArguments()[0],
-                           Destination = t
-                       };
+        //private static void LoadStandardMappings(IEnumerable<Type> types, IMapperConfigurationExpression mapperConfiguration)
+        //{
+        //    var maps = from t in types
+        //               from i in t.GetInterfaces()
+        //               where i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMapFrom<>) &&
+        //                     !t.IsAbstract &&
+        //                     !t.IsInterface
+        //               select new
+        //               {
+        //                   Source = i.GetGenericArguments()[0],
+        //                   Destination = t
+        //               };
 
-            foreach (var map in maps)
-            {
-                mapperConfiguration.CreateMap(map.Source, map.Destination);
-            }
-        }
+        //    foreach (var map in maps)
+        //    {
+        //        mapperConfiguration.CreateMap(map.Source, map.Destination);
+        //    }
+        //}
 
-        private static void LoadReverseMappings(IEnumerable<Type> types, IMapperConfigurationExpression mapperConfiguration)
-        {
-            var maps = from t in types
-                       from i in t.GetInterfaces()
-                       where i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMapTo<>) &&
-                             !t.IsAbstract &&
-                             !t.IsInterface
-                       select new
-                       {
-                           Destination = i.GetGenericArguments()[0],
-                           Source = t
-                       };
+        //private static void LoadReverseMappings(IEnumerable<Type> types, IMapperConfigurationExpression mapperConfiguration)
+        //{
+        //    var maps = from t in types
+        //               from i in t.GetInterfaces()
+        //               where i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMapTo<>) &&
+        //                     !t.IsAbstract &&
+        //                     !t.IsInterface
+        //               select new
+        //               {
+        //                   Destination = i.GetGenericArguments()[0],
+        //                   Source = t
+        //               };
 
-            foreach (var map in maps)
-            {
-                mapperConfiguration.CreateMap(map.Source, map.Destination);
-            }
-        }
+        //    foreach (var map in maps)
+        //    {
+        //        mapperConfiguration.CreateMap(map.Source, map.Destination);
+        //    }
+        //}
 
-        private static void LoadCustomMappings(IEnumerable<Type> types, IMapperConfigurationExpression mapperConfiguration)
-        {
-            var maps = from t in types
-                       from i in t.GetInterfaces()
-                       where typeof(IHaveCustomMappings).IsAssignableFrom(t) &&
-                             !t.IsAbstract &&
-                             !t.IsInterface
-                       select (IHaveCustomMappings)Activator.CreateInstance(t);
+        //private static void LoadCustomMappings(IEnumerable<Type> types, IMapperConfigurationExpression mapperConfiguration)
+        //{
+        //    var maps = from t in types
+        //               from i in t.GetInterfaces()
+        //               where typeof(IHaveCustomMappings).IsAssignableFrom(t) &&
+        //                     !t.IsAbstract &&
+        //                     !t.IsInterface
+        //               select (IHaveCustomMappings)Activator.CreateInstance(t);
 
-            foreach (var map in maps)
-            {
-                map.CreateMappings(mapperConfiguration);
-            }
-        }
+        //    foreach (var map in maps)
+        //    {
+        //        map.CreateMappings(mapperConfiguration);
+        //    }
+        //}
     }
 }

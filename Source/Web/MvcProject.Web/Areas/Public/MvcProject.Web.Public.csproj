@@ -205,11 +205,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="App_Start\PublicAreaRegistration.cs" />
     <Compile Include="ViewModels\BasePublicViewModel.cs" />
+    <Compile Include="ViewModels\Categories\CategoryCacheViewModel.cs" />
     <Compile Include="ViewModels\Categories\CategoryForLayoutDropDown.cs" />
+    <Compile Include="ViewModels\Comments\CommentCacheViewModel.cs" />
     <Compile Include="ViewModels\Comments\CommentPostViewModel.cs" />
+    <Compile Include="ViewModels\Descriptions\DescriptionCacheViewModel.cs" />
     <Compile Include="ViewModels\Descriptions\DescriptionForProductFullViewModel.cs" />
-    <Compile Include="ViewModels\Descriptions\DescriptionForProductOfCategoryViewModel.cs" />
+    <Compile Include="ViewModels\Descriptions\DescriptionForCategorySearchViewModel.cs" />
     <Compile Include="ViewModels\Home\CarouselData.cs" />
+    <Compile Include="ViewModels\Images\ImageCacheViewModel.cs" />
+    <Compile Include="ViewModels\Keywords\KeywordCacheViewModel.cs" />
+    <Compile Include="ViewModels\Products\ProductCacheViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductDetailsForIndexListView.cs" />
     <Compile Include="ViewModels\Images\ImageForProductFullViewModel.cs" />
     <Compile Include="ViewModels\Images\ImageForProductSneakPeekViewModel.cs" />
@@ -219,18 +225,22 @@
     <Compile Include="ViewModels\Products\ProductFullViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductImagesPartialViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductInfoPartialViewModel.cs" />
-    <Compile Include="ViewModels\Products\ProductOfCategoryViewModel.cs" />
+    <Compile Include="ViewModels\Products\ProductForCategorySearchViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductSideBarPartialViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductSneakPeekViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductWithTagViewModel.cs" />
+    <Compile Include="ViewModels\Properties\PropertyCacheViewModel.cs" />
     <Compile Include="ViewModels\Properties\PropertyForProductFullViewModel.cs" />
     <Compile Include="ViewModels\Categories\CategorySearchViewModel.cs" />
-    <Compile Include="ViewModels\Properties\PropertyForProductOfCategoryViewModel.cs" />
+    <Compile Include="ViewModels\Properties\PropertyForCategorySearchViewModel.cs" />
+    <Compile Include="ViewModels\Search\SearchFilterCacheViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchFilterForCategoryViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchFilterOptionViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchByCategoryViewModel.cs" />
+    <Compile Include="ViewModels\Tags\TagCacheViewModel.cs" />
     <Compile Include="ViewModels\Users\UserProfileViewModel.cs" />
+    <Compile Include="ViewModels\Votes\VoteCacheViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Common\GlobalConstants\MvcProject.Common.GlobalConstants.csproj">
@@ -359,7 +369,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Images\" />
-    <Folder Include="ViewModels\Votes\" />
     <Folder Include="Views\Categories\Partials\" />
     <Folder Include="Views\Comments\" />
     <Folder Include="Views\Images\Partials\" />

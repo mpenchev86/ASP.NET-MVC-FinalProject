@@ -8,7 +8,7 @@
     using Data.Models;
     using Infrastructure.Mapping;
 
-    public class PropertyForProductOfCategoryViewModel : BasePublicViewModel<int>, IMapFrom<Property>, IHaveCustomMappings
+    public class PropertyForCategorySearchViewModel : BasePublicViewModel<int>, IMapFrom<Property>, IHaveCustomMappings
     {
         public string Name { get; set; }
 
