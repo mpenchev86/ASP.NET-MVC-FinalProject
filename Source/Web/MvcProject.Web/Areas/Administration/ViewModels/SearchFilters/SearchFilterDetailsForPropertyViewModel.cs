@@ -1,16 +1,12 @@
 ﻿namespace MvcProject.Web.Areas.Administration.ViewModels.SearchFilters
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Web;
-    using AutoMapper;
     using Categories;
     using Data.Models;
     using Infrastructure.Mapping;
 
-    public class SearchFilterDetailsForPropertyViewModel : BaseAdminViewModel<int>, IMapFrom<SearchFilter>, IHaveCustomMappings
+    public class SearchFilterDetailsForPropertyViewModel : BaseAdminViewModel<int>, IMapFrom<SearchFilter>
     {
         [Required]
         public string Name { get; set; }
@@ -42,9 +38,5 @@
         public int CategoryId { get; set; }
 
         public virtual CategoryDetailsForSearchFilterViewModel Category { get; set; }
-
-        public void CreateMappings(IMapperConfigurationExpression configuration)
-        {
-        }
     }
 }

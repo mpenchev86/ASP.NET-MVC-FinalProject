@@ -4,17 +4,13 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-    using System.Web;
-
-    using AutoMapper;
     using Data.Models;
     using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
     using MvcProject.Common.GlobalConstants;
     using Properties;
 
-    public class DescriptionViewModel : BaseAdminViewModel<int>, IMapFrom<Description>, IHaveCustomMappings
+    public class DescriptionViewModel : BaseAdminViewModel<int>, IMapFrom<Description>
     {
         private ICollection<PropertyDetailsForDescriptionViewModel> properties;
 
@@ -39,12 +35,5 @@
 
         [LongDateTimeFormat]
         public DateTime? DeletedOn { get; set; }
-
-        public void CreateMappings(IMapperConfigurationExpression configuration)
-        {
-            configuration.CreateMap<Description, DescriptionViewModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                ;
-        }
     }
 }

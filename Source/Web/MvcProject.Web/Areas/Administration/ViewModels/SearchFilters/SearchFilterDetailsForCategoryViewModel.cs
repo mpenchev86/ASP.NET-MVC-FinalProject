@@ -1,17 +1,13 @@
 ﻿namespace MvcProject.Web.Areas.Administration.ViewModels.SearchFilters
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-    using System.Web;
-    using AutoMapper;
     using Data.Models;
     using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
 
-    public class SearchFilterDetailsForCategoryViewModel : BaseAdminViewModel<int>, IMapFrom<SearchFilter>, IHaveCustomMappings
+    public class SearchFilterDetailsForCategoryViewModel : BaseAdminViewModel<int>, IMapFrom<SearchFilter>
     {
         [Required]
         public string Name { get; set; }
@@ -38,9 +34,5 @@
 
         [LongDateTimeFormat]
         public DateTime? DeletedOn { get; set; }
-
-        public void CreateMappings(IMapperConfigurationExpression configuration)
-        {
-        }
     }
 }

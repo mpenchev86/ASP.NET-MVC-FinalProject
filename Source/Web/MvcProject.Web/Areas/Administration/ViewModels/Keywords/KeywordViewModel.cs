@@ -4,15 +4,12 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-    using System.Web;
-    using AutoMapper;
     using Categories;
     using Data.Models;
     using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
 
-    public class KeywordViewModel : BaseAdminViewModel<int>, IMapFrom<Keyword>, IHaveCustomMappings
+    public class KeywordViewModel : BaseAdminViewModel<int>, IMapFrom<Keyword>
     {
         private ICollection<CategoryDetailsForKeywordViewModel> categories;
 
@@ -36,10 +33,5 @@
 
         [LongDateTimeFormat]
         public DateTime? DeletedOn { get; set; }
-
-        public void CreateMappings(IMapperConfigurationExpression configuration)
-        {
-            //throw new NotImplementedException();
-        }
     }
 }

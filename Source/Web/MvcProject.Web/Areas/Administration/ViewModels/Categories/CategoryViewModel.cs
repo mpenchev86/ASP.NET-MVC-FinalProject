@@ -4,10 +4,6 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-    using System.Web;
-
-    using AutoMapper;
     using Infrastructure.DataAnnotations;
     using MvcProject.Data.Models;
     using MvcProject.Common.GlobalConstants;
@@ -15,7 +11,8 @@
     using Products;
     using SearchFilters;
     using Keywords;
-    public class CategoryViewModel : BaseAdminViewModel<int>, IMapFrom<Category>, IHaveCustomMappings
+
+    public class CategoryViewModel : BaseAdminViewModel<int>, IMapFrom<Category>
     {
         private ICollection<ProductDetailsForCategoryViewModel> products;
         private ICollection<SearchFilterDetailsForCategoryViewModel> searchFilters;
@@ -46,12 +43,8 @@
             set { this.searchFilters = value; }
         }
 
-        //[DataType(DataType.MultilineText)]
-        //[StringLength(ValidationConstants.CategoryKeyWordsMaxLenght)]
-        //public string Keywords { get; set; }
-
         [UIHint("MultiSelect")]
-        public virtual ICollection<KeywordDetailsForCategoryViewModel> Keywords
+        public ICollection<KeywordDetailsForCategoryViewModel> Keywords
         {
             get { return this.keywords; }
             set { this.keywords = value; }
@@ -62,12 +55,5 @@
 
         [LongDateTimeFormat]
         public DateTime? DeletedOn { get; set; }
-
-        public void CreateMappings(IMapperConfigurationExpression configuration)
-        {
-            configuration.CreateMap<Category, CategoryViewModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                ;
-        }
     }
 }

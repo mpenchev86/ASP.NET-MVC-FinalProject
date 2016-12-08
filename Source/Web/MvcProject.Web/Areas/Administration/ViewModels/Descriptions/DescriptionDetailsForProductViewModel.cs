@@ -3,17 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-    using System.Web;
-
-    using AutoMapper;
     using Data.Models;
     using Infrastructure.Mapping;
     using MvcProject.Common.GlobalConstants;
     using Properties;
 
-    public class DescriptionDetailsForProductViewModel : BaseAdminViewModel<int>, IMapFrom<Description>, IHaveCustomMappings
+    public class DescriptionDetailsForProductViewModel : BaseAdminViewModel<int>, IMapFrom<Description>
     {
         private ICollection<PropertyDetailsForDescriptionViewModel> properties;
 
@@ -32,13 +27,6 @@
         {
             get { return this.properties; }
             set { this.properties = value; }
-        }
-
-        public void CreateMappings(IMapperConfigurationExpression configuration)
-        {
-            configuration.CreateMap<Description, DescriptionDetailsForProductViewModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                ;
         }
     }
 }

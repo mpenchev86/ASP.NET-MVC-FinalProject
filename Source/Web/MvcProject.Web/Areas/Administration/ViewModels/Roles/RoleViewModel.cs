@@ -40,15 +40,12 @@
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<ApplicationRole, RoleViewModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Users, opt => opt.MapFrom(
                             src => src.Users.Select(user => new UserDetailsForRoleViewModel
                             {
                                 Id = user.UserId,
                                 UserName = user.UserName
-                            })))
-                ;
+                            })));
         }
     }
 }

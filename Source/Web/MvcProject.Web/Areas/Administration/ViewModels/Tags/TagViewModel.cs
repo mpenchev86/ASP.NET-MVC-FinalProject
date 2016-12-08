@@ -4,16 +4,13 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-
-    using AutoMapper;
     using Data.Models;
     using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
     using MvcProject.Common.GlobalConstants;
     using Products;
 
-    public class TagViewModel : BaseAdminViewModel<int>, IMapFrom<Tag>, IHaveCustomMappings
+    public class TagViewModel : BaseAdminViewModel<int>, IMapFrom<Tag>
     {
         private ICollection<ProductDetailsForTagViewModel> products;
 
@@ -38,12 +35,5 @@
 
         [LongDateTimeFormat]
         public DateTime? DeletedOn { get; set; }
-
-        public void CreateMappings(IMapperConfigurationExpression configuration)
-        {
-            configuration.CreateMap<Tag, TagViewModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                ;
-        }
     }
 }

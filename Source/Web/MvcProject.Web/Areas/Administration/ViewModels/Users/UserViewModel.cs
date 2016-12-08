@@ -143,19 +143,12 @@
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<ApplicationUser, UserViewModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
-                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
-                .ForMember(dest => dest.EmailConfirmed, opt => opt.MapFrom(src => src.EmailConfirmed))
-                .ForMember(dest => dest.AccessFailedCount, opt => opt.MapFrom(src => src.AccessFailedCount))
-                .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.PasswordHash))
                 .ForMember(dest => dest.Roles, opt => opt.MapFrom(
                             src => src.Roles.Select(c => new RoleDetailsForUserViewModel
                             {
                                 Id = c.RoleId,
                                 Name = c.RoleName
-                            })))
-                ;
+                            })));
         }
     }
 }

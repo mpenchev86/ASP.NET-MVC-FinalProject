@@ -1,26 +1,16 @@
 ﻿namespace MvcProject.Web.Areas.Administration.ViewModels.Products
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Web;
-    using AutoMapper;
     using Data.Models;
     using MvcProject.Common.GlobalConstants;
     using Infrastructure.Mapping;
 
-    public class ProductDetailsForStatisticsViewModel : BaseAdminViewModel<int>, IMapFrom<Product>, IHaveCustomMappings
+    public class ProductDetailsForStatisticsViewModel : BaseAdminViewModel<int>, IMapFrom<Product>
     {
         [Required]
         [DataType(DataType.MultilineText)]
         [StringLength(ValidationConstants.ProductTitleMaxLength)]
         public string Title { get; set; }
-
-        public void CreateMappings(IMapperConfigurationExpression configuration)
-        {
-            configuration.CreateMap<Product, ProductDetailsForStatisticsViewModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
-        }
     }
 }

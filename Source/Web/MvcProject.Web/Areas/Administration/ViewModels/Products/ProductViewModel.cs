@@ -5,19 +5,12 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
-    using System.Web;
-
-    using AutoMapper;
-    using Categories;
     using Comments;
     using Data.Models;
-    using Data.Models.Contracts;
     using Descriptions;
     using Images;
     using Infrastructure.DataAnnotations;
-    using Infrastructure.Extensions;
     using Infrastructure.Mapping;
-    using Infrastructure.Validators;
     using MvcProject.Common.GlobalConstants;
     using Properties;
     using Services.Web;
@@ -25,7 +18,7 @@
     using Users;
     using Votes;
 
-    public class ProductViewModel : BaseAdminViewModel<int>, IMapFrom<Product>, IHaveCustomMappings
+    public class ProductViewModel : BaseAdminViewModel<int>, IMapFrom<Product>
     {
         private ICollection<TagDetailsForProductViewModel> tags;
         private ICollection<CommentDetailsForProductViewModel> comments;
@@ -137,9 +130,5 @@
 
         [LongDateTimeFormat]
         public DateTime? DeletedOn { get; set; }
-
-        public void CreateMappings(IMapperConfigurationExpression configuration)
-        {
-        }
     }
 }

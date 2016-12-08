@@ -1,16 +1,12 @@
 ﻿namespace MvcProject.Web.Areas.Administration.ViewModels.Comments
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Web;
-    using AutoMapper;
     using Data.Models;
     using Infrastructure.Mapping;
     using MvcProject.Common.GlobalConstants;
 
-    public class CommentDetailsForUserViewModel : BaseAdminViewModel<int>, IMapFrom<Comment>, IHaveCustomMappings
+    public class CommentDetailsForUserViewModel : BaseAdminViewModel<int>, IMapFrom<Comment>
     {
         [Required]
         [DataType(DataType.MultilineText)]
@@ -19,12 +15,5 @@
 
         [Required]
         public int ProductId { get; set; }
-
-        public void CreateMappings(IMapperConfigurationExpression configuration)
-        {
-            configuration.CreateMap<Comment, CommentDetailsForUserViewModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId));
-        }
     }
 }

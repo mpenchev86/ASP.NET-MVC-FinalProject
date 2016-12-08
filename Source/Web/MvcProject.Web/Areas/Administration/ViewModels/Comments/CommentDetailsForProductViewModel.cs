@@ -1,10 +1,7 @@
 ﻿namespace MvcProject.Web.Areas.Administration.ViewModels.Comments
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Web;
     using AutoMapper;
     using Data.Models;
     using Infrastructure.Mapping;
@@ -23,7 +20,6 @@
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Comment, CommentDetailsForProductViewModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName));
         }
     }

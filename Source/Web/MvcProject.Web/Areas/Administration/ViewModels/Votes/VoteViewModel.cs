@@ -3,14 +3,12 @@
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-
-    using AutoMapper;
     using Data.Models;
     using Infrastructure.DataAnnotations;
     using MvcProject.Common.GlobalConstants;
     using MvcProject.Web.Infrastructure.Mapping;
 
-    public class VoteViewModel : BaseAdminViewModel<int>, IMapFrom<Vote>, IHaveCustomMappings
+    public class VoteViewModel : BaseAdminViewModel<int>, IMapFrom<Vote>
     {
         [Required]
         [Range(ValidationConstants.VoteValueMin, ValidationConstants.VoteValueMax)]
@@ -29,13 +27,5 @@
 
         [LongDateTimeFormat]
         public DateTime? DeletedOn { get; set; }
-
-        public void CreateMappings(IMapperConfigurationExpression configuration)
-        {
-            configuration.CreateMap<Vote, VoteViewModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
-                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId));
-        }
     }
 }

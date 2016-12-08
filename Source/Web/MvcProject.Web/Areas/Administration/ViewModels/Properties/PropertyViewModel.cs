@@ -1,20 +1,14 @@
 ﻿namespace MvcProject.Web.Areas.Administration.ViewModels.Properties
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-    using System.Web;
-
-    using AutoMapper;
     using Common.GlobalConstants;
     using Data.Models;
-    using Descriptions;
     using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
 
-    public class PropertyViewModel : BaseAdminViewModel<int>, IMapFrom<Property>, IHaveCustomMappings
+    public class PropertyViewModel : BaseAdminViewModel<int>, IMapFrom<Property>
     {
         [Required]
         [DataType(DataType.MultilineText)]
@@ -31,19 +25,10 @@
         [UIHint("DropDown")]
         public int? SearchFilterId { get; set; }
 
-        //public virtual SearchFilterDetailsForPropertyViewModel SearchFilter { get; set; }
-
         [Index]
         public bool IsDeleted { get; set; }
 
         [LongDateTimeFormat]
         public DateTime? DeletedOn { get; set; }
-
-        public void CreateMappings(IMapperConfigurationExpression configuration)
-        {
-            configuration.CreateMap<Property, PropertyViewModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.DescriptionId, opt => opt.MapFrom(src => src.DescriptionId));
-        }
     }
 }
