@@ -1,10 +1,14 @@
-﻿@using MvcProject.Web.Areas.Public.ViewModels.Products
+﻿@using MvcProject.Web.Areas.Public.ViewModels.Categories
+@using MvcProject.Web.Areas.Public.ViewModels.Products
 @using MvcProject.Web.Areas.Public.ViewModels.Search
 @using MvcProject.Services.Logic.ServiceModels
 
 @*@model ICollection<ProductOfCategoryViewModel>*@
 
-@model SearchViewModel
+@*@model SearchViewModel*@
+@*@model CategorySearchViewModel*@
+
+@model IEnumerable<ProductForCategorySearchViewModel>
 
 @(Html.Kendo()
     .ListView<ProductForCategorySearchViewModel>()
@@ -12,19 +16,20 @@
     .TagName("ul")
     .Pageable()
     .ClientTemplateId("search-result-listView-template")
+    .BindTo(Model)
     .DataSource(data => data
         .Model(model => model.Id(p => p.Id))
-        .Read(read => read
-            .Action("ReadSearchResult", "Search", new { categoryId = Model.CategoryId, query = Model.Query })
-            .Data("readHandler")
-        )
+        //.Read(read => read
+        //    .Action("ReadSearchResult", "Search", new { categoryId = Model.Id, query = Model.Query })
+        //    .Data("readHandler")
+        //)
         .PageSize(60)
     )
-    .Events(e => e
-        .DataBinding("onListViewDataBinding")
-        //.Change("onListViewChange")
-        .DataBound("onListViewDataBound")
-    )
+    //.Events(e => e
+    //    .DataBinding("onListViewDataBinding")
+    //    //.Change("onListViewChange")
+    //    .DataBound("onListViewDataBound")
+    //)
     .Deferred()
     )
 

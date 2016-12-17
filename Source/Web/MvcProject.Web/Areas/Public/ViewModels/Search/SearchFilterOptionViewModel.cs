@@ -2,13 +2,30 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Web;
+    using Data.Models;
+    using Infrastructure.Mapping;
+    using Services.Logic.ServiceModels;
 
-    public class SearchFilterOptionViewModel    
+    public class SearchFilterOptionViewModel : IMapTo<RefinementOption>
     {
+        [Required]
         public string Value { get; set; }
 
-        public bool IsChecked { get; set; }
+        [Required]
+        public bool Checked { get; set; }
+
+        [Required]
+        public int SearchFilterId { get; set; }
+
+        //[Required]
+        //[Range(1, 2)]
+        //public SearchFilterSelectionType SelectionType { get; set; }
+
+        ////[Required]
+        //[Range(1, 2)]
+        //public SearchFilterOptionsType OptionsType { get; set; }
     }
 }

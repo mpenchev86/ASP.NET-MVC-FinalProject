@@ -57,8 +57,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchFilterHelpers.cs" />
     <Compile Include="SearchRefinementHelpers.cs" />
+    <Compile Include="ServiceModels\DescriptionFilterModel.cs" />
+    <Compile Include="ServiceModels\IProductFilteringModel.cs" />
+    <Compile Include="ServiceModels\ProductFilterModel.cs" />
+    <Compile Include="ServiceModels\PropertyFilterModel.cs" />
     <Compile Include="ServiceModels\RawFile.cs" />
     <Compile Include="ServiceModels\RefinementOption.cs" />
+    <Compile Include="ServiceModels\TagFilterModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

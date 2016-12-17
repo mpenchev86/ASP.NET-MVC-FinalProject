@@ -108,7 +108,7 @@
                 "highestVotedProducts",
                 () => this.productsService
                     .GetAll()
-                    .OrderByDescending(Product.GetAverageRating)
+                    .OrderByDescending(p => p.Votes.Average(v => v.VoteValue))
                     .Take(UiSpecificConstants.IndexListViewNumberOfhighestVotedProducts)
                     .To<ProductDetailsForIndexListView>()
                     .ToList(),

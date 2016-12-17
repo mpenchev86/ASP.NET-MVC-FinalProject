@@ -10,10 +10,11 @@
 </div>
 <div class="row">
     <div class="col-md-2">
-        @Html.Partial("_RefineSearchBar", Model.SearchFilters)
+        @Html.Partial("_RefineSearchBar", Model@*.SearchFilters*@, new ViewDataDictionary(this.ViewData) { { "categoryId", Model.Id }, { "query", Model.Query } })
     </div>
     <div class="col-md-10">
-        @Html.Partial("_SearchResults", new SearchViewModel {  CategoryId = Model.Id, Query = Model.Query })
+        @*@Html.Partial("_SearchResults", new SearchViewModel {  CategoryId = Model.Id, Query = Model.Query })*@
+        @Html.Partial("_SearchResults", Model.Products)
     </div>
 </div>
 
@@ -21,12 +22,13 @@
 @section Scripts{
     @Html.Kendo().DeferredScripts()
     <script>
-        var searchFilters = [];
-        var searchFilter = {};
+        //var searchFilters = [];
+        //var searchFilter = {};
         var refinementOptions = [];
         var query = "";
 
         $(document).ready(function () {
+            // Preselect search dropdown.
             var searchCategoryId = $('#searchCategoryId').val()
             $('#navbar-search-options option').each(function preselectCategory(index) {
                 if ($(this).val() === searchCategoryId) {
@@ -34,20 +36,20 @@
                 }
             });
 
+            // Preselect search input value.
             var searchQuery = $('#searchQuery').val();
             $('#navbar-search-query').val(searchQuery);
 
-            $('.search-filter').each(function getFilterNames(index, filter) {
-                searchFilters.push({ Name: $(filter).data('filter-name') });
-                //var options = $(this);
-            });
+            //$('.search-filter').each(function getFilterNames(index, filter) {
+            //    searchFilters.push({ Name: $(filter).data('filter-name') });
+            //});
 
             $('#SearchResultListView_pager').hide();
             //$('#SearchResultListView').hide();
 
-            //console.log($('#searchCategoryId').val());
-
             //$('.search-filter li').attr('cursor', 'pointer');
+
+            console.log(searchCategoryId);
         });
 
         function submitForm(e) {
@@ -64,40 +66,38 @@
                 refinementOption.SelectionType = $(this).data('filter-selection-type');
                 refinementOption.OptionsType = $(this).data('filter-options-type');
                 refinementOption.Checked = $(this).prop('checked');
-                
-                //console.log(refinementOption);
 
                 refinementOptions.push(refinementOption);
             });
 
-            //console.log($('#navbar-search-query').val());
-            // Get selected filter option data
-            searchFilter.Value = $(e).val();
-            searchFilter.SearchFilterId = $(e).data('filter-id');
-            searchFilter.SelectionType = $(e).data('filter-selection-type');
-            searchFilter.OptionsType = $(e).data('filter-options-type');
-            searchFilter.Checked = $(e).prop('checked');
+            //// Get selected filter option data
+            //searchFilter.Value = $(e).val();
+            //searchFilter.SearchFilterId = $(e).data('filter-id');
+            //searchFilter.SelectionType = $(e).data('filter-selection-type');
+            //searchFilter.OptionsType = $(e).data('filter-options-type');
+            //searchFilter.Checked = $(e).prop('checked');
 
             query = $('#navbar-search-query').val();
 
-            //console.log($(e).data('filter-id'));
-            //console.log($(e).val());
-            //console.log($(e).prop('checked'));
-            //console.log($(e).data('filter-id'));
-            //console.log($(e).data('filter-selection-type'));
-            //console.log($(e).data('filter-options-type'));
+            //// Reload ListView
+            //$("#SearchResultListView").data("kendoListView").dataSource.read();
 
-            //console.log(refinementOptions);
+            //$('#refinement-options-form');
 
-            // Reload ListView
-            $("#SearchResultListView").data("kendoListView").dataSource.read();
+
+            //console.log($('#search-form-submit'));
+            console.log($('#refinement-options-form'));
+
 
             //$(this).parents('form:first').find('#search-form-submit').click();
-            //$(e).parents('form:first').submit();
+
+
+            $(e).parents('form:first').submit();
+
+            //$('#refinement-options-form').submit();
         }
 
         function onListViewDataBinding(e) {
-            //console.log(e.sender.element);
             //kendo.ui.progress(e.sender.element, true);
 
             //$('#SearchResultListView_pager').hide();
@@ -112,6 +112,7 @@
             $('.search-filter input').removeAttr('disabled');
             //$('.search-filter .options-label span').attr({ opacity: '100%', cursor: 'auto' });
 
+            // Clear refinementOptions list. Otherwise, old options remain and are sent with the new ones.
             refinementOptions = [];
 
             $('#SearchResultListView_pager').show();
@@ -122,8 +123,8 @@
 
         function readHandler(data) {
             return {
-                searchFilters : searchFilters,
-                searchFilter: searchFilter,
+                //searchFilters : searchFilters,
+                //searchFilter: searchFilter,
                 refinementOptions: refinementOptions,
                 //query: query
             }

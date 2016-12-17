@@ -30,20 +30,6 @@
         }
 
         /// <summary>
-        /// Gets the calculated average vote of a product.
-        /// </summary>
-        /// <value>
-        /// The calculated average vote of a product.
-        /// </value>
-        public static Expression<Func<Product, double?>> GetAverageRating
-        {
-            get
-            {
-                return p => p.Votes.Any() ? (double?)p.Votes.Average(v => v.VoteValue) : null;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the title of the product.
         /// </summary>
         /// <value>
@@ -106,18 +92,6 @@
         /// </value>
         [Range(ValidationConstants.ProductAllTimeItemsSoldMin, ValidationConstants.ProductAllTimeItemsSoldMax)]
         public int AllTimeItemsSold { get; set; }
-
-        /// <summary>
-        /// Gets the overall rating of a product.
-        /// </summary>
-        /// <value>
-        /// The overall rating of a product.
-        /// </value>
-        [Range(ValidationConstants.ProductAllTimeAverageRatingMin, ValidationConstants.ProductAllTimeAverageRatingMax)]
-        public double? AllTimeAverageRating
-        {
-            get { return Product.GetAverageRating.Compile().Invoke(this); }
-        }
 
         /// <summary>
         /// Gets or sets the foreign key to a main image of a product.

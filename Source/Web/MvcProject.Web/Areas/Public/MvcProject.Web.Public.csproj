@@ -237,7 +237,6 @@
     <Compile Include="ViewModels\Search\SearchFilterForCategoryViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchFilterOptionViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchViewModel.cs" />
-    <Compile Include="ViewModels\Search\SearchByCategoryViewModel.cs" />
     <Compile Include="ViewModels\Tags\TagCacheViewModel.cs" />
     <Compile Include="ViewModels\Users\UserProfileViewModel.cs" />
     <Compile Include="ViewModels\Votes\VoteCacheViewModel.cs" />
@@ -423,6 +422,8 @@
     <Content Include="Views\Search\TempDataTest.cshtml" />
     <Content Include="Scripts\jquery-1.12.4.min.map" />
     <Content Include="Views\Search\SearchByQuery.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\SearchFilters.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\SearchFilterOptions.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

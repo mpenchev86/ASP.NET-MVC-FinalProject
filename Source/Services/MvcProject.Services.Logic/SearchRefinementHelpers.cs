@@ -11,20 +11,20 @@
 
     public static class SearchRefinementHelpers/* : ISearchRefinementHelpers<TProduct, TFilter>*/
     {
-        public static IQueryable<Product> FilterProductsByRefinementOptions/*<TProduct, TFilter>*/(this IQueryable<Product> products, IEnumerable<RefinementOption> refinementOptions)
-            //where TProduct : class, IMapFrom<Product>
+        public static IQueryable<TProduct> FilterProductsByRefinementOptions<TProduct/*, TFilter*/>(this IQueryable<TProduct> products, IEnumerable<RefinementOption> refinementOptions)
+            where TProduct : class, IProductFilteringModel
             //where TFilter : class, IMapFrom<SearchFilter>
         {
-            foreach (var product in products)
-            {
-                if (product.DescriptionId != null)
-                {
-                    foreach (var property in product.Description.Properties)
-                    {
+            //foreach (var product in products)
+            //{
+            //    if (product.DescriptionId != null)
+            //    {
+            //        foreach (var property in product.Description.Properties)
+            //        {
 
-                    }
-                }
-            }
+            //        }
+            //    }
+            //}
 
             return products;
         }

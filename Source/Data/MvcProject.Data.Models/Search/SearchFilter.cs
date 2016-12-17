@@ -67,8 +67,6 @@
         [DataType(DataType.MultilineText)]
         public string Options { get; set; }
 
-        //public virtual ICollection<SearchFilterOption> SearchFilterOptions { get; set; }
-
         /// <summary>
         /// Gets or sets the measure unit for the options values, if any.
         /// </summary>

@@ -117,8 +117,47 @@
         public ActionResult SearchByCategory(int categoryId, string query)
         {
             var category = this.categoriesService.GetById(categoryId);
-            var searchFilters = category.SearchFilters.AsQueryable().To<SearchFilterForCategoryViewModel>().ToList();
-            var categorySearchViewModel = new CategorySearchViewModel() { Id = categoryId, SearchFilters = searchFilters, Query = query };
+            var searchFilters = category.SearchFilters
+                .AsQueryable()
+                .To<SearchFilterForCategoryViewModel>()
+                .ToList();
+
+            var allProductsInCategory = this.FilterCategoryProducts(categoryId, query/*, refinementOptions*/);
+
+            var categorySearchViewModel = new CategorySearchViewModel()
+            {
+                Id = categoryId,
+                SearchFilters = searchFilters,
+                Query = query,
+                Products = allProductsInCategory
+            };
+
+            return this.View(categorySearchViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult SearchByCategory(
+            int categoryId,
+            string query,
+            List<SearchFilterForCategoryViewModel> searchFilters
+            //List<SearchFilterOptionViewModel> searchFilters = null
+            //CategorySearchViewModel model
+            )
+        {
+            if (this.ModelState.IsValid)
+            {
+                return this.View();
+            }
+            
+            var allProductsInCategory = this.FilterCategoryProducts(categoryId, query);
+
+            var categorySearchViewModel = new CategorySearchViewModel()
+            {
+                Id = categoryId,
+                SearchFilters = searchFilters,
+                Query = query,
+                Products = allProductsInCategory
+            };
 
             return this.View(categorySearchViewModel);
         }
@@ -129,25 +168,11 @@
             [DataSourceRequest]DataSourceRequest request,
             int categoryId,
             string query,
-            IEnumerable<RefinementOption> refinementOptions
+            IEnumerable</*RefinementOption*/SearchFilterOptionViewModel> refinementOptions
             //, IEnumerable<SearchFilterForCategoryViewModel> searchFilters
             //, RefinementOption searchFilter
             )
         {
-            //var cacheKey = "category" + categoryId.ToString() + "products";
-            //var allProductsInCategory = this.autoUpdateCacheService.Get<List</*ProductForCategorySearchViewModel*/ProductCacheViewModel>, SearchController>(
-            //    cacheKey,
-            //    () => this.GetProductsOfCategory(categoryId),
-            //    CacheConstants.AllProductsInCategoryCacheExpiration,
-            //    "GetAndCacheProductsOfCategory",
-            //    new object[] { cacheKey, categoryId },
-            //    CacheConstants.AllProductsInCategoryUpdateBackgroundJobDelay
-            //    )
-            //    .AsQueryable()
-            //    .To<ProductForCategorySearchViewModel>()
-            //    .ToList()
-            //    ;
-
             var allProductsInCategory = this.FilterCategoryProducts(categoryId, query, refinementOptions);
 
             return this.Json(allProductsInCategory.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet); ;
@@ -156,10 +181,10 @@
         private List<ProductForCategorySearchViewModel> FilterCategoryProducts(
             int categoryId,
             string query,
-            IEnumerable<RefinementOption> refinementOptions)
+            IEnumerable</*RefinementOption*/SearchFilterOptionViewModel> refinementOptions = null)
         {
             var cacheKey = "category" + categoryId.ToString() + "products";
-            var allProductsInCategory = this.autoUpdateCacheService.Get<List</*ProductForCategorySearchViewModel*/ProductCacheViewModel>, SearchController>(
+            var allProductsInCategory = this.autoUpdateCacheService.Get<List<ProductCacheViewModel>, SearchController>(
                 cacheKey,
                 () => this.GetProductsOfCategory(categoryId),
                 CacheConstants.AllProductsInCategoryCacheExpiration,
@@ -168,6 +193,7 @@
                 CacheConstants.AllProductsInCategoryUpdateBackgroundJobDelay
                 )
                 .AsQueryable()
+                .FilterProductsByRefinementOptions(refinementOptions != null ? refinementOptions.AsQueryable().To<RefinementOption>().ToList() : new List<RefinementOption>())
                 .To<ProductForCategorySearchViewModel>()
                 .ToList()
                 ;
@@ -223,18 +249,15 @@
         [NonAction]
         private void GetAndCacheProductsOfCategory(string cacheKey, [Range(1, int.MaxValue, ErrorMessage = "Invalid category Id passed to the background worker.")]long categoryId)
         {
-            //string cacheKey = Convert.ToString(args[0]);
-            //int categoryId = Convert.ToInt32(args[1]);
-
             var updatedData = this.GetProductsOfCategory((int)categoryId);
             this.autoUpdateCacheService.UpdateAuxiliaryCacheValue(cacheKey, updatedData);
         }
 
         [NonAction]
-        private List</*ProductForCategorySearchViewModel*/ProductCacheViewModel> GetProductsOfCategory(int categoryId)
+        private List<ProductCacheViewModel> GetProductsOfCategory(int categoryId)
         {
             var result = this.categoriesService.GetById(categoryId).Products
-                //.Take(500)
+                .Take(50)
                 .AsQueryable()
                 .To<ProductCacheViewModel>()
                 .ToList()
@@ -258,16 +281,16 @@
         }
             #endregion
 
-        [NonAction]
-        private bool ValidateSearchFilter(RefinementOption searchFilter)
-        {
-            if (string.IsNullOrWhiteSpace(searchFilter.Value))
-            {
-                return false;
-            }
+        //[NonAction]
+        //private bool ValidateSearchFilter(RefinementOption searchFilter)
+        //{
+        //    if (string.IsNullOrWhiteSpace(searchFilter.Value))
+        //    {
+        //        return false;
+        //    }
 
-            return true;
-        }
+        //    return true;
+        //}
         #endregion
     }
 }

@@ -10,10 +10,10 @@
 
     public interface ISearchFilterHelpers
     {
-        List<string> SplitOptionsString(string optionsString);
+        //List<string> SplitOptionsString(string optionsString);
 
-        List<string> GetSearchOptionsLabels(string options, SearchFilterOptionsType optionsType, string measureUnit);
+        //List<string> GetSearchOptionsLabels(string options, SearchFilterOptionsType optionsType, string measureUnit);
 
-        List<string> GetOptionsWithMeasureUnit(List<string> options, string measureUnit);
+        //List<string> GetOptionsWithMeasureUnit(List<string> options, string measureUnit);
     }
 }

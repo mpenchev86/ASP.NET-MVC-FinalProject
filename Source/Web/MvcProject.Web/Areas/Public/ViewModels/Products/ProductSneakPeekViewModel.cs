@@ -37,7 +37,9 @@
             configuration.CreateMap<Product, ProductSneakPeekViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.SellerName, opt => opt.MapFrom(src => src.Seller.UserName))
-                .ForMember(dest => dest.Rating, opt => opt.MapFrom(src => src.AllTimeAverageRating))
+                .ForMember(dest => dest.Rating, opt => opt.MapFrom(
+                            src => src.Votes.Any() ? (double?)src.Votes.Average(v => v.VoteValue) : null
+                            ))
                 .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.UnitPrice))
                 .ForMember(dest => dest.MainImage, opt => opt.MapFrom(
                             src => src.MainImage ?? src.Images.FirstOrDefault()))

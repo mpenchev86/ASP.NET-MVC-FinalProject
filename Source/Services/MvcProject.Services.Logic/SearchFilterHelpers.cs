@@ -10,18 +10,18 @@
 
     public class SearchFilterHelpers : ISearchFilterHelpers
     {
-        public List<string> SplitOptionsString(string optionsString)
+        public static List<string> SplitOptionsString(string optionsString)
         {
             var optionsSplit = optionsString.Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries).ToList();
             return optionsSplit;
         }
 
-        public List<string> GetSearchOptionsLabels(string options, SearchFilterOptionsType optionsType, string measureUnit)
+        public static List<string> GetSearchOptionsLabels(string options, SearchFilterOptionsType /*int */optionsType, string measureUnit)
         {
-            var splitOptions = this.SplitOptionsString(options);
-            var splitOptionsWithLabels = this.GetOptionsWithMeasureUnit(splitOptions, measureUnit);
+            var splitOptions = /*this.*/SplitOptionsString(options);
+            var splitOptionsWithLabels = /*this.*/GetOptionsWithMeasureUnit(splitOptions, measureUnit);
 
-            if (optionsType == SearchFilterOptionsType.ValueRange)
+            if (optionsType == SearchFilterOptionsType.ValueRange/*.GetHashCode()*/)
             {
                 var optionLabels = new List<string>();
                 optionLabels.Add("Under " + splitOptionsWithLabels.FirstOrDefault());
@@ -37,7 +37,7 @@
             return splitOptionsWithLabels;
         }
 
-        public List<string> GetOptionsWithMeasureUnit(List<string> options, string measureUnit)
+        public static List<string> GetOptionsWithMeasureUnit(List<string> options, string measureUnit)
         {
             if (string.IsNullOrWhiteSpace(measureUnit))
             {

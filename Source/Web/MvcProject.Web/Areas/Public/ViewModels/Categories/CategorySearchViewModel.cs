@@ -12,16 +12,29 @@
 
     public class CategorySearchViewModel : BasePublicViewModel<int>, IMapFrom<Category>
     {
+        private ICollection<ProductForCategorySearchViewModel> products;
+
+        private ICollection<SearchFilterForCategoryViewModel> searchFilters;
+
         public CategorySearchViewModel()
         {
-            //this.Products = new HashSet<ProductOfCategoryViewModel>();
-            this.SearchFilters = new HashSet<SearchFilterForCategoryViewModel>();
+            this.products = new HashSet<ProductForCategorySearchViewModel>();
+            this.searchFilters = new HashSet<SearchFilterForCategoryViewModel>();
         }
 
         public string Query { get; set; }
 
-        //public ICollection<ProductOfCategoryViewModel> Products { get; set; }
+        public ICollection<ProductForCategorySearchViewModel> Products
+        {
+            get { return this.products; }
+            set { this.products = value; }
+        }
 
-        public ICollection<SearchFilterForCategoryViewModel> SearchFilters { get; set; }
+        [UIHint("SearchFilters")]
+        public ICollection<SearchFilterForCategoryViewModel> SearchFilters
+        {
+            get { return this.searchFilters; }
+            set { this.searchFilters = value; }
+        }
     }
 }

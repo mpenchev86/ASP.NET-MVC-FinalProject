@@ -102,6 +102,9 @@
             configuration.CreateMap<Product, ProductFullViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.SellerName, opt => opt.MapFrom(src => src.Seller.UserName))
+                .ForMember(dest => dest.AllTimeAverageRating, opt => opt.MapFrom(
+                            src => src.Votes.Any() ? (double?)src.Votes.Average(v => v.VoteValue) : null
+                            ))
             ;
         }
     }

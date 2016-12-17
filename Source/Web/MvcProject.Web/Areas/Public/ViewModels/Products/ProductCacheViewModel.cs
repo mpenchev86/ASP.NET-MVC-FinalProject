@@ -12,10 +12,11 @@
     using Descriptions;
     using Images;
     using MvcProject.Web.Infrastructure.Mapping;
+    using Services.Logic.ServiceModels;
     using Tags;
     using Votes;
 
-    public class ProductCacheViewModel : BasePublicViewModel<int>, IMapFrom<Product>, IHaveCustomMappings
+    public class ProductCacheViewModel : BasePublicViewModel<int>, IProductFilteringModel, IMapFrom<Product>, IHaveCustomMappings
     {
         private ICollection<TagCacheViewModel> tags;
         private ICollection<ImageCacheViewModel> images;
@@ -28,14 +29,6 @@
             this.images = new HashSet<ImageCacheViewModel>();
             this.comments = new HashSet<CommentCacheViewModel>();
             this.votes = new HashSet<VoteCacheViewModel>();
-        }
-
-        public static Expression<Func<ProductCacheViewModel, double?>> GetAverageRating
-        {
-            get
-            {
-                return p => p.Votes.Any() ? (double?)p.Votes.Average(v => v.VoteValue) : null;
-            }
         }
 
         public string Title { get; set; }
@@ -55,6 +48,14 @@
         public double? AllTimeAverageRating
         {
             get { return ProductCacheViewModel.GetAverageRating.Compile().Invoke(this); }
+        }
+
+        public static Expression<Func<ProductCacheViewModel, double?>> GetAverageRating
+        {
+            get
+            {
+                return p => p.Votes.Any() ? (double?)p.Votes.Average(v => v.VoteValue) : null;
+            }
         }
 
         public int? MainImageId { get; set; }
@@ -100,11 +101,51 @@
             set { this.votes = value; }
         }
 
+        public string DescriptionContent
+        {
+            get
+            {
+                return this.DescriptionId != null ? this.Description.Content : string.Empty;
+            }
+
+            //set
+            //{
+            //    throw new NotImplementedException();
+            //}
+        }
+
+        public IDictionary<string, string> DescriptionPropertiesNamesValues
+        {
+            get
+            {
+                return this.DescriptionId != null ? (this.Description.Properties != null ? this.Description.Properties.Select(p => new KeyValuePair<string, string>(p.Name, p.Value)).ToDictionary(x => x.Key, x => x.Value) : new Dictionary<string, string>()) : new Dictionary<string, string>();
+            }
+
+            //set
+            //{
+            //    throw new NotImplementedException();
+            //}
+        }
+
+        public IEnumerable<string> TagNames
+        {
+            get
+            {
+                return this.Tags.Any() ? this.Tags.Select(t => t.Name).ToList() : new List<string>();
+            }
+
+            //set
+            //{
+            //    throw new NotImplementedException();
+            //}
+        }
+
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Product, ProductCacheViewModel>()
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
-                .ForMember(dest => dest.SellerName, opt => opt.MapFrom(src => src.Seller != null ? src.Seller.UserName : string.Empty));
+                .ForMember(dest => dest.SellerName, opt => opt.MapFrom(
+                            src => src.Seller != null ? src.Seller.UserName : string.Empty));
         }
     }
 }

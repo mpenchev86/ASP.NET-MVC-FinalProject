@@ -1,0 +1,75 @@
+﻿@using MvcProject.Web.Areas.Public.ViewModels.Search
+@using MvcProject.Data.Models
+
+@*@model SearchFilterForCategoryViewModel*@
+
+@*<div class="row">
+    @Html.LabelFor(m => m, Model.Name, new { @class = "search-filter-label" })
+
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.Name)
+    @Html.HiddenFor(m => m.OptionsType)
+    @Html.HiddenFor(m => m.SelectionType)
+    @Html.HiddenFor(m => m.MeasureUnit)
+    @Html.HiddenFor(m => m.OptionsSplit)
+    @Html.HiddenFor(m => m.Options)
+    @Html.HiddenFor(m => m.OptionsTypeString)
+    @Html.HiddenFor(m => m.SelectionTypeString)
+
+    <ul class="search-filter @(Model.SelectionTypeString)-selection-filter" data-filter-name="@(Model.Name)" id="@(Model.Name.Replace(' ', '-') + "-" + Model.Id.ToString())">
+        @{
+            var options = Model.OptionsSplit;
+            for (int i = 0; i < options.Count(); i++)
+            {
+                <li>
+                    @Html.EditorFor(m => options[i])
+                </li>
+            }
+        }
+
+        @if (Model.SelectionType == SearchFilterSelectionType.Single)
+        {
+            @Html.CheckBoxFor()
+        }
+        else
+        {
+            @Html.RadioButtonFor(m => m.RefinementOptions, Model.RefinementOptions.FirstOrDefault(r => r.Checked == true))
+        }
+    </ul>
+</div>*@
+
+@model List<SearchFilterForCategoryViewModel>
+
+@{ 
+    var count = Model.Count();
+}
+
+@for (int i = 0; i < count; i++)
+{
+    <div class="row">
+        @Html.LabelFor(m => m, Model[i].Name, new { @class = "search-filter-label" })
+
+        @Html.HiddenFor(m => Model[i].Id)
+        @Html.HiddenFor(m => Model[i].Name)
+        @Html.HiddenFor(m => Model[i].MeasureUnit)
+        @Html.HiddenFor(m => Model[i].Options)
+        @Html.HiddenFor(m => Model[i].OptionsType)
+        @*@Html.HiddenFor(m => Model[i].OptionsTypeValue)*@
+        @*@Html.HiddenFor(m => Model[i].OptionsTypeString)*@
+        @Html.HiddenFor(m => Model[i].SelectionType)
+        @*@Html.HiddenFor(m => Model[i].SelectionTypeValue)*@
+        @*@Html.HiddenFor(m => Model[i].SelectionTypeString)*@
+
+        @*@Html.Hidden("Id", Model[i].Id)
+        @Html.Hidden("Name", Model[i].Name)
+        @Html.Hidden("MeasureUnit", Model[i].MeasureUnit)
+        @Html.Hidden("Options", Model[i].Options)
+        @Html.Hidden("OptionsTypeValue", Model[i].OptionsTypeValue)
+        @Html.Hidden("SelectionTypeValue", Model[i].SelectionTypeValue)
+        @Html.Hidden("OptionsTypeString", Model[i].OptionsTypeString)
+        @Html.Hidden("SelectionTypeString", Model[i].SelectionTypeString)*@
+
+        @Html.EditorFor(m => Model[i].RefinementOptions)
+    </div>
+}
+

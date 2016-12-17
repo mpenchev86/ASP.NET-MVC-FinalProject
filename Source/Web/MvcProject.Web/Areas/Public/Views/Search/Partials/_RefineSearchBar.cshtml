@@ -1,8 +1,10 @@
 ﻿@using MvcProject.Data.Models
+@using MvcProject.Web.Areas.Public.ViewModels.Categories
 @using MvcProject.Web.Areas.Public.ViewModels.Search
 
-@model IEnumerable<SearchFilterForCategoryViewModel>
 
+@*@model IEnumerable<SearchFilterForCategoryViewModel>
+    
 <div id="search-filters">
     @using (Ajax.BeginForm(
         "",
@@ -69,4 +71,27 @@
     }
 
     <img id="search-refine-loading-spinner" src="~/Content/Kendo/Silver/loading_2x.gif" style="display: none; text-align: center;" />
+</div>*@
+
+@model CategorySearchViewModel
+
+<div id="search-filters">
+    @using (Html.BeginForm(
+        "SearchByCategory",
+        "Search",
+        new { area = Areas.PublicAreaName },
+        FormMethod.Post,
+        new { id = "refinement-options-form" }
+        ))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+
+        <button type="submit" value="OK" id="search-form-submit" style="visibility:hidden">FILTER</button>
+
+        @Html.Hidden("categoryId", Model.Id)
+        @Html.HiddenFor(m => m.Query)
+
+        @Html.EditorFor(m => m.SearchFilters)
+    }
 </div>
