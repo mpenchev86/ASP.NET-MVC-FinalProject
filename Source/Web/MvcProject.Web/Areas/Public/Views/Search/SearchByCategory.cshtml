@@ -10,7 +10,7 @@
 </div>
 <div class="row">
     <div class="col-md-2">
-        @Html.Partial("_RefineSearchBar", Model@*.SearchFilters*@, new ViewDataDictionary(this.ViewData) { { "categoryId", Model.Id }, { "query", Model.Query } })
+        @Html.Partial("_RefineSearchBar", Model@*.SearchFilters*@)
     </div>
     <div class="col-md-10">
         @*@Html.Partial("_SearchResults", new SearchViewModel {  CategoryId = Model.Id, Query = Model.Query })*@
@@ -22,17 +22,12 @@
 @section Scripts{
     @Html.Kendo().DeferredScripts()
     <script>
-        //var searchFilters = [];
-        //var searchFilter = {};
-        var refinementOptions = [];
-        var query = "";
-
         $(document).ready(function () {
             // Preselect search dropdown.
             var searchCategoryId = $('#searchCategoryId').val()
-            $('#navbar-search-options option').each(function preselectCategory(index) {
-                if ($(this).val() === searchCategoryId) {
-                    $(this).attr('selected', 'selected');
+            $('#navbar-search-options option').each(function preselectCategory(index, elem) {
+                if ($(elem).val() === searchCategoryId) {
+                    $(elem).attr('selected', 'selected');
                 }
             });
 
@@ -40,68 +35,62 @@
             var searchQuery = $('#searchQuery').val();
             $('#navbar-search-query').val(searchQuery);
 
-            //$('.search-filter').each(function getFilterNames(index, filter) {
-            //    searchFilters.push({ Name: $(filter).data('filter-name') });
-            //});
-
-            $('#SearchResultListView_pager').hide();
+            // Hide Kendo ListView pager while loading data
+            //$('#SearchResultListView_pager').hide();
             //$('#SearchResultListView').hide();
-
-            //$('.search-filter li').attr('cursor', 'pointer');
-
-            console.log(searchCategoryId);
         });
 
         function submitForm(e) {
-            // Refinement options CSS
-            var options = $('.search-filter input');
-            //$('.search-filter input').attr({ disabled: 'disabled' });
-            options.attr({ disabled: 'disabled' });
-            
-            options.each(function getRefinementOptions(index) {
-                var refinementOption = {};
+            var selectionType = $(e).data('selection-type');
+            var optionsClass = $(e).attr('class');
+            var lastCheckedOption = {};
+            var isChecked = $(e).prop('checked');
 
-                refinementOption.Value = $(this).val();
-                refinementOption.SearchFilterId = $(this).data('filter-id');
-                refinementOption.SelectionType = $(this).data('filter-selection-type');
-                refinementOption.OptionsType = $(this).data('filter-options-type');
-                refinementOption.Checked = $(this).prop('checked');
+            // If filter is single select type, uncheck all options and set 'checked' attribute to the currently selected one.
+            if (selectionType == 'single') {
+                var singleSelectOptions = $('.' + optionsClass);
+                $(e).prop('checked', false);
 
-                refinementOptions.push(refinementOption);
+                singleSelectOptions.each(function getLastChecked(index, elem) {
+                    if ($(elem).is(':checked')) {
+                        lastCheckedOption = elem;
+                        $(elem).prop('checked', false);
+                    }
+                });
+
+                $(e).prop('checked', isChecked);
+            }
+
+            // Hide data bound refinement options checkboxes.
+            var optionsLabels = $('.options-label');
+            optionsLabels.hide();
+
+            // Set ui input checks before being displayed.
+            optionsLabels.each(function setUiInputChecks(index, elem) {
+                var input = $(elem).children('input').first();
+                $('#' + input.data('ui-input-id')).prop('checked', input.prop('checked'));
             });
+            $('#' + $(e).data('ui-input-id')).prop('checked', isChecked);
 
-            //// Get selected filter option data
-            //searchFilter.Value = $(e).val();
-            //searchFilter.SearchFilterId = $(e).data('filter-id');
-            //searchFilter.SelectionType = $(e).data('filter-selection-type');
-            //searchFilter.OptionsType = $(e).data('filter-options-type');
-            //searchFilter.Checked = $(e).prop('checked');
+            // Show ui refinement options checkboxes.
+            var uiOptionsLabels = $('.ui-options-label');
+            uiOptionsLabels.show();
 
-            query = $('#navbar-search-query').val();
-
-            //// Reload ListView
-            //$("#SearchResultListView").data("kendoListView").dataSource.read();
-
-            //$('#refinement-options-form');
-
-
-            //console.log($('#search-form-submit'));
-            console.log($('#refinement-options-form'));
-
-
-            //$(this).parents('form:first').find('#search-form-submit').click();
-
-
+            // Submit search filters form.
             $(e).parents('form:first').submit();
 
-            //$('#refinement-options-form').submit();
+            // Revert last refinement selection so that browser back button works correctly (or else, it doesn't return to the previous selection).
+            if (lastCheckedOption) {
+                $(lastCheckedOption).prop('checked', true);
+            }
+            $(e).prop('checked', !isChecked);
         }
 
-        function onListViewDataBinding(e) {
-            //kendo.ui.progress(e.sender.element, true);
+        //function onListViewDataBinding(e) {
+        //    //kendo.ui.progress(e.sender.element, true);
 
-            //$('#SearchResultListView_pager').hide();
-        }
+        //    //$('#SearchResultListView_pager').hide();
+        //}
 
         //function onListViewChange(e) {
         //    kendo.ui.progress(e.sender.element, true);
@@ -109,25 +98,21 @@
 
         function onListViewDataBound(e) {
             // Refinement options CSS
-            $('.search-filter input').removeAttr('disabled');
+            //var optionsLabels = $('.options-label');
+            //optionsLabels.show();
+            //var uiOptionsLabels = $('.ui-options-label');
+            //uiOptionsLabels.hide();
+
             //$('.search-filter .options-label span').attr({ opacity: '100%', cursor: 'auto' });
 
-            // Clear refinementOptions list. Otherwise, old options remain and are sent with the new ones.
-            refinementOptions = [];
+            //// Clear refinementOptions list. Otherwise, old options remain and are sent with the new ones.
+            //refinementOptions = [];
 
-            $('#SearchResultListView_pager').show();
+            // Show Kendo ListView pager when data is bound
+            //$('#SearchResultListView_pager').show();
 
-            // Activate Spinner on ListView
+            //// Activate Spinner on ListView
             //kendo.ui.progress(e.sender.element, false);
-        }
-
-        function readHandler(data) {
-            return {
-                //searchFilters : searchFilters,
-                //searchFilter: searchFilter,
-                refinementOptions: refinementOptions,
-                //query: query
-            }
         }
     </script>    
 }

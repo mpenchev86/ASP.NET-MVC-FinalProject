@@ -1,0 +1,22 @@
+﻿@using MvcProject.Web.Areas.Public.ViewModels.Products
+
+@model List<ProductForCategorySearchViewModel>
+
+@{ 
+    var count = Model.Count();
+}
+
+@for (int i = 0; i < count; i++)
+{
+    @Html.HiddenFor(m => Model[i].Id)
+    @Html.HiddenFor(m => Model[i].Title)
+    @Html.HiddenFor(m => Model[i].UnitPrice)
+    @Html.HiddenFor(m => Model[i].ImageUrlPath)
+    @Html.HiddenFor(m => Model[i].ImageFileExtension)
+    @Html.HiddenFor(m => Model[i].DescriptionId)
+
+    if (Model[i].DescriptionId != null)
+	{
+		@Html.EditorFor(m => Model[i].Description)
+	}
+}

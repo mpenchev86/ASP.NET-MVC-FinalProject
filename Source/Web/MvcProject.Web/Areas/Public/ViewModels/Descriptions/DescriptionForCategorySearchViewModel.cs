@@ -16,12 +16,13 @@
 
         public DescriptionForCategorySearchViewModel()
         {
-            this.properties = new HashSet<PropertyForCategorySearchViewModel>();
+            this.properties = new /*HashSet*/List<PropertyForCategorySearchViewModel>();
         }
 
         [DataType(DataType.MultilineText)]
         public string Content { get; set; }
 
+        [UIHint("PostBackPropertiesForCategory")]
         public ICollection<PropertyForCategorySearchViewModel> Properties
         {
             get { return this.properties; }
@@ -34,6 +35,7 @@
                 .ForMember(dest => dest.Properties, opt => opt.MapFrom(
                             src => src.Properties.Select(p => new PropertyForCategorySearchViewModel
                             {
+                                Id = p.Id,
                                 Name = p.Name,
                                 Value = p.Value
                             })));
@@ -42,6 +44,7 @@
                 .ForMember(dest => dest.Properties, opt => opt.MapFrom(
                             src => src.Properties.Select(p => new PropertyForCategorySearchViewModel
                             {
+                                Id = p.Id,
                                 Name = p.Name,
                                 Value = p.Value
                             })));

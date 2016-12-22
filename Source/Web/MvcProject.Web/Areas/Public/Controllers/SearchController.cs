@@ -9,10 +9,12 @@
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
+    using System.Web.Routing;
     using Common.GlobalConstants;
     using Data.Models;
     using Hangfire;
     using Infrastructure.BackgroundWorkers;
+    using Infrastructure.Caching;
     using Infrastructure.Extensions;
     using Infrastructure.Validators;
     using Kendo.Mvc.Extensions;
@@ -55,11 +57,13 @@
             //this.searchAlgorithms = searchAlgorithms;
         }
 
+        [NoCache]
         public ActionResult SearchByQuery(SearchViewModel searchViewModel)
         {
             if (searchViewModel.CategoryId != null && searchViewModel.CategoryId > 0)
             {
-                return this.RedirectToAction("SearchByCategory", "Search", new { categoryId = searchViewModel.CategoryId, query = searchViewModel.Query, area = Areas.PublicAreaName });
+                //return this.RedirectToAction("SearchByCategory", "Search", new { categoryId = (int)searchViewModel.CategoryId, query = searchViewModel.Query, area = Areas.PublicAreaName });
+                return this.RedirectToAction("CategorySearchResult", "Search", new { categoryId = (int)searchViewModel.CategoryId, query = searchViewModel.Query , area = Areas.PublicAreaName });
             }
             else
             {
@@ -68,7 +72,7 @@
                     return this.RedirectToAction("Index", "Home", new { area = Areas.PublicAreaName });
                 }
 
-                IDictionary<int, List<ProductForQuerySearchViewModel>> resultsByCategory = this.FilterByQuery(searchViewModel.Query);
+                //IDictionary<int, List<ProductForQuerySearchViewModel>> resultsByCategory = this.FilterByQuery(searchViewModel.Query);
 
                 var viewModel = this.productsService
                     .GetAll()
@@ -114,52 +118,74 @@
         }
 
         [HttpGet]
-        public ActionResult SearchByCategory(int categoryId, string query)
+        public ActionResult /*SearchByCategory*/CategorySearchResult(
+            int categoryId, 
+            string query,
+            int searchOptionsBitMask = 0)
         {
-            var category = this.categoriesService.GetById(categoryId);
-            var searchFilters = category.SearchFilters
-                .AsQueryable()
-                .To<SearchFilterForCategoryViewModel>()
-                .ToList();
-
-            var allProductsInCategory = this.FilterCategoryProducts(categoryId, query/*, refinementOptions*/);
-
-            var categorySearchViewModel = new CategorySearchViewModel()
+            var model = new CategorySearchViewModel
             {
                 Id = categoryId,
-                SearchFilters = searchFilters,
-                Query = query,
-                Products = allProductsInCategory
+                Query = query
             };
 
-            return this.View(categorySearchViewModel);
-        }
+            var category = this.categoriesService.GetById(categoryId);
+            var searchFilters = category.SearchFilters
+                    .AsQueryable()
+                    .To<SearchFilterForCategoryViewModel>()
+                    .OrderBy(sf => sf.Id)
+                    .ToList();
 
+            int searchFiltersCount = searchFilters.Count();
+
+            for (int i = searchFiltersCount - 1; i >= 0 ; i--)
+            {
+                int filterOptionsCount = searchFilters[i].RefinementOptions.Count();
+                for (int j = filterOptionsCount - 1; j >= 0 ; j--)
+                {
+                    searchFilters[i].RefinementOptions[j].Checked = (searchOptionsBitMask & 1) == 1;
+                    searchOptionsBitMask = searchOptionsBitMask >> 1;
+                }
+            }
+
+            model.SearchFilters = searchFilters;
+            model.Products = this.FilterCategoryProducts(categoryId, query/*, refinementOptions*/);
+
+            return this.View("SearchByCategory", model);
+        }
+        
         [HttpPost]
         public ActionResult SearchByCategory(
             int categoryId,
             string query,
             List<SearchFilterForCategoryViewModel> searchFilters
-            //List<SearchFilterOptionViewModel> searchFilters = null
-            //CategorySearchViewModel model
             )
         {
-            if (this.ModelState.IsValid)
+            int searchOptionsBitMask = 0;
+            int searchFiltersCount = searchFilters.Count();
+            for (int i = 0; i < searchFiltersCount; i++)
             {
-                return this.View();
+                int filterOptionsCount = searchFilters[i].RefinementOptions.Count();
+                for (int j = 0; j < filterOptionsCount; j++)
+                {
+                    searchOptionsBitMask = searchOptionsBitMask << 1;
+                    if (searchFilters[i].RefinementOptions[j].Checked)
+                    {
+                        searchOptionsBitMask = searchOptionsBitMask | 1;
+                    }
+                }
+
             }
-            
-            var allProductsInCategory = this.FilterCategoryProducts(categoryId, query);
 
-            var categorySearchViewModel = new CategorySearchViewModel()
-            {
-                Id = categoryId,
-                SearchFilters = searchFilters,
-                Query = query,
-                Products = allProductsInCategory
-            };
-
-            return this.View(categorySearchViewModel);
+            return this.RedirectToAction(
+                "CategorySearchResult",
+                "Search",
+                new
+                {
+                    categoryId = categoryId,
+                    query = query,
+                    searchOptionsBitMask = searchOptionsBitMask
+                });
         }
 
         //[HttpPost]
@@ -257,7 +283,7 @@
         private List<ProductCacheViewModel> GetProductsOfCategory(int categoryId)
         {
             var result = this.categoriesService.GetById(categoryId).Products
-                .Take(50)
+                //.Take(50)
                 .AsQueryable()
                 .To<ProductCacheViewModel>()
                 .ToList()

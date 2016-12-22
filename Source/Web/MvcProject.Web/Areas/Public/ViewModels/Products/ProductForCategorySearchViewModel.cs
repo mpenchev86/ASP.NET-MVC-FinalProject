@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Web;
 
@@ -23,6 +24,7 @@
 
         public int? DescriptionId { get; set; }
 
+        [UIHint("PostBackDescriptionForCategory")]
         public DescriptionForCategorySearchViewModel Description { get; set; }
 
         public void CreateMappings(IMapperConfigurationExpression configuration)

@@ -114,8 +114,8 @@
                                           Value = option,
                                           Checked = false,
                                           SearchFilterId = src.Id,
-                                          //OptionsType = src.OptionsType,
-                                          //SelectionType = src.SelectionType
+                                          OptionsType = src.OptionsType,
+                                          SelectionType = src.SelectionType
                                       })
                                       .ToList()
                                       ));

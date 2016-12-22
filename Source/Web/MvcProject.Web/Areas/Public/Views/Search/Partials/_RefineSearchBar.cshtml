@@ -1,77 +1,4 @@
-﻿@using MvcProject.Data.Models
-@using MvcProject.Web.Areas.Public.ViewModels.Categories
-@using MvcProject.Web.Areas.Public.ViewModels.Search
-
-
-@*@model IEnumerable<SearchFilterForCategoryViewModel>
-    
-<div id="search-filters">
-    @using (Ajax.BeginForm(
-        "",
-        "",
-        new { area = Areas.PublicAreaName },
-        new AjaxOptions
-        {
-            HttpMethod = "POST",
-            InsertionMode = InsertionMode.ReplaceWith,
-            LoadingElementId = "search-refine-loading-spinner",
-            UpdateTargetId = "SearchResultListView",
-        },
-        new { }
-        ))
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary()
-
-        <button type="submit" value="OK" id="search-form-submit" style="visibility:hidden"></button>
-
-        foreach (var searchFilter in Model)
-        {
-            <div class="row">
-                @Html.LabelFor(m => m, searchFilter.Name, new { @class = "search-filter-label" })
-                <ul class="search-filter @(searchFilter.SelectionTypeString)-selection-filter" data-filter-name="@(searchFilter.Name)" id="@(searchFilter.Name.Replace(' ', '-') + "-" + searchFilter.Id.ToString())">
-                    @{
-                        var options = searchFilter.OptionsSplit;
-                        for (int i = 0; i < options.Count(); i++)
-                        {
-                            <li>
-                                @if (searchFilter.SelectionType == SearchFilterSelectionType.Multiple)
-                                {
-                                    <label class="options-label">
-                                        <input type="checkbox" 
-                                               name="@searchFilter.Name" 
-                                               onchange="submitForm(this)" 
-                                               value="@options[i]"
-                                               data-filter-id="@searchFilter.Id"
-                                               data-filter-options-type="@searchFilter.OptionsType"
-                                               data-filter-selection-type="@searchFilter.SelectionType" />
-                                        <span>@options[i]</span>
-                                    </label>
-                                }
-                                else
-                                {
-                                    <label class="options-label">
-                                        <input type="radio"
-                                               name="@searchFilter.Name"
-                                               onchange="submitForm(this)"
-                                               value="@options[i]"
-                                               data-filter-id="@searchFilter.Id"
-                                               data-filter-options-type="@searchFilter.OptionsType"
-                                               data-filter-selection-type="@searchFilter.SelectionType"
-                                               style="visibility:hidden;width:0" />
-                                        <span>@options[i]</span>
-                                    </label>
-                                }
-                            </li>
-                        }
-                    }
-                </ul>
-            </div>
-        }
-    }
-
-    <img id="search-refine-loading-spinner" src="~/Content/Kendo/Silver/loading_2x.gif" style="display: none; text-align: center;" />
-</div>*@
+﻿@using MvcProject.Web.Areas.Public.ViewModels.Categories
 
 @model CategorySearchViewModel
 
@@ -84,14 +11,14 @@
         new { id = "refinement-options-form" }
         ))
     {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary()
+        @*@Html.AntiForgeryToken()
+        @Html.ValidationSummary()*@
 
         <button type="submit" value="OK" id="search-form-submit" style="visibility:hidden">FILTER</button>
 
         @Html.Hidden("categoryId", Model.Id)
         @Html.HiddenFor(m => m.Query)
-
+        
         @Html.EditorFor(m => m.SearchFilters)
     }
 </div>

@@ -21,11 +21,11 @@
         public int SearchFilterId { get; set; }
 
         //[Required]
-        //[Range(1, 2)]
-        //public SearchFilterSelectionType SelectionType { get; set; }
+        [Range(1, 2)]
+        public SearchFilterSelectionType SelectionType { get; set; }
 
-        ////[Required]
-        //[Range(1, 2)]
-        //public SearchFilterOptionsType OptionsType { get; set; }
+        //[Required]
+        [Range(1, 2)]
+        public SearchFilterOptionsType OptionsType { get; set; }
     }
 }

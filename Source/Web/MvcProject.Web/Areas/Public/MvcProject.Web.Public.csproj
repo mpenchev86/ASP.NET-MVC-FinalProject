@@ -424,6 +424,9 @@
     <Content Include="Views\Search\SearchByQuery.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\SearchFilters.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\SearchFilterOptions.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\PostBackProductsForCategory.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\PostBackPropertiesForCategory.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\PostBackDescriptionForCategory.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

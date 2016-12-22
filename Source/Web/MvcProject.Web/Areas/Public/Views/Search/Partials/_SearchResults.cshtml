@@ -1,12 +1,4 @@
-﻿@using MvcProject.Web.Areas.Public.ViewModels.Categories
-@using MvcProject.Web.Areas.Public.ViewModels.Products
-@using MvcProject.Web.Areas.Public.ViewModels.Search
-@using MvcProject.Services.Logic.ServiceModels
-
-@*@model ICollection<ProductOfCategoryViewModel>*@
-
-@*@model SearchViewModel*@
-@*@model CategorySearchViewModel*@
+﻿@using MvcProject.Web.Areas.Public.ViewModels.Products
 
 @model IEnumerable<ProductForCategorySearchViewModel>
 
@@ -23,13 +15,13 @@
         //    .Action("ReadSearchResult", "Search", new { categoryId = Model.Id, query = Model.Query })
         //    .Data("readHandler")
         //)
-        .PageSize(60)
+        .PageSize(30)
     )
-    //.Events(e => e
-    //    .DataBinding("onListViewDataBinding")
-    //    //.Change("onListViewChange")
-    //    .DataBound("onListViewDataBound")
-    //)
+    .Events(e => e
+        //.DataBinding("onListViewDataBinding")
+        //.Change("onListViewChange")
+        .DataBound("onListViewDataBound")
+    )
     .Deferred()
     )
 

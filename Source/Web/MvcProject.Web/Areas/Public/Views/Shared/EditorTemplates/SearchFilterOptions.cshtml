@@ -1,66 +1,6 @@
 ﻿@using MvcProject.Web.Areas.Public.ViewModels.Search
 @using MvcProject.Data.Models
 
-@*@model SearchFilterOptionViewModel
-
-@Html.HiddenFor(m => m.Value)
-
-@Html.HiddenFor(m => m.SearchFilterId)
-@Html.HiddenFor(m => m.OptionsType)
-@Html.HiddenFor(m => m.SelectionType)
-
-@if (Model.SelectionType == SearchFilterSelectionType.Multiple)
-{
-    <label class="options-label">
-        <input type="checkbox"
-               name="refinementOptions-@Model.SearchFilterId"
-               onchange="submitForm(this)"
-               value="@Model.Value"
-               checked="@Model.Checked"
-               data-filter-id="@Model.SearchFilterId"
-               data-filter-options-type="@Model.OptionsType"
-               data-filter-selection-type="@Model.SelectionType" />
-        
-        @Html.CheckBoxFor(
-            //"refinementOptions-" + Model.SearchFilterId.ToString(),
-            //Model.Checked,
-            m => m.Checked,
-            new
-            {
-                //@Name = "refinementOption" + Model.SearchFilterId.ToString(),
-                onchange = "submitForm(this)",
-                @checked = Model.Checked
-            })
-        <span>@Model.Value</span>
-    </label>
-}
-else
-{
-    <label class="options-label">
-        <input type="radio"
-               name="refinementOptions-@Model.SearchFilterId"
-               onchange="submitForm(this)"
-               value="@Model.Value"
-               checked="@Model.Checked"
-               data-filter-id="@Model.SearchFilterId"
-               data-filter-options-type="@Model.OptionsType"
-               data-filter-selection-type="@Model.SelectionType"
-               style="visibility:hidden;width:0" />
-        
-        @Html.RadioButtonFor(
-            m => m.Checked,
-            Model.Checked,
-            new
-            {
-                //@name = "refinementOption" + Model.SearchFilterId.ToString(),
-                style = "visibility:hidden;width:0",
-                onchange = "submitForm(this)",
-                @checked = Model.Checked
-            })
-        <span>@Model.Value</span>
-    </label>
-}*@
-
 @model List<SearchFilterOptionViewModel>
 
 @{
@@ -69,84 +9,63 @@ else
 
 @for (int i = 0; i < count; i++)
 {
-    @Html.HiddenFor(m => Model[i].Value, new { value = Model[i].Value })
-    @Html.HiddenFor(m => Model[i].SearchFilterId, new { value = Model[i].SearchFilterId })
-    @Html.HiddenFor(m => Model[i].Value, new { value = Model[i].Value })
+    @Html.HiddenFor(m => Model[i].Value)
+    @Html.HiddenFor(m => Model[i].SearchFilterId)
+    @Html.HiddenFor(m => Model[i].SelectionType)
+    @Html.HiddenFor(m => Model[i].OptionsType)
 
-    @*@Html.CheckBoxFor(m => Model[i].Checked, new { })*@
+    var uiInputId = "ui-filter" + Model[i].SearchFilterId.ToString() + "-option" + i.ToString();
 
-    <label class="options-label">
-        @*<input type="checkbox"
-               name="refinementOptions-@Model[i].SearchFilterId"
-               onchange="submitForm(this)"
-               value="@Model[i].Value"
-               checked="@Model[i].Checked"
-               data-filter-id="@Model[i].SearchFilterId"
-               data-filter-options-type="@Model[i].OptionsType"
-               data-filter-selection-type="@Model[i].SelectionType" />*@
-
-        @Html.CheckBoxFor(
-            //"refinementOptions-" + Model.SearchFilterId.ToString(),
-            //Model.Checked,
-            m => Model[i].Checked,
-            new
-            {
-                //@Name = "refinementOption" + Model.SearchFilterId.ToString(),
-                onchange = "submitForm(this)",
-                //@checked = Model[i].Checked
-            })
-        <span>@Model[i].Value</span>
-    </label>
-
-    @*if (Model[i].SelectionType == SearchFilterSelectionType.Multiple)
+    if (Model[i].SelectionType == SearchFilterSelectionType.Multiple)
     {
-        <label class="options-label">
-            <input type="checkbox"
-                   name="refinementOptions-@Model[i].SearchFilterId"
-                   onchange="submitForm(this)"
-                   value="@Model[i].Value"
-                   checked="@Model[i].Checked"
-                   data-filter-id="@Model[i].SearchFilterId"
-                   data-filter-options-type="@Model[i].OptionsType"
-                   data-filter-selection-type="@Model[i].SelectionType" />
-
-            @Html.CheckBoxFor(
-            //"refinementOptions-" + Model.SearchFilterId.ToString(),
-            //Model.Checked,
-            m => Model[i].Checked,
-            new
-            {
-                //@Name = "refinementOption" + Model.SearchFilterId.ToString(),
-                onchange = "submitForm(this)",
-                @checked = Model[i].Checked
-            })
-            <span>@Model[i].Value</span>
-        </label>
+        <div>
+            <label class="options-label">
+                @Html.CheckBoxFor(
+                    m => Model[i].Checked,
+                    new
+                    {
+                        onchange = "submitForm(this)",
+                        data_selection_type = "multiple",
+                        data_ui_input_id = uiInputId,
+                        @class = Model[i].SearchFilterId + "-multi-select",
+                    })
+                <span>@Model[i].Value</span>
+            </label>
+            
+            <label class="ui-options-label" style="display:none">
+                <input type="checkbox"
+                       id="@uiInputId"
+                       checked="@Model[i].Checked"
+                       disabled="disabled"/>
+                <span>@Model[i].Value</span>
+            </label>
+        </div>
     }
     else
     {
-        <label class="options-label">
-            <input type="radio"
-                   name="refinementOptions-@Model[i].SearchFilterId"
-                   onchange="submitForm(this)"
-                   value="@Model[i].Value"
-                   checked="@Model[i].Checked"
-                   data-filter-id="@Model[i].SearchFilterId"
-                   data-filter-options-type="@Model[i].OptionsType"
-                   data-filter-selection-type="@Model[i].SelectionType"
-                   style="visibility:hidden;width:0" />
+        <div>
+            <label class="options-label">
+                @Html.CheckBoxFor(
+                    m => Model[i].Checked,
+                    new
+                    {
+                        onchange = "submitForm(this)",
+                        data_selection_type = "single",
+                        data_ui_input_id = uiInputId,
+                        @class = Model[i].SearchFilterId + "-single-select",
+                        style = "visibility:hidden;width:0",
+                    })
+                <span>@Model[i].Value</span>
+            </label>
 
-            @Html.RadioButtonFor(
-            m => Model[i].Checked,
-            Model[i].Checked,
-            new
-            {
-                //@name = "refinementOption" + Model.SearchFilterId.ToString(),
-                style = "visibility:hidden;width:0",
-                onchange = "submitForm(this)",
-                @checked = Model[i].Checked
-            })
-            <span>@Model[i].Value</span>
-        </label>
-    }*@
+            <label class="ui-options-label" style="display:none">
+                <input type="checkbox"
+                       id="@uiInputId"
+                       checked="@Model[i].Checked"
+                       style = "visibility:hidden;width:0"
+                       disabled="disabled" />
+                <span>@Model[i].Value</span>
+            </label>
+        </div>
+    }
 }

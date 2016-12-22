@@ -1,0 +1,14 @@
+﻿@using MvcProject.Web.Areas.Public.ViewModels.Properties
+
+@model List<PropertyForCategorySearchViewModel>
+
+@{
+    var count = Model.Count();
+}
+
+@for (int i = 0; i < count; i++)
+{
+    @Html.HiddenFor(m => Model[i].Id)
+    @Html.HiddenFor(m => Model[i].Name)
+    @Html.HiddenFor(m => Model[i].Value)
+}

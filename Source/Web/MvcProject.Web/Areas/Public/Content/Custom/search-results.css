@@ -15,29 +15,20 @@
     padding-left: 0;
 }
 
-    .search-filter label:hover {
+    .search-filter label.options-label:hover {
         cursor: pointer;
         color: #f2ac1b;
     }
 
-    .search-filter input:checked + span {
+    ./*search-filter label.*/options-label input:checked ~ span, .ui-options-label input:checked ~ span {
         font-weight: bold;
-        /*color: #666666;*/
         color: #f2ac1b;
     }
 
-/*.multiple-selection-filter {
-    list-style: none;
-    padding-left: 0;
-}*/
-
-/*.single-selection-filter {
-    list-style: none;
-    padding-left: 0;
-}*/
-
-.options-label{
+.options-label, .ui-options-label{
+    /*font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;*/
     font-weight: normal;
+    /*font-size: 13px;*/
 }
 
 /* ========== SearchResults ========== */

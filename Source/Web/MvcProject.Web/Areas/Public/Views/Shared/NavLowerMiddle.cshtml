@@ -8,6 +8,7 @@
 
 @using (Html.BeginForm(
     "SearchByQuery",
+    //"CategorySearchResult",
     "Search",
     new { areas = Areas.PublicAreaName },
     FormMethod.Post,
@@ -18,7 +19,7 @@
     @Html.ValidationSummary()
     <div class="input-group">
         <div class="input-group-btn">
-            @Html.DropDownListFor(m => m.CategoryId, categories, "Everywhere", new { name = "CategoryId", id = "navbar-search-options", @class = "form-control"})
+            @Html.DropDownListFor(m => m.CategoryId, categories, "Everywhere", new { @*name = "CategoryId",*@ id = "navbar-search-options", @class = "form-control"})
             @Html.TextBoxFor(m => m.Query, null, new { id = "navbar-search-query", type = "text", @class = "form-control", placeholder = "Search" })
             <button id="navbar-search-btn" type="submit" class="btn btn-default">
                 <content class="glyphicon glyphicon-search"></content>

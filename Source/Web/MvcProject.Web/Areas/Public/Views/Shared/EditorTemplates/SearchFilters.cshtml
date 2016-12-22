@@ -46,7 +46,7 @@
 
 @for (int i = 0; i < count; i++)
 {
-    <div class="row">
+    <div class="row search-filter">
         @Html.LabelFor(m => m, Model[i].Name, new { @class = "search-filter-label" })
 
         @Html.HiddenFor(m => Model[i].Id)
@@ -54,22 +54,9 @@
         @Html.HiddenFor(m => Model[i].MeasureUnit)
         @Html.HiddenFor(m => Model[i].Options)
         @Html.HiddenFor(m => Model[i].OptionsType)
-        @*@Html.HiddenFor(m => Model[i].OptionsTypeValue)*@
-        @*@Html.HiddenFor(m => Model[i].OptionsTypeString)*@
         @Html.HiddenFor(m => Model[i].SelectionType)
-        @*@Html.HiddenFor(m => Model[i].SelectionTypeValue)*@
-        @*@Html.HiddenFor(m => Model[i].SelectionTypeString)*@
 
-        @*@Html.Hidden("Id", Model[i].Id)
-        @Html.Hidden("Name", Model[i].Name)
-        @Html.Hidden("MeasureUnit", Model[i].MeasureUnit)
-        @Html.Hidden("Options", Model[i].Options)
-        @Html.Hidden("OptionsTypeValue", Model[i].OptionsTypeValue)
-        @Html.Hidden("SelectionTypeValue", Model[i].SelectionTypeValue)
-        @Html.Hidden("OptionsTypeString", Model[i].OptionsTypeString)
-        @Html.Hidden("SelectionTypeString", Model[i].SelectionTypeString)*@
-
-        @Html.EditorFor(m => Model[i].RefinementOptions)
+        @Html.EditorFor(m => Model[i].RefinementOptions, new { filterIndex = i.ToString() })
     </div>
 }
 
