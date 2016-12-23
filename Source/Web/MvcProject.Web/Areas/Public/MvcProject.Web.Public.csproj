@@ -233,6 +233,7 @@
     <Compile Include="ViewModels\Properties\PropertyForProductFullViewModel.cs" />
     <Compile Include="ViewModels\Categories\CategorySearchViewModel.cs" />
     <Compile Include="ViewModels\Properties\PropertyForCategorySearchViewModel.cs" />
+    <Compile Include="ViewModels\Search\FilteringViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchFilterCacheViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchFilterForCategoryViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchFilterOptionViewModel.cs" />
@@ -424,9 +425,7 @@
     <Content Include="Views\Search\SearchByQuery.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\SearchFilters.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\SearchFilterOptions.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\PostBackProductsForCategory.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\PostBackPropertiesForCategory.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\PostBackDescriptionForCategory.cshtml" />
+    <Content Include="Views\Search\Partials\NoProductsFound.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

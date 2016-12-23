@@ -1,42 +1,4 @@
 ﻿@using MvcProject.Web.Areas.Public.ViewModels.Search
-@using MvcProject.Data.Models
-
-@*@model SearchFilterForCategoryViewModel*@
-
-@*<div class="row">
-    @Html.LabelFor(m => m, Model.Name, new { @class = "search-filter-label" })
-
-    @Html.HiddenFor(m => m.Id)
-    @Html.HiddenFor(m => m.Name)
-    @Html.HiddenFor(m => m.OptionsType)
-    @Html.HiddenFor(m => m.SelectionType)
-    @Html.HiddenFor(m => m.MeasureUnit)
-    @Html.HiddenFor(m => m.OptionsSplit)
-    @Html.HiddenFor(m => m.Options)
-    @Html.HiddenFor(m => m.OptionsTypeString)
-    @Html.HiddenFor(m => m.SelectionTypeString)
-
-    <ul class="search-filter @(Model.SelectionTypeString)-selection-filter" data-filter-name="@(Model.Name)" id="@(Model.Name.Replace(' ', '-') + "-" + Model.Id.ToString())">
-        @{
-            var options = Model.OptionsSplit;
-            for (int i = 0; i < options.Count(); i++)
-            {
-                <li>
-                    @Html.EditorFor(m => options[i])
-                </li>
-            }
-        }
-
-        @if (Model.SelectionType == SearchFilterSelectionType.Single)
-        {
-            @Html.CheckBoxFor()
-        }
-        else
-        {
-            @Html.RadioButtonFor(m => m.RefinementOptions, Model.RefinementOptions.FirstOrDefault(r => r.Checked == true))
-        }
-    </ul>
-</div>*@
 
 @model List<SearchFilterForCategoryViewModel>
 

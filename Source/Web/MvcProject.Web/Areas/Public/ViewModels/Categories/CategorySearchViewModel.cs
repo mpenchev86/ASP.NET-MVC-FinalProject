@@ -17,8 +17,8 @@
 
         public CategorySearchViewModel()
         {
-            this.products = new /*HashSet*/List<ProductForCategorySearchViewModel>();
-            this.searchFilters = new /*HashSet*/List<SearchFilterForCategoryViewModel>();
+            this.products = new HashSet/*List*/<ProductForCategorySearchViewModel>();
+            this.searchFilters = new HashSet/*List*/<SearchFilterForCategoryViewModel>();
         }
 
         public string Query { get; set; }

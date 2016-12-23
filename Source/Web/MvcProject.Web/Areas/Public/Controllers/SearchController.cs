@@ -154,6 +154,7 @@
             return this.View("SearchByCategory", model);
         }
         
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult SearchByCategory(
             int categoryId,
@@ -283,7 +284,7 @@
         private List<ProductCacheViewModel> GetProductsOfCategory(int categoryId)
         {
             var result = this.categoriesService.GetById(categoryId).Products
-                //.Take(50)
+                .Take(100)
                 .AsQueryable()
                 .To<ProductCacheViewModel>()
                 .ToList()

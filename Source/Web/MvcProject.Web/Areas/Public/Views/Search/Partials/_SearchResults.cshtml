@@ -2,28 +2,33 @@
 
 @model IEnumerable<ProductForCategorySearchViewModel>
 
-@(Html.Kendo()
-    .ListView<ProductForCategorySearchViewModel>()
-    .Name("SearchResultListView")
-    .TagName("ul")
-    .Pageable()
-    .ClientTemplateId("search-result-listView-template")
-    .BindTo(Model)
-    .DataSource(data => data
-        .Model(model => model.Id(p => p.Id))
-        //.Read(read => read
-        //    .Action("ReadSearchResult", "Search", new { categoryId = Model.Id, query = Model.Query })
-        //    .Data("readHandler")
-        //)
-        .PageSize(30)
+@if (!Model.Any())
+{
+    @Html.Partial("NoProductsFound")
+}
+else
+{
+    @(Html.Kendo()
+        .ListView<ProductForCategorySearchViewModel>()
+        .Name("SearchResultListView")
+        .TagName("ul")
+        .Pageable(p => p.PageSizes(new int[] { 30, 80, 200 }))
+        .ClientTemplateId("search-result-listView-template")
+        .BindTo(Model)
+        .DataSource(data => data
+            .Model(model => model.Id(p => p.Id))
+            .ServerOperation(false)
+            .PageSize(30)
+        )
+        .Events(e => e
+            //.DataBinding("onListViewDataBinding")
+            //.Change("onListViewChange")
+            .DataBound("onListViewDataBound")
+        )
+        .Deferred()
     )
-    .Events(e => e
-        //.DataBinding("onListViewDataBinding")
-        //.Change("onListViewChange")
-        .DataBound("onListViewDataBound")
-    )
-    .Deferred()
-    )
+}
+
 
 <!-- ListView products template -->
 <script type="text/kendo-tmpl" id="search-result-listView-template">

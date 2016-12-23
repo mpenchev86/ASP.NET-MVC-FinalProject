@@ -10,10 +10,9 @@
 </div>
 <div class="row">
     <div class="col-md-2">
-        @Html.Partial("_RefineSearchBar", Model@*.SearchFilters*@)
+        @Html.Partial("_RefineSearchBar", new FilteringViewModel { CategoryId = Model.Id, Query = Model.Query, SearchFilters = Model.SearchFilters })
     </div>
     <div class="col-md-10">
-        @*@Html.Partial("_SearchResults", new SearchViewModel {  CategoryId = Model.Id, Query = Model.Query })*@
         @Html.Partial("_SearchResults", Model.Products)
     </div>
 </div>
