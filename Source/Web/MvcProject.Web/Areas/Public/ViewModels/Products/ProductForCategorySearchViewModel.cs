@@ -11,10 +11,24 @@
     using Descriptions;
     using Images;
     using Infrastructure.Mapping;
+    using Services.Web;
 
     public class ProductForCategorySearchViewModel : BasePublicViewModel<int>, IMapFrom<Product>, IMapFrom<ProductCacheViewModel>, IHaveCustomMappings
     {
+        public string EncodedId
+        {
+            get { return IdentifierProvider.EncodeIntIdStatic(this.Id); }
+        }
+
         public string Title { get; set; }
+
+        public string ShortTitle
+        {
+            get
+            {
+                return this.Title.Length >= 35 ? this.Title.Substring(0, 35) + "..." : this.Title;
+            }
+        }
 
         public decimal UnitPrice { get; set; }
 

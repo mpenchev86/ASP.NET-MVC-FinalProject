@@ -12,6 +12,9 @@
         public string Name { get; set; }
 
         [Required]
+        public string DisplayName { get; set; }
+
+        [Required]
         [DataType(DataType.MultilineText)]
         public string Options { get; set; }
 

@@ -8,7 +8,6 @@
 
 @using (Html.BeginForm(
     "SearchByQuery",
-    //"CategorySearchResult",
     "Search",
     new { areas = Areas.PublicAreaName },
     FormMethod.Post,
@@ -19,7 +18,7 @@
     @Html.ValidationSummary()
     <div class="input-group">
         <div class="input-group-btn">
-            @Html.DropDownListFor(m => m.CategoryId, categories, "Everywhere", new { @*name = "CategoryId",*@ id = "navbar-search-options", @class = "form-control"})
+            @Html.DropDownListFor(m => m.CategoryId, categories, "Everywhere", new { id = "navbar-search-options", @class = "form-control"})
             @Html.TextBoxFor(m => m.Query, null, new { id = "navbar-search-query", type = "text", @class = "form-control", placeholder = "Search" })
             <button id="navbar-search-btn" type="submit" class="btn btn-default">
                 <content class="glyphicon glyphicon-search"></content>
@@ -27,33 +26,5 @@
         </div>
     </div>
 }
-
-@*@using (Ajax.BeginForm(
-    "SearchByQuery",
-    //"MainSearch",
-    "Search",
-    new { areas = Areas.PublicAreaName },
-    new AjaxOptions
-    {
-        HttpMethod = "POST",
-        InsertionMode = InsertionMode.Replace,
-        //LoadingElementId = "search-by-query-spinner",
-        UpdateTargetId = "body-content"
-    },
-    new { id = "navbar-search", @class = "navbar-form collapse navbar-collapse", role = "search" }
-    ))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary()
-    <div class="input-group">
-        <div class="input-group-btn">
-            @Html.DropDownListFor(m => m.CategoryId, categories, "Everywhere", new { name = "CategoryId", id = "navbar-search-options", @class = "form-control" })
-            @Html.TextBoxFor(m => m.Query, null, new { id = "navbar-search-input", type = "text", @class = "form-control", placeholder = "Search" })
-            <button id="navbar-search-btn" type="submit" class="btn btn-default">
-                <content class="glyphicon glyphicon-search"></content>
-            </button>
-        </div>
-    </div>
-}*@
 
 @*<img id="search-by-query-spinner" src="~/Content/Kendo/Silver/loading_2x.gif" style="display: none; text-align: center;" />*@

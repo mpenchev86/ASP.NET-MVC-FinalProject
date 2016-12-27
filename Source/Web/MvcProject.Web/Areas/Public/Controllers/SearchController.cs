@@ -62,8 +62,7 @@
         {
             if (searchViewModel.CategoryId != null && searchViewModel.CategoryId > 0)
             {
-                //return this.RedirectToAction("SearchByCategory", "Search", new { categoryId = (int)searchViewModel.CategoryId, query = searchViewModel.Query, area = Areas.PublicAreaName });
-                return this.RedirectToAction("CategorySearchResult", "Search", new { categoryId = (int)searchViewModel.CategoryId, query = searchViewModel.Query , area = Areas.PublicAreaName });
+                return this.RedirectToAction("SearchByCategory", "Search", new { categoryId = (int)searchViewModel.CategoryId, query = searchViewModel.Query , area = Areas.PublicAreaName });
             }
             else
             {
@@ -72,33 +71,50 @@
                     return this.RedirectToAction("Index", "Home", new { area = Areas.PublicAreaName });
                 }
 
-                //IDictionary<int, List<ProductForQuerySearchViewModel>> resultsByCategory = this.FilterByQuery(searchViewModel.Query);
+                var viewModel = new QuerySearchViewModel
+                {
+                    Query = searchViewModel.Query
+                };
+                
+                foreach (var category in this.categoriesService.GetAll())
+                {
+                    var categoryProducts = this.GetCachedProductsOfCategory(category.Id)
+                        .FilterProductsBySearchTerm(searchViewModel.Query)
+                        .Take(10)
+                        .AsQueryable()
+                        .To<ProductForQuerySearchViewModel>()
+                        .ToList();
 
-                var viewModel = this.productsService
-                    .GetAll()
-                    .Take(10)
-                    .AsQueryable()
-                    .FilterProductsBySearchTerm(searchViewModel.Query)
-                    .To<ProductForQuerySearchViewModel>()
-                    .ToList()
-                    ;
+                    var categoryFilters = category.SearchFilters.AsQueryable().To<SearchFilterForCategoryViewModel>().ToList();
 
-                //return this.PartialView(viewModel);
+                    var categoryModel = new CategoryForQuerySearchViewModel
+                    {
+                        Products = categoryProducts,
+                        SearchFilters = categoryFilters
+                    };
+
+                    viewModel.CategoriesData.Add(categoryModel);
+                }
+
                 return this.View(viewModel);
             }
         }
 
-        private IDictionary<int, List<ProductForQuerySearchViewModel>> FilterByQuery(string query)
-        {
-            var results = new Dictionary<int, List<ProductForQuerySearchViewModel>>();
 
-            var separateQueryTerms = query.Split(new char[' '], StringSplitOptions.RemoveEmptyEntries);
-            var termsCount = separateQueryTerms.Count();
 
-            var categoriesRelevance = new SortedDictionary<int, int>();
+        //private IDictionary<int, List<ProductForQuerySearchViewModel>> FilterByQuery(string query)
+        //{
+        //    var results = new Dictionary<int, List<ProductForQuerySearchViewModel>>();
 
-            return null;
-        }
+        //    var separateQueryTerms = query.Split(new char[' '], StringSplitOptions.RemoveEmptyEntries);
+        //    var termsCount = separateQueryTerms.Count();
+
+        //    var categoriesRelevance = new SortedDictionary<int, int>();
+
+        //    return null;
+        //}
+
+
 
         public JsonResult SearchAutoComplete(string prefix)
         {
@@ -118,114 +134,48 @@
         }
 
         [HttpGet]
-        public ActionResult /*SearchByCategory*/CategorySearchResult(
+        public ActionResult SearchByCategory(
             int categoryId, 
             string query,
             int searchOptionsBitMask = 0)
         {
             var model = new CategorySearchViewModel
             {
-                Id = categoryId,
+                CategoryId = categoryId,
                 Query = query
             };
 
-            var category = this.categoriesService.GetById(categoryId);
-            var searchFilters = category.SearchFilters
-                    .AsQueryable()
-                    .To<SearchFilterForCategoryViewModel>()
-                    .OrderBy(sf => sf.Id)
-                    .ToList();
-
-            int searchFiltersCount = searchFilters.Count();
-
-            for (int i = searchFiltersCount - 1; i >= 0 ; i--)
-            {
-                int filterOptionsCount = searchFilters[i].RefinementOptions.Count();
-                for (int j = filterOptionsCount - 1; j >= 0 ; j--)
-                {
-                    searchFilters[i].RefinementOptions[j].Checked = (searchOptionsBitMask & 1) == 1;
-                    searchOptionsBitMask = searchOptionsBitMask >> 1;
-                }
-            }
-
+            var searchFilters = this.categoriesService.GetById(categoryId).SearchFilters.AsQueryable().To<SearchFilterForCategoryViewModel>().OrderBy(sf => sf.Id).ToList();
+            this.PopulateSearchFilterOptionsFromBitMask(searchOptionsBitMask, searchFilters);
             model.SearchFilters = searchFilters;
-            model.Products = this.FilterCategoryProducts(categoryId, query/*, refinementOptions*/);
 
-            return this.View("SearchByCategory", model);
+            //var searchFilterOptions = searchFilters.SelectMany(sf => sf.RefinementOptions);
+            model.Products = this.GetCachedProductsOfCategory(categoryId)
+                //.FilterProductsByRefinementOptions(searchFilterOptions != null ? searchFilterOptions.AsQueryable().To<RefinementOption>().ToList() : new List<RefinementOption>())
+                .FilterProductsByRefinementOptions(searchFilters.AsQueryable().To<SearchFilterRefinementModel>().ToList())
+                .FilterProductsBySearchTerm(query)
+                .AsQueryable()
+                .To<ProductForCategorySearchViewModel>()
+                .ToList();
+
+            return this.View(model);
         }
         
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult SearchByCategory(
+        public ActionResult RefineCategorySearch(
             int categoryId,
             string query,
             List<SearchFilterForCategoryViewModel> searchFilters
             )
         {
             int searchOptionsBitMask = 0;
-            int searchFiltersCount = searchFilters.Count();
-            for (int i = 0; i < searchFiltersCount; i++)
+            if (ModelState.IsValid)
             {
-                int filterOptionsCount = searchFilters[i].RefinementOptions.Count();
-                for (int j = 0; j < filterOptionsCount; j++)
-                {
-                    searchOptionsBitMask = searchOptionsBitMask << 1;
-                    if (searchFilters[i].RefinementOptions[j].Checked)
-                    {
-                        searchOptionsBitMask = searchOptionsBitMask | 1;
-                    }
-                }
-
+                searchOptionsBitMask = ExtractBitMaskFromSearchFilterOptions(searchFilters);
             }
 
-            return this.RedirectToAction(
-                "CategorySearchResult",
-                "Search",
-                new
-                {
-                    categoryId = categoryId,
-                    query = query,
-                    searchOptionsBitMask = searchOptionsBitMask
-                });
-        }
-
-        //[HttpPost]
-        //[AjaxOnly]
-        public JsonResult ReadSearchResult(
-            [DataSourceRequest]DataSourceRequest request,
-            int categoryId,
-            string query,
-            IEnumerable</*RefinementOption*/SearchFilterOptionViewModel> refinementOptions
-            //, IEnumerable<SearchFilterForCategoryViewModel> searchFilters
-            //, RefinementOption searchFilter
-            )
-        {
-            var allProductsInCategory = this.FilterCategoryProducts(categoryId, query, refinementOptions);
-
-            return this.Json(allProductsInCategory.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet); ;
-        }
-
-        private List<ProductForCategorySearchViewModel> FilterCategoryProducts(
-            int categoryId,
-            string query,
-            IEnumerable</*RefinementOption*/SearchFilterOptionViewModel> refinementOptions = null)
-        {
-            var cacheKey = "category" + categoryId.ToString() + "products";
-            var allProductsInCategory = this.autoUpdateCacheService.Get<List<ProductCacheViewModel>, SearchController>(
-                cacheKey,
-                () => this.GetProductsOfCategory(categoryId),
-                CacheConstants.AllProductsInCategoryCacheExpiration,
-                "GetAndCacheProductsOfCategory",
-                new object[] { cacheKey, categoryId },
-                CacheConstants.AllProductsInCategoryUpdateBackgroundJobDelay
-                )
-                .AsQueryable()
-                .FilterProductsByRefinementOptions(refinementOptions != null ? refinementOptions.AsQueryable().To<RefinementOption>().ToList() : new List<RefinementOption>())
-                .To<ProductForCategorySearchViewModel>()
-                .ToList()
-                ;
-
-            return allProductsInCategory;
+            return this.RedirectToAction("SearchByCategory", "Search", new { categoryId = categoryId, query = query, searchOptionsBitMask = searchOptionsBitMask });
         }
 
         public void BackgroundOperation(string methodName, object[] args)
@@ -241,6 +191,22 @@
             var result = products.To<ProductWithTagViewModel>();
             return this.View(result);
         }
+
+        ////[HttpPost]
+        ////[AjaxOnly]
+        //public JsonResult ReadSearchResult(
+        //    [DataSourceRequest]DataSourceRequest request,
+        //    int categoryId,
+        //    string query,
+        //    IEnumerable</*RefinementOption*/SearchFilterOptionViewModel> refinementOptions
+        //    //, IEnumerable<SearchFilterForCategoryViewModel> searchFilters
+        //    //, RefinementOption searchFilter
+        //    )
+        //{
+        //    var allProductsInCategory = this.FilterCategoryProducts(categoryId, query, refinementOptions);
+
+        //    return this.Json(allProductsInCategory.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet); ;
+        //}
 
         //public ActionResult SessionTest()
         //{
@@ -307,6 +273,59 @@
             return this.keywordsService.GetAll().Select(k => k.SearchTerm/*.ToLower()*/).ToList();
         }
             #endregion
+
+        [NonAction]
+        private List<ProductCacheViewModel> GetCachedProductsOfCategory(int categoryId)
+        {
+            var cacheKey = "category" + categoryId.ToString() + "products";
+            var cachedProducts = this.autoUpdateCacheService.Get<List<ProductCacheViewModel>, SearchController>(
+                cacheKey,
+                () => this.GetProductsOfCategory(categoryId),
+                CacheConstants.AllProductsInCategoryCacheExpiration,
+                "GetAndCacheProductsOfCategory",
+                new object[] { cacheKey, categoryId },
+                CacheConstants.AllProductsInCategoryUpdateBackgroundJobDelay
+                );
+
+            return cachedProducts;
+        }
+
+        [NonAction]
+        private int ExtractBitMaskFromSearchFilterOptions(List<SearchFilterForCategoryViewModel> searchFilters)
+        {
+            int bitMask = 0;
+            int searchFiltersCount = searchFilters.Count();
+            for (int i = 0; i < searchFiltersCount; i++)
+            {
+                int filterOptionsCount = searchFilters[i].RefinementOptions.Count();
+                for (int j = 0; j < filterOptionsCount; j++)
+                {
+                    bitMask = bitMask << 1;
+                    if (searchFilters[i].RefinementOptions[j].Checked)
+                    {
+                        bitMask = bitMask | 1;
+                    }
+                }
+            }
+
+            return bitMask;
+        }
+
+        [NonAction]
+        private void PopulateSearchFilterOptionsFromBitMask(int bitMask, List<SearchFilterForCategoryViewModel> searchFilters)
+        {
+            int searchFiltersCount = searchFilters.Count();
+
+            for (int i = searchFiltersCount - 1; i >= 0; i--)
+            {
+                int filterOptionsCount = searchFilters[i].RefinementOptions.Count();
+                for (int j = filterOptionsCount - 1; j >= 0; j--)
+                {
+                    searchFilters[i].RefinementOptions[j].Checked = (bitMask & 1) == 1;
+                    bitMask = bitMask >> 1;
+                }
+            }
+        }
 
         //[NonAction]
         //private bool ValidateSearchFilter(RefinementOption searchFilter)

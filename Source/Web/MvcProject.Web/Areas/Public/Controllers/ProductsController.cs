@@ -35,9 +35,10 @@
         }
         
         [HttpGet]
-        public ActionResult Index(int id)
+        public ActionResult Index(/*int id*/string id)
         {
-            var product = this.productsService.GetById(id);
+            var decodedId = this.identifierProvider.DecodeIdToInt(id);
+            var product = this.productsService.GetById(/*id*/(int)decodedId);
             var viewModel = this.mappingService.Map<Product, ProductFullViewModel>(product);
             viewModel.CommentsWithRatings = this.PopulateCommentAndVote(product.Comments, product.Votes);
             // Prevents populating tags with system.data.entity.dynamicproxies...(eager loading)

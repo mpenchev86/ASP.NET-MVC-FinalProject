@@ -12,6 +12,8 @@
     {
         public string Name { get; set; }
 
+        public string DisplayName { get; set; }
+
         public SearchFilterOptionsType OptionsType { get; set; }
 
         public SearchFilterSelectionType SelectionType { get; set; }

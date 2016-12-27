@@ -6,7 +6,8 @@
     columns: cols =>
     {
         cols.Bound(c => c.Id).Title("ID");
-        cols.Bound(c => c.Name).Width("30%");
+        cols.Bound(c => c.Name).Width("15%");
+        cols.Bound(c => c.DisplayName).Width("15%");
         cols.Bound(c => c.Options).Width("40%");
         cols.Bound(c => c.MeasureUnit);
         cols.Bound(c => c.OptionsType);

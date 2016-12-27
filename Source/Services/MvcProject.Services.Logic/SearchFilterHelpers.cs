@@ -16,12 +16,12 @@
             return optionsSplit;
         }
 
-        public static List<string> GetSearchOptionsLabels(string options, SearchFilterOptionsType /*int */optionsType, string measureUnit)
+        public static List<string> GetSearchOptionsLabels(string options, SearchFilterOptionsType optionsType, string measureUnit)
         {
-            var splitOptions = /*this.*/SplitOptionsString(options);
-            var splitOptionsWithLabels = /*this.*/GetOptionsWithMeasureUnit(splitOptions, measureUnit);
+            var splitOptions = SplitOptionsString(options);
+            var splitOptionsWithLabels = GetOptionsWithMeasureUnit(splitOptions, measureUnit);
 
-            if (optionsType == SearchFilterOptionsType.ValueRange/*.GetHashCode()*/)
+            if (optionsType == SearchFilterOptionsType.ValueRange)
             {
                 var optionLabels = new List<string>();
                 optionLabels.Add("Under " + splitOptionsWithLabels.FirstOrDefault());
@@ -63,13 +63,6 @@
 
                 return result;
             }
-        }
-
-        public IQueryable<TProduct> FilterProducts<TProduct, TFilter>(IQueryable<TProduct> products, IEnumerable<TFilter> filters)
-            where TProduct : class, IMapFrom<Product>
-            where TFilter : class, IMapFrom<SearchFilter>
-        {
-            return products;
         }
     }
 }

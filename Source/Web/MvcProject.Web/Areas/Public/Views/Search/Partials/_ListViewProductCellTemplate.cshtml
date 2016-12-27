@@ -8,35 +8,39 @@
             <img src="@Url.Content(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, "#=ImageUrlPath#", StaticResourcesUrls.ImageThumbnailSuffix, "#=ImageFileExtension#"))"
                  alt="#=Title#"
                  onerror="if(this.src != '@fallbackImgUrl') { this.src = '@fallbackImgUrl'; }"/>
+            @(Html.ActionLink(
+                linkText: " ",
+                actionName: "Index",
+                controllerName: "Products",
+                routeValues: new { id = "encodedId"},
+                htmlAttributes: new { @class = "product-link-hidden" })
+                .ToHtmlString()
+                .Replace("encodedId", "#=EncodedId#")
+                //.Replace("spinner", "#\\#spinner")
+                .ToMvcHtmlString()
+                )
+        </div>
+        <div class="row title">
+            <p>#=ShortTitle#</p>
+            
+            @(Html.ActionLink(
+                linkText: " ",
+                actionName: "Index",
+                controllerName: "Products",
+                routeValues: new { id = "encodedId" },
+                htmlAttributes: new { @class = "product-link-hidden" })
+                .ToHtmlString()
+                .Replace("encodedId", "#=EncodedId#")
+                //.Replace("spinner", "#\\#spinner")
+                .ToMvcHtmlString()
+            )
         </div>
         <div class="row price">
             <p>#=kendo.toString(UnitPrice, "c")#</p>
         </div>
-        <div class="row id">
+        @*<div class="row id">
             <p>#=Id#</p>
-        </div>
+        </div>*@
 
-        @*@(Ajax.ActionLink(
-            linkText: "sneak peek",
-            actionName: "SneakPeek",
-            controllerName: "Products",
-            routeValues: new { id = "encodedId"},
-            ajaxOptions: new AjaxOptions
-            {
-                HttpMethod = "GET",
-                AllowCache = true,
-                InsertionMode = InsertionMode.Replace,
-                LoadingElementId = "spinner",
-                OnSuccess = "OnGetModalDataSuccess",
-            },
-            htmlAttributes: new
-            {
-                @class = "ajax-modal-link"
-            })
-            .ToHtmlString()
-            .Replace("encodedId", "#=EncodedId#")
-            .Replace("spinner", "#\\#spinner")
-            .ToMvcHtmlString()
-            )*@
     </div>
 </li>

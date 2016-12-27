@@ -12,7 +12,7 @@
 
         string ShortDescription { get; /*set;*/ }
 
-        int? DescriptionId { get; /*set;*/ }
+        //int? DescriptionId { get; /*set;*/ }
 
         string DescriptionContent { get; /*set; */}
 

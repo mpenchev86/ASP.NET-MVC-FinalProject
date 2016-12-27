@@ -1,0 +1,48 @@
+﻿@using MvcProject.Services.Logic
+
+@model string
+
+@if ((string)ViewData["filterName"] == "AllTimeAverageRating")
+{
+    decimal? lowerBound;
+    decimal? upperBound;
+
+    SearchRefinementHelpers.ExtractBoundaries(Model, out lowerBound, out upperBound);
+
+    //int value/* = Convert.ToInt32(lowerBound)*/;
+
+    //if (lowerBound == null)
+    //{
+    //    value = 1;
+    //}
+    //else
+    //{
+    //    value = Convert.ToInt32(lowerBound);
+    //}
+
+    if (lowerBound != null && upperBound != null)
+    {
+        var value = Convert.ToInt32(lowerBound);
+        
+        @(Html.Infragistics()
+            .Rating()
+            //.Rating()
+            .Disabled(false)
+            .ID("igRating" + value.ToString())
+            .VoteCount(5)
+            //.PrecisionZeroVote(0.1)
+            .Value(value)
+            //.Focusable(false)
+            .Disabled(true)
+            .ValueAsPercent(false)
+            .Precision(RatingPrecision.Exact)
+            .HtmlAttributes(new Dictionary<string, object> { { "class", "products-rating" } })
+            //.ValidatorOptions(v => v.)
+            .Render()) @:and Up
+    }
+}
+else
+{
+    @*<span>@Model</span>*@
+    @Model
+}

@@ -207,6 +207,7 @@
     <Compile Include="ViewModels\BasePublicViewModel.cs" />
     <Compile Include="ViewModels\Categories\CategoryCacheViewModel.cs" />
     <Compile Include="ViewModels\Categories\CategoryForLayoutDropDown.cs" />
+    <Compile Include="ViewModels\Categories\CategoryForQuerySearchViewModel.cs" />
     <Compile Include="ViewModels\Comments\CommentCacheViewModel.cs" />
     <Compile Include="ViewModels\Comments\CommentPostViewModel.cs" />
     <Compile Include="ViewModels\Descriptions\DescriptionCacheViewModel.cs" />
@@ -231,9 +232,10 @@
     <Compile Include="ViewModels\Products\ProductWithTagViewModel.cs" />
     <Compile Include="ViewModels\Properties\PropertyCacheViewModel.cs" />
     <Compile Include="ViewModels\Properties\PropertyForProductFullViewModel.cs" />
-    <Compile Include="ViewModels\Categories\CategorySearchViewModel.cs" />
+    <Compile Include="ViewModels\Search\CategorySearchViewModel.cs" />
     <Compile Include="ViewModels\Properties\PropertyForCategorySearchViewModel.cs" />
     <Compile Include="ViewModels\Search\FilteringViewModel.cs" />
+    <Compile Include="ViewModels\Search\QuerySearchViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchFilterCacheViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchFilterForCategoryViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchFilterOptionViewModel.cs" />
@@ -426,6 +428,7 @@
     <Content Include="Views\Shared\EditorTemplates\SearchFilters.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\SearchFilterOptions.cshtml" />
     <Content Include="Views\Search\Partials\NoProductsFound.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SearchOptionValue.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -58,6 +58,8 @@
     <Compile Include="SearchFilterHelpers.cs" />
     <Compile Include="SearchRefinementHelpers.cs" />
     <Compile Include="ServiceModels\DescriptionFilterModel.cs" />
+    <Compile Include="ServiceModels\ISearchFilterRefinementModel.cs" />
+    <Compile Include="ServiceModels\SearchFilterRefinementModel.cs" />
     <Compile Include="ServiceModels\IProductFilteringModel.cs" />
     <Compile Include="ServiceModels\ProductFilterModel.cs" />
     <Compile Include="ServiceModels\PropertyFilterModel.cs" />

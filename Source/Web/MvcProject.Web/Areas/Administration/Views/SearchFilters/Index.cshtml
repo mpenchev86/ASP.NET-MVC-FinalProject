@@ -27,6 +27,7 @@
         c.Command(cm => cm.Destroy().Text("Delete")).Width(120);
         c.Bound(m => m.Id).Width(150);
         c.Bound(m => m.Name);
+        c.Bound(m => m.DisplayName);
         c.ForeignKey(m => m.CategoryId, Model.Categories, "Id", "Name").Title("Category");
         c.Bound(m => m.OptionsType);
         c.Bound(m => m.SelectionType);

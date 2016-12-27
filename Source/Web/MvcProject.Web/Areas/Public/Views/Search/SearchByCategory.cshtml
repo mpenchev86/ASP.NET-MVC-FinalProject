@@ -1,16 +1,15 @@
-﻿@using MvcProject.Web.Areas.Public.ViewModels.Categories
-@using MvcProject.Web.Areas.Public.ViewModels.Search
+﻿@using MvcProject.Web.Areas.Public.ViewModels.Search
 
 @model CategorySearchViewModel
 
-@Html.HiddenFor(m => m.Id, new { id = "searchCategoryId" })
+@Html.HiddenFor(m => m.CategoryId, new { id = "searchCategoryId" })
 @Html.HiddenFor(m => m.Query, new { id = "searchQuery" })
 <div class="row">
     @Html.Partial("_TopSearchPanel")
 </div>
 <div class="row">
     <div class="col-md-2">
-        @Html.Partial("_RefineSearchBar", new FilteringViewModel { CategoryId = Model.Id, Query = Model.Query, SearchFilters = Model.SearchFilters })
+        @Html.Partial("_RefineSearchBar", new FilteringViewModel { CategoryId = Model.CategoryId, Query = Model.Query, SearchFilters = Model.SearchFilters })
     </div>
     <div class="col-md-10">
         @Html.Partial("_SearchResults", Model.Products)
@@ -33,10 +32,6 @@
             // Preselect search input value.
             var searchQuery = $('#searchQuery').val();
             $('#navbar-search-query').val(searchQuery);
-
-            // Hide Kendo ListView pager while loading data
-            //$('#SearchResultListView_pager').hide();
-            //$('#SearchResultListView').hide();
         });
 
         function submitForm(e) {
@@ -83,35 +78,6 @@
                 $(lastCheckedOption).prop('checked', true);
             }
             $(e).prop('checked', !isChecked);
-        }
-
-        //function onListViewDataBinding(e) {
-        //    //kendo.ui.progress(e.sender.element, true);
-
-        //    //$('#SearchResultListView_pager').hide();
-        //}
-
-        //function onListViewChange(e) {
-        //    kendo.ui.progress(e.sender.element, true);
-        //}
-
-        function onListViewDataBound(e) {
-            // Refinement options CSS
-            //var optionsLabels = $('.options-label');
-            //optionsLabels.show();
-            //var uiOptionsLabels = $('.ui-options-label');
-            //uiOptionsLabels.hide();
-
-            //$('.search-filter .options-label span').attr({ opacity: '100%', cursor: 'auto' });
-
-            //// Clear refinementOptions list. Otherwise, old options remain and are sent with the new ones.
-            //refinementOptions = [];
-
-            // Show Kendo ListView pager when data is bound
-            //$('#SearchResultListView_pager').show();
-
-            //// Activate Spinner on ListView
-            //kendo.ui.progress(e.sender.element, false);
         }
     </script>    
 }

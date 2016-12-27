@@ -12,6 +12,7 @@
     public class SearchFilterOptionViewModel : IMapTo<RefinementOption>
     {
         [Required]
+        [UIHint("SearchOptionValue")]
         public string Value { get; set; }
 
         [Required]

@@ -118,7 +118,11 @@
         {
             get
             {
-                return this.DescriptionId != null ? (this.Description.Properties != null ? this.Description.Properties.Select(p => new KeyValuePair<string, string>(p.Name, p.Value)).ToDictionary(x => x.Key, x => x.Value) : new Dictionary<string, string>()) : new Dictionary<string, string>();
+                return this.DescriptionId != null
+                    ? (this.Description.Properties != null 
+                        ? this.Description.Properties.Select(p => new KeyValuePair<string, string>(p.Name, p.Value)).ToDictionary(x => x.Key, x => x.Value) 
+                        : new Dictionary<string, string>()) 
+                    : new Dictionary<string, string>();
             }
 
             //set

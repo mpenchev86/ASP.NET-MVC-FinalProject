@@ -1,4 +1,4 @@
-﻿namespace MvcProject.Web.Areas.Public.ViewModels.Categories
+﻿namespace MvcProject.Web.Areas.Public.ViewModels.Search
 {
     using System;
     using System.Collections.Generic;
@@ -10,7 +10,7 @@
     using Products;
     using Search;
 
-    public class CategorySearchViewModel : BasePublicViewModel<int>, IMapFrom<Category>
+    public class CategorySearchViewModel/* : BasePublicViewModel<int>, IMapFrom<Category>*/
     {
         private ICollection/*List*/<ProductForCategorySearchViewModel> products;
         private ICollection<SearchFilterForCategoryViewModel> searchFilters;
@@ -20,6 +20,8 @@
             this.products = new HashSet/*List*/<ProductForCategorySearchViewModel>();
             this.searchFilters = new HashSet/*List*/<SearchFilterForCategoryViewModel>();
         }
+
+        public int CategoryId { get; set; }
 
         public string Query { get; set; }
 

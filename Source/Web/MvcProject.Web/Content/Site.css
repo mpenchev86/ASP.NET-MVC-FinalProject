@@ -143,6 +143,7 @@ input, select, textarea {
         #navbar-search-options {
             /*Prevents popping in front of a modal window*/
             z-index: 0;
+            width: auto;
             color: #ffffff;
             background-color: #999999;
             border: none;
@@ -160,9 +161,10 @@ input, select, textarea {
             border-radius: 0 4px 4px 0;
         }
 
-        @media (max-width: 527px) {
-            #navbar-search-options > text {
-                display: none;
+        /*@media (max-width: 527px) {*/
+        @media (max-width: 630px) {
+            #navbar-search-options {
+                max-width: 40%;
             }
         }
 

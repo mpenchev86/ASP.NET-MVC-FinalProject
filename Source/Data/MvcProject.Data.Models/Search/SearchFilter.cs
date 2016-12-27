@@ -20,6 +20,15 @@
         public string Name { get; set; }
 
         /// <summary>
+        /// Gets or sets the search filter name as displayed to the user.
+        /// </summary>
+        /// <value>
+        /// The search filter name as displayed to the user.
+        /// </value>
+        [Required]
+        public string DisplayName { get; set; }
+
+        /// <summary>
         /// Gets or sets the search filter options type.
         /// </summary>
         /// <value>

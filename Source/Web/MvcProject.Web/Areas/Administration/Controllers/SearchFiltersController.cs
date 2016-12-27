@@ -71,6 +71,7 @@
         protected override void PopulateEntity(SearchFilter entity, SearchFilterViewModel viewModel)
         {
             entity.Name = viewModel.Name;
+            entity.DisplayName = viewModel.DisplayName;
             entity.Options = viewModel.Options;
             entity.MeasureUnit = viewModel.MeasureUnit;
             entity.OptionsType = viewModel.OptionsType;
@@ -84,7 +85,7 @@
 
         protected override IQueryable<SearchFilterViewModel> GetQueryableData()
         {
-            return this.searchFiltersService.GetAll().To<SearchFilterViewModel>().OrderBy(x => x.Name);
+            return this.searchFiltersService.GetAll().To<SearchFilterViewModel>().OrderBy(x => x.DisplayName);
         }
         #endregion
     }

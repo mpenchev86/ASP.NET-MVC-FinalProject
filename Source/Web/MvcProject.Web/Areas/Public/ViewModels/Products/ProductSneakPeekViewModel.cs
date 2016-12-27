@@ -9,12 +9,18 @@
     using Data.Models;
     using Images;
     using Infrastructure.Mapping;
+    using Services.Web;
 
     public class ProductSneakPeekViewModel : BasePublicViewModel<int>, IMapFrom<Product>, IHaveCustomMappings
     {
         public ProductSneakPeekViewModel()
         {
             this.Images = new HashSet<ImageForProductSneakPeekViewModel>();
+        }
+
+        public string EncodedId
+        {
+            get { return IdentifierProvider.EncodeIntIdStatic(this.Id); }
         }
 
         public string Title { get; set; }

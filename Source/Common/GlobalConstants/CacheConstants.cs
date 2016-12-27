@@ -13,7 +13,6 @@
 
         // Public/HomeController/Index ListView
         public const int IndexListViewCacheExpiration = 3 * 60;
-        //public const int IndexListViewUpdateCallbackExpiration = 5 * 60;
 
         // Public/SearchController/ReadSearchResult
         public const int AllProductsInCategoryCacheExpiration = 5 * 60;
