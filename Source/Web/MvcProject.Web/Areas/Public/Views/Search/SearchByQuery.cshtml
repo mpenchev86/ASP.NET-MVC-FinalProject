@@ -1,16 +1,16 @@
 ﻿@using MvcProject.Web.Areas.Public.ViewModels.Products
+@using MvcProject.Web.Areas.Public.ViewModels.Search
 
-@model List<ProductForQuerySearchViewModel>
+@model QuerySearchViewModel
 
-@{
-    ViewBag.Title = "QuerySearchView";
+@Html.HiddenFor(m => m.Query)
+@Html.DisplayFor(m => m.CategoriesData, new { query = Model.Query })
+
+<!-- ListView products template -->
+<script type="text/kendo-tmpl" id="query-search-result-template">
+    @Html.Partial("_QuerySearchListViewTemplate")
+</script>
+
+@section Scripts{
+    @Html.Kendo().DeferredScripts()
 }
-
-<h2>QuerySearchView</h2>
-
-@foreach (var product in Model)
-{
-    <h4>@product.Title</h4>
-    <br />
-}
-

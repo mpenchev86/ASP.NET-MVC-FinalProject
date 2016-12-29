@@ -13,11 +13,8 @@
 
     public static class SearchRefinementHelpers/* : ISearchRefinementHelpers<TProduct, TFilter>*/
     {
-        //private static readonly IEnumerable<string> productMembersNames = typeof(IProductFilteringModel).GetProperties().Select(p => p.Name);
-
         public static /*IQueryable*/IEnumerable<TProduct> FilterProductsByRefinementOptions<TProduct>(
             this /*IQueryable*/IEnumerable<TProduct> products,
-            //IEnumerable<RefinementOption> refinementOptions
             IEnumerable<SearchFilterRefinementModel> searchFilters
             )
             where TProduct : class, IProductFilteringModel
@@ -33,8 +30,7 @@
         }
 
         private static bool PassesFilter<TProduct>(
-            TProduct product, 
-            //RefinementOption refinementOption
+            TProduct product,
             SearchFilterRefinementModel searchFilter
             )
             where TProduct : class, IProductFilteringModel
@@ -50,7 +46,7 @@
             {
                 var productProperties = typeof(IProductFilteringModel).GetProperties()
                     .Where(pr => !typeof(IEnumerable).IsAssignableFrom(pr.PropertyType) || (pr.PropertyType == typeof(string)))
-                    .ToDictionary(pr => pr.Name, pr => 
+                    .ToDictionary(pr => pr.Name, pr =>
                     {
                         var val = Convert.ToString(pr.GetValue(product));
                         return val;
@@ -99,34 +95,15 @@
                         }
                     }
                 }
-
-                //foreach (var descriptionProperty in descriptionProperties)
-                //{
-                //    if (true)
-                //    {
-
-                //    }
-                //}
             }
 
-            //return true;
             return false;
         }
 
         public static void ExtractBoundaries(string value, out decimal? lowerBound, out decimal? upperBound)
         {
-            var splitValueToLower = value.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.ToLower());
-            
-            //var wordBoundary = string.Empty;
-            var wordBoundary = splitValueToLower.FirstOrDefault(x => x == "under" || x == "above");
-            //foreach (var substring in splitValueToLower)
-            //{
-            //    if (substring == "under" || substring == "above")
-            //    {
-            //        wordBoundary = substring;
-            //    }
-            //}
-
+            var valueSubstrings = value.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.ToLower());
+            var wordBoundary = valueSubstrings.FirstOrDefault(x => x == "under" || x == "above");
             var boundaries = Regex.Split(value, @"[^0-9\.]+").Where(c => c != "." && c.Trim() != "").ToList();
 
             if (boundaries.Count() < 1 || boundaries.Count() > 2)
@@ -173,10 +150,10 @@
         {
             //var filterNameNoWhiteSpace = filterName.SkipWhile(ch => char.IsWhiteSpace(ch) || char.IsSeparator(ch));
             var filterNameNoWhiteSpace = new string(filterName.SkipWhile(ch => char.IsWhiteSpace(ch) || char.IsSeparator(ch)).ToArray());
-            
+
             //var builder = new StringBuilder();
             //builder.Append(filterNameNoWhiteSpace);
-            
+
             //var propertyNameNoWhiteSpace = propertyName.SkipWhile(ch => char.IsWhiteSpace(ch) || char.IsSeparator(ch)).ToString();
             var propertyNameNoWhiteSpace = new string(propertyName.SkipWhile(ch => char.IsWhiteSpace(ch) || char.IsSeparator(ch)).ToArray());
 
@@ -196,10 +173,69 @@
         //    return true;
         //}
 
-        public static /*IQueryable*/IEnumerable<TProduct> FilterProductsBySearchTerm<TProduct/*, TFilter*/>(this /*IQueryable*/IEnumerable<TProduct> products, string searchTerm)
+        public static /*IQueryable*/IEnumerable<TProduct> FilterProductsBySearchQuery<TProduct/*, TFilter*/>(this /*IQueryable*/IEnumerable<TProduct> products, string searchQuery)
             where TProduct : class, IProductFilteringModel
         {
-            return products;
+            if (string.IsNullOrWhiteSpace(searchQuery))
+            {
+                return products;
+            }
+
+            var result = products;
+            result = result.Where(p => IsAssociatedWithSearchQuery(p, searchQuery));
+
+            return result;
+        }
+
+        private static bool IsAssociatedWithSearchQuery<TProduct>(TProduct product, string searchQuery)
+            where TProduct : class, IProductFilteringModel
+        {
+            var queryTerms = searchQuery.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var queryTerm in queryTerms)
+            {
+                if (!MatchesTerm(product, queryTerm.ToLower()))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private static bool MatchesTerm<TProduct>(TProduct product, string queryTerm) where TProduct : class, IProductFilteringModel
+        {
+            bool result = false;
+            if (product.Title.ToLower().Contains(queryTerm))
+            {
+                result = true;
+            }
+
+            if (product.ShortDescription.ToLower().Contains(queryTerm))
+            {
+                result = true;
+            }
+
+            if (product.DescriptionContent.ToLower().Contains(queryTerm))
+            {
+                result = true;
+            }
+
+            if (product.SellerName.ToLower().Contains(queryTerm))
+            {
+                result = true;
+            }
+
+            if (product.TagNames.Select(t => t.ToLower()).Contains(queryTerm))
+            {
+                result = true;
+            }
+
+            if (product.DescriptionPropertiesNamesValues.Any(pr => pr.Value.ToLower().Contains(queryTerm)))
+            {
+                result = true;
+            }
+
+            return result;
         }
     }
 }

@@ -26,11 +26,12 @@ else
         //    .DataBound("onListViewDataBound")
         //)
         .Deferred()
+        .ToClientTemplate()
     )
 }
 
 
 <!-- ListView products template -->
 <script type="text/kendo-tmpl" id="search-result-listView-template">
-    @Html.Partial("_ListViewProductCellTemplate")
+    @Html.Partial("_ListViewProductCellTemplate"@*, null, new ViewDataDictionary(this.ViewData) { { "ratingValue", AllTimeAverageRating}, { "ratingId", Id } }*@)
 </script>

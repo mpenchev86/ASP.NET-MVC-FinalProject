@@ -107,11 +107,6 @@
             {
                 return this.DescriptionId != null ? this.Description.Content : string.Empty;
             }
-
-            //set
-            //{
-            //    throw new NotImplementedException();
-            //}
         }
 
         public IDictionary<string, string> DescriptionPropertiesNamesValues
@@ -124,11 +119,6 @@
                         : new Dictionary<string, string>()) 
                     : new Dictionary<string, string>();
             }
-
-            //set
-            //{
-            //    throw new NotImplementedException();
-            //}
         }
 
         public IEnumerable<string> TagNames
@@ -137,11 +127,6 @@
             {
                 return this.Tags.Any() ? this.Tags.Select(t => t.Name).ToList() : new List<string>();
             }
-
-            //set
-            //{
-            //    throw new NotImplementedException();
-            //}
         }
 
         public void CreateMappings(IMapperConfigurationExpression configuration)

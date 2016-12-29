@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Web;
     using Categories;
@@ -17,6 +18,7 @@
 
         public string Query { get; set; }
 
+        [UIHint("QuerySearchCategoriesData")]
         public List<CategoryForQuerySearchViewModel> CategoriesData
         {
             get { return this.categoriesData; }

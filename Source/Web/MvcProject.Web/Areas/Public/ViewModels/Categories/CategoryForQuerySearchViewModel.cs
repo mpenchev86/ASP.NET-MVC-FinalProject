@@ -2,12 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Web;
+    using Data.Models;
+    using Infrastructure.Mapping;
     using Products;
     using Search;
 
-    public class CategoryForQuerySearchViewModel
+    public class CategoryForQuerySearchViewModel : BasePublicViewModel<int>/*, IMapFrom<Category>*/
     {
         private List<ProductForQuerySearchViewModel> products;
         private List<SearchFilterForCategoryViewModel> searchFilters;
@@ -18,6 +21,9 @@
             this.searchFilters = new List<SearchFilterForCategoryViewModel>();
         }
 
+        public string Name { get; set; }
+
+        [UIHint("QuerySearchProducts")]
         public List<ProductForQuerySearchViewModel> Products
         {
             get { return this.products; }

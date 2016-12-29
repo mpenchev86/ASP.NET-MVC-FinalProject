@@ -7,10 +7,24 @@
     using AutoMapper;
     using Data.Models;
     using Infrastructure.Mapping;
+    using Services.Web;
 
-    public class ProductForQuerySearchViewModel : BasePublicViewModel<int>, IMapFrom<Product>, IHaveCustomMappings
+    public class ProductForQuerySearchViewModel : BasePublicViewModel<int>, IMapFrom<Product>, IMapFrom<ProductCacheViewModel>, IHaveCustomMappings
     {
+        public string EncodedId
+        {
+            get { return IdentifierProvider.EncodeIntIdStatic(this.Id); }
+        }
+
         public string Title { get; set; }
+
+        public string ShortTitle
+        {
+            get
+            {
+                return this.Title.Length >= 35 ? this.Title.Substring(0, 35) + "..." : this.Title;
+            }
+        }
 
         public string ShortDescription { get; set; }
 
@@ -23,12 +37,16 @@
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Product, ProductForQuerySearchViewModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.ImageUrlPath, opt => opt.MapFrom(
-                            //src => (src.Images != null && src.Images.Any()) ? (src.Images.FirstOrDefault(img => img.IsMainImage) ?? src.Images.FirstOrDefault()).UrlPath : ""))
                             src => src.MainImage != null ? src.MainImage.UrlPath : (src.Images.Any() ? src.Images.FirstOrDefault().UrlPath : "")))
                 .ForMember(dest => dest.ImageFileExtension, opt => opt.MapFrom(
-                            //src => (src.Images != null && src.Images.Any()) ? (src.Images.FirstOrDefault(img => img.IsMainImage) ?? src.Images.FirstOrDefault()).FileExtension : ""))
+                            src => src.MainImage != null ? src.MainImage.FileExtension : (src.Images.Any() ? src.Images.FirstOrDefault().FileExtension : "")))
+                ;
+
+            configuration.CreateMap<ProductCacheViewModel, ProductForQuerySearchViewModel>()
+                .ForMember(dest => dest.ImageUrlPath, opt => opt.MapFrom(
+                            src => src.MainImage != null ? src.MainImage.UrlPath : (src.Images.Any() ? src.Images.FirstOrDefault().UrlPath : "")))
+                .ForMember(dest => dest.ImageFileExtension, opt => opt.MapFrom(
                             src => src.MainImage != null ? src.MainImage.FileExtension : (src.Images.Any() ? src.Images.FirstOrDefault().FileExtension : "")))
                 ;
         }

@@ -278,9 +278,10 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Custom\homepage-carousel.css" />
-    <Content Include="Content\Custom\listView.css" />
+    <Content Include="Content\Custom\homepage-listView.css" />
     <Content Include="Content\Custom\product-full-viewmodel.css" />
-    <Content Include="Content\Custom\search-results.css" />
+    <Content Include="Content\Custom\query-search.css" />
+    <Content Include="Content\Custom\category-search.css" />
     <Content Include="Content\IgniteUI\jquery-ui.css" />
     <Content Include="Content\IgniteUI\jquery-ui.min.css" />
     <Content Include="Content\IgniteUI\Structure\Images\icon_sprite.png" />
@@ -429,6 +430,10 @@
     <Content Include="Views\Shared\EditorTemplates\SearchFilterOptions.cshtml" />
     <Content Include="Views\Search\Partials\NoProductsFound.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SearchOptionValue.cshtml" />
+    <Content Include="Views\Search\Partials\Rating.cshtml" />
+    <Content Include="Views\Search\DisplayTemplates\QuerySearchCategoriesData.cshtml" />
+    <Content Include="Views\Search\Partials\_QuerySearchListViewTemplate.cshtml" />
+    <Content Include="Views\Search\DisplayTemplates\QuerySearchProducts.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

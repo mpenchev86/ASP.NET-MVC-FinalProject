@@ -57,8 +57,8 @@
             //this.searchAlgorithms = searchAlgorithms;
         }
 
-        [NoCache]
-        public ActionResult SearchByQuery(SearchViewModel searchViewModel)
+        //[HttpPost]
+        public ActionResult SearchBar(SearchViewModel searchViewModel)
         {
             if (searchViewModel.CategoryId != null && searchViewModel.CategoryId > 0)
             {
@@ -70,51 +70,12 @@
                 {
                     return this.RedirectToAction("Index", "Home", new { area = Areas.PublicAreaName });
                 }
-
-                var viewModel = new QuerySearchViewModel
+                else
                 {
-                    Query = searchViewModel.Query
-                };
-                
-                foreach (var category in this.categoriesService.GetAll())
-                {
-                    var categoryProducts = this.GetCachedProductsOfCategory(category.Id)
-                        .FilterProductsBySearchTerm(searchViewModel.Query)
-                        .Take(10)
-                        .AsQueryable()
-                        .To<ProductForQuerySearchViewModel>()
-                        .ToList();
-
-                    var categoryFilters = category.SearchFilters.AsQueryable().To<SearchFilterForCategoryViewModel>().ToList();
-
-                    var categoryModel = new CategoryForQuerySearchViewModel
-                    {
-                        Products = categoryProducts,
-                        SearchFilters = categoryFilters
-                    };
-
-                    viewModel.CategoriesData.Add(categoryModel);
+                    return this.RedirectToAction("SearchByQuery", "Search", new { query = searchViewModel.Query, area = Areas.PublicAreaName });
                 }
-
-                return this.View(viewModel);
             }
         }
-
-
-
-        //private IDictionary<int, List<ProductForQuerySearchViewModel>> FilterByQuery(string query)
-        //{
-        //    var results = new Dictionary<int, List<ProductForQuerySearchViewModel>>();
-
-        //    var separateQueryTerms = query.Split(new char[' '], StringSplitOptions.RemoveEmptyEntries);
-        //    var termsCount = separateQueryTerms.Count();
-
-        //    var categoriesRelevance = new SortedDictionary<int, int>();
-
-        //    return null;
-        //}
-
-
 
         public JsonResult SearchAutoComplete(string prefix)
         {
@@ -131,6 +92,43 @@
             var results = keywords.Where(kw => kw.StartsWith(prefix.ToLower()));
 
             return this.Json(results, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult SearchByQuery(string query)
+        {
+            var viewModel = new QuerySearchViewModel
+            {
+                Query = query
+            };
+
+            var categories = this.categoriesService.GetAll()
+                //.Where(c => c.Keywords.Any(k => searchViewModel.Query.Contains(k.SearchTerm)))
+                .ToList()
+                ;
+
+            foreach (var category in categories)
+            {
+                var categoryProducts = this.GetCachedProductsOfCategory(category.Id)
+                    .FilterProductsBySearchQuery(query)
+                    .Take(4)
+                    .AsQueryable()
+                    .To<ProductForQuerySearchViewModel>()
+                    .ToList();
+
+                var categoryFilters = category.SearchFilters.AsQueryable().To<SearchFilterForCategoryViewModel>().ToList();
+
+                var categoryModel = new CategoryForQuerySearchViewModel
+                {
+                    Id = category.Id,
+                    Name = category.Name,
+                    Products = categoryProducts,
+                    SearchFilters = categoryFilters
+                };
+
+                viewModel.CategoriesData.Add(categoryModel);
+            }
+
+            return this.View(viewModel);
         }
 
         [HttpGet]
@@ -153,7 +151,7 @@
             model.Products = this.GetCachedProductsOfCategory(categoryId)
                 //.FilterProductsByRefinementOptions(searchFilterOptions != null ? searchFilterOptions.AsQueryable().To<RefinementOption>().ToList() : new List<RefinementOption>())
                 .FilterProductsByRefinementOptions(searchFilters.AsQueryable().To<SearchFilterRefinementModel>().ToList())
-                .FilterProductsBySearchTerm(query)
+                .FilterProductsBySearchQuery(query)
                 .AsQueryable()
                 .To<ProductForCategorySearchViewModel>()
                 .ToList();

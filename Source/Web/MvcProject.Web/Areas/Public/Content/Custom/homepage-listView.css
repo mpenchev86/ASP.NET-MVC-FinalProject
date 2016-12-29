@@ -35,17 +35,17 @@
     }
 
 .productsList .k-listview:after {
-    content: ".";
     clear: both;
+    content: ".";
     visibility: hidden;
 }
 
     /* ======= ListView li ======= */
     .homepage-product-li {
         float: left;
+        list-style: none;
         position: relative;
         width: 20%;
-        list-style: none;
     }
 
     .homepage-product-li .rows-container {
@@ -59,70 +59,70 @@
     }
 
     .homepage-product-li .image {
-        position: relative;
-        height: 85%;
-        display: flex;
-        justify-content: center;
         align-items: center;
+        display: flex;
+        height: 85%;
+        justify-content: center;
         /*padding: 5px 5px 5px 5px;*/
+        position: relative;
     }
 
     .homepage-product-li .price {
-        text-align: center;
         height: 15%;
+        text-align: center;
     }
 
     .homepage-product-li img {
-        max-width: 90%;
         max-height: 100%;
+        max-width: 90%;
     }
 
     .homepage-product-li a {
-        width: 100%;
+        border: none;
         height: 100%;
-        visibility: hidden;
+        overflow: hidden;
         position: absolute;
         top: 0;
-        border: none;
-        overflow: hidden;
+        visibility: hidden;
+        width: 100%;
     }
 
     .homepage-product-li:hover a {
-        text-decoration: none;
-        visibility: visible;
-        width: 100%;
-        height: 100%;
-        text-align: center;
-        color: #fff;
         background-color: rgba(255,200,0,0.55);
+        color: #fff;
+        height: 100%;
         overflow: hidden;
+        text-align: center;
+        text-decoration: none;
         transition: background .2s linear, color .2s linear;
         -moz-transition: background .2s linear, color .2s linear;
         -webkit-transition: background .2s linear, color .2s linear;
         -o-transition: background .2s linear, color .2s linear;
+        visibility: visible;
+        width: 100%;
     }
 
         /* ======= SneakPeek ======= */
         #sneakPeek-modal.modal.fade .modal-dialog {
+            text-align: center;
             transform: none;
             -webkit-transform: none;
             transition: none;
             -webkit-transition: none;
             width: 65%;
-            text-align: center;
         }
 
         #sneakPeek-modal.modal.fade .modal-dialog .modal-content {
-            text-align: initial;
             border: none;
             border-radius: 0;
+            text-align: initial;
         }
 
         #sneakPeek-modal .modal-dialog .modal-content a {
-            text-decoration: none;
             color: initial;
-            font-size: initial;
             font-family: Arial, Helvetica, sans-serif;
+            font-size: initial;
+            text-decoration: none;
         }
 
         #sneakPeek-modal .modal-dialog .modal-content .rating{
@@ -132,10 +132,10 @@
 
 /* ======= Kendo ListView pager ======= */
 .homepage-listview > .k-pager-wrap {
-    padding-top: 0;
-    padding-bottom: 0;
-    text-align: center;
     border: none;
+    padding-bottom: 0;
+    padding-top: 0;
+    text-align: center;
 }
     .homepage-listview > .k-pager-wrap > .k-pager-info {
         float: right;

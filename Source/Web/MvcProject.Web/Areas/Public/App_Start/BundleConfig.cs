@@ -43,9 +43,10 @@
             bundles.Add(new StyleBundle(Bundles.PublicStylesCustomCss)
                 //.Include("~/Areas/Public/Content/Custom/*.css", new CssRewriteUrlTransform())
                 .Include("~/Areas/Public/Content/Custom/homepage-carousel.css", new CssRewriteUrlTransform())
-                .Include("~/Areas/Public/Content/Custom/listView.css", new CssRewriteUrlTransform())
+                .Include("~/Areas/Public/Content/Custom/homepage-listView.css", new CssRewriteUrlTransform())
                 .Include("~/Areas/Public/Content/Custom/product-full-viewmodel.css", new CssRewriteUrlTransform())
-                .Include("~/Areas/Public/Content/Custom/search-results.css", new CssRewriteUrlTransform())
+                .Include("~/Areas/Public/Content/Custom/category-search.css", new CssRewriteUrlTransform())
+                .Include("~/Areas/Public/Content/Custom/query-search.css", new CssRewriteUrlTransform())
                 );
         }
     }

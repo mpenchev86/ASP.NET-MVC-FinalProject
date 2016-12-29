@@ -9,40 +9,14 @@
 
     SearchRefinementHelpers.ExtractBoundaries(Model, out lowerBound, out upperBound);
 
-    //int value/* = Convert.ToInt32(lowerBound)*/;
-
-    //if (lowerBound == null)
-    //{
-    //    value = 1;
-    //}
-    //else
-    //{
-    //    value = Convert.ToInt32(lowerBound);
-    //}
-
     if (lowerBound != null && upperBound != null)
     {
         var value = Convert.ToInt32(lowerBound);
-        
-        @(Html.Infragistics()
-            .Rating()
-            //.Rating()
-            .Disabled(false)
-            .ID("igRating" + value.ToString())
-            .VoteCount(5)
-            //.PrecisionZeroVote(0.1)
-            .Value(value)
-            //.Focusable(false)
-            .Disabled(true)
-            .ValueAsPercent(false)
-            .Precision(RatingPrecision.Exact)
-            .HtmlAttributes(new Dictionary<string, object> { { "class", "products-rating" } })
-            //.ValidatorOptions(v => v.)
-            .Render()) @:and Up
+
+        @Html.Partial("Rating", (double)value, new ViewDataDictionary(this.ViewData) { { "ratingId", "igRating" + value.ToString() }, { "htmlAttributes", new Dictionary<string, object>() { { "class", "products-rating" } } } }) @:and Up
     }
 }
 else
 {
-    @*<span>@Model</span>*@
     @Model
 }

@@ -2,12 +2,12 @@
 
 @{
     var maxVote = 5;
+    var htmlAttributes = (Dictionary<string, object>)ViewData["htmlAttributes"] ?? new Dictionary<string, object>();
 }
 
 @(Html.Infragistics()
     .RatingFor(m => m)
-    //.Rating()
-    .ID("igRating" + ViewData["index"].ToString())
+    .ID((string)ViewData["ratingId"])
     .VoteCount(maxVote)
     //.Value(Model.Value)
     .ValueAsPercent(false)
@@ -15,7 +15,6 @@
     .Disabled(true)
     .PrecisionZeroVote(0.1)
     .Precision(RatingPrecision.Exact)
-    .HtmlAttributes(new Dictionary<string, object> { { "title", Model.ToString() + " stars out of " + maxVote.ToString() } })
-    //.ValidatorOptions(v => v.)
+    .HtmlAttributes(htmlAttributes)
     .Render()
 )

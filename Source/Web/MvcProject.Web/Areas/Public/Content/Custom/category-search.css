@@ -37,6 +37,10 @@
         display: inline-block;
     }
 
+    .products-rating .ui-icon-star {
+        opacity: 100;
+    }
+
 /* ========== SearchResults ========== */
 #SearchResultListView {
     height: 100%;

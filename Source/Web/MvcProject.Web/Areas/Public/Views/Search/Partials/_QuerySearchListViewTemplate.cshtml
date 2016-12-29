@@ -1,0 +1,27 @@
+﻿@{
+    var fallbackImgUrl = Url.Content(StaticResourcesUrls.ServerPathAppManagementImages + StaticResourcesUrls.ImageNotFoundFileName);
+}
+
+<li class="search-product-li">
+    <div class="rows-container">
+        <div class="row image">
+            <img src="@Url.Content(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, "#=ImageUrlPath#", StaticResourcesUrls.ImageThumbnailSuffix, "#=ImageFileExtension#"))"
+                 alt="#=Title#"
+                 onerror="if(this.src != '@fallbackImgUrl') { this.src = '@fallbackImgUrl'; }" />
+
+            @(Html.ActionLink(
+                linkText: " ",
+                actionName: "Index",
+                controllerName: "Products",
+                routeValues: new { id = "encodedId" },
+                htmlAttributes: new { @class = "product-link-hidden" })
+                .ToHtmlString()
+                .Replace("encodedId", "#=EncodedId#")
+                .ToMvcHtmlString()
+            )
+        </div>
+        <div class="row title">
+            <p title="#=Title#">#=ShortTitle#</p>
+        </div>
+    </div>
+</li>

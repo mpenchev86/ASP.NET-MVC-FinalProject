@@ -5,7 +5,9 @@
 @{ 
     var controller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
     var action = HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString();
-    var area = HttpContext.Current.Request.RequestContext.RouteData.DataTokens["area"].ToString();
+    var area = HttpContext.Current.Request.RequestContext.RouteData.DataTokens["area"] != null
+        ? HttpContext.Current.Request.RequestContext.RouteData.DataTokens["area"].ToString()
+        : string.Empty;
 }
 
 @if (controller == "Home" && action == "Index" && area == Areas.PublicAreaName)
