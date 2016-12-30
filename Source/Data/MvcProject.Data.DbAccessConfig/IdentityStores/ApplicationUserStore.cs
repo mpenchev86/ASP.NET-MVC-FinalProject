@@ -7,6 +7,7 @@
 
     using Microsoft.AspNet.Identity.EntityFramework;
     using Models;
+    using Models.Identity;
 
     /// <summary>
     /// Inherits and extends the EntityFramework based user store implementation that supports

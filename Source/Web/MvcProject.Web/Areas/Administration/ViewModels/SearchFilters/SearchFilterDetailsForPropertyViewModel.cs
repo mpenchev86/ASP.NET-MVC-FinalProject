@@ -4,6 +4,7 @@
     using System.ComponentModel.DataAnnotations;
     using Categories;
     using Data.Models;
+    using Data.Models.Search;
     using Infrastructure.Mapping;
 
     public class SearchFilterDetailsForPropertyViewModel : BaseAdminViewModel<int>, IMapFrom<SearchFilter>

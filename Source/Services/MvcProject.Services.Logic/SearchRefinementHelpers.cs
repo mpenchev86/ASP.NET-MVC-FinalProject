@@ -8,6 +8,7 @@
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
     using Data.Models;
+    using Data.Models.Search;
     using ServiceModels;
     using Web.Infrastructure.Mapping;
 

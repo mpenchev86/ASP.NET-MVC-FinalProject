@@ -8,6 +8,7 @@
     using Logic.ServiceModels;
     using MvcProject.Data.Models;
     using MvcProject.Data.Models.Contracts;
+    using MvcProject.Data.Models.Media;
     using MvcProject.Web.Infrastructure.Mapping;
     using ServiceModels;
 

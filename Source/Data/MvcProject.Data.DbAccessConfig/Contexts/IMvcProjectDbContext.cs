@@ -3,6 +3,11 @@
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using Models.Catalog;
+    using Models.Identity;
+    using Models.Media;
+    using Models.Orders;
+    using Models.Search;
     using MvcProject.Data.Models;
 
     public interface IMvcProjectDbContext : IDisposable
@@ -32,6 +37,8 @@
         IDbSet<ApplicationRole> Roles { get; set; }
 
         IDbSet<ApplicationUserRole> UserRoles { get; set; }
+
+        IDbSet<Order> Orders { get; set; }
 
         DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity)
             where TEntity : class;

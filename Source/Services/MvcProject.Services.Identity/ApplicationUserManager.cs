@@ -11,6 +11,7 @@
     using Data.DbAccessConfig.Contexts;
     using Data.DbAccessConfig.IdentityStores;
     using Data.Models;
+    using Data.Models.Identity;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Microsoft.AspNet.Identity.Owin;

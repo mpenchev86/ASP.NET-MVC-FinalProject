@@ -2,6 +2,7 @@
 {
     using System;
     using Data.Models;
+    using Data.Models.Catalog;
     using Infrastructure.Mapping;
 
     public class CategoryDetailsForKeywordViewModel : BaseAdminViewModel<int>, IMapFrom<Category>

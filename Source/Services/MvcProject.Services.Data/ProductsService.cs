@@ -8,6 +8,7 @@
 
     using MvcProject.Data.DbAccessConfig.Repositories;
     using MvcProject.Data.Models;
+    using MvcProject.Data.Models.Catalog;
     using MvcProject.Services.Web;
 
     public class ProductsService : BaseDataService<Product, int, IIntPKDeletableRepository<Product>>, IProductsService

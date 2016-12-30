@@ -1,7 +1,16 @@
 ﻿<ul class="nav navbar-nav navbar-right collapse navbar-collapse">
     @if (this.Context.User.IsInRole(IdentityRoles.Admin))
     {
-        <li><a href="@Url.Action("Index", "Home", new { Area = Areas.AdministrationAreaName })">@Areas.AdministrationAreaName</a></li>
+        <li>
+            @Html.ActionLink(Areas.AdministrationAreaName, "Index", "Home", new { Area = Areas.AdministrationAreaName }, null)
+            @*<a href="@Url.Action("Index", "Home", new { Area = Areas.AdministrationAreaName })">@Areas.AdministrationAreaName</a>*@
+        </li>
     }
-    <li><a href="#">Cart</a></li>
+    @if (this.User.Identity.IsAuthenticated && !User.IsInRole(IdentityRoles.Admin))
+    {
+        <li>
+            @Html.ActionLink("Cart", "ShoppingCart", "Orders", new { area = Areas.PublicAreaName}, null)
+            @*<a href="#">Cart</a>*@
+        </li>
+    }
 </ul>

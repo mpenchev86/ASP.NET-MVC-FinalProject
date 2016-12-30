@@ -4,6 +4,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using Data.Models;
+    using Data.Models.Search;
     using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
 

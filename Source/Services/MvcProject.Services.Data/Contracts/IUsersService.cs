@@ -8,6 +8,7 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using MvcProject.Data.Models;
+    using MvcProject.Data.Models.Identity;
     using MvcProject.Web.Infrastructure.Mapping;
 
     /// <summary>

@@ -21,6 +21,7 @@
     using ViewModels.Roles;
     using ViewModels.Users;
     using ViewModels.Votes;
+    using Data.Models.Identity;
 
     [Authorize(Roles = IdentityRoles.Admin)]
     public class UsersController : BaseGridController<ApplicationUser, UserViewModel, IUsersService, string>

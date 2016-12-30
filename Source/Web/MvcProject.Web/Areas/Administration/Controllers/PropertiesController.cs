@@ -17,6 +17,7 @@
     using ViewModels.Descriptions;
     using ViewModels.Properties;
     using ViewModels.SearchFilters;
+    using Data.Models.Catalog;
 
     [Authorize(Roles = IdentityRoles.Admin)]
     public class PropertiesController : BaseGridController<Property, PropertyViewModel, IPropertiesService, int>

@@ -8,6 +8,7 @@
 
     using MvcProject.Data.DbAccessConfig.Repositories;
     using MvcProject.Data.Models;
+    using MvcProject.Data.Models.Catalog;
     using Web;
 
     public class TagsService : BaseDataService<Tag, int, IIntPKDeletableRepository<Tag>>, ITagsService

@@ -2,6 +2,7 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using Data.Models.Catalog;
     using MvcProject.Common.GlobalConstants;
     using MvcProject.Data.Models;
     using MvcProject.Web.Infrastructure.Mapping;

@@ -13,6 +13,7 @@
     using ViewModels;
     using Services.Web;
     using Images;
+    using Data.Models.Catalog;
 
     public class ProductDetailsForIndexListView : BasePublicViewModel<int>, IMapFrom<Product>, IHaveCustomMappings
     {

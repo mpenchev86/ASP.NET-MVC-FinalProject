@@ -1,4 +1,4 @@
-﻿namespace MvcProject.Data.Models
+﻿namespace MvcProject.Data.Models.Catalog
 {
     using System;
     using System.Collections.Generic;
@@ -9,6 +9,8 @@
     using System.Text;
     using System.Threading.Tasks;
     using Contracts;
+    using Identity;
+    using Media;
     using MvcProject.Common.GlobalConstants;
 
     /// <summary>

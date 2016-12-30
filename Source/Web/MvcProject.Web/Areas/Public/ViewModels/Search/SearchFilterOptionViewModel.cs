@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Web;
     using Data.Models;
+    using Data.Models.Search;
     using Infrastructure.Mapping;
     using Services.Logic.ServiceModels;
 

@@ -1,4 +1,4 @@
-﻿namespace MvcProject.Data.Models
+﻿namespace MvcProject.Data.Models.Search
 {
     using System;
     using System.Collections.Generic;
@@ -7,6 +7,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Catalog;
     using Contracts;
 
     public class Keyword : BaseEntityModel<int>, IAdministerable

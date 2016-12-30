@@ -9,6 +9,8 @@
     using AutoMapper;
     using Common.GlobalConstants;
     using Data.Models;
+    using Data.Models.Catalog;
+    using Data.Models.Media;
     using Descriptions;
     using Images;
     using Infrastructure.Mapping;

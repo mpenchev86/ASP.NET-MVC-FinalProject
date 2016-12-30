@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Web;
     using Data.Models;
+    using Data.Models.Media;
     using Infrastructure.Mapping;
 
     public class ImageForThumbnailProductViewModel : BasePublicViewModel<int>, IMapFrom<Image>

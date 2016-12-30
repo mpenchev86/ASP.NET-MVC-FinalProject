@@ -1,11 +1,11 @@
-﻿namespace MvcProject.Data.Models
+﻿namespace MvcProject.Data.Models.Catalog
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using Common.GlobalConstants;
-
     using MvcProject.Data.Models.Contracts;
+    using Search;
 
     /// <summary>
     /// Represents the property entity of a product's description.

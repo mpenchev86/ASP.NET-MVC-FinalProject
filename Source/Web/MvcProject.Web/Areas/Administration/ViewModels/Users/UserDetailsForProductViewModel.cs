@@ -2,6 +2,7 @@
 {
     using System;
     using AutoMapper;
+    using Data.Models.Identity;
     using MvcProject.Data.Models;
     using MvcProject.Web.Infrastructure.Mapping;
 

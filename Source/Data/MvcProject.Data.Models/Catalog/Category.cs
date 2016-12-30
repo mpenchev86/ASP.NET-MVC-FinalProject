@@ -1,4 +1,4 @@
-﻿namespace MvcProject.Data.Models
+﻿namespace MvcProject.Data.Models.Catalog
 {
     using System;
     using System.Collections.Generic;
@@ -7,6 +7,7 @@
     using System.Linq;
     using Contracts;
     using MvcProject.Common.GlobalConstants;
+    using Search;
 
     /// <summary>
     /// Represents the entity for a category of products.

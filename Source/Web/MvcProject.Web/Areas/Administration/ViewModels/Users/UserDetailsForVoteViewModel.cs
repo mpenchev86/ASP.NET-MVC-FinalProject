@@ -2,6 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
     using Data.Models;
+    using Data.Models.Identity;
     using Infrastructure.Mapping;
 
     public class UserDetailsForVoteViewModel : BaseAdminViewModel<string>, IMapFrom<ApplicationUser>

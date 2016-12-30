@@ -7,6 +7,7 @@
 
     using AutoMapper;
     using Data.Models;
+    using Data.Models.Media;
     using Infrastructure.Mapping;
 
     public class ImageForProductFullViewModel : BasePublicViewModel<int>, IMapFrom<Image>, IHaveCustomMappings

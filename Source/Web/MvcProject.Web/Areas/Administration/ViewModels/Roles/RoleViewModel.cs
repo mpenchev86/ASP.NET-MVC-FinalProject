@@ -7,6 +7,7 @@
     using System.Linq;
     using AutoMapper;
     using Data.Models;
+    using Data.Models.Identity;
     using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
     using Users;

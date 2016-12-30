@@ -8,6 +8,7 @@
 
     using MvcProject.Data.DbAccessConfig.Repositories;
     using MvcProject.Data.Models;
+    using MvcProject.Data.Models.Catalog;
     using MvcProject.Services.Web;
 
     public class PropertiesService : BaseDataService<Property, int, IIntPKDeletableRepository<Property>>, IPropertiesService

@@ -31,6 +31,7 @@
     using Services.Logic.ServiceModels;
     using Services.Web;
     using System.Web.Script.Serialization;
+    using Data.Models.Catalog;
 
     [Authorize(Roles = IdentityRoles.Admin)]
     public class ProductsController : BaseGridController<Product, ProductViewModel, IProductsService, int>

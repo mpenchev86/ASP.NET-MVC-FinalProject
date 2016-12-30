@@ -3,6 +3,7 @@
     using System.Linq;
     using MvcProject.Data.DbAccessConfig.Repositories;
     using MvcProject.Data.Models;
+    using MvcProject.Data.Models.Identity;
 
     public class UserRolesService : IUserRolesService<ApplicationUserRole>
     {

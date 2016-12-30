@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
     using MvcProject.Data.DbAccessConfig.Repositories;
     using MvcProject.Data.Models;
+    using MvcProject.Data.Models.Search;
     using Web;
 
     public class SearchFiltersService : BaseDataService<SearchFilter, int, IIntPKDeletableRepository<SearchFilter>>, ISearchFiltersService

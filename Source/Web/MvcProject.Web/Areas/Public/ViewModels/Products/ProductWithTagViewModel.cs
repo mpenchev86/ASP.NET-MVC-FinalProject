@@ -7,6 +7,7 @@
 
     using AutoMapper;
     using Data.Models;
+    using Data.Models.Catalog;
     using Images;
     using Infrastructure.Mapping;
 

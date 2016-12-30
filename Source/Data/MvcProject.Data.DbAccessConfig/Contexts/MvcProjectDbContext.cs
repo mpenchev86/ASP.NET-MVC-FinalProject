@@ -8,11 +8,15 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-
     using Microsoft.AspNet.Identity.EntityFramework;
     using Migrations;
     using Models;
+    using Models.Catalog;
     using Models.Contracts;
+    using Models.Identity;
+    using Models.Media;
+    using Models.Orders;
+    using Models.Search;
     using MvcProject.Common.GlobalConstants;
 
     public class MvcProjectDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string, IdentityUserLogin, ApplicationUserRole, IdentityUserClaim>, IMvcProjectDbContext
@@ -44,6 +48,8 @@
         public virtual IDbSet<Vote> Votes { get; set; }
 
         public virtual IDbSet<ApplicationUserRole> UserRoles { get; set; }
+
+        public virtual IDbSet<Order> Orders { get; set; }
 
         public static MvcProjectDbContext Create()
         {
@@ -104,19 +110,6 @@
                     pt.MapRightKey("KeywordId");
                     pt.ToTable("CategoriesKeywords");
                 });
-
-            // modelBuilder.Entity<SearchFilter>()
-            //    .HasEntitySetName("SearchFilterStringOptions");
-
-            // modelBuilder.Entity<SearchIntFilter>()
-            //    .HasEntitySetName("SearchFilterIntOptions");
-
-            // modelBuilder.Entity<SearchDoubleFilter>()
-            //    .HasEntitySetName("SearchFilterDoubleOptions");
-
-            // modelBuilder.Entity<SearchFilter>()
-            //    .HasOptional(s => s.Category)
-            //    .WithRequired(c => c.SearchFilters);
 
             base.OnModelCreating(modelBuilder);
         }

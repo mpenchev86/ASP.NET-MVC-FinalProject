@@ -1,7 +1,8 @@
-﻿namespace MvcProject.Data.Models
+﻿namespace MvcProject.Data.Models.Media
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using Catalog;
     using MvcProject.Common.GlobalConstants;
     using MvcProject.Data.Models.Contracts;
 

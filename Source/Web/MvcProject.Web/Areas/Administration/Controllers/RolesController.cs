@@ -7,6 +7,7 @@
     using System.Web.Mvc;
 
     using Data.Models;
+    using Data.Models.Identity;
     using Infrastructure.Extensions;
     using Kendo.Mvc.Extensions;
     using Kendo.Mvc.UI;

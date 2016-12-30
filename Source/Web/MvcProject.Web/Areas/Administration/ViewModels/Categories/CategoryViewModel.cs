@@ -11,6 +11,7 @@
     using Products;
     using SearchFilters;
     using Keywords;
+    using Data.Models.Catalog;
 
     public class CategoryViewModel : BaseAdminViewModel<int>, IMapFrom<Category>
     {

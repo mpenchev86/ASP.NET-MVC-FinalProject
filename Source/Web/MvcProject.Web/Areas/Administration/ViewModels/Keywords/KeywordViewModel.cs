@@ -6,6 +6,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using Categories;
     using Data.Models;
+    using Data.Models.Search;
     using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
 

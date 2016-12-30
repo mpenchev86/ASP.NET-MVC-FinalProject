@@ -14,6 +14,7 @@
     using ViewModels.Products;
     using ViewModels.Users;
     using ViewModels.Votes;
+    using Data.Models.Catalog;
 
     [Authorize(Roles = IdentityRoles.Admin)]
     public class VotesController : BaseGridController<Vote, VoteViewModel, IVotesService, int>

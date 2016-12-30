@@ -9,6 +9,7 @@
     using System.Web.Mvc;
 
     using Data.Models;
+    using Data.Models.Identity;
     using Infrastructure.ActionResults;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;

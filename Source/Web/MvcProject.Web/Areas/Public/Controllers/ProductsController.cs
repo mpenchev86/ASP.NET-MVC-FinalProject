@@ -7,6 +7,7 @@
     using System.Web.Mvc;
 
     using Data.Models;
+    using Data.Models.Catalog;
     using Infragistics.Web.Mvc;
     using Infrastructure.Extensions;
     using Infrastructure.Mapping;

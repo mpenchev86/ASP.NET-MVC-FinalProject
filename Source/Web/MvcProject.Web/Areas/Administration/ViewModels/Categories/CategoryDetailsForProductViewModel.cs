@@ -5,6 +5,7 @@
     using MvcProject.Data.Models;
     using MvcProject.Common.GlobalConstants;
     using MvcProject.Web.Infrastructure.Mapping;
+    using Data.Models.Catalog;
 
     public class CategoryDetailsForProductViewModel : BaseAdminViewModel<int>, IMapFrom<Category>
     {

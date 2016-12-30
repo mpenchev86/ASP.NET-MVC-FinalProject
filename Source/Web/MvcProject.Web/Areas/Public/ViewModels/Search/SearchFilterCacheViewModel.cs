@@ -6,6 +6,7 @@
     using System.Web;
     using AutoMapper;
     using Data.Models;
+    using Data.Models.Search;
     using Infrastructure.Mapping;
 
     public class SearchFilterCacheViewModel : BasePublicViewModel<int>, IMapFrom<SearchFilter>, IHaveCustomMappings

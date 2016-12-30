@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
+    //using System.IO;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -11,12 +11,13 @@
     using MvcProject.Common.GlobalConstants;
     using MvcProject.Data.DbAccessConfig.Repositories;
     using MvcProject.Data.Models;
+    using MvcProject.Data.Models.Media;
     using MvcProject.Web.Infrastructure.Extensions;
     using ServiceModels;
     using Web;
 
     public class FileInfoService<T> : BaseDataService<T, int, IIntPKDeletableRepository<T>>, IFileInfoService<T>
-        where T : MvcProject.Data.Models.FileInfo, new()
+        where T : FileInfo, new()
     {
         private const char WhiteSpace = ' ';
 

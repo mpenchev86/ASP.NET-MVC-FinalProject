@@ -4,6 +4,7 @@
 
     using AutoMapper;
     using Data.Models;
+    using Data.Models.Catalog;
     using MvcProject.Common.GlobalConstants;
     using MvcProject.Web.Infrastructure.Mapping;
 

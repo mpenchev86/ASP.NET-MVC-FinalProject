@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
 
     using MvcProject.Data.Models;
+    using MvcProject.Data.Models.Catalog;
     using MvcProject.Data.Models.Contracts;
     using MvcProject.Web.Infrastructure.Mapping;
 

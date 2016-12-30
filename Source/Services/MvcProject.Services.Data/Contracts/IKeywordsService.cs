@@ -6,6 +6,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using MvcProject.Data.Models;
+    using MvcProject.Data.Models.Search;
 
     /// <summary>
     /// Allows extension of the data service for Keyword entity

@@ -15,6 +15,7 @@
     using ViewModels.Comments;
     using ViewModels.Products;
     using ViewModels.Users;
+    using Data.Models.Catalog;
 
     [Authorize(Roles = IdentityRoles.Admin)]
     public class CommentsController : BaseGridController<Comment, CommentViewModel, ICommentsService, int>

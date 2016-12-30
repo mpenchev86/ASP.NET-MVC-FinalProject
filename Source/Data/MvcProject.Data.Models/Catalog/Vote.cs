@@ -1,11 +1,11 @@
-﻿namespace MvcProject.Data.Models
+﻿namespace MvcProject.Data.Models.Catalog
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
-
     using Contracts;
+    using Identity;
     using MvcProject.Common.GlobalConstants;
 
     /// <summary>

@@ -15,6 +15,7 @@
     using ViewModels.Descriptions;
     using ViewModels.Products;
     using ViewModels.Properties;
+    using Data.Models.Catalog;
 
     [Authorize(Roles = IdentityRoles.Admin)]
     public class DescriptionsController : BaseGridController<Description, DescriptionViewModel, IDescriptionsService, int>

@@ -3,6 +3,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
     using Data.Models;
+    using Data.Models.Search;
     using Infrastructure.Mapping;
 
     public class KeywordDetailsForCategoryViewModel : BaseAdminViewModel<int>, IMapFrom<Keyword>

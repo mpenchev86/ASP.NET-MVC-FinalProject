@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Web;
     using Data.Models;
+    using Data.Models.Catalog;
     using Infrastructure.Mapping;
 
     public class CategoryForLayoutDropDown : BasePublicViewModel<int>, IMapFrom<Category>

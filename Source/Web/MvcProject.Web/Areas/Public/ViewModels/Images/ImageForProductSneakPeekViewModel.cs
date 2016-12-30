@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Web;
     using AutoMapper;
+    using Data.Models.Media;
     using MvcProject.Data.Models;
     using MvcProject.Web.Infrastructure.Mapping;
 

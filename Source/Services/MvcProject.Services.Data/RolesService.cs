@@ -9,6 +9,7 @@
     using Microsoft.AspNet.Identity;
     using MvcProject.Data.DbAccessConfig.Repositories;
     using MvcProject.Data.Models;
+    using MvcProject.Data.Models.Identity;
     using Web;
 
     public class RolesService : BaseDataService<ApplicationRole, string, IStringPKDeletableRepository<ApplicationRole>>, IRolesService

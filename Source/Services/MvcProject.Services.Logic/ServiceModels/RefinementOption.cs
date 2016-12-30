@@ -7,6 +7,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using Data.Models;
+    using Data.Models.Search;
 
     public class RefinementOption
     {

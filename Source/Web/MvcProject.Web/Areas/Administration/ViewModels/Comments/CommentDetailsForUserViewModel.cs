@@ -3,6 +3,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
     using Data.Models;
+    using Data.Models.Catalog;
     using Infrastructure.Mapping;
     using MvcProject.Common.GlobalConstants;
 

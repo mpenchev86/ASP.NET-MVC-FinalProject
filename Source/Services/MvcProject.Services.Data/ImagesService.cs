@@ -11,6 +11,7 @@
     using Logic.ServiceModels;
     using MvcProject.Data.DbAccessConfig.Repositories;
     using MvcProject.Data.Models;
+    using MvcProject.Data.Models.Media;
     using MvcProject.Web.Infrastructure.Mapping;
     using ServiceModels;
     using Web;

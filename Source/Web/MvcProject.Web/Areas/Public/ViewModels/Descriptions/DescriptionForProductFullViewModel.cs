@@ -10,6 +10,7 @@
     using Infrastructure.Mapping;
     using AutoMapper;
     using System.ComponentModel.DataAnnotations;
+    using Data.Models.Catalog;
 
     public class DescriptionForProductFullViewModel : BasePublicViewModel<int>, IMapFrom<Description>, IHaveCustomMappings
     {

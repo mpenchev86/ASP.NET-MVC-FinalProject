@@ -7,6 +7,8 @@
     using System.Threading.Tasks;
     using AutoMapper;
     using MvcProject.Data.Models;
+    using MvcProject.Data.Models.Catalog;
+    using MvcProject.Data.Models.Media;
     using MvcProject.Web.Infrastructure.Mapping;
 
     public class ProcessedImage : IMapTo<Image>, IMapFrom<Image>, IHaveCustomMappings

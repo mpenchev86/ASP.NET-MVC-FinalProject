@@ -6,6 +6,7 @@
     using System.Web;
     using AutoMapper;
     using Data.Models;
+    using Data.Models.Catalog;
     using Infrastructure.Mapping;
 
     public class CarouselData : BasePublicViewModel<int>, IMapFrom<Product>, IHaveCustomMappings

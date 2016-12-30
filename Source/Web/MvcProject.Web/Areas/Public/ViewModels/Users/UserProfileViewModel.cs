@@ -7,6 +7,7 @@
 
     using AutoMapper;
     using Data.Models;
+    using Data.Models.Identity;
     using Infrastructure.Mapping;
 
     public class UserProfileViewModel : BasePublicViewModel<string>, IMapFrom<ApplicationUser>, IHaveCustomMappings

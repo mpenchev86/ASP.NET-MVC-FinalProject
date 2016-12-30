@@ -7,6 +7,7 @@
     using System.Linq;
     using Comments;
     using Data.Models;
+    using Data.Models.Catalog;
     using Descriptions;
     using Images;
     using Infrastructure.DataAnnotations;

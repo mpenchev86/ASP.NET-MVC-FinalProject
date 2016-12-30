@@ -3,6 +3,7 @@
     using System;
     using Data.DbAccessConfig.Contexts;
     using Data.Models;
+    using Data.Models.Identity;
     using Hangfire;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;

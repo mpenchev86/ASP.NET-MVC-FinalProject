@@ -8,6 +8,7 @@
     using System.Web.Mvc;
     using AutoMapper;
     using Data.Models;
+    using Data.Models.Identity;
     using Infrastructure.Mapping;
     using Services.Data;
     using ViewModels.Users;

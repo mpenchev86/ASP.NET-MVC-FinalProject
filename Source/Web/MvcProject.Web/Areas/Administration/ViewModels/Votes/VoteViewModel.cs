@@ -4,6 +4,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using Data.Models;
+    using Data.Models.Catalog;
     using Infrastructure.DataAnnotations;
     using MvcProject.Common.GlobalConstants;
     using MvcProject.Web.Infrastructure.Mapping;

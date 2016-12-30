@@ -16,6 +16,7 @@
     using MvcProject.Data.DbAccessConfig;
     using MvcProject.Data.DbAccessConfig.Repositories;
     using MvcProject.Data.Models;
+    using MvcProject.Data.Models.Identity;
     using Web;
 
     public class UsersService : BaseDataService<ApplicationUser, string, IStringPKDeletableRepository<ApplicationUser>>, IUsersService

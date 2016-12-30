@@ -14,6 +14,7 @@
     using ViewModels.Categories;
     using ViewModels.Products;
     using ViewModels.Keywords;
+    using Data.Models.Catalog;
 
     [Authorize(Roles = IdentityRoles.Admin)]
     public class CategoriesController : BaseGridController<Category, CategoryViewModel, ICategoriesService, int>

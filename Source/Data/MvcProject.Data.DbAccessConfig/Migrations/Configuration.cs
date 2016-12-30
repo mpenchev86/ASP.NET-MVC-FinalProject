@@ -9,6 +9,9 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Models;
+    using Models.Catalog;
+    using Models.Identity;
+    using Models.Search;
     using MvcProject.Common.GlobalConstants;
 
     public sealed class Configuration : DbMigrationsConfiguration<MvcProjectDbContext>
@@ -195,6 +198,7 @@
                     new SearchFilter
                     {
                         Name = "Motor Power",
+                        DisplayName = "Motor Power",
                         CategoryId = 1,
                         Options = "200, 300, 400, 600, 800, 1000",
                         MeasureUnit = "Watts",
@@ -203,15 +207,17 @@
                     },
                     new SearchFilter
                     {
-                        Name = "Average Customer Review",
+                        Name = "AllTimeAverageRating",
+                        DisplayName = "Average Customer Review",
                         CategoryId = 1,
-                        Options = "5, 4, 3, 2, 1",
+                        Options = "1, 2, 3, 4, 5",
                         SelectionType = SearchFilterSelectionType.Single,
-                        OptionsType = SearchFilterOptionsType.ConcreteValue,
+                        OptionsType = SearchFilterOptionsType.ValueRange,
                     },
                     new SearchFilter
                     {
                         Name = "Price",
+                        DisplayName = "Price",
                         CategoryId = 1,
                         Options = "25, 50, 100, 200",
                         MeasureUnit = "$",
@@ -221,6 +227,7 @@
                     new SearchFilter
                     {
                         Name = "Condition",
+                        DisplayName = "Condition",
                         CategoryId = 1,
                         Options = "New, Used, Refurbished",
                         SelectionType = SearchFilterSelectionType.Single,
@@ -231,6 +238,7 @@
                     new SearchFilter
                     {
                         Name = "Format",
+                        DisplayName = "Format",
                         CategoryId = 2,
                         Options = "Paperback, Handcover, Kindle Edition, Large Print, Audible Audio Edition, Audio CD",
                         SelectionType = SearchFilterSelectionType.Single,
@@ -239,6 +247,7 @@
                     new SearchFilter
                     {
                         Name = "Language",
+                        DisplayName = "Language",
                         CategoryId = 2,
                         Options = "English, German, French, Spanish, Italian",
                         SelectionType = SearchFilterSelectionType.Multiple,
@@ -246,15 +255,17 @@
                     },
                     new SearchFilter
                     {
-                        Name = "Average Customer Review",
+                        Name = "AllTimeAverageRating",
+                        DisplayName = "Average Customer Review",
                         CategoryId = 2,
-                        Options = "5, 4, 3, 2, 1",
+                        Options = "1, 2, 3, 4, 5",
                         SelectionType = SearchFilterSelectionType.Single,
-                        OptionsType = SearchFilterOptionsType.ConcreteValue,
+                        OptionsType = SearchFilterOptionsType.ValueRange,
                     },
                     new SearchFilter
                     {
                         Name = "Condition",
+                        DisplayName = "Condition",
                         CategoryId = 2,
                         Options = "New, Used, Collectible",
                         SelectionType = SearchFilterSelectionType.Single,
@@ -265,6 +276,7 @@
                     new SearchFilter
                     {
                         Name = "Resolution",
+                        DisplayName = "Resolution",
                         CategoryId = 3,
                         Options = "12, 24, 36",
                         MeasureUnit = "MP",
@@ -274,6 +286,7 @@
                     new SearchFilter
                     {
                         Name = "Optical Zoom",
+                        DisplayName = "Optical Zoom",
                         CategoryId = 3,
                         Options = "4, 10, 20, 50",
                         MeasureUnit = "x",
@@ -283,6 +296,7 @@
                     new SearchFilter
                     {
                         Name = "Maximum ISO",
+                        DisplayName = "Maximum ISO",
                         CategoryId = 3,
                         Options = "800, 1600, 3200, 6400, 12800, 25600, 51200, 102400, 204800",
                         SelectionType = SearchFilterSelectionType.Multiple,
@@ -290,15 +304,17 @@
                     },
                     new SearchFilter
                     {
-                        Name = "Average Customer Review",
+                        Name = "AllTimeAverageRating",
+                        DisplayName = "Average Customer Review",
                         CategoryId = 3,
-                        Options = "5, 4, 3, 2, 1",
+                        Options = "1, 2, 3, 4, 5",
                         SelectionType = SearchFilterSelectionType.Single,
-                        OptionsType = SearchFilterOptionsType.ConcreteValue,
+                        OptionsType = SearchFilterOptionsType.ValueRange,
                     },
                     new SearchFilter
                     {
                         Name = "Price",
+                        DisplayName = "Price",
                         CategoryId = 3,
                         Options = "25, 50, 100, 200",
                         MeasureUnit = "$",
@@ -308,6 +324,7 @@
                     new SearchFilter
                     {
                         Name = "Condition",
+                        DisplayName = "Condition",
                         CategoryId = 3,
                         Options = "New, Used, Refurbished",
                         SelectionType = SearchFilterSelectionType.Single,
@@ -318,6 +335,7 @@
                     new SearchFilter
                     {
                         Name = "Material",
+                        DisplayName = "Material",
                         CategoryId = 4,
                         Options = "Wood, Fabric, Leather, Metal, Rattan, Glass, Plastic",
                         SelectionType = SearchFilterSelectionType.Single,
@@ -326,6 +344,7 @@
                     new SearchFilter
                     {
                         Name = "Color",
+                        DisplayName = "Color",
                         CategoryId = 4,
                         Options = "black, grey, white, brown, red, pink, orange, yellow, green, blue, purple, multi",
                         SelectionType = SearchFilterSelectionType.Multiple,
@@ -334,6 +353,7 @@
                     new SearchFilter
                     {
                         Name = "Price",
+                        DisplayName = "Price",
                         CategoryId = 4,
                         Options = "25, 50, 100, 200",
                         MeasureUnit = "$",
@@ -342,15 +362,17 @@
                     },
                     new SearchFilter
                     {
-                        Name = "Average Customer Review",
+                        Name = "AllTimeAverageRating",
+                        DisplayName = "Average Customer Review",
                         CategoryId = 4,
-                        Options = "5, 4, 3, 2, 1",
+                        Options = "1, 2, 3, 4, 5",
                         SelectionType = SearchFilterSelectionType.Single,
-                        OptionsType = SearchFilterOptionsType.ConcreteValue,
+                        OptionsType = SearchFilterOptionsType.ValueRange,
                     },
                     new SearchFilter
                     {
                         Name = "Condition",
+                        DisplayName = "Condition",
                         CategoryId = 4,
                         Options = "New, Used, Refurbished",
                         SelectionType = SearchFilterSelectionType.Single,
@@ -361,6 +383,7 @@
                     new SearchFilter
                     {
                         Name = "Sex/Gender",
+                        DisplayName = "Sex/Gender",
                         CategoryId = 5,
                         Options = "For Her, For Him",
                         SelectionType = SearchFilterSelectionType.Single,
@@ -368,15 +391,17 @@
                     },
                     new SearchFilter
                     {
-                        Name = "Average Customer Review",
+                        Name = "AllTimeAverageRating",
+                        DisplayName = "Average Customer Review",
                         CategoryId = 5,
-                        Options = "5, 4, 3, 2, 1",
+                        Options = "1, 2, 3, 4, 5",
                         SelectionType = SearchFilterSelectionType.Single,
-                        OptionsType = SearchFilterOptionsType.ConcreteValue,
+                        OptionsType = SearchFilterOptionsType.ValueRange,
                     },
                     new SearchFilter
                     {
                         Name = "Price",
+                        DisplayName = "Price",
                         CategoryId = 5,
                         Options = "25, 50, 100, 200",
                         MeasureUnit = "$",
@@ -388,6 +413,7 @@
                     new SearchFilter
                     {
                         Name = "Display Size",
+                        DisplayName = "Display Size",
                         CategoryId = 6,
                         Options = "11, 12, 13, 14, 15, 16, 17",
                         MeasureUnit = "inches",
@@ -397,6 +423,7 @@
                     new SearchFilter
                     {
                         Name = "RAM",
+                        DisplayName = "RAM",
                         CategoryId = 6,
                         Options = "2, 3, 4, 6, 8, 12, 16, 24, 32, 64",
                         MeasureUnit = "GB",
@@ -406,6 +433,7 @@
                     new SearchFilter
                     {
                         Name = "Processor",
+                        DisplayName = "Processor",
                         CategoryId = 6,
                         Options =
                             "Intel Core i7, " +
@@ -419,15 +447,17 @@
                     },
                     new SearchFilter
                     {
-                        Name = "Average Customer Review",
+                        Name = "AllTimeAverageRating",
+                        DisplayName = "Average Customer Review",
                         CategoryId = 6,
-                        Options = "5, 4, 3, 2, 1",
+                        Options = "1, 2, 3, 4, 5",
                         SelectionType = SearchFilterSelectionType.Single,
-                        OptionsType = SearchFilterOptionsType.ConcreteValue,
+                        OptionsType = SearchFilterOptionsType.ValueRange,
                     },
                     new SearchFilter
                     {
                         Name = "Price",
+                        DisplayName = "Price",
                         CategoryId = 6,
                         Options = "500, 600, 700, 800, 1000",
                         MeasureUnit = "$",
@@ -437,6 +467,7 @@
                     new SearchFilter
                     {
                         Name = "Condition",
+                        DisplayName = "Condition",
                         CategoryId = 6,
                         Options = "New, Used, Refurbished",
                         SelectionType = SearchFilterSelectionType.Single,
@@ -447,6 +478,7 @@
                     new SearchFilter
                     {
                         Name = "Size",
+                        DisplayName = "Size",
                         CategoryId = 7,
                         Options = "XS, S, M, L, XL, 2XL, 3XL, 4XL, 5XL",
                         SelectionType = SearchFilterSelectionType.Multiple,
@@ -455,6 +487,7 @@
                     new SearchFilter
                     {
                         Name = "Color",
+                        DisplayName = "Color",
                         CategoryId = 7,
                         Options = "black, grey, white, brown, red, pink, orange, yellow, green, blue, purple, multi",
                         SelectionType = SearchFilterSelectionType.Multiple,
@@ -462,15 +495,17 @@
                     },
                     new SearchFilter
                     {
-                        Name = "Average Customer Review",
+                        Name = "AllTimeAverageRating",
+                        DisplayName = "Average Customer Review",
                         CategoryId = 7,
-                        Options = "5, 4, 3, 2, 1",
+                        Options = "1, 2, 3, 4, 5",
                         SelectionType = SearchFilterSelectionType.Single,
-                        OptionsType = SearchFilterOptionsType.ConcreteValue,
+                        OptionsType = SearchFilterOptionsType.ValueRange,
                     },
                     new SearchFilter
                     {
                         Name = "Price",
+                        DisplayName = "Price",
                         CategoryId = 7,
                         Options = "25, 50, 100, 200",
                         MeasureUnit = "$",

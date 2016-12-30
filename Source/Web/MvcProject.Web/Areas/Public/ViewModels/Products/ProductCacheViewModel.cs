@@ -9,6 +9,7 @@
     using AutoMapper;
     using Comments;
     using Data.Models;
+    using Data.Models.Catalog;
     using Descriptions;
     using Images;
     using MvcProject.Web.Infrastructure.Mapping;

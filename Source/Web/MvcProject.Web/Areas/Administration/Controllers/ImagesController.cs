@@ -13,6 +13,7 @@
     using Services.Data;
     using ViewModels.Images;
     using ViewModels.Products;
+    using Data.Models.Media;
 
     [Authorize(Roles = IdentityRoles.Admin)]
     public class ImagesController : BaseGridController<Image, ImageViewModel, IImagesService, int>

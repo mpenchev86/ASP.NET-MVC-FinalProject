@@ -7,6 +7,7 @@
     using System.Web;
     using AutoMapper;
     using Data.Models;
+    using Data.Models.Catalog;
     using Infrastructure.Mapping;
     using Properties;
 

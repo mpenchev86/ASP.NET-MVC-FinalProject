@@ -7,6 +7,7 @@
     using System.Web;
     using AutoMapper;
     using Data.Models;
+    using Data.Models.Search;
     using Infrastructure.Mapping;
     using Services.Logic;
     using Services.Logic.ServiceModels;

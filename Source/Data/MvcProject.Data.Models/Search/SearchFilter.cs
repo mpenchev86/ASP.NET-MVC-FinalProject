@@ -1,4 +1,4 @@
-﻿namespace MvcProject.Data.Models
+﻿namespace MvcProject.Data.Models.Search
 {
     using System;
     using System.Collections.Generic;
@@ -6,6 +6,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
     using System.Text;
+    using Catalog;
     using Contracts;
 
     public class SearchFilter : BaseEntityModel<int>, IAdministerable

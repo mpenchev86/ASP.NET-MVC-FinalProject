@@ -1,4 +1,4 @@
-﻿namespace MvcProject.Data.Models
+﻿namespace MvcProject.Data.Models.Identity
 {
     using System.ComponentModel.DataAnnotations.Schema;
 

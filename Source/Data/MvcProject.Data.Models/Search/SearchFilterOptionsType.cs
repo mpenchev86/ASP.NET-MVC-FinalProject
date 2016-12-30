@@ -1,4 +1,4 @@
-﻿namespace MvcProject.Data.Models
+﻿namespace MvcProject.Data.Models.Search
 {
     public enum SearchFilterOptionsType
     {

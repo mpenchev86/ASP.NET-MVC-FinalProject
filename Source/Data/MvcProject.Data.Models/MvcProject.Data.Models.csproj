@@ -59,6 +59,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Orders\Order.cs" />
+    <Compile Include="Orders\OrderItem.cs" />
     <Compile Include="Search\Keyword.cs" />
     <Compile Include="Search\SearchFilter.cs" />
     <Compile Include="Search\SearchFilterOptionsType.cs" />

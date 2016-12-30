@@ -9,6 +9,7 @@
     using AutoMapper;
     using Comments;
     using Data.Models;
+    using Data.Models.Identity;
     using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
     using Roles;

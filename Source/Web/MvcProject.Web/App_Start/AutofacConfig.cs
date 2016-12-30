@@ -16,6 +16,7 @@
     using Data.DbAccessConfig.IdentityStores;
     using Data.DbAccessConfig.Repositories;
     using Data.Models;
+    using Data.Models.Identity;
     using Hangfire;
     using Infrastructure.Sanitizer;
     using Infrastructure.ViewEngines;

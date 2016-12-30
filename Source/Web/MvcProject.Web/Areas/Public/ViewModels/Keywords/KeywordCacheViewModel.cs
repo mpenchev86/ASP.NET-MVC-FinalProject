@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
     using AutoMapper;
     using Data.Models;
+    using Data.Models.Search;
     using MvcProject.Web.Infrastructure.Mapping;
 
     public class KeywordCacheViewModel : BasePublicViewModel<int>, IMapFrom<Keyword>, IHaveCustomMappings

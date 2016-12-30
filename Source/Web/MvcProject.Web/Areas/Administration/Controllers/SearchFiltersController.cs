@@ -7,6 +7,7 @@
     using System.Web.Mvc;
     using Common.GlobalConstants;
     using Data.Models;
+    using Data.Models.Search;
     using Infrastructure.Extensions;
     using Kendo.Mvc.UI;
     using Services.Data;

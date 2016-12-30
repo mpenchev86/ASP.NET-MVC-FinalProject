@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using MvcProject.Data.Models;
+    using MvcProject.Data.Models.Catalog;
     using MvcProject.Web.Infrastructure.Mapping;
 
     /// <summary>

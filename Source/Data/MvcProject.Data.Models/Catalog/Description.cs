@@ -1,8 +1,7 @@
-﻿namespace MvcProject.Data.Models
+﻿namespace MvcProject.Data.Models.Catalog
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-
     using Contracts;
     using MvcProject.Common.GlobalConstants;
 

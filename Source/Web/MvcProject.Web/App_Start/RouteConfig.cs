@@ -14,6 +14,13 @@
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+               "HomePage",
+               "{controller}/{action}/{id}",
+               new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+               null,
+               new string[] { "MvcProject.Web.Controllers" });
+
+            routes.MapRoute(
                "Default",
                "{controller}/{action}/{id}",
                new { controller = "Account", action = "LogIn", id = UrlParameter.Optional },

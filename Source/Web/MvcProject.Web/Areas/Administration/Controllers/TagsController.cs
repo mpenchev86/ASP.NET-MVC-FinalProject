@@ -14,6 +14,7 @@
     using Services.Data;
     using ViewModels.Products;
     using ViewModels.Tags;
+    using Data.Models.Catalog;
 
     [Authorize(Roles = IdentityRoles.Admin)]
     public class TagsController : BaseGridController<Tag, TagViewModel, ITagsService, int>

@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using Common.GlobalConstants;
     using Data.Models;
+    using Data.Models.Catalog;
     using Infrastructure.DataAnnotations;
     using Infrastructure.Mapping;
 

@@ -6,6 +6,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using MvcProject.Data.Models;
+    using MvcProject.Data.Models.Catalog;
     using MvcProject.Web.Infrastructure.Mapping;
 
     /// <summary>
