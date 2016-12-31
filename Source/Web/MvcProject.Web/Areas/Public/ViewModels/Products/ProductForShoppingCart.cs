@@ -8,9 +8,15 @@
     using Data.Models;
     using Data.Models.Catalog;
     using Infrastructure.Mapping;
+    using Services.Web;
 
     public class ProductForShoppingCart : BasePublicViewModel<int>, IMapFrom<Product>/*, IMapFrom<ProductCacheViewModel>*/, IHaveCustomMappings
     {
+        public string EncodedId
+        {
+            get { return IdentifierProvider.EncodeIntIdStatic(this.Id); }
+        }
+
         public string Title { get; set; }
 
         public decimal UnitPrice { get; set; }

@@ -26,6 +26,16 @@
 
     @Html.Partial("ShoppingCartPartial", Model)
 
+    <div class="row cart-update">
+        <button type="submit" @*value="Save cart changes"*@ class="cart-update-button"><span>Update Cart</span></button>
+        <button type="button" id="checkout-button">
+            @Html.ActionLink("Checkout", "Checkout", "Orders", null, new { id = "checkout-link" })
+        </button>
+        @*<span class="btn btn-default">
+            @Html.ActionLink("Checkout", "Checkout", "Orders", null, new { @class = "cart-update-button" })
+        </span>*@
+    </div>
+
     @*@Html.HiddenFor(m => m.UserId)
     @Html.HiddenFor(m => m.UserName)
     @Html.HiddenFor(m => m.TotalCost)
@@ -47,3 +57,16 @@
 }
 
 <img id="loading-spinner" src="~/Content/Kendo/Silver/loading_2x.gif" style="display: none; text-align: center;">
+
+@section Scripts{
+    <script>
+        $(document).ready(function onDocumentReady() {
+            //$('.cart-item-remove').on('click', function onCartItemRemove(e) {
+            //    var button = $(this);
+
+            //    button.parents('form:first').submit();
+            //    //console.log($(this).parents('form:first'));
+            //});
+        });
+    </script>
+}

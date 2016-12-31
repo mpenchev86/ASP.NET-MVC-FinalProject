@@ -119,6 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionResults\ChallengeResult.cs" />
+    <Compile Include="Authorization\AuthorizeRolesAttribute.cs" />
     <Compile Include="BackgroundWorkers\BackgroundJobsService.cs" />
     <Compile Include="BackgroundWorkers\ContainerJobActivator.cs" />
     <Compile Include="BackgroundWorkers\Contracts\IBackgroundJobsService.cs" />

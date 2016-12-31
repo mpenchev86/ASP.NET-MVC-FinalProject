@@ -11,6 +11,7 @@
     using Models;
     using Models.Catalog;
     using Models.Identity;
+    using Models.Orders;
     using Models.Search;
     using MvcProject.Common.GlobalConstants;
 
@@ -744,6 +745,38 @@
                     new Property { Name = "Weather Resistance", Value = "No", DescriptionId = 5 },
                     new Property { Name = "Model Year", Value = "2014", DescriptionId = 5 },
                     new Property { Name = "Minimum Shutter Speed", Value = "30 seconds", DescriptionId = 5 });
+
+                context.SaveChanges();
+            }
+            #endregion
+
+            #region Orders
+            if (!context.Orders.Any())
+            {
+                context.Orders.AddOrUpdate(
+                    o => o.Id,
+                    new Order()
+                    {
+                        TotalCost = 13,
+                        UserId = context.Users.FirstOrDefault().Id,
+                        //User = context.Users.FirstOrDefault(),
+                    });
+
+                context.SaveChanges();
+            }
+            #endregion
+
+            #region OrdersItems
+            if (!context.OrderItems.Any())
+            {
+                context.OrderItems.AddOrUpdate(
+                    o => o.Id,
+                    new OrderItem()
+                    {
+                        OrderId = context.Orders.FirstOrDefault().Id,
+                        ProductId = context.Products.FirstOrDefault().Id,
+                        ProductQuantity = 4,
+                    });
 
                 context.SaveChanges();
             }

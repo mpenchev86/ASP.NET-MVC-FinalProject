@@ -441,6 +441,8 @@
     <Content Include="Views\Orders\ShoppingCart.cshtml" />
     <Content Include="Views\Orders\EditorTemplates\CartItems.cshtml" />
     <Content Include="Views\Orders\Partials\ShoppingCartPartial.cshtml" />
+    <Content Include="Views\Orders\DisplayTemplates\CartProductDisplay.cshtml" />
+    <Content Include="Views\Orders\CheckoutSuccess.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -17,7 +17,7 @@
 
         public ShoppingCartViewModel()
         {
-            this.cartItems = new HashSet<ShoppingCartItem>();
+            this.cartItems = new /*HashSet*/List<ShoppingCartItem>();
         }
 
         public decimal TotalCost { get; set; }
