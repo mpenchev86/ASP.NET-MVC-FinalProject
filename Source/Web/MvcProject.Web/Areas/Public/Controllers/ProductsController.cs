@@ -18,10 +18,10 @@
 
     public class ProductsController : BasePublicController
     {
-        private IProductsService productsService;
-        private IVotesService votesService;
-        private IIdentifierProvider identifierProvider;
-        private IMappingService mappingService;
+        private readonly IProductsService productsService;
+        private readonly IVotesService votesService;
+        private readonly IIdentifierProvider identifierProvider;
+        private readonly IMappingService mappingService;
 
         public ProductsController(
             IProductsService productsService,

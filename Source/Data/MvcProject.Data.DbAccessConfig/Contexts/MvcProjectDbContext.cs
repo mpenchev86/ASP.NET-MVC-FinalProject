@@ -51,6 +51,8 @@
 
         public virtual IDbSet<Order> Orders { get; set; }
 
+        public virtual IDbSet<OrderItem> OrderItems { get; set; }
+
         public static MvcProjectDbContext Create()
         {
             return new MvcProjectDbContext();
@@ -110,6 +112,11 @@
                     pt.MapRightKey("KeywordId");
                     pt.ToTable("CategoriesKeywords");
                 });
+
+            modelBuilder.Entity<Order>()
+                .HasMany<OrderItem>(o => o.OrderItems)
+                .WithRequired(oi => oi.Order)
+                .HasForeignKey(oi => oi.OrderId);
 
             base.OnModelCreating(modelBuilder);
         }

@@ -40,6 +40,8 @@
 
         IDbSet<Order> Orders { get; set; }
 
+        IDbSet<OrderItem> OrderItems { get; set; }
+
         DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity)
             where TEntity : class;
 

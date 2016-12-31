@@ -198,7 +198,6 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -286,6 +285,7 @@
     <Content Include="Content\Custom\product-full-viewmodel.css" />
     <Content Include="Content\Custom\query-search.css" />
     <Content Include="Content\Custom\category-search.css" />
+    <Content Include="Content\Custom\shopping-cart.css" />
     <Content Include="Content\IgniteUI\jquery-ui.css" />
     <Content Include="Content\IgniteUI\jquery-ui.min.css" />
     <Content Include="Content\IgniteUI\Structure\Images\icon_sprite.png" />
@@ -430,8 +430,8 @@
     <Content Include="Views\Search\TempDataTest.cshtml" />
     <Content Include="Scripts\jquery-1.12.4.min.map" />
     <Content Include="Views\Search\SearchByQuery.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\SearchFilters.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\SearchFilterOptions.cshtml" />
+    <Content Include="Views\Search\EditorTemplates\SearchFilters.cshtml" />
+    <Content Include="Views\Search\EditorTemplates\SearchFilterOptions.cshtml" />
     <Content Include="Views\Search\Partials\NoProductsFound.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SearchOptionValue.cshtml" />
     <Content Include="Views\Search\Partials\Rating.cshtml" />
@@ -439,6 +439,8 @@
     <Content Include="Views\Search\Partials\_QuerySearchListViewTemplate.cshtml" />
     <Content Include="Views\Search\DisplayTemplates\QuerySearchProducts.cshtml" />
     <Content Include="Views\Orders\ShoppingCart.cshtml" />
+    <Content Include="Views\Orders\EditorTemplates\CartItems.cshtml" />
+    <Content Include="Views\Orders\Partials\ShoppingCartPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

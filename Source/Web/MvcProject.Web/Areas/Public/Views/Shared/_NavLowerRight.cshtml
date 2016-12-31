@@ -1,4 +1,6 @@
-﻿<ul class="nav navbar-nav navbar-right collapse navbar-collapse">
+﻿@using MvcProject.Web.Areas.Public.ViewModels.Orders
+
+<ul class="nav navbar-nav navbar-right collapse navbar-collapse">
     @if (this.Context.User.IsInRole(IdentityRoles.Admin))
     {
         <li>
@@ -9,8 +11,16 @@
     @if (this.User.Identity.IsAuthenticated && !User.IsInRole(IdentityRoles.Admin))
     {
         <li>
-            @Html.ActionLink("Cart", "ShoppingCart", "Orders", new { area = Areas.PublicAreaName}, null)
-            @*<a href="#">Cart</a>*@
+            <a href="@Url.Action("ShoppingCart", "Orders", new { @*UserName = this.User.Identity.Name,*@ area = Areas.PublicAreaName })">
+                <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+                Cart
+            </a>
+            @*@Html.ActionLink(
+                "Cart",
+                "ShoppingCart",
+                "Orders",
+                new { UserName = this.User.Identity.Name, area = Areas.PublicAreaName },
+                null)*@
         </li>
     }
 </ul>

@@ -44,4 +44,7 @@
         <th>@Html.LabelFor(m => m.RefNumber)</th>
         <td>@Html.DisplayFor(m => m.RefNumber)</td>
     </tr>
+    <tr id="add-to-cart">
+        @Html.ActionLink("Add to Cart", "AddToCart", "Orders", new { productId = Model.Id, area = Areas.PublicAreaName }, new { @class = "button" })
+    </tr>
 </table>

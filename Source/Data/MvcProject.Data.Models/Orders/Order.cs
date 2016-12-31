@@ -12,11 +12,11 @@
 
     public class Order : BaseEntityModel<int>/*, IAdministerable*/
     {
-        private ICollection<Product> products;
+        private ICollection<OrderItem> orderItems;
 
         public Order()
         {
-            this.products = new HashSet<Product>();
+            this.orderItems = new HashSet<OrderItem>();
         }
 
         public decimal TotalCost { get; set; }
@@ -26,10 +26,10 @@
 
         public virtual ApplicationUser User { get; set; }
 
-        public virtual ICollection<Product> Products
+        public virtual ICollection<OrderItem> OrderItems
         {
-            get { return this.products; }
-            set { this.products = value; }
+            get { return this.orderItems; }
+            set { this.orderItems = value; }
         }
     }
 }

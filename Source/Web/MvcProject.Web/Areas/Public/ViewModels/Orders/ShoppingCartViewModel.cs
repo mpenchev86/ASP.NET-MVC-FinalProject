@@ -5,12 +5,13 @@
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Web;
+    using AutoMapper;
     using Data.Models;
     using Data.Models.Identity;
     using Data.Models.Orders;
     using Infrastructure.Mapping;
 
-    public class ShoppingCartViewModel : BasePublicViewModel<int>, IMapFrom<Order>
+    public class ShoppingCartViewModel : /*BasePublicViewModel<int>,*/ IMapFrom<Order>, IHaveCustomMappings
     {
         private ICollection<ShoppingCartItem> cartItems;
 
@@ -19,17 +20,25 @@
             this.cartItems = new HashSet<ShoppingCartItem>();
         }
 
-        //public decimal TotalCost { get; set; }
+        public decimal TotalCost { get; set; }
 
-        [Required]
         public string UserId { get; set; }
 
-        public virtual ApplicationUser User { get; set; }
+        public string UserName { get; set; }
 
+        //public virtual ApplicationUser User { get; set; }
+
+        [UIHint("CartItems")]
         public virtual ICollection<ShoppingCartItem> CartItems
         {
             get { return this.cartItems; }
             set { this.cartItems = value; }
+        }
+
+        public void CreateMappings(IMapperConfigurationExpression configuration)
+        {
+            configuration.CreateMap<Order, ShoppingCartViewModel>()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName));
         }
     }
 }

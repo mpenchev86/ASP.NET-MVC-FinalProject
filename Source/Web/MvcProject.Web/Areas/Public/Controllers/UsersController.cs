@@ -15,8 +15,8 @@
 
     public class UsersController : BasePublicController
     {
-        private IUsersService usersService;
-        private IMappingService mappingService;
+        private readonly IUsersService usersService;
+        private readonly IMappingService mappingService;
 
         public UsersController(IUsersService usersService, IMappingService mappingService)
         {

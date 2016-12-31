@@ -15,9 +15,9 @@
 
     public class CommentsController : BasePublicController
     {
-        private ICommentsService commentsService;
+        private readonly ICommentsService commentsService;
         //private IMappingService mappingService;
-        private IUsersService usersService;
+        private readonly IUsersService usersService;
 
         public CommentsController(
             ICommentsService commentsService,

@@ -1,8 +1,49 @@
 ﻿@using MvcProject.Web.Areas.Public.ViewModels.Orders
 
-@model ShoppingCartViewModel
-
 @{
     ViewBag.Title = "Shopping Cart";
 }
 
+<h3 style="text-align: left">Shopping Cart</h3>
+
+@model ShoppingCartViewModel
+
+@using (Ajax.BeginForm(
+    "UpdateShoppingCart",
+    "Orders",
+    new AjaxOptions
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        LoadingElementId = "loading-spinner",
+        UpdateTargetId = "shopping-cart"
+    },
+    new { }
+    ))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    @Html.Partial("ShoppingCartPartial", Model)
+
+    @*@Html.HiddenFor(m => m.UserId)
+    @Html.HiddenFor(m => m.UserName)
+    @Html.HiddenFor(m => m.TotalCost)
+
+    var hasItems = Model.CartItems.Any();
+
+    if (!hasItems)
+    {
+        @: No items in the cart yet.
+    }
+
+    <div class="row cart-items items-present-@(hasItems.ToString().ToLower())">
+        @Html.EditorFor(m => m.CartItems)
+    </div>
+    <hr />
+    <div class="row cart-subtotal">
+        <span>Subtotal: @string.Format("{0:c}", Model.TotalCost)</span>
+    </div>*@
+}
+
+<img id="loading-spinner" src="~/Content/Kendo/Silver/loading_2x.gif" style="display: none; text-align: center;">

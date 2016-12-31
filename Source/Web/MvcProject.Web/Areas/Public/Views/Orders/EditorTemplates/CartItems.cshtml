@@ -1,0 +1,18 @@
+﻿@using MvcProject.Web.Areas.Public.ViewModels.Orders
+
+@model HashSet<ShoppingCartItem>
+
+@{ 
+    var count = Model.Count();
+}
+
+@for (int i = 0; i < count; i++)
+{
+    @Html.HiddenFor(m => Model[i].Product)
+    <div class="col cartitem-product">
+        @Html.DisplayFor(m => Model[i].Product)
+    </div>
+    <div class="col cartitem-quantity">
+        @Html.EditorFor(m => Model[i].ProductQuantity)
+    </div>
+}

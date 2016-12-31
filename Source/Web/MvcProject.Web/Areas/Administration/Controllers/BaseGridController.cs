@@ -24,7 +24,7 @@
         where TViewModel : BaseAdminViewModel<TKey>, IMapFrom<TEntityModel>
         where TService : IBaseDataService<TEntityModel, TKey>
     {
-        private TService dataService;
+        private readonly TService dataService;
 
         public BaseGridController(TService service)
         {

@@ -47,6 +47,7 @@
                 .Include("~/Areas/Public/Content/Custom/product-full-viewmodel.css", new CssRewriteUrlTransform())
                 .Include("~/Areas/Public/Content/Custom/category-search.css", new CssRewriteUrlTransform())
                 .Include("~/Areas/Public/Content/Custom/query-search.css", new CssRewriteUrlTransform())
+                .Include("~/Areas/Public/Content/Custom/shopping-cart.css", new CssRewriteUrlTransform())
                 );
         }
     }
