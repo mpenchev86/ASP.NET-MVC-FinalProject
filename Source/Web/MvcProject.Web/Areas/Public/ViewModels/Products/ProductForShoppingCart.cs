@@ -10,7 +10,7 @@
     using Infrastructure.Mapping;
     using Services.Web;
 
-    public class ProductForShoppingCart : BasePublicViewModel<int>, IMapFrom<Product>/*, IMapFrom<ProductCacheViewModel>*/, IHaveCustomMappings
+    public class ProductForShoppingCart : BasePublicViewModel<int>, IMapFrom<Product>, IMapTo<Product>/*, IMapFrom<ProductCacheViewModel>*/, IHaveCustomMappings
     {
         public string EncodedId
         {
@@ -35,6 +35,8 @@
                 .ForMember(dest => dest.ImageFileExtension, opt => opt.MapFrom(
                             src => src.MainImage != null ? src.MainImage.FileExtension : (src.Images.Any() ? src.Images.FirstOrDefault().FileExtension : "")))
                 ;
+
+            configuration.CreateMap<ProductForShoppingCart, Product>();
 
             //configuration.CreateMap<ProductCacheViewModel, ProductForShoppingCart>()
             //    .ForMember(dest => dest.ImageUrlPath, opt => opt.MapFrom(
