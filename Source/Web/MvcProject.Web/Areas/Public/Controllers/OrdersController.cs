@@ -35,22 +35,15 @@
         }
 
         [HttpGet]
-        public ActionResult ShoppingCart(/*ShoppingCartViewModel shoppingCart*/)
+        public ActionResult ShoppingCart()
         {
-            //var viewModel = new ShoppingCartViewModel()
-            //{
-            //    UserName = this.HttpContext.User.Identity.Name,
-
-            //};
-
             var shoppingCart = new ShoppingCartViewModel();
             var userName = this.HttpContext.User.Identity.Name;
             var sessionKey = string.Format("{0}-{1}", userName, "ShoppingCart");
 
-            if (this.HttpContext.Session.IsNewSession)
+            if (/*this.HttpContext.Session.IsNewSession*/this.Session[sessionKey] == null)
             {
                 var user = this.usersService.GetByUserName(userName);
-                //var sessionKey = string.Format("{0}-{1}", userId, "ShoppingCart");
                 shoppingCart.UserId = user.Id;
                 shoppingCart.UserName = userName;
                 this.Session[sessionKey] = shoppingCart;
@@ -60,9 +53,7 @@
                 shoppingCart = (ShoppingCartViewModel)this.Session[sessionKey];
             }
 
-            //shoppingCart.UserId = this.usersService.GetByUserName(shoppingCart.UserName).Id;
-
-            return this.View(/*viewModel*/shoppingCart);
+            return this.View(shoppingCart);
         }
 
         [HttpPost]
@@ -116,23 +107,37 @@
 
         public ActionResult Checkout()
         {
-            var userName = this.User.Identity.Name;
-            var sessionKey = string.Format("{0}-{1}", userName, "ShoppingCart");
-            var shoppingCart = (ShoppingCartViewModel)this.Session[sessionKey];
+            if (this.ModelState.IsValid)
+            {
+                var userName = this.User.Identity.Name;
+                var sessionKey = string.Format("{0}-{1}", userName, "ShoppingCart");
+                var shoppingCart = (ShoppingCartViewModel)this.Session[sessionKey];
 
-            var order = new Order();
-            PopulateOrder(order, shoppingCart);
-            this.ordersService.Insert(order);
-            var orderId = order.Id;
-            PopulateOrderItems(order, shoppingCart.CartItems);
-            this.ordersService.Update(order);
+                if (shoppingCart == null)
+                {
+                    return this.RedirectToAction("ShoppingCart");
+                }
 
-            //order.OrderItems = shoppingCart.CartItems.AsQueryable().To<OrderItem>().ToList();
+                if (!shoppingCart.CartItems.Any())
+                {
+                    return this.RedirectToAction("ShoppingCart");
+                }
 
-            return this.View("CheckoutSuccess");
+                var order = new Order();
+                PopulateOrder(order, shoppingCart);
+                this.ordersService.Insert(order);
+                var orderId = order.Id;
+                PopulateOrderItems(order, shoppingCart.CartItems);
+                this.ordersService.Update(order);
+                this.Session[sessionKey] = null;
+
+                return this.View("CheckoutSuccess");
+            }
+
+            throw new HttpException(400, "Invalid checkout request.");
         }
 
-        private void PopulateOrderItems(/*ICollection<OrderItem> orderItems*/Order order, ICollection<ShoppingCartItem> cartItems)
+        private void PopulateOrderItems(Order order, ICollection<ShoppingCartItem> cartItems)
         {
             var orderItems = cartItems.AsQueryable().To<OrderItem>();
             foreach (var item in orderItems)
