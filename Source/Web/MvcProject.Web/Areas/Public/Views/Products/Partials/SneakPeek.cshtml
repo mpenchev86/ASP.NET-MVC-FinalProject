@@ -7,7 +7,7 @@
 </div>
 <div class="modal-body">
     <div class="row">
-        <div class="col-md-7"><img src="@Url.ProductTmblPicture(Model.MainImage != null ? Model.MainImage.UrlPath : "",Model.MainImage != null ? Model.MainImage.FileExtension : "")"/></div>
+        <div class="col-md-7"><img src="@Url.ProductPicture(Model.MainImage != null ? Model.MainImage.UrlPath : "",Model.MainImage != null ? Model.MainImage.FileExtension : "", ImageSizes.Thumbnail)"/></div>
         <div class="col-md-5">
             <p>
                 offered by  <a href="/Public/Users/UserProfile?userName=@Model.SellerName">@Model.SellerName</a>

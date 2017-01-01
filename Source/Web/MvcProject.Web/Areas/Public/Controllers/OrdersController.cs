@@ -137,7 +137,9 @@
             var orderItems = cartItems.AsQueryable().To<OrderItem>();
             foreach (var item in orderItems)
             {
+                item.Product = this.productsService.GetById(item.ProductId);
                 item.OrderId = order.Id;
+                item.Order = this.ordersService.GetById(item.OrderId);
                 item.IsDeleted = false;
                 item.ModifiedOn = null;
                 this.orderItemsService.Insert(item);

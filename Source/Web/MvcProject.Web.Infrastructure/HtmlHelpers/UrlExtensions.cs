@@ -11,21 +11,26 @@
     using System.Web.Mvc;
     using Common.GlobalConstants;
 
+    public enum ImageSizes
+    {
+        Small,
+        Thumbnail,
+        Large
+    }
+
     public static class UrlExtensions
     {
-        public static string ProductSmallPicture(this UrlHelper helper, string urlPath, string imageExtension)
+        public static string ProductPicture(this UrlHelper helper, string urlPath, string imageExtension, ImageSizes size)
         {
-            return helper.Content(GetImageIfExists(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, urlPath, StaticResourcesUrls.ImageSmallSizeSuffix, imageExtension)));
-        }
+            string imageSuffix = string.Empty;
+            switch (size)
+            {
+                case ImageSizes.Small: imageSuffix = StaticResourcesUrls.ImageSmallSizeSuffix; break;
+                case ImageSizes.Thumbnail: imageSuffix = StaticResourcesUrls.ImageThumbnailSuffix; break;
+                case ImageSizes.Large: imageSuffix = StaticResourcesUrls.ImageHighResolutionSuffix; break;
+            }
 
-        public static string ProductTmblPicture(this UrlHelper helper, string urlPath, string imageExtension)
-        {
-            return helper.Content(GetImageIfExists(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, urlPath, StaticResourcesUrls.ImageThumbnailSuffix, imageExtension)));
-        }
-
-        public static string ProductHiRezPicture(this UrlHelper helper, string urlPath, string imageExtension)
-        {
-            return helper.Content(GetImageIfExists(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, urlPath, StaticResourcesUrls.ImageHighResolutionSuffix, imageExtension)));
+            return helper.Content(GetImageIfExists(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, urlPath, imageSuffix, imageExtension), imageSuffix));
         }
 
         /// <summary>
@@ -36,10 +41,10 @@
         /// <returns>The absolute path to the file.</returns>
         public static string AppMngContent(this UrlHelper helper, string fileName)
         {
-            return helper.Content(GetImageIfExists(StaticResourcesUrls.ServerPathAppManagementImages + fileName));
+            return helper.Content(GetImageIfExists(StaticResourcesUrls.ServerPathAppManagementImages + fileName, string.Empty));
         }
 
-        public static string GetImageIfExists(string path)
+        private static string GetImageIfExists(string path, string suffix)
         {
             var physicalPath = HostingEnvironment.MapPath(path);
             if (File.Exists(physicalPath))
@@ -48,7 +53,7 @@
             }
             else
             {
-                return Path.Combine(StaticResourcesUrls.ServerPathAppManagementImages, StaticResourcesUrls.ImageNotFoundFileName);
+                return Path.Combine(StaticResourcesUrls.ServerPathAppManagementImages, string.Format(StaticResourcesUrls.ImageNotFoundFileName, suffix));
             }
         }
     }

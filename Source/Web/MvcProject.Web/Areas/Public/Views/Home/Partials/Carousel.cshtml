@@ -26,7 +26,7 @@
             {
                 <div class="item @if(i == 0){ <text>active</text> }">
                     <span>
-                        <img src="@Url.ProductTmblPicture(Model[i].ImageUrlPath, Model[i].ImageFileExtension)" alt="@Model[i].Title" />
+                        <img src="@Url.ProductPicture(Model[i].ImageUrlPath, Model[i].ImageFileExtension, ImageSizes.Thumbnail)" alt="@Model[i].Title" />
                     </span>
                     <div class="container">
                         <div class="carousel-caption">

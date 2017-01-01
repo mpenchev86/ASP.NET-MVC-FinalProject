@@ -1,5 +1,5 @@
 ﻿@{ 
-    var fallbackImgUrl = Url.Content(StaticResourcesUrls.ServerPathAppManagementImages + StaticResourcesUrls.ImageNotFoundFileName);
+    var fallbackImgUrl = Url.Content(StaticResourcesUrls.ServerPathAppManagementImages + string.Format(StaticResourcesUrls.ImageNotFoundFileName, StaticResourcesUrls.ImageThumbnailSuffix));
 }
 
 <li class="homepage-product-li">

@@ -3,8 +3,8 @@
 @model ProductImagesPartialViewModel
 
 <div class="row image-in-focus">
-    <img id="image-in-focus" src="@Url.ProductTmblPicture(Model.MainImage.UrlPath, Model.MainImage.FileExtension)"/>
-    <a id="modal-link" href="@Url.ProductHiRezPicture(Model.MainImage.UrlPath, Model.MainImage.FileExtension)" style="display:none"></a>
+    <img id="image-in-focus" src="@Url.ProductPicture(Model.MainImage.UrlPath, Model.MainImage.FileExtension, ImageSizes.Thumbnail)"/>
+    <a id="modal-link" href="@Url.ProductPicture(Model.MainImage.UrlPath, Model.MainImage.FileExtension, ImageSizes.Large)" style="display:none"></a>
 
     <!-- The Modal -->
     <div id="large-image-modal" class="modal">
@@ -16,10 +16,10 @@
     @foreach (var image in Model.Images)
     {     
         <a href="" 
-           data-tmbl-image="@Url.ProductTmblPicture(image.UrlPath, image.FileExtension)"
-           data-large-image="@Url.ProductHiRezPicture(image.UrlPath, image.FileExtension)" 
+           data-tmbl-image="@Url.ProductPicture(image.UrlPath, image.FileExtension, ImageSizes.Thumbnail)"
+           data-large-image="@Url.ProductPicture(image.UrlPath, image.FileExtension, ImageSizes.Large)" 
            class="thumbnail small-image">
-            <img src="@Url.ProductSmallPicture(image.UrlPath, image.FileExtension)"/>
+            <img src="@Url.ProductPicture(image.UrlPath, image.FileExtension, ImageSizes.Small)"/>
         </a>
      }    
 </div>

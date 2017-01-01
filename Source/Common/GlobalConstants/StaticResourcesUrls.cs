@@ -32,7 +32,7 @@
         public const string ServerPathIcons = "~/Content/Images/Icons/";
 
         // Static File Names
-        public const string ImageNotFoundFileName = "image-not-available.jpg";
+        public const string ImageNotFoundFileName = "image-not-available{0}.jpg";
         public const string UnderConstructionImage = "under-construction.jpg";
         public const string MainLogo = "just-orderit-com.png";
         public const string Favicon = "favicon.ico";

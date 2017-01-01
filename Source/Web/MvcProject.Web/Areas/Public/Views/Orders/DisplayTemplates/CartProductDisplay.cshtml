@@ -5,7 +5,7 @@
 <div class="row">
     <div class="col-md-3">
         <div class="row">
-            <img id="cart-product-image" src="@Url.ProductSmallPicture(Model.ImageUrlPath, Model.ImageFileExtension)" />
+            <img id="cart-product-image" src="@Url.ProductPicture(Model.ImageUrlPath, Model.ImageFileExtension, ImageSizes.Small)" />
         </div>
         @Html.ActionLink(" ", "Index", "Products", new { id = Model.EncodedId }, new { @class = "cart-product-link" })
     </div>
