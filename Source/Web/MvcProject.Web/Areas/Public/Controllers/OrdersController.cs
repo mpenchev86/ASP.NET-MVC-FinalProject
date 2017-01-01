@@ -13,6 +13,7 @@
     using Infrastructure.Authorization;
     using Data.Models.Orders;
     using Infrastructure.Extensions;
+    using Microsoft.AspNet.Identity;
 
     [AuthorizeRoles(IdentityRoles.Customer, IdentityRoles.Seller)]
     public class OrdersController : BasePublicController
@@ -39,12 +40,10 @@
         {
             var shoppingCart = new ShoppingCartViewModel();
             var userName = this.HttpContext.User.Identity.Name;
-            var sessionKey = string.Format("{0}-{1}", userName, "ShoppingCart");
+            var sessionKey = GetSessionKey(userName);
 
-            if (/*this.HttpContext.Session.IsNewSession*/this.Session[sessionKey] == null)
+            if (this.Session[sessionKey] == null)
             {
-                var user = this.usersService.GetByUserName(userName);
-                shoppingCart.UserId = user.Id;
                 shoppingCart.UserName = userName;
                 this.Session[sessionKey] = shoppingCart;
             }
@@ -64,7 +63,7 @@
             {
                 shoppingCart.CartItems = shoppingCart.CartItems.Where(ci => ci.ToDelete == false).ToList();
 
-                var sessionKey = string.Format("{0}-{1}", shoppingCart.UserName, "ShoppingCart");
+                var sessionKey = GetSessionKey(shoppingCart.UserName);
                 this.Session[sessionKey] = shoppingCart;
                 return this.PartialView("ShoppingCartPartial", shoppingCart);
             }
@@ -77,12 +76,12 @@
             if (this.ModelState.IsValid)
             {
                 var userName = this.User.Identity.Name;
-                var sessionKey = string.Format("{0}-{1}", userName, "ShoppingCart");
+                var sessionKey = GetSessionKey(userName);
                 var shoppingCart = (ShoppingCartViewModel)this.Session[sessionKey];
 
                 if (shoppingCart == null)
                 {
-                    shoppingCart = new ShoppingCartViewModel() { UserName = userName, UserId = this.usersService.GetByUserName(userName).Id };
+                    shoppingCart = new ShoppingCartViewModel() { UserName = userName };
                 }
 
                 var cartItem = shoppingCart.CartItems.FirstOrDefault(ci => ci.Product.Id == productId);
@@ -110,7 +109,7 @@
             if (this.ModelState.IsValid)
             {
                 var userName = this.User.Identity.Name;
-                var sessionKey = string.Format("{0}-{1}", userName, "ShoppingCart");
+                var sessionKey = GetSessionKey(userName);
                 var shoppingCart = (ShoppingCartViewModel)this.Session[sessionKey];
 
                 if (shoppingCart == null)
@@ -154,7 +153,7 @@
         private void PopulateOrder(Order order, ShoppingCartViewModel shoppingCart)
         {
             order.TotalCost = shoppingCart.TotalCost;
-            order.UserId = shoppingCart.UserId;
+            order.UserId = this.User.Identity.GetUserId();
             order.IsDeleted = false;
             order.ModifiedOn = null;
         }
@@ -171,6 +170,11 @@
                 ImageUrlPath = product.MainImageId != null ? product.MainImage.UrlPath  : (product.Images.Any() ? product.Images.FirstOrDefault().UrlPath : ""),
                 ImageFileExtension = product.MainImageId != null ? product.MainImage.FileExtension  : (product.Images.Any() ? product.Images.FirstOrDefault().FileExtension : ""),
             };
+        }
+
+        private string GetSessionKey(string userName)
+        {
+            return string.Format("{0}-{1}", userName, "ShoppingCart");
         }
         #endregion
     }

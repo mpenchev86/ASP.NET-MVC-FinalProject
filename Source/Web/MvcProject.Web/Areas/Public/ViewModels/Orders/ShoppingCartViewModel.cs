@@ -11,22 +11,18 @@
     using Data.Models.Orders;
     using Infrastructure.Mapping;
 
-    public class ShoppingCartViewModel : /*BasePublicViewModel<int>,*/ IMapFrom<Order>, IHaveCustomMappings
+    public class ShoppingCartViewModel : IMapFrom<Order>, IHaveCustomMappings
     {
         private ICollection<ShoppingCartItem> cartItems;
 
         public ShoppingCartViewModel()
         {
-            this.cartItems = new /*HashSet*/List<ShoppingCartItem>();
+            this.cartItems = new List<ShoppingCartItem>();
         }
 
         public decimal TotalCost { get; set; }
 
-        public string UserId { get; set; }
-
         public string UserName { get; set; }
-
-        //public virtual ApplicationUser User { get; set; }
 
         [UIHint("CartItems")]
         public virtual ICollection<ShoppingCartItem> CartItems

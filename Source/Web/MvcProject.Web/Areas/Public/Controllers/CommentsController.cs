@@ -9,6 +9,7 @@
     using Data.Models.Catalog;
     using Infrastructure.Mapping;
     using Infrastructure.Validators;
+    using Microsoft.AspNet.Identity;
     using Services.Data;
     using ViewModels.Comments;
     using ViewModels.Products;
@@ -35,7 +36,8 @@
         {
             if (commentPostViewModel != null && ModelState.IsValid)
             {
-                var userId = this.usersService.GetByUserName(commentPostViewModel.UserName).Id;
+                //var userId = this.usersService.GetByUserName(commentPostViewModel.UserName).Id;
+                var userId = this.User.Identity.GetUserId();
                 commentPostViewModel.CreatedOn = DateTime.Now;
 
                 var newComment = new Comment();
