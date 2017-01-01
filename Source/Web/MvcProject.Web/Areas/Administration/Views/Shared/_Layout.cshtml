@@ -11,14 +11,14 @@
     @RenderSection("styles", required: false)
 </head>
 <body>
-    @*@Html.Partial("_CarouselPartial")*@
+    @(Html.Action("Carousel", "Home", new { area = Areas.PublicAreaName }))
     <!-- NAVBAR -->
     <nav class="navbar navbar-inverse" id="navbar">
         <div class="container-fluid">
             <!-- Brand, Login -->
-            <div class="row">
+            <div class="row" id="nav-upper">
                 <div class="col-md-5" id="nav-logo">
-                    @Html.Partial("_NavLogo")
+                    @Html.Partial("~/Areas/Public/Views/Shared/_NavLogo.cshtml")
                 </div>
                 <div class="col-md-7" id="nav-login">
                     @Html.Partial("_LoginPartial")
@@ -27,13 +27,17 @@
             <!-- Search, Links, Dropdowns -->
             <div class="row container-fluid" id="nav-lower">
                 <div class="col-md-2" id="nav-lower-left">
-                    @Html.Partial("_NavLowerLeft")
+                    <ul class="nav navbar-nav collapse navbar-collapse">
+                        <li class="dropdown">
+                            @Html.Action("NavLowerLeft", "Home", new { area = Areas.PublicAreaName })
+                        </li>
+                    </ul>
                 </div>
                 <div class="col-md-7" id="nav-lower-middle">
-                    @Html.Partial("_NavLowerMiddle")
+                    @Html.Action("NavLowerMiddle", "Home", new { area = Areas.PublicAreaName })
                 </div>
                 <div class="col-md-3" id="nav-lower-right">
-                    @Html.Partial("_NavLowerRight")
+                    @Html.Partial("~/Areas/Public/Views/Shared/_NavLowerRight.cshtml")
                 </div>
             </div>
         </div>
@@ -44,7 +48,7 @@
     </div>
     <!-- FOOTER -->
     <footer class="panel-footer" id="footer">
-        @Html.Partial("_Footer")
+        @Html.Partial("~/Areas/Public/Views/Shared/_Footer.cshtml")
     </footer>
     <!-- SCRIPTS -->
     @Scripts.Render(Bundles.ScriptsJQuery)
