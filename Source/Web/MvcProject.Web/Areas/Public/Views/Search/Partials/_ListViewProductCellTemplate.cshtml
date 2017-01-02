@@ -27,23 +27,6 @@
             <p>#=kendo.toString(UnitPrice, "c")#</p>
         </div>
         <div class="row rating">
-            @*@(Html.Partial(
-                "Rating",
-                3d,
-                //Convert.ToDouble("ratingValue"),
-                //Convert.ToDouble(string.Format("{0}", "ratingValue")),
-                //double.Parse(string.Format("{0}", "#=AllTimeAverageRating#")),
-                new ViewDataDictionary(this.ViewData)
-                {
-                    { "ratingId", "product-igRating" + /*"IdRatingId"*/ new Random().Next().ToString() },
-                    { "htmlAttributes", new Dictionary<string, object>() { { "class", "product-rating" } } }
-                })
-            .ToHtmlString()
-            //.Replace("'", "\\'")
-            //.Replace("ratingValue", "#=AllTimeAverageRating#")
-            //.Replace("IdRatingId", "#=Id#")
-            .ToMvcHtmlString()
-            )*@
         </div>
     </div>
 </li>

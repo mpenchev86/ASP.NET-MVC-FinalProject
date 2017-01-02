@@ -119,7 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionResults\ChallengeResult.cs" />
-    <Compile Include="Authorization\AuthorizeRolesAttribute.cs" />
+    <Compile Include="Filters\AuthorizeRolesAttribute.cs" />
     <Compile Include="BackgroundWorkers\BackgroundJobsService.cs" />
     <Compile Include="BackgroundWorkers\ContainerJobActivator.cs" />
     <Compile Include="BackgroundWorkers\Contracts\IBackgroundJobsService.cs" />
@@ -159,6 +159,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Filters\AjaxOnlyAttribute.cs" />
     <Compile Include="Serializers\HangfireJsonConverters\IntConverter.cs" />
+    <Compile Include="Validators\ProductQuantityRange.cs" />
     <Compile Include="ViewEngines\CustomViewLocationRazorViewEngine.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -186,7 +187,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Populators\" />
-    <Folder Include="Validators\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

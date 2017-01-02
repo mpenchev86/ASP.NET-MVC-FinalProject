@@ -15,7 +15,7 @@
     {
         HttpMethod = "POST",
         InsertionMode = InsertionMode.ReplaceWith,
-        LoadingElementId = "loading-spinner",
+        LoadingElementId = "cart-loading-spinner",
         UpdateTargetId = "shopping-cart"
     },
     new { }
@@ -27,36 +27,16 @@
     @Html.Partial("ShoppingCartPartial", Model)
 
     <div class="row cart-update">
-        <button type="submit" @*value="Save cart changes"*@ class="cart-update-button"><span>Update Cart</span></button>
+        <button type="submit" class="cart-update-button"><span>Update Cart</span></button>
         <button type="button" id="checkout-button">
             @Html.ActionLink("Checkout", "Checkout", "Orders", null, new { id = "checkout-link" })
         </button>
-        @*<span class="btn btn-default">
-            @Html.ActionLink("Checkout", "Checkout", "Orders", null, new { @class = "cart-update-button" })
-        </span>*@
     </div>
-
-    @*@Html.HiddenFor(m => m.UserId)
-    @Html.HiddenFor(m => m.UserName)
-    @Html.HiddenFor(m => m.TotalCost)
-
-    var hasItems = Model.CartItems.Any();
-
-    if (!hasItems)
-    {
-        @: No items in the cart yet.
-    }
-
-    <div class="row cart-items items-present-@(hasItems.ToString().ToLower())">
-        @Html.EditorFor(m => m.CartItems)
-    </div>
-    <hr />
-    <div class="row cart-subtotal">
-        <span>Subtotal: @string.Format("{0:c}", Model.TotalCost)</span>
-    </div>*@
 }
 
-<img id="loading-spinner" src="~/Content/Kendo/Silver/loading_2x.gif" style="display: none; text-align: center;">
+<div id="cart-loading-spinner" style="display: none; position: fixed; left: 50%; top: 50%;">
+    <img src="~/Content/Kendo/Silver/loading_2x.gif" >
+</div>
 
 @section Scripts{
     <script>

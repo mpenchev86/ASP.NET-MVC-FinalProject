@@ -10,7 +10,7 @@
     using Services.Data;
     using ViewModels.Orders;
     using Common.GlobalConstants;
-    using Infrastructure.Authorization;
+    using Infrastructure.Filters;
     using Data.Models.Orders;
     using Infrastructure.Extensions;
     using Microsoft.AspNet.Identity;

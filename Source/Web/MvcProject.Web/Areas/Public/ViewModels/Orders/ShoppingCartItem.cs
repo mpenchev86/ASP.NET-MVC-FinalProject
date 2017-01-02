@@ -8,10 +8,12 @@
     using AutoMapper;
     using Data.Models.Orders;
     using Infrastructure.Mapping;
+    using Infrastructure.Validators;
     using Products;
 
     public class ShoppingCartItem : /*BasePublicViewModel<int>,*/ IMapFrom<OrderItem>, IMapTo<OrderItem>, IHaveCustomMappings
     {
+        //[ProductQuantityRange(0, maximum: Product.QuantityInStock)]
         public int ProductQuantity { get; set; }
 
         //public int OrderId { get; set; }

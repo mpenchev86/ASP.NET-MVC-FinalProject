@@ -9,7 +9,7 @@
         InsertionMode = InsertionMode.ReplaceWith,
         UpdateTargetId = (string)ViewData["UpdateTargetId"],
         HttpMethod = "POST",
-        LoadingElementId = "loading-spinner",
+        LoadingElementId = "leavecomment-loading-spinner",
         OnSuccess = "onNewCommentSuccess"
     },
     new { id = "new-comment-form" }
@@ -32,5 +32,5 @@
     </div>
 }
 
-<img id="loading-spinner" src="~/Content/Kendo/Silver/loading_2x.gif" style="display: none; text-align: center;">
+<img id="leavecomment-loading-spinner" src="~/Content/Kendo/Silver/loading_2x.gif" style="display: none; text-align: center;" />
 <br />

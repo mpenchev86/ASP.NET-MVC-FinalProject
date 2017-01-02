@@ -23,7 +23,7 @@
                 HttpMethod = "GET",
                 AllowCache = true,
                 InsertionMode = InsertionMode.Replace,
-                LoadingElementId = "spinner",
+                LoadingElementId = "sneakpeak-loading-spinner",
                 OnSuccess = "OnGetModalDataSuccess",
             },
             htmlAttributes: new
@@ -32,7 +32,7 @@
             })
             .ToHtmlString()
             .Replace("encodedId", "#=EncodedId#")
-            .Replace("spinner", "#\\#spinner")
+            .Replace("sneakpeak-loading-spinner", "#\\#sneakpeak-loading-spinner")
             .ToMvcHtmlString()
             )
     </div>
