@@ -1,12 +1,12 @@
 ﻿@using MvcProject.Web.Areas.Public.ViewModels.Orders
 
 @{
-    ViewBag.Title = "Shopping Cart";
+    ViewBag.Title = "Shopping Cart - OrderIt.com";
 }
 
-<h3 style="text-align: left">Shopping Cart</h3>
-
 @model ShoppingCartViewModel
+
+<h3 style="text-align: left">Shopping Cart</h3>
 
 @using (Ajax.BeginForm(
     "UpdateShoppingCart",
@@ -18,7 +18,6 @@
         InsertionMode = InsertionMode.ReplaceWith,
         LoadingElementId = "cart-loading-spinner",
         UpdateTargetId = "shopping-cart",
-        //OnBegin = "onBeginUpdate",
     },
     new { }
     ))
@@ -53,9 +52,5 @@
 
             //errMessagesStylization.stylizeUnobtrusiveMessages();
         });
-
-        //function onBeginUpdate() {
-        //    $('#shopping-cart').empty();
-        //}
     </script>
 }

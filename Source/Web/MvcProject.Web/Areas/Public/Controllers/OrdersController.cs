@@ -77,6 +77,7 @@
             throw new HttpException(400, "Invalid shopping cart state.");
         }
         
+        [HttpGet]
         public ActionResult AddToCart(int productId)
         {
             if (this.ModelState.IsValid)
@@ -111,6 +112,7 @@
             return this.RedirectToAction("ShoppingCart");
         }
 
+        [HttpGet]
         [SetTempDataModelState]
         public ActionResult Checkout()
         {
@@ -127,6 +129,7 @@
 
                 if (!shoppingCart.CartItems.Any())
                 {
+                    this.ModelState.AddModelError(string.Empty, "Add something to your cart before checkout.");
                     return this.RedirectToAction("ShoppingCart");
                 }
 
@@ -149,6 +152,7 @@
             throw new HttpException(400, "Invalid checkout request.");
         }
 
+        #region Helpers
         private void PopulateOrderItems(Order order, ICollection<ShoppingCartItem> cartItems)
         {
             var orderItems = cartItems.AsQueryable().To<OrderItem>();
@@ -171,7 +175,6 @@
             order.ModifiedOn = null;
         }
 
-        #region Helpers
         private ProductForShoppingCart PopulateProductForCartItem(Product product)
         {
             return new ProductForShoppingCart

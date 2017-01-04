@@ -1,10 +1,6 @@
 ﻿/*** SECTIONS:
 ***/
 
-/*.cart-labels{
-
-}*/
-
 .cart-items .items-present-true {
     border: 1px solid #fbaf67;
     border-radius: 3px;
@@ -25,11 +21,7 @@ div.cart-item{
     margin-right: 200px;
 }
 
-/*.cartitem-product {
-
-}*/
-
-    .cartitem-product a.cart-product-link {
+    .cartitem-product .cart-product-link {
         border: none;
         height: 100%;
         overflow: hidden;
@@ -71,4 +63,10 @@ div.cartitem-remove {
 
 #cart-loading-spinner{
     text-align: center;
+}
+
+.checkout-complete{
+     display: flex;
+     justify-content: center;
+     align-content: center;
 }

@@ -18,7 +18,7 @@
         /// </summary>
         /// <typeparam name="T">The type of the data item being cached.</typeparam>
         /// <typeparam name="TSubscriber">The type of the class, implementing a background job operation.</typeparam>
-        /// <param name="itemName">The key of the cached data item.</param>
+        /// <param name="cacheKey">The key of the cached data item.</param>
         /// <param name="dataFunc">The delegate providing the logic for retrieving the data object.</param>
         /// <param name="absoluteExpiration">Expiration time for the cached data item (in seconds).</param>
         /// <param name="methodName">The name of the worker method used in a background operation.</param>
@@ -27,7 +27,7 @@
         /// <param name="priority">Specifies the priority of the cached item. The garbage collector cleans lower priority
         /// cache items first.</param>
         /// <returns>The original data retrieved from the cached data object.</returns>
-        T Get<T, TSubscriber>(string itemName, Func<T> dataFunc, int absoluteExpiration, string methodName, object[] methodArguments, int updateJobDelay, CacheItemPriority priority = CacheItemPriority.Default)
+        T Get<T, TSubscriber>(string cacheKey, Func<T> dataFunc, int absoluteExpiration, string methodName, object[] methodArguments, int updateJobDelay, CacheItemPriority priority = CacheItemPriority.Default)
             where TSubscriber : class, IBackgroundJobSubscriber;
 
         /// <summary>

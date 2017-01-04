@@ -377,10 +377,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Images\" />
-    <Folder Include="Views\Categories\Partials\" />
-    <Folder Include="Views\Comments\" />
-    <Folder Include="Views\Images\Partials\" />
-    <Folder Include="Views\Votes\Partials\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
@@ -427,8 +423,6 @@
     <Content Include="Views\Search\Partials\_RefineSearchBar.cshtml" />
     <Content Include="Views\Search\Partials\_SearchResults.cshtml" />
     <Content Include="Views\Search\Partials\_ListViewProductCellTemplate.cshtml" />
-    <Content Include="Views\Search\SessionTest.cshtml" />
-    <Content Include="Views\Search\TempDataTest.cshtml" />
     <Content Include="Scripts\jquery-1.12.4.min.map" />
     <Content Include="Views\Search\SearchByQuery.cshtml" />
     <Content Include="Views\Search\EditorTemplates\SearchFilters.cshtml" />

@@ -36,7 +36,6 @@
         private readonly ICategoriesService categoriesService;
         private readonly IKeywordsService keywordsService;
         private readonly ISearchFilterHelpers filterStringHelpers;
-        //private readonly ISearchRefinementHelpers<ProductOfCategoryViewModel, SearchFilterForCategoryViewModel> searchAlgorithms;
 
         public SearchController(
             IAutoUpdateCacheService autoUpdateCacheService,
@@ -44,9 +43,7 @@
             ISearchFiltersService searchFiltersService,
             ICategoriesService categoriesService,
             IKeywordsService keywordsService,
-            ISearchFilterHelpers filterStringHelpers
-            //ISearchRefinementHelpers<ProductOfCategoryViewModel, SearchFilterForCategoryViewModel> searchAlgorithms
-            )
+            ISearchFilterHelpers filterStringHelpers)
         {
             this.autoUpdateCacheService = autoUpdateCacheService;
             this.productsService = productsService;
@@ -54,10 +51,9 @@
             this.categoriesService = categoriesService;
             this.keywordsService = keywordsService;
             this.filterStringHelpers = filterStringHelpers;
-            //this.searchAlgorithms = searchAlgorithms;
         }
 
-        //[HttpPost]
+        [HttpPost]
         public ActionResult SearchBar(SearchViewModel searchViewModel)
         {
             if (searchViewModel.CategoryId != null && searchViewModel.CategoryId > 0)
@@ -77,6 +73,7 @@
             }
         }
 
+        [AjaxOnly]
         public JsonResult SearchAutoComplete(string prefix)
         {
             var cacheKey = "allCategoriesKeywords";
@@ -94,17 +91,12 @@
             return this.Json(results, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public ActionResult SearchByQuery(string query)
         {
-            var viewModel = new QuerySearchViewModel
-            {
-                Query = query
-            };
+            var viewModel = new QuerySearchViewModel { Query = query };
 
-            var categories = this.categoriesService.GetAll()
-                //.Where(c => c.Keywords.Any(k => searchViewModel.Query.Contains(k.SearchTerm)))
-                .ToList()
-                ;
+            var categories = this.categoriesService.GetAll().ToList();
 
             foreach (var category in categories)
             {
@@ -132,10 +124,7 @@
         }
 
         [HttpGet]
-        public ActionResult SearchByCategory(
-            int categoryId, 
-            string query,
-            int searchOptionsBitMask = 0)
+        public ActionResult SearchByCategory(int categoryId, string query, int searchOptionsBitMask = 0)
         {
             var model = new CategorySearchViewModel
             {
@@ -147,9 +136,7 @@
             this.PopulateSearchFilterOptionsFromBitMask(searchOptionsBitMask, searchFilters);
             model.SearchFilters = searchFilters;
 
-            //var searchFilterOptions = searchFilters.SelectMany(sf => sf.RefinementOptions);
             model.Products = this.GetCachedProductsOfCategory(categoryId)
-                //.FilterProductsByRefinementOptions(searchFilterOptions != null ? searchFilterOptions.AsQueryable().To<RefinementOption>().ToList() : new List<RefinementOption>())
                 .FilterProductsByRefinementOptions(searchFilters.AsQueryable().To<SearchFilterRefinementModel>().ToList())
                 .FilterProductsBySearchQuery(query)
                 .AsQueryable()
@@ -159,13 +146,9 @@
             return this.View(model);
         }
         
-        [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult RefineCategorySearch(
-            int categoryId,
-            string query,
-            List<SearchFilterForCategoryViewModel> searchFilters
-            )
+        [ValidateAntiForgeryToken]
+        public ActionResult RefineCategorySearch(int categoryId, string query, List<SearchFilterForCategoryViewModel> searchFilters)
         {
             int searchOptionsBitMask = 0;
             if (ModelState.IsValid)
@@ -176,12 +159,6 @@
             return this.RedirectToAction("SearchByCategory", "Search", new { categoryId = categoryId, query = query, searchOptionsBitMask = searchOptionsBitMask });
         }
 
-        public void BackgroundOperation(string methodName, object[] args)
-        {
-            var methodInfo = this.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
-            methodInfo.Invoke(this, args);
-        }
-
         [HttpGet]
         public ActionResult AllProductsWithTag(string tag)
         {
@@ -190,43 +167,13 @@
             return this.View(result);
         }
 
-        ////[HttpPost]
-        ////[AjaxOnly]
-        //public JsonResult ReadSearchResult(
-        //    [DataSourceRequest]DataSourceRequest request,
-        //    int categoryId,
-        //    string query,
-        //    IEnumerable</*RefinementOption*/SearchFilterOptionViewModel> refinementOptions
-        //    //, IEnumerable<SearchFilterForCategoryViewModel> searchFilters
-        //    //, RefinementOption searchFilter
-        //    )
-        //{
-        //    var allProductsInCategory = this.FilterCategoryProducts(categoryId, query, refinementOptions);
-
-        //    return this.Json(allProductsInCategory.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet); ;
-        //}
-
-        //public ActionResult SessionTest()
-        //{
-        //    if (Session["datetime"] == null)
-        //    {
-        //        this.Session.Add("datetime", DateTime.Now.ToString());
-        //    }
-
-        //    return this.View("SessionTest");
-        //}
-
-        //public ActionResult TempDataTest()
-        //{
-        //    if (this.TempData["datetime"] == null)
-        //    {
-        //        this.TempData["datetime"] = DateTime.Now.ToString();
-        //    }
-
-        //    return this.View("TempDataTest");
-        //}
-
         #region Helpers
+        public void BackgroundOperation(string methodName, object[] args)
+        {
+            var methodInfo = this.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
+            methodInfo.Invoke(this, args);
+        }
+
             #region Background jobs workers
         /// <summary>
         /// A Backgroung job worker fetching updated data to be subsequently cached. The parameters are of types Json.NET parses to, and then are
@@ -248,11 +195,9 @@
         private List<ProductCacheViewModel> GetProductsOfCategory(int categoryId)
         {
             var result = this.categoriesService.GetById(categoryId).Products
-                .Take(100)
                 .AsQueryable()
                 .To<ProductCacheViewModel>()
-                .ToList()
-                ;
+                .ToList();
 
             return result;
         }
@@ -268,7 +213,7 @@
         [NonAction]
         private List<string> GetKeywords()
         {
-            return this.keywordsService.GetAll().Select(k => k.SearchTerm/*.ToLower()*/).ToList();
+            return this.keywordsService.GetAll().Select(k => k.SearchTerm).ToList();
         }
             #endregion
 
@@ -277,13 +222,12 @@
         {
             var cacheKey = "category" + categoryId.ToString() + "products";
             var cachedProducts = this.autoUpdateCacheService.Get<List<ProductCacheViewModel>, SearchController>(
-                cacheKey,
-                () => this.GetProductsOfCategory(categoryId),
-                CacheConstants.AllProductsInCategoryCacheExpiration,
-                "GetAndCacheProductsOfCategory",
-                new object[] { cacheKey, categoryId },
-                CacheConstants.AllProductsInCategoryUpdateBackgroundJobDelay
-                );
+                cacheKey: cacheKey,
+                dataFunc: () => this.GetProductsOfCategory(categoryId),
+                absoluteExpiration: CacheConstants.AllProductsInCategoryCacheExpiration,
+                methodName: "GetAndCacheProductsOfCategory",
+                methodArguments: new object[] { cacheKey, categoryId },
+                updateJobDelay: CacheConstants.AllProductsInCategoryUpdateBackgroundJobDelay);
 
             return cachedProducts;
         }
@@ -324,17 +268,6 @@
                 }
             }
         }
-
-        //[NonAction]
-        //private bool ValidateSearchFilter(RefinementOption searchFilter)
-        //{
-        //    if (string.IsNullOrWhiteSpace(searchFilter.Value))
-        //    {
-        //        return false;
-        //    }
-
-        //    return true;
-        //}
         #endregion
     }
 }

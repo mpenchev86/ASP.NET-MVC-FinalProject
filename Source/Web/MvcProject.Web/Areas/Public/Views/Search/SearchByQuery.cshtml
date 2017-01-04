@@ -1,6 +1,10 @@
 ﻿@using MvcProject.Web.Areas.Public.ViewModels.Products
 @using MvcProject.Web.Areas.Public.ViewModels.Search
 
+@{
+    ViewBag.Title = "Search result for " + Model.Query + " - OrderIt.com";
+}
+
 @model QuerySearchViewModel
 
 @Html.HiddenFor(m => m.Query)

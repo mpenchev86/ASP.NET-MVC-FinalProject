@@ -36,12 +36,14 @@
                     new ApplicationRole
                     {
                         Name = IdentityRoles.Admin,
-                        //CreatedOn = DateTime.Now
                     },
                     new ApplicationRole
                     {
                         Name = IdentityRoles.Customer,
-                        //CreatedOn = DateTime.Now
+                    },
+                    new ApplicationRole
+                    {
+                        Name = IdentityRoles.Seller,
                     });
 
                 context.SaveChanges();
@@ -666,7 +668,7 @@
                         }
                     });
 
-                for (int i = 0; i < (/*20 * */1000); i++)
+                for (int i = 0; i < 1000; i++)
                 {
                     context.Products.AddOrUpdate(
                         p => p.Id,
@@ -759,7 +761,6 @@
                     {
                         TotalCost = 13,
                         UserId = context.Users.FirstOrDefault().Id,
-                        //User = context.Users.FirstOrDefault(),
                     });
 
                 context.SaveChanges();

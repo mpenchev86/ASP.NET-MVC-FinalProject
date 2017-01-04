@@ -1,5 +1,9 @@
 ﻿@using MvcProject.Web.Areas.Public.ViewModels.Search
 
+@{
+    ViewBag.Title = "Refine your search - OrderIt.com";
+}
+
 @model CategorySearchViewModel
 
 @Html.HiddenFor(m => m.CategoryId, new { id = "searchCategoryId" })
