@@ -135,6 +135,8 @@
     <Compile Include="Extensions\AppBuilderExtensions.cs" />
     <Compile Include="Extensions\EncryptionExtensions.cs" />
     <Compile Include="Filters\ActionMethodSelectors\AdminDestroySelectorAttribute.cs" />
+    <Compile Include="Filters\RestoreModelStateFromTempDataAttribute.cs" />
+    <Compile Include="Filters\SetTempDataModelStateAttribute.cs" />
     <Compile Include="HtmlHelpers\HtmlExtensions.cs" />
     <Compile Include="HtmlHelpers\KendoHelpers.cs" />
     <Compile Include="HtmlHelpers\UrlExtensions.cs" />

@@ -35,7 +35,9 @@
             this.orderItemsService = orderItemsService;
         }
 
+        // Preserving ModelState across PRG: http://www.jefclaes.be/2012/06/persisting-model-state-when-using-prg.html
         [HttpGet]
+        [RestoreModelStateFromTempData]
         public ActionResult ShoppingCart()
         {
             var shoppingCart = new ShoppingCartViewModel();
@@ -53,14 +55,6 @@
             }
 
             return this.View(shoppingCart);
-        }
-
-        [ChildActionOnly]
-        public /*ActionResult*/PartialViewResult GetShoppingCartPartial()
-        {
-            var sessionKey = GetSessionKey(this.User.Identity.Name);
-            var shoppingCart = (ShoppingCartViewModel)this.Session[sessionKey];
-            return this.PartialView("ShoppingCartPartial", shoppingCart);
         }
 
         [HttpPost]
@@ -117,6 +111,7 @@
             return this.RedirectToAction("ShoppingCart");
         }
 
+        [SetTempDataModelState]
         public ActionResult Checkout()
         {
             if (this.ModelState.IsValid)
@@ -131,6 +126,11 @@
                 }
 
                 if (!shoppingCart.CartItems.Any())
+                {
+                    return this.RedirectToAction("ShoppingCart");
+                }
+
+                if (!ValidateItemQuantities(shoppingCart.CartItems.ToList(), this.ModelState))
                 {
                     return this.RedirectToAction("ShoppingCart");
                 }
@@ -179,6 +179,7 @@
                 Id = product.Id,
                 Title = product.Title,
                 UnitPrice = product.UnitPrice,
+                QuantityInStock = product.QuantityInStock,
                 ShippingPrice = product.ShippingPrice,
                 ImageUrlPath = product.MainImageId != null ? product.MainImage.UrlPath  : (product.Images.Any() ? product.Images.FirstOrDefault().UrlPath : ""),
                 ImageFileExtension = product.MainImageId != null ? product.MainImage.FileExtension  : (product.Images.Any() ? product.Images.FirstOrDefault().FileExtension : ""),
@@ -188,6 +189,26 @@
         private string GetSessionKey(string userName)
         {
             return string.Format("{0}-{1}", userName, "ShoppingCart");
+        }
+
+        private bool ValidateItemQuantities(List<ShoppingCartItem> cartItems, ModelStateDictionary modelState)
+        {
+            for (int i = 0; i < cartItems.Count(); i++)
+            {
+                if (cartItems[i].ProductQuantity > cartItems[i].Product.QuantityInStock)
+                {
+                    var key = "CartItems[" + i.ToString() + "].ProductQuantity";
+                    var message = "You have exceeded the quantity available for product " + cartItems[i].Product.Title + ".";
+                    modelState.AddModelError(key, message);
+                }
+            }
+
+            if (!modelState.IsValid)
+            {
+                return false;
+            }
+
+            return true;
         }
         #endregion
     }

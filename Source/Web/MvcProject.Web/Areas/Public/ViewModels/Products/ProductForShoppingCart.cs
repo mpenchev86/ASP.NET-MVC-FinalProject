@@ -2,9 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Web;
     using AutoMapper;
+    using Common.GlobalConstants;
     using Data.Models;
     using Data.Models.Catalog;
     using Infrastructure.Mapping;
@@ -19,10 +21,15 @@
 
         public string Title { get; set; }
 
+        //[Range(typeof(decimal), ValidationConstants.ProductUnitPriceMinString, ValidationConstants.ProductUnitPriceMaxString)]
+        //[DataType(DataType.Currency)]
         public decimal UnitPrice { get; set; }
 
+        //[Range(ValidationConstants.ProductQuantityInStockMin, ValidationConstants.ProductQuantityInStockMax)]
         public int QuantityInStock { get; set; }
 
+        //[Range(typeof(decimal), ValidationConstants.ProductShippingPriceMinString, ValidationConstants.ProductShippingPriceMaxString)]
+        //[DataType(DataType.Currency)]
         public decimal? ShippingPrice { get; set; }
 
         public string ImageUrlPath { get; set; }

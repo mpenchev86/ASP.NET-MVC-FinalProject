@@ -26,31 +26,7 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
 
-    @*@Html.Partial("ShoppingCartPartial", Model)*@
-    @*@Html.Action("GetShoppingCartPartial", "Orders", null)*@
-    //Html.RenderAction("GetShoppingCartPartial", "Orders", new { });
-
-    <div id="shopping-cart">
-        @Html.HiddenFor(m => m.UserName)
-        @Html.HiddenFor(m => m.TotalCost)
-
-        @{
-            var hasItems = Model.CartItems.Any();
-        }
-
-        @if (!hasItems)
-        {
-            @: No items in the cart yet.
-        }
-
-        <div class="row cart-items items-present-@(hasItems.ToString().ToLower())">
-            @Html.EditorFor(m => m.CartItems)
-        </div>
-        <hr />
-        <div class="row cart-subtotal">
-            <span>Subtotal: @string.Format("{0:c}", Model.TotalCost)</span>
-        </div>
-    </div>
+    @Html.Partial("ShoppingCartPartial", Model)
 
     <div class="row cart-controls">
         <button type="submit" id="update-button"><span>Update Cart</span></button>
