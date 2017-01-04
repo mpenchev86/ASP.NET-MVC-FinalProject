@@ -146,7 +146,7 @@
                 this.ordersService.Update(order);
                 this.Session[sessionKey] = null;
 
-                return this.View("CheckoutSuccess");
+                return this.View("CheckoutSuccess", shoppingCart);
             }
 
             throw new HttpException(400, "Invalid checkout request.");
