@@ -11,12 +11,14 @@
 @using (Ajax.BeginForm(
     "UpdateShoppingCart",
     "Orders",
+    null,
     new AjaxOptions
     {
         HttpMethod = "POST",
         InsertionMode = InsertionMode.ReplaceWith,
         LoadingElementId = "cart-loading-spinner",
-        UpdateTargetId = "shopping-cart"
+        UpdateTargetId = "shopping-cart",
+        //OnBegin = "onBeginUpdate",
     },
     new { }
     ))
@@ -24,10 +26,34 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
 
-    @Html.Partial("ShoppingCartPartial", Model)
+    @*@Html.Partial("ShoppingCartPartial", Model)*@
+    @*@Html.Action("GetShoppingCartPartial", "Orders", null)*@
+    //Html.RenderAction("GetShoppingCartPartial", "Orders", new { });
 
-    <div class="row cart-update">
-        <button type="submit" class="cart-update-button"><span>Update Cart</span></button>
+    <div id="shopping-cart">
+        @Html.HiddenFor(m => m.UserName)
+        @Html.HiddenFor(m => m.TotalCost)
+
+        @{
+            var hasItems = Model.CartItems.Any();
+        }
+
+        @if (!hasItems)
+        {
+            @: No items in the cart yet.
+        }
+
+        <div class="row cart-items items-present-@(hasItems.ToString().ToLower())">
+            @Html.EditorFor(m => m.CartItems)
+        </div>
+        <hr />
+        <div class="row cart-subtotal">
+            <span>Subtotal: @string.Format("{0:c}", Model.TotalCost)</span>
+        </div>
+    </div>
+
+    <div class="row cart-controls">
+        <button type="submit" id="update-button"><span>Update Cart</span></button>
         <button type="button" id="checkout-button">
             @Html.ActionLink("Checkout", "Checkout", "Orders", null, new { id = "checkout-link" })
         </button>
@@ -39,6 +65,7 @@
 </div>
 
 @section Scripts{
+    @*<script src="~/Areas/Public/Scripts/Custom/error-messages-stylization.js"></script>*@
     <script>
         $(document).ready(function onDocumentReady() {
             //$('.cart-item-remove').on('click', function onCartItemRemove(e) {
@@ -47,6 +74,12 @@
             //    button.parents('form:first').submit();
             //    //console.log($(this).parents('form:first'));
             //});
+
+            //errMessagesStylization.stylizeUnobtrusiveMessages();
         });
+
+        //function onBeginUpdate() {
+        //    $('#shopping-cart').empty();
+        //}
     </script>
 }

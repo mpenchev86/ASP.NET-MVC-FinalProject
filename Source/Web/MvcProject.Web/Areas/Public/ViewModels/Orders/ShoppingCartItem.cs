@@ -14,6 +14,7 @@
     public class ShoppingCartItem : /*BasePublicViewModel<int>,*/ IMapFrom<OrderItem>, IMapTo<OrderItem>, IHaveCustomMappings
     {
         //[ProductQuantityRange(0, maximum: Product.QuantityInStock)]
+        [Range(1, int.MaxValue)]
         public int ProductQuantity { get; set; }
 
         //public int OrderId { get; set; }

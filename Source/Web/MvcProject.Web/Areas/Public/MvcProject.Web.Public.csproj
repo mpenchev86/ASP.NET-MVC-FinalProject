@@ -354,6 +354,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\Custom\bootstrap-modal-helpers.js" />
+    <Content Include="Scripts\Custom\error-messages-stylization.js" />
     <Content Include="Scripts\Custom\igniteui-rating-handler.js" />
     <Content Include="Scripts\Custom\navbar-search.js" />
     <Content Include="Scripts\IgniteUI\infragistics.core.Unicode.js" />

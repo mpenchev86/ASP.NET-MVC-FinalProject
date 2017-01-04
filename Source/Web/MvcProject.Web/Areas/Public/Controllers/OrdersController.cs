@@ -55,16 +55,28 @@
             return this.View(shoppingCart);
         }
 
+        [ChildActionOnly]
+        public /*ActionResult*/PartialViewResult GetShoppingCartPartial()
+        {
+            var sessionKey = GetSessionKey(this.User.Identity.Name);
+            var shoppingCart = (ShoppingCartViewModel)this.Session[sessionKey];
+            return this.PartialView("ShoppingCartPartial", shoppingCart);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult UpdateShoppingCart(ShoppingCartViewModel shoppingCart)
         {
             if (shoppingCart != null && this.ModelState.IsValid)
             {
-                shoppingCart.CartItems = shoppingCart.CartItems.Where(ci => ci.ToDelete == false).ToList();
-
+                shoppingCart.CartItems = shoppingCart.CartItems.Where(ci => ci.ToDelete == false && ci.ProductQuantity > 0).ToList();
+                shoppingCart.TotalCost = shoppingCart.CartItems.Aggregate(0m, (itemCost, item) => itemCost + (item.Product.UnitPrice * item.ProductQuantity));
                 var sessionKey = GetSessionKey(shoppingCart.UserName);
                 this.Session[sessionKey] = shoppingCart;
+
+                // Refreshes the model state so that html helpers receive correct values. Info: https://blogs.msdn.microsoft.com/simonince/2010/05/05/asp-net-mvcs-html-helpers-render-the-wrong-value/
+                this.ModelState.Clear();
+
                 return this.PartialView("ShoppingCartPartial", shoppingCart);
             }
 
@@ -96,6 +108,7 @@
                     cartItem.ProductQuantity = 1;
                     cartItem.ToDelete = false;
                     shoppingCart.CartItems.Add(cartItem);
+                    shoppingCart.TotalCost += cartItem.Product.UnitPrice * cartItem.ProductQuantity;
                 }
 
                 this.Session[sessionKey] = shoppingCart;
