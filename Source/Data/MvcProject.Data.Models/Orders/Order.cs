@@ -10,7 +10,7 @@
     using Contracts;
     using Identity;
 
-    public class Order : BaseEntityModel<int>/*, IAdministerable*/
+    public class Order : BaseEntityModel<int>
     {
         private ICollection<OrderItem> orderItems;
 

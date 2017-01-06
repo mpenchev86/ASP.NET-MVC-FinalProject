@@ -5,20 +5,26 @@
     using System.Web.Mvc;
 
     using Data.DbAccessConfig.Contexts;
+    using Data.Models.Contracts;
     using MvcProject.Common.GlobalConstants;
 
     [Authorize(Roles = IdentityRoles.Admin)]
     public class HomeController : BaseAdminController
     {
         /// <summary>
-        /// Lists all domains for administration
+        /// Lists all domains for administration.
         /// </summary>
-        /// <returns>The view with all domains for administration</returns>
+        /// <returns>The view with all domains for administration.</returns>
         [HttpGet]
         public ActionResult Index()
         {
-            var data = typeof(IMvcProjectDbContext).GetRuntimeProperties().Where(p => p.Name != "UserRoles");
-            return this.View(data);
+            var propertyNames = typeof(IMvcProjectDbContext)
+                .GetRuntimeProperties()
+                .Where(p => typeof(IAdministerable).IsAssignableFrom(p.PropertyType.GetGenericArguments().Single()))
+                .Select(p => p.Name)
+                .OrderBy(p => p);
+
+            return this.View(propertyNames);
         }
 
         /// <summary>

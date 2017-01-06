@@ -93,6 +93,10 @@
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            //// Specifying the rowversion property for optimistic concurrency by Fluent API.
+            // modelBuilder.Entity<Product>()
+            //    .Property(p => p.RowVersion).IsConcurrencyToken();
+
             modelBuilder.Entity<Product>()
                 .HasMany<Tag>(p => p.Tags)
                 .WithMany(t => t.Products)

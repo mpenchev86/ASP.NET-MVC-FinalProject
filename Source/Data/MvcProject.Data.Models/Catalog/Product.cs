@@ -170,6 +170,15 @@
         public virtual ApplicationUser Seller { get; set; }
 
         /// <summary>
+        /// Gets or sets the row version of the entity.
+        /// </summary>
+        /// <value>
+        /// The row version of the entity.
+        /// </value>
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
+
+        /// <summary>
         /// Gets or sets the tags of a product.
         /// </summary>
         /// <value>

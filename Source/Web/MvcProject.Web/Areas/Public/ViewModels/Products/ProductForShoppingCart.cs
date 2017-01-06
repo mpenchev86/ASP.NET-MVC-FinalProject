@@ -12,7 +12,7 @@
     using Infrastructure.Mapping;
     using Services.Web;
 
-    public class ProductForShoppingCart : BasePublicViewModel<int>, IMapFrom<Product>, IMapTo<Product>/*, IMapFrom<ProductCacheViewModel>*/, IHaveCustomMappings
+    public class ProductForShoppingCart : BasePublicViewModel<int>, IMapFrom<Product>, IMapTo<Product>, IHaveCustomMappings
     {
         public string EncodedId
         {
@@ -21,15 +21,10 @@
 
         public string Title { get; set; }
 
-        //[Range(typeof(decimal), ValidationConstants.ProductUnitPriceMinString, ValidationConstants.ProductUnitPriceMaxString)]
-        //[DataType(DataType.Currency)]
         public decimal UnitPrice { get; set; }
 
-        //[Range(ValidationConstants.ProductQuantityInStockMin, ValidationConstants.ProductQuantityInStockMax)]
         public int QuantityInStock { get; set; }
 
-        //[Range(typeof(decimal), ValidationConstants.ProductShippingPriceMinString, ValidationConstants.ProductShippingPriceMaxString)]
-        //[DataType(DataType.Currency)]
         public decimal? ShippingPrice { get; set; }
 
         public string ImageUrlPath { get; set; }

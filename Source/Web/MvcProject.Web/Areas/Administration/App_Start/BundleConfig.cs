@@ -18,7 +18,6 @@
                 .Include("~/Areas/Administration/Scripts/Custom/grid-details-helpers.js")
                 .Include("~/Areas/Administration/Scripts/Custom/product-images-upload.js")
                 .Include("~/Areas/Administration/Scripts/Custom/product-main-image-dropdown.js")
-                //.Include("~/Areas/Administration/Scripts/Custom/*.js")
                 );
 
             // CSS
@@ -27,7 +26,6 @@
                 .Include("~/Areas/Administration/Content/Custom/details-grid.css", new CssRewriteUrlTransform())
                 .Include("~/Areas/Administration/Content/Custom/domains-list.css", new CssRewriteUrlTransform())
                 .Include("~/Areas/Administration/Content/Custom/main-grid.css", new CssRewriteUrlTransform())
-                //.Include("~/Areas/Administration/Content/Custom/*.css", new CssRewriteUrlTransform())
                 );
         }
     }

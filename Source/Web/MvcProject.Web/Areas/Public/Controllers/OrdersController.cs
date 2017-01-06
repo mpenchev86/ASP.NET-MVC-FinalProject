@@ -14,7 +14,7 @@
     using Data.Models.Orders;
     using Infrastructure.Extensions;
     using Microsoft.AspNet.Identity;
-
+    using System.Data.Entity.Infrastructure;
     [AuthorizeRoles(IdentityRoles.Customer, IdentityRoles.Seller)]
     public class OrdersController : BasePublicController
     {
@@ -153,6 +153,14 @@
         }
 
         #region Helpers
+        private void PopulateOrder(Order order, ShoppingCartViewModel shoppingCart)
+        {
+            order.TotalCost = shoppingCart.TotalCost;
+            order.UserId = this.User.Identity.GetUserId();
+            //order.IsDeleted = false;
+            //order.ModifiedOn = null;
+        }
+
         private void PopulateOrderItems(Order order, ICollection<ShoppingCartItem> cartItems)
         {
             var orderItems = cartItems.AsQueryable().To<OrderItem>();
@@ -161,18 +169,10 @@
                 item.Product = this.productsService.GetById(item.ProductId);
                 item.OrderId = order.Id;
                 item.Order = this.ordersService.GetById(item.OrderId);
-                item.IsDeleted = false;
-                item.ModifiedOn = null;
+                //item.IsDeleted = false;
+                //item.ModifiedOn = null;
                 this.orderItemsService.Insert(item);
             }
-        }
-
-        private void PopulateOrder(Order order, ShoppingCartViewModel shoppingCart)
-        {
-            order.TotalCost = shoppingCart.TotalCost;
-            order.UserId = this.User.Identity.GetUserId();
-            order.IsDeleted = false;
-            order.ModifiedOn = null;
         }
 
         private ProductForShoppingCart PopulateProductForCartItem(Product product)
@@ -198,10 +198,29 @@
         {
             for (int i = 0; i < cartItems.Count(); i++)
             {
+                //try
+                //{
+                //    var productInDb = this.productsService.GetById(cartItems[i].Product.Id);
+                //    productInDb.QuantityInStock -= cartItems[i].ProductQuantity;
+                //    this.productsService.Update(productInDb);
+                //}
+                //catch (DbUpdateConcurrencyException ex)
+                //{
+                //    var entry = ex.Entries.Single();
+                //    var clientValues = (Product)entry.Entity;
+                //    var databaseEntry = entry.GetDatabaseValues();
+                //    if (true)
+                //    {
+
+                //    }
+                //    throw;
+                //}
+
+
                 if (cartItems[i].ProductQuantity > cartItems[i].Product.QuantityInStock)
                 {
                     var key = "CartItems[" + i.ToString() + "].ProductQuantity";
-                    var message = "You have exceeded the quantity available for product " + cartItems[i].Product.Title + ".";
+                    var message = "The requested quantity exceeds the available number of units for product " + cartItems[i].Product.Title + ".";
                     modelState.AddModelError(key, message);
                 }
             }

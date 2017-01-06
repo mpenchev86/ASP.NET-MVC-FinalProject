@@ -10,5 +10,6 @@
     /// </summary>
     public interface IProductsService : IDeletableEntitiesBaseService<Product, int>
     {
+        //void UpdateWithConcurrencyCheck(Product entity);
     }
 }
