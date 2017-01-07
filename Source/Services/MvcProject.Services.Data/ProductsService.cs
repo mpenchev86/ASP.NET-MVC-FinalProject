@@ -29,9 +29,5 @@
             var product = this.Repository.GetByIdFromNotDeleted((int)this.IdentifierProvider.DecodeIdToInt(id));
             return product;
         }
-
-        //public void UpdateWithConcurrencyCheck(Product entity)
-        //{
-        //}
     }
 }

@@ -5,11 +5,12 @@
   * SideBar
     * Title
     * Rating
+    * Unit Price
+    * Shipping Price
     * Is In Stock
     * Category
     * Ref Number
-    * Unit Price
-    * Shipping Price
+    * Add to Cart
   * Product Info
     * Properties
     * Description
@@ -169,6 +170,16 @@
         opacity: 100;
     }
 
+    /* ====== Unit Price ====== */
+    #product-sidebar #unit-price td{
+        color: #e4c220;
+    }
+
+    /* ====== Shipping Price ====== */
+    #product-sidebar #shipping td{
+        color: #e4c220;
+    }
+
     /* ====== Is In Stock ====== */
     #product-sidebar #is-in-stock #in-stock {
         text-transform: uppercase;
@@ -214,15 +225,9 @@
         font-size: 12px !important;
     }
 
-    /* ====== Unit Price ====== */
-    #product-sidebar #unit-price td{
-        color: #e4c220;
-    }
-
-    /* ====== Shipping Price ====== */
-    #product-sidebar #shipping td{
-        color: #e4c220;
-    }
+    /* ====== Add to Cart ====== */
+    /*#product-sidebar #add-to-cart a.disabled {
+    }*/
 
 /* ========== Product Info ========== */
 #product-info {

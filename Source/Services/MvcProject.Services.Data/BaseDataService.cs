@@ -101,5 +101,10 @@
             this.repository.DeletePermanent(entity);
             this.repository.SaveChanges();
         }
+
+        public void Dispose()
+        {
+            this.repository.Dispose();
+        }
     }
 }

@@ -37,5 +37,7 @@
         void DeletePermanent(TKey id);
 
         void DeletePermanent(T entity);
+
+        void Dispose();
     }
 }

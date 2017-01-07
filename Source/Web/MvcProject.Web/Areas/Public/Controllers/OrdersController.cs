@@ -15,6 +15,7 @@
     using Infrastructure.Extensions;
     using Microsoft.AspNet.Identity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Validation;
     [AuthorizeRoles(IdentityRoles.Customer, IdentityRoles.Seller)]
     public class OrdersController : BasePublicController
     {
@@ -198,39 +199,80 @@
         {
             for (int i = 0; i < cartItems.Count(); i++)
             {
-                //try
-                //{
-                //    var productInDb = this.productsService.GetById(cartItems[i].Product.Id);
-                //    productInDb.QuantityInStock -= cartItems[i].ProductQuantity;
-                //    this.productsService.Update(productInDb);
-                //}
-                //catch (DbUpdateConcurrencyException ex)
-                //{
-                //    var entry = ex.Entries.Single();
-                //    var clientValues = (Product)entry.Entity;
-                //    var databaseEntry = entry.GetDatabaseValues();
-                //    if (true)
-                //    {
-
-                //    }
-                //    throw;
-                //}
-
-
-                if (cartItems[i].ProductQuantity > cartItems[i].Product.QuantityInStock)
+                try
                 {
-                    var key = "CartItems[" + i.ToString() + "].ProductQuantity";
-                    var message = "The requested quantity exceeds the available number of units for product " + cartItems[i].Product.Title + ".";
-                    modelState.AddModelError(key, message);
+                    var productInDb = this.productsService.GetById(cartItems[i].Product.Id);
+                    productInDb.QuantityInStock -= cartItems[i].ProductQuantity;
+                    this.productsService.Update(productInDb);
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    var entry = ex.Entries.Single();
+                    var clientValues = (Product)entry.Entity;
+                    var databaseEntry = entry.GetDatabaseValues();
+                    if (databaseEntry == null)
+                    {
+                        ModelState.AddModelError(string.Empty, "Unable to save changes. The following product was not found: " + cartItems[i].Product.Title);
+                    }
+                    else
+                    {
+                        var databaseValues = (Product)databaseEntry.ToObject();
+                        if (databaseValues.QuantityInStock < clientValues.QuantityInStock)
+                        {
+                            var key = "CartItems[" + i.ToString() + "].ProductQuantity";
+                            var message = "The requested quantity exceeds the available number of units for product " + cartItems[i].Product.Title + ".";
+                            modelState.AddModelError(key, message);
+                        }
+                    }
+
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    HandleExceededQuantityException(ex, modelState, i);
+                }
+
+
+                //if (cartItems[i].ProductQuantity > cartItems[i].Product.QuantityInStock)
+                //{
+                //    var key = "CartItems[" + i.ToString() + "].ProductQuantity";
+                //    var message = "The requested quantity exceeds the available number of units for product " + cartItems[i].Product.Title + ".";
+                //    modelState.AddModelError(key, message);
+                //}
+            }
+
+            if (modelState.IsValid)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private void HandleExceededQuantityException(DbEntityValidationException ex, ModelStateDictionary modelState, int cartItemIndex)
+        {
+            //((DbEntityValidationException)inner).EntityValidationErrors
+
+            if (!ex.EntityValidationErrors.Any())
+            {
+                //var inner = ex.InnerException;
+                this.HandleExceededQuantityException((DbEntityValidationException)ex.InnerException, modelState, cartItemIndex);
+            }
+            else
+            {
+                foreach (var error in ex.EntityValidationErrors)
+                {
+                    var productEntity = (Product)error.Entry.Entity;
+                    if (productEntity.QuantityInStock < 0)
+                    {
+                        var key = "CartItems[" + cartItemIndex.ToString() + "].ProductQuantity";
+                        var message = "The requested quantity exceeds the available number of units for product " + productEntity.Title + ".";
+                        modelState.AddModelError(key, message);
+                        break;
+                    }
                 }
             }
 
-            if (!modelState.IsValid)
-            {
-                return false;
-            }
-
-            return true;
+            //throw new NotImplementedException();
         }
         #endregion
     }
