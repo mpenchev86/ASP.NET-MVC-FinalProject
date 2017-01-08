@@ -226,6 +226,15 @@
     }
 
     /* ====== Add to Cart ====== */
+    #addtocart-form #quantity {
+        border-right: 0px;
+        height: 100%;
+    }
+
+    /*#addtocart-form button {
+        border-radius: 2px 2px 0 0;
+    }*/
+
     /*#product-sidebar #add-to-cart a.disabled {
     }*/
 

@@ -16,6 +16,7 @@
     using Microsoft.AspNet.Identity;
     using System.Data.Entity.Infrastructure;
     using System.Data.Entity.Validation;
+
     [AuthorizeRoles(IdentityRoles.Customer, IdentityRoles.Seller)]
     public class OrdersController : BasePublicController
     {
@@ -78,8 +79,8 @@
             throw new HttpException(400, "Invalid shopping cart state.");
         }
         
-        [HttpGet]
-        public ActionResult AddToCart(int productId)
+        //[HttpGet]
+        public ActionResult AddToCart(int productId, int quantity = 1)
         {
             if (this.ModelState.IsValid)
             {
@@ -95,13 +96,15 @@
                 var cartItem = shoppingCart.CartItems.FirstOrDefault(ci => ci.Product.Id == productId);
                 if (cartItem != null)
                 {
-                    cartItem.ProductQuantity += 1;
+                    //cartItem.ProductQuantity += 1;
+                    cartItem.ProductQuantity += quantity;
                 }
                 else
                 {
                     cartItem = new ShoppingCartItem();
                     cartItem.Product = PopulateProductForCartItem(this.productsService.GetById(productId));
-                    cartItem.ProductQuantity = 1;
+                    //cartItem.ProductQuantity = 1;
+                    cartItem.ProductQuantity = quantity;
                     cartItem.ToDelete = false;
                     shoppingCart.CartItems.Add(cartItem);
                     shoppingCart.TotalCost += cartItem.Product.UnitPrice * cartItem.ProductQuantity;
@@ -158,8 +161,6 @@
         {
             order.TotalCost = shoppingCart.TotalCost;
             order.UserId = this.User.Identity.GetUserId();
-            //order.IsDeleted = false;
-            //order.ModifiedOn = null;
         }
 
         private void PopulateOrderItems(Order order, ICollection<ShoppingCartItem> cartItems)
@@ -170,8 +171,6 @@
                 item.Product = this.productsService.GetById(item.ProductId);
                 item.OrderId = order.Id;
                 item.Order = this.ordersService.GetById(item.OrderId);
-                //item.IsDeleted = false;
-                //item.ModifiedOn = null;
                 this.orderItemsService.Insert(item);
             }
         }
@@ -205,39 +204,12 @@
                     productInDb.QuantityInStock -= cartItems[i].ProductQuantity;
                     this.productsService.Update(productInDb);
                 }
-                catch (DbUpdateConcurrencyException ex)
-                {
-                    var entry = ex.Entries.Single();
-                    var clientValues = (Product)entry.Entity;
-                    var databaseEntry = entry.GetDatabaseValues();
-                    if (databaseEntry == null)
-                    {
-                        ModelState.AddModelError(string.Empty, "Unable to save changes. The following product was not found: " + cartItems[i].Product.Title);
-                    }
-                    else
-                    {
-                        var databaseValues = (Product)databaseEntry.ToObject();
-                        if (databaseValues.QuantityInStock < clientValues.QuantityInStock)
-                        {
-                            var key = "CartItems[" + i.ToString() + "].ProductQuantity";
-                            var message = "The requested quantity exceeds the available number of units for product " + cartItems[i].Product.Title + ".";
-                            modelState.AddModelError(key, message);
-                        }
-                    }
-
-                }
                 catch (DbEntityValidationException ex)
                 {
-                    HandleExceededQuantityException(ex, modelState, i);
+                    var key = "CartItems[" + i.ToString() + "].ProductQuantity";
+                    var message = "The requested quantity exceeds the available number of units for product " + cartItems[i].Product.Title + ".";
+                    HandleExceededQuantityException(ex, modelState, message);
                 }
-
-
-                //if (cartItems[i].ProductQuantity > cartItems[i].Product.QuantityInStock)
-                //{
-                //    var key = "CartItems[" + i.ToString() + "].ProductQuantity";
-                //    var message = "The requested quantity exceeds the available number of units for product " + cartItems[i].Product.Title + ".";
-                //    modelState.AddModelError(key, message);
-                //}
             }
 
             if (modelState.IsValid)
@@ -248,14 +220,11 @@
             return false;
         }
 
-        private void HandleExceededQuantityException(DbEntityValidationException ex, ModelStateDictionary modelState, int cartItemIndex)
+        private void HandleExceededQuantityException(DbEntityValidationException ex, ModelStateDictionary modelState, string quantityExceededMessage)
         {
-            //((DbEntityValidationException)inner).EntityValidationErrors
-
             if (!ex.EntityValidationErrors.Any())
             {
-                //var inner = ex.InnerException;
-                this.HandleExceededQuantityException((DbEntityValidationException)ex.InnerException, modelState, cartItemIndex);
+                this.HandleExceededQuantityException((DbEntityValidationException)ex.InnerException, modelState, quantityExceededMessage);
             }
             else
             {
@@ -264,15 +233,11 @@
                     var productEntity = (Product)error.Entry.Entity;
                     if (productEntity.QuantityInStock < 0)
                     {
-                        var key = "CartItems[" + cartItemIndex.ToString() + "].ProductQuantity";
-                        var message = "The requested quantity exceeds the available number of units for product " + productEntity.Title + ".";
-                        modelState.AddModelError(key, message);
+                        modelState.AddModelError(string.Empty, quantityExceededMessage);
                         break;
                     }
                 }
             }
-
-            //throw new NotImplementedException();
         }
         #endregion
     }

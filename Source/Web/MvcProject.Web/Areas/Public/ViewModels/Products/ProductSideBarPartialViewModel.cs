@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Web;
+    using System.Web.Mvc;
     using Services.Web;
 
     public class ProductSideBarPartialViewModel : BasePublicViewModel<int>
@@ -30,5 +31,19 @@
         public double Rating { get; set; }
 
         public string SellerName { get; set; }
+
+        public List<SelectListItem> QuantityDropDownSelectList
+        {
+            get
+            {
+                var selectList = new List<SelectListItem>();
+                for (int i = 0; i < this.QuantityInStock; i++)
+                {
+                    selectList.Add(new SelectListItem() { Text = (i + 1).ToString(), Value = (i + 1).ToString(), Selected = (i == 0) });
+                }
+
+                return selectList;
+            }
+        }
     }
 }

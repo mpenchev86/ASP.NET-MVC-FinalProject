@@ -1,4 +1,6 @@
-﻿<ul class="nav navbar-nav navbar-right collapse navbar-collapse">
+﻿@using MvcProject.Web.Areas.Public.ViewModels.Orders
+
+<ul class="nav navbar-nav navbar-right collapse navbar-collapse">
     @if (this.Context.User.IsInRole(IdentityRoles.Admin))
     {
         <li>
@@ -8,9 +10,16 @@
     @if (this.User.Identity.IsAuthenticated && !User.IsInRole(IdentityRoles.Admin))
     {
         <li>
-            <a href="@Url.Action("ShoppingCart", "Orders", new { area = Areas.PublicAreaName })">
+            <a id="navbar-cart" href="@Url.Action("ShoppingCart", "Orders", new { area = Areas.PublicAreaName })">
                 <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
                 Cart
+                @{ 
+                    var itemsCount = ((ShoppingCartViewModel)this.Session[string.Format("{0}-{1}", this.User.Identity.Name, "ShoppingCart")])?.CartItems.Aggregate(0, (count, item) => count + item.ProductQuantity);
+                    if (itemsCount > 0)
+                    {
+                        <span class="badge">@itemsCount</span>
+                    }
+                }
             </a>
         </li>
     }

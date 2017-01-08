@@ -15,7 +15,6 @@
             "_ProductImages",
             new ProductImagesPartialViewModel
             {
-                //MainImageId = Model.MainImageId,
                 Images = Model.Images ?? new List<ImageForProductFullViewModel>()
             },
             null)
@@ -54,21 +53,11 @@
     @Html.Partial("_ProductCommentsWithRatings", Model.CommentsWithRatings, new ViewDataDictionary(this.ViewData) { { "productId", Model.Id } })
 </div>
 
-@*@section Styles{
-    <link href="@Url.Content(StaticResourcesUrls.ProductFullViewmodel)" rel="stylesheet" type="text/css" />
-}*@
-
 @section Scripts{
     <script src="@Url.Content(StaticResourcesUrls.IgniteUiRatingHandler)"></script>
     <script src="@Url.Content(StaticResourcesUrls.BootstrapModalHelpers)"></script>
 
     <script>
-        //$(document).ready(function onDocumentReady(e) {
-        //    $('#addtocart-button').on('click', function onAddToCartButton() {
-        //        $('#addtocart-link').click();
-        //    })
-        //});
-
         $('a.small-image').on('click', function onSmallImageClick(e) {
             e.preventDefault();
         });

@@ -20,9 +20,9 @@ body {
 }
 
 h3 {
+    color: #535353;
     margin-top: 25px;
     text-align: center;
-    color: #535353;
 }
 
 .row {
@@ -43,9 +43,9 @@ input, select, textarea {
 
 /* ========= Navbar ========= */
 #navbar {
+    background-color: #046969;
     border: none;
     border-radius: 0 0 0 0;
-    background-color: #046969;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: normal;
 }
@@ -105,9 +105,9 @@ input, select, textarea {
     /* ========= NavBar Upper ========= */
         /* ========= Logo ========= */
         #main-logo {
+            background-color: transparent;
             margin: 0 0 0 0;
             padding: 10px 0 0 0;
-            background-color: transparent;
             width: 100%;
         }
 
@@ -133,32 +133,32 @@ input, select, textarea {
         #navbar-search-query
         {
             float: none;
-            /*Prevents popping in front of a modal window*/
-            z-index: 0;
             max-width: none;
-            width: 70%;
+            /*Prevents popping in front of a modal window*/
             vertical-align: middle;
+            width: 70%;
+            z-index: 0;
         }
 
         #navbar-search-options {
-            /*Prevents popping in front of a modal window*/
-            z-index: 0;
-            width: auto;
-            color: #ffffff;
             background-color: #999999;
             border: none;
+            color: #ffffff;
+            width: auto;
+            /*Prevents popping in front of a modal window*/
+            z-index: 0;
         }
 
             #navbar-search-options > option {
-                color: #777777;
                 background-color: #ffffff;
+                color: #777777;
                 min-width: 30px;
             }
 
         #navbar-search-btn {
+            border-radius: 0 4px 4px 0;
             /*Prevents popping in front of a modal window*/
             z-index: 0;
-            border-radius: 0 4px 4px 0;
         }
 
         /*@media (max-width: 527px) {*/
@@ -173,20 +173,27 @@ input, select, textarea {
             margin: 0 0 0 0;
         }
 
+        #navbar-cart .badge{
+            background-color: #de2c2c;
+            color: #ffffff;
+            font-size: 12px;
+            vertical-align: middle;
+        }
+
 /* ========= Body ========= */
 /* Set padding to keep content from hitting the edges */
 #body-content {
-    padding: 0 0 100px 0;
     min-height: 600px;
+    padding: 0 0 100px 0;
     width: 98%;
 }
 
 /* ========= Footer ========= */
 .panel-footer {
+    bottom: 0;
     margin: 0 0 0 0;
     padding: 0 0;
     position: relative;
-    bottom: 0;
     text-align: center;
 }
 
@@ -198,9 +205,9 @@ input, select, textarea {
     }
 
     .panel-footer > #copyright {
+        background-color: white;
         margin: 0 0;
         padding: 5px 0;
-        background-color: white;
     }
 
 #footer-items {

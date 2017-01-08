@@ -47,9 +47,29 @@
     </tr>
     <tr id="add-to-cart">
         <th>
-            <button type="button" id="addtocart-button">
+            @using (Html.BeginForm(
+                "AddToCart",
+                "Orders",
+                new { },
+                FormMethod.Post,
+                new { id = "addtocart-form" }
+                ))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+
+                @Html.Hidden("productId", Model.Id)
+                
+                <div class="input-group">
+                    @Html.Label("quantity", "Quantity: ") &nbsp
+                    @Html.DropDownList("quantity", Model.QuantityDropDownSelectList, htmlAttributes: new { id = "quantity" })
+
+                    <button type="submit">Add To Cart</button>
+                </div>
+            }
+            @*<button type="button" id="addtocart-button">
                 @Html.ActionLink("Add to Cart", "AddToCart", "Orders", new { productId = Model.Id, area = Areas.PublicAreaName }, new { @class = "button", id = "addtocart-link" })
-            </button>
+            </button>*@
         </th>
     </tr>
 </table>
