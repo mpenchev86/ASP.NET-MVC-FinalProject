@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Reflection;
 
-    using Data.Models.Contracts;
+    //using Data.Models.Contracts;
 
     public class TypesCrawler : ITypesCrawler
     {
@@ -13,7 +13,8 @@
         {
             var types = assembly
                 .GetExportedTypes()
-                .Where(t => !t.IsInterface && typeof(IAdministerable).IsAssignableFrom(t));
+                //.Where(t => !t.IsInterface && typeof(IAdministerable).IsAssignableFrom(t))
+                ;
             return types;
         }
     }

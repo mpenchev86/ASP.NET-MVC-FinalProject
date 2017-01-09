@@ -12,10 +12,10 @@
     using ServiceModels;
     using Web.Infrastructure.Mapping;
 
-    public static class SearchRefinementHelpers/* : ISearchRefinementHelpers<TProduct, TFilter>*/
+    public static class SearchRefinementHelpers
     {
-        public static /*IQueryable*/IEnumerable<TProduct> FilterProductsByRefinementOptions<TProduct>(
-            this /*IQueryable*/IEnumerable<TProduct> products,
+        public static IEnumerable<TProduct> FilterProductsByRefinementOptions<TProduct>(
+            this IEnumerable<TProduct> products,
             IEnumerable<SearchFilterRefinementModel> searchFilters
             )
             where TProduct : class, IProductFilteringModel
@@ -26,6 +26,20 @@
             {
                 result = result.Where(p => PassesFilter(p, searchFilter));
             }
+
+            return result;
+        }
+
+        public static IEnumerable<TProduct> FilterProductsBySearchQuery<TProduct>(this IEnumerable<TProduct> products, string searchQuery)
+            where TProduct : class, IProductFilteringModel
+        {
+            if (string.IsNullOrWhiteSpace(searchQuery))
+            {
+                return products;
+            }
+
+            var result = products;
+            result = result.Where(p => PassesSearchQuery(p, searchQuery));
 
             return result;
         }
@@ -84,7 +98,7 @@
                                 decimal? upperBound;
                                 ExtractBoundaries(checkedOption.Value, out lowerBound, out upperBound);
                                 decimal propertyValue;
-                                var decimalPartOfPropertyValue = Regex.Split(propertyInfo.Value, @"[^0-9\.]+").Where(c => c != "." && c.Trim() != "")/*.ToList()*/.FirstOrDefault();
+                                var decimalPartOfPropertyValue = Regex.Split(propertyInfo.Value, @"[^0-9\.]+").Where(c => c != "." && c.Trim() != "").FirstOrDefault();
                                 decimal.TryParse(decimalPartOfPropertyValue, out propertyValue);
                                 if ((lowerBound == null && propertyValue <= upperBound) ||
                                     (lowerBound <= propertyValue && propertyValue <= upperBound) ||
@@ -101,7 +115,7 @@
             return false;
         }
 
-        public static void ExtractBoundaries(string value, out decimal? lowerBound, out decimal? upperBound)
+        private static void ExtractBoundaries(string value, out decimal? lowerBound, out decimal? upperBound)
         {
             var valueSubstrings = value.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.ToLower());
             var wordBoundary = valueSubstrings.FirstOrDefault(x => x == "under" || x == "above");
@@ -149,13 +163,7 @@
 
         private static bool FilterAppliesToProperty(string filterName, string propertyName)
         {
-            //var filterNameNoWhiteSpace = filterName.SkipWhile(ch => char.IsWhiteSpace(ch) || char.IsSeparator(ch));
             var filterNameNoWhiteSpace = new string(filterName.SkipWhile(ch => char.IsWhiteSpace(ch) || char.IsSeparator(ch)).ToArray());
-
-            //var builder = new StringBuilder();
-            //builder.Append(filterNameNoWhiteSpace);
-
-            //var propertyNameNoWhiteSpace = propertyName.SkipWhile(ch => char.IsWhiteSpace(ch) || char.IsSeparator(ch)).ToString();
             var propertyNameNoWhiteSpace = new string(propertyName.SkipWhile(ch => char.IsWhiteSpace(ch) || char.IsSeparator(ch)).ToArray());
 
             if (string.Equals(filterNameNoWhiteSpace, propertyNameNoWhiteSpace) ||
@@ -168,27 +176,7 @@
             return false;
         }
 
-        //private static bool CoversRequirement<TProduct>(TProduct product, RefinementOption refinementOption)
-        //    where TProduct : class, IProductFilteringModel
-        //{
-        //    return true;
-        //}
-
-        public static /*IQueryable*/IEnumerable<TProduct> FilterProductsBySearchQuery<TProduct/*, TFilter*/>(this /*IQueryable*/IEnumerable<TProduct> products, string searchQuery)
-            where TProduct : class, IProductFilteringModel
-        {
-            if (string.IsNullOrWhiteSpace(searchQuery))
-            {
-                return products;
-            }
-
-            var result = products;
-            result = result.Where(p => IsAssociatedWithSearchQuery(p, searchQuery));
-
-            return result;
-        }
-
-        private static bool IsAssociatedWithSearchQuery<TProduct>(TProduct product, string searchQuery)
+        private static bool PassesSearchQuery<TProduct>(TProduct product, string searchQuery)
             where TProduct : class, IProductFilteringModel
         {
             var queryTerms = searchQuery.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);

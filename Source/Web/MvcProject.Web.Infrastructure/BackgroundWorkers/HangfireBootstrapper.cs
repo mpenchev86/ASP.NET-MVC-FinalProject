@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Configuration;
+    using System.Data.Entity;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -27,7 +28,7 @@
         {
         }
 
-        public void Start()
+        public void Start(DbContext appDbContext)
         {
             lock (this.lockObject)
             {
@@ -54,7 +55,7 @@
                 GlobalJobFilters.Filters.Add(new AutomaticRetryAttribute { Attempts = 0 });
 
                 // On application start, removes previously queued and unfinished/interrupted jobs with "Processing" or "Scheduled" status, if any.
-                JobStorage.Current?.GetMonitoringApi()?.PurgeJobs();
+                JobStorage.Current?.GetMonitoringApi()?.PurgeJobs(appDbContext);
 
                 var serverOptions = new BackgroundJobServerOptions()
                 {

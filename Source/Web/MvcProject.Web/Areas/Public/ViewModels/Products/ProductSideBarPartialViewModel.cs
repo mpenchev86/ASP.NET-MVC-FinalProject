@@ -10,6 +10,11 @@
 
     public class ProductSideBarPartialViewModel : BasePublicViewModel<int>
     {
+        public string EncodedId
+        {
+            get { return IdentifierProvider.EncodeIntIdStatic(this.Id); }
+        }
+
         public string Title { get; set; }
 
         public string Category { get; set; }

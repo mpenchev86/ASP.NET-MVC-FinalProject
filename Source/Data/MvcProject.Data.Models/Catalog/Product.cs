@@ -159,6 +159,7 @@
         /// <value>
         /// The Id of the product's seller.
         /// </value>
+        [Required]
         public string SellerId { get; set; }
 
         /// <summary>

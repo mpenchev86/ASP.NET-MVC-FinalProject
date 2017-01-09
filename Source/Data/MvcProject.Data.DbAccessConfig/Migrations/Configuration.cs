@@ -55,7 +55,7 @@
             {
                 var hasher = new PasswordHasher();
                 context.Users.AddOrUpdate(
-                    u => u.Email,
+                    u => u.UserName,
                     new ApplicationUser
                     {
                         Email = "admin@mail.com",
@@ -67,31 +67,51 @@
                         PhoneNumberConfirmed = false,
                         TwoFactorEnabled = false,
                         LockoutEnabled = false,
-                    },
-                    new ApplicationUser
-                    {
-                        Email = "sample1@mail.com",
-                        UserName = "sample1",
-                        PasswordHash = hasher.HashPassword("111111"),
-                        SecurityStamp = Guid.NewGuid().ToString(),
-                        IsDeleted = false,
-                        EmailConfirmed = false,
-                        PhoneNumberConfirmed = false,
-                        TwoFactorEnabled = false,
-                        LockoutEnabled = false,
-                    },
-                    new ApplicationUser
-                    {
-                        Email = "sample2@mail.com",
-                        UserName = "sample2",
-                        PasswordHash = hasher.HashPassword("222222"),
-                        SecurityStamp = Guid.NewGuid().ToString(),
-                        IsDeleted = false,
-                        EmailConfirmed = true,
-                        PhoneNumberConfirmed = false,
-                        TwoFactorEnabled = false,
-                        LockoutEnabled = false,
-                    });
+                    }
+                    //,
+                    //new ApplicationUser
+                    //{
+                    //    Email = "sample1@mail.com",
+                    //    UserName = "sample1",
+                    //    PasswordHash = hasher.HashPassword("111111"),
+                    //    SecurityStamp = Guid.NewGuid().ToString(),
+                    //    IsDeleted = false,
+                    //    EmailConfirmed = false,
+                    //    PhoneNumberConfirmed = false,
+                    //    TwoFactorEnabled = false,
+                    //    LockoutEnabled = false,
+                    //},
+                    //new ApplicationUser
+                    //{
+                    //    Email = "sample2@mail.com",
+                    //    UserName = "sample2",
+                    //    PasswordHash = hasher.HashPassword("222222"),
+                    //    SecurityStamp = Guid.NewGuid().ToString(),
+                    //    IsDeleted = false,
+                    //    EmailConfirmed = true,
+                    //    PhoneNumberConfirmed = false,
+                    //    TwoFactorEnabled = false,
+                    //    LockoutEnabled = false,
+                    //}
+                    );
+
+                for (int i = 2; i < 100; i++)
+                {
+                    context.Users.AddOrUpdate(
+                        u => u.Id,
+                        new ApplicationUser
+                        {
+                            Email = "user" + i.ToString() + "@mail.com",
+                            UserName = "user" + i.ToString(),
+                            PasswordHash = hasher.HashPassword("000000".Substring(0, 6 - i.ToString().Length) + i.ToString()),
+                            SecurityStamp = Guid.NewGuid().ToString(),
+                            IsDeleted = false,
+                            EmailConfirmed = true,
+                            PhoneNumberConfirmed = false,
+                            TwoFactorEnabled = false,
+                            LockoutEnabled = false,
+                        });
+                }
 
                 context.SaveChanges();
             }
@@ -108,21 +128,58 @@
                         UserName = "admin",
                         RoleId = context.Roles.FirstOrDefault(r => r.Name == IdentityRoles.Admin).Id,
                         RoleName = IdentityRoles.Admin
-                    },
-                    new ApplicationUserRole
-                    {
-                        UserId = context.Users.FirstOrDefault(u => u.UserName == "sample1").Id,
-                        UserName = "sample1",
-                        RoleId = context.Roles.FirstOrDefault(r => r.Name == IdentityRoles.Customer).Id,
-                        RoleName = IdentityRoles.Customer
-                    },
-                    new ApplicationUserRole
-                    {
-                        UserId = context.Users.FirstOrDefault(u => u.UserName == "sample2").Id,
-                        UserName = "sample2",
-                        RoleId = context.Roles.FirstOrDefault(r => r.Name == IdentityRoles.Customer).Id,
-                        RoleName = IdentityRoles.Customer
-                    });
+                    }
+                    //,
+                    //new ApplicationUserRole
+                    //{
+                    //    UserId = context.Users.FirstOrDefault(u => u.UserName == "sample1").Id,
+                    //    UserName = "sample1",
+                    //    RoleId = context.Roles.FirstOrDefault(r => r.Name == IdentityRoles.Customer).Id,
+                    //    RoleName = IdentityRoles.Customer
+                    //},
+                    //new ApplicationUserRole
+                    //{
+                    //    UserId = context.Users.FirstOrDefault(u => u.UserName == "sample1").Id,
+                    //    UserName = "sample1",
+                    //    RoleId = context.Roles.FirstOrDefault(r => r.Name == IdentityRoles.Seller).Id,
+                    //    RoleName = IdentityRoles.Seller
+                    //},
+                    //new ApplicationUserRole
+                    //{
+                    //    UserId = context.Users.FirstOrDefault(u => u.UserName == "sample2").Id,
+                    //    UserName = "sample2",
+                    //    RoleId = context.Roles.FirstOrDefault(r => r.Name == IdentityRoles.Customer).Id,
+                    //    RoleName = IdentityRoles.Customer
+                    //},
+                    //new ApplicationUserRole
+                    //{
+                    //    UserId = context.Users.FirstOrDefault(u => u.UserName == "sample2").Id,
+                    //    UserName = "sample2",
+                    //    RoleId = context.Roles.FirstOrDefault(r => r.Name == IdentityRoles.Seller).Id,
+                    //    RoleName = IdentityRoles.Seller
+                    //}
+                    );
+
+                var roles = new Dictionary<int, ApplicationRole>();
+                for (int i = 0; i < context.Roles.Count(); i++)
+                {
+                    roles.Add(i, context.Roles.Where(r => r.Name != IdentityRoles.Admin).OrderBy(r => r.Name).Skip(i).FirstOrDefault());
+                }
+
+                foreach (var user in context.Users)
+                {
+                    var random = new Random();
+                    var roleKey = random.Next() % roles.Count;
+                    context.UserRoles.AddOrUpdate(
+                        r => new { r.UserName, r.RoleName },
+                        new ApplicationUserRole
+                        {
+                            UserId = user.Id,
+                            UserName = user.UserName,
+                            RoleId = roles[roleKey].Id,
+                            RoleName = roles[roleKey].Name
+                        });
+                }
 
                 context.SaveChanges();
             }
@@ -560,6 +617,14 @@
             #region Products
             if (!context.Products.Any())
             {
+                var sellerIds = new Dictionary<int, string>();
+                var sellers = context.Users.Where(u => u.Roles.Any(r => r.RoleName == IdentityRoles.Seller)).OrderBy(u => u.UserName);
+                for (int i = 0; i < sellers.Count(); i++)
+                {
+                    sellerIds.Add(i, sellers.Skip(i).FirstOrDefault().Id);
+                }
+
+                var random = new Random();
                 context.Products.AddOrUpdate(
                     p => p.Id,
                     new Product
@@ -570,6 +635,8 @@
                         QuantityInStock = 60,
                         UnitPrice = 2499.00M,
                         CategoryId = 3,
+                        //SellerId = context.Users.FirstOrDefault(u => u.Roles.Any(r => r.RoleName == IdentityRoles.Seller)).Id,
+                        SellerId = sellerIds[random.Next() % sellerIds.Count],
                         Tags = new List<Tag>
                         {
                             context.Tags.OrderBy(t => t.Id).Skip(0).FirstOrDefault()
@@ -583,6 +650,8 @@
                         QuantityInStock = 314,
                         UnitPrice = 179.00M,
                         CategoryId = 3,
+                        //SellerId = context.Users.Where(u => u.Roles.Any(r => r.RoleName == IdentityRoles.Seller)).OrderBy(u => u.UserName).Skip(1).FirstOrDefault().Id,
+                        SellerId = sellerIds[random.Next() % sellerIds.Count],
                         Tags = new List<Tag>
                         {
                             context.Tags.OrderBy(t => t.Id).Skip(1).FirstOrDefault(),
@@ -598,6 +667,8 @@
                         QuantityInStock = 226,
                         UnitPrice = 355.95M,
                         CategoryId = 3,
+                        //SellerId = context.Users.Where(u => u.Roles.Any(r => r.RoleName == IdentityRoles.Seller)).OrderBy(u => u.UserName).FirstOrDefault().Id,
+                        SellerId = sellerIds[random.Next() % sellerIds.Count],
                         Tags = new List<Tag>
                         {
                             context.Tags.OrderBy(t => t.Id).Skip(3).FirstOrDefault()
@@ -611,6 +682,8 @@
                         QuantityInStock = 130,
                         UnitPrice = 1346.95M,
                         CategoryId = 3,
+                        //SellerId = context.Users.Where(u => u.Roles.Any(r => r.RoleName == IdentityRoles.Seller)).OrderBy(u => u.UserName).Skip(1).FirstOrDefault().Id,
+                        SellerId = sellerIds[random.Next() % sellerIds.Count],
                         Tags = new List<Tag>
                         {
                             context.Tags.OrderBy(t => t.Id).Skip(2).FirstOrDefault(),
@@ -625,6 +698,8 @@
                         QuantityInStock = 414,
                         UnitPrice = 648.00M,
                         CategoryId = 3,
+                        //SellerId = context.Users.Where(u => u.Roles.Any(r => r.RoleName == IdentityRoles.Seller)).OrderBy(u => u.UserName).Skip(1).FirstOrDefault().Id,
+                        SellerId = sellerIds[random.Next() % sellerIds.Count],
                     },
                     new Product
                     {
@@ -633,6 +708,8 @@
                         QuantityInStock = 26,
                         UnitPrice = 7.88773M,
                         CategoryId = 1,
+                        //SellerId = context.Users.Where(u => u.Roles.Any(r => r.RoleName == IdentityRoles.Seller)).OrderBy(u => u.UserName).Skip(1).FirstOrDefault().Id,
+                        SellerId = sellerIds[random.Next() % sellerIds.Count],
                     },
                     new Product
                     {
@@ -641,6 +718,8 @@
                         QuantityInStock = 0,
                         UnitPrice = 32.453M,
                         CategoryId = 4,
+                        //SellerId = context.Users.Where(u => u.Roles.Any(r => r.RoleName == IdentityRoles.Seller)).OrderBy(u => u.UserName).FirstOrDefault().Id,
+                        SellerId = sellerIds[random.Next() % sellerIds.Count],
                         Tags = new List<Tag>
                         {
                             context.Tags.OrderBy(t => t.Id).Skip(6).FirstOrDefault(),
@@ -654,6 +733,8 @@
                         QuantityInStock = 14,
                         UnitPrice = 3662717.0002M,
                         CategoryId = 7,
+                        //SellerId = context.Users.Where(u => u.Roles.Any(r => r.RoleName == IdentityRoles.Seller)).OrderBy(u => u.UserName).Skip(1).FirstOrDefault().Id,
+                        SellerId = sellerIds[random.Next() % sellerIds.Count],
                     },
                     new Product
                     {
@@ -662,6 +743,8 @@
                         QuantityInStock = 26,
                         UnitPrice = 7.88773M,
                         CategoryId = 2,
+                        //SellerId = context.Users.Where(u => u.Roles.Any(r => r.RoleName == IdentityRoles.Seller)).OrderBy(u => u.UserName).FirstOrDefault().Id,
+                        SellerId = sellerIds[random.Next() % sellerIds.Count],
                         Tags = new List<Tag>
                         {
                             context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
@@ -679,6 +762,8 @@
                             QuantityInStock = 26,
                             UnitPrice = 7.88773M,
                             CategoryId = 3,
+                            //SellerId = context.Users.Where(u => u.Roles.Any(r => r.RoleName == IdentityRoles.Seller)).OrderBy(u => u.UserName).FirstOrDefault().Id,
+                            SellerId = sellerIds[random.Next() % sellerIds.Count],
                             Tags = new List<Tag>
                             {
                                 context.Tags.OrderBy(t => t.Id).Skip(5).FirstOrDefault()
@@ -693,23 +778,38 @@
             #region Comments
             if (!context.Comments.Any())
             {
-                var userIds = new string[]
+                //var userIds = new string[]
+                //{
+                //    context.Users.FirstOrDefault(u => u.UserName == "admin").Id,
+                //    context.Users.FirstOrDefault(u => u.UserName == "sample1").Id,
+                //    context.Users.FirstOrDefault(u => u.UserName == "sample2").Id,
+                //};
+
+                var customerIds = new Dictionary<int, string>();
+                var customers = context.Users.Where(u => u.Roles.Any(r => r.RoleName == IdentityRoles.Customer)).OrderBy(u => u.UserName);
+                for (int i = 0; i < customers.Count(); i++)
                 {
-                    context.Users.FirstOrDefault(u => u.UserName == "admin").Id,
-                    context.Users.FirstOrDefault(u => u.UserName == "sample1").Id,
-                    context.Users.FirstOrDefault(u => u.UserName == "sample2").Id,
-                };
-                context.Comments.AddOrUpdate(
-                    c => c.Id,
-                    new Comment { Content = "Oh, it's amazing! I'll buy it again tomorrow..", ProductId = 4, UserId = userIds[0] },
-                    new Comment { Content = "blaaaaaahahahahhahahahahaha", ProductId = 1, UserId = userIds[1] },
-                    new Comment { Content = "Dont waste your money for that crap!", ProductId = 2, UserId = userIds[2] },
-                    new Comment { Content = "bokluk e.. naistina, mnogo sym dovolen.", ProductId = 2, UserId = userIds[0] },
-                    new Comment { Content = "bokluk e.. naistina, mnogo sym dovolen.", ProductId = 2, UserId = userIds[1] },
-                    new Comment { Content = "bokluk e.. naistina, mnogo sym dovolen.", ProductId = 7, UserId = userIds[2] },
-                    new Comment { Content = "bokluk e.. naistina, mnogo sym dovolen.", ProductId = 3, UserId = userIds[0] },
-                    new Comment { Content = "bokluk e.. naistina, mnogo sym dovolen.", ProductId = 3, UserId = userIds[1] },
-                    new Comment { Content = "bokluk e.. naistina, mnogo sym dovolen.", ProductId = 5, UserId = userIds[0] });
+                    customerIds.Add(i, customers.Skip(i).FirstOrDefault().UserName);
+                }
+
+                //context.Comments.AddOrUpdate(
+                //    c => c.Id,
+                //    new Comment { Content = "Oh, it's amazing! I'll buy it again tomorrow..", ProductId = 4, UserId = userIds[0] },
+                //    new Comment { Content = "blaaaaaahahahahhahahahahaha", ProductId = 1, UserId = userIds[1] },
+                //    new Comment { Content = "Dont waste your money for that crap!", ProductId = 2, UserId = userIds[2] },
+                //    new Comment { Content = "bokluk e.. naistina, mnogo sym dovolen.", ProductId = 2, UserId = userIds[0] },
+                //    new Comment { Content = "bokluk e.. naistina, mnogo sym dovolen.", ProductId = 2, UserId = userIds[1] },
+                //    new Comment { Content = "bokluk e.. naistina, mnogo sym dovolen.", ProductId = 7, UserId = userIds[2] },
+                //    new Comment { Content = "bokluk e.. naistina, mnogo sym dovolen.", ProductId = 3, UserId = userIds[0] },
+                //    new Comment { Content = "bokluk e.. naistina, mnogo sym dovolen.", ProductId = 3, UserId = userIds[1] },
+                //    new Comment { Content = "bokluk e.. naistina, mnogo sym dovolen.", ProductId = 5, UserId = userIds[0] });
+
+                var random = new Random();
+                var productsCount = context.Products.Count();
+                for (int i = 0; i < 1000; i++)
+                {
+                    //RandomStringsGenerator
+                }
 
                 context.SaveChanges();
             }

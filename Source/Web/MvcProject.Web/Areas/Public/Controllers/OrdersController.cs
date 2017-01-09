@@ -16,25 +16,29 @@
     using Microsoft.AspNet.Identity;
     using System.Data.Entity.Infrastructure;
     using System.Data.Entity.Validation;
+    using Services.Web;
 
     [AuthorizeRoles(IdentityRoles.Customer, IdentityRoles.Seller)]
     public class OrdersController : BasePublicController
     {
-        private readonly IUsersService usersService;
-        private readonly IProductsService productsService;
-        private readonly IOrdersService ordersService;
+        private readonly IIdentifierProvider identifierProvider;
         private readonly IOrderItemsService orderItemsService;
+        private readonly IOrdersService ordersService;
+        private readonly IProductsService productsService;
+        private readonly IUsersService usersService;
 
         public OrdersController(
-            IUsersService usersService,
-            IProductsService productsService,
+            IIdentifierProvider identifierProvider,
+            IOrderItemsService orderItemsService,
             IOrdersService ordersService,
-            IOrderItemsService orderItemsService)
+            IProductsService productsService,
+            IUsersService usersService)
         {
-            this.usersService = usersService;
-            this.productsService = productsService;
-            this.ordersService = ordersService;
+            this.identifierProvider = identifierProvider;
             this.orderItemsService = orderItemsService;
+            this.ordersService = ordersService;
+            this.productsService = productsService;
+            this.usersService = usersService;
         }
 
         // Preserving ModelState across PRG: http://www.jefclaes.be/2012/06/persisting-model-state-when-using-prg.html
@@ -78,39 +82,21 @@
 
             throw new HttpException(400, "Invalid shopping cart state.");
         }
-        
-        //[HttpGet]
-        public ActionResult AddToCart(int productId, int quantity = 1)
+
+        [HttpGet]
+        public ActionResult AddToCart(string productId)
+        {
+            this.ProccessSessionCart(productId, 1);
+
+            return this.RedirectToAction("ShoppingCart");
+        }
+
+        [HttpPost]
+        public ActionResult AddToCart(string productId, int quantity)
         {
             if (this.ModelState.IsValid)
             {
-                var userName = this.User.Identity.Name;
-                var sessionKey = GetSessionKey(userName);
-                var shoppingCart = (ShoppingCartViewModel)this.Session[sessionKey];
-
-                if (shoppingCart == null)
-                {
-                    shoppingCart = new ShoppingCartViewModel() { UserName = userName };
-                }
-
-                var cartItem = shoppingCart.CartItems.FirstOrDefault(ci => ci.Product.Id == productId);
-                if (cartItem != null)
-                {
-                    //cartItem.ProductQuantity += 1;
-                    cartItem.ProductQuantity += quantity;
-                }
-                else
-                {
-                    cartItem = new ShoppingCartItem();
-                    cartItem.Product = PopulateProductForCartItem(this.productsService.GetById(productId));
-                    //cartItem.ProductQuantity = 1;
-                    cartItem.ProductQuantity = quantity;
-                    cartItem.ToDelete = false;
-                    shoppingCart.CartItems.Add(cartItem);
-                    shoppingCart.TotalCost += cartItem.Product.UnitPrice * cartItem.ProductQuantity;
-                }
-
-                this.Session[sessionKey] = shoppingCart;
+                this.ProccessSessionCart(productId, quantity);
             }
 
             return this.RedirectToAction("ShoppingCart");
@@ -157,6 +143,36 @@
         }
 
         #region Helpers
+        private void ProccessSessionCart(string productId, int quantity)
+        {
+            var userName = this.User.Identity.Name;
+            var sessionKey = GetSessionKey(userName);
+            var shoppingCart = (ShoppingCartViewModel)this.Session[sessionKey];
+
+            if (shoppingCart == null)
+            {
+                shoppingCart = new ShoppingCartViewModel() { UserName = userName };
+            }
+
+            var decodedId = (int)this.identifierProvider.DecodeIdToInt(productId);
+            var cartItem = shoppingCart.CartItems.FirstOrDefault(ci => ci.Product.Id == decodedId);
+            if (cartItem != null)
+            {
+                cartItem.ProductQuantity += quantity;
+            }
+            else
+            {
+                cartItem = new ShoppingCartItem();
+                cartItem.Product = PopulateProductForCartItem(this.productsService.GetById(decodedId));
+                cartItem.ProductQuantity = quantity;
+                cartItem.ToDelete = false;
+                shoppingCart.CartItems.Add(cartItem);
+                shoppingCart.TotalCost += cartItem.Product.UnitPrice * cartItem.ProductQuantity;
+            }
+
+            this.Session[sessionKey] = shoppingCart;
+        }
+
         private void PopulateOrder(Order order, ShoppingCartViewModel shoppingCart)
         {
             order.TotalCost = shoppingCart.TotalCost;

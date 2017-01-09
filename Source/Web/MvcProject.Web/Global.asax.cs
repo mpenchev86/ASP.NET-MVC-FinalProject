@@ -42,7 +42,7 @@
                 Assembly.GetAssembly(typeof(BaseAdminController)),
                 Assembly.GetAssembly(typeof(IBaseDataService)));
 
-            HangfireBootstrapper.Instance.Start();
+            HangfireBootstrapper.Instance.Start(new MvcProjectDbContext());
         }
 
         protected void Application_End(object sender, EventArgs e)

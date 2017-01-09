@@ -58,7 +58,7 @@
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary()
 
-                @Html.Hidden("productId", Model.Id)
+                @Html.Hidden("productId", Model.EncodedId)
                 
                 <div class="input-group">
                     @Html.Label("quantity", "Quantity: ") &nbsp

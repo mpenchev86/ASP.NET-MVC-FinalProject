@@ -161,6 +161,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Filters\AjaxOnlyAttribute.cs" />
     <Compile Include="Serializers\HangfireJsonConverters\IntConverter.cs" />
+    <Compile Include="StringHelpers\RandomStringsGenerator.cs" />
     <Compile Include="ViewEngines\CustomViewLocationRazorViewEngine.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -176,14 +177,6 @@
     <ProjectReference Include="..\..\Common\GlobalConstants\MvcProject.Common.GlobalConstants.csproj">
       <Project>{5f2803a7-770d-4509-8d69-cfbf4d6dc772}</Project>
       <Name>MvcProject.Common.GlobalConstants</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Data\MvcProject.Data.DbAccessConfig\MvcProject.Data.DbAccessConfig.csproj">
-      <Project>{37EAD08E-A644-4438-B913-1329C8CB3899}</Project>
-      <Name>MvcProject.Data.DbAccessConfig</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Data\MvcProject.Data.Models\MvcProject.Data.Models.csproj">
-      <Project>{f3dfda1d-99d1-46ad-9cfa-a0b9aa7a750c}</Project>
-      <Name>MvcProject.Data.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
