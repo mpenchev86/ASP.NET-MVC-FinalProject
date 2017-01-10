@@ -87,6 +87,10 @@
       <Project>{5f2803a7-770d-4509-8d69-cfbf4d6dc772}</Project>
       <Name>MvcProject.Common.GlobalConstants</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Web\MvcProject.Web.Infrastructure\MvcProject.Web.Infrastructure.csproj">
+      <Project>{B14DFB67-88F5-4714-A592-ECAB1F8F74A9}</Project>
+      <Name>MvcProject.Web.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MvcProject.Data.Models\MvcProject.Data.Models.csproj">
       <Project>{f3dfda1d-99d1-46ad-9cfa-a0b9aa7a750c}</Project>
       <Name>MvcProject.Data.Models</Name>

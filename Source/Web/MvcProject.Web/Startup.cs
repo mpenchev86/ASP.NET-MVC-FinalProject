@@ -20,11 +20,7 @@ namespace MvcProject.Web
             // https://github.com/SignalR/SignalR/issues/3414
             app.SanitizeThreadCulture();
 
-            // app.MapSignalR();
             this.ConfigureAuth(app);
-
-            //// Hangfire configuration
-            //HangFireConfig.Initialize(app);
         }
     }
 }

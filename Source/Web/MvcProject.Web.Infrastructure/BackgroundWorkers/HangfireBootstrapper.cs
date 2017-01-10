@@ -44,14 +44,6 @@
                 var db = new HangfireDbContext();
 
                 GlobalConfiguration.Configuration.UseSqlServerStorage(DbAccess.HangfireConnectionStringName);
-
-                //JsonSerializerSettings settings = new JsonSerializerSettings
-                //{
-                //    Converters = new List<JsonConverter> { new IntConverter() }
-                //};
-
-                //JobHelper.SetSerializerSettings(settings);
-
                 GlobalJobFilters.Filters.Add(new AutomaticRetryAttribute { Attempts = 0 });
 
                 // On application start, removes previously queued and unfinished/interrupted jobs with "Processing" or "Scheduled" status, if any.
