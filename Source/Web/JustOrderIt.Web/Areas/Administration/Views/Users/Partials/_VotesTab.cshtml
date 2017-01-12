@@ -1,0 +1,14 @@
+﻿@using JustOrderIt.Web.Areas.Administration.ViewModels.Votes
+@using JustOrderIt.Web.Infrastructure.HtmlHelpers
+
+@(Html.ClientDetailsGrid<VoteDetailsForUserViewModel>(
+    name: "votes-grid_#=Id#",
+    columns: col =>
+    {
+        col.Bound(c => c.Id).Title("ID").Width("10%");
+        col.Bound(c => c.VoteValue);
+        col.Bound(c => c.ProductId).Title("Product ID");
+        col.Bound(c => c.CreatedOn);
+        col.Bound(c => c.ModifiedOn);
+    })
+    .ToClientTemplate())

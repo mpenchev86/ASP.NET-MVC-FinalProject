@@ -1,0 +1,87 @@
+﻿@using JustOrderIt.Web.Areas.Public.ViewModels.Search
+
+@{
+    ViewBag.Title = "Refine your search - OrderIt.com";
+}
+
+@model CategorySearchViewModel
+
+@Html.HiddenFor(m => m.CategoryId, new { id = "searchCategoryId" })
+@Html.HiddenFor(m => m.Query, new { id = "searchQuery" })
+<div class="row">
+    @Html.Partial("_TopSearchPanel")
+</div>
+<div class="row">
+    <div class="col-md-2">
+        @Html.Partial("_RefineSearchBar", new FilteringViewModel { CategoryId = Model.CategoryId, Query = Model.Query, SearchFilters = Model.SearchFilters })
+    </div>
+    <div class="col-md-10">
+        @Html.Partial("_SearchResults", Model.Products)
+    </div>
+</div>
+
+
+@section Scripts{
+    @Html.Kendo().DeferredScripts()
+    <script>
+        $(document).ready(function () {
+            // Preselect search dropdown.
+            var searchCategoryId = $('#searchCategoryId').val()
+            $('#navbar-search-options option').each(function preselectCategory(index, elem) {
+                if ($(elem).val() === searchCategoryId) {
+                    $(elem).attr('selected', 'selected');
+                }
+            });
+
+            // Preselect search input value.
+            var searchQuery = $('#searchQuery').val();
+            $('#navbar-search-query').val(searchQuery);
+        });
+
+        function submitForm(e) {
+            var selectionType = $(e).data('selection-type');
+            var optionsClass = $(e).attr('class');
+            var lastCheckedOption = {};
+            var isChecked = $(e).prop('checked');
+
+            // If filter is single select type, uncheck all options and set 'checked' attribute to the currently selected one.
+            if (selectionType == 'single') {
+                var singleSelectOptions = $('.' + optionsClass);
+                $(e).prop('checked', false);
+
+                singleSelectOptions.each(function getLastChecked(index, elem) {
+                    if ($(elem).is(':checked')) {
+                        lastCheckedOption = elem;
+                        $(elem).prop('checked', false);
+                    }
+                });
+
+                $(e).prop('checked', isChecked);
+            }
+
+            // Hide data bound refinement options checkboxes.
+            var optionsLabels = $('.options-label');
+            optionsLabels.hide();
+
+            // Set ui input checks before being displayed.
+            optionsLabels.each(function setUiInputChecks(index, elem) {
+                var input = $(elem).children('input').first();
+                $('#' + input.data('ui-input-id')).prop('checked', input.prop('checked'));
+            });
+            $('#' + $(e).data('ui-input-id')).prop('checked', isChecked);
+
+            // Show ui refinement options checkboxes.
+            var uiOptionsLabels = $('.ui-options-label');
+            uiOptionsLabels.show();
+
+            // Submit search filters form.
+            $(e).parents('form:first').submit();
+
+            // Revert last refinement selection so that browser back button works correctly (or else, it doesn't return to the previous selection).
+            if (lastCheckedOption) {
+                $(lastCheckedOption).prop('checked', true);
+            }
+            $(e).prop('checked', !isChecked);
+        }
+    </script>    
+}

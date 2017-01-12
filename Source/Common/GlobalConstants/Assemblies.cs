@@ -1,12 +1,12 @@
-﻿namespace MvcProject.Common.GlobalConstants
+﻿namespace JustOrderIt.Common.GlobalConstants
 {
     public class Assemblies
     {
-        public const string DataModelsAssemblyName = "MvcProject.Data.Models";
-        public const string DataServicesAssemblyName = "MvcProject.Services.Data";
-        public const string LogicServicesAssemblyName = "MvcProject.Services.Logic";
-        public const string WebServicesAssemblyName = "MvcProject.Services.Web";
-        public const string InfrastructureAssemblyName = "MvcProject.Web.Infrastructure";
-        public const string TestModuleAssemblyName = "MvcProject.Web.TestModule";
+        public const string DataModelsAssemblyName = "JustOrderIt.Data.Models";
+        public const string DataServicesAssemblyName = "JustOrderIt.Services.Data";
+        public const string LogicServicesAssemblyName = "JustOrderIt.Services.Logic";
+        public const string WebServicesAssemblyName = "JustOrderIt.Services.Web";
+        public const string InfrastructureAssemblyName = "JustOrderIt.Web.Infrastructure";
+        public const string TestModuleAssemblyName = "JustOrderIt.Web.TestModule";
     }
 }

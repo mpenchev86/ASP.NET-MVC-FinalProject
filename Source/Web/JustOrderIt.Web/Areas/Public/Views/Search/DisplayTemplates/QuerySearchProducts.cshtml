@@ -1,0 +1,29 @@
+﻿@using JustOrderIt.Web.Areas.Public.ViewModels.Products
+
+@model List<ProductForQuerySearchViewModel>
+
+@{ 
+    var categoryId = (int)ViewData["categoryId"];
+}
+
+@if (Model.Any())
+{
+    <div class="row query-search-category-title">
+        @Html.ActionLink((string)ViewData["categoryName"], "SearchByCategory", "Search", new { categoryId = categoryId, query = (string)ViewData["query"] }, null)
+    </div>
+    <div class="row query-search-listview">
+        @(Html.Kendo()
+            .ListView<ProductForQuerySearchViewModel>()
+            .Name("SearchResultListView" + categoryId.ToString())
+            .TagName("ul")
+            .ClientTemplateId("query-search-result-template")
+            .BindTo(Model)
+            .DataSource(data => data
+                .Model(model => model.Id(p => p.Id))
+                .ServerOperation(false)
+            )
+            .Deferred()
+        )
+    </div>
+}
+

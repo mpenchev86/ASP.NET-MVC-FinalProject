@@ -1,4 +1,4 @@
-﻿namespace MvcProject.Common.GlobalConstants
+﻿namespace JustOrderIt.Common.GlobalConstants
 {
     public class IdentityRoles
     {

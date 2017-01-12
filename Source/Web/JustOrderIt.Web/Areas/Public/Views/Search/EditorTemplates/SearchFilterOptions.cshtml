@@ -1,0 +1,75 @@
+﻿@using JustOrderIt.Web.Areas.Public.ViewModels.Search
+@using JustOrderIt.Data.Models.Search
+
+@model List<SearchFilterOptionViewModel>
+
+@{
+    var count = Model.Count();
+}
+
+@for (int i = 0; i < count; i++)
+{
+    @Html.HiddenFor(m => Model[i].Value)
+    @Html.HiddenFor(m => Model[i].SearchFilterId)
+    @Html.HiddenFor(m => Model[i].SelectionType)
+    @Html.HiddenFor(m => Model[i].OptionsType)
+
+    var uiInputId = "ui-filter" + Model[i].SearchFilterId.ToString() + "-option" + i.ToString();
+
+    if (Model[i].SelectionType == SearchFilterSelectionType.Multiple)
+    {
+        <div>
+            <label class="options-label">
+                @Html.CheckBoxFor(
+                    m => Model[i].Checked,
+                    new
+                    {
+                        onchange = "submitForm(this)",
+                        data_selection_type = "multiple",
+                        data_ui_input_id = uiInputId,
+                        @class = Model[i].SearchFilterId + "-multi-select",
+                    })
+                @*<span>@Model[i].Value</span>*@
+                <span>@Html.DisplayFor(m => Model[i].Value, new { filterName = (string)ViewData["filterName"] })</span>
+            </label>
+            
+            <label class="ui-options-label" style="display:none">
+                <input type="checkbox"
+                       id="@uiInputId"
+                       checked="@Model[i].Checked"
+                       disabled="disabled"/>
+                @*<span>@Model[i].Value</span>*@
+                <span>@Html.DisplayFor(m => Model[i].Value, new { filterName = (string)ViewData["filterName"] })</span>
+            </label>
+        </div>
+    }
+    else
+    {
+        <div>
+            <label class="options-label">
+                @Html.CheckBoxFor(
+                    m => Model[i].Checked,
+                    new
+                    {
+                        onchange = "submitForm(this)",
+                        data_selection_type = "single",
+                        data_ui_input_id = uiInputId,
+                        @class = Model[i].SearchFilterId + "-single-select",
+                        style = "visibility:hidden;width:0",
+                    })
+                @*<span>@Model[i].Value</span>*@
+                <span>@Html.DisplayFor(m => Model[i].Value, new { filterName = (string)ViewData["filterName"] })</span>
+            </label>
+
+            <label class="ui-options-label" style="display:none">
+                <input type="checkbox"
+                       id="@uiInputId"
+                       checked="@Model[i].Checked"
+                       style = "visibility:hidden;width:0"
+                       disabled="disabled" />
+                @*<span>@Model[i].Value</span>*@
+                <span>@Html.DisplayFor(m => Model[i].Value, new { filterName = (string)ViewData["filterName"] })</span>
+            </label>
+        </div>
+    }
+}

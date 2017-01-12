@@ -1,0 +1,31 @@
+﻿@using JustOrderIt.Web.Areas.Public.ViewModels.Search
+
+@model List<SearchFilterForCategoryViewModel>
+
+@{ 
+    var count = Model.Count();
+}
+
+@for (int i = 0; i < count; i++)
+{
+    <div class="row search-filter">
+        @Html.LabelFor(m => m, Model[i].DisplayName, new { @class = "search-filter-label" })
+
+        @Html.HiddenFor(m => Model[i].Id)
+        @Html.HiddenFor(m => Model[i].Name)
+        @Html.HiddenFor(m => Model[i].DisplayName)
+        @Html.HiddenFor(m => Model[i].MeasureUnit)
+        @Html.HiddenFor(m => Model[i].Options)
+        @Html.HiddenFor(m => Model[i].OptionsType)
+        @Html.HiddenFor(m => Model[i].SelectionType)
+
+        @Html.EditorFor(
+            m => Model[i].RefinementOptions,
+            new
+            {
+                filterIndex = i.ToString(),
+                filterName = Model[i].Name
+            })
+    </div>
+}
+

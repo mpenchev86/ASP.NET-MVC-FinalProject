@@ -1,0 +1,16 @@
+﻿@using JustOrderIt.Web.Areas.Public.ViewModels.Users
+@model UserProfileViewModel
+
+@{
+    ViewBag.Title = "UserProfile";
+}
+
+<div class="row">
+    <div class="col-md-1">
+        @Html.LabelFor(m => m.UserName)
+    </div>
+    <div class="col-md-1">
+        @Html.DisplayFor(m => m.UserName)
+    </div>
+</div>
+

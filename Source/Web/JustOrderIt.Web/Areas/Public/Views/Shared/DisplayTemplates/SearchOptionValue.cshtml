@@ -1,0 +1,22 @@
+﻿@using JustOrderIt.Services.Logic
+
+@model string
+
+@if ((string)ViewData["filterName"] == "AllTimeAverageRating")
+{
+    decimal? lowerBound;
+    decimal? upperBound;
+
+    SearchRefinementHelpers.ExtractBoundaries(Model, out lowerBound, out upperBound);
+
+    if (lowerBound != null && upperBound != null)
+    {
+        var value = Convert.ToInt32(lowerBound);
+
+        @Html.Partial("Rating", (double)value, new ViewDataDictionary(this.ViewData) { { "ratingId", "igRating" + value.ToString() }, { "htmlAttributes", new Dictionary<string, object>() { { "class", "products-rating" } } } }) @:and Up
+    }
+}
+else
+{
+    @Model
+}

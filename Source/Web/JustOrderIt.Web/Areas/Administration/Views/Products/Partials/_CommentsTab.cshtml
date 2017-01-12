@@ -1,0 +1,15 @@
+﻿@using JustOrderIt.Web.Areas.Administration.ViewModels.Comments
+@using JustOrderIt.Web.Infrastructure.HtmlHelpers
+
+@(Html.ClientDetailsGrid<CommentDetailsForProductViewModel>(
+    name: "comments-grid_#=Id#",
+    columns: cols =>
+    {
+        cols.Bound(p => p.Id).Width("10%");
+        cols.Bound(p => p.Content);
+        cols.Bound(p => p.UserName);
+        cols.Bound(p => p.CreatedOn).Width("10%");
+        cols.Bound(p => p.ModifiedOn).Width("10%");
+    })
+    .ToClientTemplate()
+)

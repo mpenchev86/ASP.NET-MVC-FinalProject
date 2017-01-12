@@ -1,0 +1,58 @@
+﻿@model JustOrderIt.Web.Areas.Administration.ViewModels.Keywords.KeywordViewModel
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend></legend>
+
+        <div class="container-fluid">
+            <div class="row">
+                @Html.HiddenFor(m => m.Id)
+            </div>
+
+            <div class="row">
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.SearchTerm)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(m => m.SearchTerm)
+                    @Html.ValidationMessageFor(model => model.SearchTerm)
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.Categories)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(
+                        m => m.Categories,
+                        new
+                        {
+                            name = "categoriesMultiSelect",
+                            placeHolder = "Select categories...",
+                            dataTextField = "Name",
+                            dataValueField = "Id",
+                            action = "GetAllCategories",
+                            controller = "Keywords",
+                            htmlAttributes = new { data_bind = "value: Categories" }
+                        })
+                    @Html.ValidationMessageFor(model => model.Categories)
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.IsDeleted, "Mark as deleted")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(m => m.IsDeleted)
+                    @Html.ValidationMessageFor(model => model.IsDeleted)
+                </div>
+            </div>
+        </div>
+    </fieldset>
+}

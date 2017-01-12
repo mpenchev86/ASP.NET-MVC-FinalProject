@@ -1,0 +1,26 @@
+﻿@using JustOrderIt.Web.Areas.Public.ViewModels.Products
+
+@model ProductForShoppingCart
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="row">
+            <img id="cart-product-image" src="@Url.ProductPicture(Model.ImageUrlPath, Model.ImageFileExtension, ImageSizes.Small)" />
+        </div>
+        @Html.ActionLink(" ", "Index", "Products", new { id = Model.EncodedId }, new { @class = "cart-product-link" })
+    </div>
+    <div class="col-md-3">
+        @Html.LabelFor(m => m.UnitPrice) :
+        <span>@(string.Format("{0:c}", Model.UnitPrice))</span>
+    </div>
+    @if (Model.ShippingPrice != null)
+    {
+        <div class="col-md-3">
+            @Html.LabelFor(m => m.ShippingPrice) :
+            <span>@(string.Format("{0:c}", Model.ShippingPrice))</span>
+        </div>
+    }
+</div>
+<div class="row">
+    @Html.ActionLink(Model.Title, "Index", "Products", new { id = Model.EncodedId }, null)
+</div>

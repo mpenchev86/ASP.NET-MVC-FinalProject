@@ -1,0 +1,15 @@
+﻿@using JustOrderIt.Web.Areas.Administration.ViewModels.Products
+@using JustOrderIt.Web.Infrastructure.HtmlHelpers
+
+@(Html.ClientDetailsGrid<ProductDetailsForCategoryViewModel>(
+    name: "products-grid_#=Id#",
+    columns: cols =>
+    {
+        cols.Bound(c => c.Id).Title("ID");
+        cols.Bound(c => c.Title).Width("30%");
+        cols.Bound(c => c.ShortDescription).Width("40%");
+        cols.Bound(c => c.CreatedOn);
+        cols.Bound(c => c.ModifiedOn);
+    })
+    .ToClientTemplate()
+)

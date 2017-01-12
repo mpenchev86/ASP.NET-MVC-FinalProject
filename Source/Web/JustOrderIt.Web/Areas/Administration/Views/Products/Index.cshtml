@@ -1,0 +1,207 @@
+﻿@using JustOrderIt.Web.Infrastructure.HtmlHelpers
+@using JustOrderIt.Web.Areas.Administration.ViewModels.Products
+@using JustOrderIt.Web.Areas.Administration.ViewModels.Images
+@using System.Globalization
+@using System.Web.Mvc
+
+@model ProductViewModelForeignKeys
+
+@{
+    ViewBag.Title = "(" + Areas.AdministrationAreaName + ") - Products";
+    var userCulture = this.Request.UserLanguages.FirstOrDefault() ?? "en-US";
+}
+
+@Html.AntiForgeryToken()
+
+@(Html.FullFeaturedGrid<ProductViewModel>(
+    gridName: "productsGrid",
+    controllerName: "Products",
+    routeValues: new { Area = Areas.AdministrationAreaName },
+    model: m =>
+    {
+        m.Id(p => p.Id);
+        m.Field(p => p.Id).Editable(false);
+        m.Field(p => p.AllTimeAverageRating).Editable(false);
+        m.Field(p => p.DescriptionId).Editable(true).DefaultValue(null);
+        m.Field(p => p.SellerId).Editable(true).DefaultValue(null);
+        m.Field(p => p.MainImageId).Editable(true).DefaultValue(null);
+        m.Field(p => p.ShippingPrice).Editable(true).DefaultValue(null);
+        m.Field(p => p.Images).DefaultValue(new HashSet<ImageDetailsForProductViewModel>());
+    },
+    pageSize: 20,
+    virtualScroll: false,
+    columns: c =>
+    {
+        c.Command(cm => cm.Edit().UpdateText("Save")).Width(100);
+        c.Command(cm => cm.Destroy().Text("Delete")).Width(120);
+        c.Bound(m => m.Id).Width(150);
+        c.Bound(m => m.Title).Width("15%");
+        c.Bound(m => m.ShortDescription).Width("20%");
+        c.ForeignKey(m => m.CategoryId, Model.Categories, "Id", "Name").Title("Category");
+        c.ForeignKey(m => m.DescriptionId, Model.Descriptions, "Id", "Id").Title("Description Id").Visible(false);
+        c.Bound(m => m.MainImageId).Visible(false);
+        c.Bound(m => m.MainImageIdEncoded).Visible(false);
+        c.Bound(m => m.Images).Visible(false);
+        c.Bound(m => m.UnitPrice);
+        c.Bound(m => m.ShippingPrice);
+        c.Bound(m => m.IsInStock);
+        c.Bound(m => m.QuantityInStock);
+        c.Bound(m => m.AllTimeItemsSold);
+        c.Bound(m => m.AllTimeAverageRating);
+        c.ForeignKey(m => m.SellerId, Model.Sellers, "Id", "Name").Title("Seller Name").Visible(false);
+        c.Bound(m => m.SellerId);
+        c.Bound(m => m.CreatedOn);
+        c.Bound(m => m.ModifiedOn);
+        c.Bound(m => m.IsDeleted).Title("Marked As Deleted");
+        c.Bound(m => m.DeletedOn);
+    },
+    dataSourceEvents: events => { events.Error("errorHandler.handler"); },
+    isBatch: false,
+    isServerOperation: true,
+    editingSettings: editor =>
+    {
+        editor
+            .Mode(GridEditMode.PopUp)
+            .Window(window =>
+            {
+                window
+                    .Actions(a => { a.Minimize().Maximize().Close(); })
+                    .Draggable(true)
+                    .Scrollable(false)
+                    .Events(e => { e.Deactivate("onGridPopupDeactivate"); })
+                    .Iframe(true)
+                    .Resizable()
+                    .AutoFocus(false)
+                    ;
+            })
+            .TemplateName("ProductViewModelPopupEditor");
+    },
+    htmlAttributes: new { @class = "main-grid" },
+    readHandler: "readHandler",
+    createHandler: "createHandler",
+    updateHandler: "updateHandler",
+    destroyHandler: "destroyHandler"
+    )
+    .Events(e => e
+        .DetailInit("detailInit")
+        .Edit("onGridEdit")
+    //.Save("onGridSave")
+    )
+    .ClientDetailTemplateId("product-details-template")
+    .Selectable()
+    .AllowCopy(true)
+    .Deferred())
+
+@section Styles{
+    <style>
+        /*horizontal Grid scrollbar should appear if the browser window is shrinked too much*/
+        #productsGrid {
+            min-width: inherit;
+            margin-left: 15px;
+            margin-right: 15px;
+        }
+
+        #productsGrid table {
+            width: 4000px;
+        }
+
+        #description-details {
+            margin-left: 0;
+            margin-right: 0;
+            width: 100%;
+        }
+
+        #seller-details {
+            margin-left: 0;
+            margin-right: 0;
+            width: 100%;
+        }
+    </style>
+
+    <link href="@Url.Content(StaticResourcesUrls.MainGrid)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content(StaticResourcesUrls.DetailsGrid)" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content(StaticResourcesUrls.CustomPopupEditor)" rel="stylesheet" type="text/css" />
+}
+
+@section Scripts{
+    @(Html.Kendo().DeferredScripts())
+
+    <script src="@Url.Content(StaticResourcesUrls.ErrorHandler)"></script>
+    <script src="@Url.Content(StaticResourcesUrls.DatetimeHandlers)"></script>
+    <script src="@Url.Content(StaticResourcesUrls.GridDetailsHelpers)"></script>
+    <script src="@Url.Content(StaticResourcesUrls.ProductImagesUpload)"></script>
+    <script src="@Url.Content(StaticResourcesUrls.ProductMainImageDropDown)"></script>
+
+    <script id="product-details-template" type="text/kendo-tmpl">
+        @(Html.Partial("_ProductDetailsTabStrip"))
+    </script>
+
+    <script id="uploaded-image-template" type="text/kendo-tmpl">
+        @(Html.Partial("_UploadedImage"))
+    </script>
+
+    <script>
+        // Sets the current culture for Kendo UI
+        kendo.culture('@userCulture');
+
+        // Initialize Kendo UI Validator on the create/edit form
+        $(function () {
+            $("form").kendoValidator();
+        });
+
+        // These functions send additional information to the server with every CRUD operation of the grid.
+        // Currently, they parse all DateTime properties of the model in a format the server can understand and send
+        // an anti-forgery token to validate the editor form.
+        function readHandler(data) {
+            datetimeHandlers.normalizeDateProperties(data);
+            return { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() }
+        }
+
+        function createHandler(data) {
+            datetimeHandlers.normalizeDateProperties(data);
+            return { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() }
+        }
+
+        function updateHandler(data) {
+            datetimeHandlers.normalizeDateProperties(data);
+            return { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() }
+        }
+
+        function destroyHandler(data) {
+            datetimeHandlers.normalizeDateProperties(data);
+            return { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() }
+        }
+
+        // Populate Kendo Detail TabStrip
+        function detailInit(e) {
+            gridDetailsHelpers.populateProductDescription(e.data.Id, e.data.Description, 8);
+            gridDetailsHelpers.populateProductSeller(e.data.Id, e.data.Seller);
+            gridDetailsHelpers.setDataSource("#images-grid_" + e.data.Id, e.data.Images, 10);
+            gridDetailsHelpers.setDataSource("#comments-grid_" + e.data.Id, e.data.Comments, 10);
+            gridDetailsHelpers.setDataSource("#votes-grid_" + e.data.Id, e.data.Votes, 10);
+            gridDetailsHelpers.setDataSource("#tags-grid_" + e.data.Id, e.data.Tags, 10);
+        }
+
+        // Grid Event Handlers
+        function onGridPopupDeactivate(e) {
+            // Automatically refresh grid content on popup close
+            if (productImagesUpload.isGridModelIsDirty()) {
+                $("#productsGrid").data("kendoGrid").dataSource.read();
+            }
+
+            // Detaches all event handlers and removes jQuery.data attributes to avoid memory leaks.
+            $("#MainImageId").data("kendoDropDownList").destroy();
+            $("#productImages").data("kendoUpload").destroy();
+        }
+
+        function onGridEdit(args) {
+            var mainImageDropdown = $("#MainImageId").data("kendoDropDownList");
+            productMainImageDropDown.initialize(args.model, mainImageDropdown);
+            productImagesUpload.initialize(
+                args,
+                mainImageDropdown,
+                @Html.Raw(Json.Encode(Html.Partial("_SaveTip").ToString())),
+                @Html.Raw(Json.Encode(StaticResourcesUrls.ImageThumbnailSuffix)));
+        }
+    </script>
+}

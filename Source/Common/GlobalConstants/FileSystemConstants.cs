@@ -1,4 +1,4 @@
-﻿namespace MvcProject.Common.GlobalConstants
+﻿namespace JustOrderIt.Common.GlobalConstants
 {
     using System;
     using System.Collections.Generic;

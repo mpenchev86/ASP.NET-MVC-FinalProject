@@ -1,4 +1,4 @@
-﻿namespace MvcProject.Common.GlobalConstants
+﻿namespace JustOrderIt.Common.GlobalConstants
 {
     public class ValidationConstants
     {
@@ -21,7 +21,7 @@
         public const int CommentContentMaxLength = 500;
 
         // Description entity
-        public const int DescriptionContentMaxLength = 2000;
+        public const int DescriptionContentMaxLength = 3000;
 
         // Image entity
         public const int ImageFullyQaulifiedFileNameMaxLength = 260;
@@ -30,8 +30,8 @@
         public const int ImageUrlPathMaxLength = 248;
 
         // Product entity
-        public const int ProductTitleMaxLength = 150;
-        public const int ProductShortDescriptionMaxLength = 300;
+        public const int ProductTitleMaxLength = 200;
+        public const int ProductShortDescriptionMaxLength = 600;
         public const int ProductAllTimeItemsSoldMin = 0;
         public const int ProductAllTimeItemsSoldMax = int.MaxValue;
         public const double ProductAllTimeAverageRatingMin = 0;
@@ -52,7 +52,7 @@
         public const int PropertyValueMaxLength = 100;
 
         // Tag entity
-        public const int TagNameMaxLength = 20;
+        public const int TagNameMaxLength = 30;
 
         // Vote entity
         public const int VoteValueMin = 1;

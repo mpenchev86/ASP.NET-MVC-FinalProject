@@ -1,0 +1,30 @@
+﻿@model JustOrderIt.Web.Areas.Public.ViewModels.Products.ProductSneakPeekViewModel
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    @Html.ActionLink(Model.Title, "Index", "Products", new { id = Model.EncodedId@*Id*@ }, null)
+    @*<a href="/Public/Products/Index/@(Model.Id)">@Model.Title</a>*@
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-7">
+            <img src="@Url.ProductPicture(Model.MainImage != null ? Model.MainImage.UrlPath : "",Model.MainImage != null ? Model.MainImage.FileExtension : "", ImageSizes.Thumbnail)"/>
+            <p>
+                @Html.DisplayFor(m => m.Rating, "Rating", new { index = "Id" })
+                <text class="rating">@(Model.Rating != null ? string.Format("{0:0.00}", Model.Rating) : "not rated yet")</text>
+            </p>
+        </div>
+        <div class="col-md-5">
+            <p>offered by @Html.ActionLink(!string.IsNullOrWhiteSpace(Model.SellerName) ? Model.SellerName : " ", "UserProfile", "Users", new { userName = Model.SellerName }, null)  @*<a href="/Public/Users/UserProfile?userName=@Model.SellerName">@Model.SellerName</a>*@</p>
+            <p>@(string.Format("{0:C}", Model.Price))</p>
+            
+            <button type="button" id="addtocart-button">
+                @Html.ActionLink("Add to Cart", "AddToCart", "Orders", new { productId = Model.EncodedId, area = Areas.PublicAreaName }, new { @class = "button", id = "addtocart-link" })
+            </button>
+            <br />
+            <br />
+            
+            <p>@Model.ShortDescription</p>
+        </div>
+    </div>
+</div>

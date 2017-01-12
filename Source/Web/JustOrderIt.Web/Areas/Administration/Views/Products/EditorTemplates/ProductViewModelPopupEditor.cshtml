@@ -1,0 +1,159 @@
+﻿@using Kendo.Mvc.UI;
+@using Kendo.Mvc.Extensions;
+
+@model JustOrderIt.Web.Areas.Administration.ViewModels.Products.ProductViewModel
+
+@using (Html.BeginForm("Create", "Products", FormMethod.Post, new { id = "product-editor-form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend></legend>
+
+        <div class="container-fluid">
+            <div class="row">
+                @Html.HiddenFor(m => m.Id)
+            </div>
+
+            <div class="row">
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.Title)
+                </div>
+                <div class="editor-field">
+                    @Html.TextAreaFor(m => m.Title)
+                    @Html.ValidationMessageFor(model => model.Title)
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.ShortDescription)
+                </div>
+                <div class="editor-field">
+                    @Html.TextAreaFor(m => m.ShortDescription)
+                    @Html.ValidationMessageFor(model => model.ShortDescription)
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.DescriptionId, "Description Id")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(m => m.DescriptionId, new { OptionLabel = "Select Description..." })
+                    @Html.ValidationMessageFor(m => m.DescriptionId)
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.CategoryId, "Category")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(m => m.CategoryId, new { OptionLabel = "Select Category..." })
+                    @Html.ValidationMessageFor(m => m.CategoryId)
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.MainImageId, "Main Image")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(
+                        m => m.MainImageId,
+                        new
+                        {
+                            Name = "MainImageId",
+                            Text = "OriginalFileName",
+                            Value = "Id",
+                            OptionLabel = "Select Main Image..."
+                        })
+                    @Html.ValidationMessageFor(m => m.MainImageId)
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.Images, "Images")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(m => m.Images, new { id = "productImages", name = "productImages[]" })
+                    @Html.ValidationMessageFor(m => m.Images)
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.QuantityInStock)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(m => m.QuantityInStock)
+                    @Html.ValidationMessageFor(model => model.QuantityInStock)
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.UnitPrice)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(m => m.UnitPrice)
+                    @Html.ValidationMessageFor(model => model.UnitPrice)
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.ShippingPrice)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(m => m.ShippingPrice)
+                    @Html.ValidationMessageFor(model => model.ShippingPrice)
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.SellerId, "Seller Id")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(m => m.SellerId, new { OptionLabel = "Select Seller..." })
+                    @Html.ValidationMessageFor(m => m.SellerId)
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.Tags)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(
+                        m => m.Tags,
+                        new
+                        {
+                            name = "tagsMultiSelect",
+                            placeHolder = "Select tags...",
+                            dataTextField = "Name",
+                            dataValueField = "Id",
+                            action = "GetAllTags",
+                            controller = "Products",
+                            htmlAttributes = new { data_bind = "value: Tags" }
+                        })
+                    @Html.ValidationMessageFor(model => model.Tags)
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.IsDeleted, "Mark as deleted")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(m => m.IsDeleted)
+                    @Html.ValidationMessageFor(model => model.IsDeleted)
+                </div>
+            </div>
+        </div>
+    </fieldset>
+}

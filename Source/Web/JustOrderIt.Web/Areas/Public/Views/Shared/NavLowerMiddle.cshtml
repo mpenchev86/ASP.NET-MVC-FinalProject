@@ -1,0 +1,29 @@
+﻿@using JustOrderIt.Web.Areas.Public.ViewModels.Categories
+
+@model JustOrderIt.Web.Areas.Public.ViewModels.Search.SearchViewModel
+
+@{
+    var categories = (IEnumerable<SelectListItem>)this.ViewData["categories"];
+}
+
+@using (Html.BeginForm(
+    "SearchBar",
+    "Search",
+    new { areas = Areas.PublicAreaName },
+    FormMethod.Post,
+    new { id = "navbar-search", @class = "navbar-form collapse navbar-collapse", role = "search" }
+    ))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <div class="input-group">
+        <div class="input-group-btn">
+            @Html.DropDownListFor(m => m.CategoryId, categories, "Everywhere", new { id = "navbar-search-options", @class = "form-control"})
+            @Html.TextBoxFor(m => m.Query, null, new { id = "navbar-search-query", type = "text", @class = "form-control", placeholder = "Search" })
+            <button id="navbar-search-btn" type="submit" class="btn btn-default">
+                <content class="glyphicon glyphicon-search"></content>
+            </button>
+        </div>
+    </div>
+}

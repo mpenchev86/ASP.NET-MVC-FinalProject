@@ -1,0 +1,75 @@
+﻿@using JustOrderIt.Web.Areas.Public.ViewModels.Products
+
+@model ProductSideBarPartialViewModel
+
+<table>
+    <tr id="title">
+        <td colspan="2">@Html.DisplayFor(m => m.Title)</td>
+    </tr>
+    <tr id="seller">
+        <td colspan="2">
+            offered by  <a href="/Public/Users/UserProfile?userName=@Model.SellerName" title="@Model.SellerName">@Model.SellerName</a>
+        </td>
+    </tr>
+    <tr id="rating">
+        <td colspan="2">@Html.DisplayFor(m => m.Rating, "Rating", new { index = "Id" })<br /></td>
+    </tr>
+    <tr id="unit-price">
+        <th>@Html.LabelFor(m => m.UnitPrice, "Price")</th>
+        <td>@Html.DisplayFor(m => m.UnitPrice)</td>
+    </tr>
+    <tr id="shipping">
+        <th>@Html.LabelFor(m => m.ShippingPrice, "Shipping")</th>
+        <td>@Html.DisplayFor(m => m.ShippingPrice)</td>
+    </tr>
+    <tr id="is-in-stock">
+        <td>
+            @if (Model.IsInStock)
+            {
+                <span id="in-stock">In Stock</span>
+                <p id="quantity">@Model.QuantityInStock items available</p>
+            }
+            else
+            {
+                <span id="out-of-stock">Out of Stock</span>
+                <br />
+                <br />
+            }
+        </td>
+    </tr>
+    <tr id="category">
+        <th>@Html.LabelFor(m => m.Category)</th>
+        <td>@Html.ActionLink(Model.Category, "SearchInCategory", "Search", new { category = Model.Category }, null)</td>
+    </tr>
+    <tr id="ref-number">
+        <th>@Html.LabelFor(m => m.RefNumber)</th>
+        <td>@Html.DisplayFor(m => m.RefNumber)</td>
+    </tr>
+    <tr id="add-to-cart">
+        <th>
+            @using (Html.BeginForm(
+                "AddToCart",
+                "Orders",
+                new { },
+                FormMethod.Post,
+                new { id = "addtocart-form" }
+                ))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+
+                @Html.Hidden("productId", Model.EncodedId)
+                
+                <div class="input-group">
+                    @Html.Label("quantity", "Quantity: ") &nbsp
+                    @Html.DropDownList("quantity", Model.QuantityDropDownSelectList, htmlAttributes: new { id = "quantity" })
+
+                    <button type="submit">Add To Cart</button>
+                </div>
+            }
+            @*<button type="button" id="addtocart-button">
+                @Html.ActionLink("Add to Cart", "AddToCart", "Orders", new { productId = Model.Id, area = Areas.PublicAreaName }, new { @class = "button", id = "addtocart-link" })
+            </button>*@
+        </th>
+    </tr>
+</table>

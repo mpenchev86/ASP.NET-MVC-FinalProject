@@ -1,0 +1,100 @@
+﻿@using JustOrderIt.Web.Areas.Public.ViewModels.Products
+@using JustOrderIt.Web.Infrastructure.HtmlHelpers
+
+@{
+    ViewBag.Title = "Home - OrderIt.com";
+    var userCulture = this.Request.UserLanguages.FirstOrDefault() ?? "en-US";
+}
+
+<div class="row homepage-listview">
+    <h3>New Arrivals</h3>
+    @(Html.GenericListViewHelper<ProductDetailsForIndexListView>(
+        name: "newestProducts",
+        wrapperTagName: "ul",
+        templateId: "products-listView-template",
+        readAction: "ReadNewestProducts",
+        controllerName: "Home",
+        modelIdExpression: m => m.Id,
+        pageSize: 5,
+        isServerOps: true)
+        .Events(ev => ev.DataBound("onListViewDataBound"))
+        .HtmlAttributes(new { @class = "productsList" })
+        .Deferred())
+</div>
+<hr />
+<div class="row homepage-listview">
+    <h3>Top @UiSpecificConstants.IndexListViewNumberOfBestSellingProducts Best Selling</h3>
+    @(Html.GenericListViewHelper<ProductDetailsForIndexListView>(
+        name: "bestSellingProducts",
+        wrapperTagName: "ul",
+        templateId: "products-listView-template",
+        readAction: "ReadBestSellingProducts",
+        controllerName: "Home",
+        modelIdExpression: m => m.Id,
+        pageSize: 5,
+        isServerOps: true)
+        .Events(ev => ev.DataBound("onListViewDataBound"))
+        .HtmlAttributes(new { @class = "productsList" })
+        .Deferred())
+</div>
+<hr />
+<div class="row homepage-listview">
+    <h3>Stars We Got! The @UiSpecificConstants.IndexListViewNumberOfhighestVotedProducts highest rated items</h3>
+    @(Html.GenericListViewHelper<ProductDetailsForIndexListView>(
+        name: "highestVotedProducts",
+        wrapperTagName: "ul",
+        templateId: "products-listView-template",
+        readAction: "ReadHighestVotedProducts",
+        controllerName: "Home",
+        modelIdExpression: m => m.Id,
+        pageSize: 5,
+        isServerOps: true)
+        .Events(ev => ev.DataBound("onListViewDataBound"))
+        .HtmlAttributes(new { @class = "productsList" })
+        .Deferred())
+</div>
+
+<!-- ListView products template -->
+<script type="text/kendo-tmpl" id="products-listView-template">
+    @Html.Partial("_ListViewProductCellTemplate")
+</script>
+
+ <!-- Modal window template for ListView products -->
+<div id="sneakPeek-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <img id="sneakpeak-loading-spinner" style="display: none; position: fixed; left: 50%; top: 50%;" src="~/Content/Kendo/Silver/loading_2x.gif" />
+        <div class="modal-content"></div>
+    </div>
+</div>
+
+@*@section Styles{
+    <link href="@Url.Content(StaticResourcesUrls.ListView)" rel="stylesheet" type="text/css" />
+}*@
+
+@section Scripts {
+    @Html.Kendo().DeferredScripts()
+
+    @*<script src="@Url.Content(StaticResourcesUrls.BootstrapModalHelpers)"></script>*@
+    
+    <script>
+        kendo.culture('@userCulture');
+
+        $(document).ready(function () {
+            //$('.k-pager-wrap').hide();
+        });
+
+        // Initialization of the modal window template for ListView products.
+        bootstrapModalHelpers.hideOnLoad(wrapperSelector = '#sneakPeek-modal');
+        bootstrapModalHelpers.clearContent(event = 'hidden.bs.modal', contentSelector = '.modal-content');
+        bootstrapModalHelpers.attachToggle(wrapperSelector = '#sneakPeek-modal', triggerSelector = '.ajax-modal-link');
+
+        function onListViewDataBound(e) {
+            //$('.k-pager-wrap').show();
+        }
+
+        // Handles the Success event of a ListView product AjaxLink request by populating the SneakPeak modal window template.
+        function OnGetModalDataSuccess(data) {
+            bootstrapModalHelpers.setContent(wrapperSelector = '#sneakPeek-modal', contentSelector = '.modal-content', data = data);
+        }
+    </script>
+}

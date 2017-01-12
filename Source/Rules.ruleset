@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<RuleSet Name="Solution-wide rules for MvcFinalProject" Description="Code analysis rules for the entire MvcFinalProject.sln solution." ToolsVersion="14.0">
+<RuleSet Name="Solution-wide rules for JustOrderIt" Description="Code analysis rules for the entire JustOrderIt.sln solution." ToolsVersion="14.0">
   <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
     <Rule Id="CA1001" Action="Warning" />
     <Rule Id="CA1009" Action="Warning" />

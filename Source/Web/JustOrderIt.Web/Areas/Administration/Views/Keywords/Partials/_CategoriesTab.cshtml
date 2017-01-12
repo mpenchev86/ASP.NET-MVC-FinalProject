@@ -1,0 +1,13 @@
+﻿@using JustOrderIt.Web.Areas.Administration.ViewModels.Categories
+@using JustOrderIt.Web.Infrastructure.HtmlHelpers
+
+@(Html.ClientDetailsGrid<CategoryDetailsForKeywordViewModel>(
+    name: "categories-grid_#=Id#",
+    columns: col =>
+    {
+        col.Bound(c => c.Id).Title("ID").Width(120);
+        col.Bound(c => c.Name)/*.Width("40%")*/;
+        col.Bound(c => c.CreatedOn).Width(180);
+        col.Bound(c => c.ModifiedOn).Width(180);
+    })
+    .ToClientTemplate())

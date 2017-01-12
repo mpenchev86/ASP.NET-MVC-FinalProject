@@ -1,0 +1,19 @@
+﻿@using JustOrderIt.Web.Areas.Administration.ViewModels.SearchFilters
+@using JustOrderIt.Web.Infrastructure.HtmlHelpers
+
+@(Html.ClientDetailsGrid<SearchFilterDetailsForCategoryViewModel>(
+    name: "search-filters-grid_#=Id#",
+    columns: cols =>
+    {
+        cols.Bound(c => c.Id).Title("ID");
+        cols.Bound(c => c.Name).Width("15%");
+        cols.Bound(c => c.DisplayName).Width("15%");
+        cols.Bound(c => c.Options).Width("40%");
+        cols.Bound(c => c.MeasureUnit);
+        cols.Bound(c => c.OptionsType);
+        cols.Bound(c => c.SelectionType);
+        cols.Bound(c => c.CreatedOn);
+        cols.Bound(c => c.ModifiedOn);
+    })
+    .ToClientTemplate()
+)

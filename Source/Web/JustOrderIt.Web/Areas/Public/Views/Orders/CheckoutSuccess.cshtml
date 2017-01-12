@@ -1,0 +1,44 @@
+﻿@using JustOrderIt.Web.Areas.Public.ViewModels.Orders
+
+@model ShoppingCartViewModel
+
+@{
+    ViewBag.Title = "Checkout Success - OrderIt.com";
+}
+
+<h3 style="text-align: left">Congrats! You completed your order.</h3>
+     
+<div class="checkout-complete">
+    <img src="@(Url.Content(StaticResourcesUrls.ServerPathAppManagementImages + "puppy-with-cart.gif"))" alt="Billing system not implemented" />
+</div>
+
+<div class="row">
+    <div class="col-md-9">
+        @Html.Label("Product")
+    </div>
+    <div class="col-md-3">
+        @Html.Label("Quantity")
+    </div>
+</div>
+
+<div class="bought-items">
+    @foreach (var item in Model.CartItems)
+    {
+        <hr style="margin-top: 2px; margin-bottom: 2px"/>
+        <div class="row">
+            <div class="col-md-9" style="border-left: 1px groove">
+                <p>@Html.ActionLink(item.Product.Title, "Index", "Products", new { id = item.Product.EncodedId}, null)</p>
+            </div>
+            <div class="col-md-3" style="border-left: 1px groove">
+                <p>@item.ProductQuantity</p>
+            </div>
+        </div>
+    }
+
+    <hr style="margin-top: 2px;"/>
+    <p style="text-align: right">Total price: @Model.TotalCost</p>
+</div>
+
+<p><h4>Unfortunately, no billing system has been implemented yet.</h4></p>
+<p><h4>You can continue browsing this website if you feel like it.</h4></p>
+<p><h4>Thanks for visiting : )</h4></p>
