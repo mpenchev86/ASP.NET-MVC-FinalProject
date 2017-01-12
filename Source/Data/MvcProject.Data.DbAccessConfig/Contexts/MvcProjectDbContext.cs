@@ -117,16 +117,6 @@
                 .WithMany()
                 .WillCascadeOnDelete(false);
 
-            //modelBuilder.Entity<Comment>()
-            //    .HasRequired(p => p.User)
-            //    .WithMany()
-            //    .WillCascadeOnDelete(false);
-
-            //modelBuilder.Entity<Comment>()
-            //    .HasRequired(p => p.Product)
-            //    .WithMany()
-            //    .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<Category>()
                 .HasMany<Keyword>(c => c.Keywords)
                 .WithMany(k => k.Categories)

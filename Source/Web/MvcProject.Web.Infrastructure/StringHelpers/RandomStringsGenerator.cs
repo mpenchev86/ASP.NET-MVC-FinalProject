@@ -32,22 +32,16 @@
 
             StringBuilder result = new StringBuilder();
 
-            //for (int p = 0; p < numParagraphs; p++)
-            //{
-                //result.Append("<p>");
-                for (int s = 0; s < numSentences; s++)
+            for (int s = 0; s < numSentences; s++)
+            {
+                for (int w = 0; w < numWords; w++)
                 {
-                    for (int w = 0; w < numWords; w++)
-                    {
-                        if (w > 0) { result.Append(" "); }
-                        result.Append(words[rand.Next(words.Length)]);
-                    }
-
-                    result.Append(". ");
+                    if (w > 0) { result.Append(" "); }
+                    result.Append(words[rand.Next(words.Length)]);
                 }
 
-                //result.Append("</p>");
-            //}
+                result.Append(". ");
+            }
 
             while (result.Length < minLength)
             {

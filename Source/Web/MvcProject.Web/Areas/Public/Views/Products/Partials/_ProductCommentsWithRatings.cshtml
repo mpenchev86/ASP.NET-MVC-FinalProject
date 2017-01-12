@@ -29,7 +29,7 @@
         </ul>
     </div>
 
-    if (this.User.Identity.IsAuthenticated && !currentUserHasCommented)
+    if (this.User.Identity.IsAuthenticated && !this.User.IsInRole(IdentityRoles.Admin) && !currentUserHasCommented)
     {
         <div class="row" id="leave-comment">
             @(Html.Partial(
