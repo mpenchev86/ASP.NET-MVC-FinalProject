@@ -281,7 +281,7 @@
                         Name = "Format",
                         DisplayName = "Format",
                         CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Books").Id,
-                        Options = "Paperback, Handcover, Kindle Edition, Large Print, Audible Audio Edition, Audio CD",
+                        Options = "Paperback, Hardcover, Kindle Edition, Large Print, Audible Audio Edition, Audio CD",
                         SelectionType = SearchFilterSelectionType.Single,
                         OptionsType = SearchFilterOptionsType.ConcreteValue,
                     },
@@ -290,7 +290,7 @@
                         Name = "Language",
                         DisplayName = "Language",
                         CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Books").Id,
-                        Options = "English, German, French, Spanish, Italian",
+                        Options = "English, German, French, Spanish, Italian, Japanese",
                         SelectionType = SearchFilterSelectionType.Multiple,
                         OptionsType = SearchFilterOptionsType.ConcreteValue,
                     },
@@ -595,6 +595,21 @@
                     new Tag { Name = "vitamix blender" },
                     new Tag { Name = "breville blender" },
                     new Tag { Name = "ninja blender" },
+                    new Tag { Name = "python programming" },
+                    new Tag { Name = "crash course" },
+                    new Tag { Name = "performing arts" },
+                    new Tag { Name = "misty copeland" },
+                    new Tag { Name = "Eric Matthes" },
+                    new Tag { Name = "Assimil" },
+                    new Tag { Name = "japanese language" },
+                    new Tag { Name = "Alexandra Dannenmann" },
+                    new Tag { Name = "children's books" },
+                    new Tag { Name = "Ruy Xoconostle Waye" },
+                    new Tag { Name = "Eduardo Scarpetta" },
+                    new Tag { Name = "comedy" },
+                    new Tag { Name = "Margot Lee Shetterly" },
+                    new Tag { Name = "Cédric H.Roserens" },
+                    new Tag { Name = "Yuval Harari" },
 
 
                     new Tag { Name = "Yada Yada" }
@@ -897,226 +912,278 @@
                     },
                 #endregion
                 #region Books
-                    //new Product
-                    //{
-                    //    Title = "",
-                    //    ShortDescription = "",
-                    //    //DescriptionId = 1,
-                    //    Description = new Description
-                    //    {
-                    //        Content = "",
-                    //        Properties = new HashSet<Property>()
-                    //        {
-                    //            new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
-                    //        }
-                    //    },
-                    //    QuantityInStock = 50,
-                    //    UnitPrice = 37.95M,
-                    //    CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Books").Id,
-                    //    SellerId = sellerIds[random.Next(sellerIds.Count)],
-                    //    Tags = new HashSet<Tag>
-                    //    {
-                    //        context.Tags.FirstOrDefault(t => t.Name.ToLower() == "chrome".ToLower()),
-                    //    }
-                    //},
-                    //new Product
-                    //{
-                    //    Title = "",
-                    //    ShortDescription = "",
-                    //    //DescriptionId = 2,
-                    //    Description = new Description
-                    //    {
-                    //        Content = "",
-                    //        Properties = new HashSet<Property>()
-                    //        {
-                    //            new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
-                    //        }
-                    //    },
-                    //    QuantityInStock = 50,
-                    //    UnitPrice = 37.95M,
-                    //    CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Books").Id,
-                    //    SellerId = sellerIds[random.Next(sellerIds.Count)],
-                    //    Tags = new HashSet<Tag>
-                    //    {
-                    //        context.Tags.FirstOrDefault(t => t.Name.ToLower() == "chrome".ToLower()),
-                    //    }
-                    //},
-                    //new Product
-                    //{
-                    //    Title = "",
-                    //    ShortDescription = "",
-                    //    //DescriptionId = 3,
-                    //    Description = new Description
-                    //    {
-                    //        Content = "",
-                    //        Properties = new HashSet<Property>()
-                    //        {
-                    //            new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
-                    //        }
-                    //    },
-                    //    QuantityInStock = 50,
-                    //    UnitPrice = 37.95M,
-                    //    CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Books").Id,
-                    //    SellerId = sellerIds[random.Next(sellerIds.Count)],
-                    //    Tags = new HashSet<Tag>
-                    //    {
-                    //        context.Tags.FirstOrDefault(t => t.Name.ToLower() == "chrome".ToLower()),
-                    //    }
-                    //},
-                    //new Product
-                    //{
-                    //    Title = "",
-                    //    ShortDescription = "",
-                    //    //DescriptionId = 4,
-                    //    Description = new Description
-                    //    {
-                    //        Content = "",
-                    //        Properties = new HashSet<Property>()
-                    //        {
-                    //            new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
-                    //        }
-                    //    },
-                    //    QuantityInStock = 50,
-                    //    UnitPrice = 37.95M,
-                    //    CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Books").Id,
-                    //    SellerId = sellerIds[random.Next(sellerIds.Count)],
-                    //    Tags = new HashSet<Tag>
-                    //    {
-                    //        context.Tags.FirstOrDefault(t => t.Name.ToLower() == "chrome".ToLower()),
-                    //    }
-                    //},
-                    //new Product
-                    //{
-                    //    Title = "",
-                    //    ShortDescription = "",
-                    //    //DescriptionId = 5,
-                    //    Description = new Description
-                    //    {
-                    //        Content = "",
-                    //        Properties = new HashSet<Property>()
-                    //        {
-                    //            new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
-                    //        }
-                    //    },
-                    //    QuantityInStock = 50,
-                    //    UnitPrice = 37.95M,
-                    //    CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Books").Id,
-                    //    SellerId = sellerIds[random.Next(sellerIds.Count)],
-                    //    Tags = new HashSet<Tag>
-                    //    {
-                    //        context.Tags.FirstOrDefault(t => t.Name.ToLower() == "chrome".ToLower()),
-                    //    }
-                    //},
-                    //new Product
-                    //{
-                    //    Title = "",
-                    //    ShortDescription = "",
-                    //    //DescriptionId = 6,
-                    //    Description = new Description
-                    //    {
-                    //        Content = "",
-                    //        Properties = new HashSet<Property>()
-                    //        {
-                    //            new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
-                    //        }
-                    //    },
-                    //    QuantityInStock = 50,
-                    //    UnitPrice = 37.95M,
-                    //    CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Books").Id,
-                    //    SellerId = sellerIds[random.Next(sellerIds.Count)],
-                    //    Tags = new HashSet<Tag>
-                    //    {
-                    //        context.Tags.FirstOrDefault(t => t.Name.ToLower() == "chrome".ToLower()),
-                    //    }
-                    //},
-                    //new Product
-                    //{
-                    //    Title = "",
-                    //    ShortDescription = "",
-                    //    //DescriptionId = 7,
-                    //    Description = new Description
-                    //    {
-                    //        Content = "",
-                    //        Properties = new HashSet<Property>()
-                    //        {
-                    //            new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
-                    //        }
-                    //    },
-                    //    QuantityInStock = 50,
-                    //    UnitPrice = 37.95M,
-                    //    CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Books").Id,
-                    //    SellerId = sellerIds[random.Next(sellerIds.Count)],
-                    //    Tags = new HashSet<Tag>
-                    //    {
-                    //        context.Tags.FirstOrDefault(t => t.Name.ToLower() == "chrome".ToLower()),
-                    //    }
-                    //},
-                    //new Product
-                    //{
-                    //    Title = "",
-                    //    ShortDescription = "",
-                    //    //DescriptionId = 8,
-                    //    Description = new Description
-                    //    {
-                    //        Content = "",
-                    //        Properties = new HashSet<Property>()
-                    //        {
-                    //            new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
-                    //        }
-                    //    },
-                    //    QuantityInStock = 50,
-                    //    UnitPrice = 37.95M,
-                    //    CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Books").Id,
-                    //    SellerId = sellerIds[random.Next(sellerIds.Count)],
-                    //    Tags = new HashSet<Tag>
-                    //    {
-                    //        context.Tags.FirstOrDefault(t => t.Name.ToLower() == "chrome".ToLower()),
-                    //    }
-                    //},
-                    //new Product
-                    //{
-                    //    Title = "",
-                    //    ShortDescription = "",
-                    //    //DescriptionId = 9,
-                    //    Description = new Description
-                    //    {
-                    //        Content = "",
-                    //        Properties = new HashSet<Property>()
-                    //        {
-                    //            new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
-                    //        }
-                    //    },
-                    //    QuantityInStock = 50,
-                    //    UnitPrice = 37.95M,
-                    //    CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Books").Id,
-                    //    SellerId = sellerIds[random.Next(sellerIds.Count)],
-                    //    Tags = new HashSet<Tag>
-                    //    {
-                    //        context.Tags.FirstOrDefault(t => t.Name.ToLower() == "chrome".ToLower()),
-                    //    }
-                    //},
-                    //new Product
-                    //{
-                    //    Title = "",
-                    //    ShortDescription = "",
-                    //    //DescriptionId = 10,
-                    //    Description = new Description
-                    //    {
-                    //        Content = "",
-                    //        Properties = new HashSet<Property>()
-                    //        {
-                    //            new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
-                    //        }
-                    //    },
-                    //    QuantityInStock = 50,
-                    //    UnitPrice = 37.95M,
-                    //    CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Books").Id,
-                    //    SellerId = sellerIds[random.Next(sellerIds.Count)],
-                    //    Tags = new HashSet<Tag>
-                    //    {
-                    //        context.Tags.FirstOrDefault(t => t.Name.ToLower() == "chrome".ToLower()),
-                    //    }
-                    //},
+                    new Product
+                    {
+                        Title = "Python Crash Course: A Hands-On, Project-Based Introduction to Programming",
+                        ShortDescription = "Python Crash Course is a fast-paced, thorough introduction to programming with Python that will have you writing programs, solving problems, and making things that work in no time.",
+                        //DescriptionId = 1,
+                        Description = new Description
+                        {
+                            Content = "Python Crash Course is a fast-paced, thorough introduction to programming with Python that will have you writing programs, solving problems, and making things that work in no time. In the first half of the book, you'll learn about basic programming concepts, such as lists, dictionaries, classes, and loops, and practice writing clean and readable code with exercises for each topic. You'll also learn how to make your programs interactive and how to test your code safely before adding it to a project. In the second half of the book, you'll put your new knowledge into practice with three substantial projects: a Space Invaders-inspired arcade game, data visualizations with Python's super-handy libraries, and a simple web app you can deploy online. As you work through Python Crash Course, you'll learn how to: use powerful Python libraries and tools, including matplotlib, NumPy, and Pygal; make 2D games that respond to keypresses and mouse clicks, and that grow more difficult as the game progresses; work with data to generate interactive visualizations; create and customize simple web apps and deploy them safely online; deal with mistakes and errors so you can solve your own programming problems. If you've been thinking seriously about digging into programming, Python Crash Course will get you up to speed and have you writing real programs fast. Why wait any longer? Start your engines and code!",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Author", Value = "Eric Matthes" },
+                                new Property { Name = "Publisher", Value = "No Starch Press" },
+                                new Property { Name = "Age range", Value = "10 and up" },
+                                new Property { Name = "Page count", Value = "560" },
+                                new Property { Name = "Language", Value = "English", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Language".ToLower()) },
+                                new Property { Name = "Format", Value = "Paperback", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Format".ToLower()) },
+                                new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        QuantityInStock = 16,
+                        UnitPrice = 22.59M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Books").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "python programming".ToLower()),
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "crash course".ToLower()),
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Eric Matthes".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Misty Copeland",
+                        ShortDescription = "The first authorized photographic tribute to the prolific and wildly inspiring ballerina,these unique and evocative artful color photographs",
+                        //DescriptionId = 2,
+                        Description = new Description
+                        {
+                            Content = "The first authorized photographic tribute to the prolific and wildly inspiring ballerina,these unique and evocative artful color photographs by the celebrated photographer Gregg Delman, capture Misty's grace and strength, and are much anticipated by the worldwide audience who can't get enough of Misty.This stunning volume of photographs captures the sculpturally exquisite and iconic ballerina. Misty Copeland has single-handedly infused diversity and personality into the insular world of ballet, creating an unexpected resurgence of appreciation within contemporary popular culture. Her story is famously what movies are made of, and in 2015 she became an icon and household name when she became the first African-American female principal dancer in the long and prestigious history the American Ballet Theatre. Copeland’s physique is what sculptures are modeled on, heralding the new physical ideal of strength and athleticism, beauty and grace. Misty Copeland is a collection of gorgeous, artful photographs, taken in many studio visits from 2011 through 2014. Delman’s talent for capturing movement is reflected in these images, which range from formal ballet positions to more athletic poses and candid moments, all together building an intimate portrait of Copeland as an athlete, an artist, and a woman. With striking and vibrant color photographs, this incredibly intimate volume is a visual tribute to the brilliant mystique of Misty Copeland, showcasing both her grace and strength.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Author", Value = "Gregg Delman" },
+                                new Property { Name = "Publisher", Value = "Rizzoli " },
+                                new Property { Name = "Page count", Value = "144" },
+                                new Property { Name = "Language", Value = "English", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Language".ToLower()) },
+                                new Property { Name = "Format", Value = "Hardcover", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Format".ToLower()) },
+                                new Property { Name = "Condition", Value = "used", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        QuantityInStock = 5,
+                        UnitPrice = 26.89M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Books").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "performing arts".ToLower()),
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "misty copeland".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "LA MENTALITÉ PRIMITIVE (French Edition)",
+                        ShortDescription = "Introduction. Différence de la mentalité primitive aux causes secondes. Les puissances mystiques et invisibles. Les rêves. Les présages. Les pratiques divinatoires. Les ordalies. Interprétation mystique des accidents et des malheurs. etc...",
+                        //DescriptionId = 3,
+                        Description = new Description
+                        {
+                            Content = "Introduction. Différence de la mentalité primitive aux causes secondes. Les puissances mystiques et invisibles. Les rêves. Les présages. Les pratiques divinatoires. Les ordalies. Interprétation mystique des accidents et des malheurs. etc... Garantie Format professionnel Kindle. Relu, corrigé et intégré par l’éditeur aux fonctionnalités de navigation du Kindle(table des matières dynamique).",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Author", Value = "Lucien Lévy-Bruhl" },
+                                new Property { Name = "File size", Value = "1358 KB" },
+                                new Property { Name = "Language", Value = "French", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Language".ToLower()) },
+                                new Property { Name = "Format", Value = "Kindle", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Format".ToLower()) },
+                                //new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        QuantityInStock = 9999,
+                        UnitPrice = 7.19M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Books").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Lucien Lévy-Bruhl".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Japanese with Ease, Volume 1 (Assimil with Ease) (v. 1)",
+                        ShortDescription = "Aims to take users through the basic structures needed for communication and become familiar with the basic words and grammar.",
+                        //DescriptionId = 4,
+                        Description = new Description
+                        {
+                            Content = "Aims to take users through the basic structures needed for communication and become familiar with the basic words and grammar. This book employs a method which comprises two phases - passive phase, in which users repeat what they hear and read, and active phase, in which users create sentences and imagine themselves in everyday situations.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Author", Value = "Assimil" },
+                                new Property { Name = "Language", Value = "Japanese", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Language".ToLower()) },
+                                new Property { Name = "Format", Value = "Audio CD", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Format".ToLower()) },
+                                new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        QuantityInStock = 3,
+                        UnitPrice = 63.57M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Books").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Assimil".ToLower()),
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "japanese language".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Kann die Sonne schwimmen Ein Bilderbuch mit vielen farbigen Illustrationen ab 2 Jahren. (German Edition)",
+                        ShortDescription = "Weil der kleine Krake keine Flossen hat, kann er nicht schwimmen. Aber er will es unbedingt lernen, weil er wenigstens ein einziges Mal die Sonne sehen will. Jeden Tag übt er fleißig. Der kleine gelbe Fisch hat ihm nämlich erzählt, die Sonne habe auch keine Flossen.",
+                        //DescriptionId = 5,
+                        Description = new Description
+                        {
+                            Content = "Weil der kleine Krake keine Flossen hat, kann er nicht schwimmen. Aber er will es unbedingt lernen, weil er wenigstens ein einziges Mal die Sonne sehen will. Jeden Tag übt er fleißig. Der kleine gelbe Fisch hat ihm nämlich erzählt, die Sonne habe auch keine Flossen. Trotzdem könne sie schwimmen. Abends versinke sie im Meer und am Morgen schwimme sie wieder nach oben. Ob es dem kleinen Kraken wohl gelingt, die Sonne zu sehen? Ein Bilderbuch mit vielen farbigen Illustrationen für Kinder ab 2 Jahren. Mehr Informationen und Leseproben finden Sie auf meiner Homepage http://alexandra-dannenmann.de und auf meiner Facebook-Seite http://www.facebook.com/AlexandraDannenmann.Kinderbuch.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Author", Value = "Alexandra Dannenmann" },
+                                new Property { Name = "Publisher", Value = "CreateSpace Independent Publishing Platform" },
+                                new Property { Name = "Page count", Value = "24" },
+                                new Property { Name = "Language", Value = "German", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Language".ToLower()) },
+                                new Property { Name = "Format", Value = "Large print", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Format".ToLower()) },
+                                new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        QuantityInStock = 7,
+                        UnitPrice = 7.99M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Books").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Alexandra Dannenmann".ToLower()),
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "children's books".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Hackers de arcoíris",
+                        ShortDescription = "Amor, sicarios y telépatas. En un México fragmentado, en guerra y atemporal, bañado de persecuciones y odios étnicos y religiosos, los hijos de Makivar son mejores que nadie para hackear telépatas.",
+                        //DescriptionId = 6,
+                        Description = new Description
+                        {
+                            Content = "Amor, sicarios y telépatas. En un México fragmentado, en guerra y atemporal, bañado de persecuciones y odios étnicos y religiosos, los hijos de Makivar son mejores que nadie para hackear telépatas.Ellos son guerreros dorsai, “casi” indestructibles, y de fuerza y velocidad metahumanas, contratados por gobiernos y corporaciones para eliminar telépatas fuera de control.La muerte de su padre, sin embargo, ha desensamblado a los hijos de Makivar y al quinto miembro del equipo, Starla Komatsu.Todo ha cambiado. Una nueva oferta, sin embargo, los vuelve a reunir: deben asistir en el asesinato de Frank Chibi, un agente secreto en el país de Penn que, mientras duerme, se \"desdobla\" y realiza actos psíquicos “inenarrables”. Los hijos de Makivar aceptan… sin saber que se dirigen a algo con lo que nunca se habían enfrentado.El padre de todos los telépatas.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Author", Value = "Ruy Xoconostle Waye" },
+                                new Property { Name = "Language", Value = "Spanish", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Language".ToLower()) },
+                                new Property { Name = "Format", Value = "Kindle", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Format".ToLower()) },
+                                //new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        QuantityInStock = 9999,
+                        UnitPrice = 11.99M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Books").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Ruy Xoconostle Waye".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Miseria e Nobiltà (Italian Edition)",
+                        ShortDescription = "La commedia ha come protagonista Felice Sciosciammocca, celebre maschera di Eduardo Scarpetta, e la trama gira attorno all'amore del giovane nobile Eugenio per Gemma, figlia di Gaetano, un cuoco arricchito...",
+                        //DescriptionId = 7,
+                        Description = new Description
+                        {
+                            Content = "La commedia ha come protagonista Felice Sciosciammocca, celebre maschera di Eduardo Scarpetta, e la trama gira attorno all'amore del giovane nobile Eugenio per Gemma, figlia di Gaetano, un cuoco arricchito. Il ragazzo è però ostacolato dal padre, il marchese Favetti, che è contro il matrimonio del figlio per via del fatto che Gemma è la figlia di un cuoco. Eugenio si rivolge quindi allo scrivano Felice per trovare una soluzione. Felice e Pasquale, un altro spiantato, assieme alle rispettive famiglie, si introdurranno a casa del cuoco fingendosi i parenti nobili di Eugenio. La situazione si ingarbuglia poiché anche il vero Marchese Favetti è innamorato della ragazza, al punto di frequentarne la casa sotto le mentite spoglie di Don Bebè. Il figlio, scopertolo e minacciatolo di rivelare la verità, lo costringerà a dare il suo consenso per le nozze.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Author", Value = "Eduardo Scarpetta" },
+                                new Property { Name = "Page count", Value = "56" },
+                                new Property { Name = "Publisher", Value = "CreateSpace Independent Publishing Platform" },
+                                new Property { Name = "Language", Value = "Italian", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Language".ToLower()) },
+                                new Property { Name = "Format", Value = "Paperback", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Format".ToLower()) },
+                                new Property { Name = "Condition", Value = "used", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        QuantityInStock = 50,
+                        UnitPrice = 7.05M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Books").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Eduardo Scarpetta".ToLower()),
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "comedy".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Hidden Figures The American Dream and the Untold Story of the Black Women Mathematicians Who Helped Win the Space Race",
+                        ShortDescription = "New York Times Bestseller. The phenomenal true story of the black female mathematicians at NASA whose calculations helped fuel some of America’s greatest achievements in space.Soon to be a major motion picture starring Taraji P.Henson, Octavia Spencer, Janelle Monae, Kirsten Dunst, and Kevin Costner.",
+                        //DescriptionId = 8,
+                        Description = new Description
+                        {
+                            Content = "The phenomenal true story of the black female mathematicians at NASA whose calculations helped fuel some of America’s greatest achievements in space. Soon to be a major motion picture starring Taraji P. Henson, Octavia Spencer, Janelle Monae, Kirsten Dunst, and Kevin Costner. Before John Glenn orbited the earth, or Neil Armstrong walked on the moon, a group of dedicated female mathematicians known as “human computers” used pencils, slide rules and adding machines to calculate the numbers that would launch rockets, and astronauts, into space. Among these problem - solvers were a group of exceptionally talented African American women, some of the brightest minds of their generation.Originally relegated to teaching math in the South’s segregated public schools, they were called into service during the labor shortages of World War II, when America’s aeronautics industry was in dire need of anyone who had the right stuff.Suddenly, these overlooked math whizzes had a shot at jobs worthy of their skills, and they answered Uncle Sam’s call, moving to Hampton, Virginia and the fascinating, high-energy world of the Langley Memorial Aeronautical Laboratory. Even as Virginia’s Jim Crow laws required them to be segregated from their white counterparts, the women of Langley’s all-black “West Computing” group helped America achieve one of the things it desired most: a decisive victory over the Soviet Union in the Cold War, and complete domination of the heavens. Starting in World War II and moving through to the Cold War, the Civil Rights Movement and the Space Race, Hidden Figures follows the interwoven accounts of Dorothy Vaughan, Mary Jackson, Katherine Johnson and Christine Darden, four African American women who participated in some of NASA’s greatest successes.It chronicles their careers over nearly three decades they faced challenges, forged alliances and used their intellect to change their own lives, and their country’s future.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Author", Value = "Margot Lee Shetterly" },
+                                new Property { Name = "File Size", Value = "1388 KB" },
+                                new Property { Name = "Publisher", Value = "William Morrow; Reprint edition" },
+                                new Property { Name = "Page count", Value = "373" },
+                                new Property { Name = "Language", Value = "English", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Language".ToLower()) },
+                                new Property { Name = "Format", Value = "Kindle", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Format".ToLower()) },
+                                //new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        QuantityInStock = 9999,
+                        UnitPrice = 10.93M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Books").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Margot Lee Shetterly".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Happísland: Le court mais pas trop bref récit d'un espion suisse en Islande (French Edition)",
+                        ShortDescription = "Ce petit ouvrage, plein de ð et de þ, rend hommage à l'Islande, par l'intermédiaire des comptes rendus du fin limier de la Confédération helvétique, Hans-Ueli Stauffacher. Un espion dont la mission est de comprendre pourquoi les Islandais sont plus heureux que les Suisses!",
+                        //DescriptionId = 9,
+                        Description = new Description
+                        {
+                            Content = "Ce petit ouvrage, plein de ð et de þ, rend hommage à l'Islande, par l'intermédiaire des comptes rendus du fin limier de la Confédération helvétique, Hans-Ueli Stauffacher. Un espion dont la mission est de comprendre pourquoi les Islandais sont plus heureux que les Suisses!",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Author", Value = "Cédric H. Roserens" },
+                                new Property { Name = "Publisher", Value = "CreateSpace Independent Publishing Platform" },
+                                new Property { Name = "Language", Value = "French", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Language".ToLower()) },
+                                new Property { Name = "Format", Value = "Paperback", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Format".ToLower()) },
+                                new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        QuantityInStock = 12,
+                        UnitPrice = 5.99M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Books").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Cédric H. Roserens".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Homo Deus (Spanish Edition)",
+                        ShortDescription = "Tras el éxito de Sapiens. De animales a dioses, Yuval Noah Harari vuelve su mirada al futuro para ver hacia dónde nos dirigimos. La guerra es algo obsoleto.Es más probable quitarse la vida que morir en un conflicto bélico. La hambruna está desapareciendo.Es más habitual sufrir obesidad que pasar hambre. La muerte es solo un problema técnico.Adiós igualdad.Hola inmortalidad.",
+                        //DescriptionId = 10,
+                        Description = new Description
+                        {
+                            Content = "Yuval Noah Harari, autor bestseller de Sapiens. De animales a dioses, augura un mundo no tan lejano en el cual nos veremos enfrentados a una nueva serie de retos. Homo Deus explora los proyectos, los sueños y las pesadillas que irán moldeando el siglo XXI -desde superar la muerte hasta la creación de la inteligencia artificial. - Cuando tu Smartphone te conozca mejor de lo que te conoces a ti mismo, ¿seguirás escogiendo tu trabajo, a tu pareja y a tu presidente ? -Cuando la inteligencia artificial nos desmarque del mercado laboral, ¿encontrarán los millones de desempleados algún tipo de significado en las drogas o los juegos virtuales ? -Cuando los cuerpos y cerebros sean productos de diseño, ¿cederá la selección natural el paso al diseño inteligente ? Esto es el futuro de la evolución.Esto es Homo Deus.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Author", Value = "Yuval Harari" },
+                                new Property { Name = "Publisher", Value = "Debate" },
+                                new Property { Name = "Page count", Value = "528" },
+                                new Property { Name = "Language", Value = "Spanish", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Language".ToLower()) },
+                                new Property { Name = "Format", Value = "Hardcover", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Format".ToLower()) },
+                                new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        QuantityInStock = 6,
+                        UnitPrice = 24.95M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Books").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Yuval Harari".ToLower()),
+                        }
+                    },
                 #endregion
                 #region Cameras
                     new Product
