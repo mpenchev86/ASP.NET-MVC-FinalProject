@@ -12,6 +12,7 @@
     using Models;
     using Models.Catalog;
     using Models.Identity;
+    using Models.Media;
     using Models.Orders;
     using Models.Search;
     using Web.Infrastructure.StringHelpers;
@@ -241,7 +242,7 @@
                     {
                         Name = "Color",
                         DisplayName = "Color",
-                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Furniture").Id,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Appliances").Id,
                         Options = "black, grey, white, brown, red, pink, orange, yellow, green, blue, purple, multi",
                         SelectionType = SearchFilterSelectionType.Multiple,
                         OptionsType = SearchFilterOptionsType.ConcreteValue,
@@ -387,7 +388,7 @@
                         Name = "Color",
                         DisplayName = "Color",
                         CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Furniture").Id,
-                        Options = "black, grey, white, brown, red, pink, orange, yellow, green, blue, purple, multi",
+                        Options = "black, grey, gray, white, brown, red, pink, orange, yellow, green, blue, purple, multi",
                         SelectionType = SearchFilterSelectionType.Multiple,
                         OptionsType = SearchFilterOptionsType.ConcreteValue,
                     },
@@ -426,8 +427,17 @@
                         Name = "Sex/Gender",
                         DisplayName = "Sex/Gender",
                         CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Health & Beauty").Id,
-                        Options = "For Her, For Him",
+                        Options = "For Her, For Him, Unisex",
                         SelectionType = SearchFilterSelectionType.Single,
+                        OptionsType = SearchFilterOptionsType.ConcreteValue,
+                    },
+                    new SearchFilter
+                    {
+                        Name = "Specific properties",
+                        DisplayName = "Specific properties",
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Health & Beauty").Id,
+                        Options = "Natural, Cruelty Free, Organic, Hypoallergenic, Unscented, Paraben Free, Alcohol Free, Ammonia Free, Oil Free",
+                        SelectionType = SearchFilterSelectionType.Multiple,
                         OptionsType = SearchFilterOptionsType.ConcreteValue,
                     },
                     new SearchFilter
@@ -480,7 +490,11 @@
                             "Intel Core i7, " +
                             "Intel Core i5, " +
                             "Intel Core i3, " +
+                            "Intel Core m7, " +
+                            "Intel Core m5, " +
+                            "Intel Core m3, " +
                             "Intel Core 2, " +
+                            "Intel Atom, " +
                             "AMD A-Series, " +
                             "AMD E-Series",
                         SelectionType = SearchFilterSelectionType.Multiple,
@@ -516,6 +530,15 @@
                     },
                 #endregion
                 #region Sports Equipment
+                    new SearchFilter
+                    {
+                        Name = "Sex/Gender",
+                        DisplayName = "Sex/Gender",
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Sports Equipment").Id,
+                        Options = "For Her, For Him, Unisex",
+                        SelectionType = SearchFilterSelectionType.Single,
+                        OptionsType = SearchFilterOptionsType.ConcreteValue,
+                    },
                     new SearchFilter
                     {
                         Name = "Size",
@@ -568,7 +591,9 @@
                     new Tag { Name = "black" },
                     new Tag { Name = "chrome" },
                     new Tag { Name = "red" },
+                    new Tag { Name = "brown" },
                     new Tag { Name = "green" },
+                    new Tag { Name = "blue" },
                     new Tag { Name = "white" },
                     new Tag { Name = "steel" },
                     new Tag { Name = "silver" },
@@ -610,9 +635,47 @@
                     new Tag { Name = "Margot Lee Shetterly" },
                     new Tag { Name = "Cédric H.Roserens" },
                     new Tag { Name = "Yuval Harari" },
-
-
-                    new Tag { Name = "Yada Yada" }
+                    new Tag { Name = "comfortable chair" },
+                    new Tag { Name = "leather chair" },
+                    new Tag { Name = "living room chair" },
+                    new Tag { Name = "blue chair" },
+                    new Tag { Name = "cherry wood" },
+                    new Tag { Name = "Rolando wardrobe" },
+                    new Tag { Name = "L-Shaped Desk" },
+                    new Tag { Name = "Z-Line Nero Desk" },
+                    new Tag { Name = "Orlando Dining Table" },
+                    new Tag { Name = "Handi-craft" },
+                    new Tag { Name = "Sectional Sofa" },
+                    new Tag { Name = "Adjustable sofa" },
+                    new Tag { Name = "cruelty free" },
+                    new Tag { Name = "brown mascara" },
+                    new Tag { Name = "Hypoallergenic Hair Removing Strips" },
+                    new Tag { Name = "Alcohol Free Shaving Cream" },
+                    new Tag { Name = "Cruelty Free Fragrance" },
+                    new Tag { Name = "Cruelty Free Eau De Toilette" },
+                    new Tag { Name = "Rene Furterer shampoo" },
+                    new Tag { Name = "Ducray Shampoo" },
+                    new Tag { Name = "AmLactin Body Lotion" },
+                    new Tag { Name = "maternity cosmetics" },
+                    new Tag { Name = "MacBook Air" },
+                    new Tag { Name = "Samsung Tab Pro tablet" },
+                    new Tag { Name = "ASUS Transformer Book" },
+                    new Tag { Name = "Samsung Chromebook" },
+                    new Tag { Name = "Lenovo Yoga laptop" },
+                    new Tag { Name = "ASUS ZenBook" },
+                    new Tag { Name = "Dell Inspiron" },
+                    new Tag { Name = "hp laptop" },
+                    new Tag { Name = "HP ProBook" },
+                    new Tag { Name = "adidas Jacket" },
+                    new Tag { Name = "Adriana Arango Gym Outfit" },
+                    new Tag { Name = "TrailHeads Headband" },
+                    new Tag { Name = "ASICS Tank Top" },
+                    new Tag { Name = "MÜV365 Armband" },
+                    new Tag { Name = "Under Armour T-Shirt" },
+                    new Tag { Name = "New Balance Long-Sleeve Shirt" },
+                    new Tag { Name = "PUMA Training Pant" },
+                    new Tag { Name = "Lemu Jacket" },
+                    new Tag { Name = "Thai Fisherman Yoga Pants" }
                     );
 
                 context.SaveChanges();
@@ -652,6 +715,10 @@
                                 new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
                             }
                         },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
                         QuantityInStock = 50,
                         UnitPrice = 37.95M,
                         CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Appliances").Id,
@@ -681,6 +748,10 @@
                                 new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
                             }
                         },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
                         QuantityInStock = 37,
                         UnitPrice = 329.99M,
                         CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Appliances").Id,
@@ -709,6 +780,10 @@
                                 new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
                             }
                         },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
                         QuantityInStock = 6,
                         UnitPrice = 373.44M,
                         CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Appliances").Id,
@@ -735,6 +810,10 @@
                                 new Property { Name = "Size", Value = "9 cup" },
                                 new Property { Name = "Condition", Value = "refurbished", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
                             }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
                         },
                         QuantityInStock = 27,
                         UnitPrice = 199.99M,
@@ -763,6 +842,10 @@
                                 new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
                             }
                         },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
                         QuantityInStock = 76,
                         UnitPrice = 39.99M,
                         CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Appliances").Id,
@@ -789,6 +872,10 @@
                                 new Property { Name = "Material type", Value = "plastic" },
                                 new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
                             }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
                         },
                         QuantityInStock = 37,
                         UnitPrice = 129.95M,
@@ -819,6 +906,10 @@
                                 new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
                             }
                         },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
                         QuantityInStock = 18,
                         UnitPrice = 159.00M,
                         CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Appliances").Id,
@@ -845,6 +936,10 @@
                                 new Property { Name = "Color", Value = "Black", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Color".ToLower()) },
                                 new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
                             }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
                         },
                         QuantityInStock = 112,
                         UnitPrice = 429.98M,
@@ -873,6 +968,10 @@
                                 new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
                             }
                         },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
                         QuantityInStock = 64,
                         UnitPrice = 180.00M,
                         CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Appliances").Id,
@@ -899,6 +998,10 @@
                                 new Property { Name = "Color", Value = "black", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Color".ToLower()) },
                                 new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
                             }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
                         },
                         QuantityInStock = 27,
                         UnitPrice = 81.99M,
@@ -931,6 +1034,10 @@
                                 new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
                             }
                         },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
                         QuantityInStock = 16,
                         UnitPrice = 22.59M,
                         CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Books").Id,
@@ -960,6 +1067,10 @@
                                 new Property { Name = "Condition", Value = "used", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
                             }
                         },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
                         QuantityInStock = 5,
                         UnitPrice = 26.89M,
                         CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Books").Id,
@@ -987,6 +1098,10 @@
                                 //new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
                             }
                         },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
                         QuantityInStock = 9999,
                         UnitPrice = 7.19M,
                         CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Books").Id,
@@ -1011,6 +1126,10 @@
                                 new Property { Name = "Format", Value = "Audio CD", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Format".ToLower()) },
                                 new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
                             }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
                         },
                         QuantityInStock = 3,
                         UnitPrice = 63.57M,
@@ -1040,6 +1159,10 @@
                                 new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
                             }
                         },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
                         QuantityInStock = 7,
                         UnitPrice = 7.99M,
                         CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Books").Id,
@@ -1065,6 +1188,10 @@
                                 new Property { Name = "Format", Value = "Kindle", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Format".ToLower()) },
                                 //new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
                             }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
                         },
                         QuantityInStock = 9999,
                         UnitPrice = 11.99M,
@@ -1092,6 +1219,10 @@
                                 new Property { Name = "Format", Value = "Paperback", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Format".ToLower()) },
                                 new Property { Name = "Condition", Value = "used", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
                             }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
                         },
                         QuantityInStock = 50,
                         UnitPrice = 7.05M,
@@ -1122,6 +1253,10 @@
                                 //new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
                             }
                         },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
                         QuantityInStock = 9999,
                         UnitPrice = 10.93M,
                         CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Books").Id,
@@ -1147,6 +1282,10 @@
                                 new Property { Name = "Format", Value = "Paperback", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Format".ToLower()) },
                                 new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
                             }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
                         },
                         QuantityInStock = 12,
                         UnitPrice = 5.99M,
@@ -1174,6 +1313,10 @@
                                 new Property { Name = "Format", Value = "Hardcover", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Format".ToLower()) },
                                 new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
                             }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
                         },
                         QuantityInStock = 6,
                         UnitPrice = 24.95M,
@@ -1203,6 +1346,10 @@
                                 new Property { Name = "Battery Average Life", Value = "950 Photos" },
                                 new Property { Name = "Condition", Value = "New", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name == "Condition") },
                             }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
                         },
                         QuantityInStock = 60,
                         UnitPrice = 2499.00M,
@@ -1236,6 +1383,10 @@
                                 new Property { Name = "Condition", Value = "Refurbished", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name == "Condition") },
                             }
                         },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
                         QuantityInStock = 314,
                         UnitPrice = 179.00M,
                         CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Cameras").Id,
@@ -1266,6 +1417,10 @@
                                 new Property { Name = "Condition", Value = "New", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name == "Condition") },
                             }
                         },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
                         QuantityInStock = 226,
                         UnitPrice = 355.95M,
                         CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Cameras").Id,
@@ -1293,6 +1448,10 @@
                                 new Property { Name = "Model Year", Value = "2014" },
                                 new Property { Name = "Condition", Value = "New", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name == "Condition") },
                             }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
                         },
                         QuantityInStock = 130,
                         UnitPrice = 1346.95M,
@@ -1324,6 +1483,10 @@
                                 new Property { Name = "Condition", Value = "New", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name == "Condition") },
                             }
                         },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
                         QuantityInStock = 414,
                         UnitPrice = 648.00M,
                         CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Cameras").Id,
@@ -1352,6 +1515,10 @@
                                 new Property { Name = "Color", Value = "red" },
                                 new Property { Name = "Condition", Value = "New", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name == "Condition") },
                             }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
                         },
                         QuantityInStock = 160,
                         UnitPrice = 119.95M,
@@ -1386,6 +1553,10 @@
                                 new Property { Name = "Condition", Value = "New", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name == "Condition") },
                             }
                         },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
                         QuantityInStock = 3,
                         UnitPrice = 419.00M,
                         CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Cameras").Id,
@@ -1411,6 +1582,10 @@
                                 new Property { Name = "Display", Value = "2.5-inch Live View HyperCrystal LCD" },
                                 new Property { Name = "Condition", Value = "Used", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name == "Condition") },
                             }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
                         },
                         QuantityInStock = 36,
                         UnitPrice = 467.00M,
@@ -1439,6 +1614,10 @@
                                 new Property { Name = "ISO Maximum", Value = "25600", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.Contains("Maximum ISO")) },
                                 new Property { Name = "Condition", Value = "New", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name == "Condition") },
                             }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
                         },
                         QuantityInStock = 43,
                         UnitPrice = 1398.00M,
@@ -1469,6 +1648,10 @@
                                 new Property { Name = "Condition", Value = "New", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name == "Condition") },
                             }
                         },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
                         QuantityInStock = 1,
                         UnitPrice = 997.99M,
                         CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Cameras").Id,
@@ -1478,15 +1661,1159 @@
                             context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Mirrorless Digital Camera".ToLower()),
                             context.Tags.FirstOrDefault(t => t.Name.ToLower() == "panasonic camera".ToLower()),
                         }
-                    }
-                    #endregion
+                    },
+                #endregion
                 #region Furniture
+                    new Product
+                    {
+                        Title = "Massaging Black Leather Recliner and Ottoman with Leather Wrapped Base",
+                        ShortDescription = "Enjoy a relaxing massage in the comfort of your own home or office with this recliner and ottoman set. This set offers maximum massaging power that kneads your back, lumbar area, thighs and legs.",
+                        //DescriptionId = 1,
+                        Description = new Description
+                        {
+                            Content = "Enjoy a relaxing massage in the comfort of your own home or office with this recliner and ottoman set. This set offers maximum massaging power that kneads your back, lumbar area, thighs and legs. Whatever your preferred intensity the five pre-programmed settings are sure to suit your needs. Look no further for your perfect massage chair offered at an incredible price!",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Item Weight", Value = "54 pounds" },
+                                new Property { Name = "Product Dimensions", Value = "29.2 x 46 x 42 inches" },
+                                new Property { Name = "Material", Value = "Leather", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Material".ToLower()) },
+                                new Property { Name = "Color", Value = "black", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Color".ToLower()) },
+                                new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 17,
+                        UnitPrice = 202.49M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Furniture").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "comfortable chair".ToLower()),
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "leather chair".ToLower()),
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "black".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "2PC. PADDED ROCKING CHAIR CUSHION SET - BLUE",
+                        ShortDescription = "Our 2 piece rocking chair cushion set makes your favorite rocker extra comfy! Two piece set includes a back pad (22\" x 17\" x 3\") and seat cushion(19\" x 17\" x 3\"). Both have ties that attach easily to any rocker to keep cushions in place. Made of Poly-cotton blend with poly-fill. Color Blue. Also available in Burgundy and Beige sold on Amazon.",
+                        //DescriptionId = 2,
+                        Description = new Description
+                        {
+                            Content = "Our 2 piece rocking chair cushion set makes your favorite rocker extra comfy! Two piece set includes a back pad (22\" x 17\" x 3\") and seat cushion(19\" x 17\" x 3\"). Both have ties that attach easily to any rocker to keep cushions in place. Made of Poly-cotton blend with poly-fill. Color Blue. Also available in Burgundy and Beige sold on Amazon.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Product Dimensions", Value = "24.5 x 15.5 x 5 inches" },
+                                new Property { Name = "Manufacturer", Value = "PADDED CUSHIONS" },
+                                new Property { Name = "Material", Value = "Fabric, Wood", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Material".ToLower()) },
+                                new Property { Name = "Color", Value = "blue", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Color".ToLower()) },
+                                new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 49,
+                        UnitPrice = 37.99M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Furniture").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "living room chair".ToLower()),
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "blue chair".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Sauder Palladia Armoire, Cherry",
+                        ShortDescription = "This Product Garment rod behind doors .Drawer with easy-glide metal runners. Made in USA. This Product is of high Quality. A must buy Product.",
+                        //DescriptionId = 3,
+                        Description = new Description
+                        {
+                            Content = "This Product Garment rod behind doors .Drawer with easy-glide metal runners. Made in USA. This Product is of high Quality. A must buy Product.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Item Weight", Value = "135 pounds" },
+                                new Property { Name = "Product Dimensions", Value = "36.3 x 21.4 x 66.6 inches" },
+                                new Property { Name = "Material", Value = "Wood", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Material".ToLower()) },
+                                new Property { Name = "Color", Value = "brown", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Color".ToLower()) },
+                                new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 10,
+                        UnitPrice = 246.38M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Furniture").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "cherry wood".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Rolando Grey & Black Rolling Wardrobe Trunk",
+                        ShortDescription = "The Rolando Rolling wardrobe offers a sleek and sophisticated solution to all of your clothing storage needs. Built with antique chrome hinges, this trunk open to reveal spacious interior to hang or put away clothes.",
+                        //DescriptionId = 4,
+                        Description = new Description
+                        {
+                            Content = "The Rolando Rolling wardrobe offers a sleek and sophisticated solution to all of your clothing storage needs. Built with antique chrome hinges, this trunk open to reveal spacious interior to hang or put away clothes. The entire piece is built on black rubber wheels for easy mobility. Inspired by vintage design, this trunk exudes a traditionally trendy feel with attention to detailing, making for an impressive and functional piece. Dimensions: 24.70\" L x 22\" W x 59.30\" H",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Item Weight", Value = "187 pounds" },
+                                new Property { Name = "Product Dimensions", Value = "24.7 x 22 x 59.3 inches" },
+                                new Property { Name = "Material", Value = "wood, leather, chrome", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Material".ToLower()) },
+                                new Property { Name = "Color", Value = "black, grey", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Color".ToLower()) },
+                                new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 4,
+                        UnitPrice = 1394.99M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Furniture").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Rolando wardrobe".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Altra The Works L-Shaped Desk, CherrySlate Gray",
+                        ShortDescription = "Furnish your home office with the Altra The Works L-Shaped Desk to work more efficiently and get more done. Perfect for a corner, this attractive desk makes a stylish addition to virtually any office space...",
+                        //DescriptionId = 5,
+                        Description = new Description
+                        {
+                            Content = "Furnish your home office with the Altra The Works L-Shaped Desk to work more efficiently and get more done. Perfect for a corner, this attractive desk makes a stylish addition to virtually any office space. The L-shape design creates a large workspace with plenty of room for a laptop, monitor, keyboard, papers, office supplies and more. Crafted in a two-tone finish of Cherry and Slate Gray, this contemporary styled desk look great with any décor. A convenient grommet hole at the back corner lets you conceal wires and electrical cords for your computer accessories and other devices. Finish off your desk with the matching The Works Hutch – sold separately. Altra The Works L-Shaped Desk requires assembly upon delivery.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Manufacturer", Value = "Dorel Home Furnishings" },
+                                new Property { Name = "Product Dimensions", Value = "52 x 52 x 29.1 inches" },
+                                new Property { Name = "Material", Value = "Wood", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Material".ToLower()) },
+                                new Property { Name = "Color", Value = "cherry, slate grey", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Color".ToLower()) },
+                                new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 11,
+                        UnitPrice = 94.49M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Furniture").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "L-Shaped Desk".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Z-Line Nero Desk and Bookcase",
+                        ShortDescription = "Nero desk and bookcase.",
+                        //DescriptionId = 6,
+                        Description = new Description
+                        {
+                            Content = "Contemporary black glossy powder coat frame; 8mm / 5mm clear tempered safety glass; Pullout keyboard tray with room for a mouse; Spacious desktop workspace ideal for any home or office; Attached 3 - tier bookcase for added workspace",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Item Weight", Value = "62.8 pounds" },
+                                new Property { Name = "Product Dimensions", Value = "24 x 57.5 x 40 inches" },
+                                new Property { Name = "Material", Value = "metal", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Material".ToLower()) },
+                                new Property { Name = "Color", Value = "black", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Color".ToLower()) },
+                                new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 31,
+                        UnitPrice = 104.43M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Furniture").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Z-Line Nero Desk".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Orlando White and Orange Dining Table - Creative Furniture",
+                        ShortDescription = "This tiny Orlando White and Orange Dining Table will easily seat a large family gathering around its stunning borders. Sturdy supports hold up the orange high gloss top. Its folding design and space saving function is so convenient in small rooms where space is limited.",
+                        //DescriptionId = 7,
+                        Description = new Description
+                        {
+                            Content = "This tiny Orlando White and Orange Dining Table - Creative Furniture will easily seat a large family gathering around its stunning borders. Sturdy supports hold up the orange high gloss top. Its folding design and space saving function is so convenient in small rooms where space is limited. This dining table may well be the perfect choice if you have a small and modern dining room, and enjoy entertaining. Features: Category: Dining table Orlando Collection Folding design Contemporary style White and Orange finish Wood and wood products Square/ rectangular shape Dimensions: Table: 30\"W x 34\"H x 44\"L",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Product Dimensions", Value = "44 x 30 x 34 inches" },
+                                new Property { Name = "Material", Value = "wood, glass", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Material".ToLower()) },
+                                new Property { Name = "Color", Value = "white, orange", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Color".ToLower()) },
+                                new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 2,
+                        UnitPrice = 575.00M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Furniture").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Orlando Dining Table".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Handi-Craft 3 Piece Compact Dining Set wTable and Matching Chairs",
+                        ShortDescription = "Handi-craft brings you a 3-piece compact dining set at an affordable price. treat yourself to a new compact dining set with two chairs included for immediate use.",
+                        //DescriptionId = 8,
+                        Description = new Description
+                        {
+                            Content = "Handi-craft brings you a 3-piece compact dining set at an affordable price. treat yourself to a new compact dining set with two chairs included for immediate use. Add a new table at your home, office, apartment, dorm, or party, our 3-piece compact dining set is designed for quick assembly with all instructions included. The table top and chairs are made of MDF wood with an elegant dark walnut PVC veneer for a real wood look and feel. It is easy to wipe clean with normal household wipes. The frame is built with powder coated dark brown metal tubes. This dining set will look great in any environment. Handi-craft offers a line of affordable DIY household products and furniture. - Dining set at an affordable price. - Easy care. - Contemporary look. - Fade-resistant and stain-resistant. - Immediate use.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Product Dimensions", Value = "32.5 x 5.5 x 21.5 inches" },
+                                new Property { Name = "Item Weight", Value = "30 pounds" },
+                                new Property { Name = "Material", Value = "wood, pvc", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Material".ToLower()) },
+                                new Property { Name = "Color", Value = "brown", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Color".ToLower()) },
+                                new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 32,
+                        UnitPrice = 67.93M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Furniture").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Handi-craft".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Modern Linen Fabric Small Space Sectional Sofa with Reversible Chaise (Green)",
+                        ShortDescription = "Divano Roma Furniture Presents this small space configurable reversible chaise lounge. Soft linen fabric upholstery on hardwood frame with overstuffed back cushions and memory foam seat cushion.",
+                        //DescriptionId = 9,
+                        Description = new Description
+                        {
+                            Content = "Modern linen fabric sectional sofa with reversible chaise lounge in a variant of colors; Features soft fabrics and fun colors on hardwood frame, overstuffed cushions and two decorative pillows in the same fabric; Small space configurable sectional, allowing to position chaise on either end; Dimensions: Overall - 76\"W x 50\"D x 28\"H, Seat- 66\"W x 22\"D, Back Rest- 17\"H; Minor Assembly Required. All hardware and instructions included.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Product Dimensions", Value = "28 x 76 x 50 inches" },
+                                new Property { Name = "Material", Value = "fabric", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Material".ToLower()) },
+                                new Property { Name = "Color", Value = "green", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Color".ToLower()) },
+                                new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 4,
+                        UnitPrice = 175.00M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Furniture").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Sectional Sofa".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Merax 55-74\" Multicolor Adjustable Loveseat Home Furniture Sofa with 2 Free Pillows, Colorful",
+                        ShortDescription = "With its minimalist looks and clean lines, the sofa is designed to be seen and shared with friends. Comfort too is a top priority and the adjustable angled back guarantees it will feel great all day, every day.",
+                        //DescriptionId = 10,
+                        Description = new Description
+                        {
+                            Content = "With its minimalist looks and clean lines, the sofa is designed to be seen and shared with friends. Comfort too is a top priority and the adjustable angled back guarantees it will feel great all day, every day. The fold-down seat back and armrests also brings convenience to the couch.We advise to mat something below the back to increase the stability. Use this lovely sofa as the focal point of your contemporary living room. This piece's urban design makes it a great sofa for a young person's first apartment. This versatile piece has simple lines that work well with modern decor, and its warm tonal and unique styling have an organic feel that blends well in home. Its deceptively compact with proportions that won’t overwhelm your room. Weight limit: 500lbs. We advise to mat something below the back to increase the stability when the sofa is folded down.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Product Dimensions", Value = "58.2 x 36.2 x 23.6 inches" },
+                                new Property { Name = "Item Weight", Value = "54 pounds" },
+                                new Property { Name = "Material", Value = "Cotton", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Material".ToLower()) },
+                                new Property { Name = "Color", Value = "multiple", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Color".ToLower()) },
+                                new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 4,
+                        UnitPrice = 239.90M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Furniture").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Adjustable sofa".ToLower()),
+                        }
+                    },
                 #endregion
                 #region Heath and Beauty
+                    new Product
+                    {
+                        Title = "Marvelous Moxie Lipgloss - Rebel",
+                        ShortDescription = "Contains natural ingredients, exotic oils, botanical extracts & antioxidants. With a refreshing formula that nourishes lips for exceptional comfort. Provides sheer, vibrant color. Creates a full, satiny, shimmering & mirror-like pout that lasts for hours.",
+                        //DescriptionId = 1,
+                        Description = new Description
+                        {
+                            Content = "Contains natural ingredients, exotic oils, botanical extracts & antioxidants. With a refreshing formula that nourishes lips for exceptional comfort. Provides sheer, vibrant color. Creates a full, satiny, shimmering & mirror-like pout that lasts for hours. Ingredients: Hydrogenated Polyisobutene, Tridecyl Trimellitate, Polyglyceryl - 2 Triisostearate, Octyldodecanol, Bis - Diglyceryl Polyacyladipate - 2, Microcrystalline Wax(Cera Microcristallina), Trimethylolpropane Triisostearate, Stearalkonium Hectorite, Menthone Glycerin Acetal, Cetearyl Ethylhexanoate, Vp / Hexadecene Copolymer, Butyrospermum Parkii(Shea) Butter, Persea Gratissima(Avocado) Butter, Silica Dimethyl Silylate, Mentha Piperita(Peppermint) Oil, Euphorbia Cerifera(Candelilla) Wax, Vanillin, Astrocaryum Murumuru Seed Butter, Lavandula Angustifolia(Lavender) Flower Wax, Cinnamomum Cassia Leaf Oil, Sorbitan Isostearate, Retinyl Palmitate, Tocopherol, Ascorbyl Palmitate, Eugenol, Portulaca Pilosa Extract, Linalool, Sucrose Cocoate, Copper Gluconate, Sodium Chloride, Zinc Gluconate, Benzyl Benzoate, Palmitoyl Tripeptide - 38, Mica(Ci 77019).May Contain(+/ -): Titanium Dioxide(Ci 77891), Red 28(Ci 45410), Red 27(Ci 45410), Yellow 5(Ci 19140), Blue 1(Ci 42090), Iron Oxides(Ci 77491, 77492, 77499), Red 6(Ci 15850).",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Sex/Gender", Value = "For Her", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Sex/Gender".ToLower()) },
+                                new Property { Name = "Specific properties", Value = "Cruelty Free", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Specific properties".ToLower()) },
+                                new Property { Name = "Color", Value = "Pink Mauve", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Color".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 216,
+                        UnitPrice = 24.95M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Heath and Beauty").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "cruelty free".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "W3LL PEOPLE - Expressionist Mascara (PRO BROWN)",
+                        ShortDescription = "The trailblazing W3LL PEOPLE Beauty Dream Team is taking pretty to a more positive place with their unique integrated approach to healthy beauty.",
+                        //DescriptionId = 2,
+                        Description = new Description
+                        {
+                            Content = "The trailblazing W3LL PEOPLE Beauty Dream Team is taking pretty to a more positive place with their unique integrated approach to healthy beauty. This new cult favorite is known for their pure, positive, performance makeup that’s winning every award under the sun. Now they’ve curated their best seller into an exclusive duo set at a radical value for you. Revel in their toxinfree makeup, powered by organic botanicals, that delivers extraordinary performance that’s better than conventional cosmetics!",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Sex/Gender", Value = "For Her", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Sex/Gender".ToLower()) },
+                                new Property { Name = "Specific properties", Value = "Hypoallergenic", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Specific properties".ToLower()) },
+                                new Property { Name = "Color", Value = "brown", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Color".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 60,
+                        UnitPrice = 27.00M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Heath and Beauty").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "brown mascara".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Bel Ami By Hermes Eau De Toilette Spray 3.4 Oz For Men",
+                        ShortDescription = "Beautiful and distinctive, TrendToGo brings you another fine fragrance from Hermes ALL Fragrances are 100% Guaranteed Authentic. Add it to your cart now: BEL AMI by Hermes EDT SPRAY 3.3 OZ for MEN Gender: Men's Brand: Hermes",
+                        //DescriptionId = 3,
+                        Description = new Description
+                        {
+                            Content = "Beautiful and distinctive, TrendToGo brings you another fine fragrance from Hermes ALL Fragrances are 100% Guaranteed Authentic. Add it to your cart now: BEL AMI by Hermes EDT SPRAY 3.3 OZ for MEN Gender: Men's Brand: Hermes",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Sex/Gender", Value = "For Him", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Sex/Gender".ToLower()) },
+                                new Property { Name = "Specific properties", Value = "Cruelty Free", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Specific properties".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 30,
+                        UnitPrice = 125.71M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Heath and Beauty").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Cruelty Free Eau De Toilette".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "1st Femme Beauty Fragrance",
+                        ShortDescription = "This 1st class scent, is an exotic and powdery sweet floral fragrance...Perfect for the smart, sophisticated ingénue on the go. With a soft effervescent mix of freesia and jasmine blossom, creamy silk vanilla and fresh zesty touches of green, this unique and intoxicating scent is meant to...",
+                        //DescriptionId = 4,
+                        Description = new Description
+                        {
+                            Content = "This 1st class scent, is an exotic and powdery sweet floral fragrance...Perfect for the smart, sophisticated ingénue on the go. With a soft effervescent mix of freesia and jasmine blossom, creamy silk vanilla and fresh zesty touches of green, this unique and intoxicating scent is meant to evoke your most touching memories and is also the perfect accompaniment to take you from the business room to an impromptu getaway in the Maldives. Our base notes include silky musk and creamed vanilla. We put silky musk in our fragrance, as it evokes an element of status and is the most expensive natural product in the world, even more expensive than gold. Vanilla, is the second most expensive spice in the world, next to saffron, which again inspires an element of luxury in the woman wearing it. Our mid notes are jasmine blossom accord and freesia. Jasmine, is one of the most commonly used oils in meditation, engendering feelings of harmony and optimism. When you smell jasmine you know that you are getting a delicate yet rich product. Freesia, embodies freshness at the right intensity, it was added to the mix, to ensure that the fragrance radiates from a long distance. And lastly, the top notes are fresh green nuances, which provide variance and adaptability. The 1st femme fragrance, can take you from the business room to your honeymoon and still be able to sensually communicate the various moods you may encounter in the course of your day.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Specific properties", Value = "Natural", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Specific properties".ToLower()) },
+                                new Property { Name = "Sex/Gender", Value = "For Her", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Sex/Gender".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 46,
+                        UnitPrice = 88.25M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Heath and Beauty").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Cruelty Free Fragrance".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "St James of London Cedarwood & Clarysage Shaving Cream",
+                        ShortDescription = "Formerly known as founder's reserve, our all natural luxurious shave cream blends the exquisite top-notes of cedar wood & clarysage and essential oils.",
+                        //DescriptionId = 5,
+                        Description = new Description
+                        {
+                            Content = "Formerly known as founder's reserve, our all natural luxurious shave cream blends the exquisite top-notes of cedar wood & clarysage and essential oils. Our creams offer an amazingly silky smooth glide shave making this daily ritual something to look forward to. Top-shelf, rich and creamy, explodes with lather. Made in England. Elegantly packaged and presented in a beautiful heavy glass bowl with built-in lid seal to maintain freshness.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Specific properties", Value = "Natural, Alcohol Free, sulfate free, paraben free", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Specific properties".ToLower()) },
+                                new Property { Name = "Sex/Gender", Value = "For Him", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Sex/Gender".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 52,
+                        UnitPrice = 25.00M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Heath and Beauty").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Alcohol Free Shaving Cream".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Hypoallergenic Hair Removing Strips for Face with Beeswax and Cotton Seed Oil Elea - 16 pcs + Calming Balm 15 g. / 0.5 oz.",
+                        ShortDescription = "Hypoallergenic Hair Removing Strips for Face with Beeswax and Cotton Seed Oil Elea - 16 pcs + Calming Balm 15 g. / 0.5 oz. Body Hair Removing Strips with Cotton Seed Oil and Beeswax from Elea...",
+                        //DescriptionId = 6,
+                        Description = new Description
+                        {
+                            Content = "Hypoallergenic Hair Removing Strips for Face with Beeswax and Cotton Seed Oil Elea - 16 pcs + Calming Balm 15 g. / 0.5 oz. Body Hair Removing Strips with Cotton Seed Oil and Beeswax from Elea - offer a fast, easy and efficient way for removing unwanted body hair. It works even on shorter hairs, provides a long-lasting effect (up to 4 weeks) and leaves the skin soft and smooth with a pleasant fresh fragrance.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Specific properties", Value = "Hypoallergenic", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Specific properties".ToLower()) },
+                                new Property { Name = "Sex/Gender", Value = "For Her", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Sex/Gender".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 26,
+                        UnitPrice = 19.90M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Heath and Beauty").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Hypoallergenic Hair Removing Strips".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Rene Furterer Lissea Smoothing Shampoo, 6.76 fl. oz.",
+                        ShortDescription = "Smoothing shampoo for unruly and frizzy hair. Shampoo with natural Alkekenge extract to smoothe hair while controlling frizz and volume.",
+                        //DescriptionId = 7,
+                        Description = new Description
+                        {
+                            Content = "René Furterer pioneered the art of creating a healthy environment for hair and scalp using plant extracts and essential oils. From styling products to scalp treatments, the renowned line is a go-to for industry professionals. 6.76 oz shampoo. Lessee smoothing shampoo was launched by the design house of rene furthered. It is recommended for casual wear. Lessee smoothing shampoo by rene furthered for unisex - 676 oz shampoo.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Hair Type", Value = "Curly" },
+                                new Property { Name = "Specific properties", Value = "Sulfate Free", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Specific properties".ToLower()) },
+                                new Property { Name = "Sex/Gender", Value = "unisex", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Sex/Gender".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 78,
+                        UnitPrice = 28.50M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Heath and Beauty").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Rene Furterer shampoo".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Ducray Kelual DS Shampoo, 3.3 fl. oz.",
+                        ShortDescription = "Soothing and calming shampoo for scalp prone to seborrheic dermatitis.",
+                        //DescriptionId = 8,
+                        Description = new Description
+                        {
+                            Content = "Ducray offers hair care solutions adapted to every need that restore and preserve the health and beauty of the hair. A shampoo specifically formulated to exfoliate and soothe scalp prone to seborrheic dermatitis. Calms itching from the very first use.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Hair Type", Value = "Dandruff" },
+                                new Property { Name = "Specific properties", Value = "Paraben Free", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Specific properties".ToLower()) },
+                                new Property { Name = "Sex/Gender", Value = "unisex", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Sex/Gender".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 106,
+                        UnitPrice = 28.00M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Heath and Beauty").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Ducray Shampoo".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "AmLactin Alpha-Hydroxy Therapy Moisturizing Body Lotion for Dry Skin, Fragrance-Free, 15.8oz Twin Pack (7.9oz per bottle)",
+                        ShortDescription = "AmLactin Moisturizing Body Lotion has a special formula with clinically proven 12% lactic acid that’s pH balanced for the skin. Don’t let the word 'acid' concern you - especially since lactic acid is a naturally occurring humectant for the skin with a certain affinity for water molecules to help keep skin hydrated.",
+                        //DescriptionId = 9,
+                        Description = new Description
+                        {
+                            Content = "AmLactin Moisturizing Body Lotion has a special formula with clinically proven 12% lactic acid that’s pH balanced for the skin. Don’t let the word 'acid' concern you - especially since lactic acid is a naturally occurring humectant for the skin with a certain affinity for water molecules to help keep skin hydrated. And the more moisture that can be retained deep within the skin, the softer and smoother your skin feels. By encouraging natural skin cell renewal through exfoliation and delivering intense hydration deep within the skin, this lotion creates a soft, smooth texture you’ll love.If you suffer from dry skin, you know there’s a big difference between short-term relief and long-term therapy. While traditional moisturizers provide superficial results, AmLactin Skin Care is different. Our unique alpha-hydroxy therapy exfoliates, retains the skin's natural moisture, and draws water to the skin to hydrate so it looks and feels soft and smooth.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Skin Type", Value = "Dry" },
+                                new Property { Name = "Specific properties", Value = "Unscented, Oil Free", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Specific properties".ToLower()) },
+                                new Property { Name = "Sex/Gender", Value = "unisex", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Sex/Gender".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 21,
+                        UnitPrice = 16.62M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Heath and Beauty").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "AmLactin Body Lotion".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Tummy Butter for Stretch Marks ~ Safe for Pregnancy - 4 oz.",
+                        ShortDescription = "Looking to prevent or treat stretch marks? See why The Spoiled Mama's Tummy Butter is trusted by mamas around the globe...",
+                        //DescriptionId = 10,
+                        Description = new Description
+                        {
+                            Content = "Looking to prevent or treat stretch marks? See why The Spoiled Mama's Tummy Butter is trusted by mamas around the globe. Tummy Butter stretch marks lotion penetrates into the deepest skin layers ; while creating a protective shield that locks in moisture and nourishes your growing belly. Our Special stretch marks Butter blend will help fade scars and stretch marks and prevent new ones from appearing. Works wonders on C-Section scars too!",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Specific properties", Value = "Organic", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Specific properties".ToLower()) },
+                                new Property { Name = "Sex/Gender", Value = "For Her", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Sex/Gender".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 62,
+                        UnitPrice = 39.00M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Heath and Beauty").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "maternity cosmetics".ToLower()),
+                        }
+                    },
                 #endregion
                 #region Notebooks
+                    new Product
+                    {
+                        Title = "Apple MMGG2LL/A MacBook Air 13.3-Inch Laptop (Intel Core i5, 8GB, 256GB,Mac OS X), Silver",
+                        ShortDescription = "1.6GHz dual-core Intel Core i5 processor, Turbo Boost up to 2.7GHz; Intel HD Graphics 6000; 8GB memory; 256GB PCIe-based flash storage; 12hr Battery life",
+                        //DescriptionId = 1,
+                        Description = new Description
+                        {
+                            Content = "1.6GHz dual-core Intel Core i5 processor, Turbo Boost up to 2.7GHz; Intel HD Graphics 6000; 8GB memory; 256GB PCIe-based flash storage; 12hr Battery life",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Display Size", Value = "13.3 inches", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Display size".ToLower()) },
+                                new Property { Name = "RAM", Value = "8 GB LPDDR3", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "RAM".ToLower()) },
+                                new Property { Name = "Processor", Value = "1.6 GHz Intel Core i5", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Processor".ToLower()) },
+                                new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 4,
+                        UnitPrice = 1179.00M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Notebooks").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "MacBook Air".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Apple MacBook Air MJVP2LLA 11.6-Inch Laptop (256 GB)",
+                        ShortDescription = "1.6GHz dual-core Intel Core i5 processor; Turbo Boost up to 2.7GHz; Intel HD Graphics 6000; 4GB memory; 256GB PCIe-based flash storage",
+                        //DescriptionId = 2,
+                        Description = new Description
+                        {
+                            Content = "Fifth-generation Intel processors: designed to reduce power consumption while maintaining high performance. Next-generation graphics: Intel HD Graphics 6000 is the next generation of advanced integrated graphics and delivers fast graphics performance for immersive mainstream gaming and smooth scrolling through large music or photo libraries. Multi-Touch trackpad: supports all the Multi-Touch gestures Mac users love including tap, scroll, pinch, and swipe",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Display Size", Value = "11.6 in", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Display size".ToLower()) },
+                                new Property { Name = "RAM", Value = "4 GB", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "RAM".ToLower()) },
+                                new Property { Name = "Processor", Value = "1.6GHz dual-core Intel Core i5 (Broadwell), Turbo Boost up to 2.7GHz", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Processor".ToLower()) },
+                                new Property { Name = "Condition", Value = "used", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 2,
+                        UnitPrice = 799.99M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Notebooks").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "MacBook Air".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Samsung Tab Pro S 12\" 128 GB Wifi Tablet(Black) SM - W700NZKAXAR",
+                        ShortDescription = "Samsung Galaxy TabPro S, quick start guide, customer service insert, travel adapter, data cable, and keyboard.",
+                        //DescriptionId = 3,
+                        Description = new Description
+                        {
+                            Content = "Built for both work and play, the thin, lightweight Samsung Galaxy TabPro S lets you take your digital content with you wherever you go. This tablet features a Super AMOLED touchscreen, powerful Intel Core M3 processor, long-lasting battery, and a full-size keyboard, so you can get business done from anywhere. Plus, Samsung Flow lets you easily connect and share content between your Samsung devices. The ultrathin Galaxy TabPro S is light and comfortable to hold, so you can take it with you anywhere you go. Slip it into a backpack, briefcase, or handbag for travel. The Galaxy TabPro S runs the Windows 10 operating system to deliver performance similar to a PC. It combines a powerful Intel Core M3 processor with 4GB RAM and a 128GB solid state drive to give you the speed and capacity you need for any task. Navigate quickly between multiple windows when writing reports or quickly switch between your favorite apps. Thanks to its 2160x1440 pixel Super AMOLED display, the Galaxy TabPro S brings movies, presentations, and games to life with deep contrast, rich colors, and crisp detail.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Display Size", Value = "12 in", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Display size".ToLower()) },
+                                new Property { Name = "RAM", Value = "4GB RAM", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "RAM".ToLower()) },
+                                new Property { Name = "Processor", Value = "Intel Core m3 Processor", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Processor".ToLower()) },
+                                new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 2,
+                        UnitPrice = 749.00M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Notebooks").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Samsung Tab Pro tablet".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "ASUS Transformer Book T100HA-C4-GR 10.1-Inch 2 in 1 Touchscreen Laptop (Cherry Trail Quad-Core Z8500 Processor, 4GB RAM, 64GB Storage, Windows 10), Gray",
+                        ShortDescription = "Thinner. Faster. And an Amazing 12-hour Battery Life. As the proud successor of the top-selling ASUS Transformer Book T100TA, the new T100HA gets a 20% performance boost with the new quad-core Intel ‘Cherry Trail’ processor and 4GB RAM installed. Measuring only 0.72-inch thin and 2.28 pounds light, the T100HA is 20% thinner than its predecessor, making it even more portable and easier to carry around wherever you go.",
+                        //DescriptionId = 4,
+                        Description = new Description
+                        {
+                            Content = "As the proud successor of the top-selling ASUS Transformer Book T100TA, the new T100HA gets a 20% performance boost with the new quad-core Intel ‘Cherry Trail’ processor and 4GB RAM installed. Measuring only 0.72-inch thin and 2.28 pounds light, the T100HA is 20% thinner than its predecessor, making it even more portable and easier to carry around wherever you go. And with up to an incredible 12 hours of battery life, it’s always ready — for work and play! Reengineered with technology from the flagship Transformer Book Chi series, the T100HA integrates four neodymium magnets to ensure the tablet and keyboard connect with ease, precision and strength. The self-aligning magnetic hinge design allows for lightning-fast transformation and ensures a strong connection when docked. At just 2.28 pounds and 0.72-inch, the lightweight and compact T100HA is the perfect grab-and-go device that fits in your purse, backpack or messenger bag to accompany you anywhere your day takes you.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Display Size", Value = "10.1 in", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Display size".ToLower()) },
+                                new Property { Name = "RAM", Value = "4 GB", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "RAM".ToLower()) },
+                                new Property { Name = "Processor", Value = "Intel Atom Quad-Core Cherry Trail x5-Z8500 1.44GHz (Turbo up to 2.24GHz)", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Processor".ToLower()) },
+                                new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 12,
+                        UnitPrice = 299.00M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Notebooks").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "ASUS Transformer Book".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Samsung Chromebook Plus Touch-Screen Laptop XE513C24-K01US",
+                        ShortDescription = "Chromebook plus is the next generation of premium Chromebook with the flexibility of a tablet. Chromebook Pro is designed and optimized for Andriod apps, and is the first Chromebook designed with an integrated pen.",
+                        //DescriptionId = 5,
+                        Description = new Description
+                        {
+                            Content = "Whatever your day brings, the Samsung Chromebook Plus is up for it. With the power of a Chromebook and the versatility of a tablet, the 360° rotating screen helps you get things done or just kick back. Add a personal touch to your notes with the built-in pen. Access your favorite apps right on your Samsung Chromebook Plus. And keep watching, gaming, working, and creating anywhere, even when you’re offline. The Samsung Chromebook Plus adapts to whatever you’re doing. Use it like a laptop to reply to emails or to work on a paper. When you need a break, flip the screen so you can play games or catch up on your latest book.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Display Size", Value = "12.3 in", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Display size".ToLower()) },
+                                new Property { Name = "RAM", Value = "4 GB", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "RAM".ToLower()) },
+                                new Property { Name = "Processor", Value = "OP1, Made for Chromebooks, Hexa-core", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Processor".ToLower()) },
+                                new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 33,
+                        UnitPrice = 449.00M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Notebooks").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Samsung Chromebook".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Lenovo Yoga 710 15 - 15.6\" FHD Touch - Core i5 - 6200U up to 2.8Ghz - 8GB - 256GB SSD",
+                        ShortDescription = "Enjoy a strong, stable Wi-Fi connection with the unique antenna on this Lenovo Yoga laptop. It has a 15-inch IPS touch screen with 1920 x 1080 resolution that looks crisp and clear, even when viewed from an angle. This Lenovo Yoga laptop has 8GB of onboard RAM for efficient multitasking and a 360-degree hinge for tablet or laptop use.",
+                        //DescriptionId = 6,
+                        Description = new Description
+                        {
+                            Content = "15.6\" Full HD 10 - point multitouch screen for hands - on control: The 1920 x 1080 resolution boasts impressive color and clarity.Touch, tap, glide and make the most of Windows 10.IPS technology.LED backlight. 6th Gen Intel® Core™ i5-6200U mobile processor: Ultra-low-voltage platform. Dual-core, four-way processing performance. Intel Turbo Boost Technology delivers dynamic extra power when you need it. 8GB system memory for advanced multitasking: Substantial high-bandwidth RAM to smoothly run your games and photo- and video-editing applications, as well as multiple programs and browser tabs all at once. 360° flip-and-fold design: Offers four versatile modes — laptop, tablet, tent and stand. Lenovo Transition automatically switches specific applications to full screen when changing from PC to tablet, tent or stand position.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Display Size", Value = "15.6 inches", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Display size".ToLower()) },
+                                new Property { Name = "RAM", Value = "8 GB DDR4 SDRAM", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "RAM".ToLower()) },
+                                new Property { Name = "Processor", Value = "2.3 GHz Intel Core i5 6200U", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Processor".ToLower()) },
+                                new Property { Name = "Condition", Value = "used", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 5,
+                        UnitPrice = 687.22M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Notebooks").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Lenovo Yoga laptop".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "ASUS ZenBook Pro UX501VW 15.6-Inch 4K Touchscreen Laptop (Core i7-6700HQ CPU, 16 GB DDR4, 512 GB NVMe SSD, GTX960M GPU, Thunderbolt III, Windows 10 Home)",
+                        ShortDescription = "Asus Silver Touch Screen NB Zenbook, Windows 10 Professional (64bit), 15.6\" UHD, glossy, Intel Quad - Core i7 - 6700HQ, 8GB DDR4, Nvidia GTX960M 2G GDDR5, 512GB M.2 SSD, 802.11AC, HD Camera, Illuminated Chiclet Keyboard, Bluetooth 4.0",
+                        //DescriptionId = 7,
+                        Description = new Description
+                        {
+                            Content = "Imagine what you can do with the power and mobility to not only create visual masterpieces but to do so wherever you want. The stunning ASUS ZenBook Pro UX501 redefines its class combining high standard craftsmanship and high-performance components. Featuring a 15.6-inch IPS touchscreen display with 4K resolution and a host of technologies that all add up to breathtaking clarity and definition. Inspired by Zen inside and out, do what you thought was only possible before on a home PC on the move. With an astonishing resolution of 3840 by 2160 pixels - that’s four times more than Full HD - the state-of-the-art 4K/UHD VisualMaster display on ZenBook Pro is something you’ll never get tired of looking at. The touchscreen has 10 points of touch control for smart gesture navigation through webpages and documents. ZenBook Pro UX501 flourishes for photoshopping, video editing and any of your design-related tasks. With ASUS VisualMaster display on the ZenBook Pro features a wide color gamut of 72% NTSC, 100% sRGB and 74% Adobe RGB.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Display Size", Value = "15.6 in", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Display size".ToLower()) },
+                                new Property { Name = "RAM", Value = "16 GB", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "RAM".ToLower()) },
+                                new Property { Name = "Processor", Value = "2.6 GHz Intel Core i7", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Processor".ToLower()) },
+                                new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 42,
+                        UnitPrice = 1499.00M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Notebooks").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "ASUS ZenBook".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Dell Inspiron i5765-1317GRY 17.3\" FHD Laptop(7th Generation AMDA9 - 9400, 8GB RAM, 1TB HDD)",
+                        ShortDescription = "The Inspiron 17 5000 is a great desktop Replacement. It reduces the clutter of a conventional stationary setup, allows you to take your projects on the go occasionally (to the living room or to the beach) and provides an expansive 17.3\" screen ideal for working on big projects or watching a movie with friends.",
+                        //DescriptionId = 8,
+                        Description = new Description
+                        {
+                            Content = "Dynamic display: Enjoy a vivid new view with the Inspiron 17’s superior display — the expansive 17.3 inch screen creates an immersive experience that you won’t want to put down. HD+ offers impressive clarity with 37% more pixels than regular HD screens. Studio-quality sound: Whether you’re mixing, streaming or chatting, Waves MaxxAudio delivers lower lows, higher highs and outstanding audio performance. We want you to love your new PC for years to come. That's why we test Inspiron laptops for reliability not just in the places where you expect it, but for the open road ahead.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Display Size", Value = "17.3 in", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Display size".ToLower()) },
+                                new Property { Name = "RAM", Value = "8 GB", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "RAM".ToLower()) },
+                                new Property { Name = "Processor", Value = "2.4 GHz AMD A-Series", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Processor".ToLower()) },
+                                new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 73,
+                        UnitPrice = 519.99M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Notebooks").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Dell Inspiron".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "HP 14-an010nr 14-Inch Laptop (AMD E2, 4GB RAM, 32GB Hard Drive)",
+                        ShortDescription = "Accomplish more with your day. Tackle all your daily tasks with an affordable laptop that comes packed with the features you need.",
+                        //DescriptionId = 9,
+                        Description = new Description
+                        {
+                            Content = "With the latest AMD processors and plenty of storage space, you can work, play, multitask, and store more of what matters to you. Get reliable power and storage you can trust. The crisp HD screen lets you enjoy your photos, videos, and web pages in detail. Life can be unpredictable, but your HP laptop shouldn’t be. So whether it’s last minute projects or spontaneous movie nights, enjoy outstanding performance backed by over 200 tests.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Display Size", Value = "14.0-inch", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Display size".ToLower()) },
+                                new Property { Name = "RAM", Value = "4GB", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "RAM".ToLower()) },
+                                new Property { Name = "Processor", Value = "AMD E-Series Quad-Core E2-7110 APU (1.8 GHz, 2MB", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Processor".ToLower()) },
+                                new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 80,
+                        UnitPrice = 209.00M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Notebooks").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "hp laptop".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "HP ProBook 450 G4 15.6\" Business Ultrabook: Intel 7th Core i7 - 7500U | 256GB SSD | 8GB DDR4 | (1920x1080) FHD | DVD | Back - lit | FingerPrint - Windows 10 Pro",
+                        ShortDescription = "Built for productivity, the newest HP ProBook 450 delivers the performance and security features essential for today’s workforce. The sleek and tough design provides professionals a flexible platform to stay productive in or out of the office. Ideal for professionals in corporate settings or small to medium businesses, wanting an affordable combination of innovation, essential security and multimedia capabilities",
+                        //DescriptionId = 10,
+                        Description = new Description
+                        {
+                            Content = "Built for productivity, the newest HP ProBook 450 delivers the performance and security features essential for today’s workforce. The sleek and tough design provides professionals a flexible platform to stay productive in or out of the office. Ideal for professionals in corporate settings or small to medium businesses, wanting an affordable combination of innovation, essential security and multimedia capabilities. Mail Features: Intel Core i7 - 7500U Processor 2.7Ghz(4M Cache, up to 3.50 GHz), 256 GB SSD; 8GB DDR4 2133 Memory installed, 15.6\" HD anti-glare Full HD (1920x1080) with Intel HD Graphics 620, 802.11ac Wireless, Bluetooth, VGA Ports, HDMI, Type C USB, Back - lit Keyboard, Windows 10 Professional 64",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Display Size", Value = "15.6 in", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Display size".ToLower()) },
+                                new Property { Name = "RAM", Value = "8 GB", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "RAM".ToLower()) },
+                                new Property { Name = "Processor", Value = "Intel Core i7-7500U Processor 2.7Ghz (4M Cache, up to 3.50 GHz )", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Processor".ToLower()) },
+                                new Property { Name = "Condition", Value = "new", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Condition".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 22,
+                        UnitPrice = 779.99M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Notebooks").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "HP ProBook".ToLower()),
+                        }
+                    },
                 #endregion
                 #region Sports Equipment
+                    new Product
+                    {
+                        Title = "adidas Performance Women's Supernova Storm Half-Zip Jacket",
+                        ShortDescription = "The elements have nothing on you. Especially with climaproof storm protection on your side. Our Supernova Storm women's half-zip lets you tackle wind and rain like a pro. It's the running jacket that keeps you fast and focused no matter what the weather report says.",
+                        //DescriptionId = 1,
+                        Description = new Description
+                        {
+                            Content = "The elements have nothing on you. Especially with climaproof storm protection on your side. Our Supernova Storm women's half-zip lets you tackle wind and rain like a pro. It's the running jacket that keeps you fast and focused no matter what the weather report says.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Sex/Gender", Value = "For Her", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Sex/Gender".ToLower()) },
+                                new Property { Name = "Size", Value = "L", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Size".ToLower()) },
+                                new Property { Name = "Color", Value = "Black", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Color".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 1,
+                        UnitPrice = 65.00M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Sports Equipment").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "adidas Jacket".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Adriana Arango Women's Gym Outfit Includes All 3 Pieces",
+                        ShortDescription = "High quality activewear set, Includes 3 Pieces! Ideal for all types of exercise: Workout, Running, Yoga, or outdoor activities, Made in Colombia",
+                        //DescriptionId = 2,
+                        Description = new Description
+                        {
+                            Content = "Polyester 86.5%/Elastane 13.5%. High quality 3 Piece activewear set. Get ready to exercise with this Multi-use sportswear set. Includes all 3 pieces! Ideal for all types of exercise: Workout, Running, Yoga, and more. Imported quality fabrics. Made in Colombia.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Sex/Gender", Value = "For Her", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Sex/Gender".ToLower()) },
+                                new Property { Name = "Size", Value = "M", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Size".ToLower()) },
+                                new Property { Name = "Color", Value = "Grey", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Color".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 46,
+                        UnitPrice = 39.99M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Sports Equipment").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Adriana Arango Gym Outfit".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "TrailHeads Women’s Ponytail Headband",
+                        ShortDescription = "The TrailHeads Women’s Ponytail Headband has a unique integrated loop construction that provides a comfortable and secure fit. Fashion meets function by combining eye-catching style with ear warmer performance. Keep your hair in place while benefiting from the warmth and softness of a top quality fleece headband.",
+                        //DescriptionId = 3,
+                        Description = new Description
+                        {
+                            Content = "The TrailHeads Women’s Ponytail Headband has a unique integrated loop construction that provides a comfortable and secure fit. Fashion meets function by combining eye-catching style with ear warmer performance. Keep your hair in place while benefiting from the warmth and softness of a top quality fleece headband. The mid - weight polyester fleece wicks moisture from your skin to keep you comfortable when running, skating, or playing in the snow with your kids.The polyester spandex trim in contrasting colors provides just enough stretch for a fit that conforms to a variety of head sizes.Winter athletes will appreciate the full ear coverage, further ensuring warmth where it is needed most. We designed this ponytail headband with aerobic activities in mind, but it also performs well in less strenuous activities such as walking your dog or watching an early winter football game.Available in a wide variety of colors, this winter headband is bound to be a favorite in your cold weather wardrobe. Trail Tested Guarantee: We’ve been designing hats, gloves, headbands and accessories since 2002 and we take great pride in our relentless commitment to quality, fit and comfort.We’re passionate about delivering exceptional customer service – your complete satisfaction is our goal.If you feel we’ve come up short, then just let us know and we’ll provide a replacement or refund – no fine print, no strings, no time limits, no shipping charges.Nothing but our commitment to do what it takes to satisfy our customers.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Sex/Gender", Value = "For her", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Sex/Gender".ToLower()) },
+                                new Property { Name = "Color", Value = "purple/black", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Color".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 28,
+                        UnitPrice = 20.00M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Sports Equipment").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "TrailHeads Headband".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "ASICS Women's Tank Top",
+                        ShortDescription = "Our core tank features soft, breathable stretch fabric and wrap-around seams. A scooped neckline and ASICS logo at hem delivers classic style.",
+                        //DescriptionId = 4,
+                        Description = new Description
+                        {
+                            Content = "100% Polyester. Imported. Moisture management performance fabric. Seams wrapped to the back for improved comfort. Flatlock seams for chafe - free comfort. Reflective elements. Reflective prints offer added visibility. Seams wrapped to the back for improved comfort. Flatlock stitching reduces chaffing and promotes freedom of movement",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Sex/Gender", Value = "For Her", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Sex/Gender".ToLower()) },
+                                new Property { Name = "Size", Value = "S", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Size".ToLower()) },
+                                new Property { Name = "Color", Value = "Sulphur Green", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Color".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 3,
+                        UnitPrice = 10.39M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Sports Equipment").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "ASICS Tank Top".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "MÜV365 Ultimate Comfort Sports Running Armband for iPhone 7/6/6s Plus, Galaxy S6/S7 and All Other Phone Models With Case Up To 7”",
+                        ShortDescription = "Looking for an armband that stands out over the rest?? Look no more! Our armbands, unlike all the others, take a totally different approach by giving you ultimate comfort in a lightweight fabric that will hold up to your active lifestyle.",
+                        //DescriptionId = 5,
+                        Description = new Description
+                        {
+                            Content = "Looking for an armband that stands out over the rest?? Look no more! Our armbands, unlike all the others, take a totally different approach by giving you ultimate comfort in a lightweight fabric that will hold up to your active lifestyle. Why is it so comfy ? Well….while other armbands are bulky and can have an uncomfortable fit due to fabric, plastic, or velcro.Ours are simple but effective!Made of 84 % Nylon and 16 % Lycra, it feels soft on your arm and has just enough stretch and compression so you can easily slide it on but be confident that it will stay in place. Another reason our MUV armbands are the best...they can accommodate ANY SIZE PHONE and slim-line case (up to 7 inches). That’s right!Whether you are running, hiking, walking the dog, doing yoga, traveling, visiting an amusement park, you name it - our armband will be the perfect solution to safely and securely store your phone, keys, passport, money and/ or cards.Simply pull back the tab, tuck your valuables inside and secure them in the pocket. Finally, slide it on your arm and go!You’ll be hands free of any clutter weighing you down or in your pockets!You will love the ease of use, comfortable fit(so comfy you won’t even know it’s there) and you’ll never have to worry again about chaffing, itchy velcro, no more pinched skin and no sliding or banging around. It’s the armband you’ve been waiting on!",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Sex/Gender", Value = "unisex", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Sex/Gender".ToLower()) },
+                                new Property { Name = "Size", Value = "M", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Size".ToLower()) },
+                                new Property { Name = "Color", Value = "black", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Color".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 73,
+                        UnitPrice = 16.99M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Sports Equipment").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "MÜV365 Armband".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Under Armour Men's Fast Logo T-Shirt",
+                        ShortDescription = "Charged Cotton has the comfort of cotton, but dries much faster. 4-way stretch fabrication allows greater mobility in any direction. Moisture Transport System wicks sweat & dries fast.",
+                        //DescriptionId = 6,
+                        Description = new Description
+                        {
+                            Content = "57% Cotton/38% Polyester/5% Elastane; Imported; Charged Cotton has the comfort of cotton, but dries much faster; 4 - way stretch fabrication allows greater mobility in any direction; Moisture Transport System wicks sweat & dries fast",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Sex/Gender", Value = "For Him", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Sex/Gender".ToLower()) },
+                                new Property { Name = "Size", Value = "XL", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Size".ToLower()) },
+                                new Property { Name = "Color", Value = "Brilliant Blue/Black", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Color".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 5,
+                        UnitPrice = 24.99M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Sports Equipment").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Under Armour T-Shirt".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "New Balance Men's Accelerate Long-Sleeve Shirt",
+                        ShortDescription = "Break a sweat in the New Balance accelerate long sleeve, a 100% polyester performance top that helps you stay well ventilated, silver reflective details to help keep you visible...",
+                        //DescriptionId = 7,
+                        Description = new Description
+                        {
+                            Content = "Break a sweat in the New Balance accelerate long sleeve, a 100% polyester performance top that helps you stay well ventilated, silver reflective details to help keep you visible, and a clean design to keep you motivated during your workout. Nb dry helps wick away sweat fast, leaving you comfortable and at ease during core routines. Color contrast inset panels complete the design for a bold look with maximum impact.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Sex/Gender", Value = "For Him", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Sex/Gender".ToLower()) },
+                                new Property { Name = "Size", Value = "L", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Size".ToLower()) },
+                                new Property { Name = "Color", Value = "Chrome Red/Crater", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Color".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 9,
+                        UnitPrice = 35.00M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Sports Equipment").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "New Balance Long-Sleeve Shirt".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "PUMA Men's Training Pant",
+                        ShortDescription = "Conceptualized to fit with puma team training lines, covering all your essential needs. Puma cat branding, heat transfer application, polyester microfiber double knit shell fabric, mesh gusset inserts, elasticated waistband with draw cords, side pockets, zipped leg openings, articulated knee for comfort, engineered fit. Lifecycle: 4 years",
+                        //DescriptionId = 8,
+                        Description = new Description
+                        {
+                            Content = "Conceptualized to fit with puma team training lines, covering all your essential needs. Puma cat branding, heat transfer application, polyester microfiber double knit shell fabric, mesh gusset inserts, elasticated waistband with draw cords, side pockets, zipped leg openings, articulated knee for comfort, engineered fit. Lifecycle: 4 years",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Sex/Gender", Value = "For him", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Sex/Gender".ToLower()) },
+                                new Property { Name = "Size", Value = "2XL", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Size".ToLower()) },
+                                new Property { Name = "Color", Value = "New Navy Blue/White", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Color".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 3,
+                        UnitPrice = 36.00M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Sports Equipment").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "PUMA Training Pant".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "Lemu Men's Casual Outdoor Sportswear Lightweight Bomber Jacket",
+                        ShortDescription = "40% cotton and 60% polyester; zipper closure; Hoodie Windbreaker Jacket; Front two pockets of windbreaker jackets; Machine wash or hand wash, wash dark colors separately, do not bleach",
+                        //DescriptionId = 9,
+                        Description = new Description
+                        {
+                            Content = "40% cotton and 60% polyester; zipper closure; Hoodie Windbreaker Jacket; Front two pockets of windbreaker jackets; Machine wash or hand wash, wash dark colors separately, do not bleach",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Sex/Gender", Value = "For Him", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Sex/Gender".ToLower()) },
+                                new Property { Name = "Size", Value = "3XL", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Size".ToLower()) },
+                                new Property { Name = "Color", Value = "green", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Color".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 25,
+                        UnitPrice = 36.76M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Sports Equipment").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Lemu Jacket".ToLower()),
+                        }
+                    },
+                    new Product
+                    {
+                        Title = "2 Tone Thai Fisherman Pants Yoga Trousers Free Size Cotton Blue and Maroon",
+                        ShortDescription = "We DO NOT support sweatshops! You might be able to find lower quality cheaper pants from large factories with low wages and poor working conditions. Our pants however are sewn by a group of skilled women in the quiet home of our friend in suburban Chiang Mai Thailand.",
+                        //DescriptionId = 10,
+                        Description = new Description
+                        {
+                            Content = "cotton; Imported; Thai Cotton Drill Fisherman Yoga Pants FREE SIZE; Top quality authentic 100 % Cotton Drill \"Gangaeng Chaolay\" Thai Fisherman pants for men and women!Super - comfortable and versatile - wear them for any occasion; Thai Fisherman Pants have a very wide waist with a belt that ties from the rear.Simply step into the pants, pull the waist out to one side wrap the extra fabric around to the front and tie the belt.Length can be adjusted by folding over the top of the pants; These versatile Freesize pants measure about 56\" around the waist and total length is about 42\".One size fits most!For your reference - I am 5'10\" tall with a 33\" waist and 32\" inseam. These versatile Freesize Fisherman Pants will comfortably fit XS-XL sizes. Our high quality fisherman pants are hand made in Thailand of 100 % strong and durable heavy weight cotton drill.",
+                            Properties = new HashSet<Property>()
+                            {
+                                new Property { Name = "Sex/Gender", Value = "unisex", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Sex/Gender".ToLower()) },
+                                new Property { Name = "Color", Value = "purple", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Color".ToLower()) },
+                            }
+                        },
+                        Images = new HashSet<Image>()
+                        {
+                            new Image { OriginalFileName = "", FileExtension = "", UrlPath = "" },
+                        },
+                        QuantityInStock = 46,
+                        UnitPrice = 9.35M,
+                        CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Sports Equipment").Id,
+                        SellerId = sellerIds[random.Next(sellerIds.Count)],
+                        Tags = new HashSet<Tag>
+                        {
+                            context.Tags.FirstOrDefault(t => t.Name.ToLower() == "Thai Fisherman Yoga Pants".ToLower()),
+                        }
+                    }
                 #endregion
                     );
 

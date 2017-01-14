@@ -167,8 +167,8 @@
             var propertyNameNoWhiteSpace = new string(propertyName.SkipWhile(ch => char.IsWhiteSpace(ch) || char.IsSeparator(ch)).ToArray());
 
             if (string.Equals(filterNameNoWhiteSpace, propertyNameNoWhiteSpace) ||
-                filterNameNoWhiteSpace.Contains(propertyNameNoWhiteSpace) ||
-                propertyNameNoWhiteSpace.Contains(filterNameNoWhiteSpace))
+                propertyNameNoWhiteSpace.Contains(filterNameNoWhiteSpace) ||
+                filterNameNoWhiteSpace.Contains(propertyNameNoWhiteSpace))
             {
                 return true;
             }
