@@ -32,7 +32,7 @@
                         <div class="carousel-caption">
                             <h4>@(Model[i].Title)</h4>
                             <p>
-                                @Html.ActionLink("See more", "Index", "Products", new { area = Areas.PublicAreaName, id = Model[i].Id }, null)
+                                @Html.ActionLink("See more", "Index", "Products", new { area = Areas.PublicAreaName, id = Model[i].EncodedId }, null)
                             </p>
                         </div>
                     </div>

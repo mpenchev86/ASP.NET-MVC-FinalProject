@@ -29,7 +29,6 @@
                         data_ui_input_id = uiInputId,
                         @class = Model[i].SearchFilterId + "-multi-select",
                     })
-                @*<span>@Model[i].Value</span>*@
                 <span>@Html.DisplayFor(m => Model[i].Value, new { filterName = (string)ViewData["filterName"] })</span>
             </label>
             
@@ -38,7 +37,6 @@
                        id="@uiInputId"
                        checked="@Model[i].Checked"
                        disabled="disabled"/>
-                @*<span>@Model[i].Value</span>*@
                 <span>@Html.DisplayFor(m => Model[i].Value, new { filterName = (string)ViewData["filterName"] })</span>
             </label>
         </div>
@@ -57,7 +55,6 @@
                         @class = Model[i].SearchFilterId + "-single-select",
                         style = "visibility:hidden;width:0",
                     })
-                @*<span>@Model[i].Value</span>*@
                 <span>@Html.DisplayFor(m => Model[i].Value, new { filterName = (string)ViewData["filterName"] })</span>
             </label>
 
@@ -67,7 +64,6 @@
                        checked="@Model[i].Checked"
                        style = "visibility:hidden;width:0"
                        disabled="disabled" />
-                @*<span>@Model[i].Value</span>*@
                 <span>@Html.DisplayFor(m => Model[i].Value, new { filterName = (string)ViewData["filterName"] })</span>
             </label>
         </div>

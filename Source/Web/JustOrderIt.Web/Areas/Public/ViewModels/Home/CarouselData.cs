@@ -8,9 +8,15 @@
     using Data.Models;
     using Data.Models.Catalog;
     using Infrastructure.Mapping;
+    using Services.Web;
 
     public class CarouselData : BasePublicViewModel<int>, IMapFrom<Product>, IHaveCustomMappings
     {
+        public string EncodedId
+        {
+            get { return IdentifierProvider.EncodeIntIdStatic(this.Id); }
+        }
+
         public string ImageUrlPath { get; set; }
 
         public string ImageFileExtension { get; set; }

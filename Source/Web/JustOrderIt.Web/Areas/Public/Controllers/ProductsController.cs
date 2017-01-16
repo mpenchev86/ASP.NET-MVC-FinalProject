@@ -36,7 +36,7 @@
         }
         
         [HttpGet]
-        public ActionResult Index(/*int id*/string id)
+        public ActionResult Index(string id)
         {
             var decodedId = this.identifierProvider.DecodeIdToInt(id);
             var product = this.productsService.GetById(/*id*/(int)decodedId);
@@ -65,10 +65,10 @@
             }
 
             var result = this.mappingService.Map<Product, ProductSneakPeekViewModel>(product);
-            return this.PartialView(/*"_SneakPeek", */result);
+            return this.PartialView(result);
         }
 
-#region Workers
+    #region Workers
         private ICollection<ProductCommentWithRatingViewModel> PopulateCommentAndVote(
             ICollection<Comment> comments,
             ICollection<Vote> votes)
@@ -97,6 +97,6 @@
 
             return result;
         }
-#endregion
+    #endregion
     }
 }

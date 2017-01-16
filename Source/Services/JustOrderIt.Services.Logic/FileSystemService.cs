@@ -26,7 +26,7 @@ namespace JustOrderIt.Services.Logic
                 fileInfo.Directory.Create();
             }
 
-            using (var fileWriter = new FileStream(physicalPath, FileMode.Create, FileSystemRights.WriteData, FileShare.None, 1024, FileOptions.RandomAccess))
+            using (var fileWriter = new FileStream(physicalPath, FileMode.CreateNew, FileSystemRights.WriteData, FileShare.None, 1024, FileOptions.RandomAccess))
             {
                 fileWriter.Write(content, 0, content.Length);
             }
@@ -59,51 +59,6 @@ namespace JustOrderIt.Services.Logic
             }
 
             return content;
-
-
-
-            //byte[] fileContent;
-            //using (Stream inputStream = fileInfo.Create())
-            //{
-            //    /*MemoryStream*/
-            //    var memoryStream = inputStream as MemoryStream;
-            //    if (memoryStream == null)
-            //    {
-            //        memoryStream = new MemoryStream();
-            //        inputStream.CopyTo(memoryStream);
-            //    }
-
-            //    fileContent = memoryStream.ToArray();
-            //}
-            //return fileContent;
-
-
-
-
-            //using (var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read))
-            //{
-            //    byte[] fileContent = new byte[fileStream.Length];
-            //    fileStream.Read(fileContent, 0, Convert.ToInt32(fileStream.Length));
-            //    return fileContent;
-            //}
-
-
-
-            //byte[] fileContent = File.ReadAllBytes(path);
-            //return fileContent;
-
-
-
-            //FileStream fileStream = fileInfo.Create();
-            //var memoryStream = new MemoryStream();
-            //fileStream.CopyTo(memoryStream);
-            //var content = memoryStream.ToArray();
-            //return content;
-
-
-            //var content = File.ReadAllBytes(path);
-
-            //return content;
         }
 
         public RawFile ToRawFile(HttpPostedFileBase httpFile)

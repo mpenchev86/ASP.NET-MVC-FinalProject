@@ -16,6 +16,11 @@
         @Html.Partial("Rating", (double)value, new ViewDataDictionary(this.ViewData) { { "ratingId", "igRating" + value.ToString() }, { "htmlAttributes", new Dictionary<string, object>() { { "class", "products-rating" } } } }) @:and Up
     }
 }
+else if ((string)ViewData["filterName"] == "Color")
+{
+    @*<img class="img-responsive" src="@Url.Content(string.Format(StaticResourcesUrls))"/>*@
+    <div style="background-color:@(Model);display:inline;border: 1px solid grey;border-radius: 2px;" title="@(Model)"><span style="opacity: 0">Color</span></div>
+}
 else
 {
     @Model

@@ -165,13 +165,13 @@
         }
 
         #region Helpers
+            #region Background jobs workers
         public void BackgroundOperation(string methodName, object[] args)
         {
             var methodInfo = this.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
             methodInfo.Invoke(this, args);
         }
 
-            #region Background jobs workers
         /// <summary>
         /// A Backgroung job worker fetching updated data to be subsequently cached. The parameters are of types Json.NET parses to, and then are
         /// being converted to the desired types. Otherwise the deserialization process triggered by Hangfire will fail. For example, if we expect Int32 parameter
@@ -212,7 +212,6 @@
         {
             return this.keywordsService.GetAll().Select(k => k.SearchTerm).ToList();
         }
-            #endregion
 
         [NonAction]
         private List<ProductCacheViewModel> GetCachedProductsOfCategory(int categoryId)
@@ -228,7 +227,9 @@
 
             return cachedProducts;
         }
+            #endregion
 
+            #region Bitmask workers
         [NonAction]
         private long ExtractBitMaskFromSearchFilterOptions(List<SearchFilterForCategoryViewModel> searchFilters)
         {
@@ -265,6 +266,7 @@
                 }
             }
         }
+            #endregion
         #endregion
     }
 }
