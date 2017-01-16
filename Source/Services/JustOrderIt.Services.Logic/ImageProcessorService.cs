@@ -23,18 +23,14 @@
                 {
                     using (var imageFactory = new ImageFactory())
                     {
-                        var createdImage = imageFactory
-                            .Load(originalImageStream);
+                        var createdImage = imageFactory.Load(originalImageStream);
 
                         if (createdImage.Image.Width > width)
                         {
-                            createdImage = createdImage
-                                .Resize(new ResizeLayer(new Size(width, 0), ResizeMode.Max));
+                            createdImage = createdImage.Resize(new ResizeLayer(new Size(width, 0), ResizeMode.Max));
                         }
 
-                        createdImage
-                            .Format(new JpegFormat { Quality = FileSystemConstants.ImageQuality })
-                            .Save(resultImage);
+                        createdImage.Format(new JpegFormat { Quality = FileSystemConstants.ImageQuality }).Save(resultImage);
                     }
 
                     return resultImage.GetBuffer();

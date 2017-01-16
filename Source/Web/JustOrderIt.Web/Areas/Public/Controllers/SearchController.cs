@@ -35,22 +35,19 @@
         private readonly ISearchFiltersService searchFiltersService;
         private readonly ICategoriesService categoriesService;
         private readonly IKeywordsService keywordsService;
-        private readonly ISearchFilterHelpers filterStringHelpers;
 
         public SearchController(
             IAutoUpdateCacheService autoUpdateCacheService,
             IProductsService productsService,
             ISearchFiltersService searchFiltersService,
             ICategoriesService categoriesService,
-            IKeywordsService keywordsService,
-            ISearchFilterHelpers filterStringHelpers)
+            IKeywordsService keywordsService)
         {
             this.autoUpdateCacheService = autoUpdateCacheService;
             this.productsService = productsService;
             this.searchFiltersService = searchFiltersService;
             this.categoriesService = categoriesService;
             this.keywordsService = keywordsService;
-            this.filterStringHelpers = filterStringHelpers;
         }
 
         [HttpPost]
@@ -124,7 +121,7 @@
         }
 
         [HttpGet]
-        public ActionResult SearchByCategory(int categoryId, string query, int searchOptionsBitMask = 0)
+        public ActionResult SearchByCategory(int categoryId, string query, long searchOptionsBitMask = 0)
         {
             var model = new CategorySearchViewModel
             {
@@ -150,7 +147,7 @@
         [ValidateAntiForgeryToken]
         public ActionResult RefineCategorySearch(int categoryId, string query, List<SearchFilterForCategoryViewModel> searchFilters)
         {
-            int searchOptionsBitMask = 0;
+            long searchOptionsBitMask = 0;
             if (ModelState.IsValid)
             {
                 searchOptionsBitMask = ExtractBitMaskFromSearchFilterOptions(searchFilters);
@@ -233,9 +230,9 @@
         }
 
         [NonAction]
-        private int ExtractBitMaskFromSearchFilterOptions(List<SearchFilterForCategoryViewModel> searchFilters)
+        private long ExtractBitMaskFromSearchFilterOptions(List<SearchFilterForCategoryViewModel> searchFilters)
         {
-            int bitMask = 0;
+            long bitMask = 0;
             int searchFiltersCount = searchFilters.Count();
             for (int i = 0; i < searchFiltersCount; i++)
             {
@@ -254,7 +251,7 @@
         }
 
         [NonAction]
-        private void PopulateSearchFilterOptionsFromBitMask(int bitMask, List<SearchFilterForCategoryViewModel> searchFilters)
+        private void PopulateSearchFilterOptionsFromBitMask(long bitMask, List<SearchFilterForCategoryViewModel> searchFilters)
         {
             int searchFiltersCount = searchFilters.Count();
 

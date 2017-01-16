@@ -7,7 +7,6 @@
     using System.Threading.Tasks;
     using Data.Models;
     using Data.Models.Search;
-    using Web.Infrastructure.Mapping;
 
     public class SearchFilterHelpers : ISearchFilterHelpers
     {

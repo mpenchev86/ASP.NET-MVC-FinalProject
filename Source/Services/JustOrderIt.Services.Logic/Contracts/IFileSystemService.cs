@@ -15,5 +15,7 @@
         void DeleteFile(string path);
 
         RawFile ToRawFile(HttpPostedFileBase httpFile);
+
+        byte[] ToByteArray(string path);
     }
 }

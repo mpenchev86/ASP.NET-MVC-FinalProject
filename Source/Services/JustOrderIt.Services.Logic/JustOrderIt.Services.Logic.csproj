@@ -80,10 +80,6 @@
       <Project>{F3DFDA1D-99D1-46AD-9CFA-A0B9AA7A750C}</Project>
       <Name>JustOrderIt.Data.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Web\JustOrderIt.Web.Infrastructure\JustOrderIt.Web.Infrastructure.csproj">
-      <Project>{B14DFB67-88F5-4714-A592-ECAB1F8F74A9}</Project>
-      <Name>JustOrderIt.Web.Infrastructure</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,12 +1,7 @@
 ﻿namespace JustOrderIt.Services.Data
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using JustOrderIt.Data.Models.Contracts;
-    using JustOrderIt.Web.Infrastructure.Mapping;
 
     /// <summary>
     /// Extends the base data service interface with functionality for IDeletable entities.

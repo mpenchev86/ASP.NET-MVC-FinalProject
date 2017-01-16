@@ -1,4 +1,5 @@
-﻿namespace JustOrderIt.Services.Logic
+﻿
+namespace JustOrderIt.Services.Logic
 {
     using System;
     using System.Collections.Generic;
@@ -17,8 +18,7 @@
     {
         public void SaveFile(byte[] content, string path)
         {
-            var physicalPath = HostingEnvironment.MapPath(path);
-            this.ValidateFilePath(physicalPath);
+            var physicalPath = this.ValidateFilePath(HostingEnvironment.MapPath(path));
 
             var fileInfo = new FileInfo(physicalPath);
             if (!fileInfo.Directory.Exists)
@@ -26,7 +26,7 @@
                 fileInfo.Directory.Create();
             }
 
-            using (var fileWriter = new FileStream(physicalPath, FileMode.CreateNew, FileSystemRights.WriteData, FileShare.None, 1024, FileOptions.RandomAccess))
+            using (var fileWriter = new FileStream(physicalPath, FileMode.Create, FileSystemRights.WriteData, FileShare.None, 1024, FileOptions.RandomAccess))
             {
                 fileWriter.Write(content, 0, content.Length);
             }
@@ -34,15 +34,76 @@
 
         public void DeleteFile(string path)
         {
-            //var fileName = Path.GetFileName(path);
-            //var physicalPath = Path.Combine(HostingEnvironment.MapPath("~/CategoryImage/"), fileName);
-            //var physicalPath = Path.Combine(HostingEnvironment.MapPath(path));
             var physicalPath = HostingEnvironment.MapPath(path);
 
             if (File.Exists(physicalPath))
             {
                 File.Delete(physicalPath);
             }
+        }
+
+        public byte[] ToByteArray(string path)
+        {
+            var physicalPath = this.ValidateFilePath(HostingEnvironment.MapPath(path));
+            var fileInfo = new FileInfo(physicalPath);
+
+            if (!fileInfo.Directory.Exists)
+            {
+                throw new ArgumentException("The provided file path doesn't exist.", "path");
+            }
+
+            byte[] content = new byte[(int)fileInfo.Length];
+            using (var reader = new FileStream(physicalPath, FileMode.Open, FileAccess.Read))
+            {
+                reader.Read(content, 0, (int)fileInfo.Length);
+            }
+
+            return content;
+
+
+
+            //byte[] fileContent;
+            //using (Stream inputStream = fileInfo.Create())
+            //{
+            //    /*MemoryStream*/
+            //    var memoryStream = inputStream as MemoryStream;
+            //    if (memoryStream == null)
+            //    {
+            //        memoryStream = new MemoryStream();
+            //        inputStream.CopyTo(memoryStream);
+            //    }
+
+            //    fileContent = memoryStream.ToArray();
+            //}
+            //return fileContent;
+
+
+
+
+            //using (var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read))
+            //{
+            //    byte[] fileContent = new byte[fileStream.Length];
+            //    fileStream.Read(fileContent, 0, Convert.ToInt32(fileStream.Length));
+            //    return fileContent;
+            //}
+
+
+
+            //byte[] fileContent = File.ReadAllBytes(path);
+            //return fileContent;
+
+
+
+            //FileStream fileStream = fileInfo.Create();
+            //var memoryStream = new MemoryStream();
+            //fileStream.CopyTo(memoryStream);
+            //var content = memoryStream.ToArray();
+            //return content;
+
+
+            //var content = File.ReadAllBytes(path);
+
+            //return content;
         }
 
         public RawFile ToRawFile(HttpPostedFileBase httpFile)
@@ -61,14 +122,12 @@
                 fileContent = memoryStream.ToArray();
             }
 
-            string fileName = string.Empty;
-            this.ValidateFileName(httpFile.FileName);
-            fileName = httpFile.FileName;
-
+            string fileName = ValidateFileName(httpFile.FileName);
             string fileExtension = string.Empty;
-            if (Path.HasExtension(httpFile.FileName))
+
+            if (Path.HasExtension(fileName))
             {
-                var extension = Path.GetExtension(httpFile.FileName);
+                var extension = Path.GetExtension(fileName);
                 if (!string.IsNullOrWhiteSpace(extension) && extension.Length <= ValidationConstants.ImageFileExtensionMaxLength)
                 {
                     fileExtension = extension;
@@ -83,7 +142,7 @@
             };
         }
 
-        private void ValidateFileName(string fileName)
+        private string ValidateFileName(string fileName)
         {
             if (string.IsNullOrWhiteSpace(fileName))
             {
@@ -99,9 +158,11 @@
             {
                 throw new ArgumentException(string.Format(ExceptionMessages.CustomExceptionMessage, ExceptionMessages.FileNameHasInvalidCharacters));
             }
+
+            return fileName;
         }
 
-        private void ValidateFilePath(string filePath)
+        private string ValidateFilePath(string filePath)
         {
             if (string.IsNullOrWhiteSpace(filePath))
             {
@@ -117,6 +178,8 @@
             {
                 throw new ArgumentException(string.Format(ExceptionMessages.CustomExceptionMessage, ExceptionMessages.FileNameHasInvalidCharacters));
             }
+
+            return filePath;
         }
     }
 }

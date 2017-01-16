@@ -10,7 +10,6 @@
     using Data.Models;
     using Data.Models.Search;
     using ServiceModels;
-    using Web.Infrastructure.Mapping;
 
     public static class SearchRefinementHelpers
     {
@@ -82,8 +81,8 @@
                                 var optionValueToLower = checkedOption.Value.ToLower();
                                 var propertyValueToLower = propertyInfo.Value.ToLower();
                                 if (string.Equals(optionValueToLower, propertyValueToLower)
-                                    //|| optionValueToLower.Contains(propertyValueToLower)
-                                    //|| propertyValueToLower.Contains(optionValueToLower)
+                                    || optionValueToLower.Contains(propertyValueToLower)
+                                    || propertyValueToLower.Contains(optionValueToLower)
                                     )
                                 {
                                     return true;

@@ -1,17 +1,10 @@
 ﻿namespace JustOrderIt.Services.Data.ServiceModels
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using AutoMapper;
-    using JustOrderIt.Data.Models;
     using JustOrderIt.Data.Models.Catalog;
     using JustOrderIt.Data.Models.Media;
     using JustOrderIt.Web.Infrastructure.Mapping;
 
-    public class ProcessedImage : IMapTo<Image>, IMapFrom<Image>, IHaveCustomMappings
+    public class ProcessedImage : IMapTo<Image>, IMapFrom<Image>
     {
         public const int SmallSizeImageWidth = 50;
 
@@ -36,9 +29,5 @@
         public byte[] ThumbnailContent { get; set; }
 
         public byte[] HighResolutionContent { get; set; }
-
-        public void CreateMappings(IMapperConfigurationExpression configuration)
-        {
-        }
     }
 }
