@@ -163,9 +163,6 @@
     <Compile Include="Mapping\Profiles\StandardMappingsProfile.cs" />
     <Compile Include="ModelBinders\CustomModelBinder.cs" />
     <Compile Include="ModelBinders\CustomModelBinderProvider.cs" />
-    <Compile Include="SampleDataGenerators\HelperModels\ProcessedImage.cs" />
-    <Compile Include="SampleDataGenerators\ISampleDataGenerator.cs" />
-    <Compile Include="SampleDataGenerators\SampleDataGenerator.cs" />
     <Compile Include="Sanitizer\HtmlSanitizerAdapter.cs" />
     <Compile Include="Sanitizer\ISanitizer.cs" />
     <Compile Include="Caching\CommonOutputCacheAttribute.cs" />

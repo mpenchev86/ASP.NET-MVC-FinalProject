@@ -33,14 +33,11 @@
             this.cacheService = cacheService;
         }
 
-        // [OutputCache(Duration = 30 * 60, Location = OutputCacheLocation.Server, VaryByCustom = "SomeOtherIdentifier")]
-        //[OutputCache(Duration = 10 * 60)]
         public ActionResult Index()
         {
             return this.View();
         }
 
-        //[OutputCache(Duration = 30 * 60)]
         [ChildActionOnly]
         public PartialViewResult Carousel()
         {
@@ -54,24 +51,22 @@
                     .ToList(),
                 CacheConstants.CarouselDataCacheExpiration);
 
-            return PartialView(/*"_Carousel", */viewModel);
+            return PartialView(viewModel);
         }
 
         public PartialViewResult NavLowerLeft()
         {
-            //this.ViewData["categories"] = this.GetCategories().Select(c => new SelectListItem() { Text = c.Name, Value = c.Id.ToString() });
-            var categories = this.GetCategories()/*.Select(c => new SelectListItem() { Text = c.Name, Value = c.Id.ToString() })*/;
-
+            var categories = this.GetCategories();
             return this.PartialView(categories);
         }
 
         public PartialViewResult NavLowerMiddle()
         {
             this.ViewData["categories"] = this.GetCategories().Select(c => new SelectListItem() { Text = c.Name, Value = c.Id.ToString() });
-
             return this.PartialView(new SearchViewModel());
         }
 
+        [OutputCache(Duration = 15 * 60)]
         public JsonResult ReadNewestProducts([DataSourceRequest]DataSourceRequest request)
         {
             var viewModel = this.cacheService.Get(
@@ -87,6 +82,7 @@
             return this.Json(viewModel.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
         }
 
+        [OutputCache(Duration = 15 * 60)]
         public JsonResult ReadBestSellingProducts([DataSourceRequest]DataSourceRequest request)
         {
             var viewModel = this.cacheService.Get(
@@ -102,6 +98,7 @@
             return this.Json(viewModel.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
         }
 
+        [OutputCache(Duration = 15 * 60)]
         public JsonResult ReadHighestVotedProducts([DataSourceRequest]DataSourceRequest request)
         {
             var viewModel = this.cacheService.Get(

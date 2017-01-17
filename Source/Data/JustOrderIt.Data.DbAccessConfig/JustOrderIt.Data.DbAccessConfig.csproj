@@ -77,6 +77,9 @@
     <Compile Include="Repositories\EfStringPKDeletableRepository.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Repositories\Contracts\IRepository.cs" />
+    <Compile Include="SampleData\HelperModels\ProcessedImage.cs" />
+    <Compile Include="SampleData\ISampleDataGenerator.cs" />
+    <Compile Include="SampleData\SampleDataGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -86,6 +89,10 @@
     <ProjectReference Include="..\..\Common\GlobalConstants\JustOrderIt.Common.GlobalConstants.csproj">
       <Project>{5f2803a7-770d-4509-8d69-cfbf4d6dc772}</Project>
       <Name>JustOrderIt.Common.GlobalConstants</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\JustOrderIt.Services.Logic\JustOrderIt.Services.Logic.csproj">
+      <Project>{448433B3-4A16-4F53-9BA9-AC2B339B7C10}</Project>
+      <Name>JustOrderIt.Services.Logic</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Web\JustOrderIt.Web.Infrastructure\JustOrderIt.Web.Infrastructure.csproj">
       <Project>{B14DFB67-88F5-4714-A592-ECAB1F8F74A9}</Project>

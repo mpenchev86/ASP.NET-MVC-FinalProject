@@ -17,8 +17,7 @@
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
-    
-    @Html.HiddenFor(m => m.Id)
+
     @Html.HiddenFor(m => m.ProductId)
     @Html.HiddenFor(m => m.UserName)
     @Html.HiddenFor(m => m.CreatedOn)

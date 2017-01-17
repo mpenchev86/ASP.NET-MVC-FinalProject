@@ -92,7 +92,8 @@
         }
 
         [HttpPost]
-        public ActionResult AddToCart(string productId, int quantity)
+        [ValidateAntiForgeryToken]
+        public ActionResult AddToCart(string productId, int quantity = 1)
         {
             if (this.ModelState.IsValid)
             {
@@ -218,6 +219,7 @@
                 {
                     var productInDb = this.productsService.GetById(cartItems[i].Product.Id);
                     productInDb.QuantityInStock -= cartItems[i].ProductQuantity;
+                    productInDb.AllTimeItemsSold += cartItems[i].ProductQuantity;
                     this.productsService.Update(productInDb);
                 }
                 catch (DbEntityValidationException ex)

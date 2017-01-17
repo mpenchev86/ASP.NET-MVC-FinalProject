@@ -7,7 +7,7 @@
 
     public class ProcessedImage : IMapTo<Image>, IMapFrom<Image>
     {
-        //public int Id { get; set; }
+        public int Id { get; set; }
 
         public string OriginalFileName { get; set; }
 
@@ -15,9 +15,9 @@
 
         public string UrlPath { get; set; }
 
-        //public int? ProductId { get; set; }
+        // public int? ProductId { get; set; }
 
-        //public virtual Product Product { get; set; }
+        // public virtual Product Product { get; set; }
 
         public byte[] SmallSizeContent { get; set; }
 

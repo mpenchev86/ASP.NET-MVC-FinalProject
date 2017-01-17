@@ -281,6 +281,7 @@
     <Content Include="Content\Custom\query-search.css" />
     <Content Include="Content\Custom\category-search.css" />
     <Content Include="Content\Custom\shopping-cart.css" />
+    <Content Include="Content\Custom\validation-messages.css" />
     <Content Include="Content\IgniteUI\jquery-ui.css" />
     <Content Include="Content\IgniteUI\jquery-ui.min.css" />
     <Content Include="Content\IgniteUI\Structure\Images\icon_sprite.png" />
@@ -431,6 +432,9 @@
     <Content Include="Views\Orders\Partials\ShoppingCartPartial.cshtml" />
     <Content Include="Views\Orders\DisplayTemplates\CartProductDisplay.cshtml" />
     <Content Include="Views\Orders\CheckoutSuccess.cshtml" />
+    <Content Include="Views\Home\Partials\NewestProducts.cshtml" />
+    <Content Include="Views\Home\Partials\BestSellingProducts.cshtml" />
+    <Content Include="Views\Home\Partials\HighestVotedProducts.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

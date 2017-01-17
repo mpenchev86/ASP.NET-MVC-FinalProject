@@ -67,8 +67,9 @@
                     <button type="submit">Add To Cart</button>
                 </div>
             }
+            
             @*<button type="button" id="addtocart-button">
-                @Html.ActionLink("Add to Cart", "AddToCart", "Orders", new { productId = Model.Id, area = Areas.PublicAreaName }, new { @class = "button", id = "addtocart-link" })
+                @Html.ActionLink("Add to Cart", "AddToCart", "Orders", new { productId = Model.EncodedId, area = Areas.PublicAreaName }, new { @class = "button", id = "addtocart-link" })
             </button>*@
         </th>
     </tr>

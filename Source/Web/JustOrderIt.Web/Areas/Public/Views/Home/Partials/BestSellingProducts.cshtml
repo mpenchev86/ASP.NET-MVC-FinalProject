@@ -1,0 +1,24 @@
+﻿@using JustOrderIt.Web.Areas.Public.ViewModels.Products
+
+@model IEnumerable<ProductDetailsForIndexListView>
+
+@{
+    ViewBag.Title = "BestSellingProducts";
+}
+
+<div class="row homepage-listview">
+    <h3>Top @UiSpecificConstants.IndexListViewNumberOfBestSellingProducts Best Selling</h3>
+    @(Html.GenericListViewHelper<ProductDetailsForIndexListView>(
+        name: "bestSellingProducts",
+        wrapperTagName: "ul",
+        templateId: "products-listView-template",
+        dataSource: Model,
+        readAction: "ReadBestSellingProducts",
+        controllerName: "Home",
+        modelIdExpression: m => m.Id,
+        pageSize: 5,
+        isServerOps: true)
+        .Events(ev => ev.DataBound("onListViewDataBound"))
+        .HtmlAttributes(new { @class = "productsList" })
+        .Deferred())
+</div>
