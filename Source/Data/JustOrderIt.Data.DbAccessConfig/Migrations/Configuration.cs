@@ -174,12 +174,6 @@
             #region Keywords
             if (!context.Keywords.Any())
             {
-                //var categories = new Dictionary<int, string>();
-                //foreach (var item in context.Categories)
-                //{
-                //    categories.Add(item.Id, item.Name);
-                //}
-
                 context.Keywords.AddOrUpdate(
                     k => k.Id,
                 #region Appliances
@@ -208,25 +202,236 @@
                     new Keyword { SearchTerm = "mug", Categories = new HashSet<Category>(context.Categories.Where(c => c.Name == "Appliances")) },
                     new Keyword { SearchTerm = "pot", Categories = new HashSet<Category>(context.Categories.Where(c => c.Name == "Appliances")) },
                     new Keyword { SearchTerm = "kettle", Categories = new HashSet<Category>(context.Categories.Where(c => c.Name == "Appliances")) },
-                    #endregion
-                #region Books
-                    new Keyword { SearchTerm = "SAMPLE" },
+                    new Keyword { SearchTerm = "Cuisinart", Categories = new HashSet<Category>(context.Categories.Where(c => c.Name == "Appliances")) },
+                    new Keyword { SearchTerm = "SPT", Categories = new HashSet<Category>(context.Categories.Where(c => c.Name == "Appliances")) },
+                    new Keyword { SearchTerm = "Energy Star", Categories = new HashSet<Category>(context.Categories.Where(c => c.Name == "Appliances")) },
+                    new Keyword { SearchTerm = "Breville", Categories = new HashSet<Category>(context.Categories.Where(c => c.Name == "Appliances")) },
+                    new Keyword { SearchTerm = "Sous Chef", Categories = new HashSet<Category>(context.Categories.Where(c => c.Name == "Appliances")) },
+                    new Keyword { SearchTerm = "KitchenAid", Categories = new HashSet<Category>(context.Categories.Where(c => c.Name == "Appliances")) },
+                    new Keyword { SearchTerm = "9-Cup", Categories = new HashSet<Category>(context.Categories.Where(c => c.Name == "Appliances")) },
+                    new Keyword { SearchTerm = "9 Cup", Categories = new HashSet<Category>(context.Categories.Where(c => c.Name == "Appliances")) },
+                    new Keyword { SearchTerm = "3-Cup", Categories = new HashSet<Category>(context.Categories.Where(c => c.Name == "Appliances")) },
+                    new Keyword { SearchTerm = "3 Cup", Categories = new HashSet<Category>(context.Categories.Where(c => c.Name == "Appliances")) },
+                    new Keyword { SearchTerm = "12-Cup", Categories = new HashSet<Category>(context.Categories.Where(c => c.Name == "Appliances")) },
+                    new Keyword { SearchTerm = "12 Cup", Categories = new HashSet<Category>(context.Categories.Where(c => c.Name == "Appliances")) },
+                    new Keyword { SearchTerm = "Exact Slice", Categories = new HashSet<Category>(context.Categories.Where(c => c.Name == "Appliances")) },
+                    new Keyword { SearchTerm = "ExactSlice", Categories = new HashSet<Category>(context.Categories.Where(c => c.Name == "Appliances")) },
+                    new Keyword { SearchTerm = "Hand Mixer", Categories = new HashSet<Category>(context.Categories.Where(c => c.Name == "Appliances")) },
+                    new Keyword { SearchTerm = "Braun", Categories = new HashSet<Category>(context.Categories.Where(c => c.Name == "Appliances")) },
+                    new Keyword { SearchTerm = "chopper", Categories = new HashSet<Category>(context.Categories.Where(c => c.Name == "Appliances")) },
+                    new Keyword { SearchTerm = "Vitamix", Categories = new HashSet<Category>(context.Categories.Where(c => c.Name == "Appliances")) },
+                    new Keyword { SearchTerm = "Hemisphere", Categories = new HashSet<Category>(context.Categories.Where(c => c.Name == "Appliances")) },
+                    new Keyword { SearchTerm = "Ninja", Categories = new HashSet<Category>(context.Categories.Where(c => c.Name == "Appliances")) },
                 #endregion
-                    #region Cameras
-                    new Keyword { SearchTerm = "SAMPLE" },
+                #region Books
+                    new Keyword { SearchTerm = "book" },
+                    new Keyword { SearchTerm = "Crash Course" },
+                    new Keyword { SearchTerm = "Python" },
+                    new Keyword { SearchTerm = "Hands-On" },
+                    new Keyword { SearchTerm = "Introduction" },
+                    new Keyword { SearchTerm = "Misty Copeland" },
+                    new Keyword { SearchTerm = "Gregg Delman" },
+                    new Keyword { SearchTerm = "Eric Matthes" },
+                    new Keyword { SearchTerm = "Hardcover" },
+                    new Keyword { SearchTerm = "Paperback" },
+                    new Keyword { SearchTerm = "Lucien Lévy-Bruhl" },
+                    new Keyword { SearchTerm = "Kindle" },
+                    new Keyword { SearchTerm = "Assimil" },
+                    new Keyword { SearchTerm = "Audio CD" },
+                    new Keyword { SearchTerm = "Alexandra Dannenmann" },
+                    new Keyword { SearchTerm = "Ruy Xoconostle Waye" },
+                    new Keyword { SearchTerm = "Eduardo Scarpetta" },
+                    new Keyword { SearchTerm = "CreateSpace" },
+                    new Keyword { SearchTerm = "Margot Lee Shetterly" },
+                    new Keyword { SearchTerm = "William Morrow" },
+                    new Keyword { SearchTerm = "Reprint" },
+                    new Keyword { SearchTerm = "Cédric H. Roserens" },
+                    new Keyword { SearchTerm = "Yuval Harari" },
+                    new Keyword { SearchTerm = "Debate" },
+                    new Keyword { SearchTerm = "book" },
+                    new Keyword { SearchTerm = "book" },
+                    new Keyword { SearchTerm = "book" },
+                    new Keyword { SearchTerm = "book" },
+                    new Keyword { SearchTerm = "book" },
+                #endregion
+                #region Cameras
+                    new Keyword { SearchTerm = "Canon" },
+                    new Keyword { SearchTerm = "EOS" },
+                    new Keyword { SearchTerm = "CMOS" },
+                    new Keyword { SearchTerm = "Digital" },
+                    new Keyword { SearchTerm = "DSLR" },
+                    new Keyword { SearchTerm = "lens" },
+                    new Keyword { SearchTerm = "Sensor" },
+                    new Keyword { SearchTerm = "Resolution" },
+                    new Keyword { SearchTerm = "fps" },
+                    new Keyword { SearchTerm = "PowerShot" },
+                    new Keyword { SearchTerm = "Aperture" },
+                    new Keyword { SearchTerm = "ISO" },
+                    new Keyword { SearchTerm = "Zoom" },
+                    new Keyword { SearchTerm = "Optical" },
+                    new Keyword { SearchTerm = "Nikon" },
+                    new Keyword { SearchTerm = "NIKKOR" },
+                    new Keyword { SearchTerm = "Flash" },
+                    new Keyword { SearchTerm = "Autofocus" },
+                    new Keyword { SearchTerm = "point-and-shoot" },
+                    new Keyword { SearchTerm = "TFT" },
+                    new Keyword { SearchTerm = "LCD" },
+                    new Keyword { SearchTerm = "Fisheye" },
+                    new Keyword { SearchTerm = "Mirrorless" },
+                    new Keyword { SearchTerm = "Sony" },
+                    new Keyword { SearchTerm = "Wide-Angle" },
+                    new Keyword { SearchTerm = "Wide Angle" },
+                    new Keyword { SearchTerm = "COOLPIX" },
+                    new Keyword { SearchTerm = "Rebel" },
+                    new Keyword { SearchTerm = "APS-C" },
+                    new Keyword { SearchTerm = "Olympus" },
+                    new Keyword { SearchTerm = "Evolt" },
+                    new Keyword { SearchTerm = "Zuiko" },
+                    new Keyword { SearchTerm = "HyperCrystal" },
+                    new Keyword { SearchTerm = " MP" },
+                    new Keyword { SearchTerm = "interchangeable" },
+                    new Keyword { SearchTerm = "Panasonic" },
+                    new Keyword { SearchTerm = "LUMIX" },
                 #endregion
                 #region Furniture
-                    new Keyword { SearchTerm = "SAMPLE" },
+                    new Keyword { SearchTerm = "Leather" },
+                    new Keyword { SearchTerm = "Recliner" },
+                    new Keyword { SearchTerm = "Ottoman" },
+                    new Keyword { SearchTerm = "chair" },
+                    new Keyword { SearchTerm = "CUSHION" },
+                    new Keyword { SearchTerm = "Armoire" },
+                    new Keyword { SearchTerm = "Sauder" },
+                    new Keyword { SearchTerm = "Rolando" },
+                    new Keyword { SearchTerm = "Wardrobe" },
+                    new Keyword { SearchTerm = "Trunk" },
+                    new Keyword { SearchTerm = "Desk" },
+                    new Keyword { SearchTerm = "Altra The Works" },
+                    new Keyword { SearchTerm = "Dorel" },
+                    new Keyword { SearchTerm = "Z-Line" },
+                    new Keyword { SearchTerm = "Bookcase" },
+                    new Keyword { SearchTerm = "Orlando" },
+                    new Keyword { SearchTerm = "Dining" },
+                    new Keyword { SearchTerm = "Table" },
+                    new Keyword { SearchTerm = "Handi-Craft" },
+                    new Keyword { SearchTerm = "Sofa" },
+                    new Keyword { SearchTerm = "Divano Roma" },
+                    new Keyword { SearchTerm = "Merax" },
+                    new Keyword { SearchTerm = "Loveseat" },
+                    new Keyword { SearchTerm = "Pillow" },
+                    new Keyword { SearchTerm = "Desk" },
+                    new Keyword { SearchTerm = "Desk" },
+                    new Keyword { SearchTerm = "Desk" },
+                    new Keyword { SearchTerm = "Desk" },
                 #endregion
                 #region Health & Beauty
-                    new Keyword { SearchTerm = "SAMPLE" },
+                    new Keyword { SearchTerm = "Lipgloss" },
+                    new Keyword { SearchTerm = "Rebel" },
+                    new Keyword { SearchTerm = "Cruelty Free" },
+                    new Keyword { SearchTerm = "Mascara" },
+                    new Keyword { SearchTerm = "W3LL PEOPLE" },
+                    new Keyword { SearchTerm = "Hypoallergenic" },
+                    new Keyword { SearchTerm = "Eau" },
+                    new Keyword { SearchTerm = "Spray" },
+                    new Keyword { SearchTerm = "Bel Ami" },
+                    new Keyword { SearchTerm = "Fragrance" },
+                    new Keyword { SearchTerm = "Shaving" },
+                    new Keyword { SearchTerm = "Cream" },
+                    new Keyword { SearchTerm = "Beeswax" },
+                    new Keyword { SearchTerm = "Shampoo" },
+                    new Keyword { SearchTerm = "Rene Furterer" },
+                    new Keyword { SearchTerm = "René Furterer" },
+                    new Keyword { SearchTerm = "Alkekenge" },
+                    new Keyword { SearchTerm = "Ducray" },
+                    new Keyword { SearchTerm = "Kelual" },
+                    new Keyword { SearchTerm = "Dandruff" },
+                    new Keyword { SearchTerm = "Paraben" },
+                    new Keyword { SearchTerm = "AmLactin" },
+                    new Keyword { SearchTerm = "Moisturizing" },
+                    new Keyword { SearchTerm = "Lotion" },
+                    new Keyword { SearchTerm = "Unscented" },
+                    new Keyword { SearchTerm = "Tummy Butter" },
+                    new Keyword { SearchTerm = "Stretch Marks" },
+                    new Keyword { SearchTerm = "pregnancy" },
+                    new Keyword { SearchTerm = "maternity" },
+                    new Keyword { SearchTerm = "Organic" },
                 #endregion
                 #region Notebooks
-                    new Keyword { SearchTerm = "SAMPLE" },
+                    new Keyword { SearchTerm = "Apple" },
+                    new Keyword { SearchTerm = "MacBook" },
+                    new Keyword { SearchTerm = "MacBook Air" },
+                    new Keyword { SearchTerm = "Laptop" },
+                    new Keyword { SearchTerm = "Intel" },
+                    new Keyword { SearchTerm = "Mac" },
+                    new Keyword { SearchTerm = "OS X" },
+                    new Keyword { SearchTerm = "Graphics" },
+                    new Keyword { SearchTerm = "dual-core" },
+                    new Keyword { SearchTerm = "quad-core" },
+                    new Keyword { SearchTerm = "RAM" },
+                    new Keyword { SearchTerm = "processor" },
+                    new Keyword { SearchTerm = "Notebook" },
+                    new Keyword { SearchTerm = "Samsung" },
+                    new Keyword { SearchTerm = "Tablet" },
+                    new Keyword { SearchTerm = "Galaxy" },
+                    new Keyword { SearchTerm = "TabPro" },
+                    new Keyword { SearchTerm = "ASUS" },
+                    new Keyword { SearchTerm = "Touchscreen" },
+                    new Keyword { SearchTerm = "Windows" },
+                    new Keyword { SearchTerm = "Atom" },
+                    new Keyword { SearchTerm = "AMD" },
+                    new Keyword { SearchTerm = "Chromebook" },
+                    new Keyword { SearchTerm = "Hexa-core" },
+                    new Keyword { SearchTerm = "Lenovo" },
+                    new Keyword { SearchTerm = "Yoga" },
+                    new Keyword { SearchTerm = "SDRAM" },
+                    new Keyword { SearchTerm = "DDR3" },
+                    new Keyword { SearchTerm = "DDR4" },
+                    new Keyword { SearchTerm = "ZenBook" },
+                    new Keyword { SearchTerm = "Dell" },
+                    new Keyword { SearchTerm = "Inspiron" },
+                    new Keyword { SearchTerm = "HP " },
+                    new Keyword { SearchTerm = "Hard Drive" },
+                    new Keyword { SearchTerm = "Ultrabook" },
+                    new Keyword { SearchTerm = "Probook" },
+                    new Keyword { SearchTerm = "SSD" },
                 #endregion
                 #region Sports Equipment
+                    new Keyword { SearchTerm = "adidas" },
+                    new Keyword { SearchTerm = "Half-Zip" },
+                    new Keyword { SearchTerm = "Supernova" },
+                    new Keyword { SearchTerm = "Jacket" },
+                    new Keyword { SearchTerm = "climaproof" },
+                    new Keyword { SearchTerm = "Adriana Arango" },
+                    new Keyword { SearchTerm = "Gym" },
+                    new Keyword { SearchTerm = "Outfit" },
+                    new Keyword { SearchTerm = "Polyester" },
+                    new Keyword { SearchTerm = "TrailHeads" },
+                    new Keyword { SearchTerm = "Ponytail" },
+                    new Keyword { SearchTerm = "Headband" },
+                    new Keyword { SearchTerm = "ASICS" },
+                    new Keyword { SearchTerm = "Armband" },
+                    new Keyword { SearchTerm = "Under Armour" },
+                    new Keyword { SearchTerm = "T-Shirt" },
+                    new Keyword { SearchTerm = "TShirt" },
+                    new Keyword { SearchTerm = "Shirt" },
+                    new Keyword { SearchTerm = "Long-Sleeve" },
+                    new Keyword { SearchTerm = "PUMA" },
+                    new Keyword { SearchTerm = "Lemu" },
+                    new Keyword { SearchTerm = "Outdoor" },
+                    new Keyword { SearchTerm = "Sportswear" },
+                    new Keyword { SearchTerm = "Bomber" },
+                    new Keyword { SearchTerm = "zipper" },
+                    new Keyword { SearchTerm = "Hoodie" },
+                    new Keyword { SearchTerm = "Windbreaker" },
+                    new Keyword { SearchTerm = "Fisherman" },
+                    new Keyword { SearchTerm = "pants" },
+                    new Keyword { SearchTerm = "Yoga" },
+                    new Keyword { SearchTerm = "Trousers" },
+                    new Keyword { SearchTerm = "running" },
+                    new Keyword { SearchTerm = "SAMPLE" },
+                    new Keyword { SearchTerm = "SAMPLE" },
+                    new Keyword { SearchTerm = "SAMPLE" },
                     new Keyword { SearchTerm = "SAMPLE" }
-                #endregion
+                    #endregion
                     );
 
                 context.SaveChanges();
@@ -2257,7 +2462,7 @@
                             {
                                 new Property { Name = "Hair Type", Value = "Dandruff" },
                                 new Property { Name = "Specific properties", Value = "Paraben Free", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Specific properties".ToLower()) },
-                                new Property { Name = "Sex/Gender", Value = "unisex", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Sex/Gender".ToLower()) },
+                                new Property { Name = "Sex/Gender", Value = "for him/for her/unisex", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Sex/Gender".ToLower()) },
                             }
                         },
                         Images = new HashSet<Image>()
@@ -2933,40 +3138,105 @@
             #endregion
 
             #region Comments
-            //if (!context.Comments.Any())
-            //{
-            //    var customerIds = new Dictionary<int, string>();
-            //    var customerIndex = 0;
-            //    var customers = context.Users.Where(u => u.Roles.Any(r => r.RoleName == IdentityRoles.Customer)).OrderBy(u => u.UserName);
-            //    foreach (var customer in customers)
-            //    {
-            //        customerIds.Add(customerIndex, customer.Id);
-            //        customerIndex++;
-            //    }
+            if (!context.Comments.Any())
+            {
+                var customerIds = new Dictionary<int, string>();
+                var customerIndex = 0;
+                var customers = context.Users.Where(u => u.Roles.Any(r => r.RoleName == IdentityRoles.Customer)).OrderBy(u => u.UserName);
+                foreach (var customer in customers)
+                {
+                    customerIds.Add(customerIndex, customer.Id);
+                    customerIndex++;
+                }
 
-            //    var random = new Random();
-            //    var productsIds = new Dictionary<int, int>();
-            //    int productIndex = 0;
-            //    foreach (var product in context.Products)
-            //    {
-            //        productsIds.Add(productIndex, product.Id);
-            //        productIndex++;
-            //    }
+                var productsIds = new Dictionary<int, int>();
+                int productIndex = 0;
+                foreach (var product in context.Products)
+                {
+                    productsIds.Add(productIndex, product.Id);
+                    productIndex++;
+                }
 
-            //    for (int i = 0; i < 1000; i++)
-            //    {
-            //        context.Comments.AddOrUpdate(
-            //            c => c.Id,
-            //            new Comment
-            //            {
-            //                Content = RandomStringsGenerator.LoremIpsum(3, 10, 1, 10, ValidationConstants.CommentContentMinLength, ValidationConstants.CommentContentMaxLength),
-            //                ProductId = productsIds[random.Next(productsIds.Count())],
-            //                UserId = customerIds[random.Next(customerIds.Count)]
-            //            });
-            //    }
+                var uniqueComments = new List<KeyValuePair<int, string>>();
+                var random = new Random();
+                var productId = productsIds[random.Next(productsIds.Count())];
+                var userId = customerIds[random.Next(customerIds.Count)];
 
-            //    context.SaveChanges();
-            //}
+                // Maximum value of the counter can be the number of products multiplied by the number of users.
+                for (int i = 0; i < 100; i++)
+                {
+                    // Check if the current user already commented on the current product.
+                    while (uniqueComments.Any(c => c.Key == productId && c.Value == userId))
+                    {
+                        productId = productsIds[random.Next(productsIds.Count())];
+                        userId = customerIds[random.Next(customerIds.Count)];
+                    }
+
+                    uniqueComments.Add(new KeyValuePair<int, string>(productId, userId));
+
+                    var comment = new Comment
+                    {
+                        Content = RandomStringsGenerator.LoremIpsum(3, 10, 1, 10, ValidationConstants.CommentContentMinLength, ValidationConstants.CommentContentMaxLength),
+                        ProductId = productId,
+                        UserId = userId
+                    };
+
+                    context.Comments.AddOrUpdate(c => c.Id, comment);
+                }
+
+                context.SaveChanges();
+            }
+            #endregion
+
+            #region Votes
+            if (!context.Votes.Any())
+            {
+                var customerIds = new Dictionary<int, string>();
+                var customerIndex = 0;
+                var customers = context.Users.Where(u => u.Roles.Any(r => r.RoleName == IdentityRoles.Customer)).OrderBy(u => u.UserName);
+                foreach (var customer in customers)
+                {
+                    customerIds.Add(customerIndex, customer.Id);
+                    customerIndex++;
+                }
+
+                var productsIds = new Dictionary<int, int>();
+                int productIndex = 0;
+                foreach (var product in context.Products)
+                {
+                    productsIds.Add(productIndex, product.Id);
+                    productIndex++;
+                }
+
+                var uniqueVotes = new List<KeyValuePair<int, string>>();
+                var random = new Random();
+                var productId = productsIds[random.Next(productsIds.Count())];
+                var userId = customerIds[random.Next(customerIds.Count)];
+
+                // Maximum value of the counter can be the number of products multiplied by the number of users.
+                for (int i = 0; i < 100; i++)
+                {
+                    // Check if the current user already had cast a vote for the current product.
+                    while (uniqueVotes.Any(c => c.Key == productId && c.Value == userId))
+                    {
+                        productId = productsIds[random.Next(productsIds.Count())];
+                        userId = customerIds[random.Next(customerIds.Count)];
+                    }
+
+                    uniqueVotes.Add(new KeyValuePair<int, string>(productId, userId));
+
+                    var vote = new Vote
+                    {
+                        VoteValue = random.Next(ValidationConstants.VoteValueMin, ValidationConstants.VoteValueMax + 1),
+                        ProductId = productId,
+                        UserId = userId
+                    };
+
+                    context.Votes.AddOrUpdate(c => c.Id, vote);
+                }
+
+                context.SaveChanges();
+            }
             #endregion
         }
 

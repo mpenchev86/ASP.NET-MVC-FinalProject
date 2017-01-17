@@ -36,7 +36,11 @@
             {
                 for (int w = 0; w < numWords; w++)
                 {
-                    if (w > 0) { result.Append(" "); }
+                    if (w > 0)
+                    {
+                        result.Append(" ");
+                    }
+
                     result.Append(words[rand.Next(words.Length)]);
                 }
 

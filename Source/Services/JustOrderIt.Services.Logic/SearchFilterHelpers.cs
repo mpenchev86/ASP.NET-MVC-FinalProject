@@ -10,7 +10,7 @@
 
     public class SearchFilterHelpers : ISearchFilterHelpers
     {
-        public static List<string> SplitOptionsString(string optionsString)
+        private static List<string> SplitOptionsString(string optionsString)
         {
             var optionsSplit = optionsString.Split(new string[] { ", " }, StringSplitOptions.RemoveEmptyEntries).ToList();
             return optionsSplit;
