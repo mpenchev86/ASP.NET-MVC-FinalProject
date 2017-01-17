@@ -15,10 +15,6 @@
 
         public string UrlPath { get; set; }
 
-        // public int? ProductId { get; set; }
-
-        // public virtual Product Product { get; set; }
-
         public byte[] SmallSizeContent { get; set; }
 
         public byte[] ThumbnailContent { get; set; }

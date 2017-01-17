@@ -2,17 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Web;
     using AutoMapper;
-    using Common.GlobalConstants;
-    using Data.Models;
     using Data.Models.Catalog;
     using Infrastructure.Mapping;
     using Services.Web;
 
-    public class ProductForShoppingCart : BasePublicViewModel<int>, IMapFrom<Product>, IMapTo<Product>, IHaveCustomMappings
+    public class ProductForUserProfileOrder: BasePublicViewModel<int>, IMapFrom<Product>, IHaveCustomMappings
     {
         public string EncodedId
         {
@@ -33,13 +30,12 @@
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
-            configuration.CreateMap<Product, ProductForShoppingCart>()
+            configuration.CreateMap<Product, ProductForUserProfileOrder>()
                 .ForMember(dest => dest.ImageUrlPath, opt => opt.MapFrom(
                             src => src.MainImage != null ? src.MainImage.UrlPath : (src.Images.Any() ? src.Images.FirstOrDefault().UrlPath : "")))
                 .ForMember(dest => dest.ImageFileExtension, opt => opt.MapFrom(
-                            src => src.MainImage != null ? src.MainImage.FileExtension : (src.Images.Any() ? src.Images.FirstOrDefault().FileExtension : "")));
-
-            configuration.CreateMap<ProductForShoppingCart, Product>();
+                            src => src.MainImage != null ? src.MainImage.FileExtension : (src.Images.Any() ? src.Images.FirstOrDefault().FileExtension : "")))
+                ;
         }
     }
 }

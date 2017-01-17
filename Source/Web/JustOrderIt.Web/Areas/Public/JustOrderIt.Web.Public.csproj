@@ -190,7 +190,6 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Controllers\BasePublicController.cs" />
-    <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
@@ -211,6 +210,8 @@
     <Compile Include="ViewModels\Home\CarouselData.cs" />
     <Compile Include="ViewModels\Images\ImageCacheViewModel.cs" />
     <Compile Include="ViewModels\Keywords\KeywordCacheViewModel.cs" />
+    <Compile Include="ViewModels\Orders\OrderForUserProfile.cs" />
+    <Compile Include="ViewModels\Orders\OrderItemForUserProfile.cs" />
     <Compile Include="ViewModels\Orders\ShoppingCartItem.cs" />
     <Compile Include="ViewModels\Orders\ShoppingCartViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductCacheViewModel.cs" />
@@ -221,6 +222,7 @@
     <Compile Include="ViewModels\Products\ProductCommentWithRatingViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductForQuerySearchViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductForShoppingCart.cs" />
+    <Compile Include="ViewModels\Products\ProductForUserProfileOrder.cs" />
     <Compile Include="ViewModels\Products\ProductFullViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductImagesPartialViewModel.cs" />
     <Compile Include="ViewModels\Products\ProductInfoPartialViewModel.cs" />

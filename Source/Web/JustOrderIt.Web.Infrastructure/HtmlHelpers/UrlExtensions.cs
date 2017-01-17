@@ -28,7 +28,6 @@
                 case ImageSizes.Small: imageSuffix = StaticResourcesUrls.ImageSmallSizeSuffix; break;
                 case ImageSizes.Thumbnail: imageSuffix = StaticResourcesUrls.ImageThumbnailSuffix; break;
                 case ImageSizes.Large: imageSuffix = StaticResourcesUrls.ImageHighResolutionSuffix; break;
-                //default: imageSuffix = string.Empty; break;
             }
 
             return helper.Content(GetImageIfExists(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, urlPath, imageSuffix, imageExtension), imageSuffix));

@@ -15,18 +15,16 @@
     {
         public static void Initialize(IAppBuilder app)
         {
-            //var db = new HangfireDbContext();
-
-            //GlobalConfiguration.Configuration.UseSqlServerStorage(DbAccess.HangfireConnectionStringName);
-
+            // var db = new HangfireDbContext();
+            // GlobalConfiguration.Configuration.UseSqlServerStorage(DbAccess.HangfireConnectionStringName);
             app.UseHangfireDashboard("/hangfire");
 
-            //GlobalJobFilters.Filters.Add(new AutomaticRetryAttribute { Attempts = 0 });
+            // GlobalJobFilters.Filters.Add(new AutomaticRetryAttribute { Attempts = 0 });
 
             //// On application start, removes previously queued jobs, if any.
-            //JobStorage.Current?.GetMonitoringApi()?.PurgeJobs();
+            // JobStorage.Current?.GetMonitoringApi()?.PurgeJobs();
 
-            //app.UseHangfireServer();
+            // app.UseHangfireServer();
         }
     }
 }

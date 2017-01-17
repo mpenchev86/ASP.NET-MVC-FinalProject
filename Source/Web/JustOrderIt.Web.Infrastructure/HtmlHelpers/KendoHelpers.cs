@@ -212,7 +212,6 @@
             string createAction = "Create",
             string updateAction = "Update",
             string destroyAction = "Destroy",
-            //IEnumerable dataSource = null,
             Action<DataSourceFilterDescriptorFactory<T>> filterSettings = null,
             Action<DataSourceSortDescriptorFactory<T>> sortSettings = null,
             bool isServerOps = true)
@@ -233,7 +232,6 @@
                 .Name(name)
                 .TagName(wrapperTagName)
                 .ClientTemplateId(templateId)
-                //.BindTo(dataSource)
                 .Editable()
                 .Pageable()
                 .DataSource(source => source
