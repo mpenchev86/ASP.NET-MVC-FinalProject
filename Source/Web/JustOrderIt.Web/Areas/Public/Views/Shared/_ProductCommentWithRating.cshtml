@@ -3,7 +3,7 @@
 <div class="row product-comment">
     <div class="comment-metadata">
         <span>
-            By @Html.ActionLink(Model.UserName, "UserProfile", "Users", new { userName = Model.UserName }, null) on @Model.CommentCreatedOn.
+            By @Html.ActionLink(Model.UserName, "PublicUserProfile", "Users", new { userName = Model.UserName }, null) on @Model.CommentCreatedOn.
             @if (Model.Rating != null)
             {
                 Html.RenderPartial("_ProductVote", Model.Rating);

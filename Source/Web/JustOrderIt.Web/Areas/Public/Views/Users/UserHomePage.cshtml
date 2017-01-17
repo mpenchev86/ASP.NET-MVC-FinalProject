@@ -1,0 +1,23 @@
+﻿@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "UserHomePage";
+}
+
+<h2>Your Account</h2>
+
+<ul>
+    <li>
+        @Html.ActionLink("Account Settings", "Index", "Manage", routeValues: new { Area = "" }, htmlAttributes: new { })
+    </li>
+    <li>
+        @Html.ActionLink("Wish List", "WishList", "Users", routeValues: new { Area = "Public" }, htmlAttributes: new { })
+    </li>
+    <li>
+        @Html.ActionLink("Purchase History", "OrderHistory", "Users", routeValues: new { Area = "Public" }, htmlAttributes: new { })
+    </li>
+    <li>
+        @Html.ActionLink("Comments", "UserComments", "Users", routeValues: new { Area = "Public" }, htmlAttributes: new { })
+    </li>
+</ul>
+

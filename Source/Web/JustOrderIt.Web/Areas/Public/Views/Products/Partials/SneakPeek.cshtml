@@ -15,7 +15,7 @@
             </p>
         </div>
         <div class="col-md-5">
-            <p>offered by @Html.ActionLink(!string.IsNullOrWhiteSpace(Model.SellerName) ? Model.SellerName : " ", "UserProfile", "Users", new { userName = Model.SellerName }, null)  @*<a href="/Public/Users/UserProfile?userName=@Model.SellerName">@Model.SellerName</a>*@</p>
+            <p>offered by @Html.ActionLink(!string.IsNullOrWhiteSpace(Model.SellerName) ? Model.SellerName : " ", "PublicUserProfile", "Users", new { userName = Model.SellerName }, null)  @*<a href="/Public/Users/UserProfile?userName=@Model.SellerName">@Model.SellerName</a>*@</p>
             <p>@(string.Format("{0:C}", Model.Price))</p>
             
             <button type="button" id="addtocart-button">

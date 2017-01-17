@@ -241,7 +241,7 @@
     <Compile Include="ViewModels\Search\SearchFilterOptionViewModel.cs" />
     <Compile Include="ViewModels\Search\SearchViewModel.cs" />
     <Compile Include="ViewModels\Tags\TagCacheViewModel.cs" />
-    <Compile Include="ViewModels\Users\UserProfileViewModel.cs" />
+    <Compile Include="ViewModels\Users\PublicUserProfile.cs" />
     <Compile Include="ViewModels\Votes\VoteCacheViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -387,7 +387,7 @@
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Views\Products\DisplayTemplates\DescriptionProperties.cshtml" />
     <Content Include="Views\Products\DisplayTemplates\ProductTags.cshtml" />
-    <Content Include="Views\Users\UserProfile.cshtml" />
+    <Content Include="Views\Users\PublicUserProfile.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Currency.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
@@ -437,6 +437,7 @@
     <Content Include="Views\Home\Partials\NewestProducts.cshtml" />
     <Content Include="Views\Home\Partials\BestSellingProducts.cshtml" />
     <Content Include="Views\Home\Partials\HighestVotedProducts.cshtml" />
+    <Content Include="Views\Users\UserHomePage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

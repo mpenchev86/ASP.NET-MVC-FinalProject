@@ -8,7 +8,7 @@
 
     <ul class="nav navbar-nav navbar-right  collapse navbar-collapse">
         <li>
-            @Html.ActionLink("Hi, " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: new { Area = "" }, htmlAttributes: new { title = "Manage" })
+            @Html.ActionLink("Hi, " + User.Identity.GetUserName() + "!", "UserHomePage", "Users", routeValues: new { Area = "Public" }, htmlAttributes: new { title = "Your Account" })
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>

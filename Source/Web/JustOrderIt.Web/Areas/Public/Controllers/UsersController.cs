@@ -24,11 +24,35 @@
             this.mappingService = mappingService;
         }
 
-        public ActionResult UserProfile(string userName)
+        [Authorize]
+        public ActionResult UserHomePage()
+        {
+            return this.View();
+        }
+
+        [Authorize]
+        public ActionResult WishList()
+        {
+            return this.PartialView("UnderConstruction", null);
+        }
+
+        [Authorize]
+        public ActionResult OrderHistory()
+        {
+            return this.PartialView("UnderConstruction", null);
+        }
+
+        [Authorize]
+        public ActionResult UserComments()
+        {
+            return this.PartialView("UnderConstruction", null);
+        }
+
+        public ActionResult PublicUserProfile(string userName)
         {
             var user = this.usersService.GetByUserName(userName);
-            var result = this.mappingService.Map<ApplicationUser, UserProfileViewModel>(user);
-            return this.View(result);
+            var viewModel = this.mappingService.Map<ApplicationUser, PublicUserProfile>(user);
+            return this.View(viewModel);
         }
     }
 }

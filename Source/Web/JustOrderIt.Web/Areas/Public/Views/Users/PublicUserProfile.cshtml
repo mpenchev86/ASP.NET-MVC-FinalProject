@@ -1,8 +1,9 @@
 ﻿@using JustOrderIt.Web.Areas.Public.ViewModels.Users
-@model UserProfileViewModel
+
+@model PublicUserProfile
 
 @{
-    ViewBag.Title = "UserProfile";
+    ViewBag.Title = Model.UserName + "'s profile";
 }
 
 <div class="row">
