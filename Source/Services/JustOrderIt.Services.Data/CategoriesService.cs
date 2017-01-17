@@ -30,10 +30,10 @@
             return category;
         }
 
-        //public Category GetByName(string categoryName)
-        //{
-        //    var category = this.Repository.All().Where(c => c.Name == categoryName).FirstOrDefault();
-        //    return category;
-        //}
+        public Category GetByName(string categoryName)
+        {
+            var category = this.Repository.All().Where(c => c.Name == categoryName).FirstOrDefault();
+            return category;
+        }
     }
 }

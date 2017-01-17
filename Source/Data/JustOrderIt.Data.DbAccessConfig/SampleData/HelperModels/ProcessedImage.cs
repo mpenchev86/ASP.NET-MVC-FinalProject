@@ -1,17 +1,14 @@
-﻿namespace JustOrderIt.Web.Infrastructure.SampleDataGenerators.HelperModels
+﻿namespace JustOrderIt.Data.DbAccessConfig.SampleDataGenerators.HelperModels
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Common.GlobalConstants;
 
-    public class ProcessedImage/* : IMapTo<Image>*/
+    public class ProcessedImage
     {
-        public const int SmallSizeImageWidth = 50;
-        public const int ThumbnailImageWidth = 260;
-        public const int HighResolutionWidth = 1360;
-
         public string OriginalFileName { get; set; }
 
         public string FileExtension { get; set; }

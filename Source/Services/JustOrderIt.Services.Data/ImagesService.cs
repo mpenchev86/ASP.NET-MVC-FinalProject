@@ -45,9 +45,9 @@
             var processedImages = rawImages.Select(rawImage =>
             {
                 var image = this.PersistFileInfo(rawImage);
-                var smallSizeContent = this.imageProcessor.Resize(rawImage.Content, ProcessedImage.SmallSizeImageWidth);
-                var thumbnailContent = this.imageProcessor.Resize(rawImage.Content, ProcessedImage.ThumbnailImageWidth);
-                var highResContent = this.imageProcessor.Resize(rawImage.Content, ProcessedImage.HighResolutionWidth);
+                var smallSizeContent = this.imageProcessor.Resize(rawImage.Content, UiSpecificConstants.SmallSizeImageWidth);
+                var thumbnailContent = this.imageProcessor.Resize(rawImage.Content, UiSpecificConstants.ThumbnailImageWidth);
+                var highResContent = this.imageProcessor.Resize(rawImage.Content, UiSpecificConstants.HighResolutionWidth);
                 var processedImage = this.ToProcessedImage(image, smallSizeContent, thumbnailContent, highResContent);
                 return processedImage;
             }).ToList();
@@ -85,7 +85,6 @@
                 image.IsMainImage = false;
                 this.Update(image);
                 this.DeletePermanent(imageId);
-                // this.MarkAsDeleted(decodedId);
                 this.fileSystemService.DeleteFile(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, image.UrlPath, StaticResourcesUrls.ImageSmallSizeSuffix, image.FileExtension));
                 this.fileSystemService.DeleteFile(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, image.UrlPath, StaticResourcesUrls.ImageThumbnailSuffix, image.FileExtension));
                 this.fileSystemService.DeleteFile(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, image.UrlPath, StaticResourcesUrls.ImageHighResolutionSuffix, image.FileExtension));
