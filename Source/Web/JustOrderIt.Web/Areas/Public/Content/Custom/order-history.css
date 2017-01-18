@@ -1,0 +1,13 @@
+﻿#order-totalcost {
+    text-align: right;
+}
+
+.order-product-link {
+    border: none;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    visibility: visible;
+    width: 100%;
+}

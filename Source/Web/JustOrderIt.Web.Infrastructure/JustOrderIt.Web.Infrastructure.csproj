@@ -163,8 +163,6 @@
     <Compile Include="Mapping\Profiles\StandardMappingsProfile.cs" />
     <Compile Include="ModelBinders\CustomModelBinder.cs" />
     <Compile Include="ModelBinders\CustomModelBinderProvider.cs" />
-    <Compile Include="Sanitizer\HtmlSanitizerAdapter.cs" />
-    <Compile Include="Sanitizer\ISanitizer.cs" />
     <Compile Include="Caching\CommonOutputCacheAttribute.cs" />
     <Compile Include="Filters\AddSystemHeaderStampActionFilter.cs" />
     <Compile Include="Filters\LogFilter.cs" />

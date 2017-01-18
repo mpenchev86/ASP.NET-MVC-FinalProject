@@ -998,7 +998,7 @@
                             Properties = new HashSet<Property>()
                             {
                                 new Property { Name = "Motor Power", Value = "1200W", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Motor Power".ToLower()) },
-                                new Property { Name = "Color", Value = "steel", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Color".ToLower()) },
+                                new Property { Name = "Color", Value = "red (cherry)", SearchFilter = context.SearchFilters.FirstOrDefault(sf => sf.Name.ToLower() == "Color".ToLower()) },
                                 new Property { Name = "Food pusher", Value = "yes" },
                                 new Property { Name = "Display", Value = "LCD" },
                                 new Property { Name = "Body material", Value = "metal" },

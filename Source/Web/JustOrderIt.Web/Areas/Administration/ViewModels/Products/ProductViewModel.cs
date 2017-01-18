@@ -19,7 +19,7 @@
     using Users;
     using Votes;
 
-    public class ProductViewModel : BaseAdminViewModel<int>, IMapFrom<Product>
+    public class ProductViewModel : BaseAdminViewModel<int>, IMapFrom<Product>, IMapTo<Product>
     {
         private ICollection<TagDetailsForProductViewModel> tags;
         private ICollection<CommentDetailsForProductViewModel> comments;

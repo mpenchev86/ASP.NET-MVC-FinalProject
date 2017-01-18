@@ -1,0 +1,30 @@
+﻿@using JustOrderIt.Web.Areas.Public.ViewModels.Orders
+
+@model List<OrderItemForUserProfile>
+
+<div class="row cart-labels">
+    <div class="col-md-9"><label><span>Product</span></label></div>
+    <div class="col-md-2"><label><span>Unit Price</span></label></div>
+    <div class="col-md-1"><label><span>Quantity</span></label></div>
+</div>
+
+@for (int i = 0; i < Model.Count; i++)
+{
+    <div class="row order-item">
+        <div class="col-md-2">
+            <div class="row">
+                <img id="order-product-image" src="@Url.ProductPicture(Model[i].Product.ImageUrlPath, Model[i].Product.ImageFileExtension, ImageSizes.Small)" />
+            </div>
+            @Html.ActionLink(" ", "Index", "Products", new { id = Model[i].Product.EncodedId }, new { @class = "order-product-link" })
+        </div>
+        <div class="col-md-7 orderitem-product">
+            @Html.ActionLink(Model[i].Product.Title, "Index", "Products", new { id = Model[i].Product.EncodedId }, null)
+        </div>
+        <div class="col-md-2 orderitem-unitprice">
+            @Html.DisplayFor(m => Model[i].Product.UnitPrice)
+        </div>
+        <div class="col-md-1 orderitem-quantity">
+            @Html.DisplayFor(m => Model[i].ProductQuantity)
+        </div>
+    </div>
+}

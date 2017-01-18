@@ -211,6 +211,7 @@
     <Compile Include="ViewModels\Images\ImageCacheViewModel.cs" />
     <Compile Include="ViewModels\Keywords\KeywordCacheViewModel.cs" />
     <Compile Include="ViewModels\Orders\OrderForUserProfile.cs" />
+    <Compile Include="ViewModels\Orders\OrderHistoryViewModel.cs" />
     <Compile Include="ViewModels\Orders\OrderItemForUserProfile.cs" />
     <Compile Include="ViewModels\Orders\ShoppingCartItem.cs" />
     <Compile Include="ViewModels\Orders\ShoppingCartViewModel.cs" />
@@ -277,8 +278,10 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Custom\checkout.css" />
     <Content Include="Content\Custom\homepage-carousel.css" />
     <Content Include="Content\Custom\homepage-listView.css" />
+    <Content Include="Content\Custom\order-history.css" />
     <Content Include="Content\Custom\product-full-viewmodel.css" />
     <Content Include="Content\Custom\query-search.css" />
     <Content Include="Content\Custom\category-search.css" />
@@ -438,6 +441,9 @@
     <Content Include="Views\Home\Partials\BestSellingProducts.cshtml" />
     <Content Include="Views\Home\Partials\HighestVotedProducts.cshtml" />
     <Content Include="Views\Users\UserHomePage.cshtml" />
+    <Content Include="Views\Users\OrderHistory.cshtml" />
+    <Content Include="Views\Orders\OrderDetails.cshtml" />
+    <Content Include="Views\Orders\DisplayTemplates\OrderItems.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

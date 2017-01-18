@@ -6,7 +6,7 @@
     ViewBag.Title = "Checkout Success - OrderIt.com";
 }
 
-<h3 style="text-align: left">Congrats! You completed your order.</h3>
+<h3 id="congrats">Congrats! You completed your order.</h3>
      
 <div class="checkout-complete">
     <img src="@(Url.Content(StaticResourcesUrls.ServerPathAppManagementImages + "puppy-with-cart.gif"))" alt="Billing system not implemented" />
@@ -21,22 +21,22 @@
     </div>
 </div>
 
-<div class="bought-items">
+<div class="purchased-items">
     @foreach (var item in Model.CartItems)
     {
-        <hr style="margin-top: 2px; margin-bottom: 2px"/>
+        <hr />
         <div class="row">
-            <div class="col-md-9" style="border-left: 1px groove">
+            <div class="col col-md-9">
                 <p>@Html.ActionLink(item.Product.Title, "Index", "Products", new { id = item.Product.EncodedId}, null)</p>
             </div>
-            <div class="col-md-3" style="border-left: 1px groove">
+            <div class="col col-md-3">
                 <p>@item.ProductQuantity</p>
             </div>
         </div>
     }
 
-    <hr style="margin-top: 2px;"/>
-    <p style="text-align: right">Total price: @Model.TotalCost</p>
+    <hr />
+    <p id="total-cost">Total price: @Model.TotalCost</p>
 </div>
 
 <p><h4>Unfortunately, no billing system has been implemented yet.</h4></p>

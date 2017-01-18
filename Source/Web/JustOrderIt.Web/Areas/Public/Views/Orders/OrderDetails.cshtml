@@ -1,0 +1,16 @@
+﻿@using JustOrderIt.Web.Areas.Public.ViewModels.Orders
+
+@model OrderForUserProfile
+
+@{
+    ViewBag.Title = "Order Details";
+}
+
+<h2>OrderDetails</h2>
+<div class="row order-label"><h4>Order with ref. number @Model.RefNumber, created at @Model.CreatedOn.ToShortDateString()</h4></div>
+<br />
+@Html.DisplayFor(m => m.OrderItems)
+<hr />
+<div class="row" id="order-totalcost">Total order cost: @string.Format("{0:c}",  Model.TotalCost)</div>
+
+

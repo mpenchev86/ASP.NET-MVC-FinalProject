@@ -19,6 +19,10 @@
             this.orderItems = new HashSet<OrderItem>();
         }
 
+        [Required]
+        public Guid RefNumber { get; set; }
+
+        [Required]
         public decimal TotalCost { get; set; }
 
         [Required]

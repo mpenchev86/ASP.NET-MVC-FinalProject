@@ -8,17 +8,22 @@
 
     public class CacheConstants
     {
-        // Public/HomeController/Index Carousel
+        //// Public/HomeController/Index Carousel
         public const int CarouselDataCacheExpiration = 30 * 60;
 
-        // Public/HomeController/Index ListView
+        //// Public/HomeController/Index ListView
         public const int IndexListViewCacheExpiration = 3 * 60;
 
-        // Public/SearchController/ReadSearchResult
-        public const int AllProductsInCategoryCacheExpiration = 5 * 60;
-        public const int AllProductsInCategoryUpdateBackgroundJobDelay = 3 * 60;
+        //// Public/SearchController/ReadSearchResult
+        public const int AllProductsInCategoryCacheExpiration = 15 * 60;
 
-        // Public/SearchController/SearchAutoComplete
+        /// <remarks>
+        /// The margin between the update delay period and the cache expiration period should be proportionate to the
+        /// number of products being cached.
+        /// </remarks>
+        public const int AllProductsInCategoryUpdateBackgroundJobDelay = 11 * 60;
+
+        //// Public/SearchController/SearchAutoComplete
         public const int KeywordsForAutoCompleteCacheExpiration = 5 * 60;
         public const int KeywordsForAutoCompleteUpdateBackgroundJobDelay = 3 * 60;
     }

@@ -1,0 +1,16 @@
+﻿#congrats {
+    text-align: left;
+}
+
+.purchased-items hr {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.purchased-items .col {
+    border-left: 1px groove;
+}
+
+.purchased-items #total-cost {
+    text-align: right;
+}

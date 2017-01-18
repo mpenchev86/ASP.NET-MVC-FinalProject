@@ -1,0 +1,18 @@
+﻿@using JustOrderIt.Web.Areas.Public.ViewModels.Orders
+
+@model OrderHistoryViewModel
+
+@{
+    ViewBag.Title = "Your Purchase History";
+}
+
+<h2>Purchase History</h2>
+
+@foreach (var item in Model.Orders)
+{
+    var linkText = "Order ref.num: " + item.RefNumber + ", created at " + item.CreatedOn.ToShortDateString();
+    
+    <div class="row">
+        <h4>@Html.ActionLink(linkText, "OrderDetails", "Orders", new { refNumber = item.RefNumber }, null)</h4>
+    </div>
+}

@@ -9,8 +9,10 @@
     using AutoMapper;
     using Data.Models;
     using Data.Models.Identity;
+    using Infrastructure.Extensions;
     using Infrastructure.Mapping;
     using Services.Data;
+    using ViewModels.Orders;
     using ViewModels.Users;
 
     public class UsersController : BasePublicController
@@ -39,7 +41,9 @@
         [Authorize]
         public ActionResult OrderHistory()
         {
-            return this.PartialView("UnderConstruction", null);
+            var viewModel = new OrderHistoryViewModel();
+            viewModel.Orders = this.usersService.GetByUserName(this.User.Identity.Name).Orders.AsQueryable().To<OrderForUserProfile>().ToList();
+            return this.View(viewModel);
         }
 
         [Authorize]

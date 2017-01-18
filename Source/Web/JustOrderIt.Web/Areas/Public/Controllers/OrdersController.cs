@@ -17,6 +17,7 @@
     using System.Data.Entity.Infrastructure;
     using System.Data.Entity.Validation;
     using Services.Web;
+    using Infrastructure.Mapping;
 
     [AuthorizeRoles(IdentityRoles.Customer, IdentityRoles.Seller)]
     public class OrdersController : BasePublicController
@@ -26,19 +27,22 @@
         private readonly IOrdersService ordersService;
         private readonly IProductsService productsService;
         private readonly IUsersService usersService;
+        private readonly IMappingService mappingService;
 
         public OrdersController(
             IIdentifierProvider identifierProvider,
             IOrderItemsService orderItemsService,
             IOrdersService ordersService,
             IProductsService productsService,
-            IUsersService usersService)
+            IUsersService usersService,
+            IMappingService mappingService)
         {
             this.identifierProvider = identifierProvider;
             this.orderItemsService = orderItemsService;
             this.ordersService = ordersService;
             this.productsService = productsService;
             this.usersService = usersService;
+            this.mappingService = mappingService;
         }
 
         // Preserving ModelState across PRG: http://www.jefclaes.be/2012/06/persisting-model-state-when-using-prg.html
@@ -86,7 +90,10 @@
         [HttpGet]
         public ActionResult AddToCart(string productId)
         {
-            this.ProccessSessionCart(productId, 1);
+            if (!string.IsNullOrWhiteSpace(productId))
+            {
+                this.ProccessSessionCart(productId, 1);
+            }
 
             return this.RedirectToAction("ShoppingCart");
         }
@@ -95,7 +102,7 @@
         [ValidateAntiForgeryToken]
         public ActionResult AddToCart(string productId, int quantity = 1)
         {
-            if (this.ModelState.IsValid)
+            if (this.ModelState.IsValid && !string.IsNullOrWhiteSpace(productId))
             {
                 this.ProccessSessionCart(productId, quantity);
             }
@@ -143,6 +150,19 @@
             throw new HttpException(400, "Invalid checkout request.");
         }
 
+        [HttpGet]
+        public ActionResult OrderDetails(Guid refNumber)
+        {
+            var order = this.usersService.GetByUserName(this.User.Identity.Name).Orders.FirstOrDefault(o => o.RefNumber == refNumber);
+            if (order == null)
+            {
+                return this.RedirectToAction("OrderHistory", "Users");
+            }
+
+            var viewModel = this.mappingService.Map<OrderForUserProfile>(order);
+            return this.View(viewModel);
+        }
+
         #region Helpers
         private void ProccessSessionCart(string productId, int quantity)
         {
@@ -164,7 +184,7 @@
             else
             {
                 cartItem = new ShoppingCartItem();
-                cartItem.Product = PopulateProductForCartItem(this.productsService.GetById(decodedId));
+                cartItem.Product = this.mappingService.Map<ProductForShoppingCart>(this.productsService.GetById(decodedId));
                 cartItem.ProductQuantity = quantity;
                 cartItem.ToDelete = false;
                 shoppingCart.CartItems.Add(cartItem);
@@ -176,6 +196,7 @@
 
         private void PopulateOrder(Order order, ShoppingCartViewModel shoppingCart)
         {
+            order.RefNumber = Guid.NewGuid();
             order.TotalCost = shoppingCart.TotalCost;
             order.UserId = this.User.Identity.GetUserId();
         }
@@ -190,20 +211,6 @@
                 item.Order = this.ordersService.GetById(item.OrderId);
                 this.orderItemsService.Insert(item);
             }
-        }
-
-        private ProductForShoppingCart PopulateProductForCartItem(Product product)
-        {
-            return new ProductForShoppingCart
-            {
-                Id = product.Id,
-                Title = product.Title,
-                UnitPrice = product.UnitPrice,
-                QuantityInStock = product.QuantityInStock,
-                ShippingPrice = product.ShippingPrice,
-                ImageUrlPath = product.MainImageId != null ? product.MainImage.UrlPath  : (product.Images.Any() ? product.Images.FirstOrDefault().UrlPath : ""),
-                ImageFileExtension = product.MainImageId != null ? product.MainImage.FileExtension  : (product.Images.Any() ? product.Images.FirstOrDefault().FileExtension : ""),
-            };
         }
 
         private string GetSessionKey(string userName)

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Web;
     using Data.Models.Orders;
@@ -13,11 +14,16 @@
 
         public OrderForUserProfile()
         {
-            this.orderItems = new HashSet<OrderItemForUserProfile>();
+            this.orderItems = new List<OrderItemForUserProfile>();
         }
+
+        public Guid RefNumber { get; set; }
 
         public decimal TotalCost { get; set; }
 
+        public DateTime CreatedOn { get; set; }
+
+        [UIHint("OrderItems")]
         public virtual ICollection<OrderItemForUserProfile> OrderItems
         {
             get { return this.orderItems; }

@@ -32,6 +32,7 @@
     using Services.Web;
     using System.Web.Script.Serialization;
     using Data.Models.Catalog;
+    using Infrastructure.Mapping;
 
     [Authorize(Roles = IdentityRoles.Admin)]
     public class ProductsController : BaseGridController<Product, ProductViewModel, IProductsService, int>
@@ -46,6 +47,7 @@
         private readonly IUsersService usersService;
         private readonly IVotesService votesService;
         private readonly IIdentifierProvider identifierProvider;
+        private readonly IMappingService mappingService;
 
         public ProductsController(
             IProductsService productsService,
@@ -57,7 +59,8 @@
             IUsersService usersService,
             IVotesService votesService,
             IFileSystemService fileSystemService,
-            IIdentifierProvider identifierProvider)
+            IIdentifierProvider identifierProvider,
+            IMappingService mappingService)
             : base(productsService)
         {
             this.productsService = productsService;
@@ -70,6 +73,7 @@
             this.usersService = usersService;
             this.fileSystemService = fileSystemService;
             this.identifierProvider = identifierProvider;
+            this.mappingService = mappingService;
         }
 
         [HttpGet]
@@ -151,7 +155,7 @@
             entity.Images = this.imagesService.GetAll().Where(img => viewModelImagesIds.Contains(img.Id)).ToList();
 
             entity.MainImageId = HandleMainImage(entity.MainImageId, viewModel.MainImageId, viewModelImagesIds);
-            
+
             entity.Title = viewModel.Title;
             entity.ShortDescription = viewModel.ShortDescription;
             entity.CategoryId = viewModel.CategoryId;

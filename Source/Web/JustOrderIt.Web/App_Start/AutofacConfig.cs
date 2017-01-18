@@ -18,7 +18,6 @@
     using Data.Models;
     using Data.Models.Identity;
     using Hangfire;
-    using Infrastructure.Sanitizer;
     using Infrastructure.ViewEngines;
     using JustOrderIt.Common.GlobalConstants;
     using Microsoft.AspNet.Identity;
