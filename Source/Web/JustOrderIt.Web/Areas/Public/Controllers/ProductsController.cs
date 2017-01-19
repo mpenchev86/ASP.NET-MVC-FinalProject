@@ -12,6 +12,7 @@
     using Infrastructure.Extensions;
     using Infrastructure.Mapping;
     using Infrastructure.Validators;
+    using Microsoft.AspNet.Identity;
     using Services.Data;
     using Services.Web;
     using ViewModels.Products;

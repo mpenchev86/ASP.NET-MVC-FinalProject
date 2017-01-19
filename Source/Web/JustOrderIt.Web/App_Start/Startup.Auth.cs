@@ -51,6 +51,8 @@
             // This is similar to the RememberMe option when you log in.
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
+            app.UseHangfireDashboard("/hangfire");
+
             // Uncomment the following lines to enable logging in with third party login providers
             // app.UseMicrosoftAccountAuthentication(
             //     clientId: "",
@@ -69,8 +71,6 @@
             //     ClientId = "",
             //     ClientSecret = ""
             // });
-
-            app.UseHangfireDashboard("/hangfire");
         }
     }
 }

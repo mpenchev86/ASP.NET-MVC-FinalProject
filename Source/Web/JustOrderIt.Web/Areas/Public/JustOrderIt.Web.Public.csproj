@@ -196,6 +196,7 @@
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\VotesController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="App_Start\PublicAreaRegistration.cs" />
     <Compile Include="ViewModels\BasePublicViewModel.cs" />
@@ -244,6 +245,7 @@
     <Compile Include="ViewModels\Tags\TagCacheViewModel.cs" />
     <Compile Include="ViewModels\Users\PublicUserProfile.cs" />
     <Compile Include="ViewModels\Votes\VoteCacheViewModel.cs" />
+    <Compile Include="ViewModels\Votes\VoteEditorModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Common\GlobalConstants\JustOrderIt.Common.GlobalConstants.csproj">
@@ -444,6 +446,9 @@
     <Content Include="Views\Users\OrderHistory.cshtml" />
     <Content Include="Views\Orders\OrderDetails.cshtml" />
     <Content Include="Views\Orders\DisplayTemplates\OrderItems.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Rating.cshtml" />
+    <Content Include="Views\Votes\Partials\CastVote.cshtml" />
+    <Content Include="Views\Votes\Partials\Rating.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

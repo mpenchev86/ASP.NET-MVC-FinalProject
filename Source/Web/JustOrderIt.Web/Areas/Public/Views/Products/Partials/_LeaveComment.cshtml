@@ -9,7 +9,7 @@
         InsertionMode = InsertionMode.ReplaceWith,
         UpdateTargetId = (string)ViewData["UpdateTargetId"],
         HttpMethod = "POST",
-        LoadingElementId = "leavecomment-loading-spinner",
+        LoadingElementId = "ajax-loading-spinner",
         OnSuccess = "onNewCommentSuccess"
     },
     new { id = "new-comment-form" }
@@ -30,6 +30,3 @@
         <input type="submit" class="btn btn-default" value="SUBMIT REVIEW" />
     </div>
 }
-
-<img id="leavecomment-loading-spinner" src="~/Content/Kendo/Silver/loading_2x.gif" style="display: none; text-align: center;" />
-<br />

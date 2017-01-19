@@ -1,0 +1,26 @@
+﻿@model double?
+
+@{
+    var maxVote = 5;
+    var htmlAttributes = (Dictionary<string, object>)ViewData["htmlAttributes"] ?? new Dictionary<string, object>();
+    var inputName = (string)ViewData["inputName"];
+}
+
+@(Html.Infragistics()
+    .RatingFor(m => m)
+    //.Rating()
+    .ID("igRating"/* + ViewData["index"].ToString()*/)
+    .InputName(inputName)
+    .VoteCount(maxVote)
+    //.Value(Model.Value)
+    .ValueAsPercent(false)
+    //.AddClientEvent("onchange", "submitVote(this)")
+    //.ClientEvents(new Dictionary<string, string> { { "onchange", "submitVote(this)" } })
+    //.Focusable(false)
+    //.Disabled(true)
+    .PrecisionZeroVote(0.1)
+    .Precision(RatingPrecision.Whole)
+    .HtmlAttributes(htmlAttributes)
+    //.ValidatorOptions(v => v.)
+    .Render()
+)

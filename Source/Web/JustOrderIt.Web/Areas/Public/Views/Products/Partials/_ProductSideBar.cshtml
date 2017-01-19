@@ -1,4 +1,6 @@
-﻿@using JustOrderIt.Web.Areas.Public.ViewModels.Products
+﻿@using Microsoft.AspNet.Identity;
+@using JustOrderIt.Web.Areas.Public.ViewModels.Products
+@using JustOrderIt.Web.Areas.Public.ViewModels.Votes
 
 @model ProductSideBarPartialViewModel
 
@@ -12,8 +14,16 @@
         </td>
     </tr>
     <tr id="rating">
-        <td colspan="2">@Html.DisplayFor(m => m.Rating, "Rating", new { index = "Id" })<br /></td>
+        <td colspan="2">
+            @*@Html.DisplayFor(m => m.Rating, new { index = "Id" })*@
+            @{Html.RenderAction("EditableRating", "Votes", new VoteEditorModel { ProductId = Model.Id, UserId = this.User.Identity.GetUserId(), VoteValue = Model.Rating });}
+            <br />
+        </td>
     </tr>
+
+    
+    @*@Html.Partial("CastVote", new VoteEditorModel { ProductId = Model.Id, UserId = this.User.Identity.GetUserId(), VoteValue = Model.Rating })*@
+    
     <tr id="unit-price">
         <th>@Html.LabelFor(m => m.UnitPrice, "Price")</th>
         <td>@Html.DisplayFor(m => m.UnitPrice)</td>

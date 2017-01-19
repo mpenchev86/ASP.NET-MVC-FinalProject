@@ -33,6 +33,7 @@
 
         public string RefNumber { get; set; }
 
+        //[UIHint("EditableRating")]
         public double Rating { get; set; }
 
         public string SellerName { get; set; }

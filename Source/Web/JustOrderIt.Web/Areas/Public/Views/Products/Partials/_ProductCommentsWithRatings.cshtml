@@ -16,11 +16,7 @@
                         currentUserHasCommented = true;
                     }
 
-                    Html.RenderPartial(
-                        "_ProductCommentWithRating"
-                        ,comment
-                        , new ViewDataDictionary(this.ViewData) { { "rating-id", comment.Id } }
-                        );
+                    Html.RenderPartial("_ProductCommentWithRating", comment, new ViewDataDictionary(this.ViewData) { { "rating-id", comment.Id } });
                 }
             </li>
             <li>

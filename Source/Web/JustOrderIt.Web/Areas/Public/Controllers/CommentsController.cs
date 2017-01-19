@@ -31,6 +31,7 @@
         }
 
         [HttpPost]
+        [AjaxOnly]
         [ValidateAntiForgeryToken]
         public ActionResult CreateComment(CommentPostViewModel commentPostViewModel)
         {

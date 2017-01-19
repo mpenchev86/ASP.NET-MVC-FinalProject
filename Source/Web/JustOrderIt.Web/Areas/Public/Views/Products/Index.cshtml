@@ -53,11 +53,30 @@
     @Html.Partial("_ProductCommentsWithRatings", Model.CommentsWithRatings, new ViewDataDictionary(this.ViewData) { { "productId", Model.Id } })
 </div>
 
+<img id="ajax-loading-spinner" src="~/Content/Kendo/Silver/loading_2x.gif" style="display: none; text-align: center;" />
+<br />
+
 @section Scripts{
     <script src="@Url.Content(StaticResourcesUrls.IgniteUiRatingHandler)"></script>
     <script src="@Url.Content(StaticResourcesUrls.BootstrapModalHelpers)"></script>
 
     <script>
+        $(document).ready(function myfunction() {
+            $('#igRating .ui-igrating-vote').on('click', function clickVoteStar() {
+                //$('#submit-vote').trigger();
+                $(this).parents('form:first').submit();
+            });
+            //$('#igRating input[name="VoteValue"]').on('change', function onCastVote() {
+            //    console.log($(this));
+            //    //$(e).parents('form:first').submit();
+            //});
+        });
+
+        function submitVote(e) {
+            console.log(e);
+            //$(e).parents('form:first').submit();
+        }
+
         $('a.small-image').on('click', function onSmallImageClick(e) {
             e.preventDefault();
         });
