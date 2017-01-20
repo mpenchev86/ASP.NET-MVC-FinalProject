@@ -3229,7 +3229,7 @@
                     {
                         VoteValue = random.Next(ValidationConstants.VoteValueMin, ValidationConstants.VoteValueMax + 1),
                         ProductId = productId,
-                        UserId = userId
+                        UserId = userId,
                     };
 
                     context.Votes.AddOrUpdate(c => c.Id, vote);

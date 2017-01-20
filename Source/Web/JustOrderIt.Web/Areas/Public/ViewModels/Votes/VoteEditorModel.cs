@@ -20,7 +20,7 @@
 
         [Required]
         [Range(ValidationConstants.VoteValueMin, ValidationConstants.VoteValueMax)]
-        [UIHint("Rating")]
+        [UIHint("RatingEditor")]
         public double VoteValue { get; set; }
 
         public void CreateMappings(IMapperConfigurationExpression configuration)

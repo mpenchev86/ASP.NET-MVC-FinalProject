@@ -1,0 +1,33 @@
+﻿@using JustOrderIt.Web.Areas.Public.ViewModels.Votes
+
+@model VoteEditorModel
+
+@{
+    var formId = string.Format("castvote-form-{0}", Model.ProductId.ToString());
+}
+
+@using (Ajax.BeginForm(
+    "VoteForProduct",
+    "Votes",
+    new { },
+    new AjaxOptions()
+    {
+        HttpMethod = FormMethod.Post.ToString(),
+        InsertionMode = InsertionMode.ReplaceWith,
+        UpdateTargetId = formId,
+        LoadingElementId = "ajax-loading-spinner",
+        OnSuccess = "onCastVoteSuccess",
+    },
+    new { id = formId }
+))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <div class="input-group">
+        <button id="submit-vote" type="submit" style="display: none"></button>
+        @Html.HiddenFor(m => m.ProductId)
+        @Html.HiddenFor(m => m.UserId)
+        @Html.EditorFor(m => m.VoteValue, new { index = Model.ProductId, inputName = "VoteValue", htmlAttributes = new Dictionary<string, object> { { "title", string.Format("curent rating: {0:0.0}", Model.VoteValue) } } })
+    </div>
+}

@@ -29,8 +29,6 @@
 
         public virtual IDbSet<Category> Categories { get; set; }
 
-        public virtual IDbSet<SearchFilter> SearchFilters { get; set; }
-
         public virtual IDbSet<Comment> Comments { get; set; }
 
         public virtual IDbSet<Description> Descriptions { get; set; }
@@ -39,19 +37,21 @@
 
         public virtual IDbSet<Keyword> Keywords { get; set; }
 
+        public virtual IDbSet<Order> Orders { get; set; }
+
+        public virtual IDbSet<OrderItem> OrderItems { get; set; }
+
         public virtual IDbSet<Product> Products { get; set; }
 
         public virtual IDbSet<Property> Properties { get; set; }
 
-        public virtual IDbSet<Tag> Tags { get; set; }
+        public virtual IDbSet<SearchFilter> SearchFilters { get; set; }
 
-        public virtual IDbSet<Vote> Votes { get; set; }
+        public virtual IDbSet<Tag> Tags { get; set; }
 
         public virtual IDbSet<ApplicationUserRole> UserRoles { get; set; }
 
-        public virtual IDbSet<Order> Orders { get; set; }
-
-        public virtual IDbSet<OrderItem> OrderItems { get; set; }
+        public virtual IDbSet<Vote> Votes { get; set; }
 
         public static JustOrderItDbContext Create()
         {
@@ -109,10 +109,10 @@
                 .WithMany()
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Vote>()
-                .HasRequired(p => p.User)
-                .WithMany()
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<Vote>()
+            //    .HasRequired(p => p.User)
+            //    .WithMany()
+            //    .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Category>()
                 .HasMany<Keyword>(c => c.Keywords)

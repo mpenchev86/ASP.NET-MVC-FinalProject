@@ -18,7 +18,8 @@
     using System.Data.Entity.Validation;
     using Services.Web;
     using Infrastructure.Mapping;
-
+    using Infrastructure.Validators;
+    using ViewModels.Votes;
     [AuthorizeRoles(IdentityRoles.Customer, IdentityRoles.Seller)]
     public class OrdersController : BasePublicController
     {
@@ -160,6 +161,14 @@
             }
 
             var viewModel = this.mappingService.Map<OrderForUserProfile>(order);
+            var user = this.usersService.GetById(order.UserId);
+            var votes = user.Votes.ToList();
+            foreach (var itemProduct in viewModel.OrderItems.Select(oi => oi.Product))
+            {
+                var vote = this.usersService.GetById(order.UserId).Votes.FirstOrDefault(v => v.ProductId == itemProduct.Id);
+                itemProduct.Rating = vote?.VoteValue ?? 0;
+            }
+
             return this.View(viewModel);
         }
 

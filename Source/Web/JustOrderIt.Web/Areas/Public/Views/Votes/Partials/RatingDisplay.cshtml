@@ -1,0 +1,18 @@
+﻿@model double?
+
+@{
+    var maxVote = 5;
+    var identifier = string.Format("igRating-display{0}", ViewData["identifier"] != null ? ViewData["index"].ToString() : string.Empty);
+}
+
+@(Html.Infragistics()
+    .RatingFor(m => m)
+    .ID(identifier)
+    .VoteCount(maxVote)
+    .ValueAsPercent(false)
+    .Disabled(true)
+    .PrecisionZeroVote(0.1)
+    .Precision(RatingPrecision.Exact)
+    .HtmlAttributes(new Dictionary<string, object> { { "title", string.Format("curent rating: {0:0.0}", Model.Value) } })
+    .Render()
+)

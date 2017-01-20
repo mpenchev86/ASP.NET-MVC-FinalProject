@@ -13,4 +13,20 @@
 <hr />
 <div class="row" id="order-totalcost">Total order cost: @string.Format("{0:c}",  Model.TotalCost)</div>
 
+@section Scripts{
+    <script>
+        $(document).ready(function onDocumentReady() {
+            $('.ui-igrating').on('click', function onIgRatingClick() {
+                console.log($(this));
+                $(this).parents('form:first').submit();
+            });
+        });
 
+        function onCastVoteSuccess(e) {
+            console.log($(e));
+            //$('#igRating-editor').on('click', function clickVoteStar() {
+            //    $(this).parents('form:first').submit();
+            //});
+        }
+    </script>    
+}

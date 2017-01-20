@@ -2,9 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Web;
     using AutoMapper;
+    using Common.GlobalConstants;
     using Data.Models.Catalog;
     using Infrastructure.Mapping;
     using Services.Web;
@@ -28,6 +30,10 @@
 
         public string ImageFileExtension { get; set; }
 
+        //[Range(ValidationConstants.VoteValueMin, ValidationConstants.VoteValueMax)]
+        //[UIHint("RatingEditor")]
+        public int Rating { get; set; }
+
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Product, ProductForUserProfileOrder>()
@@ -35,6 +41,7 @@
                             src => src.MainImage != null ? src.MainImage.UrlPath : (src.Images.Any() ? src.Images.FirstOrDefault().UrlPath : "")))
                 .ForMember(dest => dest.ImageFileExtension, opt => opt.MapFrom(
                             src => src.MainImage != null ? src.MainImage.FileExtension : (src.Images.Any() ? src.Images.FirstOrDefault().FileExtension : "")))
+                //.ForMember(dest => dest.Rating, opt => opt.MapFrom(src => src.Votes.FirstOrDefault(v => v.UserId = this.)))
                 ;
         }
     }

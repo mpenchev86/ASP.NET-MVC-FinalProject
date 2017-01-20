@@ -15,14 +15,10 @@
     </tr>
     <tr id="rating">
         <td colspan="2">
-            @*@Html.DisplayFor(m => m.Rating, new { index = "Id" })*@
-            @{Html.RenderAction("EditableRating", "Votes", new VoteEditorModel { ProductId = Model.Id, UserId = this.User.Identity.GetUserId(), VoteValue = Model.Rating });}
+            @{Html.RenderAction("InteractiveProductRating", "Votes", new VoteEditorModel { ProductId = Model.Id, UserId = this.User.Identity.GetUserId(), VoteValue = Model.Rating });}
             <br />
         </td>
     </tr>
-
-    
-    @*@Html.Partial("CastVote", new VoteEditorModel { ProductId = Model.Id, UserId = this.User.Identity.GetUserId(), VoteValue = Model.Rating })*@
     
     <tr id="unit-price">
         <th>@Html.LabelFor(m => m.UnitPrice, "Price")</th>

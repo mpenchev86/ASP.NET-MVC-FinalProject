@@ -446,9 +446,10 @@
     <Content Include="Views\Users\OrderHistory.cshtml" />
     <Content Include="Views\Orders\OrderDetails.cshtml" />
     <Content Include="Views\Orders\DisplayTemplates\OrderItems.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Rating.cshtml" />
-    <Content Include="Views\Votes\Partials\CastVote.cshtml" />
-    <Content Include="Views\Votes\Partials\Rating.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\RatingEditor.cshtml" />
+    <Content Include="Views\Votes\Partials\VoteForProduct.cshtml" />
+    <Content Include="Views\Votes\Partials\RatingDisplay.cshtml" />
+    <Content Include="Views\Shared\VoteForOrderItem.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
