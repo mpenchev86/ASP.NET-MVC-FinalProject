@@ -20,6 +20,7 @@
     using Infrastructure.Mapping;
     using Infrastructure.Validators;
     using ViewModels.Votes;
+
     [AuthorizeRoles(IdentityRoles.Customer, IdentityRoles.Seller)]
     public class OrdersController : BasePublicController
     {
@@ -27,7 +28,6 @@
         private readonly IOrderItemsService orderItemsService;
         private readonly IOrdersService ordersService;
         private readonly IProductsService productsService;
-        private readonly IUsersService usersService;
         private readonly IMappingService mappingService;
 
         public OrdersController(
@@ -35,14 +35,12 @@
             IOrderItemsService orderItemsService,
             IOrdersService ordersService,
             IProductsService productsService,
-            IUsersService usersService,
             IMappingService mappingService)
         {
             this.identifierProvider = identifierProvider;
             this.orderItemsService = orderItemsService;
             this.ordersService = ordersService;
             this.productsService = productsService;
-            this.usersService = usersService;
             this.mappingService = mappingService;
         }
 
@@ -154,18 +152,17 @@
         [HttpGet]
         public ActionResult OrderDetails(Guid refNumber)
         {
-            var order = this.usersService.GetByUserName(this.User.Identity.Name).Orders.FirstOrDefault(o => o.RefNumber == refNumber);
+            var userId = this.User.Identity.GetUserId();
+            var order = this.ordersService.GetAll().FirstOrDefault(o => o.RefNumber == refNumber && o.UserId == userId);
             if (order == null)
             {
                 return this.RedirectToAction("OrderHistory", "Users");
             }
 
             var viewModel = this.mappingService.Map<OrderForUserProfile>(order);
-            var user = this.usersService.GetById(order.UserId);
-            var votes = user.Votes.ToList();
             foreach (var itemProduct in viewModel.OrderItems.Select(oi => oi.Product))
             {
-                var vote = this.usersService.GetById(order.UserId).Votes.FirstOrDefault(v => v.ProductId == itemProduct.Id);
+                var vote = this.productsService.GetById(itemProduct.Id).Votes.FirstOrDefault(v => v.UserId == order.UserId);
                 itemProduct.Rating = vote?.VoteValue ?? 0;
             }
 

@@ -18,18 +18,15 @@
     {
         private readonly IVotesService votesService;
         private readonly IMappingService mappingService;
-        private readonly IProductsService productsService;
         private readonly IUsersService usersService;
 
         public VotesController(
             IVotesService votesService,
             IMappingService mappingService,
-            IProductsService productsService,
             IUsersService usersService)
         {
             this.votesService = votesService;
             this.mappingService = mappingService;
-            this.productsService = productsService;
             this.usersService = usersService;
         }
 
@@ -40,7 +37,7 @@
             if (viewModel != null && !string.IsNullOrWhiteSpace(viewModel.UserId))
             {
                 var user = this.usersService.GetById(viewModel.UserId);
-                // Check if current user has purchased the product to rate it.
+                // Check if current user has purchased the product to be allowed to rate it.
                 if (user != null && user.Orders.SelectMany(o => o.OrderItems).Any(oi => oi.ProductId == viewModel.ProductId))
                 {
                     return this.PartialView("VoteForProduct", viewModel);
@@ -57,7 +54,6 @@
         {
             if (this.ModelState.IsValid && model != null)
             {
-                //var product = this.productsService.GetById(model.ProductId);
                 var vote = this.votesService.GetAll().FirstOrDefault(v => v.UserId == model.UserId && v.ProductId == model.ProductId);
                 if (vote != null)
                 {
@@ -83,21 +79,17 @@
         {
             if (this.ModelState.IsValid && model != null)
             {
-                //foreach (var vote in model)
-                //{
-                //}
-                    var product = this.productsService.GetById(model.ProductId);
-                    var vote = product.Votes.FirstOrDefault(v => v.UserId == model.UserId);
-                    if (vote != null)
-                    {
-                        vote.VoteValue = Convert.ToInt32(model.VoteValue);
-                        this.votesService.Update(vote);
-                    }
-                    else
-                    {
-                        vote = this.mappingService.Map<Vote>(model);
-                        this.votesService.Insert(vote);
-                    }
+                var vote = this.votesService.GetAll().FirstOrDefault(v => v.UserId == model.UserId && v.ProductId == model.ProductId);
+                if (vote != null)
+                {
+                    vote.VoteValue = Convert.ToInt32(model.VoteValue);
+                    this.votesService.Update(vote);
+                }
+                else
+                {
+                    vote = this.mappingService.Map<Vote>(model);
+                    this.votesService.Insert(vote);
+                }
             }
 
             return this.PartialView(model);

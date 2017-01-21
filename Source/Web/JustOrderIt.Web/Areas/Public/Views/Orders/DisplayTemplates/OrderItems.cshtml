@@ -28,7 +28,7 @@
         <div class="col-md-1 orderitem-quantity">
             @Html.DisplayFor(m => Model[i].ProductQuantity)
         </div>
-        <div class="col-md-1 orderitem-vote" id="castvote-div-@(i)">
+        <div class="col-md-1 orderitem-vote">
             @Html.Partial(
                 "VoteForOrderItem",
                 new VoteEditorModel
@@ -37,9 +37,7 @@
                     ProductId = Model[i].ProductId,
                     UserId = this.User.Identity.GetUserId(),
                     VoteValue =  Model[i].Product.Rating
-                }
-                //, new ViewDataDictionary(this.ViewData) { { "identifier", i.ToString() } }
-                )
+                })
         </div>
     </div>
     <br />

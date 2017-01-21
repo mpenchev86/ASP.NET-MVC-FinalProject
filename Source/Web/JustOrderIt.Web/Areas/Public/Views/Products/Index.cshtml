@@ -67,6 +67,8 @@
         });
 
         function onCastVoteSuccess(e) {
+            // Removes previously attached click events on existing ui-rating elements.
+            $('#igRating-editor').off('click');
             $('#igRating-editor').on('click', function clickVoteStar() {
                 $(this).parents('form:first').submit();
             });

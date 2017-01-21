@@ -24,11 +24,8 @@
             });
         });
 
-        //function onCastVoteComplete(e) {
-        //    $('.ui-igrating').off('click');
-        //}
-
         function onCastVoteSuccess(e) {
+            // Removes previously attached click events on existing ui-rating elements.
             $('.ui-igrating').off('click');
             $('.ui-igrating').on('click', function onIgRatingClick() {
                 $(this).parents('form:first').submit();

@@ -29,9 +29,6 @@
                     UserId = userId,
                     VoteValue = voteValue,
                 };
-
-                //// call the default model binder this new binding context
-                //return base.BindModel(controllerContext, newBindingContext);
             }
             else
             {
