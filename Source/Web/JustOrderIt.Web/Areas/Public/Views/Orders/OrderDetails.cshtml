@@ -13,20 +13,26 @@
 <hr />
 <div class="row" id="order-totalcost">Total order cost: @string.Format("{0:c}",  Model.TotalCost)</div>
 
+<img id="ajax-loading-spinner" src="~/Content/Kendo/Silver/loading_2x.gif" style="display: none; text-align: center;" />
+<br />
+
 @section Scripts{
     <script>
         $(document).ready(function onDocumentReady() {
             $('.ui-igrating').on('click', function onIgRatingClick() {
-                console.log($(this));
                 $(this).parents('form:first').submit();
             });
         });
 
+        //function onCastVoteComplete(e) {
+        //    $('.ui-igrating').off('click');
+        //}
+
         function onCastVoteSuccess(e) {
-            console.log($(e));
-            //$('#igRating-editor').on('click', function clickVoteStar() {
-            //    $(this).parents('form:first').submit();
-            //});
+            $('.ui-igrating').off('click');
+            $('.ui-igrating').on('click', function onIgRatingClick() {
+                $(this).parents('form:first').submit();
+            });
         }
     </script>    
 }

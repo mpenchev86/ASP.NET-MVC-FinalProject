@@ -56,7 +56,6 @@
         /// <value>
         /// The user who casted the vote.
         /// </value>
-        //[ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
     }
 }

@@ -33,11 +33,14 @@
                 "VoteForOrderItem",
                 new VoteEditorModel
                 {
+                    Id = i,
                     ProductId = Model[i].ProductId,
                     UserId = this.User.Identity.GetUserId(),
                     VoteValue =  Model[i].Product.Rating
-                },
-                new ViewDataDictionary(this.ViewData) { { "identifier", /*Model[i].ProductId*/i.ToString() } })
+                }
+                //, new ViewDataDictionary(this.ViewData) { { "identifier", i.ToString() } }
+                )
         </div>
     </div>
+    <br />
 }

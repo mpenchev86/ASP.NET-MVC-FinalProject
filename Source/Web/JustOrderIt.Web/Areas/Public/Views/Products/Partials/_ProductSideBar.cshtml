@@ -15,7 +15,7 @@
     </tr>
     <tr id="rating">
         <td colspan="2">
-            @{Html.RenderAction("InteractiveProductRating", "Votes", new VoteEditorModel { ProductId = Model.Id, UserId = this.User.Identity.GetUserId(), VoteValue = Model.Rating });}
+            @{Html.RenderAction("DisplayProductRating", "Votes", new VoteEditorModel { ProductId = Model.Id, UserId = this.User.Identity.GetUserId(), VoteValue = Model.Rating });}
             <br />
         </td>
     </tr>

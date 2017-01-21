@@ -56,7 +56,7 @@
             this.sampleDataGenerator.GenerateTags(context);
             this.sampleDataGenerator.GenerateProducts(context);
             this.sampleDataGenerator.GenerateComments(context);
-            //this.sampleDataGenerator.GenerateVotes(context);
+            this.sampleDataGenerator.GenerateVotes(context);
         }
     }
 }

@@ -3,13 +3,14 @@
 @model VoteEditorModel
 
 @{ 
-    var formId = string.Format("castvote-form-{0}", /*Model.ProductId*/(string)ViewData["identifier"]/*.ToString()*/);
+    var formId = string.Format("castvote-form-{0}", Model.Id/*(string)ViewData["identifier"]*/);
+    //var idto = Model.Id.ToString();
 }
 
 @using (Ajax.BeginForm(
     "VoteForOrderItem",
     "Votes",
-    new { ProductId = Model.ProductId, UserId = Model.UserId },
+    new { /*ProductId = Model.ProductId, UserId = Model.UserId*/ },
     new AjaxOptions()
     {
         HttpMethod = FormMethod.Post.ToString(),
@@ -17,6 +18,7 @@
         UpdateTargetId = formId,
         LoadingElementId = "ajax-loading-spinner",
         OnSuccess = "onCastVoteSuccess",
+        //OnComplete = "onCastVoteComplete"
     },
     new { id = formId }
 ))
@@ -25,19 +27,27 @@
     @Html.ValidationSummary()
 
     <div class="input-group">
-        <button id="submit-vote" type="submit" style="display: none"></button>
-        @*@Html.Hidden(string.Format("[{0}].ProductId", ((string)ViewData["identifier"])), Model.ProductId)*@
+        <button id="submit-vote@(Model.Id@*(string)ViewData["identifier"]*@)" type="submit" style="display: none"></button>
+        
+        @Html.Hidden(string.Format("[{0}].Id", Model.Id), Model.Id)
+
         @*@Html.HiddenFor(m => m.ProductId)*@
+        @*@Html.Hidden(string.Format("[{0}].ProductId", (string)ViewData["identifier"]), Model.ProductId)*@
+        @Html.Hidden(string.Format("[{0}].ProductId", Model.Id), Model.ProductId)
+        
         @*@Html.HiddenFor(m => m.UserId)*@
+        @*@Html.Hidden(string.Format("[{0}].UserId", (string)ViewData["identifier"]), Model.UserId)*@
+        @Html.Hidden(string.Format("[{0}].UserId", Model.Id), Model.UserId)
+        
         @Html.EditorFor(
             m => m.VoteValue,
             //"RatingEditor",
             //string.Format("OrderItems[{0}].UserId", ((string)ViewData["identifier"])),
             new
             {
-                index = Model.ProductId,
-                //inputName = string.Format("OrderItems[{0}].VoteValue", (string)ViewData["identifier"]),
-                inputName = "VoteValue",
+                identifier = Model.Id,
+                //inputName = "VoteValue",
+                inputName = string.Format("OrderDetails.OrderItems[{0}].VoteValue", Model.Id/*(string)ViewData["identifier"]*/),
                 htmlAttributes = new Dictionary<string, object> { { "title", string.Format("curent rating: {0:0.0}", Model.VoteValue) } }
             })
     </div>

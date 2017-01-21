@@ -4,7 +4,7 @@
     var maxVote = 5;
     var htmlAttributes = (Dictionary<string, object>)ViewData["htmlAttributes"] ?? new Dictionary<string, object>();
     var inputName = (string)ViewData["inputName"] ?? "VoteValue";
-    var identifier = string.Format("igRating-editor{0}", ViewData["identifier"] != null ? ViewData["index"].ToString() : string.Empty);
+    var identifier = string.Format("igRating-editor{0}", ViewData["identifier"] != null ? ViewData["identifier"].ToString() : string.Empty);
 }
 
 @(Html.Infragistics()

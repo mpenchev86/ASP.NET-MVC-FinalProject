@@ -109,11 +109,6 @@
                 .WithMany()
                 .WillCascadeOnDelete(false);
 
-            //modelBuilder.Entity<Vote>()
-            //    .HasRequired(p => p.User)
-            //    .WithMany()
-            //    .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<Category>()
                 .HasMany<Keyword>(c => c.Keywords)
                 .WithMany(k => k.Categories)

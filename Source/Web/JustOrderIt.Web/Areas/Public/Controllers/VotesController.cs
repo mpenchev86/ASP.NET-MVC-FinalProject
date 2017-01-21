@@ -12,6 +12,7 @@
     using Services.Data;
     using Services.Web;
     using ViewModels.Votes;
+    using Web.Public;
 
     public class VotesController : BasePublicController
     {
@@ -34,17 +35,19 @@
 
         [HttpGet]
         [ChildActionOnly]
-        public ActionResult InteractiveProductRating(VoteEditorModel viewModel)
+        public ActionResult DisplayProductRating(VoteEditorModel viewModel)
         {
-            var user = this.usersService.GetById(viewModel.UserId);
-
-            // Check if current user has purchased the product to rate it.
-            if (!user.Orders.SelectMany(o => o.OrderItems).Any(oi => oi.ProductId == viewModel.ProductId))
+            if (viewModel != null && !string.IsNullOrWhiteSpace(viewModel.UserId))
             {
-                return this.PartialView("RatingDisplay", viewModel.VoteValue);
+                var user = this.usersService.GetById(viewModel.UserId);
+                // Check if current user has purchased the product to rate it.
+                if (user != null && user.Orders.SelectMany(o => o.OrderItems).Any(oi => oi.ProductId == viewModel.ProductId))
+                {
+                    return this.PartialView("VoteForProduct", viewModel);
+                }
             }
 
-            return this.PartialView("VoteForProduct", viewModel);
+            return this.PartialView("RatingDisplay", viewModel.VoteValue);
         }
 
         [HttpPost]
@@ -76,7 +79,7 @@
         [HttpPost]
         [AjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult VoteForOrderItem(VoteEditorModel model)
+        public ActionResult VoteForOrderItem([ModelBinder(typeof(VoteEditorModelBinder))]VoteEditorModel model)
         {
             if (this.ModelState.IsValid && model != null)
             {
@@ -95,7 +98,6 @@
                         vote = this.mappingService.Map<Vote>(model);
                         this.votesService.Insert(vote);
                     }
-
             }
 
             return this.PartialView(model);
