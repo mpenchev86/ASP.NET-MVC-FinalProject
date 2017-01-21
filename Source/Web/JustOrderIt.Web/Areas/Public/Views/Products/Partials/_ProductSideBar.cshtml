@@ -53,13 +53,7 @@
     </tr>
     <tr id="add-to-cart">
         <th>
-            @using (Html.BeginForm(
-                "AddToCart",
-                "Orders",
-                new { },
-                FormMethod.Post,
-                new { id = "addtocart-form" }
-                ))
+            @using (Html.BeginForm("AddToCart", "Orders", new { }, FormMethod.Post, new { id = "addtocart-form" } ))
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary()

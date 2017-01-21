@@ -30,7 +30,6 @@
         @Html.Hidden(string.Format("OrderItems[{0}].ModelId", Model.Id), Model.Id)
         @Html.Hidden(string.Format("OrderItems[{0}].ProductId", Model.Id), Model.ProductId)
         @Html.Hidden(string.Format("OrderItems[{0}].UserId", Model.Id), Model.UserId)
-        
         @Html.EditorFor(
             m => m.VoteValue,
             new

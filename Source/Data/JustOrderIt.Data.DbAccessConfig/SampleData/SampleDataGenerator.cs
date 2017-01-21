@@ -552,8 +552,8 @@
                     },
                     new SearchFilter
                     {
-                        Name = "Maximum ISO",
-                        DisplayName = "Maximum ISO",
+                        Name = "ISO Maximum",
+                        DisplayName = "ISO Maximum",
                         CategoryId = context.Categories.FirstOrDefault(c => c.Name == "Cameras").Id,
                         Options = "800, 1600, 3200, 6400, 12800, 25600, 51200, 102400, 204800",
                         SelectionType = SearchFilterSelectionType.Multiple,

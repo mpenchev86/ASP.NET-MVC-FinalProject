@@ -73,17 +73,16 @@
         [AjaxOnly]
         public JsonResult SearchAutoComplete(string prefix)
         {
-            var cacheKey = "allCategoriesKeywords";
             var keywords = this.autoUpdateCacheService.Get<List<string>, SearchController>(
-                cacheKey,
+                CacheConstants.AllCategoriesKeywords,
                 () => this.GetKeywords(),
                 CacheConstants.KeywordsForAutoCompleteCacheExpiration,
                 "GetAndCacheKeywords",
-                new object[] { cacheKey },
+                new object[] { CacheConstants.AllCategoriesKeywords },
                 CacheConstants.KeywordsForAutoCompleteUpdateBackgroundJobDelay
                 );
 
-            var results = keywords.Where(kw => kw.StartsWith(prefix.ToLower()));
+            var results = keywords.Where(kw => kw.ToLower().StartsWith(prefix.ToLower())).ToList();
 
             return this.Json(results, JsonRequestBehavior.AllowGet);
         }

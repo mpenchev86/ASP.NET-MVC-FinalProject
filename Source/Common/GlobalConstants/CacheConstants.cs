@@ -24,7 +24,10 @@
         public const int AllProductsInCategoryUpdateBackgroundJobDelay = 11 * 60;
 
         //// Public/SearchController/SearchAutoComplete
-        public const int KeywordsForAutoCompleteCacheExpiration = 5 * 60;
-        public const int KeywordsForAutoCompleteUpdateBackgroundJobDelay = 3 * 60;
+        public const int KeywordsForAutoCompleteCacheExpiration = 15 * 60;
+        public const int KeywordsForAutoCompleteUpdateBackgroundJobDelay = 13 * 60;
+
+        //// Cache keys
+        public const string AllCategoriesKeywords = "allCategoriesKeywords";
     }
 }
