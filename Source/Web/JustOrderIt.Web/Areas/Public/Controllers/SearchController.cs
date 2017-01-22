@@ -70,6 +70,7 @@
             }
         }
 
+        [HttpPost]
         [AjaxOnly]
         public JsonResult SearchAutoComplete(string prefix)
         {

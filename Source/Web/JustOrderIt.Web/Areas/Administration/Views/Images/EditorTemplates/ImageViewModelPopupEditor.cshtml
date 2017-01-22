@@ -1,6 +1,12 @@
-﻿@model JustOrderIt.Web.Areas.Administration.ViewModels.Images.ImageViewModel
+﻿@using JustOrderIt.Web.Areas.Administration.ViewModels.Images
 
-@using (Html.BeginForm())
+@model ImageViewModel
+
+@{
+    var fallbackImgUrl = Url.Content(StaticResourcesUrls.ServerPathAppManagementImages + string.Format(StaticResourcesUrls.ImageNotFoundFileName, StaticResourcesUrls.ImageThumbnailSuffix));
+}
+
+@using (Html.BeginForm("", "", null, FormMethod.Post, new { id = "images-popup-editor" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -12,6 +18,11 @@
             <div class="row">
                 @Html.HiddenFor(m => m.Id)
             </div>
+
+            <div class="row image">
+                <img src="/" />
+            </div>
+            <br />
 
             <div class="row">
                 <div class="editor-label">

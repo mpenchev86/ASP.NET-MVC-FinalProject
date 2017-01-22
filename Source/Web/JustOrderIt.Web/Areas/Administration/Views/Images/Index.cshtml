@@ -55,6 +55,7 @@
             .TemplateName("ImageViewModelPopupEditor")
             ;
     },
+    gridEvents: ev => { ev.Edit("onGridEdit"); },
     htmlAttributes: new { @class = "main-grid" },
     readHandler: "readHandler",
     createHandler: "createHandler",
@@ -112,6 +113,17 @@
         function destroyHandler(data) {
             datetimeHandlers.normalizeDateProperties(data);
             return { "__RequestVerificationToken": $('input[name=__RequestVerificationToken]').val() }
+        }
+
+        function onGridEdit(e) {
+            // Display image in popup editor window or hide img element if image properties are not defined.
+            var img = $('#images-popup-editor img');
+            if (e.model.UrlPath.length != 0) {
+                img.attr('src', "../../Content/Images/" + e.model.UrlPath + '_tmbl' + e.model.FileExtension);
+            }
+            else {
+                img.hide();
+            }
         }
     </script>
 }

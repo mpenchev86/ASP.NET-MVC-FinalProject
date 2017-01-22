@@ -237,7 +237,7 @@
         [HttpGet]
         public JsonResult GetAllTags()
         {
-            var tags = this.tagsService.GetAll().To<TagDetailsForProductViewModel>();
+            var tags = this.tagsService.GetAll().To<TagDetailsForProductViewModel>().OrderBy(t => t.Name).ToList();
             return this.Json(tags, JsonRequestBehavior.AllowGet);
         }
 

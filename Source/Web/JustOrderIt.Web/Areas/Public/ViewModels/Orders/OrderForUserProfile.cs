@@ -17,8 +17,6 @@
             this.orderItems = new List<OrderItemForUserProfile>();
         }
 
-        //public string UserId { get; set; }
-
         public Guid RefNumber { get; set; }
 
         public decimal TotalCost { get; set; }

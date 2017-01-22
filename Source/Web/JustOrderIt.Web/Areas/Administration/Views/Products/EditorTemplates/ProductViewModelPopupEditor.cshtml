@@ -1,7 +1,8 @@
-﻿@using Kendo.Mvc.UI;
-@using Kendo.Mvc.Extensions;
+﻿@using Kendo.Mvc.Extensions;
+@using Kendo.Mvc.UI;
+@using JustOrderIt.Web.Areas.Administration.ViewModels.Products
 
-@model JustOrderIt.Web.Areas.Administration.ViewModels.Products.ProductViewModel
+@model ProductViewModel
 
 @using (Html.BeginForm("Create", "Products", FormMethod.Post, new { id = "product-editor-form", enctype = "multipart/form-data" }))
 {

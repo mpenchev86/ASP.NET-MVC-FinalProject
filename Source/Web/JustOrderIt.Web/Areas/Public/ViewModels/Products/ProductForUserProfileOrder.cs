@@ -30,8 +30,6 @@
 
         public string ImageFileExtension { get; set; }
 
-        //[Range(ValidationConstants.VoteValueMin, ValidationConstants.VoteValueMax)]
-        //[UIHint("RatingEditor")]
         public int Rating { get; set; }
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
@@ -40,9 +38,7 @@
                 .ForMember(dest => dest.ImageUrlPath, opt => opt.MapFrom(
                             src => src.MainImage != null ? src.MainImage.UrlPath : (src.Images.Any() ? src.Images.FirstOrDefault().UrlPath : "")))
                 .ForMember(dest => dest.ImageFileExtension, opt => opt.MapFrom(
-                            src => src.MainImage != null ? src.MainImage.FileExtension : (src.Images.Any() ? src.Images.FirstOrDefault().FileExtension : "")))
-                //.ForMember(dest => dest.Rating, opt => opt.MapFrom(src => src.Votes.FirstOrDefault(v => v.UserId = this.)))
-                ;
+                            src => src.MainImage != null ? src.MainImage.FileExtension : (src.Images.Any() ? src.Images.FirstOrDefault().FileExtension : "")));
         }
     }
 }

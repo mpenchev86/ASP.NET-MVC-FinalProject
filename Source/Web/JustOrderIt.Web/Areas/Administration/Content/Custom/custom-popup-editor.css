@@ -15,6 +15,11 @@
     max-width: none;
 }
 
+    #images-popup-editor div.image {
+        display: flex;
+        justify-content: center;
+    }
+
     /* -------- Editor Lables -------- */
     .k-edit-form-container .editor-label {
         width: 20%;

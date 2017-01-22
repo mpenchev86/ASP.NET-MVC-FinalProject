@@ -2,8 +2,7 @@
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">&times;</button>
-    @Html.ActionLink(Model.Title, "Index", "Products", new { id = Model.EncodedId@*Id*@ }, null)
-    @*<a href="/Public/Products/Index/@(Model.Id)">@Model.Title</a>*@
+    @Html.ActionLink(Model.Title, "Index", "Products", new { id = Model.EncodedId }, null)
 </div>
 <div class="modal-body">
     <div class="row">
@@ -15,7 +14,7 @@
             </p>
         </div>
         <div class="col-md-5">
-            <p>offered by @Html.ActionLink(!string.IsNullOrWhiteSpace(Model.SellerName) ? Model.SellerName : " ", "PublicUserProfile", "Users", new { userName = Model.SellerName }, null)  @*<a href="/Public/Users/UserProfile?userName=@Model.SellerName">@Model.SellerName</a>*@</p>
+            <p>offered by @Html.ActionLink(!string.IsNullOrWhiteSpace(Model.SellerName) ? Model.SellerName : " ", "PublicUserProfile", "Users", new { userName = Model.SellerName }, null)</p>
             <p>@(string.Format("{0:C}", Model.Price))</p>
             
             <button type="button" id="addtocart-button">
