@@ -25,17 +25,15 @@
             @for (int i = 0; i < Model.Count; i++)
             {
                 <div class="item @if(i == 0){ <text>active</text> }">
-                    <span>
-                        <img src="@Url.ProductPicture(Model[i].ImageUrlPath, Model[i].ImageFileExtension, ImageSizes.Thumbnail)" alt="@Model[i].Title" />
-                    </span>
-                    <div class="container">
-                        <div class="carousel-caption">
+                    <div class="row">
+                        <div class="product-image">
+                            <img src="@Url.ProductPicture(Model[i].ImageUrlPath, Model[i].ImageFileExtension, ImageSizes.Thumbnail)" alt="@Model[i].Title" />
+                        </div>
+                        <div class="product-title carousel-caption">
                             <h4>@(Model[i].Title)</h4>
-                            <p>
-                                @Html.ActionLink("See more", "Index", "Products", new { area = Areas.PublicAreaName, id = Model[i].EncodedId }, null)
-                            </p>
                         </div>
                     </div>
+                    @Html.ActionLink(" ", "Index", "Products", new { area = Areas.PublicAreaName, id = Model[i].EncodedId }, null)
                 </div>
             }
         </div>

@@ -7,6 +7,7 @@
     border-width: 2px;
     border-color:  indianred;
     background-color: indianred;
+    z-index: 1000;
 }
 
 #myCarousel > .carousel-indicators > li.active {
@@ -14,11 +15,28 @@
 }
 
 /* ======== Carousel items ======== */
-#myCarousel > .carousel-inner > .item > span {
+#myCarousel .product-image {
     display: inline-block;
 }
 
-#myCarousel > .carousel-inner > .item > span > img {
+#myCarousel .product-image > img {
     height: 200px;
     width: auto;
 }
+
+#myCarousel .product-title h4{
+    color: indianred;
+    text-shadow: none;
+}
+
+#myCarousel .item > a{
+    border: none;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    visibility: visible;
+    width: 100%;
+    z-index: 500;
+}
+
