@@ -19,13 +19,13 @@
 
         public override Keyword GetByEncodedId(string id)
         {
-            var keyword = this.Repository.GetById((int)this.IdentifierProvider.DecodeIdToInt(id));
+            var keyword = this.Repository.GetById((int)this.IdentifierProvider.DecodeToIntId(id));
             return keyword;
         }
 
         public override Keyword GetByEncodedIdFromNotDeleted(string id)
         {
-            var keyword = this.Repository.GetByIdFromNotDeleted((int)this.IdentifierProvider.DecodeIdToInt(id));
+            var keyword = this.Repository.GetByIdFromNotDeleted((int)this.IdentifierProvider.DecodeToIntId(id));
             return keyword;
         }
     }

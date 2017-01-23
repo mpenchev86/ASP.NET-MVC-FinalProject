@@ -181,7 +181,7 @@
                 shoppingCart = new ShoppingCartViewModel() { UserName = userName };
             }
 
-            var decodedId = (int)this.identifierProvider.DecodeIdToInt(productId);
+            var decodedId = (int)this.identifierProvider.DecodeToIntId(productId);
             var cartItem = shoppingCart.CartItems.FirstOrDefault(ci => ci.Product.Id == decodedId);
             if (cartItem != null)
             {

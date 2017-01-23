@@ -20,13 +20,13 @@
 
         public override Category GetByEncodedId(string id)
         {
-            var category = this.Repository.GetById((int)this.IdentifierProvider.DecodeIdToInt(id));
+            var category = this.Repository.GetById((int)this.IdentifierProvider.DecodeToIntId(id));
             return category;
         }
 
         public override Category GetByEncodedIdFromNotDeleted(string id)
         {
-            var category = this.Repository.GetByIdFromNotDeleted((int)this.IdentifierProvider.DecodeIdToInt(id));
+            var category = this.Repository.GetByIdFromNotDeleted((int)this.IdentifierProvider.DecodeToIntId(id));
             return category;
         }
 

@@ -19,13 +19,13 @@
 
         public override SearchFilter GetByEncodedId(string id)
         {
-            var searchFilter = this.Repository.GetById((int)this.IdentifierProvider.DecodeIdToInt(id));
+            var searchFilter = this.Repository.GetById((int)this.IdentifierProvider.DecodeToIntId(id));
             return searchFilter;
         }
 
         public override SearchFilter GetByEncodedIdFromNotDeleted(string id)
         {
-            var searchFilter = this.Repository.GetByIdFromNotDeleted((int)this.IdentifierProvider.DecodeIdToInt(id));
+            var searchFilter = this.Repository.GetByIdFromNotDeleted((int)this.IdentifierProvider.DecodeToIntId(id));
             return searchFilter;
         }
     }

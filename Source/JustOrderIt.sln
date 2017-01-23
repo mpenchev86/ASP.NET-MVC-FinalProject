@@ -37,6 +37,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustOrderIt.Services.Identi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustOrderIt.Services.Logic", "Services\JustOrderIt.Services.Logic\JustOrderIt.Services.Logic.csproj", "{448433B3-4A16-4F53-9BA9-AC2B339B7C10}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustOrderIt.Data.DbAccessConfig.Tests", "Tests\JustOrderIt.Data.DbAccessConfig.Tests\JustOrderIt.Data.DbAccessConfig.Tests.csproj", "{8DFD6B4A-D60A-4CAC-AF25-E1960F705E52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustOrderIt.Services.Web.Tests", "Tests\JustOrderIt.Services.Web.Tests\JustOrderIt.Services.Web.Tests.csproj", "{282C6693-6C41-44A8-B413-9C8DBA25B0DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +95,14 @@ Global
 		{448433B3-4A16-4F53-9BA9-AC2B339B7C10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{448433B3-4A16-4F53-9BA9-AC2B339B7C10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{448433B3-4A16-4F53-9BA9-AC2B339B7C10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DFD6B4A-D60A-4CAC-AF25-E1960F705E52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DFD6B4A-D60A-4CAC-AF25-E1960F705E52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DFD6B4A-D60A-4CAC-AF25-E1960F705E52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DFD6B4A-D60A-4CAC-AF25-E1960F705E52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{282C6693-6C41-44A8-B413-9C8DBA25B0DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{282C6693-6C41-44A8-B413-9C8DBA25B0DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{282C6693-6C41-44A8-B413-9C8DBA25B0DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{282C6693-6C41-44A8-B413-9C8DBA25B0DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -108,5 +120,7 @@ Global
 		{C7CD538C-51A9-40E1-BD56-B2645BCDA430} = {9DC8729B-38F3-4B60-B928-9770099D0C66}
 		{710D2E6C-DECC-4966-9584-E432E0250CD5} = {527A7624-A7AF-40DA-966C-33892DD81D16}
 		{448433B3-4A16-4F53-9BA9-AC2B339B7C10} = {527A7624-A7AF-40DA-966C-33892DD81D16}
+		{8DFD6B4A-D60A-4CAC-AF25-E1960F705E52} = {462F3DD2-6BEA-42B9-95A4-94031690EA48}
+		{282C6693-6C41-44A8-B413-9C8DBA25B0DC} = {462F3DD2-6BEA-42B9-95A4-94031690EA48}
 	EndGlobalSection
 EndGlobal

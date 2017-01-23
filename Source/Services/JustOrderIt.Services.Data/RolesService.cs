@@ -32,14 +32,14 @@
 
         public override ApplicationRole GetByEncodedId(string id)
         {
-            var decodedId = this.IdentifierProvider.DecodeIdToString(id);
+            var decodedId = this.IdentifierProvider.DecodeToStringId(id);
             var role = this.Repository.GetById(decodedId);
             return role;
         }
 
         public override ApplicationRole GetByEncodedIdFromNotDeleted(string id)
         {
-            var decodedId = this.IdentifierProvider.DecodeIdToString(id);
+            var decodedId = this.IdentifierProvider.DecodeToStringId(id);
             var role = this.Repository.GetByIdFromNotDeleted(decodedId);
             return role;
         }

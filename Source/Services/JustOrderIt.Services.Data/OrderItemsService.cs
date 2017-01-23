@@ -18,13 +18,13 @@
 
         public override OrderItem GetByEncodedId(string id)
         {
-            var orderItem = this.Repository.GetById((int)this.IdentifierProvider.DecodeIdToInt(id));
+            var orderItem = this.Repository.GetById((int)this.IdentifierProvider.DecodeToIntId(id));
             return orderItem;
         }
 
         public override OrderItem GetByEncodedIdFromNotDeleted(string id)
         {
-            var orderItem = this.Repository.GetByIdFromNotDeleted((int)this.IdentifierProvider.DecodeIdToInt(id));
+            var orderItem = this.Repository.GetByIdFromNotDeleted((int)this.IdentifierProvider.DecodeToIntId(id));
             return orderItem;
         }
     }

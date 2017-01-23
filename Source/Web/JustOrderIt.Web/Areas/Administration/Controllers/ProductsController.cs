@@ -226,7 +226,7 @@
                     }
                 }
 
-                var imageIdsDecoded = deserializedImages.Select(img => (int)this.identifierProvider.DecodeIdToInt(img.ImageId)).ToList();
+                var imageIdsDecoded = deserializedImages.Select(img => (int)this.identifierProvider.DecodeToIntId(img.ImageId)).ToList();
                 this.imagesService.RemoveImages(imageIdsDecoded);
                 return Json(new { removedImagesIds = imageIdsDecoded }, "text/plain", JsonRequestBehavior.AllowGet);
             }

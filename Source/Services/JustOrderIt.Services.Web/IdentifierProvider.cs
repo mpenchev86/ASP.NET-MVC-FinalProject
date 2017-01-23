@@ -55,12 +55,12 @@
             return Convert.ToBase64String(plainTextBytes);
         }
 
-        public int? DecodeIdToInt(string encodedId)
+        public int? DecodeToIntId(string encodedId)
         {
             return DecodeToIntStatic(encodedId);
         }
 
-        public string DecodeIdToString(string encodedId)
+        public string DecodeToStringId(string encodedId)
         {
             return DecodeIdToStringStatic(encodedId);
         }

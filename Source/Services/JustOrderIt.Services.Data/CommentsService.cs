@@ -20,13 +20,13 @@
 
         public override Comment GetByEncodedId(string id)
         {
-            var comment = this.Repository.GetById((int)this.IdentifierProvider.DecodeIdToInt(id));
+            var comment = this.Repository.GetById((int)this.IdentifierProvider.DecodeToIntId(id));
             return comment;
         }
 
         public override Comment GetByEncodedIdFromNotDeleted(string id)
         {
-            var comment = this.Repository.GetByIdFromNotDeleted((int)this.IdentifierProvider.DecodeIdToInt(id));
+            var comment = this.Repository.GetByIdFromNotDeleted((int)this.IdentifierProvider.DecodeToIntId(id));
             return comment;
         }
     }

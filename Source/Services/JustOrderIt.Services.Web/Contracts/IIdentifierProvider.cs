@@ -8,9 +8,9 @@
 
     public interface IIdentifierProvider
     {
-        int? DecodeIdToInt(string urlId);
+        int? DecodeToIntId(string urlId);
 
-        string DecodeIdToString(string urlId);
+        string DecodeToStringId(string urlId);
 
         string EncodeIntId(int id);
 

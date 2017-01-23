@@ -5,19 +5,29 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using JustOrderIt.Services.Web;
     using NUnit.Framework;
 
     [TestFixture]
     public class IdentifierProviderTests
     {
         [Test]
-        public void EncodingAndDecodingPreserveContent()
+        public void EncodingAndDecodingPreserveOriginalValue()
         {
-            const int Id = 213;
+            // Arrange
+            const int intId = 213;
+            const string stringId = "213";
             IIdentifierProvider provider = new IdentifierProvider();
-            var encoded = provider.EncodeIntId(Id);
-            var actual = provider.DecodeIdToInt(encoded);
-            Assert.AreEqual(Id, actual);
+
+            // Act
+            var encodedIntId = provider.EncodeIntId(intId);
+            var decodedIntId = provider.DecodeToIntId(encodedIntId);
+            var encodedStringId = provider.EncodeStringId(stringId);
+            var decodedStringId = provider.DecodeToStringId(encodedStringId);
+
+            // Assert
+            Assert.AreEqual(decodedIntId, intId);
+            Assert.AreEqual(decodedStringId, stringId);
         }
     }
 }

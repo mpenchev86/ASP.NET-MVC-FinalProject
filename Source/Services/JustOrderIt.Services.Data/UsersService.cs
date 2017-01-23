@@ -37,14 +37,14 @@
 
         public override ApplicationUser GetByEncodedId(string id)
         {
-            var decodedId = this.IdentifierProvider.DecodeIdToString(id);
+            var decodedId = this.IdentifierProvider.DecodeToStringId(id);
             var user = this.Repository.GetById(decodedId);
             return user;
         }
 
         public override ApplicationUser GetByEncodedIdFromNotDeleted(string id)
         {
-            var decodedId = this.IdentifierProvider.DecodeIdToString(id);
+            var decodedId = this.IdentifierProvider.DecodeToStringId(id);
             var user = this.Repository.GetByIdFromNotDeleted(decodedId);
             return user;
         }

@@ -20,13 +20,13 @@
 
         public override Tag GetByEncodedId(string id)
         {
-            var tag = this.Repository.GetById((int)this.IdentifierProvider.DecodeIdToInt(id));
+            var tag = this.Repository.GetById((int)this.IdentifierProvider.DecodeToIntId(id));
             return tag;
         }
 
         public override Tag GetByEncodedIdFromNotDeleted(string id)
         {
-            var tag = this.Repository.GetByIdFromNotDeleted((int)this.IdentifierProvider.DecodeIdToInt(id));
+            var tag = this.Repository.GetByIdFromNotDeleted((int)this.IdentifierProvider.DecodeToIntId(id));
             return tag;
         }
     }

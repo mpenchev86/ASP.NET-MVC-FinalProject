@@ -39,7 +39,7 @@
         [HttpGet]
         public ActionResult Index(string id)
         {
-            var decodedId = this.identifierProvider.DecodeIdToInt(id);
+            var decodedId = this.identifierProvider.DecodeToIntId(id);
             var product = this.productsService.GetById(/*id*/(int)decodedId);
             var viewModel = this.mappingService.Map<Product, ProductFullViewModel>(product);
             viewModel.CommentsWithRatings = this.PopulateCommentAndVote(product.Comments, product.Votes);
@@ -58,7 +58,7 @@
                 return this.Content("This action is accessible only through AJAX calls" + this.Request.AppRelativeCurrentExecutionFilePath);
             }
 
-            var product = this.productsService.GetById((int)this.identifierProvider.DecodeIdToInt(id));
+            var product = this.productsService.GetById((int)this.identifierProvider.DecodeToIntId(id));
             if (product == null)
             {
                 this.Response.StatusCode = (int)HttpStatusCode.NotFound;

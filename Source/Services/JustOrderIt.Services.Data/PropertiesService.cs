@@ -20,13 +20,13 @@
 
         public override Property GetByEncodedId(string id)
         {
-            var property = this.Repository.GetById((int)this.IdentifierProvider.DecodeIdToInt(id));
+            var property = this.Repository.GetById((int)this.IdentifierProvider.DecodeToIntId(id));
             return property;
         }
 
         public override Property GetByEncodedIdFromNotDeleted(string id)
         {
-            var property = this.Repository.GetByIdFromNotDeleted((int)this.IdentifierProvider.DecodeIdToInt(id));
+            var property = this.Repository.GetByIdFromNotDeleted((int)this.IdentifierProvider.DecodeToIntId(id));
             return property;
         }
     }
