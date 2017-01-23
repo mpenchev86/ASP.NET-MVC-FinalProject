@@ -41,6 +41,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustOrderIt.Data.DbAccessCo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustOrderIt.Services.Web.Tests", "Tests\JustOrderIt.Services.Web.Tests\JustOrderIt.Services.Web.Tests.csproj", "{282C6693-6C41-44A8-B413-9C8DBA25B0DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustOrderIt.Web.Public.Tests", "Tests\JustOrderIt.Web.Public.Tests\JustOrderIt.Web.Public.Tests.csproj", "{A4F1977E-BC88-43B8-8784-8A513C338B81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustOrderIt.Web.Administration.Tests", "Tests\JustOrderIt.Web.Administration.Tests\JustOrderIt.Web.Administration.Tests.csproj", "{92D029D5-A36E-4C92-B00E-05745E28F8D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,6 +107,14 @@ Global
 		{282C6693-6C41-44A8-B413-9C8DBA25B0DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{282C6693-6C41-44A8-B413-9C8DBA25B0DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{282C6693-6C41-44A8-B413-9C8DBA25B0DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4F1977E-BC88-43B8-8784-8A513C338B81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4F1977E-BC88-43B8-8784-8A513C338B81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4F1977E-BC88-43B8-8784-8A513C338B81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4F1977E-BC88-43B8-8784-8A513C338B81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92D029D5-A36E-4C92-B00E-05745E28F8D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92D029D5-A36E-4C92-B00E-05745E28F8D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92D029D5-A36E-4C92-B00E-05745E28F8D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92D029D5-A36E-4C92-B00E-05745E28F8D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -122,5 +134,7 @@ Global
 		{448433B3-4A16-4F53-9BA9-AC2B339B7C10} = {527A7624-A7AF-40DA-966C-33892DD81D16}
 		{8DFD6B4A-D60A-4CAC-AF25-E1960F705E52} = {462F3DD2-6BEA-42B9-95A4-94031690EA48}
 		{282C6693-6C41-44A8-B413-9C8DBA25B0DC} = {462F3DD2-6BEA-42B9-95A4-94031690EA48}
+		{A4F1977E-BC88-43B8-8784-8A513C338B81} = {462F3DD2-6BEA-42B9-95A4-94031690EA48}
+		{92D029D5-A36E-4C92-B00E-05745E28F8D6} = {462F3DD2-6BEA-42B9-95A4-94031690EA48}
 	EndGlobalSection
 EndGlobal

@@ -1,4 +1,4 @@
-﻿namespace MvcProject.Services.Web.Tests
+﻿namespace JustOrderIt.Services.Web.Tests
 {
     using System;
     using System.Collections.Generic;
