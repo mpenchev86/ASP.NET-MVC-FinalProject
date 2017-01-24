@@ -10,12 +10,13 @@ before_build:
 build:
   project: Source/JustOrderIt.sln
   verbosity: Normal
-  
-# test_script:
-  # - .\Source\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -output:.\Source_coverage.xml -register:user -target:"Source\packages\NUnit.Console.3.0.1\tools\nunit3-console.exe" -targetargs:"Source\Tests\JustOrderIt.Services.Web.Tests\bin\Debug\JustOrderIt.Web.Controllers.Tests.dll Source\Tests\JustOrderIt.Web.Controllers.Tests\bin\Debug\JustOrderIt.Services.Web.Tests.dll Source\Tests\JustOrderIt.Web.Routes.Tests\bin\Debug\JustOrderIt.Web.Routes.Tests.dll" -returntargetcode -hideskipped:All
+
+test_script:
+  - .\Source\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -output:.\JustOrderIt_coverage.xml -target:"Source\packages\NUnit.ConsoleRunner.3.6.0\tools\nunit3-console.exe" -targetargs:"Source\Tests\JustOrderIt.Services.Web.Tests\bin\Debug\JustOrderIt.Web.Tests.dll Source\Tests\JustOrderIt.Web.Administration.Tests\bin\Debug\JustOrderIt.Web.Administration.Tests.dll Source\Tests\JustOrderIt.Web.Public.Tests\bin\Debug\JustOrderIt.Web.Public.Tests.dll Source\Tests\JustOrderIt.Data.DbAccessConfig.Tests\bin\Debug\JustOrderIt.Data.DbAccessConfig.Tests.dll -noshadow appveyor" -returntargetcode -hideskipped:All
   # - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
-  # - pip install codecov
-  # - codecov -f "Source_coverage.xml"
+  - "SET PATH=C:\\Python\\Python-3.4;C:\\Python\\Python-3.4\\Scripts;%PATH%"
+  - pip install codecov
+  - codecov -f "JustOrderIt_coverage.xml"
   # # - codecov --token=<private repository token>
 # after_test:
   # - bash <(curl -s https://codecov.io/bash) -t c23cbb13-9f85-408f-b66f-0c2ba22ac8ed
