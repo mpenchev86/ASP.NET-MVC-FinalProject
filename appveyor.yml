@@ -3,9 +3,10 @@ os: Visual Studio 2015
 init:
 - git config --global core.autocrlf true
 install:
+- cmd: pip install codecov
 - set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
 before_build:
-- nuget restore Source/JustOrderIt.sln
+- cmd: nuget restore Source/JustOrderIt.sln
 build:
   project: Source/JustOrderIt.sln
   verbosity: Normal
