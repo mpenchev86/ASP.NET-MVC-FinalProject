@@ -61,23 +61,23 @@
             this.productsServiceMock.Setup(x => x.GetAll()).Returns(dbProductsMock as IQueryable<Product>);
 
             this.cacheServiceMock.Setup(x => x
-                .Get("layoutCarouselData"/*It.IsAny<string>()*/,
+                .Get(/*"layoutCarouselData"*/It.IsAny<string>(),
                     It.IsAny<Func<List<CarouselData>>>(),
-                    CacheConstants.CarouselDataCacheExpiration/*It.IsAny<int>()*/))
+                    /*CacheConstants.CarouselDataCacheExpiration*/It.IsAny<int>()))
                 .Returns(carouselData);
             
             // Atc
             var controller = new HomeController(this.productsServiceMock.Object, this.cacheServiceMock.Object, this.categoriesServiceMock.Object);
 
             // Assert
-            //controller.WithCallTo(x => x.Carousel())
-            //    .ShouldRenderPartialView("Carousel")
-            //    .WithModel<List<CarouselData>>(
-            //        vm =>
-            //        {
-            //            Assert.AreEqual(carouselData, vm);
-            //        })
-            //    .AndNoModelErrors();
+            controller.WithCallTo(x => x.Carousel())
+                .ShouldRenderPartialView("Carousel")
+                .WithModel<List<CarouselData>>(
+                    vm =>
+                    {
+                        Assert.AreEqual(carouselData, vm);
+                    })
+                .AndNoModelErrors();
 
             var result = controller.Carousel() as PartialViewResult;
             var model = result.Model as List<CarouselData>;
