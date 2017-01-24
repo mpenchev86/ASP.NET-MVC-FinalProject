@@ -71,9 +71,9 @@
             this.productsServiceMock.Setup(x => x.GetAll()).Returns(/*It.IsAny<IQueryable<Product>>()*/ dbProductsMock as IQueryable<Product>);
 
             this.cacheServiceMock.Setup(x => x
-                .Get/*<List<CarouselData>>*/(/*"layoutCarouselData"*/It.IsAny<string>(),
+                .Get/*<List<CarouselData>>*/("layoutCarouselData"/*It.IsAny<string>()*/,
                 /*this.GetCarouselData()*/It.IsAny<Func<List<CarouselData>>>(),
-                /*CacheConstants.CarouselDataCacheExpiration)*/It.IsAny<int>()))
+                CacheConstants.CarouselDataCacheExpiration/*It.IsAny<int>()*/))
                 .Returns(carouselData);
             
             // Atc
