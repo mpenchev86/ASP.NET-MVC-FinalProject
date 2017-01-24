@@ -17,7 +17,7 @@
     using Data.Models.Catalog;
     using Areas.Public.ViewModels.Products;
     using Common.GlobalConstants;
-
+    using Infrastructure.Extensions;
     [TestFixture]
     public class HomeControllerTests
     {
@@ -56,15 +56,7 @@
                 new Product() { Id = 5, Title = "jhsgdf", CategoryId = 2, QuantityInStock = 312, UnitPrice = 64.8m, SellerId = "jvui89u893fnh89hn49uj", CreatedOn = DateTime.Now },
             };
 
-            //var carouselData = dbProductsMock.AsQueryable().To<CarouselData>().ToList();
-            var carouselData = new List<CarouselData>()
-            {
-                new CarouselData() { Id = 1, Title = "jhsgdf" },
-                new CarouselData() { Id = 2, Title = "jhsgdf" },
-                new CarouselData() { Id = 3, Title = "jhsgdf" },
-                new CarouselData() { Id = 4, Title = "jhsgdf" },
-                new CarouselData() { Id = 5, Title = "jhsgdf" },
-            };
+            var carouselData = dbProductsMock.AsQueryable().To<CarouselData>().ToList();
 
             this.productsServiceMock.Setup(x => x.GetAll()).Returns(dbProductsMock as IQueryable<Product>);
 
