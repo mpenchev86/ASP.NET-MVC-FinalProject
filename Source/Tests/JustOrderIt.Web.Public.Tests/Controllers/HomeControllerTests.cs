@@ -38,6 +38,7 @@
             // Assert
             controller.WithCallTo(x => x.Index())
                 .ShouldRenderView("Index");
+
             var result = controller.Index() as ViewResult;
             Assert.IsNotNull(result);
         }
@@ -61,9 +62,7 @@
             this.productsServiceMock.Setup(x => x.GetAll()).Returns(dbProductsMock as IQueryable<Product>);
 
             this.cacheServiceMock.Setup(x => x
-                .Get(/*"layoutCarouselData"*/It.IsAny<string>(),
-                    It.IsAny<Func<List<CarouselData>>>(),
-                    /*CacheConstants.CarouselDataCacheExpiration*/It.IsAny<int>()))
+                .Get(It.IsAny<string>(), It.IsAny<Func<List<CarouselData>>>(), It.IsAny<int>()))
                 .Returns(carouselData);
             
             // Atc
@@ -75,6 +74,8 @@
                 .WithModel<List<CarouselData>>(
                     vm =>
                     {
+                        CollectionAssert.AllItemsAreUnique(vm);
+                        CollectionAssert.AreEquivalent(carouselData, vm);
                         Assert.AreEqual(carouselData, vm);
                     })
                 .AndNoModelErrors();
