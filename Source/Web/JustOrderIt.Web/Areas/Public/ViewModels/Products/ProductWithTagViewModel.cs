@@ -11,18 +11,12 @@
     using Images;
     using Infrastructure.Mapping;
 
-    public class ProductWithTagViewModel : BasePublicViewModel<int>, IMapFrom<Product>, IHaveCustomMappings
+    public class ProductWithTagViewModel : BasePublicViewModel<int>, IMapFrom<Product>
     {
         public string Title { get; set; }
 
         public decimal UnitPrice { get; set; }
 
         public ImageForThumbnailProductViewModel MainImage { get; set; }
-
-        public void CreateMappings(IMapperConfigurationExpression configuration)
-        {
-            configuration.CreateMap<Product, ProductWithTagViewModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
-        }
     }
 }

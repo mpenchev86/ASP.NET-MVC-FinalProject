@@ -23,19 +23,6 @@
 
         public SearchFilterOptionsType OptionsType { get; set; }
 
-        //public SearchFilterSelectionType SelectionType { get; set; }
-
-        //public string Options { get; set; }
-
-        //public List<string> OptionsSplit
-        //{
-        //    get
-        //    {
-        //        var values = SearchFilterHelpers.GetSearchOptionsLabels(this.Options, this.OptionsType, this.MeasureUnit);
-        //        return values;
-        //    }
-        //}
-
         public string MeasureUnit { get; set; }
 
         public List<RefinementOption> RefinementOptions

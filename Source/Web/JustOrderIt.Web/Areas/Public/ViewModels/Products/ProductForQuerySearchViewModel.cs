@@ -41,15 +41,13 @@
                 .ForMember(dest => dest.ImageUrlPath, opt => opt.MapFrom(
                             src => src.MainImage != null ? src.MainImage.UrlPath : (src.Images.Any() ? src.Images.FirstOrDefault().UrlPath : "")))
                 .ForMember(dest => dest.ImageFileExtension, opt => opt.MapFrom(
-                            src => src.MainImage != null ? src.MainImage.FileExtension : (src.Images.Any() ? src.Images.FirstOrDefault().FileExtension : "")))
-                ;
+                            src => src.MainImage != null ? src.MainImage.FileExtension : (src.Images.Any() ? src.Images.FirstOrDefault().FileExtension : "")));
 
             configuration.CreateMap<ProductCacheViewModel, ProductForQuerySearchViewModel>()
                 .ForMember(dest => dest.ImageUrlPath, opt => opt.MapFrom(
                             src => src.MainImage != null ? src.MainImage.UrlPath : (src.Images.Any() ? src.Images.FirstOrDefault().UrlPath : "")))
                 .ForMember(dest => dest.ImageFileExtension, opt => opt.MapFrom(
-                            src => src.MainImage != null ? src.MainImage.FileExtension : (src.Images.Any() ? src.Images.FirstOrDefault().FileExtension : "")))
-                ;
+                            src => src.MainImage != null ? src.MainImage.FileExtension : (src.Images.Any() ? src.Images.FirstOrDefault().FileExtension : "")));
         }
     }
 }

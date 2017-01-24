@@ -17,8 +17,6 @@
 
         public int DescriptionId { get; set; }
 
-        //public virtual Description Description { get; set; }
-
         public int? SearchFilterId { get; set; }
 
         public SearchFilterCacheViewModel SearchFilter { get; set; }

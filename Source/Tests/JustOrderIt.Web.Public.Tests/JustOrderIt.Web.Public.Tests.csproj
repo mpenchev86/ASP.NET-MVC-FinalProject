@@ -94,6 +94,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\GlobalConstants\JustOrderIt.Common.GlobalConstants.csproj">
+      <Project>{5f2803a7-770d-4509-8d69-cfbf4d6dc772}</Project>
+      <Name>JustOrderIt.Common.GlobalConstants</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\JustOrderIt.Data.DbAccessConfig\JustOrderIt.Data.DbAccessConfig.csproj">
+      <Project>{37ead08e-a644-4438-b913-1329c8cb3899}</Project>
+      <Name>JustOrderIt.Data.DbAccessConfig</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\JustOrderIt.Data.Models\JustOrderIt.Data.Models.csproj">
+      <Project>{f3dfda1d-99d1-46ad-9cfa-a0b9aa7a750c}</Project>
+      <Name>JustOrderIt.Data.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Services\JustOrderIt.Services.Data\JustOrderIt.Services.Data.csproj">
       <Project>{037141CA-82DB-4C81-9BA1-4D02EF877B65}</Project>
       <Name>JustOrderIt.Services.Data</Name>

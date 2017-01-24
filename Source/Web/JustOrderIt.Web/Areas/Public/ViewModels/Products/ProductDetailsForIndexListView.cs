@@ -48,7 +48,6 @@
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Product, ProductDetailsForIndexListView>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.ImageUrlPath, opt => opt.MapFrom(
                             src => src.MainImage != null ? src.MainImage.UrlPath : (src.Images.Any() ? src.Images.FirstOrDefault().UrlPath : "")))
                 .ForMember(dest => dest.ImageFileExtension, opt => opt.MapFrom(

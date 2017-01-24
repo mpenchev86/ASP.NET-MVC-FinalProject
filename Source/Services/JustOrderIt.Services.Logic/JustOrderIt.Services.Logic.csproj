@@ -51,12 +51,12 @@
   <ItemGroup>
     <Compile Include="Contracts\IFileSystemService.cs" />
     <Compile Include="Contracts\IImageProcessorService.cs" />
-    <Compile Include="Contracts\ISearchFilterHelpers.cs" />
+    <Compile Include="Contracts\ISearchStringHelpers.cs" />
     <Compile Include="FileSystemService.cs" />
     <Compile Include="ImageProcessorService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SearchFilterHelpers.cs" />
-    <Compile Include="SearchRefinementHelpers.cs" />
+    <Compile Include="SearchStringHelpers.cs" />
+    <Compile Include="SearchRefinementWorkers.cs" />
     <Compile Include="ServiceModels\DescriptionFilterModel.cs" />
     <Compile Include="ServiceModels\ISearchFilterRefinementModel.cs" />
     <Compile Include="ServiceModels\SearchFilterRefinementModel.cs" />

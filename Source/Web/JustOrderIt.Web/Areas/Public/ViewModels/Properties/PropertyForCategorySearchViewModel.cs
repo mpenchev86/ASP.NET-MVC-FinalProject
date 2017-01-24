@@ -9,14 +9,10 @@
     using Data.Models.Catalog;
     using Infrastructure.Mapping;
 
-    public class PropertyForCategorySearchViewModel : BasePublicViewModel<int>, IMapFrom<Property>, IHaveCustomMappings
+    public class PropertyForCategorySearchViewModel : BasePublicViewModel<int>, IMapFrom<Property>, IMapFrom<PropertyCacheViewModel>
     {
         public string Name { get; set; }
 
         public string Value { get; set; }
-
-        public void CreateMappings(IMapperConfigurationExpression configuration)
-        {
-        }
     }
 }

@@ -11,7 +11,7 @@
     using Infrastructure.Mapping;
     using Properties;
 
-    public class DescriptionForCategorySearchViewModel : BasePublicViewModel<int>, IMapFrom<Description>, IMapFrom<DescriptionCacheViewModel>, IHaveCustomMappings
+    public class DescriptionForCategorySearchViewModel : BasePublicViewModel<int>, IMapFrom<Description>, IMapFrom<DescriptionCacheViewModel>
     {
         private ICollection<PropertyForCategorySearchViewModel> properties;
 
@@ -28,27 +28,6 @@
         {
             get { return this.properties; }
             set { this.properties = value; }
-        }
-
-        public void CreateMappings(IMapperConfigurationExpression configuration)
-        {
-            configuration.CreateMap<Description, DescriptionForCategorySearchViewModel>()
-                .ForMember(dest => dest.Properties, opt => opt.MapFrom(
-                            src => src.Properties.Select(p => new PropertyForCategorySearchViewModel
-                            {
-                                Id = p.Id,
-                                Name = p.Name,
-                                Value = p.Value
-                            })));
-
-            configuration.CreateMap<DescriptionCacheViewModel, DescriptionForCategorySearchViewModel>()
-                .ForMember(dest => dest.Properties, opt => opt.MapFrom(
-                            src => src.Properties.Select(p => new PropertyForCategorySearchViewModel
-                            {
-                                Id = p.Id,
-                                Name = p.Name,
-                                Value = p.Value
-                            })));
         }
     }
 }

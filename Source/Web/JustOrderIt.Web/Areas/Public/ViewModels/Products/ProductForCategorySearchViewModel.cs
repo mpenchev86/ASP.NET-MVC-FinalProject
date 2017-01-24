@@ -55,8 +55,7 @@
                 .ForMember(dest => dest.ImageFileExtension, opt => opt.MapFrom(
                             src => src.MainImage != null ? src.MainImage.FileExtension : (src.Images.Any() ? src.Images.FirstOrDefault().FileExtension : "")))
                 .ForMember(dest => dest.AllTimeAverageRating, opt => opt.MapFrom(
-                            src => src.Votes.Any() ? (double?)src.Votes.Average(v => v.VoteValue) : null))
-                ;
+                            src => src.Votes.Any() ? (double?)src.Votes.Average(v => v.VoteValue) : null));
 
             configuration.CreateMap<ProductCacheViewModel, ProductForCategorySearchViewModel>()
                 .ForMember(dest => dest.ImageUrlPath, opt => opt.MapFrom(
@@ -64,8 +63,7 @@
                 .ForMember(dest => dest.ImageFileExtension, opt => opt.MapFrom(
                             src => src.MainImage != null ? src.MainImage.FileExtension : (src.Images.Any() ? src.Images.FirstOrDefault().FileExtension : "")))
                 .ForMember(dest => dest.AllTimeAverageRating, opt => opt.MapFrom(
-                            src => src.Votes.Any() ? (double?)src.Votes.Average(v => v.VoteValue) : null))
-                ;
+                            src => src.Votes.Any() ? (double?)src.Votes.Average(v => v.VoteValue) : null));
         }
     }
 }

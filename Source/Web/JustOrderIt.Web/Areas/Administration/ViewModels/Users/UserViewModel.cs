@@ -15,7 +15,7 @@
     using Roles;
     using Votes;
 
-    public class UserViewModel : BaseAdminViewModel<string>, IMapFrom<ApplicationUser>, IHaveCustomMappings
+    public class UserViewModel : BaseAdminViewModel<string>, IMapFrom<ApplicationUser>
     {
         private ICollection<RoleDetailsForUserViewModel> roles;
         private ICollection<CommentDetailsForUserViewModel> comments;
@@ -140,16 +140,5 @@
 
         [LongDateTimeFormat]
         public DateTime? DeletedOn { get; set; }
-
-        public void CreateMappings(IMapperConfigurationExpression configuration)
-        {
-            configuration.CreateMap<ApplicationUser, UserViewModel>()
-                .ForMember(dest => dest.Roles, opt => opt.MapFrom(
-                            src => src.Roles.Select(c => new RoleDetailsForUserViewModel
-                            {
-                                Id = c.RoleId,
-                                Name = c.RoleName
-                            })));
-        }
     }
 }

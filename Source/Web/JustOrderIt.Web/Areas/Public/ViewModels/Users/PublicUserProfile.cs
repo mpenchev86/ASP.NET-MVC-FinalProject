@@ -11,14 +11,8 @@
     using Infrastructure.Mapping;
     using Orders;
 
-    public class PublicUserProfile : BasePublicViewModel<string>, IMapFrom<ApplicationUser>, IHaveCustomMappings
+    public class PublicUserProfile : BasePublicViewModel<string>, IMapFrom<ApplicationUser>
     {
         public string UserName { get; set; }
-
-        public void CreateMappings(IMapperConfigurationExpression configuration)
-        {
-            configuration.CreateMap<ApplicationUser, PublicUserProfile>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
-        }
     }
 }

@@ -11,12 +11,11 @@
     using Data.Models.Search;
     using ServiceModels;
 
-    public static class SearchRefinementHelpers
+    public static class SearchRefinementWorkers
     {
         public static IEnumerable<TProduct> FilterProductsByRefinementOptions<TProduct>(
             this IEnumerable<TProduct> products,
-            IEnumerable<SearchFilterRefinementModel> searchFilters
-            )
+            IEnumerable<SearchFilterRefinementModel> searchFilters)
             where TProduct : class, IProductFilteringModel
         {
             var result = products;
@@ -45,8 +44,7 @@
 
         private static bool PassesFilter<TProduct>(
             TProduct product,
-            SearchFilterRefinementModel searchFilter
-            )
+            SearchFilterRefinementModel searchFilter)
             where TProduct : class, IProductFilteringModel
         {
             var refinementOptions = searchFilter.RefinementOptions;

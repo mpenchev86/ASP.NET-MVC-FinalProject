@@ -7,7 +7,7 @@
     using System.Threading.Tasks;
     using Data.Models;
 
-    public interface ISearchFilterHelpers
+    public interface ISearchStringHelpers
     {
     }
 }

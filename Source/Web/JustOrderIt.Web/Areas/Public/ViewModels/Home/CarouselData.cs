@@ -26,7 +26,6 @@
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Product, CarouselData>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.ImageUrlPath, opt => opt.MapFrom(
                             src => src.MainImage != null ? src.MainImage.UrlPath : string.Empty))
                 .ForMember(dest => dest.ImageFileExtension, opt => opt.MapFrom(

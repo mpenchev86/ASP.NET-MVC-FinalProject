@@ -14,17 +14,10 @@
 
     public class SearchFilterForCategoryViewModel : BasePublicViewModel<int>, IMapFrom<SearchFilter>, IMapTo<SearchFilterRefinementModel>/*, ISearchFilter*/, IHaveCustomMappings
     {
-        //private ISearchFilterHelpers productSearchAlgorithms;
         private List<SearchFilterOptionViewModel> refinementOptions;
 
-        //public SearchFilterForCategoryViewModel()
-        //    : this(new SearchFilterHelpers())
-        //{
-        //}
-
-        public SearchFilterForCategoryViewModel(/*ISearchFilterHelpers productSearchAlgorithms*/)
+        public SearchFilterForCategoryViewModel()
         {
-            //this.productSearchAlgorithms = productSearchAlgorithms;
             this.refinementOptions = new List<SearchFilterOptionViewModel>();
         }
 
@@ -50,7 +43,7 @@
         {
             get
             {
-                var values = SearchFilterHelpers.GetSearchOptionsLabels(this.Options, this.OptionsType, this.MeasureUnit);
+                var values = SearchStringHelpers.GetSearchOptionsLabels(this.Options, this.OptionsType, this.MeasureUnit);
                 return values;
             }
         }
@@ -69,17 +62,17 @@
         {
             configuration.CreateMap<SearchFilter, SearchFilterForCategoryViewModel>()
                 .ForMember(dest => dest.RefinementOptions, opt => opt.MapFrom(
-                            src => SearchFilterHelpers.GetSearchOptionsLabels(src.Options, src.OptionsType, src.MeasureUnit)
-                                      .Select(option => new SearchFilterOptionViewModel
-                                      {
-                                          Value = option,
-                                          Checked = false,
-                                          SearchFilterId = src.Id,
-                                          OptionsType = src.OptionsType,
-                                          SelectionType = src.SelectionType
-                                      })
-                                      .ToList()
-                                      ));
+                            src => SearchStringHelpers
+                                .GetSearchOptionsLabels(src.Options, src.OptionsType, src.MeasureUnit)
+                                .Select(option => new SearchFilterOptionViewModel
+                                {
+                                    Value = option,
+                                    Checked = false,
+                                    SearchFilterId = src.Id,
+                                    OptionsType = src.OptionsType,
+                                    SelectionType = src.SelectionType
+                                })
+                                .ToList()));
         }
     }
 }

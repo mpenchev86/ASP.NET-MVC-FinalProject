@@ -7,7 +7,7 @@
     decimal? lowerBound;
     decimal? upperBound;
 
-    SearchRefinementHelpers.ExtractBoundaries(Model, out lowerBound, out upperBound);
+    SearchRefinementWorkers.ExtractBoundaries(Model, out lowerBound, out upperBound);
 
     if (lowerBound != null && upperBound != null)
     {

@@ -13,7 +13,7 @@
     using Users;
     using ViewModels;
 
-    public class RoleViewModel : BaseAdminViewModel<string>, IMapFrom<ApplicationRole>, IHaveCustomMappings
+    public class RoleViewModel : BaseAdminViewModel<string>, IMapFrom<ApplicationRole>
     {
         private ICollection<UserDetailsForRoleViewModel> users;
 
@@ -36,17 +36,6 @@
         {
             get { return this.users; }
             set { this.users = value; }
-        }
-
-        public void CreateMappings(IMapperConfigurationExpression configuration)
-        {
-            configuration.CreateMap<ApplicationRole, RoleViewModel>()
-                .ForMember(dest => dest.Users, opt => opt.MapFrom(
-                            src => src.Users.Select(user => new UserDetailsForRoleViewModel
-                            {
-                                Id = user.UserId,
-                                UserName = user.UserName
-                            })));
         }
     }
 }

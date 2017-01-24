@@ -8,7 +8,7 @@
     using Data.Models;
     using Data.Models.Search;
 
-    public class SearchFilterHelpers : ISearchFilterHelpers
+    public class SearchStringHelpers : ISearchStringHelpers
     {
         private static List<string> SplitOptionsString(string optionsString)
         {
@@ -58,7 +58,7 @@
                 var result = new List<string>();
                 for (int i = 0; i < options.Count(); i++)
                 {
-                    result.Add(options[i] /*+ " "*/ + measureUnit);
+                    result.Add(options[i] + measureUnit);
                 }
 
                 return result;

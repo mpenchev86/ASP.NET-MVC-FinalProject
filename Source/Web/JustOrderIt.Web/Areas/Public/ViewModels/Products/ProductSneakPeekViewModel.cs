@@ -42,22 +42,13 @@
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Product, ProductSneakPeekViewModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.SellerName, opt => opt.MapFrom(src => src.Seller.UserName))
+                .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.UnitPrice))
                 .ForMember(dest => dest.Rating, opt => opt.MapFrom(
                             src => src.Votes.Any() ? (double?)src.Votes.Average(v => v.VoteValue) : null
                             ))
-                .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.UnitPrice))
                 .ForMember(dest => dest.MainImage, opt => opt.MapFrom(
-                            src => src.MainImage ?? src.Images.FirstOrDefault()))
-                .ForMember(dest => dest.Images, opt => opt.MapFrom(
-                            src => src.Images.Select(img => new ImageForProductSneakPeekViewModel
-                            {
-                                OriginalFileName = img.OriginalFileName,
-                                UrlPath = img.UrlPath,
-                                FileExtension = img.FileExtension
-                            })))
-                ;
+                            src => src.MainImage ?? src.Images.FirstOrDefault()));
         }
     }
 }
