@@ -58,15 +58,15 @@
                 new Product() { Id = 5, Title = "jhsgdf", CategoryId = 2, QuantityInStock = 312, UnitPrice = 64.8m, SellerId = "jvui89u893fnh89hn49uj", CreatedOn = DateTime.Now },
             };
 
-            var carouselData = dbProductsMock.AsQueryable().To<CarouselData>().ToList();
-            //var carouselData = new List<CarouselData>()
-            //{
-            //    new CarouselData() { Id = 1, Title = "jhsgdf" },
-            //    new CarouselData() { Id = 2, Title = "jhsgdf" },
-            //    new CarouselData() { Id = 3, Title = "jhsgdf" },
-            //    new CarouselData() { Id = 4, Title = "jhsgdf" },
-            //    new CarouselData() { Id = 5, Title = "jhsgdf" },
-            //};
+            //var carouselData = dbProductsMock.AsQueryable().To<CarouselData>().ToList();
+            var carouselData = new List<CarouselData>()
+            {
+                new CarouselData() { Id = 1, Title = "jhsgdf" },
+                new CarouselData() { Id = 2, Title = "jhsgdf" },
+                new CarouselData() { Id = 3, Title = "jhsgdf" },
+                new CarouselData() { Id = 4, Title = "jhsgdf" },
+                new CarouselData() { Id = 5, Title = "jhsgdf" },
+            };
 
             this.productsServiceMock.Setup(x => x.GetAll()).Returns(/*It.IsAny<IQueryable<Product>>()*/ dbProductsMock as IQueryable<Product>);
 
@@ -74,9 +74,7 @@
                 .Get/*<List<CarouselData>>*/(/*"layoutCarouselData"*/It.IsAny<string>(),
                 /*this.GetCarouselData()*/It.IsAny<Func<List<CarouselData>>>(),
                 /*CacheConstants.CarouselDataCacheExpiration)*/It.IsAny<int>()))
-                .Returns(/*dbProductsMock.AsQueryable().To<CarouselData>().ToList()*/
-                    carouselData
-                    );
+                .Returns(carouselData);
             
             // Atc
             var controller = new HomeController(this.productsServiceMock.Object, this.cacheServiceMock.Object, this.categoriesServiceMock.Object);
