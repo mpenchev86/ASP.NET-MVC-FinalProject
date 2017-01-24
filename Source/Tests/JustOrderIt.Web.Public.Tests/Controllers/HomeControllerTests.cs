@@ -11,13 +11,11 @@
     using Infrastructure.Mapping;
     using Areas.Public.Controllers;
     using Moq;
-    using Moq.Language.Flow;
     using Services.Data;
     using Services.Web.CacheServices;
     using TestStack.FluentMVCTesting;
     using Data.Models.Catalog;
     using Areas.Public.ViewModels.Products;
-    using Infrastructure.Extensions;
     using Common.GlobalConstants;
 
     [TestFixture]
@@ -68,12 +66,12 @@
                 new CarouselData() { Id = 5, Title = "jhsgdf" },
             };
 
-            this.productsServiceMock.Setup(x => x.GetAll()).Returns(/*It.IsAny<IQueryable<Product>>()*/ dbProductsMock as IQueryable<Product>);
+            this.productsServiceMock.Setup(x => x.GetAll()).Returns(dbProductsMock as IQueryable<Product>);
 
             this.cacheServiceMock.Setup(x => x
-                .Get/*<List<CarouselData>>*/("layoutCarouselData"/*It.IsAny<string>()*/,
-                /*this.GetCarouselData()*/It.IsAny<Func<List<CarouselData>>>(),
-                CacheConstants.CarouselDataCacheExpiration/*It.IsAny<int>()*/))
+                .Get("layoutCarouselData"/*It.IsAny<string>()*/,
+                    It.IsAny<Func<List<CarouselData>>>(),
+                    CacheConstants.CarouselDataCacheExpiration/*It.IsAny<int>()*/))
                 .Returns(carouselData);
             
             // Atc
@@ -95,16 +93,6 @@
         }
 
         #region Helpers
-        private Func<List<CarouselData>> GetCarouselData()
-        {
-            return () => this.productsServiceMock.Object
-                    .GetAll()
-                    .OrderByDescending(p => p.CreatedOn)
-                    .Take(5)
-                    .To<CarouselData>()
-                    .ToList();
-        }
-
         private void PrepareController()
         {
             this.autoMapperConfig = new AutoMapperConfig();
