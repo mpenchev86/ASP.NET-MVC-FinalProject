@@ -69,7 +69,7 @@
             var controller = new HomeController(this.productsServiceMock.Object, this.cacheServiceMock.Object, this.categoriesServiceMock.Object);
 
             // Assert
-            controller.WithCallTo(x => x.Carousel())
+            controller.WithCallToChild(x => x.Carousel())
                 .ShouldRenderPartialView("Carousel")
                 .WithModel<List<CarouselData>>(
                     vm =>
