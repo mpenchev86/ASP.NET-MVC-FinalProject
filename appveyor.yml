@@ -12,7 +12,7 @@ build:
   verbosity: Normal
   
 test_script:
-  - .\Source\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -output:.\JustOrderIt_coverage.xml -target:"Source\packages\NUnit.ConsoleRunner.3.6.0\tools\nunit3-console.exe" -targetargs:"Source\Tests\JustOrderIt.Services.Web.Tests\bin\Debug\JustOrderIt.Web.Tests.dll Source\Tests\JustOrderIt.Web.Administration.Tests\bin\Debug\JustOrderIt.Web.Administration.Tests.dll Source\Tests\JustOrderIt.Web.Public.Tests\bin\Debug\JustOrderIt.Web.Public.Tests.dll Source\Tests\JustOrderIt.Data.DbAccessConfig.Tests\bin\Debug\JustOrderIt.Data.DbAccessConfig.Tests.dll -noshadow -appveyor" -returntargetcode -hideskipped:All
+  - .\Source\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -output:.\JustOrderIt_coverage.xml -target:"Source\packages\NUnit.ConsoleRunner.3.6.0\tools\nunit3-console.exe" -targetargs:"Source\Tests\JustOrderIt.Services.Web.Tests\bin\Debug\JustOrderIt.Web.Tests.dll Source\Tests\JustOrderIt.Web.Administration.Tests\bin\Debug\JustOrderIt.Web.Administration.Tests.dll Source\Tests\JustOrderIt.Web.Public.Tests\bin\Debug\JustOrderIt.Web.Public.Tests.dll Source\Tests\JustOrderIt.Data.DbAccessConfig.Tests\bin\Debug\JustOrderIt.Data.DbAccessConfig.Tests.dll" -returntargetcode -hideskipped:All
   # - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
   - "SET PATH=C:\\Python\\Python-3.4;C:\\Python\\Python-3.4\\Scripts;%PATH%"
   - pip install codecov
