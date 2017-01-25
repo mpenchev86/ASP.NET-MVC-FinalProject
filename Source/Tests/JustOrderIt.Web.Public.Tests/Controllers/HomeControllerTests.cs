@@ -77,9 +77,9 @@
                 .WithModel<List<CarouselData>>(
                     vm =>
                     {
-                        //CollectionAssert.AllItemsAreUnique(vm);
+                        CollectionAssert.AllItemsAreUnique(vm);
                         CollectionAssert.AreEquivalent(carouselData, vm);
-                        //Assert.AreEqual(carouselData, vm);
+                        Assert.AreEqual(carouselData, vm);
                     })
                 .AndNoModelErrors();
 
