@@ -132,20 +132,29 @@
         {
             // Arrange
             this.PrepareController();
+            var categories = new List<Category>()
+            {
+                new Category() { Id = 1, Name = "bcjhgwuheufhm" },
+                new Category() { Id = 2, Name = "bcjhgwuheufhm" },
+                new Category() { Id = 3, Name = "bcjhgwuheufhm" },
+            };
+
+            var layoutCategories = categories.AsQueryable().To<CategoryForLayoutDropDown>();
+
+            var selectList = layoutCategories.Select(c => new SelectListItem() { Text = c.Name, Value = c.Id.ToString() });
+
+            this.cacheServiceMock.Setup(x => x
+                .Get(It.IsAny<string>(), It.IsAny<Func<List<CategoryForLayoutDropDown>>>(), It.IsAny<int>()))
+                .Returns(layoutCategories.ToList());
+
+            this.categoriesServiceMock.Setup(x => x.GetAll()).Returns(categories as IQueryable<Category>);
 
             // Atc
             var controller = new HomeController(productsServiceMock.Object, cacheServiceMock.Object, categoriesServiceMock.Object);
-            var selectList = new List<SelectListItem>()
-            {
-                new SelectListItem() { Text = "ifhksbf", Value = "12" },
-                new SelectListItem() { Text = "ifhksbf", Value = "12" },
-                new SelectListItem() { Text = "ifhksbf", Value = "12" },
-                new SelectListItem() { Text = "ifhksbf", Value = "12" },
-            };
 
-            controller.ViewData = new ViewDataDictionary();
-            string viewDataKey = "khusf";
-            controller.NavLowerMiddle().ViewData[viewDataKey] = selectList.AsEnumerable()/*.Add(new KeyValuePair<string, object>("categories", selectList.AsEnumerable()))*/;
+            //controller.ViewData = new ViewDataDictionary();
+            //string viewDataKey = "categories";
+            //controller/*.NavLowerMiddle()*/.ViewData[viewDataKey] = selectList.AsEnumerable()/*.Add(new KeyValuePair<string, object>("categories", selectList.AsEnumerable()))*/;
 
             controller.WithCallToChild(x => x.NavLowerMiddle())
                 .ShouldRenderDefaultPartialView()
@@ -160,7 +169,7 @@
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Model);
             Assert.IsInstanceOf<SearchViewModel>(result.Model);
-            Assert.IsNotNull(result.ViewData[viewDataKey] as IEnumerable<SelectListItem>);
+            //Assert.IsNotNull(result.ViewData[viewDataKey] as IEnumerable<SelectListItem>);
         }
 
         #region Helpers
