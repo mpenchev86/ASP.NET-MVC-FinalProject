@@ -174,6 +174,70 @@
             Assert.AreEqual(result.JsonRequestBehavior, JsonRequestBehavior.AllowGet);
         }
 
+        [Test]
+        public void ReadBestSellingProductsReturnsCorrectData()
+        {
+            // Arrange
+            this.PrepareController();
+            var request = new DataSourceRequest();
+            var mockDbData = this.GetMockDbProducts();
+            this.productsServiceMock.Setup(x => x.GetAll()).Returns(mockDbData as IQueryable<Product>);
+
+            var cachedData = mockDbData.AsQueryable().To<ProductDetailsForIndexListView>().ToList();
+            this.cacheServiceMock.Setup(x => x
+                .Get(It.IsAny<string>(), It.IsAny<Func<List<ProductDetailsForIndexListView>>>(), It.IsAny<int>()))
+                .Returns(cachedData);
+
+            // Act
+            var controller = new HomeController(productsServiceMock.Object, cacheServiceMock.Object, categoriesServiceMock.Object);
+
+            // Assert
+            controller.WithCallTo(x => x.ReadNewestProducts(request))
+                .ShouldReturnJson(
+                data =>
+                {
+                    Assert.IsNotNull(data);
+                    Assert.IsInstanceOf<DataSourceResult>(data);
+                    CollectionAssert.AllItemsAreInstancesOfType((data as DataSourceResult).Data, typeof(ProductDetailsForIndexListView));
+                }
+                );
+
+            var result = controller.ReadNewestProducts(request);
+            Assert.AreEqual(result.JsonRequestBehavior, JsonRequestBehavior.AllowGet);
+        }
+
+        [Test]
+        public void ReadHighestVotedProductsReturnsCorrectData()
+        {
+            // Arrange
+            this.PrepareController();
+            var request = new DataSourceRequest();
+            var mockDbData = this.GetMockDbProducts();
+            this.productsServiceMock.Setup(x => x.GetAll()).Returns(mockDbData as IQueryable<Product>);
+
+            var cachedData = mockDbData.AsQueryable().To<ProductDetailsForIndexListView>().ToList();
+            this.cacheServiceMock.Setup(x => x
+                .Get(It.IsAny<string>(), It.IsAny<Func<List<ProductDetailsForIndexListView>>>(), It.IsAny<int>()))
+                .Returns(cachedData);
+
+            // Act
+            var controller = new HomeController(productsServiceMock.Object, cacheServiceMock.Object, categoriesServiceMock.Object);
+
+            // Assert
+            controller.WithCallTo(x => x.ReadNewestProducts(request))
+                .ShouldReturnJson(
+                data =>
+                {
+                    Assert.IsNotNull(data);
+                    Assert.IsInstanceOf<DataSourceResult>(data);
+                    CollectionAssert.AllItemsAreInstancesOfType((data as DataSourceResult).Data, typeof(ProductDetailsForIndexListView));
+                }
+                );
+
+            var result = controller.ReadNewestProducts(request);
+            Assert.AreEqual(result.JsonRequestBehavior, JsonRequestBehavior.AllowGet);
+        }
+
         #region Helpers
         private void PrepareController()
         {

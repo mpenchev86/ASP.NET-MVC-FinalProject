@@ -16,7 +16,7 @@
     using ViewModels.Categories;
     using System.Web.Caching;
     using ViewModels.Search;
-
+    using System.Diagnostics.CodeAnalysis;
     public class HomeController : BasePublicController
     {
         private readonly ICacheService cacheService;
@@ -116,34 +116,40 @@
             return this.Json(viewModel.ToDataSourceResult(request, this.ModelState), JsonRequestBehavior.AllowGet);
         }
 
+        [ExcludeFromCodeCoverage]
         public ActionResult About()
         {
-            return this.PartialView("UnderConstruction", null);
+            return this.View("UnderConstruction", null);
         }
 
+        [ExcludeFromCodeCoverage]
         public ActionResult DeliveryInfo()
         {
-            return this.PartialView("UnderConstruction", null);
+            return this.View("UnderConstruction", null);
         }
 
+        [ExcludeFromCodeCoverage]
         public ActionResult ReturnPolicy()
         {
-            return this.PartialView("UnderConstruction", null);
+            return this.View("UnderConstruction", null);
         }
 
+        [ExcludeFromCodeCoverage]
         public ActionResult JobOpennings()
         {
-            return this.PartialView("UnderConstruction", null);
+            return this.View("UnderConstruction", null);
         }
 
+        [ExcludeFromCodeCoverage]
         public ActionResult Contacts()
         {
-            return this.PartialView("UnderConstruction", null);
+            return this.View("UnderConstruction", null);
         }
 
+        [ExcludeFromCodeCoverage]
         public ActionResult Help()
         {
-            return this.PartialView("UnderConstruction", null);
+            return this.View("UnderConstruction", null);
         }
 
         #region Helpers

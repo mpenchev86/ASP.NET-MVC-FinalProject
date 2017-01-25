@@ -15,7 +15,8 @@ test_script:
   # - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
   - "SET PATH=C:\\Python\\Python-3.4;C:\\Python\\Python-3.4\\Scripts;%PATH%"
   - pip install codecov
-  - codecov -f "JustOrderIt_coverage.xml" -X gcov
+  - codecov -f "JustOrderIt_coverage.xml"
+#  -X gcov
   # - codecov --token=<private repository token>
 
 # preserve "packages" directory in the root of build folder but will reset it if packages.config is modified
