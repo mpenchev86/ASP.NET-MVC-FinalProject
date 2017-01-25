@@ -18,6 +18,9 @@
     using Areas.Public.ViewModels.Products;
     using Common.GlobalConstants;
     using Infrastructure.Extensions;
+    using Areas.Public.ViewModels.Categories;
+    using Areas.Public.ViewModels.Search;
+
     [TestFixture]
     public class HomeControllerTests
     {
@@ -37,7 +40,7 @@
 
             // Assert
             controller.WithCallTo(x => x.Index())
-                .ShouldRenderView("Index");
+                .ShouldRenderDefaultView();
 
             var result = controller.Index() as ViewResult;
             Assert.IsNotNull(result);
@@ -70,7 +73,7 @@
 
             // Assert
             controller.WithCallToChild(x => x.Carousel())
-                .ShouldRenderPartialView("Carousel")
+                .ShouldRenderDefaultPartialView()
                 .WithModel<List<CarouselData>>(
                     vm =>
                     {
@@ -83,6 +86,81 @@
             var result = controller.Carousel() as PartialViewResult;
             var model = result.Model as List<CarouselData>;
             Assert.IsNotNull(result);
+        }
+
+        [Test]
+        public void NavLowerLeftShouldWorkCorrectly()
+        {
+            // Arrange
+            this.PrepareController();
+            var categories = new List<Category>()
+            {
+                new Category() { Id = 1, Name = "bcjhgwuheufhm" },
+                new Category() { Id = 2, Name = "bcjhgwuheufhm" },
+                new Category() { Id = 3, Name = "bcjhgwuheufhm" },
+            };
+
+            var layoutCategories = categories.AsQueryable().To<CategoryForLayoutDropDown>();
+
+            this.cacheServiceMock.Setup(x => x
+                .Get(It.IsAny<string>(), It.IsAny<Func<List<CategoryForLayoutDropDown>>>(), It.IsAny<int>()))
+                .Returns(layoutCategories.ToList());
+
+            this.categoriesServiceMock.Setup(x => x.GetAll()).Returns(categories as IQueryable<Category>);
+
+            // Atc
+            var controller = new HomeController(productsServiceMock.Object, cacheServiceMock.Object, categoriesServiceMock.Object);
+
+            // Assert
+            controller.WithCallToChild(x => x.NavLowerLeft())
+                .ShouldRenderDefaultPartialView()
+                //.WithModel<List<CategoryForLayoutDropDown>>(vm => 
+                //{
+                //    Assert.AreEqual(categories, vm);
+                //    //CollectionAssert.AllItemsAreInstancesOfType(categories, typeof(CategoryForLayoutDropDown));
+                //})
+                //.AndNoModelErrors()
+                ;
+
+            var result = controller.NavLowerLeft() as PartialViewResult;
+            var model = result.Model as List<CategoryForLayoutDropDown>;
+            Assert.IsNotNull(result);
+        }
+
+        [Test]
+        public void NavLowerMiddleShouldWorkCorrectly()
+        {
+            // Arrange
+            this.PrepareController();
+
+            // Atc
+            var controller = new HomeController(productsServiceMock.Object, cacheServiceMock.Object, categoriesServiceMock.Object);
+            var selectList = new List<SelectListItem>()
+            {
+                new SelectListItem() { Text = "ifhksbf", Value = "12" },
+                new SelectListItem() { Text = "ifhksbf", Value = "12" },
+                new SelectListItem() { Text = "ifhksbf", Value = "12" },
+                new SelectListItem() { Text = "ifhksbf", Value = "12" },
+            };
+
+            controller.ViewData = new ViewDataDictionary();
+            string viewDataKey = "khusf";
+            controller.NavLowerMiddle().ViewData[viewDataKey] = selectList.AsEnumerable()/*.Add(new KeyValuePair<string, object>("categories", selectList.AsEnumerable()))*/;
+
+            controller.WithCallToChild(x => x.NavLowerMiddle())
+                .ShouldRenderDefaultPartialView()
+                .WithModel<SearchViewModel>(vm => 
+                {
+                    Assert.IsInstanceOf<SearchViewModel>(vm);
+                })
+                .AndNoModelErrors();
+
+            var result = controller.NavLowerMiddle() /*as PartialViewResult*/;
+            var model = result.Model /*as SearchViewModel*/;
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Model);
+            Assert.IsInstanceOf<SearchViewModel>(result.Model);
+            Assert.IsNotNull(result.ViewData[viewDataKey] as IEnumerable<SelectListItem>);
         }
 
         #region Helpers

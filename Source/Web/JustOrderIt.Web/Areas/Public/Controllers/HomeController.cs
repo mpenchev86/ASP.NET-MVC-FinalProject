@@ -54,15 +54,17 @@
             return PartialView(viewModel);
         }
 
+        [ChildActionOnly]
         public PartialViewResult NavLowerLeft()
         {
             var categories = this.GetCategories();
             return this.PartialView(categories);
         }
 
+        [ChildActionOnly]
         public PartialViewResult NavLowerMiddle()
         {
-            this.ViewData["categories"] = this.GetCategories().Select(c => new SelectListItem() { Text = c.Name, Value = c.Id.ToString() });
+            //this.ViewData["categories"] = this.GetCategories().Select(c => new SelectListItem() { Text = c.Name, Value = c.Id.ToString() });
             return this.PartialView(new SearchViewModel());
         }
 
