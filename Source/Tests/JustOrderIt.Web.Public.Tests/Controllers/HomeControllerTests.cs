@@ -20,6 +20,7 @@
     using Infrastructure.Extensions;
     using Areas.Public.ViewModels.Categories;
     using Areas.Public.ViewModels.Search;
+    using Kendo.Mvc.UI;
 
     [TestFixture]
     public class HomeControllerTests
@@ -51,22 +52,13 @@
         {
             // Arrange
             this.PrepareController();
-            var dbProductsMock = new List<Product>()
-            {
-                new Product() { Id = 1, Title = "jhsgdf", CategoryId = 2, QuantityInStock = 312, UnitPrice = 64.8m, SellerId = "jvui89u893fnh89hn49uj", CreatedOn = DateTime.Now },
-                new Product() { Id = 2, Title = "jhsgdf", CategoryId = 2, QuantityInStock = 312, UnitPrice = 64.8m, SellerId = "jvui89u893fnh89hn49uj", CreatedOn = DateTime.Now },
-                new Product() { Id = 3, Title = "jhsgdf", CategoryId = 2, QuantityInStock = 312, UnitPrice = 64.8m, SellerId = "jvui89u893fnh89hn49uj", CreatedOn = DateTime.Now },
-                new Product() { Id = 4, Title = "jhsgdf", CategoryId = 2, QuantityInStock = 312, UnitPrice = 64.8m, SellerId = "jvui89u893fnh89hn49uj", CreatedOn = DateTime.Now },
-                new Product() { Id = 5, Title = "jhsgdf", CategoryId = 2, QuantityInStock = 312, UnitPrice = 64.8m, SellerId = "jvui89u893fnh89hn49uj", CreatedOn = DateTime.Now },
-            };
+            var mockDbData = this.GetMockDbProducts();
+            this.productsServiceMock.Setup(x => x.GetAll()).Returns(mockDbData as IQueryable<Product>);
 
-            var carouselData = dbProductsMock.AsQueryable().To<CarouselData>().ToList();
-
-            this.productsServiceMock.Setup(x => x.GetAll()).Returns(dbProductsMock as IQueryable<Product>);
-
+            var cachedData = mockDbData.AsQueryable().To<CarouselData>().ToList();
             this.cacheServiceMock.Setup(x => x
                 .Get(It.IsAny<string>(), It.IsAny<Func<List<CarouselData>>>(), It.IsAny<int>()))
-                .Returns(carouselData);
+                .Returns(cachedData);
             
             // Atc
             var controller = new HomeController(this.productsServiceMock.Object, this.cacheServiceMock.Object, this.categoriesServiceMock.Object);
@@ -78,8 +70,8 @@
                     vm =>
                     {
                         CollectionAssert.AllItemsAreUnique(vm);
-                        CollectionAssert.AreEquivalent(carouselData, vm);
-                        Assert.AreEqual(carouselData, vm);
+                        CollectionAssert.AreEquivalent(cachedData, vm);
+                        Assert.AreEqual(cachedData, vm);
                     })
                 .AndNoModelErrors();
 
@@ -93,20 +85,13 @@
         {
             // Arrange
             this.PrepareController();
-            var categories = new List<Category>()
-            {
-                new Category() { Id = 1, Name = "bcjhgwuheufhm" },
-                new Category() { Id = 2, Name = "bcjhgwuheufhm" },
-                new Category() { Id = 3, Name = "bcjhgwuheufhm" },
-            };
+            var mockDbData = this.GetMockDbCategories();
+            this.categoriesServiceMock.Setup(x => x.GetAll()).Returns(mockDbData as IQueryable<Category>);
 
-            var layoutCategories = categories.AsQueryable().To<CategoryForLayoutDropDown>().ToList();
-
+            var cachedData = mockDbData.AsQueryable().To<CategoryForLayoutDropDown>().ToList();
             this.cacheServiceMock.Setup(x => x
                 .Get(It.IsAny<string>(), It.IsAny<Func<List<CategoryForLayoutDropDown>>>(), It.IsAny<int>()))
-                .Returns(layoutCategories);
-
-            this.categoriesServiceMock.Setup(x => x.GetAll()).Returns(categories as IQueryable<Category>);
+                .Returns(cachedData);
 
             // Atc
             var controller = new HomeController(productsServiceMock.Object, cacheServiceMock.Object, categoriesServiceMock.Object);
@@ -116,7 +101,7 @@
                 .ShouldRenderDefaultPartialView()
                 .WithModel<List<CategoryForLayoutDropDown>>(vm =>
                 {
-                    CollectionAssert.AreEquivalent(layoutCategories, vm);
+                    CollectionAssert.AreEquivalent(cachedData, vm);
                 })
                 .AndNoModelErrors();
 
@@ -131,20 +116,13 @@
         {
             // Arrange
             this.PrepareController();
-            var categories = new List<Category>()
-            {
-                new Category() { Id = 1, Name = "bcjhgwuheufhm" },
-                new Category() { Id = 2, Name = "bcjhgwuheufhm" },
-                new Category() { Id = 3, Name = "bcjhgwuheufhm" },
-            };
+            var mockDbData = GetMockDbCategories();
+            this.categoriesServiceMock.Setup(x => x.GetAll()).Returns(mockDbData as IQueryable<Category>);
 
-            var layoutCategories = categories.AsQueryable().To<CategoryForLayoutDropDown>();
-
+            var cachedData = mockDbData.AsQueryable().To<CategoryForLayoutDropDown>();
             this.cacheServiceMock.Setup(x => x
                 .Get(It.IsAny<string>(), It.IsAny<Func<List<CategoryForLayoutDropDown>>>(), It.IsAny<int>()))
-                .Returns(layoutCategories.ToList());
-
-            this.categoriesServiceMock.Setup(x => x.GetAll()).Returns(categories as IQueryable<Category>);
+                .Returns(cachedData.ToList());
 
             // Atc
             var controller = new HomeController(productsServiceMock.Object, cacheServiceMock.Object, categoriesServiceMock.Object);
@@ -164,6 +142,38 @@
             Assert.IsInstanceOf<SearchViewModel>(result.Model);
         }
 
+        [Test]
+        public void ReadNewestProductsReturnsCorrectData()
+        {
+            // Arrange
+            this.PrepareController();
+            var request = new DataSourceRequest();
+            var mockDbData = this.GetMockDbProducts();
+            this.productsServiceMock.Setup(x => x.GetAll()).Returns(mockDbData as IQueryable<Product>);
+
+            var cachedData = mockDbData.AsQueryable().To<ProductDetailsForIndexListView>().ToList();
+            this.cacheServiceMock.Setup(x => x
+                .Get(It.IsAny<string>(), It.IsAny<Func<List<ProductDetailsForIndexListView>>>(), It.IsAny<int>()))
+                .Returns(cachedData);
+
+            // Act
+            var controller = new HomeController(productsServiceMock.Object, cacheServiceMock.Object, categoriesServiceMock.Object);
+
+            // Assert
+            controller.WithCallTo(x => x.ReadNewestProducts(request))
+                .ShouldReturnJson(
+                data =>
+                {
+                    Assert.IsNotNull(data);
+                    Assert.IsInstanceOf<DataSourceResult>(data);
+                    CollectionAssert.AllItemsAreInstancesOfType((data as DataSourceResult).Data, typeof(ProductDetailsForIndexListView));
+                }
+                );
+
+            var result = controller.ReadNewestProducts(request);
+            Assert.AreEqual(result.JsonRequestBehavior, JsonRequestBehavior.AllowGet);
+        }
+
         #region Helpers
         private void PrepareController()
         {
@@ -172,6 +182,28 @@
             this.productsServiceMock = new Mock<IProductsService>();
             this.cacheServiceMock = new Mock<ICacheService>();
             this.categoriesServiceMock = new Mock<ICategoriesService>();
+        }
+
+        private List<Product> GetMockDbProducts()
+        {
+            return new List<Product>()
+            {
+                new Product() { Id = 1, Title = "jhsgdf", CategoryId = 2, QuantityInStock = 312, UnitPrice = 64.8m, SellerId = "jvui89u893fnh89hn49uj", CreatedOn = DateTime.Now },
+                new Product() { Id = 2, Title = "jhsgdf", CategoryId = 2, QuantityInStock = 312, UnitPrice = 64.8m, SellerId = "jvui89u893fnh89hn49uj", CreatedOn = DateTime.Now },
+                new Product() { Id = 3, Title = "jhsgdf", CategoryId = 2, QuantityInStock = 312, UnitPrice = 64.8m, SellerId = "jvui89u893fnh89hn49uj", CreatedOn = DateTime.Now },
+                new Product() { Id = 4, Title = "jhsgdf", CategoryId = 2, QuantityInStock = 312, UnitPrice = 64.8m, SellerId = "jvui89u893fnh89hn49uj", CreatedOn = DateTime.Now },
+                new Product() { Id = 5, Title = "jhsgdf", CategoryId = 2, QuantityInStock = 312, UnitPrice = 64.8m, SellerId = "jvui89u893fnh89hn49uj", CreatedOn = DateTime.Now },
+            };
+        }
+
+        private List<Category> GetMockDbCategories()
+        {
+            return new List<Category>()
+            {
+                new Category() { Id = 1, Name = "bcjhgwuheufhm" },
+                new Category() { Id = 2, Name = "bcjhgwuheufhm" },
+                new Category() { Id = 3, Name = "bcjhgwuheufhm" },
+            };
         }
         #endregion
     }
