@@ -182,7 +182,7 @@
             var request = new DataSourceRequest();
             var mockDbData = this.GetMockDbProducts();
             this.productsServiceMock.Setup(x => x.GetAll()).Returns(mockDbData as IQueryable<Product>);
-
+            
             var cachedData = mockDbData.AsQueryable().To<ProductDetailsForIndexListView>().ToList();
             this.cacheServiceMock.Setup(x => x
                 .Get(It.IsAny<string>(), It.IsAny<Func<List<ProductDetailsForIndexListView>>>(), It.IsAny<int>()))
@@ -192,7 +192,7 @@
             var controller = new HomeController(productsServiceMock.Object, cacheServiceMock.Object, categoriesServiceMock.Object);
 
             // Assert
-            controller.WithCallTo(x => x.ReadNewestProducts(request))
+            controller.WithCallTo(x => x.ReadBestSellingProducts(request))
                 .ShouldReturnJson(
                 data =>
                 {
@@ -202,7 +202,7 @@
                 }
                 );
 
-            var result = controller.ReadNewestProducts(request);
+            var result = controller.ReadBestSellingProducts(request);
             Assert.AreEqual(result.JsonRequestBehavior, JsonRequestBehavior.AllowGet);
         }
 
@@ -224,7 +224,7 @@
             var controller = new HomeController(productsServiceMock.Object, cacheServiceMock.Object, categoriesServiceMock.Object);
 
             // Assert
-            controller.WithCallTo(x => x.ReadNewestProducts(request))
+            controller.WithCallTo(x => x.ReadHighestVotedProducts(request))
                 .ShouldReturnJson(
                 data =>
                 {
@@ -234,7 +234,7 @@
                 }
                 );
 
-            var result = controller.ReadNewestProducts(request);
+            var result = controller.ReadHighestVotedProducts(request);
             Assert.AreEqual(result.JsonRequestBehavior, JsonRequestBehavior.AllowGet);
         }
 
@@ -252,11 +252,11 @@
         {
             return new List<Product>()
             {
-                new Product() { Id = 1, Title = "jhsgdf", CategoryId = 2, QuantityInStock = 312, UnitPrice = 64.8m, SellerId = "jvui89u893fnh89hn49uj", CreatedOn = DateTime.Now },
-                new Product() { Id = 2, Title = "jhsgdf", CategoryId = 2, QuantityInStock = 312, UnitPrice = 64.8m, SellerId = "jvui89u893fnh89hn49uj", CreatedOn = DateTime.Now },
-                new Product() { Id = 3, Title = "jhsgdf", CategoryId = 2, QuantityInStock = 312, UnitPrice = 64.8m, SellerId = "jvui89u893fnh89hn49uj", CreatedOn = DateTime.Now },
-                new Product() { Id = 4, Title = "jhsgdf", CategoryId = 2, QuantityInStock = 312, UnitPrice = 64.8m, SellerId = "jvui89u893fnh89hn49uj", CreatedOn = DateTime.Now },
-                new Product() { Id = 5, Title = "jhsgdf", CategoryId = 2, QuantityInStock = 312, UnitPrice = 64.8m, SellerId = "jvui89u893fnh89hn49uj", CreatedOn = DateTime.Now },
+                new Product() { Id = 1, Title = "jhsgdf", CategoryId = 2, QuantityInStock = 312, UnitPrice = 64.8m, SellerId = "jvui89u893fnh89hn49uj", Votes = new List<Vote>() { new Vote { VoteValue = 1 } }, CreatedOn = DateTime.Now, AllTimeItemsSold = 76, },
+                new Product() { Id = 2, Title = "jhsgdf", CategoryId = 2, QuantityInStock = 312, UnitPrice = 64.8m, SellerId = "jvui89u893fnh89hn49uj", Votes = new List<Vote>() { new Vote { VoteValue = 3 } }, CreatedOn = DateTime.Now, AllTimeItemsSold = 523, },
+                new Product() { Id = 3, Title = "jhsgdf", CategoryId = 2, QuantityInStock = 312, UnitPrice = 64.8m, SellerId = "jvui89u893fnh89hn49uj", Votes = new List<Vote>() { new Vote { VoteValue = 2 } }, CreatedOn = DateTime.Now, AllTimeItemsSold = 5,},
+                new Product() { Id = 4, Title = "jhsgdf", CategoryId = 2, QuantityInStock = 312, UnitPrice = 64.8m, SellerId = "jvui89u893fnh89hn49uj", Votes = new List<Vote>() { new Vote { VoteValue = 5 } }, CreatedOn = DateTime.Now, AllTimeItemsSold = 322, },
+                new Product() { Id = 5, Title = "jhsgdf", CategoryId = 2, QuantityInStock = 312, UnitPrice = 64.8m, SellerId = "jvui89u893fnh89hn49uj", Votes = new List<Vote>() { new Vote { VoteValue = 2 } }, CreatedOn = DateTime.Now, AllTimeItemsSold = 43, },
             };
         }
 
