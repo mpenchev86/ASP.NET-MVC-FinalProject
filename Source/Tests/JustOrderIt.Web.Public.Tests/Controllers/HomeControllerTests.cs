@@ -30,14 +30,19 @@
         private Mock<ICacheService> cacheServiceMock;
         private Mock<ICategoriesService> categoriesServiceMock;
 
+        public HomeControllerTests()
+        {
+            this.PrepareController();
+        }
+
         [Test]
         public void IndexShouldWorkCorrectly()
         {
             // Arrange
-            this.PrepareController();
+            //this.PrepareController();
 
             // Atc
-            var controller = new HomeController(productsServiceMock.Object, cacheServiceMock.Object, categoriesServiceMock.Object);
+            var controller = new HomeController(this.productsServiceMock.Object, this.cacheServiceMock.Object, this.categoriesServiceMock.Object);
 
             // Assert
             controller.WithCallTo(x => x.Index())
@@ -51,7 +56,7 @@
         public void CarouselShouldWorkCorrectly()
         {
             // Arrange
-            this.PrepareController();
+            //this.PrepareController();
             var mockDbData = this.GetMockDbProducts();
             this.productsServiceMock.Setup(x => x.GetAll()).Returns(mockDbData as IQueryable<Product>);
 
@@ -84,7 +89,7 @@
         public void NavLowerLeftShouldWorkCorrectly()
         {
             // Arrange
-            this.PrepareController();
+            //this.PrepareController();
             var mockDbData = this.GetMockDbCategories();
             this.categoriesServiceMock.Setup(x => x.GetAll()).Returns(mockDbData as IQueryable<Category>);
 
@@ -94,7 +99,7 @@
                 .Returns(cachedData);
 
             // Atc
-            var controller = new HomeController(productsServiceMock.Object, cacheServiceMock.Object, categoriesServiceMock.Object);
+            var controller = new HomeController(this.productsServiceMock.Object, this.cacheServiceMock.Object, this.categoriesServiceMock.Object);
 
             // Assert
             controller.WithCallToChild(x => x.NavLowerLeft())
@@ -115,7 +120,7 @@
         public void NavLowerMiddleShouldWorkCorrectly()
         {
             // Arrange
-            this.PrepareController();
+            //this.PrepareController();
             var mockDbData = GetMockDbCategories();
             this.categoriesServiceMock.Setup(x => x.GetAll()).Returns(mockDbData as IQueryable<Category>);
 
@@ -125,7 +130,7 @@
                 .Returns(cachedData.ToList());
 
             // Atc
-            var controller = new HomeController(productsServiceMock.Object, cacheServiceMock.Object, categoriesServiceMock.Object);
+            var controller = new HomeController(this.productsServiceMock.Object, this.cacheServiceMock.Object, this.categoriesServiceMock.Object);
 
             // Assert
             controller.WithCallToChild(x => x.NavLowerMiddle())
@@ -146,7 +151,7 @@
         public void ReadNewestProductsReturnsCorrectData()
         {
             // Arrange
-            this.PrepareController();
+            //this.PrepareController();
             var request = new DataSourceRequest();
             var mockDbData = this.GetMockDbProducts();
             this.productsServiceMock.Setup(x => x.GetAll()).Returns(mockDbData as IQueryable<Product>);
@@ -157,7 +162,7 @@
                 .Returns(cachedData);
 
             // Act
-            var controller = new HomeController(productsServiceMock.Object, cacheServiceMock.Object, categoriesServiceMock.Object);
+            var controller = new HomeController(this.productsServiceMock.Object, this.cacheServiceMock.Object, this.categoriesServiceMock.Object);
 
             // Assert
             controller.WithCallTo(x => x.ReadNewestProducts(request))
@@ -178,7 +183,7 @@
         public void ReadBestSellingProductsReturnsCorrectData()
         {
             // Arrange
-            this.PrepareController();
+            //this.PrepareController();
             var request = new DataSourceRequest();
             var mockDbData = this.GetMockDbProducts();
             this.productsServiceMock.Setup(x => x.GetAll()).Returns(mockDbData as IQueryable<Product>);
@@ -189,7 +194,7 @@
                 .Returns(cachedData);
 
             // Act
-            var controller = new HomeController(productsServiceMock.Object, cacheServiceMock.Object, categoriesServiceMock.Object);
+            var controller = new HomeController(this.productsServiceMock.Object, this.cacheServiceMock.Object, this.categoriesServiceMock.Object);
 
             // Assert
             controller.WithCallTo(x => x.ReadBestSellingProducts(request))
@@ -210,7 +215,7 @@
         public void ReadHighestVotedProductsReturnsCorrectData()
         {
             // Arrange
-            this.PrepareController();
+            //this.PrepareController();
             var request = new DataSourceRequest();
             var mockDbData = this.GetMockDbProducts();
             this.productsServiceMock.Setup(x => x.GetAll()).Returns(mockDbData as IQueryable<Product>);
@@ -221,7 +226,7 @@
                 .Returns(cachedData);
 
             // Act
-            var controller = new HomeController(productsServiceMock.Object, cacheServiceMock.Object, categoriesServiceMock.Object);
+            var controller = new HomeController(this.productsServiceMock.Object, this.cacheServiceMock.Object, this.categoriesServiceMock.Object);
 
             // Assert
             controller.WithCallTo(x => x.ReadHighestVotedProducts(request))

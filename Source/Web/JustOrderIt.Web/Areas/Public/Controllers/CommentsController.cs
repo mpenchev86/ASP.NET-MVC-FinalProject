@@ -17,16 +17,13 @@
     public class CommentsController : BasePublicController
     {
         private readonly ICommentsService commentsService;
-        //private IMappingService mappingService;
         private readonly IUsersService usersService;
 
         public CommentsController(
             ICommentsService commentsService,
-            //IMappingService mappingService,
             IUsersService usersService)
         {
             this.commentsService = commentsService;
-            //this.mappingService = mappingService;
             this.usersService = usersService;
         }
 
@@ -37,7 +34,10 @@
         {
             if (commentPostViewModel != null && ModelState.IsValid)
             {
-                var userId = this.User.Identity.GetUserId();
+                //var user = this.User;
+                //var identity = user.Identity;
+                //var userId = identity.GetUserId();
+                var userId = this.usersService.GetByUserName(this.User.Identity.Name).Id;
                 commentPostViewModel.CreatedOn = DateTime.Now;
 
                 var newComment = new Comment();
