@@ -34,11 +34,12 @@
         }
 
         [Test]
-        public void ShoppingCartTests()
+        public void ShoppingCartWithExistingCartInSessionReturnsCorrectly()
         {
             // Arrange
             var userName = "jkhfjksdf";
             var cart = this.GetShoppingCart(userName);
+            //var sessionKey = "jkghkhsfjhs";
 
             var identity = new Mock<IIdentity>();
             identity.Setup(x => x.Name).Returns(userName);
@@ -47,11 +48,14 @@
             principal.SetupGet(p => p.Identity).Returns(identity.Object);
 
             var session = new Mock<HttpSessionStateBase>();
+            session.SetupGet(x => x[It.IsAny<string>()]).Returns(cart);
+            //session.SetupSet(x => { x[It.IsAny<string>()] = cart; });
 
             // Act
             var controller = new OrdersController(this.identifierProvider.Object, this.orderItemsService.Object, this.ordersService.Object, this.productsService.Object, this.mappingService.Object);
             controllerContext.SetupGet(x => x.HttpContext.User).Returns(principal.Object);
             controllerContext.SetupGet(x => x.HttpContext.Session).Returns(session.Object);
+            //controllerContext.SetupGet(x => x.HttpContext.Session[sessionKey]).Returns(cart);
             controller.ControllerContext = controllerContext.Object;
 
             // Assert
@@ -61,8 +65,40 @@
                 {
                     Assert.IsNotNull(vm);
                 });
+        }
 
+        [Test]
+        public void ShoppingCartWithoutExistingCartInSessionReturnsCorrectly()
+        {
+            // Arrange
+            var userName = "jkhfjksdf";
+            var cart = this.GetShoppingCart(userName);
+            //var sessionKey = "jkghkhsfjhs";
 
+            var identity = new Mock<IIdentity>();
+            identity.Setup(x => x.Name).Returns(userName);
+            var controllerContext = new Mock<ControllerContext>();
+            var principal = new Mock<IPrincipal>();
+            principal.SetupGet(p => p.Identity).Returns(identity.Object);
+
+            var session = new Mock<HttpSessionStateBase>();
+            session.SetupGet(x => x[It.IsAny<string>()]).Returns(null);
+            session.SetupSet(x => { x[It.IsAny<string>()] = cart; });
+
+            // Act
+            var controller = new OrdersController(this.identifierProvider.Object, this.orderItemsService.Object, this.ordersService.Object, this.productsService.Object, this.mappingService.Object);
+            controllerContext.SetupGet(x => x.HttpContext.User).Returns(principal.Object);
+            controllerContext.SetupGet(x => x.HttpContext.Session).Returns(session.Object);
+            //controllerContext.SetupGet(x => x.HttpContext.Session[sessionKey]).Returns(null);
+            controller.ControllerContext = controllerContext.Object;
+
+            // Assert
+            controller.WithCallTo(x => x.ShoppingCart())
+                .ShouldRenderDefaultView()
+                .WithModel<ShoppingCartViewModel>(vm =>
+                {
+                    Assert.IsNotNull(vm);
+                });
         }
 
         #region Helpers
