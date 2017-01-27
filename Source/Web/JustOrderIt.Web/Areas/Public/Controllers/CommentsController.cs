@@ -34,9 +34,6 @@
         {
             if (commentPostViewModel != null && ModelState.IsValid)
             {
-                //var user = this.User;
-                //var identity = user.Identity;
-                //var userId = identity.GetUserId();
                 var userId = this.usersService.GetByUserName(this.User.Identity.Name).Id;
                 commentPostViewModel.CreatedOn = DateTime.Now;
 
