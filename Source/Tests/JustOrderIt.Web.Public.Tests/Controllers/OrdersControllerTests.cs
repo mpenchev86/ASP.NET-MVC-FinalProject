@@ -78,13 +78,11 @@
             // Arrange
             var userName = "jkhfjksdf";
             var cart = this.GetShoppingCart(userName);
+            cart.TotalCost = default(decimal);
             //var sessionKey = "jkghkhsfjhs";
 
-            var identity = new Mock<IIdentity>();
-            identity.Setup(x => x.Name).Returns(userName);
+            var principal = this.GetPrincipalMock(userName);
             var controllerContext = new Mock<ControllerContext>();
-            var principal = new Mock<IPrincipal>();
-            principal.SetupGet(p => p.Identity).Returns(identity.Object);
 
             var session = new Mock<HttpSessionStateBase>();
             session.SetupGet(x => x[It.IsAny<string>()]).Returns(null);
@@ -114,7 +112,7 @@
             // Arrange
             var cart = this.GetShoppingCart("jkfhsjd");
             var session = new Mock<HttpSessionStateBase>();
-            session.SetupGet(x => x[It.IsAny<string>()]).Returns(null);
+            session.SetupGet(x => x[It.IsAny<string>()]).Returns(cart);
             session.SetupSet(x => { x[It.IsAny<string>()] = cart; });
             var controllerContext = new Mock<ControllerContext>();
 
@@ -135,16 +133,12 @@
                     CollectionAssert.AllItemsAreNotNull(vm.CartItems);
                     CollectionAssert.AreEquivalent(vm.CartItems, cart.CartItems);
                     Assert.IsTrue(vm.CartItems.All(x => x.ToDelete == false && x.ProductQuantity > 0));
-                    //Assert.IsTrue(vm.CartItems.All(x => x.ProductQuantity > 0));
                 });
         }
 
         [Test]
         public void UpdateShoppingCartThrowsWhenModelIsInValid()
         {
-            // Arrange
-            var session = new Mock<HttpSessionStateBase>();
-            
             // Act
             var controller = new OrdersController(this.identifierProvider.Object, this.orderItemsService.Object, this.ordersService.Object, this.productsService.Object, this.mappingService.Object);
             
@@ -158,7 +152,6 @@
         {
             // Arrange
             var cart = this.GetShoppingCart("jkfhsjd");
-            var session = new Mock<HttpSessionStateBase>();
 
             // Act
             var controller = new OrdersController(this.identifierProvider.Object, this.orderItemsService.Object, this.ordersService.Object, this.productsService.Object, this.mappingService.Object);
@@ -169,6 +162,98 @@
             Assert.AreEqual((int)HttpStatusCode.BadRequest, ex.GetHttpCode());
         }
 
+        [Test]
+        public void AddToCartGetActionWorksCorrectly()
+        {
+            // Arrange
+            var encodedProductId = "jkhkuqlxiooueujfukwh";
+            var decodedProductId = 32;
+            this.identifierProvider.Setup(x => x.EncodeIntId(It.IsAny<int>())).Returns(encodedProductId);
+            this.identifierProvider.Setup(x => x.DecodeToIntId(It.IsAny<string>())).Returns(decodedProductId);
+            this.mappingService.Setup(x => x.Map<ProductForShoppingCart>(It.IsAny<Product>())).Returns(new ProductForShoppingCart());
+            this.productsService.Setup(x => x.GetById(It.IsAny<int>())).Returns(new Product());
+            var userName = "kkkqjquuuu";
+            var cart = this.GetShoppingCart(userName);
+            var principal = this.GetPrincipalMock(userName);
+            var session = new Mock<HttpSessionStateBase>();
+            session.SetupGet(x => x[It.IsAny<string>()]).Returns(cart);
+            session.SetupSet(x => { x[It.IsAny<string>()] = cart; });
+            var controllerContext = new Mock<ControllerContext>();
+
+            // Act
+            var controller = new OrdersController(this.identifierProvider.Object, this.orderItemsService.Object, this.ordersService.Object, this.productsService.Object, this.mappingService.Object);
+            controllerContext.SetupGet(x => x.HttpContext.User).Returns(principal.Object);
+            controllerContext.SetupGet(x => x.HttpContext.Session).Returns(session.Object);
+            controller.ControllerContext = controllerContext.Object;
+
+            // Assert
+            controller.WithCallTo(x => x.AddToCart(encodedProductId))
+                .ShouldRedirectTo(x => x.ShoppingCart);
+        }
+
+        [Test]
+        public void AddToCartPostActionWorksCorrectlyWhenProductIdAndModelStateAreValid()
+        {
+            // Arrange
+            var encodedProductId = "jkhkuqlxiooueujfukwh";
+            var decodedProductId = 32;
+            var quantity = 3;
+            this.identifierProvider.Setup(x => x.EncodeIntId(It.IsAny<int>())).Returns(encodedProductId);
+            this.identifierProvider.Setup(x => x.DecodeToIntId(It.IsAny<string>())).Returns(decodedProductId);
+            this.mappingService.Setup(x => x.Map<ProductForShoppingCart>(It.IsAny<Product>())).Returns(new ProductForShoppingCart());
+            this.productsService.Setup(x => x.GetById(It.IsAny<int>())).Returns(new Product());
+            var userName = "kkkqjquuuu";
+            var cart = this.GetShoppingCart(userName);
+            var principal = this.GetPrincipalMock(userName);
+            var session = new Mock<HttpSessionStateBase>();
+            session.SetupGet(x => x[It.IsAny<string>()]).Returns(cart);
+            session.SetupSet(x => { x[It.IsAny<string>()] = cart; });
+            var controllerContext = new Mock<ControllerContext>();
+
+            // Act
+            var controller = new OrdersController(this.identifierProvider.Object, this.orderItemsService.Object, this.ordersService.Object, this.productsService.Object, this.mappingService.Object);
+            controllerContext.SetupGet(x => x.HttpContext.User).Returns(principal.Object);
+            controllerContext.SetupGet(x => x.HttpContext.Session).Returns(session.Object);
+            controller.ControllerContext = controllerContext.Object;
+
+            // Assert
+            controller.WithCallTo(x => x.AddToCart(encodedProductId, quantity))
+                .ShouldRedirectTo(x => x.ShoppingCart);
+        }
+
+        [Test]
+        public void AddToCartPostActionWorksCorrectlyWhenProductIdIsInValid()
+        {
+            // Arrange
+            var encodedProductId = string.Empty;
+            var quantity = 3;
+
+            // Act
+            var controller = new OrdersController(this.identifierProvider.Object, this.orderItemsService.Object, this.ordersService.Object, this.productsService.Object, this.mappingService.Object);
+
+            // Assert
+            controller.WithCallTo(x => x.AddToCart(encodedProductId, quantity))
+                .ShouldRedirectTo(x => x.ShoppingCart);
+        }
+
+        [Test]
+        public void AddToCartPostActionWorksCorrectlyWhenModelStateIsInValid()
+        {
+            // Arrange
+            var encodedProductId = "jkkhapqphehf";
+            var quantity = 3;
+            var controllerContext = new Mock<ControllerContext>();
+
+            // Act
+            var controller = new OrdersController(this.identifierProvider.Object, this.orderItemsService.Object, this.ordersService.Object, this.productsService.Object, this.mappingService.Object);
+            controller.ControllerContext = controllerContext.Object;
+            controller.ModelState.AddModelError(string.Empty, It.IsAny<string>());
+
+            // Assert
+            controller.WithCallTo(x => x.AddToCart(encodedProductId, quantity))
+                .ShouldRedirectTo(x => x.ShoppingCart);
+        }
+
         #region Helpers
         private void PrepareController()
         {
@@ -177,6 +262,15 @@
             this.ordersService = new Mock<IOrdersService>();
             this.productsService = new Mock<IProductsService>();
             this.mappingService = new Mock<IMappingService>();
+        }
+
+        private Mock<IPrincipal> GetPrincipalMock(string userName)
+        {
+            var principal = new Mock<IPrincipal>();
+            var identity = new Mock<IIdentity>();
+            identity.Setup(x => x.Name).Returns(userName);
+            principal.SetupGet(p => p.Identity).Returns(identity.Object);
+            return principal;
         }
 
         private ShoppingCartViewModel GetShoppingCart(string userName)
@@ -205,7 +299,7 @@
                         ToDelete = false
                     },
                 },
-                //TotalCost = 872m,
+                TotalCost = 872m,
             };
         }
         #endregion

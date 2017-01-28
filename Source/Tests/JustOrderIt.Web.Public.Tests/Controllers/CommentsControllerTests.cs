@@ -126,11 +126,6 @@
             this.usersService = new Mock<IUsersService>();
         }
 
-        private void ArrangeCreateCommentTest()
-        {
-            
-        }
-
         private void SetupControllerContext(Mock<ControllerContext> controllerContext, string userName)
         {
             var identity = new Mock<IIdentity>();
