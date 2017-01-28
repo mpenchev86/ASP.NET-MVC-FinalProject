@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
+    using System.Security.Claims;
     using System.Security.Principal;
     using System.Text;
     using System.Threading.Tasks;
@@ -15,6 +16,7 @@
     using Data.Models.Catalog;
     using Data.Models.Orders;
     using Infrastructure.Mapping;
+    using Microsoft.AspNet.Identity;
     using Moq;
     using NUnit.Framework;
     using Services.Data;
@@ -25,11 +27,11 @@
     public class OrdersControllerTests
     {
         private AutoMapperConfig autoMapperConfig;
-        private Mock<IIdentifierProvider> identifierProvider;
-        private Mock<IOrderItemsService> orderItemsService;
-        private Mock<IOrdersService> ordersService;
-        private Mock<IProductsService> productsService;
-        private Mock<IMappingService> mappingService;
+        private Mock<IIdentifierProvider> identifierProviderMock;
+        private Mock<IOrderItemsService> orderItemsServiceMock;
+        private Mock<IOrdersService> ordersServiceMock;
+        private Mock<IProductsService> productsServiceMock;
+        private Mock<IMappingService> mappingServiceMock;
 
         public OrdersControllerTests()
         {
@@ -42,21 +44,16 @@
             // Arrange
             var userName = "jkhfjksdf";
             var cart = this.GetShoppingCart(userName);
-
-            var identity = new Mock<IIdentity>();
-            identity.Setup(x => x.Name).Returns(userName);
-            var controllerContext = new Mock<ControllerContext>();
-            var principal = new Mock<IPrincipal>();
-            principal.SetupGet(p => p.Identity).Returns(identity.Object);
-
-            var session = new Mock<HttpSessionStateBase>();
-            session.SetupGet(x => x[It.IsAny<string>()]).Returns(cart);
+            var principalMock = this.GetPrincipalMock(userName);
+            var sessionMock = new Mock<HttpSessionStateBase>();
+            sessionMock.SetupGet(x => x[It.IsAny<string>()]).Returns(cart);
+            var controllerContextMock = new Mock<ControllerContext>();
+            controllerContextMock.SetupGet(x => x.HttpContext.User).Returns(principalMock.Object);
+            controllerContextMock.SetupGet(x => x.HttpContext.Session).Returns(sessionMock.Object);
 
             // Act
-            var controller = new OrdersController(this.identifierProvider.Object, this.orderItemsService.Object, this.ordersService.Object, this.productsService.Object, this.mappingService.Object);
-            controllerContext.SetupGet(x => x.HttpContext.User).Returns(principal.Object);
-            controllerContext.SetupGet(x => x.HttpContext.Session).Returns(session.Object);
-            controller.ControllerContext = controllerContext.Object;
+            var controller = new OrdersController(this.identifierProviderMock.Object, this.orderItemsServiceMock.Object, this.ordersServiceMock.Object, this.productsServiceMock.Object, this.mappingServiceMock.Object);
+            controller.ControllerContext = controllerContextMock.Object;
 
             // Assert
             controller.WithCallTo(x => x.ShoppingCart())
@@ -82,19 +79,17 @@
             var cart = this.GetShoppingCart(userName);
             cart.TotalCost = default(decimal);
             //var sessionKey = "jkghkhsfjhs";
-
-            var principal = this.GetPrincipalMock(userName);
-            var controllerContext = new Mock<ControllerContext>();
-
-            var session = new Mock<HttpSessionStateBase>();
-            session.SetupGet(x => x[It.IsAny<string>()]).Returns(null);
-            session.SetupSet(x => { x[It.IsAny<string>()] = cart; });
+            var principalMock = this.GetPrincipalMock(userName);
+            var sessionMock = new Mock<HttpSessionStateBase>();
+            sessionMock.SetupGet(x => x[It.IsAny<string>()]).Returns(null);
+            sessionMock.SetupSet(x => { x[It.IsAny<string>()] = cart; });
+            var controllerContextMock = new Mock<ControllerContext>();
+            controllerContextMock.SetupGet(x => x.HttpContext.User).Returns(principalMock.Object);
+            controllerContextMock.SetupGet(x => x.HttpContext.Session).Returns(sessionMock.Object);
 
             // Act
-            var controller = new OrdersController(this.identifierProvider.Object, this.orderItemsService.Object, this.ordersService.Object, this.productsService.Object, this.mappingService.Object);
-            controllerContext.SetupGet(x => x.HttpContext.User).Returns(principal.Object);
-            controllerContext.SetupGet(x => x.HttpContext.Session).Returns(session.Object);
-            controller.ControllerContext = controllerContext.Object;
+            var controller = new OrdersController(this.identifierProviderMock.Object, this.orderItemsServiceMock.Object, this.ordersServiceMock.Object, this.productsServiceMock.Object, this.mappingServiceMock.Object);
+            controller.ControllerContext = controllerContextMock.Object;
 
             // Assert
             controller.WithCallTo(x => x.ShoppingCart())
@@ -113,15 +108,15 @@
         {
             // Arrange
             var cart = this.GetShoppingCart("jkfhsjd");
-            var session = new Mock<HttpSessionStateBase>();
-            session.SetupGet(x => x[It.IsAny<string>()]).Returns(cart);
-            session.SetupSet(x => { x[It.IsAny<string>()] = cart; });
-            var controllerContext = new Mock<ControllerContext>();
+            var sessionMock = new Mock<HttpSessionStateBase>();
+            sessionMock.SetupGet(x => x[It.IsAny<string>()]).Returns(cart);
+            sessionMock.SetupSet(x => { x[It.IsAny<string>()] = cart; });
+            var controllerContextMock = new Mock<ControllerContext>();
+            controllerContextMock.SetupGet(x => x.HttpContext.Session).Returns(sessionMock.Object);
 
             // Act
-            var controller = new OrdersController(this.identifierProvider.Object, this.orderItemsService.Object, this.ordersService.Object, this.productsService.Object, this.mappingService.Object);
-            controllerContext.SetupGet(x => x.HttpContext.Session).Returns(session.Object);
-            controller.ControllerContext = controllerContext.Object;
+            var controller = new OrdersController(this.identifierProviderMock.Object, this.orderItemsServiceMock.Object, this.ordersServiceMock.Object, this.productsServiceMock.Object, this.mappingServiceMock.Object);
+            controller.ControllerContext = controllerContextMock.Object;
 
             // Assert
             controller.WithCallTo(x => x.UpdateShoppingCart(cart))
@@ -142,7 +137,7 @@
         public void UpdateShoppingCartThrowsWhenModelIsInValid()
         {
             // Act
-            var controller = new OrdersController(this.identifierProvider.Object, this.orderItemsService.Object, this.ordersService.Object, this.productsService.Object, this.mappingService.Object);
+            var controller = new OrdersController(this.identifierProviderMock.Object, this.orderItemsServiceMock.Object, this.ordersServiceMock.Object, this.productsServiceMock.Object, this.mappingServiceMock.Object);
             
             // Assert
             var ex = Assert.Throws<HttpException>(() => controller.UpdateShoppingCart(null));
@@ -156,7 +151,7 @@
             var cart = this.GetShoppingCart("jkfhsjd");
 
             // Act
-            var controller = new OrdersController(this.identifierProvider.Object, this.orderItemsService.Object, this.ordersService.Object, this.productsService.Object, this.mappingService.Object);
+            var controller = new OrdersController(this.identifierProviderMock.Object, this.orderItemsServiceMock.Object, this.ordersServiceMock.Object, this.productsServiceMock.Object, this.mappingServiceMock.Object);
             controller.ModelState.AddModelError(string.Empty, It.IsAny<string>());
 
             // Assert
@@ -172,29 +167,25 @@
             var decodedProductId = 32;
             var userName = "kkkqjquuuu";
             var cart = this.GetShoppingCart(userName);
-
-            this.identifierProvider.Setup(x => x.EncodeIntId(It.IsAny<int>())).Returns(encodedProductId);
-            this.identifierProvider.Setup(x => x.DecodeToIntId(It.IsAny<string>())).Returns(decodedProductId);
-            this.mappingService.Setup(x => x.Map<ProductForShoppingCart>(It.IsAny<Product>())).Returns(new ProductForShoppingCart());
-            this.productsService.Setup(x => x.GetById(It.IsAny<int>())).Returns(new Product());
-
-            var principal = this.GetPrincipalMock(userName);
-
-            var session = new Mock<HttpSessionStateBase>();
-            session.SetupGet(x => x[It.IsAny<string>()]).Returns(cart);
-            session.SetupSet(x => { x[It.IsAny<string>()] = cart; });
-
-            var controllerContext = new Mock<ControllerContext>();
-            controllerContext.SetupGet(x => x.HttpContext.User).Returns(principal.Object);
-            controllerContext.SetupGet(x => x.HttpContext.Session).Returns(session.Object);
+            this.identifierProviderMock.Setup(x => x.EncodeIntId(It.IsAny<int>())).Returns(encodedProductId);
+            this.identifierProviderMock.Setup(x => x.DecodeToIntId(It.IsAny<string>())).Returns(decodedProductId);
+            this.mappingServiceMock.Setup(x => x.Map<ProductForShoppingCart>(It.IsAny<Product>())).Returns(new ProductForShoppingCart());
+            this.productsServiceMock.Setup(x => x.GetById(It.IsAny<int>())).Returns(new Product());
+            var principalMock = this.GetPrincipalMock(userName);
+            var sessionMock = new Mock<HttpSessionStateBase>();
+            sessionMock.SetupGet(x => x[It.IsAny<string>()]).Returns(cart);
+            sessionMock.SetupSet(x => { x[It.IsAny<string>()] = cart; });
+            var controllerContextMock = new Mock<ControllerContext>();
+            controllerContextMock.SetupGet(x => x.HttpContext.User).Returns(principalMock.Object);
+            controllerContextMock.SetupGet(x => x.HttpContext.Session).Returns(sessionMock.Object);
 
             // Act
-            var controller = new OrdersController(this.identifierProvider.Object, this.orderItemsService.Object, this.ordersService.Object, this.productsService.Object, this.mappingService.Object);
-            controller.ControllerContext = controllerContext.Object;
+            var controller = new OrdersController(this.identifierProviderMock.Object, this.orderItemsServiceMock.Object, this.ordersServiceMock.Object, this.productsServiceMock.Object, this.mappingServiceMock.Object);
+            controller.ControllerContext = controllerContextMock.Object;
 
             // Assert
             controller.WithCallTo(x => x.AddToCart(encodedProductId))
-                .ShouldRedirectTo(x => x.ShoppingCart);
+                .ShouldRedirectTo(x => x.ShoppingCart());
         }
 
         [Test]
@@ -204,27 +195,27 @@
             var encodedProductId = "jkhkuqlxiooueujfukwh";
             var decodedProductId = 32;
             var quantity = 3;
-            this.identifierProvider.Setup(x => x.EncodeIntId(It.IsAny<int>())).Returns(encodedProductId);
-            this.identifierProvider.Setup(x => x.DecodeToIntId(It.IsAny<string>())).Returns(decodedProductId);
-            this.mappingService.Setup(x => x.Map<ProductForShoppingCart>(It.IsAny<Product>())).Returns(new ProductForShoppingCart());
-            this.productsService.Setup(x => x.GetById(It.IsAny<int>())).Returns(new Product());
+            this.identifierProviderMock.Setup(x => x.EncodeIntId(It.IsAny<int>())).Returns(encodedProductId);
+            this.identifierProviderMock.Setup(x => x.DecodeToIntId(It.IsAny<string>())).Returns(decodedProductId);
+            this.mappingServiceMock.Setup(x => x.Map<ProductForShoppingCart>(It.IsAny<Product>())).Returns(new ProductForShoppingCart());
+            this.productsServiceMock.Setup(x => x.GetById(It.IsAny<int>())).Returns(new Product());
             var userName = "kkkqjquuuu";
             var cart = this.GetShoppingCart(userName);
-            var principal = this.GetPrincipalMock(userName);
-            var session = new Mock<HttpSessionStateBase>();
-            session.SetupGet(x => x[It.IsAny<string>()]).Returns(cart);
-            session.SetupSet(x => { x[It.IsAny<string>()] = cart; });
-            var controllerContext = new Mock<ControllerContext>();
-            controllerContext.SetupGet(x => x.HttpContext.User).Returns(principal.Object);
-            controllerContext.SetupGet(x => x.HttpContext.Session).Returns(session.Object);
+            var sessionMock = new Mock<HttpSessionStateBase>();
+            sessionMock.SetupGet(x => x[It.IsAny<string>()]).Returns(cart);
+            sessionMock.SetupSet(x => { x[It.IsAny<string>()] = cart; });
+            var principalMock = this.GetPrincipalMock(userName);
+            var controllerContextMock = new Mock<ControllerContext>();
+            controllerContextMock.SetupGet(x => x.HttpContext.User).Returns(principalMock.Object);
+            controllerContextMock.SetupGet(x => x.HttpContext.Session).Returns(sessionMock.Object);
 
             // Act
-            var controller = new OrdersController(this.identifierProvider.Object, this.orderItemsService.Object, this.ordersService.Object, this.productsService.Object, this.mappingService.Object);
-            controller.ControllerContext = controllerContext.Object;
+            var controller = new OrdersController(this.identifierProviderMock.Object, this.orderItemsServiceMock.Object, this.ordersServiceMock.Object, this.productsServiceMock.Object, this.mappingServiceMock.Object);
+            controller.ControllerContext = controllerContextMock.Object;
 
             // Assert
             controller.WithCallTo(x => x.AddToCart(encodedProductId, quantity))
-                .ShouldRedirectTo(x => x.ShoppingCart);
+                .ShouldRedirectTo(x => x.ShoppingCart());
         }
 
         [Test]
@@ -235,7 +226,7 @@
             var quantity = 3;
 
             // Act
-            var controller = new OrdersController(this.identifierProvider.Object, this.orderItemsService.Object, this.ordersService.Object, this.productsService.Object, this.mappingService.Object);
+            var controller = new OrdersController(this.identifierProviderMock.Object, this.orderItemsServiceMock.Object, this.ordersServiceMock.Object, this.productsServiceMock.Object, this.mappingServiceMock.Object);
 
             // Assert
             controller.WithCallTo(x => x.AddToCart(encodedProductId, quantity))
@@ -250,12 +241,12 @@
             var quantity = 3;
 
             // Act
-            var controller = new OrdersController(this.identifierProvider.Object, this.orderItemsService.Object, this.ordersService.Object, this.productsService.Object, this.mappingService.Object);
+            var controller = new OrdersController(this.identifierProviderMock.Object, this.orderItemsServiceMock.Object, this.ordersServiceMock.Object, this.productsServiceMock.Object, this.mappingServiceMock.Object);
             controller.ModelState.AddModelError(string.Empty, It.IsAny<string>());
 
             // Assert
             controller.WithCallTo(x => x.AddToCart(encodedProductId, quantity))
-                .ShouldRedirectTo(x => x.ShoppingCart);
+                .ShouldRedirectTo(x => x.ShoppingCart());
         }
 
         [Test]
@@ -263,21 +254,21 @@
         {
             // Arrange
             var userName = "iohkahjkfhsdf";
-            var principal = this.GetPrincipalMock(userName);
-            var session = new Mock<HttpSessionStateBase>();
+            var principalMock = this.GetPrincipalMock(userName);
             var cart = this.GetShoppingCart(userName);
-            this.productsService.Setup(x => x.GetById(It.IsAny<int>())).Returns(new Product());
-            this.ordersService.Setup(x => x.Insert(It.IsAny<Order>()));
-            this.orderItemsService.Setup(x => x.Update(It.IsAny<OrderItem>()));
-            session.SetupGet(x => x[It.IsAny<string>()]).Returns(cart);
-            session.SetupSet(x => { x[It.IsAny<string>()] = cart; });
-            var controllerContext = new Mock<ControllerContext>();
-            controllerContext.SetupGet(x => x.HttpContext.User).Returns(principal.Object);
-            controllerContext.SetupGet(x => x.HttpContext.Session).Returns(session.Object);
+            this.productsServiceMock.Setup(x => x.GetById(It.IsAny<int>())).Returns(new Product());
+            this.ordersServiceMock.Setup(x => x.Insert(It.IsAny<Order>()));
+            this.orderItemsServiceMock.Setup(x => x.Update(It.IsAny<OrderItem>()));
+            var sessionMock = new Mock<HttpSessionStateBase>();
+            sessionMock.SetupGet(x => x[It.IsAny<string>()]).Returns(cart);
+            sessionMock.SetupSet(x => { x[It.IsAny<string>()] = cart; });
+            var controllerContextMock = new Mock<ControllerContext>();
+            controllerContextMock.SetupGet(x => x.HttpContext.User).Returns(principalMock.Object);
+            controllerContextMock.SetupGet(x => x.HttpContext.Session).Returns(sessionMock.Object);
 
             // Act
-            var controller = new OrdersController(this.identifierProvider.Object, this.orderItemsService.Object, this.ordersService.Object, this.productsService.Object, this.mappingService.Object);
-            controller.ControllerContext = controllerContext.Object;
+            var controller = new OrdersController(this.identifierProviderMock.Object, this.orderItemsServiceMock.Object, this.ordersServiceMock.Object, this.productsServiceMock.Object, this.mappingServiceMock.Object);
+            controller.ControllerContext = controllerContextMock.Object;
 
             // Assert
             controller.WithCallTo(x => x.Checkout())
@@ -297,24 +288,20 @@
             // Arrange
             var userName = "iohkahjkfhsdf";
             var cart = this.GetShoppingCart(userName);
-            //this.productsService.Setup(x => x.GetById(It.IsAny<int>())).Returns(new Product());
-            //this.ordersService.Setup(x => x.Insert(It.IsAny<Order>()));
-            //this.orderItemsService.Setup(x => x.Update(It.IsAny<OrderItem>()));
-            var principal = this.GetPrincipalMock(userName);
-            var session = new Mock<HttpSessionStateBase>();
-            session.SetupGet(x => x[It.IsAny<string>()]).Returns(null);
-            //session.SetupSet(x => { x[It.IsAny<string>()] = cart; });
-            var controllerContext = new Mock<ControllerContext>();
-            controllerContext.SetupGet(x => x.HttpContext.User).Returns(principal.Object);
-            controllerContext.SetupGet(x => x.HttpContext.Session).Returns(session.Object);
+            var principalMock = this.GetPrincipalMock(userName);
+            var sessionMock = new Mock<HttpSessionStateBase>();
+            sessionMock.SetupGet(x => x[It.IsAny<string>()]).Returns(null);
+            var controllerContextMock = new Mock<ControllerContext>();
+            controllerContextMock.SetupGet(x => x.HttpContext.User).Returns(principalMock.Object);
+            controllerContextMock.SetupGet(x => x.HttpContext.Session).Returns(sessionMock.Object);
 
             // Act
-            var controller = new OrdersController(this.identifierProvider.Object, this.orderItemsService.Object, this.ordersService.Object, this.productsService.Object, this.mappingService.Object);
-            controller.ControllerContext = controllerContext.Object;
+            var controller = new OrdersController(this.identifierProviderMock.Object, this.orderItemsServiceMock.Object, this.ordersServiceMock.Object, this.productsServiceMock.Object, this.mappingServiceMock.Object);
+            controller.ControllerContext = controllerContextMock.Object;
 
             // Assert
             controller.WithCallTo(x => x.Checkout())
-                .ShouldRedirectTo(x => x.ShoppingCart);
+                .ShouldRedirectTo(x => x.ShoppingCart());
         }
 
         [Test]
@@ -324,31 +311,28 @@
             var userName = "iohkahjkfhsdf";
             var cart = this.GetShoppingCart(userName);
             cart.CartItems.Clear();
-            //this.productsService.Setup(x => x.GetById(It.IsAny<int>())).Returns(new Product());
-            //this.ordersService.Setup(x => x.Insert(It.IsAny<Order>()));
-            //this.orderItemsService.Setup(x => x.Update(It.IsAny<OrderItem>()));
-            var principal = this.GetPrincipalMock(userName);
-            var session = new Mock<HttpSessionStateBase>();
-            session.SetupGet(x => x[It.IsAny<string>()]).Returns(cart);
-            session.SetupSet(x => { x[It.IsAny<string>()] = cart; });
-            var controllerContext = new Mock<ControllerContext>();
-            controllerContext.SetupGet(x => x.HttpContext.User).Returns(principal.Object);
-            controllerContext.SetupGet(x => x.HttpContext.Session).Returns(session.Object);
+            var principalMock = this.GetPrincipalMock(userName);
+            var sessionMock = new Mock<HttpSessionStateBase>();
+            sessionMock.SetupGet(x => x[It.IsAny<string>()]).Returns(cart);
+            sessionMock.SetupSet(x => { x[It.IsAny<string>()] = cart; });
+            var controllerContextMock = new Mock<ControllerContext>();
+            controllerContextMock.SetupGet(x => x.HttpContext.User).Returns(principalMock.Object);
+            controllerContextMock.SetupGet(x => x.HttpContext.Session).Returns(sessionMock.Object);
 
             // Act
-            var controller = new OrdersController(this.identifierProvider.Object, this.orderItemsService.Object, this.ordersService.Object, this.productsService.Object, this.mappingService.Object);
-            controller.ControllerContext = controllerContext.Object;
+            var controller = new OrdersController(this.identifierProviderMock.Object, this.orderItemsServiceMock.Object, this.ordersServiceMock.Object, this.productsServiceMock.Object, this.mappingServiceMock.Object);
+            controller.ControllerContext = controllerContextMock.Object;
 
             // Assert
             controller.WithCallTo(x => x.Checkout())
-                .ShouldRedirectTo(x => x.ShoppingCart);
+                .ShouldRedirectTo(x => x.ShoppingCart());
         }
 
         [Test]
         public void CheckoutShouldThrowIfModelStateIsInValid()
         {
             // Act
-            var controller = new OrdersController(this.identifierProvider.Object, this.orderItemsService.Object, this.ordersService.Object, this.productsService.Object, this.mappingService.Object);
+            var controller = new OrdersController(this.identifierProviderMock.Object, this.orderItemsServiceMock.Object, this.ordersServiceMock.Object, this.productsServiceMock.Object, this.mappingServiceMock.Object);
             controller.ModelState.AddModelError(string.Empty, It.IsAny<string>());
 
             // Assert
@@ -356,25 +340,95 @@
             Assert.AreEqual((int)HttpStatusCode.BadRequest, ex.GetHttpCode());
         }
 
+        [Test]
+        public void OrderDetailsShouldReturnCorrectlyIfOrderIsNotNull()
+        {
+            // Arrange
+            var userName = "jkhkahavvghio";
+            var userId = "uyuihfuyuyunynuwgueyng";
+            var orderRefNumber = Guid.NewGuid();
+            var mockDbOrders = this.GetMockDbOrders();
+            mockDbOrders.Add(new Order { RefNumber = orderRefNumber, UserId = userId });
+            var viewModel = new OrderForUserProfile();
+            this.ordersServiceMock.Setup(x => x.GetAll()).Returns(mockDbOrders.AsQueryable);
+            this.mappingServiceMock.Setup(x => x.Map<OrderForUserProfile>(It.IsAny<Order>())).Returns(viewModel);
+            this.productsServiceMock.Setup(x => x.GetById(It.IsAny<int>())).Returns(new Product());
+            var principalMock = this.GetPrincipalMockWithClaimsIdentityMock(userName, userId);
+            var controllerContextMock = new Mock<ControllerContext>();
+
+            // Act
+            var controller = new OrdersController(this.identifierProviderMock.Object, this.orderItemsServiceMock.Object, this.ordersServiceMock.Object, this.productsServiceMock.Object, this.mappingServiceMock.Object);
+            controllerContextMock.SetupGet(x => x.HttpContext.User).Returns(principalMock.Object);
+            controller.ControllerContext = controllerContextMock.Object;
+
+            // Assert
+            controller.WithCallTo(x => x.OrderDetails(orderRefNumber))
+                .ShouldRenderDefaultView()
+                .WithModel<OrderForUserProfile>(vm =>
+                {
+                    Assert.IsNotNull(vm);
+                    Assert.AreEqual(vm, viewModel);
+                })
+                ;
+        }
+
+        [Test]
+        public void OrderDetailsShouldRedirectIfOrderIsNull()
+        {
+            // Arrange
+            var userName = "jkhkahavvghio";
+            var userId = "uyuihfuyuyunynuwgueyng";
+            var orderRefNumber = Guid.NewGuid();
+            var mockDbOrders = this.GetMockDbOrders();
+            var viewModel = new OrderForUserProfile();
+            this.ordersServiceMock.Setup(x => x.GetAll()).Returns(mockDbOrders.AsQueryable);
+            this.mappingServiceMock.Setup(x => x.Map<OrderForUserProfile>(It.IsAny<Order>())).Returns(viewModel);
+            var principalMock = this.GetPrincipalMockWithClaimsIdentityMock(userName, userId);
+            var controllerContextMock = new Mock<ControllerContext>();
+
+            // Act
+            var controller = new OrdersController(this.identifierProviderMock.Object, this.orderItemsServiceMock.Object, this.ordersServiceMock.Object, this.productsServiceMock.Object, this.mappingServiceMock.Object);
+            controllerContextMock.SetupGet(x => x.HttpContext.User).Returns(principalMock.Object);
+            controller.ControllerContext = controllerContextMock.Object;
+
+            // Assert
+            controller.WithCallTo(x => x.OrderDetails(orderRefNumber))
+                .ValidateActionReturnType<RedirectToRouteResult>();
+
+            controller.WithCallTo(x => x.OrderDetails(orderRefNumber))
+                .ShouldRedirectTo<UsersController>(x => x.OrderHistory());
+        }
+
         #region Helpers
         private void PrepareController()
         {
             this.autoMapperConfig = new AutoMapperConfig();
             autoMapperConfig.Execute(typeof(OrdersController).Assembly);
-            this.identifierProvider = new Mock<IIdentifierProvider>();
-            this.orderItemsService = new Mock<IOrderItemsService>();
-            this.ordersService = new Mock<IOrdersService>();
-            this.productsService = new Mock<IProductsService>();
-            this.mappingService = new Mock<IMappingService>();
+            this.identifierProviderMock = new Mock<IIdentifierProvider>();
+            this.orderItemsServiceMock = new Mock<IOrderItemsService>();
+            this.ordersServiceMock = new Mock<IOrdersService>();
+            this.productsServiceMock = new Mock<IProductsService>();
+            this.mappingServiceMock = new Mock<IMappingService>();
         }
 
         private Mock<IPrincipal> GetPrincipalMock(string userName)
         {
-            var principal = new Mock<IPrincipal>();
-            var identity = new Mock<IIdentity>();
-            identity.Setup(x => x.Name).Returns(userName);
-            principal.SetupGet(p => p.Identity).Returns(identity.Object);
-            return principal;
+            var principalMock = new Mock<IPrincipal>();
+            var identityMock = new Mock<IIdentity>();
+            identityMock.Setup(x => x.Name).Returns(userName);
+            principalMock.SetupGet(p => p.Identity).Returns(identityMock.Object);
+            return principalMock;
+        }
+
+        // Approach used: http://stackoverflow.com/a/23960592/4491770
+        private Mock<IPrincipal> GetPrincipalMockWithClaimsIdentityMock(string userName, string userId)
+        {
+            var claim = new Claim(ClaimTypes.NameIdentifier, userId);
+            var principalMock = new Mock<IPrincipal>();
+            var identity = new Mock<ClaimsIdentity>();
+            identity.Setup(x => x.FindFirst(ClaimTypes.NameIdentifier)).Returns(claim);
+            principalMock.SetupGet(p => p.Identity).Returns(/*identityMock*/ identity.Object);
+            return principalMock;
         }
 
         private ShoppingCartViewModel GetShoppingCart(string userName)
@@ -404,6 +458,16 @@
                     },
                 },
                 TotalCost = 872m,
+            };
+        }
+
+        private List<Order> GetMockDbOrders()
+        {
+            return new List<Order>()
+            {
+                new Order { RefNumber = Guid.NewGuid(), UserId = "kguibiqbksdjhf" },
+                new Order { RefNumber = Guid.NewGuid(), UserId = "qwwwhkhniwuegrjh" },
+                new Order { RefNumber = Guid.NewGuid(), UserId = "ofhqiowur" },
             };
         }
         #endregion

@@ -27,8 +27,8 @@
     public class CommentsControllerTests
     {
         private AutoMapperConfig autoMapperConfig;
-        private Mock<ICommentsService> commentsService;
-        private Mock<IUsersService> usersService;
+        private Mock<ICommentsService> commentsServiceMock;
+        private Mock<IUsersService> usersServiceMock;
 
         public CommentsControllerTests()
         {
@@ -39,23 +39,23 @@
         public void CreateCommentWorksCorrectlyWhenModelAndModelStateAreValid()
         {
             // Arrange
-            this.commentsService.Setup(x => x.Insert(It.IsAny<Comment>()));
-            var user = this.GetUserInstance();
-            this.usersService.Setup(x => x.GetByUserName(It.IsAny<string>())).Returns(user);
-            //var mockRequest = new Mock<HttpRequestBase>();
-            var controllerContext = new Mock<ControllerContext>();
-            this.SetupControllerContext(controllerContext, user.UserName);
+            this.commentsServiceMock.Setup(x => x.Insert(It.IsAny<Comment>()));
+            var user = this.GetUserInstance()/*new ApplicationUser()*/;
+            this.usersServiceMock.Setup(x => x.GetByUserName(It.IsAny<string>())).Returns(user);
+            var controllerContextMock = new Mock<ControllerContext>();
+            this.SetupControllerContext(controllerContextMock, user.UserName);
 
             var commentPostViewModel = new CommentPostViewModel()
             {
                 Content = "jhgjkzsgdfjkshdkfhksfhksjfksdfkshd",
                 ProductId = 42,
                 UserName = "jfsjkhfsd",
-            };
+            }
+            ;
 
             // Act
-            var controller = new CommentsController(this.commentsService.Object, this.usersService.Object);
-            controller.ControllerContext = controllerContext.Object;
+            var controller = new CommentsController(this.commentsServiceMock.Object, this.usersServiceMock.Object);
+            controller.ControllerContext = controllerContextMock.Object;
 
             // Assert
             Assert.IsTrue(controller.ModelState.IsValid);
@@ -77,15 +77,15 @@
         public void CreateCommentThrowsWhenModelIsNull()
         {
             // Arrange
-            this.commentsService.Setup(x => x.Insert(It.IsAny<Comment>()));
+            this.commentsServiceMock.Setup(x => x.Insert(It.IsAny<Comment>()));
             var user = this.GetUserInstance();
-            this.usersService.Setup(x => x.GetByUserName(It.IsAny<string>())).Returns(user);
-            var controllerContext = new Mock<ControllerContext>();
-            this.SetupControllerContext(controllerContext, user.UserName);
+            this.usersServiceMock.Setup(x => x.GetByUserName(It.IsAny<string>())).Returns(user);
+            var controllerContextMock = new Mock<ControllerContext>();
+            this.SetupControllerContext(controllerContextMock, user.UserName);
 
             // Act
-            var controller = new CommentsController(this.commentsService.Object, this.usersService.Object);
-            controller.ControllerContext = controllerContext.Object;
+            var controller = new CommentsController(this.commentsServiceMock.Object, this.usersServiceMock.Object);
+            controller.ControllerContext = controllerContextMock.Object;
 
             // Assert
             Assert.Throws<HttpException>(() => controller.CreateComment(null));
@@ -95,11 +95,11 @@
         public void CreateCommentThrowsWhenModelStateIsInvalid()
         {
             // Arrange
-            this.commentsService.Setup(x => x.Insert(It.IsAny<Comment>()));
+            this.commentsServiceMock.Setup(x => x.Insert(It.IsAny<Comment>()));
             var user = this.GetUserInstance();
-            this.usersService.Setup(x => x.GetByUserName(It.IsAny<string>())).Returns(user);
-            var controllerContext = new Mock<ControllerContext>();
-            this.SetupControllerContext(controllerContext, user.UserName);
+            this.usersServiceMock.Setup(x => x.GetByUserName(It.IsAny<string>())).Returns(user);
+            var controllerContextMock = new Mock<ControllerContext>();
+            this.SetupControllerContext(controllerContextMock, user.UserName);
 
             var commentPostViewModel = new CommentPostViewModel()
             {
@@ -109,8 +109,8 @@
             };
 
             // Act
-            var controller = new CommentsController(this.commentsService.Object, this.usersService.Object);
-            controller.ControllerContext = controllerContext.Object;
+            var controller = new CommentsController(this.commentsServiceMock.Object, this.usersServiceMock.Object);
+            controller.ControllerContext = controllerContextMock.Object;
             controller.ModelState.AddModelError(string.Empty, It.IsAny<string>());
 
             // Assert
@@ -122,17 +122,17 @@
         {
             this.autoMapperConfig = new AutoMapperConfig();
             this.autoMapperConfig.Execute(typeof(CommentsController).Assembly);
-            this.commentsService = new Mock<ICommentsService>();
-            this.usersService = new Mock<IUsersService>();
+            this.commentsServiceMock = new Mock<ICommentsService>();
+            this.usersServiceMock = new Mock<IUsersService>();
         }
 
         private void SetupControllerContext(Mock<ControllerContext> controllerContext, string userName)
         {
-            var identity = new Mock<IIdentity>();
-            identity.Setup(x => x.Name).Returns(userName);
-            var principal = new Mock<IPrincipal>();
-            principal.SetupGet(p => p.Identity).Returns(identity.Object);
-            controllerContext.SetupGet(x => x.HttpContext.User).Returns(principal.Object);
+            var identityMock = new Mock<IIdentity>();
+            identityMock.Setup(x => x.Name).Returns(userName);
+            var principalMock = new Mock<IPrincipal>();
+            principalMock.SetupGet(p => p.Identity).Returns(identityMock.Object);
+            controllerContext.SetupGet(x => x.HttpContext.User).Returns(principalMock.Object);
         }
 
         private ApplicationUser GetUserInstance()
