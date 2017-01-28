@@ -61,7 +61,7 @@
             Assert.IsTrue(controller.ModelState.IsValid);
             controller.WithCallTo(x => x.CreateComment(commentPostViewModel))
                 .ShouldRenderPartialView("_ProductCommentWithRating")
-                .WithModel<ProductCommentWithRatingViewModel>(vm =>
+                .WithModel<CommentWithRatingViewModel>(vm =>
                 {
                     Assert.IsNotNull(vm);
                     Assert.Multiple(() => 
@@ -69,7 +69,7 @@
                         Assert.AreEqual(commentPostViewModel.UserName, vm.UserName);
                         Assert.AreEqual(commentPostViewModel.Content, vm.CommentContent);
                     });
-                    Assert.IsInstanceOf<ProductCommentWithRatingViewModel>(vm);
+                    Assert.IsInstanceOf<CommentWithRatingViewModel>(vm);
                 });
         }
 

@@ -45,7 +45,7 @@
                 var voteEntity = this.usersService.GetByUserName(commentPostViewModel.UserName).Votes.FirstOrDefault(v => v.ProductId == commentPostViewModel.ProductId);
                 int? rating = voteEntity != null ? (int?)voteEntity.VoteValue : null;
 
-                var commentWithRating = new ProductCommentWithRatingViewModel();
+                var commentWithRating = new CommentWithRatingViewModel();
                 this.PopulateViewModel(commentWithRating, commentPostViewModel);
                 commentWithRating.Rating = rating;
                 this.ViewData["rating-id"] = newComment.Id;
@@ -64,7 +64,7 @@
             newComment.ModifiedOn = commentPostViewModel.ModifiedOn;
         }
 
-        private void PopulateViewModel(ProductCommentWithRatingViewModel commentWithRating, CommentPostViewModel commentPostViewModel)
+        private void PopulateViewModel(CommentWithRatingViewModel commentWithRating, CommentPostViewModel commentPostViewModel)
         {
             commentWithRating.CommentContent = commentPostViewModel.Content;
             commentWithRating.UserName = commentPostViewModel.UserName;

@@ -285,6 +285,9 @@
                 .WithModel<ShoppingCartViewModel>(vm => 
                 {
                     Assert.IsNotNull(vm);
+                    Assert.AreEqual(vm, cart);
+                    CollectionAssert.AreEqual(vm.CartItems, cart.CartItems);
+                    CollectionAssert.AreEqual(vm.CartItems.Select(x => x.Product), cart.CartItems.Select(x => x.Product));
                 });
         }
 

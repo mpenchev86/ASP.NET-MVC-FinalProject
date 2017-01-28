@@ -15,6 +15,7 @@
     using Microsoft.AspNet.Identity;
     using Services.Data;
     using Services.Web;
+    using ViewModels.Comments;
     using ViewModels.Products;
 
     public class ProductsController : BasePublicController
@@ -43,7 +44,6 @@
             var product = this.productsService.GetById(/*id*/(int)decodedId);
             var viewModel = this.mappingService.Map<Product, ProductFullViewModel>(product);
             viewModel.CommentsWithRatings = this.PopulateCommentAndVote(product.Comments, product.Votes);
-            // Prevents populating tags with system.data.entity.dynamicproxies...(eager loading)
             viewModel.Tags = product.Tags.Select(t => t.Name).ToList();
             return this.View(viewModel);
         }
@@ -70,15 +70,15 @@
         }
 
     #region Workers
-        private ICollection<ProductCommentWithRatingViewModel> PopulateCommentAndVote(
+        private ICollection<CommentWithRatingViewModel> PopulateCommentAndVote(
             ICollection<Comment> comments,
             ICollection<Vote> votes)
         {
-            var result = new List<ProductCommentWithRatingViewModel>();
+            var result = new List<CommentWithRatingViewModel>();
 
             foreach (var comment in comments)
             {
-                var commentAndVote = new ProductCommentWithRatingViewModel();
+                var commentAndVote = new CommentWithRatingViewModel();
                 commentAndVote.Id = comment.Id;
                 commentAndVote.CommentContent = comment.Content;
                 commentAndVote.CommentCreatedOn = comment.CreatedOn;

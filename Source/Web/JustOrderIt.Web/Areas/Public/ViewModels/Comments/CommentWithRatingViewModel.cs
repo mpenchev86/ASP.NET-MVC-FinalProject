@@ -1,4 +1,4 @@
-﻿namespace JustOrderIt.Web.Areas.Public.ViewModels.Products
+﻿namespace JustOrderIt.Web.Areas.Public.ViewModels.Comments
 {
     using System;
     using System.Collections.Generic;
@@ -9,7 +9,7 @@
     using Data.Models;
     using Infrastructure.Mapping;
 
-    public class ProductCommentWithRatingViewModel : BasePublicViewModel<int>
+    public class CommentWithRatingViewModel : BasePublicViewModel<int>
     {
         public string CommentContent { get; set; }
         

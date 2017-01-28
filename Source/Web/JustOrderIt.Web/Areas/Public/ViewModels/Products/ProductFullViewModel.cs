@@ -7,6 +7,7 @@
     using System.Web;
 
     using AutoMapper;
+    using Comments;
     using Common.GlobalConstants;
     using Data.Models;
     using Data.Models.Catalog;
@@ -20,13 +21,13 @@
     {
         private ICollection<string> tags;
         private ICollection<ImageForProductFullViewModel> images;
-        private ICollection<ProductCommentWithRatingViewModel> commentsWithRatings;
+        private ICollection<CommentWithRatingViewModel> commentsWithRatings;
 
         public ProductFullViewModel()
         {
             this.tags = new HashSet<string>();
             this.images = new HashSet<ImageForProductFullViewModel>();
-            this.commentsWithRatings = new HashSet<ProductCommentWithRatingViewModel>();
+            this.commentsWithRatings = new HashSet<CommentWithRatingViewModel>();
         }
 
         public string EncodedId
@@ -93,7 +94,7 @@
             set { this.images = value; }
         }
 
-        public ICollection<ProductCommentWithRatingViewModel> CommentsWithRatings
+        public ICollection<CommentWithRatingViewModel> CommentsWithRatings
         {
             get { return this.commentsWithRatings; }
             set { this.commentsWithRatings = value; }
