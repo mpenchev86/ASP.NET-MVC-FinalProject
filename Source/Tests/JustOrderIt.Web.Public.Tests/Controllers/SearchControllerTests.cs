@@ -34,7 +34,7 @@
         }
 
         [Test]
-        public void SearchBarShouldRedirectCorrectlyIfCategoryIdIsValid()
+        public void SearchBarShouldRedirectCorrectlyIfCategoryAPositiveInteger()
         {
             // Arrange
             var viewModel = new SearchViewModel() { CategoryId = 3, };
@@ -66,6 +66,39 @@
             //   .RouteValues
             //   .ShouldBeEquivalentTo(expectedRedirectValues,
             //   "The redirect should look as I expect, including the parameters");
+        }
+
+        [Test]
+        public void SearchBarShouldRedirectCorrectlyIfQueryStringIsNotNullOrWhiteSpace()
+        {
+            // Arrange
+            var viewModel = new SearchViewModel() { Query = "jkdhsjbe", };
+
+            // Act
+            var controller = new SearchController(this.autoUpdateCacheServiceMock.Object, this.productsServiceMock.Object, this.searchFiltersServiceMock.Object, this.categoriesServiceMock.Object, this.keywordsServiceMock.Object);
+
+            // Assert
+            controller.WithCallTo(x => x.SearchBar(viewModel))
+                .ShouldRedirectTo(x => x.SearchByQuery(It.IsAny<string>()));
+        }
+
+        [Test]
+        public void SearchBarShouldRedirectCorrectlyIfCategoryIdIsNotPositiveAndQueryStringIsNullOrWhiteSpace()
+        {
+            // Act
+            var controller = new SearchController(this.autoUpdateCacheServiceMock.Object, this.productsServiceMock.Object, this.searchFiltersServiceMock.Object, this.categoriesServiceMock.Object, this.keywordsServiceMock.Object);
+
+            // Assert
+            controller.WithCallTo(x => x.SearchBar(new SearchViewModel()))
+                .ShouldRedirectTo<HomeController>(x => x.Index());
+        }
+
+        [Test]
+        public void SearchAutoCompleteShouldReturnCorrectly()
+        {
+            // Arrange
+            // Act
+            // Assert
         }
 
         private void PrepareController()

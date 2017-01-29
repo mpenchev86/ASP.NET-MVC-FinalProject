@@ -59,13 +59,13 @@
             }
             else
             {
-                if (string.IsNullOrWhiteSpace(searchViewModel.Query))
+                if (!string.IsNullOrWhiteSpace(searchViewModel.Query))
                 {
-                    return this.RedirectToAction("Index", "Home", new { area = Areas.PublicAreaName });
+                    return this.RedirectToAction("SearchByQuery", "Search", new { query = searchViewModel.Query, area = Areas.PublicAreaName });
                 }
                 else
                 {
-                    return this.RedirectToAction("SearchByQuery", "Search", new { query = searchViewModel.Query, area = Areas.PublicAreaName });
+                    return this.RedirectToAction("Index", "Home", new { area = Areas.PublicAreaName });
                 }
             }
         }
