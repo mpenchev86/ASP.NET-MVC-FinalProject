@@ -20,6 +20,7 @@
     using Services.Data;
     using Services.Web;
     using TestStack.FluentMVCTesting;
+
     [TestFixture]
     public class ProductsControllerTests
     {
@@ -157,7 +158,7 @@
             this.mappingService = new Mock<IMappingService>();
         }
 
-        public ProductFullViewModel GetProductViewModel()
+        private ProductFullViewModel GetProductViewModel()
         {
             return new ProductFullViewModel()
             {
