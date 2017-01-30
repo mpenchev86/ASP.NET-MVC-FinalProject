@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
@@ -33,6 +34,7 @@
         }
 
         [Authorize]
+        [ExcludeFromCodeCoverage]
         public ActionResult WishList()
         {
             return this.PartialView("UnderConstruction", null);
@@ -42,11 +44,13 @@
         public ActionResult OrderHistory()
         {
             var viewModel = new OrderHistoryViewModel();
-            viewModel.Orders = this.usersService.GetByUserName(this.User.Identity.Name).Orders.AsQueryable().To<OrderForUserProfile>().ToList();
+            var user = this.usersService.GetByUserName(this.User.Identity.Name);
+            viewModel.Orders = user.Orders.AsQueryable().To<OrderForUserProfile>().ToList();
             return this.View(viewModel);
         }
 
         [Authorize]
+        [ExcludeFromCodeCoverage]
         public ActionResult UserComments()
         {
             return this.PartialView("UnderConstruction", null);
