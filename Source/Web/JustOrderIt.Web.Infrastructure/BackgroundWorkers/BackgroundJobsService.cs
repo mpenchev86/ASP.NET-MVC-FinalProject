@@ -11,7 +11,7 @@
 
     public class BackgroundJobsService : IBackgroundJobsService
     {
-        public BackgroundJobClient JobClient
+        public IBackgroundJobClient JobClient
         {
             get { return new BackgroundJobClient(); }
         }

@@ -84,7 +84,6 @@
                 );
 
             var results = keywords.Where(kw => kw.ToLower().StartsWith(prefix.ToLower())).ToList();
-
             return this.Json(results, JsonRequestBehavior.AllowGet);
         }
 
@@ -160,7 +159,7 @@
         public ActionResult AllProductsWithTag(string tag)
         {
             var products = this.productsService.GetAll().Where(p => p.Tags.Select(t => t.Name).Contains(tag));
-            var result = products.To<ProductWithTagViewModel>();
+            var result = products.To<ProductWithTagViewModel>().ToList();
             return this.View(result);
         }
 
@@ -210,7 +209,8 @@
         [NonAction]
         private List<string> GetKeywords()
         {
-            return this.keywordsService.GetAll().Select(k => k.SearchTerm).ToList();
+            var result = this.keywordsService.GetAll().Select(k => k.SearchTerm).ToList();
+            return result;
         }
 
         [NonAction]

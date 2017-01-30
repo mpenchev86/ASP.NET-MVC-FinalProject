@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
     using System.Text;
     using System.Threading.Tasks;
     using System.Web;
@@ -10,10 +11,15 @@
     using System.Web.Mvc;
     using System.Web.Routing;
     using Areas.Public.Controllers;
+    using Areas.Public.ViewModels.Products;
     using Areas.Public.ViewModels.Search;
     using Common.GlobalConstants;
     using Data.Models.Catalog;
     using Data.Models.Search;
+    using Hangfire;
+    using Hangfire.Common;
+    using Hangfire.SqlServer;
+    using Hangfire.States;
     using Infrastructure.BackgroundWorkers;
     using Infrastructure.Mapping;
     using Moq;
@@ -101,39 +107,10 @@
         public void RefineCategorySearchShouldRedirectCorrectly()
         {
             // Arrange
-            //var dbCategoriesMock = new List<Category>()
-            //{
-            //    new Category
-            //    {
-            //        Id = 2,
-            //        Name = "jkasdb",
-            //        SearchFilters = new List<SearchFilter>(),
-            //    },
-            //    new Category
-            //    {
-            //        Id = 234,
-            //        Name = "knhnhkwlje",
-            //        SearchFilters = new List<SearchFilter>(),
-            //    },
-            //    new Category
-            //    {
-            //        Id = 73,
-            //        Name = "someCat",
-            //        SearchFilters = new List<SearchFilter>(),
-            //    },
-            //    new Category
-            //    {
-            //        Id = 86,
-            //        Name = "jjjjj",
-            //        SearchFilters = new List<SearchFilter>(),
-            //    },
-            //};
-
-            //this.categoriesServiceMock.Setup(x => x.GetAll()).Returns(dbCategoriesMock.AsQueryable);
             int categoryId = 34;
             string query = "jkfha hfjsjnkdfjksdhfsdbfnsdbvgmbj";
 
-            List<SearchFilterForCategoryViewModel> searchFilters = new List<SearchFilterForCategoryViewModel>()
+            List<SearchFilterForCategoryViewModel> searchFiltersMock = new List<SearchFilterForCategoryViewModel>()
             {
                 new SearchFilterForCategoryViewModel
                 {
@@ -158,59 +135,80 @@
             var controller = new SearchController(this.autoUpdateCacheServiceMock.Object, this.productsServiceMock.Object, this.searchFiltersServiceMock.Object, this.categoriesServiceMock.Object, this.keywordsServiceMock.Object);
 
             // Assert
-            controller.WithCallTo(x => x.RefineCategorySearch(/*It.IsAny<int>()*/categoryId, /*It.IsAny<string>()*/query, /*It.IsAny<List<SearchFilterForCategoryViewModel>>()*/searchFilters))
-                .ShouldRedirectTo(x => x.SearchByCategory(/*It.IsAny<int>()*/categoryId, /*It.IsAny<string>()*/query, /*0*/It.IsAny<long>()));
+            controller.WithCallTo(x => x.RefineCategorySearch(categoryId, query, searchFiltersMock))
+                .ShouldRedirectTo(x => x.SearchByCategory(categoryId, query, It.IsAny<long>()));
         }
 
-        //[Test]
-        //public void SearchAutoCompleteShouldReturnCorrectly()
-        //{
-        //    // Arrange
-        //    var cacheKey = /*"someCacheKeyString"*/CacheConstants.AllCategoriesKeywords;
-        //    var dbKeywordsMock = new List<Keyword>
-        //    {
-        //        new Keyword { SearchTerm = "somekeyword" },
-        //        new Keyword { SearchTerm = "another" },
-        //        new Keyword { SearchTerm = "jchbui82786bhub" },
-        //    };
-        //    var keywordStrings = dbKeywordsMock.Select(k => k.SearchTerm).ToList();
-        //    var backgroundClientMock = new Mock<IBackgroundJobClient>();
-        //    //backgroundClientMock.
-        //    //GlobalConfiguration.Configuration.UseSqlServerStorage(DbAccess.HangfireConnectionStringName);
-        //    var backgroundServiceMock = new Mock<IBackgroundJobsService>();
-        //    //backgroundServiceMock.SetupGet(x => x.JobClient).Returns(backgroundClientMock.Object);
-        //    this.autoUpdateCacheServiceMock.SetupGet(x => x.BackgroundService).Returns(backgroundServiceMock.Object);
-        //    this.autoUpdateCacheServiceMock.SetupSet(x => x.BackgroundService = backgroundServiceMock.Object);
-        //    this.autoUpdateCacheServiceMock.Setup(x => x.Get<List<string>, SearchController>(
-        //        /*It.IsAny<string>()*/ cacheKey,
-        //        /*It.IsAny<Func<List<string>>>()*/ () => keywordStrings,
-        //        It.IsAny<int>()/*3 * 60*/,
-        //        /*It.IsAny<string>()*/"GetAndCacheKeywords", 
-        //        new object[] { cacheKey },
-        //        It.IsAny<int>()/*2 * 60*/, 
-        //        CacheItemPriority.Default)
-        //        )
-        //        .Returns(keywordStrings/*new List<string>()*/);
-        //    this.autoUpdateCacheServiceMock.Setup(x => x.UpdateAuxiliaryCacheValue(cacheKey, keywordStrings));
-        //    this.keywordsServiceMock.Setup(x => x.GetAll()).Returns(dbKeywordsMock.AsQueryable);
+        [Test]
+        public void AllProductsWithTagShouldReturnCorrectly()
+        {
+            // Arrange
+            var dbProductsMock = new List<Product>() { };
+            this.productsServiceMock.Setup(x => x.GetAll()).Returns(dbProductsMock.AsQueryable);
 
-        //    // Act
-        //    var controller = new SearchController(this.autoUpdateCacheServiceMock.Object, this.productsServiceMock.Object, this.searchFiltersServiceMock.Object, this.categoriesServiceMock.Object, this.keywordsServiceMock.Object);
+            // Act
+            var controller = new SearchController(this.autoUpdateCacheServiceMock.Object, this.productsServiceMock.Object, this.searchFiltersServiceMock.Object, this.categoriesServiceMock.Object, this.keywordsServiceMock.Object);
 
-        //    // Assert
-        //    controller.WithCallTo(x => x.SearchAutoComplete(/*It.IsAny<string>()*/"som"))
-        //        .ShouldReturnJson(
-        //        //data => 
-        //        //{
-        //        //    Assert.IsNotNull(data);
-        //        //    //Assert.IsInstanceOf(typeof(List<string>), data);
-        //        //    //CollectionAssert.AllItemsAreNotNull(data as List<string>);
-        //        //}
-        //        );
+            // Assert
+            controller.WithCallTo(x => x.AllProductsWithTag(It.IsAny<string>()))
+                .ShouldRenderDefaultView()
+                .WithModel<List<ProductWithTagViewModel>>();
+        }
 
-        //    //Assert.AreEqual(controller.SearchAutoComplete(It.IsAny<string>()).JsonRequestBehavior, JsonRequestBehavior.AllowGet);
-        //}
+        [Ignore("Cache service mock .Get<> fails to retrieve keywords. Returns null.")]
+        public void SearchAutoCompleteShouldReturnCorrectly()
+        {
+            // Arrange
+            var cacheKey = "someCacheKeyString";
+            var dbKeywordsMock = new List<Keyword>
+            {
+                new Keyword { SearchTerm = "somekeyword" },
+                new Keyword { SearchTerm = "another" },
+                new Keyword { SearchTerm = "jchbui82786bhub" },
+            };
+            var keywordStrings = dbKeywordsMock.Select(k => k.SearchTerm).ToList();
+            var options = new SqlServerStorageOptions()
+            {
+                
+            };
+            JobStorage.Current = new SqlServerStorage("HangfireConnection", options);
+            var backgroundClientMock = new Mock<IBackgroundJobClient>();
+            backgroundClientMock.Setup(c => c.Create(It.IsAny<Job>(), It.IsAny<EnqueuedState>()));
+            var backgroundServiceMock = new Mock<IBackgroundJobsService>();
+            backgroundServiceMock.SetupGet(x => x.JobClient).Returns(backgroundClientMock.Object);
+            this.autoUpdateCacheServiceMock.SetupGet(x => x.BackgroundService).Returns(backgroundServiceMock.Object);
+            this.autoUpdateCacheServiceMock.SetupSet(x => x.BackgroundService = backgroundServiceMock.Object);
+            this.autoUpdateCacheServiceMock.Setup(x => x.UpdateAuxiliaryCacheValue(cacheKey, keywordStrings));
+            this.autoUpdateCacheServiceMock.Setup(x => x.Get<List<string>, SearchController>(
+                cacheKey,
+                /*It.IsAny<Func<List<string>>>()*/() => keywordStrings,
+                /*It.IsAny<int>()*/3 * 60,
+                /*It.IsAny<string>()*/"GetAndCacheKeywords",
+                new object[] { cacheKey },
+                /*It.IsAny<int>()*/2 * 60,
+                CacheItemPriority.Default)
+                )
+                .Returns(keywordStrings);
+            this.keywordsServiceMock.Setup(x => x.GetAll()).Returns(dbKeywordsMock.AsQueryable);
 
+            // Act
+            var controller = new SearchController(this.autoUpdateCacheServiceMock.Object, this.productsServiceMock.Object, this.searchFiltersServiceMock.Object, this.categoriesServiceMock.Object, this.keywordsServiceMock.Object);
+
+            // Assert
+            controller.WithCallTo(x => x.SearchAutoComplete("jgbwi"))
+                .ShouldReturnJson(
+                data =>
+                {
+                    Assert.IsNotNull(data);
+                    Assert.IsInstanceOf(typeof(List<string>), data);
+                    CollectionAssert.AllItemsAreNotNull(data as List<string>);
+                }
+                );
+
+            Assert.AreEqual(controller.SearchAutoComplete(It.IsAny<string>()).JsonRequestBehavior, JsonRequestBehavior.AllowGet);
+        }
+
+        #region Helpers
         private void PrepareController()
         {
             this.autoMapperConfig = new AutoMapperConfig();
@@ -221,5 +219,6 @@
             this.categoriesServiceMock = new Mock<ICategoriesService>();
             this.keywordsServiceMock = new Mock<IKeywordsService>();
         }
+        #endregion
     }
 }
