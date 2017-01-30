@@ -136,6 +136,7 @@
     <Compile Include="Controllers\ProductsControllerTests.cs" />
     <Compile Include="Controllers\SearchControllerTests.cs" />
     <Compile Include="Controllers\UsersControllerTests.cs" />
+    <Compile Include="Controllers\VotesControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
