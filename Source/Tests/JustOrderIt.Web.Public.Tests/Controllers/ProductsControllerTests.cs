@@ -25,10 +25,10 @@
     public class ProductsControllerTests
     {
         private AutoMapperConfig autoMapperConfig;
-        private Mock<IProductsService> productsService;
-        private Mock<IVotesService> votesService;
-        private Mock<IIdentifierProvider> identifierProvider;
-        private Mock<IMappingService> mappingService;
+        private Mock<IProductsService> productsServiceMock;
+        private Mock<IVotesService> votesServiceMock;
+        private Mock<IIdentifierProvider> identifierProviderMock;
+        private Mock<IMappingService> mappingServiceMock;
 
         public ProductsControllerTests()
         {
@@ -40,14 +40,14 @@
         {
             // Arrange
             var productId = 43;
-            var product = /*this.GetProduct()*/new Product();
-            this.identifierProvider.Setup(x => x.DecodeToIntId(It.IsAny<string>())).Returns(productId);
-            this.productsService.Setup(x => x.GetById(It.IsAny<int>())).Returns(product);
-            var viewModel = new ProductFullViewModel() /*this.GetProductViewModel()*/ /*this.mappingService.Object.Map<ProductFullViewModel>(product)*/;
-            this.mappingService.Setup(x => x.Map<Product, ProductFullViewModel>(It.IsAny<Product>())).Returns(/*new ProductFullViewModel()*/viewModel);
+            var product = new Product();
+            this.identifierProviderMock.Setup(x => x.DecodeToIntId(It.IsAny<string>())).Returns(productId);
+            this.productsServiceMock.Setup(x => x.GetById(It.IsAny<int>())).Returns(product);
+            var viewModel = new ProductFullViewModel();
+            this.mappingServiceMock.Setup(x => x.Map<Product, ProductFullViewModel>(It.IsAny<Product>())).Returns(viewModel);
 
             // Act
-            var controller = new ProductsController(this.productsService.Object, this.identifierProvider.Object, this.votesService.Object, this.mappingService.Object);
+            var controller = new ProductsController(this.productsServiceMock.Object, this.identifierProviderMock.Object, this.votesServiceMock.Object, this.mappingServiceMock.Object);
 
             // Assert
             controller.WithCallTo(x => x.Index("jkfgksdf"))
@@ -75,7 +75,7 @@
             controllerContextMock.SetupGet(x => x.HttpContext.Response).Returns(responseMock.Object);
 
             // Act
-            var controller = new ProductsController(this.productsService.Object, this.identifierProvider.Object, this.votesService.Object, this.mappingService.Object);
+            var controller = new ProductsController(this.productsServiceMock.Object, this.identifierProviderMock.Object, this.votesServiceMock.Object, this.mappingServiceMock.Object);
             controller.ControllerContext = controllerContextMock.Object;
 
             // Assert
@@ -91,8 +91,8 @@
         {
             // Arrange
             var product = this.GetProduct();
-            this.identifierProvider.Setup(x => x.DecodeToIntId(It.IsAny<string>())).Returns(product.Id);
-            this.productsService.Setup(x => x.GetById(It.IsAny<int>())).Returns<Product>(null);
+            this.identifierProviderMock.Setup(x => x.DecodeToIntId(It.IsAny<string>())).Returns(product.Id);
+            this.productsServiceMock.Setup(x => x.GetById(It.IsAny<int>())).Returns<Product>(null);
             var requestMock = new Mock<HttpRequestBase>();
             requestMock.Setup(x => x.Headers).Returns(new NameValueCollection());
             requestMock.SetupGet(x => x.AppRelativeCurrentExecutionFilePath).Returns(It.IsAny<string>());
@@ -105,7 +105,7 @@
             controllerContextMock.SetupGet(x => x.HttpContext.Response).Returns(responseMock.Object);
 
             // Act
-            var controller = new ProductsController(this.productsService.Object, this.identifierProvider.Object, this.votesService.Object, this.mappingService.Object);
+            var controller = new ProductsController(this.productsServiceMock.Object, this.identifierProviderMock.Object, this.votesServiceMock.Object, this.mappingServiceMock.Object);
             controller.ControllerContext = controllerContextMock.Object;
 
             // Assert
@@ -118,10 +118,10 @@
         {
             // Arrange
             var product = this.GetProduct();
-            this.identifierProvider.Setup(x => x.DecodeToIntId(It.IsAny<string>())).Returns(product.Id);
-            this.productsService.Setup(x => x.GetById(It.IsAny<int>())).Returns(product);
+            this.identifierProviderMock.Setup(x => x.DecodeToIntId(It.IsAny<string>())).Returns(product.Id);
+            this.productsServiceMock.Setup(x => x.GetById(It.IsAny<int>())).Returns(product);
             var viewModel = new ProductSneakPeekViewModel();
-            this.mappingService.Setup(x => x.Map<Product, ProductSneakPeekViewModel>(It.IsAny<Product>())).Returns(viewModel);
+            this.mappingServiceMock.Setup(x => x.Map<Product, ProductSneakPeekViewModel>(It.IsAny<Product>())).Returns(viewModel);
             var requestMock = new Mock<HttpRequestBase>();
             requestMock.Setup(x => x.Headers).Returns(new NameValueCollection());
             requestMock.SetupGet(x => x.AppRelativeCurrentExecutionFilePath).Returns(It.IsAny<string>());
@@ -134,7 +134,7 @@
             controllerContextMock.SetupGet(x => x.HttpContext.Response).Returns(responseMock.Object);
 
             // Act
-            var controller = new ProductsController(this.productsService.Object, this.identifierProvider.Object, this.votesService.Object, this.mappingService.Object);
+            var controller = new ProductsController(this.productsServiceMock.Object, this.identifierProviderMock.Object, this.votesServiceMock.Object, this.mappingServiceMock.Object);
             controller.ControllerContext = controllerContextMock.Object;
 
             // Assert
@@ -152,10 +152,10 @@
         {
             this.autoMapperConfig = new AutoMapperConfig();
             autoMapperConfig.Execute(typeof(ProductsController).Assembly);
-            this.productsService = new Mock<IProductsService>();
-            this.votesService = new Mock<IVotesService>();
-            this.identifierProvider = new Mock<IIdentifierProvider>();
-            this.mappingService = new Mock<IMappingService>();
+            this.productsServiceMock = new Mock<IProductsService>();
+            this.votesServiceMock = new Mock<IVotesService>();
+            this.identifierProviderMock = new Mock<IIdentifierProvider>();
+            this.mappingServiceMock = new Mock<IMappingService>();
         }
 
         private ProductFullViewModel GetProductViewModel()

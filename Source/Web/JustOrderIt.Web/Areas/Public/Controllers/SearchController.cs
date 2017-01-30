@@ -92,12 +92,12 @@
         public ActionResult SearchByQuery(string query)
         {
             var viewModel = new QuerySearchViewModel { Query = query };
-
             var categories = this.categoriesService.GetAll().ToList();
 
             foreach (var category in categories)
             {
-                var categoryProducts = this.GetCachedProductsOfCategory(category.Id)
+                var temp = this.GetCachedProductsOfCategory(category.Id);
+                var categoryProducts = temp
                     .FilterProductsBySearchQuery(query)
                     .Take(4)
                     .AsQueryable()
@@ -131,8 +131,8 @@
 
             var searchFilters = this.categoriesService.GetById(categoryId).SearchFilters.AsQueryable().To<SearchFilterForCategoryViewModel>().OrderBy(sf => sf.Id).ToList();
             this.PopulateSearchFilterOptionsFromBitMask(searchOptionsBitMask, searchFilters);
-            model.SearchFilters = searchFilters;
 
+            model.SearchFilters = searchFilters;
             model.Products = this.GetCachedProductsOfCategory(categoryId)
                 .FilterProductsByRefinementOptions(searchFilters.AsQueryable().To<SearchFilterRefinementModel>().ToList())
                 .FilterProductsBySearchQuery(query)

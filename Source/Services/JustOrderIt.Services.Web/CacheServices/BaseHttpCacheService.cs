@@ -31,7 +31,8 @@
                 }
             }
 
-            return (T)HttpRuntime.Cache[key];
+            var result = (T)HttpRuntime.Cache[key];
+            return result;
         }
 
         public void Remove(string key)

@@ -11,6 +11,8 @@
 
     public interface IAutoUpdateCacheService : ICacheService
     {
+        IBackgroundJobsService BackgroundService { get; set; }
+
         /// <summary>
         /// Gets the cached item with the specified key. If none is found, a new one is inserted into the cache using
         /// the specified parameters and then it is returned to the caller. It also defines a background job that adds or updates
