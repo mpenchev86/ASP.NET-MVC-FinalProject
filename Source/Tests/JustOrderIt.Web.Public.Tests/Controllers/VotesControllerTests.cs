@@ -7,6 +7,8 @@
     using System.Threading.Tasks;
     using Areas.Public.Controllers;
     using Areas.Public.ViewModels.Votes;
+    using Data.Models.Identity;
+    using Data.Models.Orders;
     using Infrastructure.Mapping;
     using Moq;
     using NUnit.Framework;
@@ -42,6 +44,37 @@
             // Assert
             controller.WithCallTo(x => x.DisplayProductRating(requestModel))
                 .ShouldRenderPartialView("RatingDisplay");
+        }
+
+        [Test]
+        public void DisplayProductRatingShouldReturnVoteForProductPartialIfUserIsNotNullAndHasPurchasedRequestModelProduct()
+        {
+            // Arrange
+            var requestModel = new VoteEditorModel()
+            {
+                VoteValue = 3.2,
+                ProductId = 3123,
+                UserId = Guid.NewGuid().ToString()
+            };
+
+            var user = new ApplicationUser()
+            {
+                Id = requestModel.UserId,
+                Orders = new List<Order>
+                {
+                    new Order { OrderItems = new List<OrderItem> { new OrderItem { ProductId = requestModel.ProductId } } },
+                },
+            };
+
+            this.usersServiceMock.Setup(x => x.GetById(It.IsAny<string>())).Returns(user);
+
+            // Act
+            var controller = new VotesController(this.votesServiceMock.Object, this.mappingServiceMock.Object, this.usersServiceMock.Object);
+
+            // Assert
+            controller.WithCallTo(x => x.DisplayProductRating(requestModel))
+                .ShouldRenderPartialView("VoteForProduct")
+                .WithModel<VoteEditorModel>();
         }
 
         #region Helpers
