@@ -77,6 +77,12 @@
                 .WithModel<VoteEditorModel>();
         }
 
+        [Test]
+        public void VoteForProduct()
+        {
+
+        }
+
         #region Helpers
         public void PrepareController()
         {
