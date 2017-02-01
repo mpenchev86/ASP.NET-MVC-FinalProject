@@ -19,11 +19,17 @@
         private static ConcurrentDictionary<string, CacheProfile> auxiliaryCacheProfiles =
              new ConcurrentDictionary<string, CacheProfile>();
 
-        private readonly IBackgroundJobsService backgroundService;
+        private IBackgroundJobsService backgroundService;
 
         public AutoUpdateCacheService(IBackgroundJobsService backgroundService)
         {
             this.backgroundService = backgroundService;
+        }
+
+        public IBackgroundJobsService BackgroundService
+        {
+            get { return this.backgroundService; }
+            set { this.backgroundService = value; }
         }
 
         public void UpdateAuxiliaryCacheValue(string key, object updatedData)
@@ -70,7 +76,8 @@
                 }
             }
 
-            return (T)HttpRuntime.Cache[key];
+            var result = (T)HttpRuntime.Cache[key];
+            return result;
         }
 
         private void OnUpdate<T, TSubscriber>(

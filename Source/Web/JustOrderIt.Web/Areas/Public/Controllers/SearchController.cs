@@ -59,13 +59,13 @@
             }
             else
             {
-                if (string.IsNullOrWhiteSpace(searchViewModel.Query))
+                if (!string.IsNullOrWhiteSpace(searchViewModel.Query))
                 {
-                    return this.RedirectToAction("Index", "Home", new { area = Areas.PublicAreaName });
+                    return this.RedirectToAction("SearchByQuery", "Search", new { query = searchViewModel.Query, area = Areas.PublicAreaName });
                 }
                 else
                 {
-                    return this.RedirectToAction("SearchByQuery", "Search", new { query = searchViewModel.Query, area = Areas.PublicAreaName });
+                    return this.RedirectToAction("Index", "Home", new { area = Areas.PublicAreaName });
                 }
             }
         }
@@ -84,7 +84,6 @@
                 );
 
             var results = keywords.Where(kw => kw.ToLower().StartsWith(prefix.ToLower())).ToList();
-
             return this.Json(results, JsonRequestBehavior.AllowGet);
         }
 
@@ -92,12 +91,12 @@
         public ActionResult SearchByQuery(string query)
         {
             var viewModel = new QuerySearchViewModel { Query = query };
-
             var categories = this.categoriesService.GetAll().ToList();
 
             foreach (var category in categories)
             {
-                var categoryProducts = this.GetCachedProductsOfCategory(category.Id)
+                var temp = this.GetCachedProductsOfCategory(category.Id);
+                var categoryProducts = temp
                     .FilterProductsBySearchQuery(query)
                     .Take(4)
                     .AsQueryable()
@@ -131,8 +130,8 @@
 
             var searchFilters = this.categoriesService.GetById(categoryId).SearchFilters.AsQueryable().To<SearchFilterForCategoryViewModel>().OrderBy(sf => sf.Id).ToList();
             this.PopulateSearchFilterOptionsFromBitMask(searchOptionsBitMask, searchFilters);
-            model.SearchFilters = searchFilters;
 
+            model.SearchFilters = searchFilters;
             model.Products = this.GetCachedProductsOfCategory(categoryId)
                 .FilterProductsByRefinementOptions(searchFilters.AsQueryable().To<SearchFilterRefinementModel>().ToList())
                 .FilterProductsBySearchQuery(query)
@@ -160,7 +159,7 @@
         public ActionResult AllProductsWithTag(string tag)
         {
             var products = this.productsService.GetAll().Where(p => p.Tags.Select(t => t.Name).Contains(tag));
-            var result = products.To<ProductWithTagViewModel>();
+            var result = products.To<ProductWithTagViewModel>().ToList();
             return this.View(result);
         }
 
@@ -210,7 +209,8 @@
         [NonAction]
         private List<string> GetKeywords()
         {
-            return this.keywordsService.GetAll().Select(k => k.SearchTerm).ToList();
+            var result = this.keywordsService.GetAll().Select(k => k.SearchTerm).ToList();
+            return result;
         }
 
         [NonAction]

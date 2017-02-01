@@ -67,9 +67,11 @@
                 }
 
                 model.VoteValue = this.votesService.GetAll().Where(v => v.ProductId == model.ProductId).Average(v => v.VoteValue);
+
+                return this.PartialView(model);
             }
 
-            return this.PartialView(model);
+            throw new HttpException(400, "Invalid vote model");
         }
 
         [HttpPost]

@@ -4,4 +4,4 @@
 [![codecov](https://codecov.io/gh/mpenchev86/JustOrderIt/branch/master/graph/badge.svg)](https://codecov.io/gh/mpenchev86/JustOrderIt)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
 
-ASP.NET-MVC Final Project for Telerik Academy, season 2015-2016
+JustOrderIt is a proof-of-concept e-commerce application based on ASP.NET MVC and Entity Framework with a MS SQL backend database. It was initially intended to be the Final project for Telerik Academy, season 2015-2016. The application solution is divided in several major components placed in their respective folders. It exposes frontend (public area) and a backend(administration area) functionality. 

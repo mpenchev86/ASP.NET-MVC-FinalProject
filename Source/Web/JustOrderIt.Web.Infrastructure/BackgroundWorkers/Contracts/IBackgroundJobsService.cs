@@ -13,6 +13,6 @@
         /// <value>
         /// A Hangfire BackgroundJobClient instance.
         /// </value>
-        BackgroundJobClient JobClient { get; }
+        IBackgroundJobClient JobClient { get; }
     }
 }
