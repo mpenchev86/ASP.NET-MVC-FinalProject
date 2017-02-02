@@ -71,7 +71,7 @@
                 return this.PartialView(model);
             }
 
-            throw new HttpException(400, "Invalid vote model");
+            throw new HttpException(400, "Invalid vote editor model");
         }
 
         [HttpPost]
@@ -92,9 +92,11 @@
                     vote = this.mappingService.Map<Vote>(model);
                     this.votesService.Insert(vote);
                 }
+
+                return this.PartialView(model);
             }
 
-            return this.PartialView(model);
+            throw new HttpException(400, "Invalid vote editor model");
         }
     }
 }

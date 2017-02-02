@@ -168,6 +168,94 @@
             Assert.Throws<HttpException>(() => controller.VoteForProduct(null));
         }
 
+        [Test]
+        public void VoteForOrderItemShouldReturnDefaultPartialIfViewModelAndModelStateAreValidAndUserHasVotedForProduct()
+        {
+            // Arrange
+            var requestModel = new VoteEditorModel()
+            {
+                VoteValue = 3.2,
+                ProductId = 3123,
+                UserId = Guid.NewGuid().ToString()
+            };
+
+            var vote = new Vote
+            {
+                Id = 321,
+                ProductId = requestModel.ProductId,
+                UserId = requestModel.UserId,
+                VoteValue = Convert.ToInt32(requestModel.VoteValue),
+            };
+
+            var dbVotesMock = new List<Vote>()
+            {
+                new Vote { UserId = Guid.NewGuid().ToString(), ProductId = 61 },
+                new Vote { UserId = requestModel.UserId, ProductId = requestModel.ProductId },
+                new Vote { UserId = Guid.NewGuid().ToString(), ProductId = 12 },
+            };
+
+            this.votesServiceMock.Setup(x => x.GetAll()).Returns(dbVotesMock.AsQueryable);
+            this.votesServiceMock.Setup(x => x.Insert(vote)).Callback(() => dbVotesMock.Add(vote));
+            this.mappingServiceMock.Setup(x => x.Map<Vote>(requestModel)).Returns(vote);
+
+            // Act
+            var controller = new VotesController(this.votesServiceMock.Object, this.mappingServiceMock.Object, this.usersServiceMock.Object);
+
+            // Assert
+            controller.WithCallTo(x => x.VoteForOrderItem(requestModel))
+                .ShouldRenderDefaultPartialView()
+                .WithModel<VoteEditorModel>();
+        }
+
+        [Test]
+        public void VoteForOrderItemShouldReturnDefaultPartialIfViewModelAndModelStateAreValidAndUserHasNotVotedForProduct()
+        {
+            // Arrange
+            var requestModel = new VoteEditorModel()
+            {
+                VoteValue = 3.2,
+                ProductId = 3123,
+                UserId = Guid.NewGuid().ToString()
+            };
+
+            var vote = new Vote
+            {
+                Id = 321,
+                ProductId = requestModel.ProductId,
+                UserId = requestModel.UserId,
+                VoteValue = Convert.ToInt32(requestModel.VoteValue),
+            };
+
+            var dbVotesMock = new List<Vote>()
+            {
+                new Vote { UserId = Guid.NewGuid().ToString(), ProductId = 61 },
+                //new Vote { UserId = requestModel.UserId, ProductId = requestModel.ProductId },
+                new Vote { UserId = Guid.NewGuid().ToString(), ProductId = 12 },
+            };
+
+            this.votesServiceMock.Setup(x => x.GetAll()).Returns(dbVotesMock.AsQueryable);
+            this.votesServiceMock.Setup(x => x.Insert(vote)).Callback(() => dbVotesMock.Add(vote));
+            this.mappingServiceMock.Setup(x => x.Map<Vote>(requestModel)).Returns(vote);
+
+            // Act
+            var controller = new VotesController(this.votesServiceMock.Object, this.mappingServiceMock.Object, this.usersServiceMock.Object);
+
+            // Assert
+            controller.WithCallTo(x => x.VoteForOrderItem(requestModel))
+                .ShouldRenderDefaultPartialView()
+                .WithModel<VoteEditorModel>();
+        }
+
+        [Test]
+        public void VoteForOrderItemShouldThrowIfViewModelOrModelStateIsNotValid()
+        {
+            // Act
+            var controller = new VotesController(this.votesServiceMock.Object, this.mappingServiceMock.Object, this.usersServiceMock.Object);
+
+            // Assert
+            Assert.Throws<HttpException>(() => controller.VoteForOrderItem(null));
+        }
+
         #region Helpers
         public void PrepareController()
         {
