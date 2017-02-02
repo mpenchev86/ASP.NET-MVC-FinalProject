@@ -8,16 +8,26 @@ JustOrderIt is a proof-of-concept e-commerce application based on ASP.NET MVC an
 
 Contents: 
 
-1. Solution folders:(#Solution Folders)
-..*	Common(#Common Folder)
-..*	Data
-..*	Services
-..*	Tests
-..*	Web
-2. Technologies and frameworks used:
+1. Solution folders:(#Solution-Folders)
+ + Common(#Common-Folder)
+ + Data(#Data-Folder)
+ + Services(#Services-Folder)
+ + Tests(#Tests-Folder)
+ + Web(#Web-Folder)
+2. Technologies and Frameworks used(#Technologies-and-Frameworks):
 
 [//]: # (It contains presentation layers with frontend (public area) and backend(administration area) functionality.)
 
 ##Solution Folders
 
-##Common Folder
+###Common Folder
+
+###Data Folder
+
+###Services Folder
+
+###Tests Folder
+
+###Web Folder
+
+##Technologies and Frameworks
