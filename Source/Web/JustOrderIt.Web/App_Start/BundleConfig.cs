@@ -40,6 +40,7 @@
                 .Include("~/Content/Site.css", new CssRewriteUrlTransform()));
 
             bundles.Add(new StyleBundle(Bundles.StylesKendoCss)
+                .Include("~/Content/Kendo/kendo.common.min.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Kendo/kendo.common-bootstrap.min.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Kendo/kendo.bootstrap.min.css", new CssRewriteUrlTransform()));
 

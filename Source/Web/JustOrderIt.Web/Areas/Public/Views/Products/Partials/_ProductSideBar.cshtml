@@ -60,17 +60,12 @@
 
                 @Html.Hidden("productId", Model.EncodedId)
                 
+                @Html.Label("quantity", "Quantity: ") @:&nbsp
                 <div class="input-group">
-                    @Html.Label("quantity", "Quantity: ") &nbsp
-                    @Html.DropDownList("quantity", Model.QuantityDropDownSelectList, htmlAttributes: new { id = "quantity" })
-
+                    @Html.DropDownList("quantity", Model.QuantityDropDownSelectList, htmlAttributes: new { id = "cartitem-quantity" })
                     <button type="submit">Add To Cart</button>
                 </div>
             }
-            
-            @*<button type="button" id="addtocart-button">
-                @Html.ActionLink("Add to Cart", "AddToCart", "Orders", new { productId = Model.EncodedId, area = Areas.PublicAreaName }, new { @class = "button", id = "addtocart-link" })
-            </button>*@
         </th>
     </tr>
 </table>
