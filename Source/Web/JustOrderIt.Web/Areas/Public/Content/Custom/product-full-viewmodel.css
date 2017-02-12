@@ -231,9 +231,13 @@
     }
 
     /* ====== Add to Cart ====== */
-    #addtocart-form #quantity {
+    #addtocart-form div.input-group {
+        display: inline-flex;
+    }
+
+    #addtocart-form #cartitem-quantity {
         border-right: 0px;
-        height: 100%;
+        display: block;
     }
 
     /*#addtocart-form button {
