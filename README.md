@@ -100,7 +100,7 @@ This project is the startup MVC project of the application. Since an e-commerce 
 
 #### JustOrderIt.Web.Administration project
 
-The *JustOrderIt.Web.Administration* project implements the Administration presentation layer of the application. It is an MVC project which cannot be run by itself. It is located in a subfolder to the Areas folder of the main MVC project. It is accessible only to users with administrative rights (users assigned to the role "Admin"). There's a controller, processing CRUD requests for every business object which inherits the IAdministerable interface. The views makes extensive use Telerik's Kendo UI widgets, mainly the Grid widget.
+The *JustOrderIt.Web.Administration* project implements the Administration presentation layer of the application. It is an MVC project which cannot be run by itself. It is located in a subfolder to the Areas folder of the main MVC project. It is accessible only to users with administrative rights (users assigned to the role "Admin"). There's a controller, processing CRUD requests for every business object which inherits the IAdministerable interface. The views makes extensive use **Telerik's Kendo UI** widgets, mainly the Grid widget.
 
 #### JustOrderIt.Web.Public project
 
