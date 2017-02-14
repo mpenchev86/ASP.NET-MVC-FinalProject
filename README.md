@@ -8,22 +8,28 @@ JustOrderIt is a proof-of-concept e-commerce application based on ASP.NET MVC an
 
 **Contents:**
 
-1. [Source code structure. Solution folders](#solution-folders)
+1. [User guide](#user-guide)
+2. [Source code structure. Solution folders](#solution-folders)
  * [Common](#common-folder)
  * [Data](#data-folder)
  * [Services](#services-folder)
  * [Tests](#tests-folder)
  * [Web](#web-folder)
-2. [Technologies and Frameworks used](#technologies-and-frameworks)
+3. [Technologies and Frameworks used](#technologies-and-frameworks)
  * [DI container](#di-container)
  * [Object Mapping](#object-mapping)
  * [UI frameworks](#ui-frameworks)
  * [Task Scheduler](#task-scheduler)
  * [Image processing](#image-processing)
+ * [Testing](#testing)
  * [Others](#others)
  
 
 [//]: # (It contains presentation layers with frontend (public area) and backend(administration area) functionality.)
+
+##User guide
+
+
 
 ##Source code structure. Solution folders
 
@@ -74,18 +80,53 @@ This project defines types implementing logic that takes part in the processing 
 
 ###Tests Folder
 
+Tests Folder contains the assemblies with unit tests.
+
 ###Web Folder
+
+This folder contains the MVC web application projects and the JustOrderIt.Web.Infrastructure.
+
+#### JustOrderIt.Web project
+
+This project is the startup MVC project of the application. Since an e-commerce application is usually complex and contains multiple modules, most of the presentation is organized in separate areas - Administration and Public. What remains in the JustOrderIt.Web project are the AccountController and ManageController, commomly used css files, script files and views, and the initialization of some core services (DI container, object mapping, background worker, etc.).
+
+#### JustOrderIt.Web.Administration project
+
+The JustOrderIt.Web.Administration project implements the Administration presentation layer of the application. It is an MVC project which cannot be run by itself. It is located in a subfolder to the Areas folder of the main MVC project. It is accessible only to users with administrative rights (users assigned to the role "Admin"). There's a controller, processing CRUD requests for every business object which inherits the IAdministerable interface. The views makes extensive use Telerik's Kendo UI widgets, mainly the Grid widget.
+
+#### JustOrderIt.Web.Public project
+
+The JustOrderIt.Web.Public project is the presentation layer for the publicly accessible store. It is an MVC project which cannot be run by itself. It is located in a subfolder to the Areas folder of the main MVC project. The functionality of the project is incomplete and some pages load as a "under construction" page or are just missing. All users can interact with the public store, but some things are allowed to specific groups of users only (commenting, product rating, shopping cart actions, etc.). Some views here also use Kendo UI widgets, especially the ListView.
+
+#### JustOrderIt.Web.Infrastructure project
+
+JustOrderIt.Web.Infrastructure project is a class library that contains various helpers that bind the application together. These classes are essential or commonly used throughout the application. They're organized into folders named according to their function (Caching, Extensions, Filters, HtmlHelpers, Mapping, ModelBinders, etc.).
 
 ##Technologies and Frameworks
 
 ###DI container
 
+Initially Ninject was used but then it was replaced by Autofac v3.5.2.
+
 ###Object Mapping
+
+Automapper v5.2 is the technology used for object-to-object mapping. Mapping configuration Profiles are employed.
 
 ###UI frameworks
 
+The UI of the application employs the Bootstrap, jQuery UI and Telerik's Kendo UI frontend frameworks extensively. Kendo UI Grid is used in the admin area and ListView is used on the Home and Search pages. Also Infragistics' Ignite UI Rating widget is used for displaying and changing product rating.
+
 ###Task Scheduler
+
+The background tasks that repopulate the in-memory cache objects are run by the Hangfire v1.6.8 - an open-source framework for background jobs. The jobs are persisted to SQL database (default) to ensure that tasks are not canceled or interrupted while in progress if the server drops or is restarted. Therefore, a separate database for Hangfire's data is created when the application runs for the first time. The connection string is placed in the main MVC project's web.config, alongside the JustOrderIt connection string. The database is named "HangFire-JustOrderIt" to specify in case many Hangfire databases exist on the server.
 
 ###Image processing
 
+The product images are processed (resized and formatted) by the ImageProcessor v2.5.2 framework.
+
+###Testing
+
+The NUnit v3.6.0 and FluentMVCTesting v3.0.0 testing frameworks and Moq v4.5.30 mocking framework are used.
+
 ###Others
+Castle.Core, Elmah.Mvc, Glimpse, Newtonsoft.Json, OpenCover, StyleCop.Analyzers, 
