@@ -92,7 +92,7 @@ This project defines types implementing logic that takes part in the processing 
 
 ###Web Folder
 
-This folder contains the MVC web application projects and the *JustOrderIt.Web.Infrastructure*.
+This folder contains the MVC web application projects and the *JustOrderIt.Web.Infrastructure* project.
 
 #### JustOrderIt.Web project
 
