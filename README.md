@@ -24,15 +24,17 @@ JustOrderIt is a proof-of-concept e-commerce application based on ASP.NET MVC an
  * [Testing](#testing)
  * [Others](#others)
  
-
 [//]: # (It contains presentation layers with frontend (public area) and backend(administration area) functionality.)
 
 ##User guide
 
-When you run the application for the first time, it is configured to populate the database with some sample data, including products, images, users, categories, comments, etc. 
+When you run the application for the first time, it is configured to populate the database with some sample data, including products, images, users, categories, comments, etc.
+
 The sample image files are located at Solution\Web\JustOrderIt.Web\App_Data\SampleProductImages folder. If they're moved or renamed before first running the application, they won't be associated with their corresponding sample product and won't be displayed in the browser.
+
 If you want to start with a clear database, you can open the Configuration.cs file (located in Solution\Data\JustOrderIt.Data.DbAccessConfig project, Migrations folder) and place in comments the lines of the Seed method associated with generating sample entries via a sample data generator.
 The SampleDataGenerator creats an admin user (in admin role) with name "admin" and password "123456". Initially, only the admin user is in administration role and thus only admin has access to the Administration area. Through the admin backend, any admin can assign another user to administration role.
+
 SampleDataGenerator also creates regular application users with names and passwords following a pattern: name - "user\*\*", password - "0000\*\*", where \*\* represents a number between 01 and 99, which is the same for the name and password of a user. You can log on with one of these users or register a new one. 
 
 [//]: # (The starting point of the application is the JustOrderIt.Web project located in the Source\Web folder.)
