@@ -1,6 +1,6 @@
 # JustOrderIt - an e-commerce ASP.NET MVC Project
 
-[![Build status](https://ci.appveyor.com/api/projects/status/3pebesusknx35m7n/branch/master?svg=true)](https://ci.appveyor.com/project/mpenchev86/JustOrderIt/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/3pebesusknx35m7n/branch/master?svg=true)](https://ci.appveyor.com/project/mpenchev86/asp-net-mvc-finalproject/branch/master)
 [![codecov](https://codecov.io/gh/mpenchev86/JustOrderIt/branch/master/graph/badge.svg)](https://codecov.io/gh/mpenchev86/JustOrderIt)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
 
@@ -127,7 +127,7 @@ The UI of the application employs the Bootstrap, jQuery UI and [Telerik's Kendo 
 
 ###Task Scheduler
 
-The background tasks that repopulate the in-memory cache objects are run by the **Hangfire v1.6.8** - an open-source framework for background jobs. The jobs are persisted to SQL database (default) to ensure that tasks are not canceled or interrupted while in progress if the server drops or is restarted. Therefore, a *separate database* for Hangfire's data is created when the application runs for the first time. The connection string is placed in the main MVC project's web.config, alongside the JustOrderIt connection string. The database is named "HangFire-JustOrderIt" to specify in case many Hangfire databases exist on the server.
+The background tasks that repopulate the in-memory cache objects are run by the [**Hangfire v1.6.8**](http://hangfire.io/) - an open-source framework for background jobs. The jobs are persisted to SQL database (default) to ensure that tasks are not canceled or interrupted while in progress if the server drops or is restarted. Therefore, a *separate database* for Hangfire's data is created when the application runs for the first time. The connection string is placed in the main MVC project's web.config, alongside the JustOrderIt connection string. The database is named "HangFire-JustOrderIt" to specify in case many Hangfire databases exist on the server.
 
 ###Image processing
 
