@@ -292,6 +292,8 @@
     <Content Include="Content\Custom\validation-messages.css" />
     <Content Include="Content\IgniteUI\jquery-ui.css" />
     <Content Include="Content\IgniteUI\jquery-ui.min.css" />
+    <Content Include="Content\IgniteUI\Structure\fonts\icomoon.svg" />
+    <Content Include="Content\IgniteUI\Structure\fonts\jquery-ui.svg" />
     <Content Include="Content\IgniteUI\Structure\Images\icon_sprite.png" />
     <Content Include="Content\IgniteUI\Structure\Images\igBrowserLogos.png" />
     <Content Include="Content\IgniteUI\Structure\Images\igLoadingSmall.gif" />
@@ -368,6 +370,14 @@
     <Content Include="Scripts\IgniteUI\infragistics.util.Unicode.js" />
     <Content Include="Scripts\IgniteUI\jquery-ui.js" />
     <Content Include="Scripts\IgniteUI\jquery-ui.min.js" />
+    <Content Include="Content\IgniteUI\Structure\fonts\icomoon.eot" />
+    <Content Include="Content\IgniteUI\Structure\fonts\icomoon.ttf" />
+    <Content Include="Content\IgniteUI\Structure\fonts\icomoon.woff" />
+    <Content Include="Content\IgniteUI\Structure\fonts\jquery-ui.eot" />
+    <Content Include="Content\IgniteUI\Structure\fonts\jquery-ui.ttf" />
+    <Content Include="Content\IgniteUI\Structure\fonts\jquery-ui.woff" />
+    <Content Include="Content\IgniteUI\Themes\infragistics\framework.less" />
+    <Content Include="Content\IgniteUI\Themes\infragistics\infragistics.theme.less" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />

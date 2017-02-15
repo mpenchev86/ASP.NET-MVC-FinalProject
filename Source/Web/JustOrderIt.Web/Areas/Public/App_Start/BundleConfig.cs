@@ -16,9 +16,8 @@
                 .Include("~/Areas/Public/Scripts/IgniteUI/jquery-ui.js"));
 
             bundles.Add(new ScriptBundle(Bundles.PublicScriptsIgniteUI)
-                .Include("~/Areas/Public/Scripts/IgniteUI/infragistics.core.Unicode.js")
-                .Include("~/Areas/Public/Scripts/IgniteUI/infragistics.ui.rating.js")
-                .Include("~/Areas/Public/Scripts/IgniteUI/infragistics.lob.js"));
+                .Include("~/Areas/Public/Scripts/IgniteUI/infragistics.util.Unicode.js")
+                .Include("~/Areas/Public/Scripts/IgniteUI/infragistics.ui.rating.js"));
 
             bundles.Add(new ScriptBundle(Bundles.PublicScriptsCustom)
                 .Include("~/Areas/Public/Scripts/Custom/bootstrap-modal-helpers.js")

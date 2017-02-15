@@ -30,7 +30,7 @@ JustOrderIt is a proof-of-concept e-commerce application based on ASP.NET MVC an
 
 When you run the application for the first time, it is configured to populate the database with some sample data, including products, images, users, categories, comments, etc.
 
-The sample image files are located at *Solution\Web\JustOrderIt.Web\App_Data\SampleProductImages* folder. If they're moved or renamed before running the application for the first time, they won't be associated with their corresponding sample product and won't be displayed in the browser.
+The sample image files are located at *Solution\Web\JustOrderIt.Web\App_Data\SampleProductImages* folder. If they're moved or renamed before running the application for the first time, an error is thrown and the images won't be copied to the standard folder for product images and therefore won't be associated with their corresponding sample product.
 
 If you want to start with a clear database, you can open the Configuration.cs file (located in *Solution\Data\JustOrderIt.Data.DbAccessConfig* project, *Migrations* folder) and place in comments the lines of the Seed method associated with generating sample entries via a sample data generator.
 
