@@ -6,7 +6,7 @@
 
 JustOrderIt is a proof-of-concept e-commerce application based on ASP.NET MVC and Entity Framework with a MS SQL backend database. It was initially intended to be the Final project for Telerik Academy, season 2015-2016. The application solution is divided in several major components placed in their respective folders. Use the Contents shortcuts for more information.
 
-**Contents:**
+**Table of Contents:**
 
 1. [User guide](#user-guide)
 2. [Source code structure. Solution folders](#source-code-structure-solution-folders)
@@ -16,7 +16,7 @@ JustOrderIt is a proof-of-concept e-commerce application based on ASP.NET MVC an
  * [Tests](#tests-folder)
  * [Web](#web-folder)
 3. [Technologies and Frameworks used](#technologies-and-frameworks)
- * [DI container](#di-container)
+ * [IoC container](#ioc-container)
  * [Object Mapping](#object-mapping)
  * [UI frameworks](#ui-frameworks)
  * [Task Scheduler](#task-scheduler)
@@ -48,7 +48,7 @@ The common folder contains the *GlobalConstants* and *Resources* projects.
 
 #### JustOrderIt.Common.GlobalConstants project
 
-This project is a class library project contains classes which define constants commonly used throughout most or all projects. It helps keep the code clear of 'magic' strings that would be harder to maintain. Not all uses of magic strings are abstracted yet. The Html- and UrlHelpers, as well as the ActionResult generating methods still employ strings. In the future they'll be implemented in a fluent-api way through expression building frameworks, such as the [**ASP.NET MVC Lambda Expression Helpers**](https://github.com/ivaylokenov/ASP.NET-MVC-Lambda-Expression-Helpers) library.
+This project is a class library project contains classes which define constants commonly used throughout most or all projects. It helps keep the code clear of 'magic' strings that would be harder to maintain. Not all uses of magic strings are abstracted yet. The Html- and UrlHelpers, as well as the ActionResult generating methods still employ strings. In the future they'll be implemented in a fluent-api way through expression building frameworks, such as the [ASP.NET MVC Lambda Expression Helpers](https://github.com/ivaylokenov/ASP.NET-MVC-Lambda-Expression-Helpers) library.
 
 #### JustOrderIt.Common.Resources project
 
@@ -73,7 +73,7 @@ Services folder accomodates class libraries providing various services. Dependin
 
 #### JustOrderIt.Services.Data project
 
-This project is mainly concerned with decoupling the MVC layer of the application from a particular data access layer implementation. There's a data service interface for each data model type. A repostiry is injected by the DI container in the constructor of the class implementing a data service interface, and is used in the service's methods to read and write data to the database. The data service itself is injected, where necessary, in the Controller classes of the MVC tier so that CRUD database operations are available to the controller's actions.
+This project is mainly concerned with decoupling the MVC layer of the application from a particular data access layer implementation. There's a data service interface for each data model type. A repostiry is injected by the IoC container in the constructor of the class implementing a data service interface, and is used in the service's methods to read and write data to the database. The data service itself is injected, where necessary, in the Controller classes of the MVC tier so that CRUD database operations are available to the controller's actions.
 
 #### JustOrderIt.Services.Identity project
 
@@ -97,7 +97,7 @@ This folder contains the MVC web application projects and the *JustOrderIt.Web.I
 
 #### JustOrderIt.Web project
 
-This project is the startup MVC project of the application. Since an e-commerce application is usually complex and contains multiple modules, most of the presentation is organized in separate areas - *Administration* and *Public*. What remains in the JustOrderIt.Web project are the *AccountController* and *ManageController*, commomly used css files, script files and views, and the initialization of some core services (DI container, object mapping, background worker, etc.).
+This project is the startup MVC project of the application. Since an e-commerce application is usually complex and contains multiple modules, most of the presentation is organized in separate areas - *Administration* and *Public*. What remains in the JustOrderIt.Web project are the *AccountController* and *ManageController*, commomly used css files, script files and views, and the initialization of some core services (IoC container, object mapping, background worker, etc.).
 
 #### JustOrderIt.Web.Administration project
 
@@ -113,7 +113,7 @@ The *JustOrderIt.Web.Public* project is the presentation layer for the publicly 
 
 ##Technologies and Frameworks
 
-###DI container
+###IoC container
 
 Initially Ninject was used but then it was replaced by Autofac v3.5.2.
 
@@ -123,7 +123,7 @@ Automapper v5.2 is the technology used for object-to-object mapping. Mapping con
 
 ###UI frameworks
 
-The UI of the application employs the Bootstrap, jQuery UI and [**Telerik's Kendo UI**](https://www.telerik.com/kendo-ui) frontend frameworks extensively. Kendo UI Grid is used in the admin area and ListView is used on the Home and Search pages. Also [**Infragistics' Ignite UI**](https://www.igniteui.com/) Rating widget is used for displaying and changing product rating.
+The UI of the application employs the Bootstrap, jQuery UI and [Telerik's Kendo UI](https://www.telerik.com/kendo-ui) frontend frameworks extensively. Kendo UI Grid is used in the admin area and ListView is used on the Home and Search pages. Also [Infragistics' Ignite UI](https://www.igniteui.com/) Rating widget is used for displaying and changing product rating.
 
 ###Task Scheduler
 
