@@ -48,7 +48,7 @@ The common folder contains the *GlobalConstants* and *Resources* projects.
 
 #### JustOrderIt.Common.GlobalConstants project
 
-This project is a class library project contains classes which define constants commonly used throughout most or all projects. It helps keep the code clear of 'magic' strings that would be harder to maintain. Not all uses of magic strings are abstracted yet. The Html- and UrlHelpers, as well as the ActionResult generating methods still employ strings. In the future they'll be implemented in a fluent-api way through expression building frameworks, such as the **ASP.NET MVC Lambda Expression Helpers** library.(https://github.com/ivaylokenov/ASP.NET-MVC-Lambda-Expression-Helpers)
+This project is a class library project contains classes which define constants commonly used throughout most or all projects. It helps keep the code clear of 'magic' strings that would be harder to maintain. Not all uses of magic strings are abstracted yet. The Html- and UrlHelpers, as well as the ActionResult generating methods still employ strings. In the future they'll be implemented in a fluent-api way through expression building frameworks, such as the [**ASP.NET MVC Lambda Expression Helpers**](https://github.com/ivaylokenov/ASP.NET-MVC-Lambda-Expression-Helpers) library.
 
 #### JustOrderIt.Common.Resources project
 
@@ -101,7 +101,7 @@ This project is the startup MVC project of the application. Since an e-commerce 
 
 #### JustOrderIt.Web.Administration project
 
-The *JustOrderIt.Web.Administration* project implements the Administration presentation layer of the application. It is an MVC project which cannot be run by itself. It is located in a subfolder to the Areas folder of the main MVC project. It is accessible only to users with administrative rights (users assigned to the role "Admin"). There's a controller, processing CRUD requests for every business object which inherits the IAdministerable interface. The views makes extensive use **Telerik's Kendo UI** widgets, mainly the Grid widget.
+The *JustOrderIt.Web.Administration* project implements the Administration presentation layer of the application. It is an MVC project which cannot be run by itself. It is located in a subfolder to the Areas folder of the main MVC project. It is accessible only to users with administrative rights (users assigned to the role "Admin"). There's a controller, processing CRUD requests for every business object which inherits the IAdministerable interface. The views makes extensive use [**Telerik's Kendo UI**](https://www.telerik.com/kendo-ui) widgets, mainly the Grid widget.
 
 #### JustOrderIt.Web.Public project
 
@@ -123,7 +123,7 @@ Automapper v5.2 is the technology used for object-to-object mapping. Mapping con
 
 ###UI frameworks
 
-The UI of the application employs the Bootstrap, jQuery UI and **Telerik's Kendo UI** frontend frameworks extensively. Kendo UI Grid is used in the admin area and ListView is used on the Home and Search pages. Also Infragistics' **Ignite UI** Rating widget is used for displaying and changing product rating.
+The UI of the application employs the Bootstrap, jQuery UI and [**Telerik's Kendo UI**](https://www.telerik.com/kendo-ui) frontend frameworks extensively. Kendo UI Grid is used in the admin area and ListView is used on the Home and Search pages. Also [**Infragistics' Ignite UI**](https://www.igniteui.com/) Rating widget is used for displaying and changing product rating.
 
 ###Task Scheduler
 
@@ -138,4 +138,4 @@ The product images are processed (resized and formatted) by the ImageProcessor v
 The NUnit v3.6.0 and FluentMVCTesting v3.0.0 testing frameworks and Moq v4.5.30 mocking framework are used.
 
 ###Others
-Castle.Core, Elmah.Mvc, Glimpse, Newtonsoft.Json, OpenCover, StyleCop.Analyzers, 
+[Castle.Core](https://github.com/castleproject/Core), [Elmah.Mvc](https://github.com/alexbeletsky/elmah-mvc), [Glimpse](http://getglimpse.com/), [Newtonsoft.Json](http://www.newtonsoft.com/json), [OpenCover](https://github.com/OpenCover/opencover), [StyleCop.Analyzers](https://github.com/DotNetAnalyzers/StyleCopAnalyzers), 
