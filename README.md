@@ -23,6 +23,7 @@ JustOrderIt is a proof-of-concept e-commerce application based on ASP.NET MVC an
  * [Image processing](#image-processing)
  * [Testing](#testing)
  * [Others](#others)
+4. [Missing features](#missing-features)
  
 [//]: # (It contains presentation layers with frontend (public area) and backend(administration area) functionality.)
 
@@ -139,3 +140,6 @@ The NUnit v3.6.0 and FluentMVCTesting v3.0.0 testing frameworks and Moq v4.5.30 
 
 ###Others
 [Castle.Core](https://github.com/castleproject/Core), [Elmah.Mvc](https://github.com/alexbeletsky/elmah-mvc), [Glimpse](http://getglimpse.com/), [Newtonsoft.Json](http://www.newtonsoft.com/json), [OpenCover](https://github.com/OpenCover/opencover), [StyleCop.Analyzers](https://github.com/DotNetAnalyzers/StyleCopAnalyzers), 
+
+##Missing features
+The application has been developed as a proof-of-concept web e-commerce app. As such, many features are currently not designed to be fully extendable and others are simply not implemented yet: billing system, customer support, external logins, shipping rates, vendor stores, SEO, etc.
