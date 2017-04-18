@@ -5,9 +5,10 @@
 @model List<OrderItemForUserProfile>
 
 <div class="row cart-labels">
-    <div class="col-md-8"><label><span>Product</span></label></div>
+    <div class="col-md-7"><label><span>Product</span></label></div>
     <div class="col-md-2"><label><span>Unit Price</span></label></div>
     <div class="col-md-1"><label><span>Quantity</span></label></div>
+    <div class="col-md-2"><label><span>Rate this item</span></label></div>
 </div>
 
 @for (int i = 0; i < Model.Count; i++)
@@ -19,7 +20,7 @@
             </div>
             @Html.ActionLink(" ", "Index", "Products", new { id = Model[i].Product.EncodedId }, new { @class = "order-product-link" })
         </div>
-        <div class="col-md-6 orderitem-product">
+        <div class="col-md-5 orderitem-product">
             @Html.ActionLink(Model[i].Product.Title, "Index", "Products", new { id = Model[i].Product.EncodedId }, null)
         </div>
         <div class="col-md-2 orderitem-unitprice">
@@ -28,7 +29,7 @@
         <div class="col-md-1 orderitem-quantity">
             @Html.DisplayFor(m => Model[i].ProductQuantity)
         </div>
-        <div class="col-md-1 orderitem-vote">
+        <div class="col-md-2 orderitem-vote">
             @Html.Partial(
                 "VoteForOrderItem",
                 new VoteEditorModel
