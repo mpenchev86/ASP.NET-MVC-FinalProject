@@ -60,7 +60,7 @@
             }
         }
 
-        [UIHint("DropDownTemp")]
+        [UIHint("DropDownMainImage")]
         public int? MainImageId { get; set; }
         
         public ImageDetailsForProductViewModel MainImage { get; set; }
