@@ -288,9 +288,10 @@
     <Content Include="Views\Users\Partials\_VotesTab.cshtml" />
     <Content Include="Views\Votes\EditorTemplates\VoteViewModelPopupEditor.cshtml" />
     <Content Include="Views\Votes\Index.cshtml" />
-    <Content Include="Views\web.config" />
+    <Content Include="Views\web.config">
+	  <SubType>Designer</SubType>
+	</Content>
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -329,7 +330,8 @@
     <Folder Include="Views\SearchFilters\Partials\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\EditorTemplates\Currency.cshtml" />
+    <Content Include="Web.config" />
+	<Content Include="Views\Shared\EditorTemplates\Currency.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DropDown.cshtml" />
