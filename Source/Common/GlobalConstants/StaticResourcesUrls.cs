@@ -26,7 +26,7 @@
         public const string BootstrapModalHelpers = "~/Areas/Public/Scripts/Custom/bootstrap-modal-helpers.js";
 
         // Images
-        public const string ServerPathDataItemsImages = "~/Content/Images/{0}{1}{2}";
+        public const string ServerPathDataItemsImages = "~/Content/Images/ProductImages/";
         public const string ServerPathAppManagementImages = "~/Content/Images/AppManagement/";
         public const string ServerPathLogos = "~/Content/Images/Logos/";
         public const string ServerPathIcons = "~/Content/Images/Icons/";

@@ -30,7 +30,7 @@
                 case ImageSizes.Large: imageSuffix = StaticResourcesUrls.ImageHighResolutionSuffix; break;
             }
 
-            return helper.Content(GetImageIfExists(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, urlPath, imageSuffix, imageExtension), imageSuffix));
+            return helper.Content(GetImageIfExists(string.Format("{0}{1}{2}{3}", StaticResourcesUrls.ServerPathDataItemsImages, urlPath, imageSuffix, imageExtension), imageSuffix));
         }
 
         /// <summary>

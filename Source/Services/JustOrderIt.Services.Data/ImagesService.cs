@@ -63,15 +63,15 @@
                 {
                     this.fileSystemService.SaveFile(
                         image.SmallSizeContent,
-                        string.Format(StaticResourcesUrls.ServerPathDataItemsImages, image.UrlPath, StaticResourcesUrls.ImageSmallSizeSuffix, image.FileExtension));
+                        string.Format("{0}{1}{2}{3}", StaticResourcesUrls.ServerPathDataItemsImages, image.UrlPath, StaticResourcesUrls.ImageSmallSizeSuffix, image.FileExtension));
 
                     this.fileSystemService.SaveFile(
                         image.ThumbnailContent,
-                        string.Format(StaticResourcesUrls.ServerPathDataItemsImages, image.UrlPath, StaticResourcesUrls.ImageThumbnailSuffix, image.FileExtension));
+                        string.Format("{0}{1}{2}{3}", StaticResourcesUrls.ServerPathDataItemsImages, image.UrlPath, StaticResourcesUrls.ImageThumbnailSuffix, image.FileExtension));
 
                     this.fileSystemService.SaveFile(
                         image.HighResolutionContent,
-                        string.Format(StaticResourcesUrls.ServerPathDataItemsImages, image.UrlPath, StaticResourcesUrls.ImageHighResolutionSuffix, image.FileExtension));
+                        string.Format("{0}{1}{2}{3}", StaticResourcesUrls.ServerPathDataItemsImages, image.UrlPath, StaticResourcesUrls.ImageHighResolutionSuffix, image.FileExtension));
                 }
             }
         }
@@ -85,9 +85,9 @@
                 image.IsMainImage = false;
                 this.Update(image);
                 this.DeletePermanent(imageId);
-                this.fileSystemService.DeleteFile(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, image.UrlPath, StaticResourcesUrls.ImageSmallSizeSuffix, image.FileExtension));
-                this.fileSystemService.DeleteFile(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, image.UrlPath, StaticResourcesUrls.ImageThumbnailSuffix, image.FileExtension));
-                this.fileSystemService.DeleteFile(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, image.UrlPath, StaticResourcesUrls.ImageHighResolutionSuffix, image.FileExtension));
+                this.fileSystemService.DeleteFile(string.Format("{0}{1}{2}{3}", StaticResourcesUrls.ServerPathDataItemsImages, image.UrlPath, StaticResourcesUrls.ImageSmallSizeSuffix, image.FileExtension));
+                this.fileSystemService.DeleteFile(string.Format("{0}{1}{2}{3}", StaticResourcesUrls.ServerPathDataItemsImages, image.UrlPath, StaticResourcesUrls.ImageThumbnailSuffix, image.FileExtension));
+                this.fileSystemService.DeleteFile(string.Format("{0}{1}{2}{3}", StaticResourcesUrls.ServerPathDataItemsImages, image.UrlPath, StaticResourcesUrls.ImageHighResolutionSuffix, image.FileExtension));
             }
         }
 

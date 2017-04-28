@@ -30,6 +30,8 @@
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                CookieSecure = CookieSecureOption.SameAsRequest,
+                CookieHttpOnly = true,
                 LoginPath = new PathString("/Account/Login"),
                 Provider = new CookieAuthenticationProvider
                 {

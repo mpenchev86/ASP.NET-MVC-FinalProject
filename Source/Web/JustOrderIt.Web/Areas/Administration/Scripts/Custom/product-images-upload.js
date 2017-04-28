@@ -5,6 +5,8 @@
         isModelDirty = args.model.dirty;
         var initialFiles = GetInitialFilesFromModel(args.model.Images);
 
+        var uploadedImageTemplate = kendo.template($('#uploaded-image-template').html());
+
         $("#productImages").kendoUpload({
             async: {
                 saveUrl: "/Administration/Products/SaveImages",
@@ -44,8 +46,6 @@
             }
         });
 
-        var uploadedImageTemplate = kendo.template($('#uploaded-image-template').html());
-
         // Executed when the grid popup window activates.
         attachImagesToDom(initialFiles, imageSizeSuffix, uploadedImageTemplate);
         insertSaveTip(saveTip);
@@ -76,6 +76,7 @@
             //        viewModel.Images.splice(ind, 1);
             //    });
             //}
+            //// ------------------------------------
 
             // ----For Single File----
             var removedImageId = e.response.removedImagesIds[0];
@@ -128,6 +129,7 @@
         //});
 
         //e.data = { images: JSON.stringify(image) };
+        //// ------------------------------
     }
 
     function onError(e) {
