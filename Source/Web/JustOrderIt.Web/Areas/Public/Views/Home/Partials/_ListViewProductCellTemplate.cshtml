@@ -5,7 +5,7 @@
 <li class="homepage-product-li">
     <div class="rows-container">
         <div class="row image">
-            <img src="@Url.Content(string.Format(StaticResourcesUrls.ServerPathDataItemsImages, "#=ImageUrlPath#", StaticResourcesUrls.ImageThumbnailSuffix, "#=ImageFileExtension#"))"
+            <img src="@Url.Content(string.Format("{0}{1}{2}{3}", StaticResourcesUrls.ServerPathDataItemsImages, "#=ImageUrlPath#", StaticResourcesUrls.ImageThumbnailSuffix, "#=ImageFileExtension#"))"
                  alt="#=Title#"
                  onerror="if(this.src != '@fallbackImgUrl') { this.src = '@fallbackImgUrl'; }"/>
         </div>

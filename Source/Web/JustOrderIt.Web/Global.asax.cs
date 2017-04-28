@@ -45,6 +45,18 @@
             HangfireBootstrapper.Instance.Start(new JustOrderItDbContext());
         }
 
+        protected void Application_BeginRequest()
+        {
+            #if !DEBUG
+            // SECURE: Ensure any request is returned over SSL/TLS in production
+            if (!this.Request.IsLocal && !this.Context.Request.IsSecureConnection)
+            {
+                var redirect = this.Context.Request.Url.ToString().ToLower(CultureInfo.CurrentCulture).Replace("http:", "https:");
+                this.Response.Redirect(redirect);
+            }
+            #endif
+        }
+
         protected void Application_End(object sender, EventArgs e)
         {
             HangfireBootstrapper.Instance.Stop();
