@@ -17,6 +17,8 @@
 
         public string Title { get; set; }
 
+        public int CategoryId { get; set; }
+
         public string Category { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:C}")]

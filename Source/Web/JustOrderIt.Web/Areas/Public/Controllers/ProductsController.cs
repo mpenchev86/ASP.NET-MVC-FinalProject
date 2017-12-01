@@ -41,7 +41,7 @@
         public ActionResult Index(string id)
         {
             var decodedId = this.identifierProvider.DecodeToIntId(id);
-            var product = this.productsService.GetById(/*id*/(int)decodedId);
+            var product = this.productsService.GetById((int)decodedId);
             var viewModel = this.mappingService.Map<Product, ProductFullViewModel>(product);
             viewModel.CommentsWithRatings = this.PopulateCommentAndVote(product.Comments, product.Votes);
             viewModel.Tags = product.Tags.Select(t => t.Name).ToList();
